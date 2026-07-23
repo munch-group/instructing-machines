@@ -6,12 +6,15 @@ project:
     - rm -rf _build/slides
     - mkdir -p _build
     - mv slides/_build _build/slides
-  #   - quarto render --to html --profile ta  
-  #   - quarto render --to html --profile draft  
+    - scripts/build-demo.sh
+  #   - quarto render --to html --profile ta
+  #   - quarto render --to html --profile draft
   render:
     - "!notebooks/snippet-cast.ipynb"
     - "!slides/"
     - "!_build/"
+    - "!jupyterlite/"
+    - "!demo/"
 
 book:
   title: "Instructing Machines"
