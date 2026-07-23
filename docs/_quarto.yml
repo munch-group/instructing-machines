@@ -1,0 +1,130 @@
+project:
+  type: book
+  output-dir: _book
+  post-render: 
+    - quarto render slides/
+  #   - quarto render --to html --profile ta  
+  #   - quarto render --to html --profile draft  
+  render:
+    - "!notebooks/snippet-cast.ipynb"
+    - "!slides/"
+    - "!_build/"
+
+book:
+  title: "Instructing Machines"
+  # title: "<br>"
+  # subtitle: "AU course: Bioinformatik - 2025"
+  # description: 'A course in bioinformatics and programming'
+  # author: "Kasper Munch"
+  sidebar:
+    title: "Home"
+    collapse-level: 2
+    background: "white"      
+    downloads: [pdf]
+  chapters:
+    - index.qmd
+    # - notebooks/getting_started.ipynb
+    - part: "You and your machine"
+      chapters:
+      # - notebooks/machine-insides.ipynb
+      # - notebooks/history-of-instruction.ipynb
+      # - notebooks/interfaces.ipynb
+      - notebooks/course_tools.ipynb
+
+    - part: "Speaking the language"
+      chapters: 
+        - notebooks/demo.ipynb
+
+        - notebooks/hello-world.ipynb
+        - notebooks/values-operators-logic.ipynb
+        - notebooks/precedence-steps.ipynb
+
+        - notebooks/if-else.ipynb
+        - notebooks/functions.ipynb
+
+        - notebooks/objects.ipynb
+        - notebooks/lists.ipynb
+        - notebooks/tuples.ipynb
+        - notebooks/dictionaries.ipynb
+
+        - notebooks/iteration.ipynb
+        - notebooks/list-comprehensions.ipynb
+        - notebooks/files.ipynb
+
+        - notebooks/classes.ipynb
+
+    - part: "Expressing information"
+      chapters:         
+        - notebooks/data_structures.ipynb
+
+    - part: "Defining truth"
+      chapters:
+        - notebooks/testing.ipynb
+
+    - part: "Tools of the trade"
+      chapters:
+        - notebooks/modules.ipynb
+        - notebooks/packages.ipynb
+        - notebooks/biopython.ipynb
+
+    - part: "Negotiating outcomes"
+      chapters:
+        - notebooks/placeholder.ipynb
+
+
+       # - notebooks/general_exercises.ipynb
+
+
+    - notebooks/references.ipynb
+
+# bibliography: references.bib
+
+crossref:
+  sec-prefix: "exercise"
+  
+# embed-resources: true
+
+execute:
+  echo: true       # show the source code (default: true)
+  output: true      # show the cell's output (default: true)
+  warning: false    # hide Python warnings (default: true)
+  error: false      # false = a runtime error stops the render; true = print the traceback and continue
+  freeze: auto      # cache execution; only re-run a notebook when its source changes  
+
+format:
+  html:
+    # mainfont: "Passata"
+    theme: 
+      - default
+      - custom.scss
+    highlight-style: kate 
+    fig-width: 5
+    fig-height: 3
+    filters: 
+      - quarto
+      - headers.lua
+    notebook-links: global
+    # number-sections: false
+    number-sections: true      
+    code-block-bg: "#f9f9f9"
+
+    df-print: paged     # pandas DataFrames render as a nice paged/sortable HTML table instead of a text repr
+    code-tools: true     # adds a "</> Code" menu in the top-right to show/hide all code and view page source
+    code-fold: false     # project-wide default for folding (per-cell/per-notebook can still override)
+
+  # pdf:
+  #   documentclass: scrbook
+  #   papersize: a4
+  #   highlight-style: kate 
+  #   fig-width: 7
+  #   fig-height: 5
+  #   toc-depth: 2
+  #   secPrefix:
+  #     - "exercise"
+  #     - "exercises"
+  #   include-in-header:
+  #     - file: header_extra.tex
+  # epub:
+  #   cover-image: logo/im-mark.svg
+  #   highlight-style: kate 
+  #   # epub-fonts: DejaVuSans-*.ttf
