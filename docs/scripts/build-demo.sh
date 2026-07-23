@@ -11,7 +11,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."   # docs/
 
 LITE_DIR="jupyterlite"
-CONTENT_DIR="$LITE_DIR/content/course"
+CONTENT_DIR="$LITE_DIR/content"
 
 echo "==> Syncing course notebooks into $CONTENT_DIR"
 rm -rf "$CONTENT_DIR"
