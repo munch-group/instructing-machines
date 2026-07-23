@@ -1,8 +1,11 @@
 project:
   type: book
   output-dir: _book
-  post-render: 
+  post-render:
     - quarto render slides/
+    - rm -rf _build/slides
+    - mkdir -p _build
+    - mv slides/_build _build/slides
   #   - quarto render --to html --profile ta  
   #   - quarto render --to html --profile draft  
   render:
@@ -19,7 +22,8 @@ book:
   sidebar:
     title: "Home"
     collapse-level: 2
-    background: "white"      
+    background: "white" 
+    lightbox: true     
     downloads: [pdf]
   chapters:
     - index.qmd
@@ -33,7 +37,7 @@ book:
 
     - part: "Speaking the language"
       chapters: 
-        - notebooks/demo.ipynb
+        - notebooks/widget-demo.ipynb
 
         - notebooks/hello-world.ipynb
         - notebooks/values-operators-logic.ipynb
@@ -90,6 +94,7 @@ execute:
   warning: false    # hide Python warnings (default: true)
   error: false      # false = a runtime error stops the render; true = print the traceback and continue
   freeze: auto      # cache execution; only re-run a notebook when its source changes  
+
 
 format:
   html:
