@@ -3,9 +3,9 @@ project:
   output-dir: _book
   post-render:
     - quarto render slides/
-    - rm -rf _build/slides
-    - mkdir -p _build
-    - mv slides/_build _build/slides
+    - rm -rf _book/_build/slides
+    - mkdir -p _book/_build
+    - mv slides/_build _book/_build/slides
     - scripts/build-demo.sh
   #   - quarto render --to html --profile ta
   #   - quarto render --to html --profile draft

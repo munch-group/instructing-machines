@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Builds the vendored munch-group-jupyterlite submodule with this book's
-# course notebooks baked in, and publishes the result at docs/demo/, so it
-# renders at <htmlroot>/demo/ alongside the book.
+# course notebooks baked in, and publishes the result inside docs/_book/demo/
+# (the book's actual output-dir, which `quarto publish gh-pages` pushes to
+# the gh-pages branch root) so it ends up reachable at <htmlroot>/demo/.
 #
-# Called from the book's `post-render` (cwd = docs/), but safe to run by hand
-# from anywhere too.
+# Called from the book's `post-render` (cwd = docs/), so _book/ already has
+# this render's output by the time this script runs. Safe to run by hand too.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."   # docs/
@@ -24,6 +25,6 @@ cp -r notebooks/images "$CONTENT_DIR/images"
 echo "==> Building JupyterLite ($LITE_DIR)"
 pixi run --manifest-path "$LITE_DIR/pixi.toml" build
 
-echo "==> Publishing to demo/"
-rm -rf demo
-mv "$LITE_DIR/dist" demo
+echo "==> Publishing to _book/demo/"
+rm -rf _book/demo
+mv "$LITE_DIR/dist" _book/demo
