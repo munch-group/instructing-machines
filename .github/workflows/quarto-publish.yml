@@ -22,8 +22,13 @@ jobs:
 
       - name: Set up pixi
         uses: prefix-dev/setup-pixi@v0.10.0
-        # Used by docs/scripts/build-demo.sh (run from Quarto's post-render) to
-        # build the docs/jupyterlite submodule via `pixi run --manifest-path`.
+        with:
+          # Only the `pixi` CLI is needed here; docs/scripts/build-demo.sh (run
+          # from Quarto's post-render) calls `pixi run --manifest-path
+          # jupyterlite/pixi.toml`, which installs that project's own
+          # environment on demand. The root pixi.toml is Mac-only
+          # (osx-arm64) and unused in CI, so skip auto-installing it.
+          run-install: false
 
       - uses: actions/setup-python@v4
         with:
