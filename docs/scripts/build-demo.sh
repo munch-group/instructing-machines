@@ -22,6 +22,28 @@ for nb in notebooks/*.ipynb; do
 done
 cp -r notebooks/images "$CONTENT_DIR/images"
 
+# Strip baked-in outputs/execution counts/widget state from the copies.
+# The book intentionally ships some notebooks pre-executed (e.g. widget-demo.ipynb
+# has `execute: enabled: false` and relies on outputs captured elsewhere), but
+# that frozen state means nothing to a live kernel: JupyterLab would try to
+# statically render the old widget snapshot instead of instantiating a real one,
+# so widgets appear dead regardless of anything a reader runs afterward.
+python3 - "$CONTENT_DIR"/*.ipynb <<'PY'
+import json, sys
+
+for path in sys.argv[1:]:
+    with open(path) as f:
+        nb = json.load(f)
+    nb.get("metadata", {}).pop("widgets", None)
+    for cell in nb["cells"]:
+        if cell.get("cell_type") == "code":
+            cell["outputs"] = []
+            cell["execution_count"] = None
+    with open(path, "w") as f:
+        json.dump(nb, f, indent=1)
+        f.write("\n")
+PY
+
 echo "==> Building JupyterLite ($LITE_DIR)"
 pixi run --manifest-path "$LITE_DIR/pixi.toml" build
 
