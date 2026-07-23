@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Dealing with values – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../notebooks/precedence-steps.html" rel="next">
+<link href="../notebooks/hello-world.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-fa435707ba9d08fca34d5128b565ba57.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/demo.html">Speaking the language</a></li><li class="breadcrumb-item"><a href="../notebooks/values-operators-logic.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dealing with values</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">You and your machine</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/course_tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Speaking the language</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Demo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing a program</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/values-operators-logic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dealing with values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The order of events</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/if-else.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Controlling behavior</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Organizing code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Values are objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lists of things</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Grouping values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Pairs of things</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Iterating values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/list-comprehensions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Building lists on the fly</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Working with files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Your Own Objects</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Expressing information</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Structuring data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Defining truth</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Testing your code</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tools of the trade</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Giant’s shoulders</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/biopython.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">BioPython</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Negotiating outcomes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/placeholder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Some title</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#math" id="toc-math" class="nav-link active" data-scroll-target="#math">Math</a></li>
+  <li><a href="#logic" id="toc-logic" class="nav-link" data-scroll-target="#logic">Logic</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#different-types-of-values" id="toc-different-types-of-values" class="nav-link" data-scroll-target="#different-types-of-values">Different types of values</a></li>
+  <li><a href="#mixed-exercises" id="toc-mixed-exercises" class="nav-link" data-scroll-target="#mixed-exercises">Mixed exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/demo.html">Speaking the language</a></li><li class="breadcrumb-item"><a href="../notebooks/values-operators-logic.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dealing with values</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-values" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dealing with values</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><em>This chapter is about values and variables, the two most central concepts in programming.</em></p>
+<section id="math" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="math">Math</h2>
+<p>Much programming is done to compute stuff. In Python, the usual math operations are done using these arithmetic operators:</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>+</code></td>
+<td>plus</td>
+</tr>
+<tr class="even">
+<td><code>-</code></td>
+<td>minus</td>
+</tr>
+<tr class="odd">
+<td><code>/</code></td>
+<td>division</td>
+</tr>
+<tr class="even">
+<td><code>//</code></td>
+<td>integer division</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>multiplication</td>
+</tr>
+<tr class="even">
+<td><code>**</code></td>
+<td>exponentiation</td>
+</tr>
+<tr class="odd">
+<td><code>%</code></td>
+<td>modulo (remainder)</td>
+</tr>
+</tbody>
+</table>
+</div></div><p>You are probably quite familiar with these - except perhaps for integer division, exponentiation, and modulo. Let us take some of the operators for a spin. Remember to carefully write the whole thing in an empty file in <em>VScode</em>. Do <em>not</em> copy-paste. Then save the file as <code>mathandlogic.py</code> and run it from the terminal. Do not call your file <code>math.py</code>. It may bite you later. Just trust me on that one.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Four times two is"</span>,  <span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice how you can print more than one thing at a time if you put commas between the values you want to print? We can group computations using parentheses, just like in normal math. Try this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10 / (2 + 3) is"</span>, <span class="dv">10</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"(10 / 2) + 3 is"</span>, (<span class="dv">10</span> <span class="op">/</span> <span class="dv">2</span>) <span class="op">+</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In addition to the regular math operators, there are a few extra operators that we call <em>comparison operators</em> because they are used to compare two values, e.g., two numbers.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>less-than</td>
+</tr>
+<tr class="even">
+<td><code>&gt;</code></td>
+<td>greater-than</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;=</code></td>
+<td>less-than-or-equal</td>
+</tr>
+<tr class="even">
+<td><code>&gt;=</code></td>
+<td>greater-than-or-equal</td>
+</tr>
+<tr class="odd">
+<td><code>==</code></td>
+<td>equal</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>not equal</td>
+</tr>
+</tbody>
+</table>
+</div></div><p>Try this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is 5 greater than -2?"</span>, <span class="dv">5</span> <span class="op">&gt;</span> <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is 5 greater or equal to -2?"</span>, <span class="dv">5</span> <span class="op">&gt;=</span> <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is 5 less or equal to -2?"</span>, <span class="dv">5</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is 5 less than 7 - 2?"</span>, <span class="dv">5</span> <span class="op">&lt;</span> <span class="dv">7</span> <span class="op">-</span> <span class="dv">2</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is 5 equal to 7 - 2?"</span>, <span class="dv">5</span> <span class="op">==</span> <span class="dv">7</span> <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As you may have noticed, running this code and comparing things using these operators, we always produce either <code>True</code> or <code>False</code>. E.g., the following</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">5</span> <span class="op">&lt;</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>prints the value <code>True</code> because 5 <em>is</em> smaller than 7. <code>True</code> and <code>False</code> are special values in Python that we can use (and print if we like) just like any other Python value:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exercise" class="level4" data-number="4.0.0.1">
+<h4 data-number="4.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 4-1</strong></h4>
+<p>Try to write and run the code below. Compare each line to what is printed when you run the code. Make sure you understand why.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"I have"</span>, <span class="dv">25</span> <span class="op">+</span> <span class="dv">30</span> <span class="op">/</span> <span class="dv">6</span>, <span class="st">"of something"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"I have"</span>, <span class="dv">100</span> <span class="op">-</span> <span class="dv">25</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">%</span> <span class="dv">4</span>, <span class="st">"of something else"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is it true that 3 + 2 &lt; 5 - 7?"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">3</span> <span class="op">+</span> <span class="fl">2.1</span> <span class="op">&lt;</span> <span class="fl">5.4</span> <span class="op">-</span> <span class="dv">7</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"3 + 2.1 is"</span>, <span class="dv">3</span> <span class="op">+</span> <span class="fl">2.1</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"5.4 - 7 is"</span>, <span class="fl">5.4</span> <span class="op">-</span> <span class="dv">7</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Oh, that's why it's False."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-in_operator" class="level4" data-number="4.0.0.2">
+<h4 data-number="4.0.0.2" class="anchored" data-anchor-id="sec-in_operator"><strong>Exercise 4-2</strong></h4>
+<p>An additional comparison operator even tests if something is a part of something else. That operator is called <code>in</code>. One use of it is to test if one string is part of another string. Try this to figure out how it works:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hell"</span> <span class="kw">in</span> <span class="st">"Hello world"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello world"</span> <span class="kw">in</span> <span class="st">"Hello world"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello world"</span> <span class="kw">in</span> <span class="st">"Hell"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"lo wo"</span> <span class="kw">in</span> <span class="st">"Hello world"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Artichoke"</span> <span class="kw">in</span> <span class="st">"Hello world"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-chocolatebars" class="level4" data-number="4.0.0.3">
+<h4 data-number="4.0.0.3" class="anchored" data-anchor-id="sec-chocolatebars"><strong>Exercise 4-3</strong></h4>
+<p>Say the supermarket has chocolate bars for 7 kr. Write a small Python program (in a file called chocolate.py) that prints how many chocolate bars you can get for your 30 kr. You should run it like this;</p>
+<p>For example, it could output something like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python chocolate.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>to have it print something like this:</p>
+<pre><code>I can buy 4.285714285714286 chocolate bars!</code></pre>
+</section>
+<section id="exercise-1" class="level4" data-number="4.0.0.4">
+<h4 data-number="4.0.0.4" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 4-4</strong></h4>
+<p>We mentioned a special operator called <em>modulo</em>. Google it if you do not remember what it does. How about <em>integer division</em>. Explain both to a fellow student (or to yourself out loud).</p>
+</section>
+<section id="exercise-2" class="level4" data-number="4.0.0.5">
+<h4 data-number="4.0.0.5" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 4-5</strong></h4>
+<p>You obviously cannot go buy 4.3 chocolate bars in a store. You will have to settle for 4. Can you change the program you made in <a href="#sec-chocolatebars" class="quarto-xref"><span>Section 4.0.0.3</span></a> to print the number of bars you can buy and the change you then have left? Use the modulo and integer division operators. Something like:</p>
+<pre><code>I can buy 4 chocolate bars, leaving me with 2 kr in change.</code></pre>
+</section>
+<section id="exercise-3" class="level4" data-number="4.0.0.6">
+<h4 data-number="4.0.0.6" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 4-6</strong></h4>
+<p>What happens if you try to run the following program?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span> )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you get an error? What kind of error? Why do you think you get that error? Do you think it makes sense?</p>
+</section>
+<section id="sec-pythagoras" class="level4" data-number="4.0.0.7">
+<h4 data-number="4.0.0.7" class="anchored" data-anchor-id="sec-pythagoras"><strong>Exercise 4-7</strong></h4>
+<p>You probably know the Pythagorean theorem for computing a right-angled triangle’s hypotenuse (the longest side). The Pythagorean theorem looks like this: <span class="math inline">\(a^2 + b^2 = c^2\)</span>. Here <span class="math inline">\(c\)</span> is the length of the hypotenuse, and <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are the lengths of the triangle’s two legs. So if we have a triangle where <span class="math inline">\(a = 5\)</span> and <span class="math inline">\(b = 2\)</span> and we want to find <span class="math inline">\(c^2\)</span> we can do this in Python:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The squared length of the hypotenuse is:"</span>, <span class="dv">5</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">2</span><span class="op">**</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-4" class="level4" data-number="4.0.0.8">
+<h4 data-number="4.0.0.8" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 4-8</strong></h4>
+<p>However, we are rarely interested in the <em>squared</em> length of the hypotenuse. Can you modify the code you wrote in <a href="#sec-pythagoras" class="quarto-xref"><span>Section 4.0.0.7</span></a> so you compute <span class="math inline">\(c\)</span> instead of <span class="math inline">\(c^2\)</span>? Taking the square root of a number is the same as taking that number and exponentiating it to 0.5, so the square root of <span class="math inline">\(x\)</span> is <span class="math inline">\(x^{0.5}\)</span>. Do you know of a Python operator that does exponentiation?</p>
+</section>
+</section>
+<section id="logic" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="logic">Logic</h2>
+<p>Now you know how to use the comparison operations to produce a <code>True</code> or <code>False</code> value. There are three additional operators that let you express more elaborate “True/False” statements than with the comparison operators alone. These are the <em>logical</em> operators: <code>and</code>, <code>or</code> and <code>not</code>.</p>
+<section id="exercise-5" class="level4" data-number="4.0.0.9">
+<h4 data-number="4.0.0.9" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 4-9</strong></h4>
+<p>Go through the code below and see if you can figure out what each line does. Then, write the code into your editor and run it to see what happens.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">3</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">&lt;</span> <span class="dv">12</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">8</span> <span class="op">&gt;</span> <span class="dv">100</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">3</span> <span class="kw">and</span> <span class="dv">10</span> <span class="op">&lt;</span> <span class="dv">12</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">8</span> <span class="op">&gt;</span> <span class="dv">100</span> <span class="kw">and</span> <span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">3</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">8</span> <span class="op">&gt;</span> <span class="dv">100</span> <span class="kw">or</span> <span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">3</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="dv">8</span> <span class="op">&gt;</span> <span class="dv">100</span> <span class="kw">and</span> <span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">3</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="dv">8</span> <span class="op">&gt;</span> <span class="dv">100</span> <span class="kw">and</span> <span class="kw">not</span> <span class="dv">2</span> <span class="op">&gt;</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Did it do what you expected? Can you explain each line?</p>
+</section>
+<section id="sec-trueish_falseish" class="level4" data-number="4.0.0.10">
+<h4 data-number="4.0.0.10" class="anchored" data-anchor-id="sec-trueish_falseish"><strong>Exercise 4-10</strong></h4>
+<p>When exposed to the operators <code>and</code>, <code>or</code> and <code>not</code>, some values are considered true and others are considered false. What happens when you put <code>not</code> in front of something that is considered true or false? Decide what you think and why before you write the code and try it out.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="va">True</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="va">False</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="dv">0</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="op">-</span><span class="dv">4</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="fl">0.0000000</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="fl">3.14159265359</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="st">"apple"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="kw">not</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>From the code above, try to find out which values Python considers true and which it considers false. Can you come up with a rule?</p>
+</section>
+<section id="sec-and_rules" class="level4" data-number="4.0.0.11">
+<h4 data-number="4.0.0.11" class="anchored" data-anchor-id="sec-and_rules"><strong>Exercise 4-11</strong></h4>
+<p>The logical operator <code>and</code> takes two values (the one to the left of the operator and the one to the right) and figures out whether <em>both</em> the left and the right expression are true. It boils down to this:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Left expression</th>
+<th>&nbsp;Right expression</th>
+<th>&nbsp;Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td>&nbsp;<code>True</code></td>
+</tr>
+<tr class="even">
+<td><code>True</code></td>
+<td>&nbsp;<code>False</code></td>
+<td>&nbsp;<code>False</code></td>
+</tr>
+<tr class="odd">
+<td><code>False</code></td>
+<td>&nbsp;<code>True</code></td>
+<td>&nbsp;<code>False</code></td>
+</tr>
+<tr class="even">
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td>&nbsp;<code>False</code></td>
+</tr>
+</tbody>
+</table>
+<p>Write some code to confirm that the table above is correct using Python. For example, to test the first case, do this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span> <span class="kw">and</span> <span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-6" class="level4" data-number="4.0.0.12">
+<h4 data-number="4.0.0.12" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 4-12</strong></h4>
+<p>Python will only do the necessary work to determine if a logical expression is true. That means that if the value left of <code>and</code> is considered false by Python, then there is no reason to look at the right value since it is already established that they are not <em>both</em> considered true. In this case the expression reduces to the <em>left</em> value. I.e. <code>False and True</code> reduces to <code>False</code>.</p>
+<p>If Python considers the value left of <code>and</code> true, then It needs to look at the right value, too, to establish if they are both considered true. In this case, the expression reduces to the value on the right. I.e., <code>True and False</code> reduces to <code>False</code>.</p>
+<p>A rule of thumb is that the whole expression reduces to the last value that Python needs to consider to decide if the whole expression is true or false. Use that rationale to explain how the two last combinations in <a href="#sec-and_rules" class="quarto-xref"><span>Section 4.0.0.11</span></a> are evaluated.</p>
+</section>
+<section id="sec-or_rules" class="level4" data-number="4.0.0.13">
+<h4 data-number="4.0.0.13" class="anchored" data-anchor-id="sec-or_rules"><strong>Exercise 4-13</strong></h4>
+<p>Like the <code>and</code> operator, the <code>or</code> operator also takes two values. However, the <code>or</code> operator determines whether <em>one</em> of the two values is true. Thus, the <code>or</code> operator boils down to this:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Left expression</th>
+<th>&nbsp;Right expression</th>
+<th>&nbsp;Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td>&nbsp;<code>True</code></td>
+</tr>
+<tr class="even">
+<td><code>True</code></td>
+<td>&nbsp;<code>False</code></td>
+<td>&nbsp;<code>True</code></td>
+</tr>
+<tr class="odd">
+<td><code>False</code></td>
+<td>&nbsp;<code>True</code></td>
+<td>&nbsp;<code>True</code></td>
+</tr>
+<tr class="even">
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td>&nbsp;<code>False</code></td>
+</tr>
+</tbody>
+</table>
+<p>Write some code using Python to confirm that the table above is correct. For example, to test the first case, do this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span> <span class="kw">or</span> <span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-logic_rule_of_thumb" class="level4" data-number="4.0.0.14">
+<h4 data-number="4.0.0.14" class="anchored" data-anchor-id="sec-logic_rule_of_thumb"><strong>Exercise 4-14</strong></h4>
+<p>As with the <code>and</code> operator, Python will not do any more work than absolutely necessary when evaluating an expression with ‘or’. So if the value left of <code>or</code> is considered true by Python, then there is no reason to look at the right value since it is already established that at least <em>one</em> of them is considered true. In this case the expression reduces to the <em>left</em> value. I.e. <code>True or False</code> reduces to <code>True</code>.</p>
+<p>If the value left of <code>or</code> is considered false by Python, then Python still needs to look at the right value to establish if at least one of them is considered true. In this case, the expression reduces to the right value. I.e., <code>False or True</code> reduces to <code>True</code>.</p>
+<p>Again, the whole expression reduces to the last value that Python needs to consider to decide if the whole expression is true or false. Use that same rationale to explain to yourself how the two last combinations in <a href="#sec-or_rules" class="quarto-xref"><span>Section 4.0.0.13</span></a> are evaluated.</p>
+</section>
+<section id="exercise-7" class="level4" data-number="4.0.0.15">
+<h4 data-number="4.0.0.15" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 4-15</strong></h4>
+<p>Remember what you learned in <a href="#sec-trueish_falseish" class="quarto-xref"><span>Section 4.0.0.10</span></a> about which values are considered true and which are considered false. Combine that with what you learned in <a href="#sec-and_rules" class="quarto-xref"><span>Section 4.0.0.11</span></a> and <a href="#sec-or_rules" class="quarto-xref"><span>Section 4.0.0.13</span></a> about what logical expressions reduce to and see if you can figure out what is printed below and why. Use the rule-of-thumb from <a href="#sec-logic_rule_of_thumb" class="quarto-xref"><span>Section 4.0.0.14</span></a>. Decide what you think before you write the code and try it out.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span> <span class="kw">and</span> <span class="dv">4</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">0</span> <span class="kw">and</span> <span class="dv">7</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="op">-</span><span class="dv">27</span> <span class="kw">and</span> <span class="fl">0.5</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">42</span> <span class="kw">and</span> <span class="dv">0</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="kw">and</span> <span class="st">"orange"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="kw">and</span> <span class="st">""</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">42</span> <span class="kw">or</span> <span class="dv">0</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="kw">and</span> <span class="st">""</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="kw">or</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you were surprised by what was printed, maybe go back and look at <a href="#sec-and_rules" class="quarto-xref"><span>Section 4.0.0.11</span></a> and <a href="#sec-or_rules" class="quarto-xref"><span>Section 4.0.0.13</span></a> again.</p>
+</section>
+<section id="exercise-8" class="level4" data-number="4.0.0.16">
+<h4 data-number="4.0.0.16" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 4-16</strong></h4>
+<p>Recall the <code>in</code> operator from <a href="#sec-in_operator" class="quarto-xref"><span>Section 4.0.0.2</span></a>? There is also an operator called <code>not in</code>. I guess you can imagine what that tests. Try it out.</p>
+</section>
+</section>
+<section id="variables" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="variables">Variables</h2>
+<blockquote class="blockquote">
+<p>By now, you probably feel the first signs of brain overload. If you do not take breaks, your brain may overheat and explode - we have seen that happen. One of the nice things about the brain is that it works when you rest. Archiving and understanding a lot of new information takes time, and force-feeding your brain will not help. The last part of this chapter is very important so now might be a good time for a good long break.</p>
+</blockquote>
+<p>This section is about <em>variables</em> and is where the fun begins. A variable is a way of assigning a name to a value. <code>8700000</code> is just a value, but if we assign a name to it, then it gets a special meaning:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>number_of_species <span class="op">=</span> <span class="dv">8700000</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(number_of_species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this case, the variable <code>number_of_species</code> represents the <a href="http://www.nature.com/news/2011/110823/full/news.2011.498.html">estimated number of eukaryotic species on the planet</a>, which is 8700000. So <code>8700000</code> is the <em>value</em>, and “number_of_species” is the variable name. Write the code above into a file and run it. Notice how this lets us refer to the <em>value</em> using the <em>variable name</em>. What appears in the terminal when you do that? Do you see <code>number_of_species</code> or <code>8700000</code>?</p>
+<p>As you can see in the small program above, one of two different things happens when a variable name appears in Python code:</p>
+<ul>
+<li><strong>Assignment:</strong> When a variable name appears to the left of an equal sign, a value is assigned to the variable. This happens in the first line where <code>number_of_species</code> is <em>assigned</em> the value <code>8700000</code>.</li>
+<li><strong>Substitution:</strong> In all other contexts, the variable is substituted for its value. This happens in the second line where Python <em>substitutes</em> the variable name <code>number_of_species</code> for its value <code>8700000</code> and then prints that.</li>
+</ul>
+<p>That is it, but let us take the example further and create another variable to which we assign the value <code>1200000</code>. That is the number of species discovered so far. Now, let us add this to the program and use it to compute the number of species we have yet to identify. Start by reading the code below super carefully. Remember that a variable is <em>either</em> assigned a value or substituted for the value it represents. For each occurrence of the variables below, determine if they are being assigned a value or if they are substituted for their value.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>number_of_species <span class="op">=</span> <span class="dv">8700000</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>number_discovered <span class="op">=</span> <span class="dv">1200000</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>number_unidentified <span class="op">=</span> number_of_species <span class="op">-</span> number_discovered</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(number_unidentified)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now write the code into a file and run it. Take some time to let it sink in that variables are extremely useful for two reasons:</p>
+<ol type="1">
+<li>Variables give meaning to a value. Without the variable name, the value of 1200000 could just as well be the number of people that live in Copenhagen. However, by giving the value a meaningful name, it becomes clear what it represents.</li>
+<li>We can assign new values to variables (that is why they are called variables). For example, we can change the value of <code>number_discovered</code> as new species are discovered.</li>
+</ol>
+<p>Your variable names can be pretty much anything, but they have to start with a letter or an underscore (<code>_</code>), and the rest of the name has to be either letters, numbers, or underscores. To be clear, a space is <em>not</em> any of those things, so do not use spaces in variable names. Above all, be careful in your choice of variable names. Variable names are case-sensitive, meaning that <code>count</code> and <code>Count</code> are different variables. Stick to lowercase variable names. That makes your code easier to read.</p>
+<section id="exercise-9" class="level4" data-number="4.0.0.17">
+<h4 data-number="4.0.0.17" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 4-17</strong></h4>
+<p>For each occurrence of the variables below, determine if they are being assigned a value or if they are substituted for their value.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>breeding_birds <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(breeding_birds)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>breeding_birds <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(breeding_birds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-10" class="level4" data-number="4.0.0.18">
+<h4 data-number="4.0.0.18" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 4-18</strong></h4>
+<p>For each occurrence of the variables below, determine if they are being assigned a value or if they are substituted for their value.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>breeding_birds <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(breeding_birds)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>breeding_birds <span class="op">=</span> breeding_birds <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(breeding_birds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-11" class="level4" data-number="4.0.0.19">
+<h4 data-number="4.0.0.19" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 4-19</strong></h4>
+<p>What happens if you take the first example in this section and swap the two lines? So, going from this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>number_of_species <span class="op">=</span> <span class="dv">8700000</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(number_of_species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>to this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(number_of_species)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>number_of_species <span class="op">=</span> <span class="dv">8700000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Explain to yourself what happens in each case. What kind of error do you get with version two, and why? Remember <span class="citation" data-cites="important-oath2">@important-oath2</span>!</p>
+</section>
+<section id="exercise-12" class="level4" data-number="4.0.0.20">
+<h4 data-number="4.0.0.20" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 4-20</strong></h4>
+<p>Write the following code in a file, save it, and run it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> <span class="dv">45000</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>taxpercentage <span class="op">=</span> <span class="fl">0.43</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>tax_amount <span class="op">=</span> tax_percentage <span class="op">*</span> income</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>income_after_tax <span class="op">=</span> income <span class="op">-</span> tax_amount</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Income after tax is'</span>, income_after_tax)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should get an error that looks at lot like this one:</p>
+<pre class="plain"><code>Traceback (most recent call last):
+  File "tax.py", line 3, in &lt;module&gt;
+    tax_amount = tax_percentage * income
+NameError: name 'tax_percentage' is not defined</code></pre>
+<p>It says that the error is on line 3. Can you figure out what is wrong? Hopefully, you will now appreciate how much attention to detail is required when programming. Every tiny, little symbol or character in your code is <em>essential</em>.</p>
+</section>
+</section>
+<section id="different-types-of-values" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="different-types-of-values">Different types of values</h2>
+<p>By now, you probably have a pretty good idea of what a value in Python is. So far, you have seen text like <code>'Banana'</code>, integers like <code>7</code>, and numbers with a fractional part like <code>4.25</code>.</p>
+<p>In Python, a text value is a <em>type</em> of value called a <em>string</em>, which Python denotes as <code>str</code> (abbreviation for “string”). So <code>'Banana'</code> is a string, and so is <code>'Banana split'</code>. There are two types of numbers in Python. Integers (7, 42, and 3) are called <code>int</code>. Numbers with a fractional part (like 3.1254 and 4.0) are that are called <code>float</code> (an abbreviation for “floating-point number”).</p>
+<p>As I mentioned earlier, <code>True</code> and <code>False</code> are Python values too. They are called booleans or <code>bool</code>, named after an English mathematician called <a href="https://en.wikipedia.org/wiki/George_Boole">George Boole</a> famous for his work on logic.</p>
+<p>So the different <em>types</em> of values we know so far are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type in Python</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>String</td>
+<td><code>str</code></td>
+<td><code>"hello"</code>, <code>'9'</code></td>
+</tr>
+<tr class="even">
+<td>Integer</td>
+<td><code>int</code></td>
+<td><code>0</code>, <code>2721</code>, <code>9</code></td>
+</tr>
+<tr class="odd">
+<td>Floating-point</td>
+<td><code>float</code></td>
+<td><code>1.0</code>, <code>4.4322</code></td>
+</tr>
+<tr class="even">
+<td>Boolean</td>
+<td><code>bool</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr class="odd">
+<td>None</td>
+<td><code>NoneType</code></td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p>In case you did not notice, I added a special type at the end that can only have the value <code>None</code>. I may sound a little weird, but in programming, we sometimes need a value representing nothing or <code>None.</code> For now, just make a mental note that <code>None</code> is also a Python value.</p>
+<p>When you do computations in Python, it is no problem to mix integers and floating-point numbers. Try this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What is 0.5 * 2?"</span>, <span class="fl">0.5</span> <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What is 3 / 2?"</span>, <span class="dv">3</span> <span class="op">/</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As you can see we can also make computations using only integers that result in floating-point numbers.</p>
+<p>Some of the math operators not only work on numbers, but they also work on strings. That way, you can add two strings together. It is no longer math, of course - but quite handy.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">'Ba'</span> <span class="op">+</span> <span class="st">'na'</span> <span class="op">+</span> <span class="st">'na'</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exercise-13" class="level4" data-number="4.0.0.21">
+<h4 data-number="4.0.0.21" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 4-21</strong></h4>
+<p>If you try to combine different types of values in ways that are not allowed in Python, you will get an error. Try each of the following weird calculations, and read each error message carefully.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span> <span class="op">-</span> <span class="st">'1.5'</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="va">None</span> <span class="op">-</span> <span class="dv">4</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-14" class="level4" data-number="4.0.0.22">
+<h4 data-number="4.0.0.22" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 4-22</strong></h4>
+<p>Write these two examples and compare the resulting values of <code>x</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'9'</span> <span class="op">+</span> <span class="st">'4'</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span> <span class="op">+</span> <span class="dv">4</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-15" class="level4" data-number="4.0.0.23">
+<h4 data-number="4.0.0.23" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 4-23</strong></h4>
+<p>Try these two examples. What happens in each case? Does it make sense?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'72'</span> <span class="op">*</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'72'</span> <span class="op">*</span> <span class="st">'3'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-16" class="level4" data-number="4.0.0.24">
+<h4 data-number="4.0.0.24" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 4-24</strong></h4>
+<p>Will this work? Use what you have learned from the other exercises and try to predict what will happen here. Then, write the code and try it out.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'Ba'</span> <span class="op">+</span> <span class="st">'na'</span> <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-type_conversion" class="level4" data-number="4.0.0.25">
+<h4 data-number="4.0.0.25" class="anchored" data-anchor-id="sec-type_conversion"><strong>Exercise 4-25</strong></h4>
+<p>Sometimes, you may need to change a string to a number. You can do that like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>some_value <span class="op">=</span> <span class="st">"42"</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>other_value <span class="op">=</span> <span class="bu">int</span>(some_value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Write some code that converts strings to numbers and numbers to strings. Remember that numeric values are either integers or float. Use <code>int</code>, <code>float</code> as in the example above. You will notice that only meaningful conversions work. E.g., this will not work: <code>number = int('four').</code> To convert a number to a string, you can use <code>str</code>.</p>
+<p>Having completed the above exercises, you should take note of the following four important points:</p>
+<ol type="1">
+<li>All Python values have a type. You know about strings, integers, floating-points, and booleans so far.</li>
+<li>Math operators let you do cool things like concatenating two strings by adding them together.</li>
+<li>The flip side of that cool coin is that Python will assume you know what you are doing if you add two strings (<code>'4' + '4'</code> is <code>'44'</code> <em>not</em> <code>8</code>) or multiply a string with an integer (<code>'4' * 4</code> is <code>'4444'</code> <em>not</em> <code>16</code>).</li>
+<li>You can change the type of a value, e.g., <code>'4'</code> to <code>4</code> or <code>1</code> to <code>1.0</code>.</li>
+<li>Python will throw a <code>TypeError</code> if you try to combine types values of values in ways that are not allowed.</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Escape characters:</strong> An escape character is a backslash <code>\</code> followed by a single character. <code>\n</code> and <code>\t</code> are the most commonly used ones.</p>
+</blockquote>
+</section>
+<section id="exercise-17" class="level4" data-number="4.0.0.26">
+<h4 data-number="4.0.0.26" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 4-26</strong></h4>
+<p>What do you think is printed here?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>main_course <span class="op">=</span> <span class="st">'Duck a la Banana</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>dessert <span class="op">=</span> <span class="st">'Banana split</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>menu <span class="op">=</span> main_course <span class="op">+</span> dessert</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(menu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Can you figure out what the special character <code>\n</code> represents?</p>
+</section>
+<section id="exercise-18" class="level4" data-number="4.0.0.27">
+<h4 data-number="4.0.0.27" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 4-27</strong></h4>
+<p>What do you think is printed here?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>dish_one <span class="op">=</span> <span class="st">'Banana</span><span class="ch">\t\t</span><span class="st">split'</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>dish_two <span class="op">=</span> <span class="st">'Chocolate</span><span class="ch">\t</span><span class="st">cake'</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dish_one)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dish_two)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Can you figure out what the special character <code>\t</code> represents?</p>
+</section>
+</section>
+<section id="mixed-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="mixed-exercises">Mixed exercises</h2>
+<p>Each chapter in the book ends with a set of mixed exercises meant to allow you to combine what you have learned so far. In this case, they are meant to train your familiarity with the following topics:</p>
+<ul>
+<li>Strings</li>
+<li>Math</li>
+<li>Logic</li>
+<li>Types of values</li>
+<li>Variables</li>
+</ul>
+<section id="exercise-19" class="level4" data-number="4.0.0.28">
+<h4 data-number="4.0.0.28" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 4-28</strong></h4>
+<p>What happens if you try to run the following program?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What happens now?"</span>, <span class="dv">1</span> <span class="op">/</span> )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you get an error, why do you think you get that error?</p>
+</section>
+<section id="exercise-20" class="level4" data-number="4.0.0.29">
+<h4 data-number="4.0.0.29" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 4-29</strong></h4>
+<p>What happens if you try to run the following program?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What happens now?"</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you get an error, why do you think you get that error? Can you fix it? (Hint: EOF is short for End Of File)</p>
+</section>
+<section id="exercise-21" class="level4" data-number="4.0.0.30">
+<h4 data-number="4.0.0.30" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 4-30</strong></h4>
+<p>Determine, for each of the eight occurrences of the variable <code>x</code> below, where it is being assigned a value and when it is substituted for its value:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, figure out what is printed and why (remember <span class="citation" data-cites="important-oath2">@important-oath2</span>). What value does <code>x</code> represent at each occurrence in the code?</p>
+</section>
+<section id="exercise-22" class="level4" data-number="4.0.0.31">
+<h4 data-number="4.0.0.31" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 4-31</strong></h4>
+<p>Some comparison operators also work with strings. Consider this code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apples"</span> <span class="op">==</span> <span class="st">"pears"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>What is printed here? Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
+</section>
+<section id="exercise-23" class="level4" data-number="4.0.0.32">
+<h4 data-number="4.0.0.32" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 4-32</strong></h4>
+<p>Consider this code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'aaaaaa'</span> <span class="op">&lt;</span> <span class="st">'b'</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'a'</span> <span class="op">&lt;</span> <span class="st">'b'</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'aa'</span> <span class="op">&lt;</span> <span class="st">'ab'</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'99'</span> <span class="op">&gt;</span> <span class="st">'100'</span>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'four bananas'</span> <span class="op">&gt;</span> <span class="st">'one banana'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>What is printed here? Write the code and see for yourself once you think you know. By what rule does Python decide if one string is smaller than another? You may have a clue if you have looked something up in an encyclopedia recently. Also, try to google “ASCII table”.</p>
+</section>
+<section id="exercise-24" class="level4" data-number="4.0.0.33">
+<h4 data-number="4.0.0.33" class="anchored" data-anchor-id="exercise-24"><strong>Exercise 4-33</strong></h4>
+<p>Consider this code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'banana'</span> <span class="op">&lt;</span> <span class="st">'Banana'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>What is printed here? Write the code and see for yourself once you think you know.</p>
+</section>
+<section id="exercise-25" class="level4" data-number="4.0.0.34">
+<h4 data-number="4.0.0.34" class="anchored" data-anchor-id="exercise-25"><strong>Exercise 4-34</strong></h4>
+<p>Do you think it is allowed to use relational operators on values of different types? Try these out and see for yourself:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Banana'</span> <span class="op">&gt;</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'42'</span> <span class="op">==</span> <span class="dv">43</span>) <span class="co"># this one is dangerous...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">4</span> <span class="kw">in</span> <span class="st">'1234'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Practice reading this kind of error (<code>TypeError</code>).</p>
+</section>
+<section id="exercise-26" class="level4" data-number="4.0.0.35">
+<h4 data-number="4.0.0.35" class="anchored" data-anchor-id="exercise-26"><strong>Exercise 4-35</strong></h4>
+<p>Can you use the <code>in</code> operator to test if this mini gene is part of the DNA string?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mini_gene <span class="op">=</span> <span class="st">'ATGTAG'</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>dna_string <span class="op">=</span> <span class="st">'GCTATGTAGGTA'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-27" class="level4" data-number="4.0.0.36">
+<h4 data-number="4.0.0.36" class="anchored" data-anchor-id="exercise-27"><strong>Exercise 4-36</strong></h4>
+<p>Say you have two strings <code>"4"</code> and <code>"2"</code>. What happens if you add them like this: <code>"4" + "2"</code>. Can you convert each one to integers so you get <code>6</code> when you add them? (have a look at <a href="#sec-type_conversion" class="quarto-xref"><span>Section 4.0.0.25</span></a> if you do not remember).</p>
+</section>
+<section id="exercise-28" class="level4" data-number="4.0.0.37">
+<h4 data-number="4.0.0.37" class="anchored" data-anchor-id="exercise-28"><strong>Exercise 4-37</strong></h4>
+<p>What happens if you run this code? Do you get an error? Do you remember why?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="er">value</span> <span class="op">=</span> <span class="dv">42</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-29" class="level4" data-number="4.0.0.38">
+<h4 data-number="4.0.0.38" class="anchored" data-anchor-id="exercise-29"><strong>Exercise 4-38</strong></h4>
+<p>What happens if you run this code?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hi'</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hi'</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hi'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Compare this to what happens when you run this code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hi</span><span class="ch">\n</span><span class="st">Hi</span><span class="ch">\n</span><span class="st">Hi'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Do you remember what <code>\n</code> represents? What does it tell about what is added at the end every time you print something?</p>
+</section>
+<section id="exercise-30" class="level4" data-number="4.0.0.39">
+<h4 data-number="4.0.0.39" class="anchored" data-anchor-id="exercise-30"><strong>Exercise 4-39</strong></h4>
+<p>Make three exercises for your fellow students. See if you can make them so they test the understanding of (almost) all you have learned so far.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../notebooks/hello-world.html" class="pagination-link" aria-label="Writing a program">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing a program</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../notebooks/precedence-steps.html" class="pagination-link" aria-label="The order of events">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The order of events</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
