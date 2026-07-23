@@ -93,11 +93,11 @@
     ]
   },
   {
-    "objectID": "notebooks/demo.html",
-    "href": "notebooks/demo.html",
+    "objectID": "notebooks/widget-demo.html",
+    "href": "notebooks/widget-demo.html",
     "title": "2  Demo",
     "section": "",
-    "text": "print(\"hellow world\")\n\nhellow world\n\n\n\nimport codelens_widget\n\n\n%%codelens\n\ndef insertion_sort(a):\n    for i in range(1, len(a)):\n        key = a[i]\n        j = i - 1\n        while j &gt;= 0 and a[j] &gt; key:\n            a[j + 1] = a[j]\n            j -= 1\n        a[j + 1] = key\n    return a\n\ndata = [5, 2, 9, 1]\ninsertion_sort(data)\n\n\n\n\n\nimport puzzle_widget\n\n\n%%puzzle 44\n\ntotal\ntotal = total + z\nz = 2\ntotal = x * y\ny = 6\nx = 7\n\n\n\n\n\n%%puzzle 'HELLO, WORLD'\n\ngreeting.upper()\ngreeting = 'hello, ' + name\nname = 'world'\n\n\n\n\n\nimport steps_widget\n\n\n%%steps\n\ns = 'Hej {}'\nl = [1, 2, 3]\ngreeting = s.format('Kasper').upper()[0:3]  # PRINT STEPS\ntotal = l[0] + l[1] + l[2]  # PRINT STEPS\n\n\n\n\n\n%%steps\n\nx = 0\ny = 3\nresult = x and y or 7  # PRINT STEPS\n\n\n\n\n\nfrom turtle_widget import Turtle\n\n\nt = Turtle()\nt.speed(6)\nfor _ in range(4):\n    t.forward(120)\n    t.left(90)",
+    "text": "print(\"hellow world\")\n\nhellow world\n\n\n\n# Run this in JupyterLite to install the widgets used below\n%pip install -q anywidget codelens-widget puzzle-widget steps-widget turtle-widget\n\n\nimport codelens_widget\n\n\n%%codelens\n\ndef insertion_sort(a):\n    for i in range(1, len(a)):\n        key = a[i]\n        j = i - 1\n        while j &gt;= 0 and a[j] &gt; key:\n            a[j + 1] = a[j]\n            j -= 1\n        a[j + 1] = key\n    return a\n\ndata = [5, 2, 9, 1]\ninsertion_sort(data)\n\n\n\n\n\nimport puzzle_widget\n\n\n%%puzzle 44\n\ntotal\ntotal = total + z\nz = 2\ntotal = x * y\ny = 6\nx = 7\n\n\n\n\n\n%%puzzle 'HELLO, WORLD'\n\ngreeting.upper()\ngreeting = 'hello, ' + name\nname = 'world'\n\n\n\n\n\nimport steps_widget\n\n\n%%steps\n\ns = 'Hej {}'\nl = [1, 2, 3]\ngreeting = s.format('Kasper').upper()[0:3]  # PRINT STEPS\ntotal = l[0] + l[1] + l[2]  # PRINT STEPS\n\n\n\n\n\n%%steps\n\nx = 0\ny = 3\nresult = x and y or 7  # PRINT STEPS\n\n\n\n\n\nfrom turtle_widget import Turtle\n\n\nt = Turtle()\nt.speed(6)\nfor _ in range(4):\n    t.forward(120)\n    t.left(90)",
     "crumbs": [
       "Speaking the language",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Demo</span>"
