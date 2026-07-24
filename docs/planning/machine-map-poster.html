@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How your machine runs your code — a map to come back to</title>
+<style>
+  :root{
+    --paper:#f6f4ef;
+    --card:#ffffff;
+    --ink:#26313f;
+    --ink-soft:#5a6675;
+    --line:#dfd9cf;
+    /* kept / permanent = amber */
+    --keep:#b26a1f;      --keep-bg:#fbf1e2;   --keep-line:#e9cfa5;
+    /* temporary / forgotten = blue */
+    --temp:#2f6db3;      --temp-bg:#e8f1fb;   --temp-line:#bcd6f0;
+    /* the working machine (cpu) = slate */
+    --cpu:#3a4250;       --cpu-bg:#eceef1;    --cpu-line:#cfd4db;
+    /* tools you drive = teal/green */
+    --tool:#1f7a68;      --tool-bg:#e6f3ef;   --tool-line:#b6ddd2;
+    /* the AI, elsewhere = purple */
+    --ai:#6b46a6;        --ai-bg:#f1ebf8;     --ai-line:#d6c6ee;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.4;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:1180px;
+    margin:0 auto;
+    padding:30px 34px 44px;
+  }
+  header.top{margin-bottom:18px;}
+  h1{
+    font-size:26px;
+    margin:0 0 4px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    margin:0;
+  }
+  .subtitle strong{color:var(--ink);}
+  code{
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    font-size:0.88em;
+    background:#eef0f2;
+    border:1px solid #e0e3e7;
+    border-radius:5px;
+    padding:1px 5px;
+    color:#33404f;
+    white-space:nowrap;
+  }
+
+  /* legend */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+    margin:14px 0 22px;padding:11px 15px;
+    background:#fbfaf7;border:1px solid var(--line);border-radius:11px;
+    font-size:13px;color:var(--ink-soft);
+  }
+  .legend .swatch{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:13px;height:13px;border-radius:4px;flex:none;}
+  .legend b{color:var(--ink);font-weight:600;}
+
+  .section-label{
+    font-size:12px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;
+    color:var(--ink-soft);margin:26px 0 11px;display:flex;align-items:center;gap:9px;
+  }
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  /* generic card */
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:5px solid var(--line);
+    border-radius:11px;
+    padding:13px 15px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02);
+  }
+  .card .chip{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.06em;
+    text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-bottom:7px;
+  }
+  .card h3{margin:0 0 5px;font-size:16px;}
+  .card p{margin:0;font-size:13px;color:var(--ink-soft);}
+  .card .icon{font-size:19px;line-height:1;margin-right:5px;}
+
+  .k{border-left-color:var(--keep);}   .k .chip{background:var(--keep-bg);color:var(--keep);}
+  .t{border-left-color:var(--temp);}   .t .chip{background:var(--temp-bg);color:var(--temp);}
+  .c{border-left-color:var(--cpu);}    .c .chip{background:var(--cpu-bg);color:var(--cpu);}
+  .to{border-left-color:var(--tool);}  .to .chip{background:var(--tool-bg);color:var(--tool);}
+  .ai{border-left-color:var(--ai);}    .ai .chip{background:var(--ai-bg);color:var(--ai);}
+
+  /* the computer frame */
+  .computer{
+    border:2px dashed #cdc6ba;border-radius:16px;padding:16px 16px 18px;
+    position:relative;background:#fcfbf8;
+  }
+  .computer .frame-tag{
+    position:absolute;top:-11px;left:18px;background:var(--paper);
+    padding:0 10px;font-size:11.5px;font-weight:700;letter-spacing:0.09em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .col-head{
+    font-size:12.5px;font-weight:700;color:var(--ink);margin:2px 0 9px;
+    display:flex;align-items:center;gap:7px;
+  }
+  .col-head .mini{font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+    padding:2px 7px;border-radius:20px;}
+  .mini.keep{background:var(--keep-bg);color:var(--keep);}
+  .mini.temp{background:var(--temp-bg);color:var(--temp);}
+
+  /* flow of running code */
+  .flow{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;align-items:stretch;}
+  .step{
+    grid-column:span 2;background:var(--card);border:1px solid var(--line);
+    border-top:4px solid var(--tool);border-radius:10px;padding:10px 11px;position:relative;
+  }
+  .step .n{
+    position:absolute;top:-11px;left:10px;width:22px;height:22px;border-radius:50%;
+    background:var(--tool);color:#fff;font-size:12px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step h4{margin:6px 0 3px;font-size:13.5px;}
+  .step p{margin:0;font-size:12px;color:var(--ink-soft);}
+  .arrow{grid-column:span 1;display:flex;align-items:center;justify-content:center;
+    color:#b9b1a3;font-size:20px;font-weight:700;}
+  .step.disk{border-top-color:var(--keep);}
+  .step.brain{border-top-color:var(--temp);}
+
+  /* two ways to run */
+  .ways .card p code{white-space:normal;}
+
+  /* AI elsewhere */
+  .ai-zone{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:16px;align-items:stretch;
+  }
+  .browser{
+    border:2px solid var(--ai-line);border-radius:13px;background:var(--ai-bg);
+    padding:0;overflow:hidden;
+  }
+  .browser .bar{
+    background:#e4d8f4;padding:7px 12px;display:flex;align-items:center;gap:7px;
+    border-bottom:1px solid var(--ai-line);
+  }
+  .browser .bar .b{width:10px;height:10px;border-radius:50%;background:#c8b6e6;}
+  .browser .bar .url{margin-left:8px;background:#fff;border-radius:6px;padding:3px 10px;
+    font-size:11.5px;color:var(--ai);font-family:"SF Mono",ui-monospace,Menlo,monospace;}
+  .browser .body{padding:14px 16px;}
+  .browser h3{margin:0 0 6px;font-size:16px;color:var(--ai);}
+  .browser p{margin:0;font-size:13px;color:#5b4a74;}
+  .carry{
+    display:flex;flex-direction:column;justify-content:center;gap:9px;
+    border:2px dashed var(--ai-line);border-radius:13px;padding:14px 16px;background:#fdfcff;
+  }
+  .carry .h{font-weight:700;font-size:13.5px;color:var(--ai);display:flex;align-items:center;gap:8px;}
+  .carry p{margin:0;font-size:12.5px;color:var(--ink-soft);}
+  .carry .byhand{font-size:12.5px;color:var(--ink);background:var(--ai-bg);
+    border-radius:8px;padding:8px 11px;border:1px solid var(--ai-line);}
+
+  footer.note{
+    margin-top:26px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink-soft);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  footer .big{color:var(--ink);font-weight:600;}
+
+  @media print{
+    body{background:#fff;}
+    .sheet{max-width:none;padding:0;}
+    .section-label{page-break-after:avoid;}
+    .computer,.flow,.ai-zone,.grid3,.grid2{page-break-inside:avoid;}
+  }
+  @media (max-width:820px){
+    .grid2,.grid3,.ai-zone{grid-template-columns:1fr;}
+    .flow{grid-template-columns:1fr;}
+    .flow .arrow{transform:rotate(90deg);height:22px;}
+    .step,.arrow{grid-column:auto;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="top">
+    <h1>How your machine runs your code</h1>
+    <p class="subtitle">A map to come back to whenever the words pile up. The one idea to hold onto: some things are <strong style="color:var(--keep)">kept</strong> (they survive when the power goes off) and some things are <strong style="color:var(--temp)">temporary</strong> (they vanish when a program stops).</p>
+  </header>
+
+  <div class="legend">
+    <span class="swatch"><span class="dot" style="background:var(--keep)"></span><b>Kept</b> — on the disk, permanent</span>
+    <span class="swatch"><span class="dot" style="background:var(--temp)"></span><b>Temporary</b> — in memory, forgotten</span>
+    <span class="swatch"><span class="dot" style="background:var(--cpu)"></span><b>The worker</b> — the CPU</span>
+    <span class="swatch"><span class="dot" style="background:var(--tool)"></span><b>Tools you drive</b></span>
+    <span class="swatch"><span class="dot" style="background:var(--ai)"></span><b>The AI</b> — somewhere else, on purpose</span>
+  </div>
+
+  <!-- ============ INSIDE THE COMPUTER ============ -->
+  <div class="section-label">What's inside your computer</div>
+  <div class="computer">
+    <span class="frame-tag">Your computer</span>
+    <div class="grid2">
+
+      <div>
+        <div class="col-head"><span class="mini keep">Kept</span> Where your files live</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card k">
+            <span class="chip">Permanent</span>
+            <h3><span class="icon">💾</span>Hard disk</h3>
+            <p>Your files — code, data, everything — live here, and stay here even when the computer is switched off. Saving a file writes it to the disk.</p>
+          </div>
+          <div class="card k">
+            <span class="chip">Permanent · synced</span>
+            <h3><span class="icon">☁️</span>iCloud / OneDrive</h3>
+            <p>A copy of certain folders is kept online and synced across devices. Convenient — but sync can move, rename or briefly lock your files at surprising moments, so keep course work in a simple, known folder.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="col-head"><span class="mini temp">Temporary</span> Where the work happens</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card t">
+            <span class="chip">Temporary</span>
+            <h3><span class="icon">🧠</span>Memory (RAM)</h3>
+            <p>Holds whatever is <em>running right now</em> — the program and the values it is working on. Emptied the moment a program stops or the computer restarts. Nothing here is saved unless you write it to the disk.</p>
+          </div>
+          <div class="card c">
+            <span class="chip">The worker</span>
+            <h3><span class="icon">⚙️</span>CPU</h3>
+            <p>Does the actual computing — one small step at a time, extremely fast. It only ever works on what is currently in memory.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ HOW CODE RUNS ============ -->
+  <div class="section-label">How your code actually runs (as a script)</div>
+  <div class="flow">
+    <div class="step to"><span class="n">1</span><h4>✍️ Write it</h4><p>You type code in the <b>VS Code editor</b>.</p></div>
+    <div class="arrow">→</div>
+    <div class="step disk"><span class="n">2</span><h4>💾 Save it</h4><p>It becomes a <b>file on the hard disk</b>, e.g. <code>hello.py</code>.</p></div>
+    <div class="arrow">→</div>
+    <div class="step to"><span class="n">3</span><h4>⌨️ Launch it</h4><p>In the <b>terminal</b> you type <code>python hello.py</code>.</p></div>
+    <div class="arrow">→</div>
+    <div class="step brain"><span class="n">4</span><h4>🐍 Run it</h4><p><b>Python</b> reads the file into <b>memory</b> and drives the <b>CPU</b>, step by step.</p></div>
+    <div class="arrow">→</div>
+    <div class="step to"><span class="n">5</span><h4>🖨️ See it</h4><p>The output prints back in the <b>terminal</b>.</p></div>
+  </div>
+
+  <div class="grid2" style="margin-top:14px;">
+    <div class="card to">
+      <span class="chip">Tool you drive</span>
+      <h3><span class="icon">🐍</span>Python — the interpreter</h3>
+      <p>A program that <b>reads your code file</b>, holds it in memory, and tells the CPU what to do one instruction at a time. It is the translator between your <code>.py</code> file and the machine. You installed it with the course installer.</p>
+    </div>
+    <div class="card to">
+      <span class="chip">Tool you drive</span>
+      <h3><span class="icon">⌨️</span>The terminal</h3>
+      <p>A place to type commands like <code>python hello.py</code>. It's the <em>same</em> tool in three costumes: the <b>Terminal app</b> (Mac), <b>PowerShell</b> (Windows), and the <b>terminal built into VS Code</b> — use whichever is in front of you.</p>
+    </div>
+  </div>
+
+  <!-- ============ EDITOR ============ -->
+  <div class="section-label">Where you write — and the two ways to run Python</div>
+  <div class="grid3 ways">
+    <div class="card to">
+      <span class="chip">Your workspace</span>
+      <h3><span class="icon">📝</span>VS Code editor</h3>
+      <p>Where you write code and save it to the disk. For this course it is your <b>AI-free space</b> — your own fingers and your own understanding do the work here.</p>
+    </div>
+    <div class="card k">
+      <span class="chip">Starts clean</span>
+      <h3><span class="icon">📄</span>A script</h3>
+      <p>A <code>.py</code> file on disk. Run in the terminal, it goes <b>top to bottom, then stops</b> — and starts <b>fresh every time</b>, remembering nothing from before.</p>
+    </div>
+    <div class="card t">
+      <span class="chip">Remembers</span>
+      <h3><span class="icon">📓</span>A notebook cell</h3>
+      <p>Run one cell at a time in a Python session that <b>stays alive in memory</b> and <b>remembers earlier cells</b>. Powered by IPython / Jupyter.</p>
+    </div>
+  </div>
+
+  <div class="card to" style="margin-top:14px;border-left-color:var(--cpu);">
+    <span class="chip" style="background:var(--cpu-bg);color:var(--cpu);">Bridge</span>
+    <h3><span class="icon">🔁</span>The <code>script-widget</code> — a cell that pretends to be a script</h3>
+    <p>Turns a single notebook cell into a small <b>isolated script</b>: it runs clean, start to finish, remembering nothing — just like <code>python file.py</code> — but without leaving the notebook. Use it to feel the difference between "a cell that remembers" and "a script that starts fresh," side by side.</p>
+  </div>
+
+  <!-- ============ AI ELSEWHERE ============ -->
+  <div class="section-label">The AI lives somewhere else — on purpose</div>
+  <div class="ai-zone">
+    <div class="browser">
+      <div class="bar"><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="url">🔒 copilot — in your web browser</span></div>
+      <div class="body">
+        <h3>Copilot Chat</h3>
+        <p>It lives in your <b>web browser</b>, in a separate window from VS Code. You decide when to open it. Nothing flows automatically between the AI and your code — and that is the point.</p>
+      </div>
+    </div>
+    <div class="carry">
+      <div class="h">✋ You carry things across by hand</div>
+      <p>Copy a question or a piece of code <em>to</em> the chat; read its answer, then <b>type</b> what you choose to keep back into your editor.</p>
+      <div class="byhand">Walking over to the AI is a deliberate choice. Each exercise's <b>badge</b> tells you which role it may play today — from <b>Explainer</b> to <b>Delegate</b>.</div>
+    </div>
+  </div>
+
+  <footer class="note">
+    <span class="big">Lost? Find the piece you're touching on this map, and follow the arrows.</span>
+    <span>Instructing Machines · a map to re-anchor · keep me nearby</span>
+  </footer>
+
+</div>
+</body>
+</html>
