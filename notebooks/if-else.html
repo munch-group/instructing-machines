@@ -76,10 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d0d315799576689a4f90e4d7de6aa78.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-534a37a8c2a00f4c0ed23d96546cde3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -359,17 +358,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#if-statement" id="toc-if-statement" class="nav-link active" data-scroll-target="#if-statement"><span class="header-section-number">7.1</span> If-statement</a>
+  <li><a href="#if-statement" id="toc-if-statement" class="nav-link active" data-scroll-target="#if-statement">If-statement</a>
   <ul class="collapse">
-  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq"><span class="header-section-number">7.1.1</span> FAQ</a></li>
+  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq">FAQ</a></li>
   </ul></li>
-  <li><a href="#else-statement" id="toc-else-statement" class="nav-link" data-scroll-target="#else-statement"><span class="header-section-number">7.2</span> Else-statement</a>
+  <li><a href="#else-statement" id="toc-else-statement" class="nav-link" data-scroll-target="#else-statement">Else-statement</a>
   <ul class="collapse">
-  <li><a href="#faq-1" id="toc-faq-1" class="nav-link" data-scroll-target="#faq-1"><span class="header-section-number">7.2.1</span> FAQ</a></li>
+  <li><a href="#faq-1" id="toc-faq-1" class="nav-link" data-scroll-target="#faq-1">FAQ</a></li>
   </ul></li>
-  <li><a href="#blocks-of-code" id="toc-blocks-of-code" class="nav-link" data-scroll-target="#blocks-of-code"><span class="header-section-number">7.3</span> Blocks of code</a></li>
-  <li><a href="#elif-statement" id="toc-elif-statement" class="nav-link" data-scroll-target="#elif-statement"><span class="header-section-number">7.4</span> Elif-statement</a></li>
-  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises"><span class="header-section-number">7.5</span> General exercises</a></li>
+  <li><a href="#blocks-of-code" id="toc-blocks-of-code" class="nav-link" data-scroll-target="#blocks-of-code">Blocks of code</a></li>
+  <li><a href="#elif-statement" id="toc-elif-statement" class="nav-link" data-scroll-target="#elif-statement">Elif-statement</a></li>
+  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -396,8 +395,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>This chapter is about how you make your program do different things under different circumstances. Making functionality dependent on data is what makes programs useful.</em></p>
-<section id="if-statement" class="level2 unnumbered" data-number="7.1">
-<h2 class="unnumbered anchored" data-number="7.1" data-anchor-id="if-statement"><span class="header-section-number">7.1</span> If-statement</h2>
+<section id="if-statement" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="if-statement">If-statement</h2>
 <p>So far, the small programs you have written run the same sequence of statements (lines). Imagine if you could control which statements were run depending on the circumstances. Then, you would be able to write more flexible and useful programs. Cue the music - and let me introduce the “if-statement”.</p>
 <p>Write the following carefully into a file. It is a small program that monitors bus passenger status. Notice the colon ending the if-statements. Also, note that the lines below each if-statement are indented with precisely four spaces. While writing the program, figure out what the if-statement does. Then, run the code and see what happens.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bus_seats <span class="op">=</span> <span class="dv">32</span></span>
@@ -420,8 +419,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Try changing the values of <code>bus_seats</code>, <code>passengers</code>, and <code>bags</code> and see how the program executes.</p>
 <p>You have probably realized that the if-statements control which prints statements that are evaluated. A statement nested under an if-statement is only evaluated if the expression between the <code>if</code> keyword and the <code>:</code> reduces to a value Python considers as <em>true</em>. This does not happen if the expression between the <code>if</code> and <code>:</code> reduces to a value Python considers <em>false</em>.</p>
 <p>When asked to evaluate something as true or false, Python will interpret zero and empty values (like <code>0</code> and <code>''</code>) as <code>False</code> and all other non-zero and non-empty values as <code>True</code>.</p>
-<section id="exercise" class="level4" data-number="7.1.0.1">
-<h4 data-number="7.1.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 7.1.0.1</strong></h4>
+<section id="exercise" class="level4" data-number="7.0.0.1">
+<h4 data-number="7.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 7-1</strong></h4>
 <p>Which of the following letters are printed: A, B, C, D, E, F, G. Make up your mind before you write and run the code.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">0</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'A'</span>)</span>
@@ -444,14 +443,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">False</span> <span class="kw">or</span> <span class="st">"banana"</span>:</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'G'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-1" class="level4" data-number="7.1.0.2">
-<h4 data-number="7.1.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 7.1.0.2</strong></h4>
+<section id="exercise-1" class="level4" data-number="7.0.0.2">
+<h4 data-number="7.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 7-2</strong></h4>
 <p>What happens if you forget to write the <code>:</code> in the if-statement?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">2</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Hi!'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-2" class="level4" data-number="7.1.0.3">
-<h4 data-number="7.1.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 7.1.0.3</strong></h4>
+<section id="exercise-2" class="level4" data-number="7.0.0.3">
+<h4 data-number="7.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 7-3</strong></h4>
 <p>What happens if you do not indent the code under the if-statement?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">2</span>:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hi!'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -459,14 +458,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>By now, you probably know that your text editor is intelligent regarding indentation. If you hit Enter after a statement ending with <code>:</code>, it will indent the next line with four spaces. Also, if you use the tab in Python code, it will produce four spaces for you.</p>
 </blockquote>
 </section>
-<section id="faq" class="level3 unnumbered" data-number="7.1.1">
-<h3 class="unnumbered anchored" data-number="7.1.1" data-anchor-id="faq"><span class="header-section-number">7.1.1</span> FAQ</h3>
+<section id="faq" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="faq">FAQ</h3>
 <div class="line-block"><strong>Q:</strong> Isn’t “If” a poem by Rudyard Kipling?<br>
 <strong>A:</strong> <a href="https://www.poetryfoundation.org/poems-and-poets/poems/detail/46473">Yes.</a></div>
 </section>
 </section>
-<section id="else-statement" class="level2 unnumbered" data-number="7.2">
-<h2 class="unnumbered anchored" data-number="7.2" data-anchor-id="else-statement"><span class="header-section-number">7.2</span> Else-statement</h2>
+<section id="else-statement" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="else-statement">Else-statement</h2>
 <p>Sometimes you not only want your program to do something if an expression reduces to <code>True</code>, you also want it to do something <em>else</em> if it is <code>False</code>. It is as simple as it looks:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cookies <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -475,8 +474,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Sigh!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Remember to put a <code>:</code> after the <code>else</code> keyword. Write the code and change the value of <code>cookies</code> to <code>0</code>.</p>
-<section id="exercise-3" class="level4" data-number="7.2.0.1">
-<h4 data-number="7.2.0.1" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 7.2.0.1</strong></h4>
+<section id="exercise-3" class="level4" data-number="7.0.0.4">
+<h4 data-number="7.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 7-4</strong></h4>
 <p>Test your understanding about which expressions that reduce to a <code>True</code> or <code>False</code> value. Write the code below and then see how it responds to different values of <code>x</code>. Try to come up with other variations yourself.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">0.0</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># x = '0'</span></span>
@@ -490,12 +489,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'x is substituted with False in the if-statement)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="faq-1" class="level3 unnumbered" data-number="7.2.1">
-<h3 class="unnumbered anchored" data-number="7.2.1" data-anchor-id="faq-1"><span class="header-section-number">7.2.1</span> FAQ</h3>
+<section id="faq-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="faq-1">FAQ</h3>
 <div class="line-block"><strong>Q:</strong> Isn’t “Else” a poem by Rudyard Kipling?<br>
 <strong>A:</strong> No.</div>
-<section id="sec-nested_if_else" class="level4" data-number="7.2.1.1">
-<h4 data-number="7.2.1.1" class="anchored" data-anchor-id="sec-nested_if_else"><strong>Exercise 7.2.1.1</strong></h4>
+<section id="sec-nested_if_else" class="level4" data-number="7.0.0.5">
+<h4 data-number="7.0.0.5" class="anchored" data-anchor-id="sec-nested_if_else"><strong>Exercise 7-5</strong></h4>
 <p>What do you think this code prints? Notice how you can nest if and else-statements under other if and else-statements. This way, you can make your program include only some statements when certain combinations of conditions are met. Just remember that the code below each <code>if</code> or <code>else</code> is indented by four spaces. Try to change the True/False values of <code>milk</code> and <code>cookies</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>milk <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cookies <span class="op">=</span> <span class="va">True</span></span>
@@ -514,8 +513,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="blocks-of-code" class="level2 unnumbered" data-number="7.3">
-<h2 class="unnumbered anchored" data-number="7.3" data-anchor-id="blocks-of-code"><span class="header-section-number">7.3</span> Blocks of code</h2>
+<section id="blocks-of-code" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="blocks-of-code">Blocks of code</h2>
 <p>In the examples above, some lines are indented more than others, and you probably already have some idea of how Python interprets this. Indentation defines blocks of code. The <code>if</code> and <code>else</code> statements control each code block’s evaluation when your code runs. The following three rules define individual blocks of code:</p>
 <ol type="1">
 <li>All statements in a code block have the <em>same indentation</em>. That is, they line up vertically.</li>
@@ -534,8 +533,8 @@ Figure&nbsp;7.1: The amount of indentation defines blocks of code
 </figure>
 </div>
 </section>
-<section id="elif-statement" class="level2 unnumbered" data-number="7.4">
-<h2 class="unnumbered anchored" data-number="7.4" data-anchor-id="elif-statement"><span class="header-section-number">7.4</span> Elif-statement</h2>
+<section id="elif-statement" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="elif-statement">Elif-statement</h2>
 <p>Say you need to test several mutually exclusive scenarios. For example, if a base is equal to A, T, C, or G. You can do that like in the example below, but it is very verbose and shifts your code further and further to the right.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> <span class="st">'G'</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -561,12 +560,12 @@ Figure&nbsp;7.1: The amount of indentation defines blocks of code
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'This is guanine'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here, we put an else-statement at the end to capture all cases not covered by the if-statement and the two elif-statements.</p>
-<section id="exercise-4" class="level4" data-number="7.4.0.1">
-<h4 data-number="7.4.0.1" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 7.4.0.1</strong></h4>
-<p>You can use logical operators (<code>and</code>, <code>or</code>, <code>not</code>) in the expressions tested in an if-statement. Can you change the program from <a href="#sec-nested_if_else" class="quarto-xref"><span>Section 7.2.1.1</span></a> so that there are no nested if-statements - in a way that the program still does the same? You can use <code>if</code>, <code>elif</code>, and <code>else</code> and test if, e.g., <code>milk</code> and <code>cookies</code> are true using <code>and.</code></p>
+<section id="exercise-4" class="level4" data-number="7.0.0.6">
+<h4 data-number="7.0.0.6" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 7-6</strong></h4>
+<p>You can use logical operators (<code>and</code>, <code>or</code>, <code>not</code>) in the expressions tested in an if-statement. Can you change the program from <a href="#sec-nested_if_else" class="quarto-xref"><span>Section 7.0.0.5</span></a> so that there are no nested if-statements - in a way that the program still does the same? You can use <code>if</code>, <code>elif</code>, and <code>else</code> and test if, e.g., <code>milk</code> and <code>cookies</code> are true using <code>and.</code></p>
 </section>
-<section id="exercise-5" class="level4" data-number="7.4.0.2">
-<h4 data-number="7.4.0.2" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 7.4.0.2</strong></h4>
+<section id="exercise-5" class="level4" data-number="7.0.0.7">
+<h4 data-number="7.0.0.7" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 7-7</strong></h4>
 <p>The snippet of code below has three blocks with three statements. Which statements belong to which block? Which statements are executed?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">4</span>:</span>
@@ -578,8 +577,8 @@ Figure&nbsp;7.1: The amount of indentation defines blocks of code
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-6" class="level4" data-number="7.4.0.3">
-<h4 data-number="7.4.0.3" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 7.4.0.3</strong></h4>
+<section id="exercise-6" class="level4" data-number="7.0.0.8">
+<h4 data-number="7.0.0.8" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 7-8</strong></h4>
 <p>Can you see four blocks of code? If not, read the three rules above again. Which statements are executed?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">4</span>:</span>
@@ -593,22 +592,22 @@ Figure&nbsp;7.1: The amount of indentation defines blocks of code
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="general-exercises" class="level2 unnumbered" data-number="7.5">
-<h2 class="unnumbered anchored" data-number="7.5" data-anchor-id="general-exercises"><span class="header-section-number">7.5</span> General exercises</h2>
-<section id="exercise-7" class="level4" data-number="7.5.0.1">
-<h4 data-number="7.5.0.1" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 7.5.0.1</strong></h4>
+<section id="general-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
+<section id="exercise-7" class="level4" data-number="7.0.0.9">
+<h4 data-number="7.0.0.9" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 7-9</strong></h4>
 <p>Will this print <code>You are a superstar!</code>?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">-</span><span class="dv">4</span> <span class="kw">and</span> <span class="dv">0</span> <span class="kw">or</span> <span class="st">'banana'</span> <span class="kw">and</span> <span class="kw">not</span> <span class="va">False</span>:</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You are a super star!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-8" class="level4" data-number="7.5.0.2">
-<h4 data-number="7.5.0.2" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 7.5.0.2</strong></h4>
+<section id="exercise-8" class="level4" data-number="7.0.0.10">
+<h4 data-number="7.0.0.10" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 7-10</strong></h4>
 <p>Will this print <code>You are a superstar!</code>?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">-</span><span class="dv">1</span> <span class="op">+</span> <span class="dv">16</span> <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span> :</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You are a super star!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-9" class="level4" data-number="7.5.0.3">
-<h4 data-number="7.5.0.3" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 7.5.0.3</strong></h4>
+<section id="exercise-9" class="level4" data-number="7.0.0.11">
+<h4 data-number="7.0.0.11" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 7-11</strong></h4>
 <p>Assign values to two variables, <code>x</code> and <code>y</code>. Then, write code that prints <code>OK</code> if (and only if) <code>x</code> is smaller than five <em>and</em> <code>y</code> is larger than five. Do it using <em>two</em> <code>if</code> statements:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span> <span class="co"># or something else</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">7</span> <span class="co"># or something else</span></span>
@@ -616,8 +615,8 @@ Figure&nbsp;7.1: The amount of indentation defines blocks of code
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rest of code here...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now solve the same problem using only <em>one</em> <code>if</code> statement.</p>
 </section>
-<section id="exercise-10" class="level4" data-number="7.5.0.4">
-<h4 data-number="7.5.0.4" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 7.5.0.4</strong></h4>
+<section id="exercise-10" class="level4" data-number="7.0.0.12">
+<h4 data-number="7.0.0.12" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 7-12</strong></h4>
 <p>Assign values to two variables, <code>x</code> and <code>y</code>. Then, write some code that prints <code>OK</code> if and only if <code>x</code> is smaller than five <em>or</em> <code>y</code> is larger than five. Do it using <em>two</em> <code>if</code> statements:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span> <span class="co"># or something else</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="op">=</span> <span class="dv">7</span> <span class="co"># or something else</span></span>
@@ -625,16 +624,16 @@ Figure&nbsp;7.1: The amount of indentation defines blocks of code
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rest of code here...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now solve the same problem using only <em>one</em> <code>if</code> statement and <em>one</em> <code>elif</code> statement.</p>
 </section>
-<section id="exercise-11" class="level4" data-number="7.5.0.5">
-<h4 data-number="7.5.0.5" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 7.5.0.5</strong></h4>
+<section id="exercise-11" class="level4" data-number="7.0.0.13">
+<h4 data-number="7.0.0.13" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 7-13</strong></h4>
 <p>Assign values to two variables, <code>x</code> and <code>y</code>. Then, write some code that prints <code>OK</code> if either <code>x</code> or <code>y</code> is zero but not if both are zero (this is tricky).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span> <span class="co"># or something else</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">7</span> <span class="co"># or something else</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rest of code here...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-12" class="level4" data-number="7.5.0.6">
-<h4 data-number="7.5.0.6" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 7.5.0.6</strong></h4>
+<section id="exercise-12" class="level4" data-number="7.0.0.14">
+<h4 data-number="7.0.0.14" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 7-14</strong></h4>
 <p>Which value of <code>x</code> makes the code below print Banana?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">''</span></span>
@@ -661,8 +660,8 @@ else:
 z = x > y and x or y
 ``` -->
 </section>
-<section id="exercise-13" class="level4" data-number="7.5.0.7">
-<h4 data-number="7.5.0.7" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 7.5.0.7</strong></h4>
+<section id="exercise-13" class="level4" data-number="7.0.0.15">
+<h4 data-number="7.0.0.15" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 7-15</strong></h4>
 <p>Make three exercises that require the knowledge of programming so far. Have your fellow students solve them.</p>
 
 

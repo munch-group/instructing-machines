@@ -76,10 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d0d315799576689a4f90e4d7de6aa78.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-534a37a8c2a00f4c0ed23d96546cde3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -359,9 +358,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#writing-files" id="toc-writing-files" class="nav-link active" data-scroll-target="#writing-files"><span class="header-section-number">15.1</span> Writing files</a></li>
-  <li><a href="#reading-files" id="toc-reading-files" class="nav-link" data-scroll-target="#reading-files"><span class="header-section-number">15.2</span> Reading files</a></li>
-  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises"><span class="header-section-number">15.3</span> General exercises</a></li>
+  <li><a href="#writing-files" id="toc-writing-files" class="nav-link active" data-scroll-target="#writing-files">Writing files</a></li>
+  <li><a href="#reading-files" id="toc-reading-files" class="nav-link" data-scroll-target="#reading-files">Reading files</a></li>
+  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -388,11 +387,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>This chapter covers the bare necessities of making your program read data from a file on your computer and how to create a file to write results.</em></p>
-<section id="writing-files" class="level2 unnumbered" data-number="15.1">
-<h2 class="unnumbered anchored" data-number="15.1" data-anchor-id="writing-files"><span class="header-section-number">15.1</span> Writing files</h2>
+<section id="writing-files" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="writing-files">Writing files</h2>
 <p>To interact with a file on your hard disk, you need to know its name and whether you want to write to it or read from it. Then, you can use the built-in function <code>open</code> to create a file object that lets you read or write to that file. The <code>open</code> function takes two arguments: The first is a string, which gives the file’s name. The second argument is also a string and should be <code>'w'</code> for “write” if you want to write to the file or <code>'r'</code> for “read” if you are going to read from the file. To keep things simple, we will assume that the file you want to open is always in the same folder (directory) as the Python script that calls the <code>open</code> function.</p>
-<section id="sec-write_to_file" class="level4" data-number="15.1.0.1">
-<h4 data-number="15.1.0.1" class="anchored" data-anchor-id="sec-write_to_file"><strong>Exercise 15.1.0.1</strong></h4>
+<section id="sec-write_to_file" class="level4" data-number="15.0.0.1">
+<h4 data-number="15.0.0.1" class="anchored" data-anchor-id="sec-write_to_file"><strong>Exercise 15-1</strong></h4>
 <p>Try to write the code below and run it:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"First line</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -410,8 +409,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>Note that if you open a file for writing, a file with that name is created. If a file of that name already exists, it is overwritten.</p>
 </section>
-<section id="exercise" class="level4" data-number="15.1.0.2">
-<h4 data-number="15.1.0.2" class="anchored" data-anchor-id="exercise"><strong>Exercise 15.1.0.2</strong></h4>
+<section id="exercise" class="level4" data-number="15.0.0.2">
+<h4 data-number="15.0.0.2" class="anchored" data-anchor-id="exercise"><strong>Exercise 15-2</strong></h4>
 <p>Close workfile.txt in <em>VScode</em> again and change your program above to this (removing the <code>\n</code> characters):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"First line"</span>)</span>
@@ -419,31 +418,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What do you think the content of workfile.txt is now? Decide before you open workfile.txt in <em>VScode</em> again and have a look. What do you think the <code>\n</code> character represents?</p>
 </section>
-<section id="exercise-1" class="level4" data-number="15.1.0.3">
-<h4 data-number="15.1.0.3" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 15.1.0.3</strong></h4>
+<section id="exercise-1" class="level4" data-number="15.0.0.3">
+<h4 data-number="15.0.0.3" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 15-3</strong></h4>
 <p>Close workfile.txt in <em>VScode</em> and change your program above to this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"First line</span><span class="ch">\n</span><span class="st">Second line</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Can you see how that is equivalent to what you did before? Open workfile.txt in <em>VScode</em> again and have a look.</p>
 </section>
-<section id="sec-write_to_file_with_print" class="level4" data-number="15.1.0.4">
-<h4 data-number="15.1.0.4" class="anchored" data-anchor-id="sec-write_to_file_with_print"><strong>Exercise 15.1.0.4</strong></h4>
+<section id="sec-write_to_file_with_print" class="level4" data-number="15.0.0.4">
+<h4 data-number="15.0.0.4" class="anchored" data-anchor-id="sec-write_to_file_with_print"><strong>Exercise 15-4</strong></h4>
 <p>You can also make <code>print</code> write to a file instead of the terminal. That way, your output will end up in the file instead of the terminal. To make print write to a file, you need to use print’s <code>file</code> keyword argument to tell print which file to write to. The argument must be an object that represents the file you want to write to (<code>file=f</code> below). Try to write the code below and run it:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"First line"</span>, <span class="bu">file</span><span class="op">=</span>f)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Second line, file=f"</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Compare the code to that in <a href="#sec-write_to_file" class="quarto-xref"><span>Section 15.1.0.1</span></a>. Notice how the strings we print end with a newline character <code>\n</code>. This is because the default behavior for <code>print</code> is to add a new line to the end of what it prints—just like when you print to the terminal.</p>
+<p>Compare the code to that in <a href="#sec-write_to_file" class="quarto-xref"><span>Section 15.0.0.1</span></a>. Notice how the strings we print end with a newline character <code>\n</code>. This is because the default behavior for <code>print</code> is to add a new line to the end of what it prints—just like when you print to the terminal.</p>
 </section>
 </section>
-<section id="reading-files" class="level2 unnumbered" data-number="15.2">
-<h2 class="unnumbered anchored" data-number="15.2" data-anchor-id="reading-files"><span class="header-section-number">15.2</span> Reading files</h2>
-<p>When you want to read a from an existing file, you give the <code>open</code> function the name of that file and specify <code>'r'</code> for reading as a second argument. If the file you name does not exist, Python will tell you it does not exist (it is nice like that). Before you head into the rest of this section, make sure you redo <a href="#sec-write_to_file" class="quarto-xref"><span>Section 15.1.0.1</span></a> so the content of workfile.txt is:</p>
+<section id="reading-files" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="reading-files">Reading files</h2>
+<p>When you want to read a from an existing file, you give the <code>open</code> function the name of that file and specify <code>'r'</code> for reading as a second argument. If the file you name does not exist, Python will tell you it does not exist (it is nice like that). Before you head into the rest of this section, make sure you redo <a href="#sec-write_to_file" class="quarto-xref"><span>Section 15.0.0.1</span></a> so the content of workfile.txt is:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">First</span> line</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Second</span> line</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="sec-read_from_file" class="level4" data-number="15.2.0.1">
-<h4 data-number="15.2.0.1" class="anchored" data-anchor-id="sec-read_from_file"><strong>Exercise 15.2.0.1</strong></h4>
+<section id="sec-read_from_file" class="level4" data-number="15.0.0.5">
+<h4 data-number="15.0.0.5" class="anchored" data-anchor-id="sec-read_from_file"><strong>Exercise 15-5</strong></h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>file_content <span class="op">=</span> f.read()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(file_content)</span>
@@ -456,16 +455,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>You closed the file using the <code>close</code> method of the file object.</li>
 </ol>
 </section>
-<section id="exercise-2" class="level4" data-number="15.2.0.2">
-<h4 data-number="15.2.0.2" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 15.2.0.2</strong></h4>
+<section id="exercise-2" class="level4" data-number="15.0.0.6">
+<h4 data-number="15.0.0.6" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 15-6</strong></h4>
 <p>Try to read from the file after you close it:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile'</span>, <span class="st">'r'</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>f.close()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>file_content <span class="op">=</span> f.read()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Do you get an error? Which one? Do you understand why?</p>
 </section>
-<section id="exercise-3" class="level4" data-number="15.2.0.3">
-<h4 data-number="15.2.0.3" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 15.2.0.3</strong></h4>
+<section id="exercise-3" class="level4" data-number="15.0.0.7">
+<h4 data-number="15.0.0.7" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 15-7</strong></h4>
 <p>You can use the <code>readline</code> method to read one line at a time. What do you think happens if you run this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> f.readline()</span>
@@ -478,8 +477,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>f.close()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-4" class="level4" data-number="15.2.0.4">
-<h4 data-number="15.2.0.4" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 15.2.0.4</strong></h4>
+<section id="exercise-4" class="level4" data-number="15.0.0.8">
+<h4 data-number="15.0.0.8" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 15-8</strong></h4>
 <p>Look at the code below and figure out for yourself what it does:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>input_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'results.txt'</span>, <span class="st">'w'</span>)</span>
@@ -489,18 +488,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    output_file.write(line)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then, run it and open results.txt in <em>VScode</em> and see what it produced.</p>
 <p>Were you surprised that the file object can be an iterator in a for-loop? Just like stings can iterate over characters, lists can iterate over values, dictionaries can iterate over keys, and file objects can iterate over the lines in the file.</p>
-<p>Try to modify your code to use the <code>print</code> function instead of the <code>write</code> method (see <a href="#sec-write_to_file_with_print" class="quarto-xref"><span>Section 15.1.0.4</span></a>).</p>
+<p>Try to modify your code to use the <code>print</code> function instead of the <code>write</code> method (see <a href="#sec-write_to_file_with_print" class="quarto-xref"><span>Section 15.0.0.4</span></a>).</p>
 </section>
 </section>
-<section id="general-exercises" class="level2 unnumbered" data-number="15.3">
-<h2 class="unnumbered anchored" data-number="15.3" data-anchor-id="general-exercises"><span class="header-section-number">15.3</span> General exercises</h2>
-<section id="exercise-5" class="level4" data-number="15.3.0.1">
-<h4 data-number="15.3.0.1" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 15.3.0.1</strong></h4>
+<section id="general-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
+<section id="exercise-5" class="level4" data-number="15.0.0.9">
+<h4 data-number="15.0.0.9" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 15-9</strong></h4>
 <p>Write a function <code>read_file</code> that takes the name of a file as an argument. The function should read the content and return it. Like:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>content_of_file <span class="op">=</span> read_file(<span class="st">'some_file.txt'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-6" class="level4" data-number="15.3.0.2">
-<h4 data-number="15.3.0.2" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 15.3.0.2</strong></h4>
+<section id="exercise-6" class="level4" data-number="15.0.0.10">
+<h4 data-number="15.0.0.10" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 15-10</strong></h4>
 <p>Write a function that takes the name of two files as arguments. The file should read the content of the first file and write it to the second file.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>copy_file(<span class="st">'some_file.txt'</span>, <span class="st">'other_file.txt'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 

@@ -76,10 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d0d315799576689a4f90e4d7de6aa78.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-534a37a8c2a00f4c0ed23d96546cde3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -359,11 +358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#methods" id="toc-methods" class="nav-link active" data-scroll-target="#methods"><span class="header-section-number">9.1</span> Methods</a></li>
-  <li><a href="#using-the-python-documentation" id="toc-using-the-python-documentation" class="nav-link" data-scroll-target="#using-the-python-documentation"><span class="header-section-number">9.2</span> Using the Python documentation</a></li>
-  <li><a href="#string-formatting" id="toc-string-formatting" class="nav-link" data-scroll-target="#string-formatting"><span class="header-section-number">9.3</span> String formatting</a></li>
-  <li><a href="#indexing-and-slicing-strings" id="toc-indexing-and-slicing-strings" class="nav-link" data-scroll-target="#indexing-and-slicing-strings"><span class="header-section-number">9.4</span> Indexing and slicing strings</a></li>
-  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises"><span class="header-section-number">9.5</span> General exercises</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link active" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#using-the-python-documentation" id="toc-using-the-python-documentation" class="nav-link" data-scroll-target="#using-the-python-documentation">Using the Python documentation</a></li>
+  <li><a href="#string-formatting" id="toc-string-formatting" class="nav-link" data-scroll-target="#string-formatting">String formatting</a></li>
+  <li><a href="#indexing-and-slicing-strings" id="toc-indexing-and-slicing-strings" class="nav-link" data-scroll-target="#indexing-and-slicing-strings">Indexing and slicing strings</a></li>
+  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -390,8 +389,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>This chapter introduces the notion of an object, one of the most central aspects of Python. Once you catch your breath, you will love that all Python values are objects.</em></p>
-<section id="methods" class="level2 unnumbered" data-number="9.1">
-<h2 class="unnumbered anchored" data-number="9.1" data-anchor-id="methods"><span class="header-section-number">9.1</span> Methods</h2>
+<section id="methods" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="methods">Methods</h2>
 <p>In Python, a value like an integer or string not only holds data. It is also packaged with a lot of useful functionality relevant to the particular type of value. When a value is packaged with such relevant functionality and meta information, programmers call it an object—and in Python, all values are objects.</p>
 <p>The associated functionality comes in the form of <em>methods</em>. You can think of methods as functions that are packaged together with the value. For example, string values have a method called <code>capitalize</code>. Try it out:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"banana"</span>.capitalize()</span>
@@ -422,8 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>new_message <span class="op">=</span> message.replace(<span class="st">"Cool"</span>, <span class="st">"Fantastic"</span>)</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_message)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can see what these methods do. For example: <code>upper</code> returns an uppercased copy of the string.</p>
-<section id="sec-first_format_exe" class="level4" data-number="9.1.0.1">
-<h4 data-number="9.1.0.1" class="anchored" data-anchor-id="sec-first_format_exe"><strong>Exercise 9.1.0.1</strong></h4>
+<section id="sec-first_format_exe" class="level4" data-number="9.0.0.1">
+<h4 data-number="9.0.0.1" class="anchored" data-anchor-id="sec-first_format_exe"><strong>Exercise 9-1</strong></h4>
 <p>Write and run the following code. What do you think it does?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> <span class="st">'</span><span class="ch">\n\t</span><span class="st">Some text</span><span class="ch">\n</span><span class="st">'</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&gt;</span><span class="sc">{}</span><span class="st">&lt;"</span>.<span class="bu">format</span>(line))</span>
@@ -432,8 +431,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&gt;</span><span class="sc">{}</span><span class="st">&lt;"</span>.<span class="bu">format</span>(line))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Make sure you do the substitution and reduction steps in your head. Be especially careful about the third line of code. Also, what do you think the special <code>\t</code> character is?</p>
 </section>
-<section id="exercise" class="level4" data-number="9.1.0.2">
-<h4 data-number="9.1.0.2" class="anchored" data-anchor-id="exercise"><strong>Exercise 9.1.0.2</strong></h4>
+<section id="exercise" class="level4" data-number="9.0.0.2">
+<h4 data-number="9.0.0.2" class="anchored" data-anchor-id="exercise"><strong>Exercise 9-2</strong></h4>
 <p>The string methods you have tried so far have all returned a new string. Try this example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">'ATGACGCGGA'</span>.startswith(<span class="st">'ATG'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and this</p>
@@ -441,26 +440,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>What do the methods do, and what do they return?</p>
 </section>
 </section>
-<section id="using-the-python-documentation" class="level2 unnumbered" data-number="9.2">
-<h2 class="unnumbered anchored" data-number="9.2" data-anchor-id="using-the-python-documentation"><span class="header-section-number">9.2</span> Using the Python documentation</h2>
+<section id="using-the-python-documentation" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="using-the-python-documentation">Using the Python documentation</h2>
 <p>Now that you are well underway to becoming a programmer, you should know your way around the <a href="https://docs.python.org/3">Python documentation</a>. Especially the part called the <a href="https://docs.python.org/3/library">Python standard library</a>. There is a <em>lot</em> of details in there that we do not cover in this course. These are mainly tools and techniques for writing more efficient, extensible, robust, and flexible code. The parts we cover in this course are the minimal set that will allow you to write a program that can do <em>anything</em>.</p>
-<section id="exercise-1" class="level4" data-number="9.2.0.1">
-<h4 data-number="9.2.0.1" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 9.2.0.1</strong></h4>
+<section id="exercise-1" class="level4" data-number="9.0.0.3">
+<h4 data-number="9.0.0.3" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 9-3</strong></h4>
 <p>There is a string method that returns a secret agent:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'7'</span>.zfill(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can look it up in the <a href="https://docs.python.org/3/library/stdtypes.html#str.zfill">Python documentation</a>.</p>
 </section>
-<section id="exercise-2" class="level4" data-number="9.2.0.2">
-<h4 data-number="9.2.0.2" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 9.2.0.2</strong></h4>
+<section id="exercise-2" class="level4" data-number="9.0.0.4">
+<h4 data-number="9.0.0.4" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 9-4</strong></h4>
 <p>Browse through all the <a href="https://docs.python.org/3/library/stdtypes.html#string-methods">string methods</a> to get an impression of all the functionality that is packaged with string objects.</p>
 </section>
 </section>
-<section id="string-formatting" class="level2 unnumbered" data-number="9.3">
-<h2 class="unnumbered anchored" data-number="9.3" data-anchor-id="string-formatting"><span class="header-section-number">9.3</span> String formatting</h2>
-<p>You have already tried string formatting in <a href="#sec-first_format_exe" class="quarto-xref"><span>Section 9.1.0.1</span></a>. String formatting is a simple but powerful technique that lets you generate pretty strings from pre-computed values. You may have noticed that many decimals are shown every time we print a floating-point number. It is not very pretty if you are only interested in two decimals. You use the <code>format</code> method (surprise) to format a string. In its most straightforward use, <code>format</code> replaces occurrences of <code>{}</code> with the arguments that are passed to it - like this:</p>
+<section id="string-formatting" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="string-formatting">String formatting</h2>
+<p>You have already tried string formatting in <a href="#sec-first_format_exe" class="quarto-xref"><span>Section 9.0.0.1</span></a>. String formatting is a simple but powerful technique that lets you generate pretty strings from pre-computed values. You may have noticed that many decimals are shown every time we print a floating-point number. It is not very pretty if you are only interested in two decimals. You use the <code>format</code> method (surprise) to format a string. In its most straightforward use, <code>format</code> replaces occurrences of <code>{}</code> with the arguments that are passed to it - like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>taxon <span class="op">=</span> <span class="st">"genus:</span><span class="sc">{}</span><span class="st">, species:</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="st">'Homo'</span>, <span class="st">'sapiens'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="exercise-3" class="level4" data-number="9.3.0.1">
-<h4 data-number="9.3.0.1" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 9.3.0.1</strong></h4>
+<section id="exercise-3" class="level4" data-number="9.0.0.5">
+<h4 data-number="9.0.0.5" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 9-5</strong></h4>
 <p>What happens if you try this?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"Was </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="st"> Swedish?"</span>.<span class="bu">format</span>(<span class="st">'Carl'</span>, <span class="st">'Linneaus'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and this?</p>
@@ -469,15 +468,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"Was </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="st"> Swedish?"</span>.<span class="bu">format</span>(<span class="st">'Carl Linneaus'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In the two last examples, the number of <code>{}</code> did not match the number of arguments to <code>format</code>. What happens when there are too few and when there are too many?</p>
 </section>
-<section id="exercise-4" class="level4" data-number="9.3.0.2">
-<h4 data-number="9.3.0.2" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 9.3.0.2</strong></h4>
+<section id="exercise-4" class="level4" data-number="9.0.0.6">
+<h4 data-number="9.0.0.6" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 9-6</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"</span><span class="sc">{}</span><span class="st"> is larger than </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="dv">4</span>, <span class="dv">3</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What will happen if you run this code? Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
 </section>
-<section id="exercise-5" class="level4" data-number="9.3.0.3">
-<h4 data-number="9.3.0.3" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 9.3.0.3</strong></h4>
+<section id="exercise-5" class="level4" data-number="9.0.0.7">
+<h4 data-number="9.0.0.7" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 9-7</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>language <span class="op">=</span> <span class="st">'Python'</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>invention <span class="op">=</span> <span class="st">'sliced bread'</span></span>
@@ -485,8 +484,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What will happen if you run this code? Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
 </section>
-<section id="exercise-6" class="level4" data-number="9.3.0.4">
-<h4 data-number="9.3.0.4" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 9.3.0.4</strong></h4>
+<section id="exercise-6" class="level4" data-number="9.0.0.8">
+<h4 data-number="9.0.0.8" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 9-8</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>my_template <span class="op">=</span> <span class="st">'</span><span class="sc">{}</span><span class="st"> is the best thing since </span><span class="sc">{}</span><span class="st">'</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>language <span class="op">=</span> <span class="st">'Python'</span></span>
@@ -494,9 +493,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_template.<span class="bu">format</span>(language, <span class="dv">1900</span> <span class="op">+</span> <span class="dv">89</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What will happen if you run this code? Do the substitution and reduction steps in your head.</p>
 </section>
-<section id="exercise-7" class="level4" data-number="9.3.0.5">
-<h4 data-number="9.3.0.5" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 9.3.0.5</strong></h4>
-<p>Think back to <a href="values-operators-logic.html#sec-chocolatebars" class="quarto-xref"><span>Section 5.1.0.3</span></a>, where you calculated how many cookies you could buy for 30 kr. The bars are 7 kr. So your program looked something like this:</p>
+<section id="exercise-7" class="level4" data-number="9.0.0.9">
+<h4 data-number="9.0.0.9" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 9-9</strong></h4>
+<p>Think back to <a href="values-operators-logic.html#sec-chocolatebars" class="quarto-xref"><span>Section 5.0.0.3</span></a>, where you calculated how many cookies you could buy for 30 kr. The bars are 7 kr. So your program looked something like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nr_bars <span class="op">=</span> <span class="dv">30</span> <span class="op">/</span> <span class="dv">7</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'I can buy'</span>, nr_bars, <span class="st">'chocolate bars!'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and it ran like this: <code>python chocolate.py</code></p>
@@ -507,8 +506,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Try to replace <code>{}</code> with <code>{:.2f}</code>. <code>format</code> reads the stuff after the colon in each set of curly brackets and uses it as directions for formatting the value it inserts. Try it out and see what happens if you change the number <code>2</code> to <code>3</code>, <code>4</code>, <code>5</code> or <code>10</code>.</p>
 </section>
-<section id="exercise-8" class="level4" data-number="9.3.0.6">
-<h4 data-number="9.3.0.6" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 9.3.0.6</strong></h4>
+<section id="exercise-8" class="level4" data-number="9.0.0.10">
+<h4 data-number="9.0.0.10" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 9-10</strong></h4>
 <p>See if you can find the documentation for the <code>format</code> function in the <a href="https://docs.python.org/3">Python documentation</a>. It can do wondrous things, for this course we will only try to control the number of digits and padding with spaces. Look at the examples below. Maybe you can figure out how it works.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="fl">3.14159265359</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*</span><span class="sc">{}</span><span class="st">*"</span>.<span class="bu">format</span>(pi))</span>
@@ -517,8 +516,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*</span><span class="sc">{:&gt;5.3f}</span><span class="st">*"</span>.<span class="bu">format</span>(pi))</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*</span><span class="sc">{:&gt;10.3f}</span><span class="st">*"</span>.<span class="bu">format</span>(pi))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-add_method" class="level4" data-number="9.3.0.7">
-<h4 data-number="9.3.0.7" class="anchored" data-anchor-id="sec-add_method"><strong>Exercise 9.3.0.7</strong></h4>
+<section id="sec-add_method" class="level4" data-number="9.0.0.11">
+<h4 data-number="9.0.0.11" class="anchored" data-anchor-id="sec-add_method"><strong>Exercise 9-11</strong></h4>
 <p>This is bonus info rather than an actual exercise. How do you think Python can figure out that adding strings is supposed to work differently than adding numbers? Remember that <code>'1' + '2'</code> is <code>'12'</code> not <code>3</code>. The answer is that all values you can add with the <code>+</code> operator have a secret method called <code>__add__</code> that defines how adding works for that type of value:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>s1 <span class="op">=</span> <span class="st">"11"</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="op">=</span> <span class="st">"22"</span></span>
@@ -531,8 +530,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is one of many examples of how objects allow Python to implement functionality that fits each value type. This was to show how Python does this. Like yellow and black stripes in nature means “don’t touch me!” – double underscores (<code>__</code>) is Python’s way of saying “do not use this!”. You are supposed to use the <code>+</code> operator, not the <code>__add__</code> method.</p>
 </section>
 </section>
-<section id="indexing-and-slicing-strings" class="level2 unnumbered" data-number="9.4">
-<h2 class="unnumbered anchored" data-number="9.4" data-anchor-id="indexing-and-slicing-strings"><span class="header-section-number">9.4</span> Indexing and slicing strings</h2>
+<section id="indexing-and-slicing-strings" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="indexing-and-slicing-strings">Indexing and slicing strings</h2>
 <p>Another feature of string objects is that they allow you to extract individual parts of the string.</p>
 <p>Each character in a string is identified by its <em>index</em> in the string. To access a character in a list, you write brackets after the string. Between those brackets, you specify the index of the character you want. The first character has an index of 0; the second has an index of 1, and so on.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>codon <span class="op">=</span> <span class="st">'ATG'</span></span>
@@ -547,19 +546,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you want a sub-string from a larger string (we call that a <em>slice</em>), you specify a start index and an end index separated by a colon:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(amino_acids[<span class="dv">1</span>:<span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When you run that, you can see that <code>amino_acids[1:4]</code> is substituted for <code>'RND'</code>, so the slicing operation produces a sub-string of <code>amino_acids</code>. You may wonder why the value at index 4 is not in the resulting sub-string. That is another programming convention: intervals are <em>ends exclusive</em>. So when you specify an interval with a start index of 1 and an end index of 4, it represents all the characters starting from 1 and up to, <em>but not including</em>, 4. So, the slice <code>1:4</code> corresponds to the characters at indexes 1, 2, and 3. The reason programmers handle intervals in this way is that it makes it easier to write clear and simple code as you will see in the exercises.</p>
-<section id="exercise-9" class="level4" data-number="9.4.0.1">
-<h4 data-number="9.4.0.1" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 9.4.0.1</strong></h4>
+<section id="exercise-9" class="level4" data-number="9.0.0.12">
+<h4 data-number="9.0.0.12" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 9-12</strong></h4>
 <p>What does this expression reduce to?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">"Futterwacken"</span>[<span class="dv">7</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-10" class="level4" data-number="9.4.0.2">
-<h4 data-number="9.4.0.2" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 9.4.0.2</strong></h4>
+<section id="exercise-10" class="level4" data-number="9.0.0.13">
+<h4 data-number="9.0.0.13" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 9-13</strong></h4>
 <p>What is printed here? Do all the substitution and reduction steps and compare to the exercise above.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"Futterwacken"</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[<span class="dv">7</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-11" class="level4" data-number="9.4.0.3">
-<h4 data-number="9.4.0.3" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 9.4.0.3</strong></h4>
+<section id="exercise-11" class="level4" data-number="9.0.0.14">
+<h4 data-number="9.0.0.14" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 9-14</strong></h4>
 <p>What is printed here? Do all the substitution and reduction steps – and do it <em>twice</em>. Next week you will be happy you did.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'TGAC'</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
@@ -569,34 +568,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dna[i])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-immutable_strings" class="level4" data-number="9.4.0.4">
-<h4 data-number="9.4.0.4" class="anchored" data-anchor-id="sec-immutable_strings"><strong>Exercise 9.4.0.4</strong></h4>
+<section id="sec-immutable_strings" class="level4" data-number="9.0.0.15">
+<h4 data-number="9.0.0.15" class="anchored" data-anchor-id="sec-immutable_strings"><strong>Exercise 9-15</strong></h4>
 <p>What do you think happens here? Make up your mind and try out the code below:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"Futterwacken"</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>s[<span class="dv">6</span>] <span class="op">=</span> <span class="st">'W'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Did you see that coming? Strings are <em>immutable</em>, which means that you cannot change them once you have made them. If you want <code>"FutterWacken"</code> you need to produce a new string with that value. Try to figure out how to do that with the <a href="https://docs.python.org/3/library/stdtypes.html#string-methods"><code>replace</code></a> method of strings.</p>
 </section>
-<section id="exercise-12" class="level4" data-number="9.4.0.5">
-<h4 data-number="9.4.0.5" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 9.4.0.5</strong></h4>
+<section id="exercise-12" class="level4" data-number="9.0.0.16">
+<h4 data-number="9.0.0.16" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 9-16</strong></h4>
 <p>When you do not specify a slice’s start and/or end, Python will assume sensible defaults for the start and end indexes. What do you think they are? Make up your mind and try out the code below:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvxyz'</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[:<span class="dv">11</span>])</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[<span class="dv">11</span>:])</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[:])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-slicing_docs" class="level4" data-number="9.4.0.6">
-<h4 data-number="9.4.0.6" class="anchored" data-anchor-id="sec-slicing_docs"><strong>Exercise 9.4.0.6</strong></h4>
+<section id="sec-slicing_docs" class="level4" data-number="9.0.0.17">
+<h4 data-number="9.0.0.17" class="anchored" data-anchor-id="sec-slicing_docs"><strong>Exercise 9-17</strong></h4>
 <p>Find the documentation for how the slicing of strings works.</p>
 </section>
-<section id="exercise-13" class="level4" data-number="9.4.0.7">
-<h4 data-number="9.4.0.7" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 9.4.0.7</strong></h4>
+<section id="exercise-13" class="level4" data-number="9.0.0.18">
+<h4 data-number="9.0.0.18" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 9-18</strong></h4>
 <p>What do you think happens when you specify an index that does not correspond to a value in the list:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>alphabet <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvxyz'</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alphabet[<span class="dv">99</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Read and make sure you understand the error message. You can try to Google the error message.</p>
 </section>
-<section id="exercise-14" class="level4" data-number="9.4.0.8">
-<h4 data-number="9.4.0.8" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 9.4.0.8</strong></h4>
+<section id="exercise-14" class="level4" data-number="9.0.0.19">
+<h4 data-number="9.0.0.19" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 9-19</strong></h4>
 <p>Do you think you also get an error when you specify a slice where the end is too high? Try it out:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>alphabet <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvxyz'</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alphabet[<span class="dv">13</span>:<span class="dv">99</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -605,13 +604,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alphabet[<span class="dv">10000</span>:<span class="dv">10007</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>I guess that is worth remembering.</p>
 </section>
-<section id="exercise-15" class="level4" data-number="9.4.0.9">
-<h4 data-number="9.4.0.9" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 9.4.0.9</strong></h4>
+<section id="exercise-15" class="level4" data-number="9.0.0.20">
+<h4 data-number="9.0.0.20" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 9-20</strong></h4>
 <p>Which character in a string named <code>alphabet</code> does this expression reduce to?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>alphabet[<span class="bu">len</span>(alphabet)<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-16" class="level4" data-number="9.4.0.10">
-<h4 data-number="9.4.0.10" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 9.4.0.10</strong></h4>
+<section id="exercise-16" class="level4" data-number="9.0.0.21">
+<h4 data-number="9.0.0.21" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 9-21</strong></h4>
 <p>Because intervals are “ends exclusive” ,we can compute the length of a slice as <code>end - start</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">"ATGAGGTCAAG"</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="dv">1</span></span>
@@ -619,8 +618,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">{}</span><span class="st"> has length </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(dna[start:end], end<span class="op">-</span>start))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Figure out what this code would look like if ends were included in intervals.</p>
 </section>
-<section id="exercise-17" class="level4" data-number="9.4.0.11">
-<h4 data-number="9.4.0.11" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 9.4.0.11</strong></h4>
+<section id="exercise-17" class="level4" data-number="9.0.0.22">
+<h4 data-number="9.0.0.22" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 9-22</strong></h4>
 <p>Another advantage of “ends exclusive” intervals is that you only need one index to split a string in two:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">'Banana'</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> <span class="dv">3</span></span>
@@ -629,33 +628,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(beginning <span class="op">+</span> end)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Figure out what indexes you would need to use to split a sequence in two if ends were included in intervals.</p>
 </section>
-<section id="exercise-18" class="level4" data-number="9.4.0.12">
-<h4 data-number="9.4.0.12" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 9.4.0.12</strong></h4>
-<p>Did you look up the details of how slicing works in <a href="#sec-slicing_docs" class="quarto-xref"><span>Section 9.4.0.6</span></a>? Then you should be able to explain what happens here:</p>
+<section id="exercise-18" class="level4" data-number="9.0.0.23">
+<h4 data-number="9.0.0.23" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 9-23</strong></h4>
+<p>Did you look up the details of how slicing works in <a href="#sec-slicing_docs" class="quarto-xref"><span>Section 9.0.0.17</span></a>? Then you should be able to explain what happens here:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">'zyxvutsrqponmlkjihgfedcba'</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="general-exercises" class="level2 unnumbered" data-number="9.5">
-<h2 class="unnumbered anchored" data-number="9.5" data-anchor-id="general-exercises"><span class="header-section-number">9.5</span> General exercises</h2>
-<section id="exercise-19" class="level4" data-number="9.5.0.1">
-<h4 data-number="9.5.0.1" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 9.5.0.1</strong></h4>
+<section id="general-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
+<section id="exercise-19" class="level4" data-number="9.0.0.24">
+<h4 data-number="9.0.0.24" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 9-24</strong></h4>
 <p>Will this print <code>Bananas rule!</code>? Do all the substitutions and reductions.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'na'</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">==</span> <span class="st">"Banana"</span>[<span class="dv">2</span>:]:</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Bananas rule!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-20" class="level4" data-number="9.5.0.2">
-<h4 data-number="9.5.0.2" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 9.5.0.2</strong></h4>
+<section id="exercise-20" class="level4" data-number="9.0.0.25">
+<h4 data-number="9.0.0.25" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 9-25</strong></h4>
 <p>Will this print <code>Bananas rule!</code>? Do all the substitutions and reductions.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"</span><span class="sc">{}</span><span class="st">s"</span>.<span class="bu">format</span>(<span class="st">'Banana'</span>[<span class="dv">1</span>:].capitalize()) <span class="op">==</span> <span class="st">'Ananas'</span>:</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Bananas rule!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-21" class="level4" data-number="9.5.0.3">
-<h4 data-number="9.5.0.3" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 9.5.0.3</strong></h4>
+<section id="exercise-21" class="level4" data-number="9.0.0.26">
+<h4 data-number="9.0.0.26" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 9-26</strong></h4>
 <p>Write a function called <code>even_string</code> that takes a string argument and returns <code>True</code> if the length of the string is an even number and <code>False</code> otherwise. E.g. <code>even_string('Pear')</code> should return <code>True</code> and <code>even_string('Apple')</code> should return <code>False</code> (remember the <code>modulo</code> operator?).</p>
 </section>
-<section id="exercise-22" class="level4" data-number="9.5.0.4">
-<h4 data-number="9.5.0.4" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 9.5.0.4</strong></h4>
+<section id="exercise-22" class="level4" data-number="9.0.0.27">
+<h4 data-number="9.0.0.27" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 9-27</strong></h4>
 <p>Look at the code below and decide what is printed at the end. Then, write the code and test your prediction. If you are wrong, figure out why by revisiting the chapter about functions.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> enigma(x):</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">==</span> <span class="dv">4</span>:</span>
@@ -664,8 +663,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> enigma(<span class="dv">5</span>)</span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-23" class="level4" data-number="9.5.0.5">
-<h4 data-number="9.5.0.5" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 9.5.0.5</strong></h4>
+<section id="exercise-23" class="level4" data-number="9.0.0.28">
+<h4 data-number="9.0.0.28" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 9-28</strong></h4>
 <p>Inspect the code below and determine why it does not print that you are a super star. Test the function using various inputs and identify the mistake.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> even_number(x):</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span>:</span>

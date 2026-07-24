@@ -76,10 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d0d315799576689a4f90e4d7de6aa78.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-534a37a8c2a00f4c0ed23d96546cde3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -359,8 +358,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link active" data-scroll-target="#dictionaries"><span class="header-section-number">12.1</span> Dictionaries</a></li>
-  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises"><span class="header-section-number">12.2</span> General exercises</a></li>
+  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link active" data-scroll-target="#dictionaries">Dictionaries</a></li>
+  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -388,8 +387,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- \includegraphics[height=\fontcharht\font`\B]{picture.png} -->
 <p><em>This chapter is about dictionaries that, like lists, is another Python value that can contain other Python values. Dictionaries dictionaries let you build relationships between values, which is what data structures represent.</em></p>
-<section id="dictionaries" class="level2 unnumbered" data-number="12.1">
-<h2 class="unnumbered anchored" data-number="12.1" data-anchor-id="dictionaries"><span class="header-section-number">12.1</span> Dictionaries</h2>
+<section id="dictionaries" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="dictionaries">Dictionaries</h2>
 <p>Lists are useful for storing values when the order of the values is important, but they have one drawback: you can only access a value in a list using its index.</p>
 <p>A dictionary called <code>dict</code> in Python, is a much more flexible data type. Like a list, a dictionary is a container for other values, but dictionaries do not store values in sequence. They work more like a database that lets you store individual <em>values</em>. When you store a value, you assign it to a <em>key</em> that you can use to access the stored value. Now, create your first dictionary:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Robert Redford'</span>, <span class="st">'height'</span>: <span class="dv">179</span>, <span class="st">'job'</span>: <span class="st">'Actor'</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -410,18 +409,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>person[<span class="st">'hair'</span>] <span class="op">=</span> <span class="st">'uniquely combed'</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Notice that if you assign a value (<code>71</code>) to a key that is already in the dictionary (<code>'age'</code>), then the old value (<code>70</code>) is replaced.</p>
-<section id="exercise" class="level4" data-number="12.1.0.1">
-<h4 data-number="12.1.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 12.1.0.1</strong></h4>
+<section id="exercise" class="level4" data-number="12.0.0.1">
+<h4 data-number="12.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 12-1</strong></h4>
 <p>What does this expression evaluate to?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">'name'</span>: <span class="st">'Robert Redford'</span>, <span class="st">'height'</span>: <span class="dv">179</span>, <span class="st">'job'</span>: <span class="st">'Actor'</span>}[<span class="st">'name'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-1" class="level4" data-number="12.1.0.2">
-<h4 data-number="12.1.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 12.1.0.2</strong></h4>
+<section id="exercise-1" class="level4" data-number="12.0.0.2">
+<h4 data-number="12.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 12-2</strong></h4>
 <p>Assuming the definition of the <code>person</code> dictionary above, what does this expression evaluate? Compare this to the expression in the previous exercise.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>person[<span class="st">'name'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-2" class="level4" data-number="12.1.0.3">
-<h4 data-number="12.1.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 12.1.0.3</strong></h4>
+<section id="exercise-2" class="level4" data-number="12.0.0.3">
+<h4 data-number="12.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 12-3</strong></h4>
 <p>The <em>in</em> operator also works with dictionaries. Look at what these expressions reduce to and then try to figure out what <em>in</em> does when applied to a dictionary:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">'name'</span> <span class="kw">in</span> person</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">'height'</span> <span class="kw">in</span> person</span>
@@ -430,8 +429,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">'Actor'</span> <span class="kw">in</span> person</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">'Robert Redford'</span> <span class="kw">in</span> person</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-3" class="level4" data-number="12.1.0.4">
-<h4 data-number="12.1.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 12.1.0.4</strong></h4>
+<section id="exercise-3" class="level4" data-number="12.0.0.4">
+<h4 data-number="12.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 12-4</strong></h4>
 <p>Write and run this code with different values of <code>key</code> and read any error messages.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>key <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># key = 'banana'</span></span>
@@ -443,8 +442,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>d[key] <span class="op">=</span> <span class="dv">7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Are any of the values not allowed as keys?</p>
 </section>
-<section id="exercise-4" class="level4" data-number="12.1.0.5">
-<h4 data-number="12.1.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 12.1.0.5</strong></h4>
+<section id="exercise-4" class="level4" data-number="12.0.0.5">
+<h4 data-number="12.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 12-5</strong></h4>
 <p>Do you think this will work?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Robert Redford'</span>, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">'height'</span>: <span class="dv">179</span>,</span>
@@ -452,16 +451,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="general-exercises" class="level2 unnumbered" data-number="12.2">
-<h2 class="unnumbered anchored" data-number="12.2" data-anchor-id="general-exercises"><span class="header-section-number">12.2</span> General exercises</h2>
+<section id="general-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
 <!-- TODO: Find another example than Donald Trump -->
 <p>Start by making dictionaries for (some of) the Trump family:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>donald <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Donald Trump'</span>, <span class="st">'age'</span>: <span class="dv">70</span>, <span class="st">'job'</span>: <span class="st">'President'</span> }</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>melania <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Melania Trump'</span>, <span class="st">'age'</span>: <span class="dv">70</span>, <span class="st">'job'</span>: <span class="st">'First lady'</span> }</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>tiffany <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Tiffany Trump'</span>, <span class="st">'age'</span>: <span class="dv">23</span>, <span class="st">'job'</span>: <span class="st">'Internet personality'</span> }</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ivanka <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Ivanka Trump'</span>, <span class="st">'age'</span>: <span class="dv">35</span>, <span class="st">'job'</span>: <span class="st">'Top aide'</span> }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="exercise-5" class="level4" data-number="12.2.0.1">
-<h4 data-number="12.2.0.1" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 12.2.0.1</strong></h4>
+<section id="exercise-5" class="level4" data-number="12.0.0.6">
+<h4 data-number="12.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 12-6</strong></h4>
 <p>What do you think the following code produces? Do <em>all</em> of the substitution and reduction steps in your head, and only then try out the code.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>donald[<span class="st">'child'</span>] <span class="op">=</span> tiffany</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>melania[<span class="st">'husband'</span>] <span class="op">=</span> donald</span>
@@ -469,8 +468,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(melania)</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(melania[<span class="st">'husband'</span>][<span class="st">'child'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-6" class="level4" data-number="12.2.0.2">
-<h4 data-number="12.2.0.2" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 12.2.0.2</strong></h4>
+<section id="exercise-6" class="level4" data-number="12.0.0.7">
+<h4 data-number="12.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 12-7</strong></h4>
 <p>A dictionary can contain <em>any</em> kind of Python values, even lists or dictionaries. Consider the code below, where we add a list of ex-wives to the Trump persona. Can you see why we need to check the <code>'ex-wives'</code> key before we add it to the list of ex-wives?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>donald <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Donald Trump'</span>, <span class="st">'age'</span>: <span class="dv">70</span>, <span class="st">'job'</span>: <span class="st">'President'</span> }</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -481,22 +480,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(donald)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-7" class="level4" data-number="12.2.0.3">
-<h4 data-number="12.2.0.3" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 12.2.0.3</strong></h4>
+<section id="exercise-7" class="level4" data-number="12.0.0.8">
+<h4 data-number="12.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 12-8</strong></h4>
 <p>In case you wonder what the <em>type</em> of value a list is, or a dictionary, try this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A list has type:"</span>, <span class="bu">type</span>([]))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A dictionary has type:"</span>, <span class="bu">type</span>({}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now the types <code>list</code> and <code>dict</code> are your friends too.</p>
 </section>
-<section id="exercise-8" class="level4" data-number="12.2.0.4">
-<h4 data-number="12.2.0.4" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 12.2.0.4</strong></h4>
+<section id="exercise-8" class="level4" data-number="12.0.0.9">
+<h4 data-number="12.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 12-9</strong></h4>
 <p>Lists can also contain any type of value. Consider this example. What do you think the following code produces? Do <em>all</em> the substitution and reduction steps in your head, and only then try out the code.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>trump_family <span class="op">=</span> [donald, melania, ivanka, tiffany]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(trump_family)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(trump_family[<span class="dv">1</span>][<span class="st">'job'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-9" class="level4" data-number="12.2.0.5">
-<h4 data-number="12.2.0.5" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 12.2.0.5</strong></h4>
+<section id="exercise-9" class="level4" data-number="12.0.0.10">
+<h4 data-number="12.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 12-10</strong></h4>
 <p>Write and run this code</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>amino_acids <span class="op">=</span> {}</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>amino_acids[<span class="st">'ATG'</span>] <span class="op">=</span> <span class="st">'met'</span></span>

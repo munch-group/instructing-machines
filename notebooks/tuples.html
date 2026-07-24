@@ -76,10 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d0d315799576689a4f90e4d7de6aa78.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-534a37a8c2a00f4c0ed23d96546cde3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -359,8 +358,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#tuples" id="toc-tuples" class="nav-link active" data-scroll-target="#tuples"><span class="header-section-number">11.1</span> Tuples</a></li>
-  <li><a href="#tuple-assignment" id="toc-tuple-assignment" class="nav-link" data-scroll-target="#tuple-assignment"><span class="header-section-number">11.2</span> Tuple assignment</a></li>
+  <li><a href="#tuples" id="toc-tuples" class="nav-link active" data-scroll-target="#tuples">Tuples</a></li>
+  <li><a href="#tuple-assignment" id="toc-tuple-assignment" class="nav-link" data-scroll-target="#tuple-assignment">Tuple assignment</a></li>
   </ul>
 </nav>
     </div>
@@ -386,22 +385,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tuples" class="level2 unnumbered" data-number="11.1">
-<h2 class="unnumbered anchored" data-number="11.1" data-anchor-id="tuples"><span class="header-section-number">11.1</span> Tuples</h2>
+<section id="tuples" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="tuples">Tuples</h2>
 <p>A tuple is a sequence of values, just like a list. However, unlike a list, the elements of a tuple can not be changed. You cannot append to a tuple, either. Once a tuple is made, it is immutable (or unchangeable). To make a tuple, you just use round brackets instead of square brackets:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="op">=</span> (<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>It may seem strange that Python has both tuples and lists. One reason is that tuples are more efficient, whereas lists are more flexible. We will not use tuples often, but you must know what they are.</p>
 <p>You can do most of the operations on a tuple that you can also do on a list. The following exercises should be easy if you remember how to do the same thing on lists:</p>
-<section id="exercise" class="level4" data-number="11.1.0.1">
-<h4 data-number="11.1.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 11.1.0.1</strong></h4>
+<section id="exercise" class="level4" data-number="11.0.0.1">
+<h4 data-number="11.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 11-1</strong></h4>
 <p>Find the number of elements in the <code>fruits</code> tuple using the <code>len</code> function.</p>
 </section>
-<section id="exercise-1" class="level4" data-number="11.1.0.2">
-<h4 data-number="11.1.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 11.1.0.2</strong></h4>
+<section id="exercise-1" class="level4" data-number="11.0.0.2">
+<h4 data-number="11.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 11-2</strong></h4>
 <p>Extract the second element of the <code>fruits</code> tuple (<code>"banana"</code>) using indexing.</p>
 </section>
-<section id="exercise-2" class="level4" data-number="11.1.0.3">
-<h4 data-number="11.1.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 11.1.0.3</strong></h4>
+<section id="exercise-2" class="level4" data-number="11.0.0.3">
+<h4 data-number="11.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 11-3</strong></h4>
 <p>Try to change the second element of the <code>fruits</code> tuple to <code>"apple"</code> and see what happens. It should be something like this:</p>
 <pre><code>Traceback (most recent call last):
   File "script.py", line 2, in &lt;module&gt;
@@ -410,8 +409,8 @@ TypeError: 'tuple' object does not support item assignment</code></pre>
 <p>You cannot change elements of a tuple because they are immutable (once made, they stay that way).</p>
 </section>
 </section>
-<section id="tuple-assignment" class="level2 unnumbered" data-number="11.2">
-<h2 class="unnumbered anchored" data-number="11.2" data-anchor-id="tuple-assignment"><span class="header-section-number">11.2</span> Tuple assignment</h2>
+<section id="tuple-assignment" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="tuple-assignment">Tuple assignment</h2>
 <p>Python lets you assign a tuple of values to a tuple of variables like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>father, mother, son <span class="op">=</span> (<span class="st">"Donald"</span>, <span class="st">"Ivana"</span>, <span class="st">"Eric"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>It does the same as the following three assignments:</p>
@@ -427,21 +426,21 @@ TypeError: 'tuple' object does not support item assignment</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tmp <span class="op">=</span> a</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> tmp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="exercise-3" class="level4" data-number="11.2.0.1">
-<h4 data-number="11.2.0.1" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 11.2.0.1</strong></h4>
+<section id="exercise-3" class="level4" data-number="11.0.0.4">
+<h4 data-number="11.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 11-4</strong></h4>
 <p>Try this and read the error message:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>family <span class="op">=</span> (<span class="st">"Donald"</span>, <span class="st">"Ivana"</span>, <span class="st">"Eric"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>father, mother <span class="op">=</span> family</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-4" class="level4" data-number="11.2.0.2">
-<h4 data-number="11.2.0.2" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 11.2.0.2</strong></h4>
+<section id="exercise-4" class="level4" data-number="11.0.0.5">
+<h4 data-number="11.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 11-5</strong></h4>
 <p>Try this and read the error message:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>family <span class="op">=</span> (<span class="st">"Donald"</span>, <span class="st">"Ivana"</span>, <span class="st">"Eric"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>father, mother, son, daughter <span class="op">=</span> family</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Compare to the error message in the previous exercise.</p>
 </section>
-<section id="exercise-5" class="level4" data-number="11.2.0.3">
-<h4 data-number="11.2.0.3" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 11.2.0.3</strong></h4>
+<section id="exercise-5" class="level4" data-number="11.0.0.6">
+<h4 data-number="11.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 11-6</strong></h4>
 <p>Say you want to swap the values of two variables, <code>a</code> and <code>b</code>. To do that, you would need to keep one of the values in an extra variable like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> a</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b</span>

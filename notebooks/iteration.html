@@ -76,10 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d0d315799576689a4f90e4d7de6aa78.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-534a37a8c2a00f4c0ed23d96546cde3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -359,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-for-loop" id="toc-the-for-loop" class="nav-link active" data-scroll-target="#the-for-loop"><span class="header-section-number">13.1</span> The for-loop</a></li>
+  <li><a href="#the-for-loop" id="toc-the-for-loop" class="nav-link active" data-scroll-target="#the-for-loop">The for-loop</a></li>
   </ul>
 </nav>
     </div>
@@ -386,8 +385,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>This chapter is about how you repeat the same code for many different values – and the many reasons why this is useful.</em></p>
-<section id="the-for-loop" class="level2 unnumbered" data-number="13.1">
-<h2 class="unnumbered anchored" data-number="13.1" data-anchor-id="the-for-loop"><span class="header-section-number">13.1</span> The for-loop</h2>
+<section id="the-for-loop" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="the-for-loop">The for-loop</h2>
 <p>Programs often need to do repetitive things. Consider this example below, where <code>x</code> is assigned a value that is then printed:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
@@ -451,8 +450,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can see that the first and last arguments default to 0 and 1. If you give it two arguments, it will assume that they are “start” and “end”. If you only give it one argument, it will assume that it is the “end”.</p>
-<section id="exercise" class="level4" data-number="13.1.0.1">
-<h4 data-number="13.1.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 13.1.0.1</strong></h4>
+<section id="exercise" class="level4" data-number="13.0.0.1">
+<h4 data-number="13.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 13-1</strong></h4>
 <p>What do you think the third argument to <code>range</code> specifies? Try these variations and see if you can figure it out:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1</span>):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span>
@@ -464,8 +463,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="https://docs.python.org/3/library/stdtypes.html#range">Check the documentation</a> once you have decided.</p>
 </section>
-<section id="exercise-1" class="level4" data-number="13.1.0.2">
-<h4 data-number="13.1.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 13.1.0.2</strong></h4>
+<section id="exercise-1" class="level4" data-number="13.0.0.2">
+<h4 data-number="13.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 13-2</strong></h4>
 <p>What will happen here:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> []:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -476,8 +475,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">10</span>):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-2" class="level4" data-number="13.1.0.3">
-<h4 data-number="13.1.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 13.1.0.3</strong></h4>
+<section id="exercise-2" class="level4" data-number="13.0.0.3">
+<h4 data-number="13.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 13-3</strong></h4>
 <p>The two examples below print the same. Make sure you understand why. Write and experiment with the code on your own.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>list_of_words <span class="op">=</span> [<span class="st">'one'</span>, <span class="st">'two'</span>, <span class="st">'three'</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -490,8 +489,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index <span class="kw">in</span> <span class="bu">range</span>(list_length):</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(list_of_words[index])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-3" class="level4" data-number="13.1.0.4">
-<h4 data-number="13.1.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 13.1.0.4</strong></h4>
+<section id="exercise-3" class="level4" data-number="13.0.0.4">
+<h4 data-number="13.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 13-4</strong></h4>
 <p>Finish the code below so all the even numbers go into one list, and all the odd numbers go into the other (hint: remember the modulo operator?)</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">6</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>even <span class="op">=</span> []</span>
@@ -501,8 +500,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-4" class="level4" data-number="13.1.0.5">
-<h4 data-number="13.1.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 13.1.0.5</strong></h4>
+<section id="exercise-4" class="level4" data-number="13.0.0.5">
+<h4 data-number="13.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 13-5</strong></h4>
 <p>You can put any statements under the for loop. Here, it includes an if-statement that lets you generate a list of all the <code>a</code> characters in banana (in case you need that).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> []</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">'banana'</span></span>
@@ -517,16 +516,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>fruit[1]</code> substitutes for <code>'a'</code>.</li>
 </ol>
 </section>
-<section id="exercise-5" class="level4" data-number="13.1.0.6">
-<h4 data-number="13.1.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 13.1.0.6</strong></h4>
+<section id="exercise-5" class="level4" data-number="13.0.0.6">
+<h4 data-number="13.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 13-6</strong></h4>
 <p>Imagine you want to throw a big party and have rented a place with space for 100 people. Now, you want to start inviting people. What kind of error do you get here, and why?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>friends <span class="op">=</span> [<span class="st">"Mogens"</span>, <span class="st">"Preben"</span>, <span class="st">"Berit"</span>]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>invited <span class="op">=</span> []</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    invited.append(friends[index])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-ij_pairs" class="level4" data-number="13.1.0.7">
-<h4 data-number="13.1.0.7" class="anchored" data-anchor-id="sec-ij_pairs"><strong>Exercise 13.1.0.7</strong></h4>
+<section id="sec-ij_pairs" class="level4" data-number="13.0.0.7">
+<h4 data-number="13.0.0.7" class="anchored" data-anchor-id="sec-ij_pairs"><strong>Exercise 13-7</strong></h4>
 <p>You can also put a for loop under another for loop, and the rules for each for loop are the same as those explained above. The statements nested under the for loop are indented with four spaces, just like with if statements. These statements are executed once for every value in the iterable. Think carefully about what you think is printed in the example below before you try it out.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>

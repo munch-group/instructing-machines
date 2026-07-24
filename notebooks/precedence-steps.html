@@ -76,10 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cf35b1e8b68dd0c452cd246239eb2ea9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d0d315799576689a4f90e4d7de6aa78.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-534a37a8c2a00f4c0ed23d96546cde3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -388,10 +387,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#precedence-of-operators" id="toc-precedence-of-operators" class="nav-link active" data-scroll-target="#precedence-of-operators"><span class="header-section-number">6.1</span> Precedence of Operators</a></li>
-  <li><a href="#statements-and-expressions" id="toc-statements-and-expressions" class="nav-link" data-scroll-target="#statements-and-expressions"><span class="header-section-number">6.2</span> Statements and Expressions</a></li>
-  <li><a href="#substitution-and-reduction" id="toc-substitution-and-reduction" class="nav-link" data-scroll-target="#substitution-and-reduction"><span class="header-section-number">6.3</span> Substitution and Reduction</a></li>
-  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises"><span class="header-section-number">6.4</span> General exercises</a></li>
+  <li><a href="#precedence-of-operators" id="toc-precedence-of-operators" class="nav-link active" data-scroll-target="#precedence-of-operators">Precedence of Operators</a></li>
+  <li><a href="#statements-and-expressions" id="toc-statements-and-expressions" class="nav-link" data-scroll-target="#statements-and-expressions">Statements and Expressions</a></li>
+  <li><a href="#substitution-and-reduction" id="toc-substitution-and-reduction" class="nav-link" data-scroll-target="#substitution-and-reduction">Substitution and Reduction</a></li>
+  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -418,8 +417,8 @@ window.Quarto = {
 
 
 <p><em>This chapter is about how Python interprets (or evaluates) the code you write. It has a few fancy long words that may seem foreign to you. Do not let that throw you off. They are all just fancy names for something straightforward.</em></p>
-<section id="precedence-of-operators" class="level2 unnumbered" data-number="6.1">
-<h2 class="unnumbered anchored" data-number="6.1" data-anchor-id="precedence-of-operators"><span class="header-section-number">6.1</span> Precedence of Operators</h2>
+<section id="precedence-of-operators" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="precedence-of-operators">Precedence of Operators</h2>
 <p>Fear not. Precedence is just a nasty word for something we have already talked about. Precedence just means that some things are done before others or, more correctly, that some operations are performed before others. You already know that multiplication is done before addition. Another way of saying that is that multiplication <em>takes precedence</em> over addition. The expression below obviously reduces to 7 in two steps:</p>
 <p><span class="math display">\[ 1 + 3 * 2 \]</span></p>
 <p>First, <span class="math inline">\(3 * 2\)</span> reduces to 6, and then <span class="math inline">\(1 + 6\)</span> reduces to 7. If we wanted to add 1 and 3 first, we would need to enforce this by adding parentheses:</p>
@@ -486,37 +485,37 @@ window.Quarto = {
 <p>The following one first reduces to <span class="math inline">\(1 * 4\)</span> and then to <span class="math inline">\(4\)</span>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If you want Python to order the operations in any other way, you need to use parentheses (E.g., <code>2 / (2 * 4)</code>).</p>
-<section id="exercise" class="level4" data-number="6.1.0.1">
-<h4 data-number="6.1.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 6.1.0.1</strong></h4>
+<section id="exercise" class="level4" data-number="6.0.0.1">
+<h4 data-number="6.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 6-1</strong></h4>
 <p>Look at each expression in the exercises below and use the table above to decide if it evaluates to <code>True</code> or <code>False</code>. Then, write the code and test if you were right. If not, figure out why.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">7</span> <span class="op">==</span> <span class="dv">2</span> <span class="op">+</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">7</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-1" class="level4" data-number="6.1.0.2">
-<h4 data-number="6.1.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 6.1.0.2</strong></h4>
+<section id="exercise-1" class="level4" data-number="6.0.0.2">
+<h4 data-number="6.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 6-2</strong></h4>
 <p>Does this reduce to <code>True</code> or <code>False</code>?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">3</span> <span class="kw">and</span> <span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">1</span> <span class="kw">or</span> <span class="dv">7</span> <span class="op">&gt;</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-2" class="level4" data-number="6.1.0.3">
-<h4 data-number="6.1.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 6.1.0.3</strong></h4>
+<section id="exercise-2" class="level4" data-number="6.0.0.3">
+<h4 data-number="6.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 6-3</strong></h4>
 <p>Does this reduce to <code>True</code> or <code>False</code>?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">3</span> <span class="kw">and</span> (<span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">1</span> <span class="kw">or</span> <span class="dv">7</span> <span class="op">&gt;</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-3" class="level4" data-number="6.1.0.4">
-<h4 data-number="6.1.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 6.1.0.4</strong></h4>
+<section id="exercise-3" class="level4" data-number="6.0.0.4">
+<h4 data-number="6.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 6-4</strong></h4>
 <p>Does this reduce to <code>True</code> or <code>False</code>?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">*</span> <span class="dv">4</span> <span class="op">**</span> <span class="dv">4</span> <span class="op">+</span> <span class="dv">1</span> <span class="op">==</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">4</span>) <span class="op">**</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="statements-and-expressions" class="level2 unnumbered" data-number="6.2">
-<h2 class="unnumbered anchored" data-number="6.2" data-anchor-id="statements-and-expressions"><span class="header-section-number">6.2</span> Statements and Expressions</h2>
+<section id="statements-and-expressions" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="statements-and-expressions">Statements and Expressions</h2>
 <p>To talk concisely about programming (and to receive more useful help from your instructors), you need to have a bit of vocabulary. <em>Statements</em> and <em>expressions</em> are two words you need to know. Distinguishing between statements and expressions will help us discuss our code.</p>
 <ul>
 <li><p>A <strong>statement</strong> is a line of code that performs an action. Python evaluates each statement until it reaches the end of the file (remember <span class="citation" data-cites="important-oath2">@important-oath2</span>?). <code>print(y * 7)</code> is a statement, and so is <code>x = 14</code>. They each represent a full line of code and perform an action.</p></li>
 <li><p>An <strong>expression</strong> is any code that reduces to one value. <code>y * 7</code> is an expression, and so are <code>y * 7 + 14 - x</code> and <code>4 &gt; 5</code>.</p></li>
 </ul>
 <p>We will talk more about how Python handles expressions in the next section, but right now, you must understand that statements <em>do something</em> while expressions are things that reduce to a value. Hopefully, this distinction will be more clear after completing the following exercises.</p>
-<section id="exercise-4" class="level4" data-number="6.2.0.1">
-<h4 data-number="6.2.0.1" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 6.2.0.1</strong></h4>
+<section id="exercise-4" class="level4" data-number="6.0.0.5">
+<h4 data-number="6.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 6-5</strong></h4>
 <p>Did you notice in the above examples that <code>print(y * 7)</code> is a statement and <code>y * 7</code> is an expression? Yes, expressions can be part of statements. In fact, they most often are. Similarly, expressions are often made up of other smaller expressions. E.g., <code>y * 7</code> is part of the longer expression <code>y * 7 + 14 - x</code>.</p>
 <p>Take a look at this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
@@ -527,16 +526,16 @@ window.Quarto = {
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(h)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Write down the code on a piece of paper. Now, mark all statements and all expressions. Remember that expressions are often made up of smaller expressions so that you can find a <em>lot</em> of them. E.g. <code>(x + y)</code>, <code>2 + 20</code>, and <code>(x + y) / 2 + 20</code> are all expressions. A single variable (like <code>x</code>) is also a small expression. Discuss with a fellow student. Do you agree on what to find?</p>
 </section>
-<section id="exercise-5" class="level4" data-number="6.2.0.2">
-<h4 data-number="6.2.0.2" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 6.2.0.2</strong></h4>
+<section id="exercise-5" class="level4" data-number="6.0.0.6">
+<h4 data-number="6.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 6-6</strong></h4>
 <p>Consider the following code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> <span class="st">'Hello'</span> <span class="op">+</span> <span class="st">' my '</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting <span class="op">+</span> <span class="st">'friend'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>How many statements are there in this piece of code? How many expressions?</p>
 </section>
 </section>
-<section id="substitution-and-reduction" class="level2 unnumbered" data-number="6.3">
-<h2 class="unnumbered anchored" data-number="6.3" data-anchor-id="substitution-and-reduction"><span class="header-section-number">6.3</span> Substitution and Reduction</h2>
+<section id="substitution-and-reduction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="substitution-and-reduction">Substitution and Reduction</h2>
 <p>Although <em>substitution</em> and <em>reduction</em> may not sound like your new best friends, they truly are! If you remember to think about your Python code in terms of substitution and reduction, then programming will make a lot of sense. Understanding and using these simple rules will allow you to read and understand any code. If you do not, you may get by for a while - only to find yourself in big trouble later when things become more complicated.</p>
 <p>You should remember, from the section on variables in the previous chapter, that variables in Python are either assigned a value or substituted for the value they represent.</p>
 <p>In the first two lines of code below, the variables <code>x</code> and <code>y</code> are each assigned a value. Now consider the last line in the example:</p>
@@ -561,67 +560,67 @@ window.Quarto = {
 </div>
 <p>This was the last of the three oaths, but it is <em>by far</em> the most important one. You can take your hand down now.</p>
 <p><strong>NB:</strong> You may not realize this at this point, but the last two subsections are the most important ones in the book. Go back and read them many times as you proceed through the course. If you explicitly think in terms of substitution and reduction, you will be fine. If you do not, you are entering a minefield with snowshoes on.</p>
-<section id="exercise-6" class="level4" data-number="6.3.0.1">
-<h4 data-number="6.3.0.1" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 6.3.0.1</strong></h4>
+<section id="exercise-6" class="level4" data-number="6.0.0.7">
+<h4 data-number="6.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 6-7</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">7</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">4</span> <span class="op">+</span> x</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y <span class="op">-</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-7" class="level4" data-number="6.3.0.2">
-<h4 data-number="6.3.0.2" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 6.3.0.2</strong></h4>
+<section id="exercise-7" class="level4" data-number="6.0.0.8">
+<h4 data-number="6.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 6-8</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> a <span class="op">+</span> b <span class="op">+</span> c</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-8" class="level4" data-number="6.3.0.3">
-<h4 data-number="6.3.0.3" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 6.3.0.3</strong></h4>
+<section id="exercise-8" class="level4" data-number="6.0.0.9">
+<h4 data-number="6.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 6-9</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-9" class="level4" data-number="6.3.0.4">
-<h4 data-number="6.3.0.4" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 6.3.0.4</strong></h4>
+<section id="exercise-9" class="level4" data-number="6.0.0.10">
+<h4 data-number="6.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 6-10</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>microsatellite <span class="op">=</span> <span class="st">"GTC"</span> <span class="op">*</span> <span class="dv">41</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Surprised?</p>
 </section>
-<section id="exercise-10" class="level4" data-number="6.3.0.5">
-<h4 data-number="6.3.0.5" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 6.3.0.5</strong></h4>
+<section id="exercise-10" class="level4" data-number="6.0.0.11">
+<h4 data-number="6.0.0.11" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 6-11</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mini_gene <span class="op">=</span> <span class="st">"ATG"</span> <span class="op">+</span> <span class="st">"GCG"</span> <span class="op">+</span> <span class="st">"TAA"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What did you do first here? Does the order of additions matter? What operations does Python perform first when operators have the same precedence? (left to right or right to left)</p>
 </section>
-<section id="exercise-11" class="level4" data-number="6.3.0.6">
-<h4 data-number="6.3.0.6" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 6.3.0.6</strong></h4>
+<section id="exercise-11" class="level4" data-number="6.0.0.12">
+<h4 data-number="6.0.0.12" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 6-12</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>number <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">1</span> <span class="op">*</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In what order are reductions made? Does the order of operations matter, and in what order does Python do the reductions?</p>
 </section>
-<section id="exercise-12" class="level4" data-number="6.3.0.7">
-<h4 data-number="6.3.0.7" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 6.3.0.7</strong></h4>
+<section id="exercise-12" class="level4" data-number="6.0.0.13">
+<h4 data-number="6.0.0.13" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 6-13</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-adding_one" class="level4" data-number="6.3.0.8">
-<h4 data-number="6.3.0.8" class="anchored" data-anchor-id="sec-adding_one"><strong>Exercise 6.3.0.8</strong></h4>
+<section id="sec-adding_one" class="level4" data-number="6.0.0.14">
+<h4 data-number="6.0.0.14" class="anchored" data-anchor-id="sec-adding_one"><strong>Exercise 6-14</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-13" class="level4" data-number="6.3.0.9">
-<h4 data-number="6.3.0.9" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 6.3.0.9</strong></h4>
+<section id="exercise-13" class="level4" data-number="6.0.0.15">
+<h4 data-number="6.0.0.15" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 6-15</strong></h4>
 <p>Do the substitution and reduction steps with pen and paper, then run it to check yourself by inserting a <code>print</code> statement at the end.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Compare the final value of <code>x</code> to that in <a href="#sec-adding_one" class="quarto-xref"><span>Section 6.3.0.8</span></a>. Can you see what <code>+=</code> is a shorthand for? Nifty, right?</p>
+<p>Compare the final value of <code>x</code> to that in <a href="#sec-adding_one" class="quarto-xref"><span>Section 6.0.0.14</span></a>. Can you see what <code>+=</code> is a shorthand for? Nifty, right?</p>
 </section>
 </section>
-<section id="general-exercises" class="level2 unnumbered" data-number="6.4">
-<h2 class="unnumbered anchored" data-number="6.4" data-anchor-id="general-exercises"><span class="header-section-number">6.4</span> General exercises</h2>
+<section id="general-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
 <p>The following exercises are meant to train your familiarity with the topics we have treated so far – in this case especially:</p>
 <ul>
 <li>Substitution</li>
@@ -634,32 +633,32 @@ window.Quarto = {
 </ul>
 <p>Read each exercise and think hard about the questions before you code anything. <em>Then</em> write the code and try it out. Remember that it is crucial that you type it in – as super dull as it may be (remember oath one). This trains your accuracy and attention to detail, and it builds programming into your brain. Play around with each bit of code. Make small changes and see how it behaves.</p>
 <p>There is a reason why there are lots of questions in this exercise but no answers. You are supposed to find them yourself if it takes you quite a while. That is the way you build understanding. Some of the questions may seem trivial, but do them anyway. If you only understand these concepts superficially, they will come back and bite you in the ass when things get more complicated.</p>
-<section id="exercise-14" class="level4" data-number="6.4.0.1">
-<h4 data-number="6.4.0.1" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 6.4.0.1</strong></h4>
+<section id="exercise-14" class="level4" data-number="6.0.0.16">
+<h4 data-number="6.0.0.16" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 6-16</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.2</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">/</span> <span class="fl">5.2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What does that expression evaluate to? Try to explicitly make all the reductions on paper before you write and run the code.</p>
 </section>
-<section id="exercise-15" class="level4" data-number="6.4.0.2">
-<h4 data-number="6.4.0.2" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 6.4.0.2</strong></h4>
+<section id="exercise-15" class="level4" data-number="6.0.0.17">
+<h4 data-number="6.0.0.17" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 6-17</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.2</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">/</span> <span class="fl">5.2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What does that expression evaluate to? Try to explicitly make all the reductions on paper before you write and run the code.</p>
 </section>
-<section id="exercise-16" class="level4" data-number="6.4.0.3">
-<h4 data-number="6.4.0.3" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 6.4.0.3</strong></h4>
+<section id="exercise-16" class="level4" data-number="6.0.0.18">
+<h4 data-number="6.0.0.18" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 6-18</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">%</span> <span class="dv">3</span> <span class="op">-</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What does that expression evaluate to? Try to explicitly make all the reductions on paper before you write and run the code.</p>
 </section>
-<section id="exercise-17" class="level4" data-number="6.4.0.4">
-<h4 data-number="6.4.0.4" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 6.4.0.4</strong></h4>
+<section id="exercise-17" class="level4" data-number="6.0.0.19">
+<h4 data-number="6.0.0.19" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 6-19</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span> <span class="op">%</span> (<span class="dv">7</span> <span class="op">-</span> <span class="dv">5</span>)<span class="op">**</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What does that expression evaluate to? Try to explicitly make all the reductions on paper before you write and run the code.</p>
 </section>
-<section id="exercise-18" class="level4" data-number="6.4.0.5">
-<h4 data-number="6.4.0.5" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 6.4.0.5</strong></h4>
+<section id="exercise-18" class="level4" data-number="6.0.0.20">
+<h4 data-number="6.0.0.20" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 6-20</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span></span>
@@ -667,16 +666,16 @@ window.Quarto = {
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> a <span class="op">&gt;</span> banana</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What does the last expression evaluate to? Try to explicitly make all the substitutions and reductions on paper before writing the code. What happens if you write and run the code? Why?</p>
 </section>
-<section id="exercise-19" class="level4" data-number="6.4.0.6">
-<h4 data-number="6.4.0.6" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 6.4.0.6</strong></h4>
+<section id="exercise-19" class="level4" data-number="6.0.0.21">
+<h4 data-number="6.0.0.21" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 6-21</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dance <span class="op">=</span> <span class="st">'can'</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dance <span class="op">=</span> dance <span class="op">+</span> dance</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Do the"</span>, dance)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What is printed? Try to explicitly make all the substitutions and reductions on paper before writing the code. What happens if you write and run the code? Why?</p>
 </section>
-<section id="exercise-20" class="level4" data-number="6.4.0.7">
-<h4 data-number="6.4.0.7" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 6.4.0.7</strong></h4>
+<section id="exercise-20" class="level4" data-number="6.0.0.22">
+<h4 data-number="6.0.0.22" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 6-22</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>foo <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>bar <span class="op">=</span> <span class="dv">50</span></span>
@@ -686,16 +685,16 @@ window.Quarto = {
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(baz)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>There are two print statements. The first print statement prints <code>80</code>. But what about the second print statement? Does that print <code>80</code> or <code>40</code>? Find out and make sure you understand why it prints what it prints. If not, reread the section on substitution.</p>
 </section>
-<section id="exercise-21" class="level4" data-number="6.4.0.8">
-<h4 data-number="6.4.0.8" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 6.4.0.8</strong></h4>
+<section id="exercise-21" class="level4" data-number="6.0.0.23">
+<h4 data-number="6.0.0.23" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 6-23</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">==</span> <span class="st">'1'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">==</span> <span class="fl">1.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What does this reduce to? Try printing it and seeing once you think you know. If you were wrong, make sure you figure out why.</p>
 </section>
-<section id="sec-string_gotcha1" class="level4" data-number="6.4.0.9">
-<h4 data-number="6.4.0.9" class="anchored" data-anchor-id="sec-string_gotcha1"><strong>Exercise 6.4.0.9</strong></h4>
+<section id="sec-string_gotcha1" class="level4" data-number="6.0.0.24">
+<h4 data-number="6.0.0.24" class="anchored" data-anchor-id="sec-string_gotcha1"><strong>Exercise 6-24</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="st">'1'</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="st">'2'</span></span>
@@ -704,18 +703,18 @@ window.Quarto = {
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">+</span> b <span class="op">==</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What is printed here? Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
 </section>
-<section id="exercise-22" class="level4" data-number="6.4.0.10">
-<h4 data-number="6.4.0.10" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 6.4.0.10</strong></h4>
+<section id="exercise-22" class="level4" data-number="6.0.0.25">
+<h4 data-number="6.0.0.25" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 6-25</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>c  <span class="op">=</span> a <span class="op">+</span> b</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a, b, c)</span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">+</span> b <span class="op">==</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>What is printed here? Compare to <a href="#sec-string_gotcha1" class="quarto-xref"><span>Section 6.4.0.9</span></a>. Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
+<p>What is printed here? Compare to <a href="#sec-string_gotcha1" class="quarto-xref"><span>Section 6.0.0.24</span></a>. Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
 </section>
-<section id="exercise-23" class="level4" data-number="6.4.0.11">
-<h4 data-number="6.4.0.11" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 6.4.0.11</strong></h4>
+<section id="exercise-23" class="level4" data-number="6.0.0.26">
+<h4 data-number="6.0.0.26" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 6-26</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">+</span> <span class="dv">2</span> <span class="kw">and</span> <span class="dv">7</span>)</span>
@@ -725,8 +724,8 @@ window.Quarto = {
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">+</span> <span class="dv">2</span> <span class="kw">or</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What is printed here? Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
 </section>
-<section id="exercise-sec-puzzle" class="level4" data-number="6.4.0.12">
-<h4 data-number="6.4.0.12" class="anchored" data-anchor-id="exercise-sec-puzzle"><strong>Exercise 6.4.0.12</strong></h4>
+<section id="exercise-sec-puzzle" class="level4" data-number="6.0.0.27">
+<h4 data-number="6.0.0.27" class="anchored" data-anchor-id="exercise-sec-puzzle"><strong>Exercise 6-27</strong></h4>
 <p>I have shuffled the statements in the code below. Put them in the right order to make the code print <code>100</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">4</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
@@ -734,8 +733,8 @@ window.Quarto = {
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">*</span> x</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-24" class="level4" data-number="6.4.0.13">
-<h4 data-number="6.4.0.13" class="anchored" data-anchor-id="exercise-24"><strong>Exercise 6.4.0.13</strong></h4>
+<section id="exercise-24" class="level4" data-number="6.0.0.28">
+<h4 data-number="6.0.0.28" class="anchored" data-anchor-id="exercise-24"><strong>Exercise 6-28</strong></h4>
 <p>I have shuffled the statements in the code below. Put them in the right order to make the code print the string `“Banana.”</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">'n'</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'B'</span> <span class="op">+</span> y <span class="op">+</span> x</span>
@@ -743,16 +742,16 @@ window.Quarto = {
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'a'</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x <span class="op">+</span> y) <span class="op">*</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-25" class="level4" data-number="6.4.0.14">
-<h4 data-number="6.4.0.14" class="anchored" data-anchor-id="exercise-25"><strong>Exercise 6.4.0.14</strong></h4>
+<section id="exercise-25" class="level4" data-number="6.0.0.29">
+<h4 data-number="6.0.0.29" class="anchored" data-anchor-id="exercise-25"><strong>Exercise 6-29</strong></h4>
 <p>Make a puzzle exercise, like the two previous ones, for a fellow student.</p>
 </section>
-<section id="exercise-26" class="level4" data-number="6.4.0.15">
-<h4 data-number="6.4.0.15" class="anchored" data-anchor-id="exercise-26"><strong>Exercise 6.4.0.15</strong></h4>
+<section id="exercise-26" class="level4" data-number="6.0.0.30">
+<h4 data-number="6.0.0.30" class="anchored" data-anchor-id="exercise-26"><strong>Exercise 6-30</strong></h4>
 <p>Remind yourself of the different types of Python values you know. For example, one of them is an integer (<code>int</code>). Make a list.</p>
 </section>
-<section id="sec-type_coercion" class="level4" data-number="6.4.0.16">
-<h4 data-number="6.4.0.16" class="anchored" data-anchor-id="sec-type_coercion"><strong>Exercise 6.4.0.16</strong></h4>
+<section id="sec-type_coercion" class="level4" data-number="6.0.0.31">
+<h4 data-number="6.0.0.31" class="anchored" data-anchor-id="sec-type_coercion"><strong>Exercise 6-31</strong></h4>
 <p>You already know about several types of data values in Python. Two are integers called <code>int</code>, and decimal numbers (or floating points) called <code>float</code>. When you use an operator like <code>+</code> or <code>&gt;</code> it produces a value. No matter what you put on either side of <code>&gt;</code> it produces a boolean value (<code>bool</code>), <code>True</code> or <code>False</code>. For other operators, the type of value produced depends on which values the operator works on. Try this and see if you print an integer or a float (<code>8</code> or <code>8.0</code>):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span>
@@ -760,55 +759,55 @@ window.Quarto = {
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now try to replace <code>4</code> with <code>4.0</code>. What type is the result now? Try to also replace <code>2</code> with <code>2.0</code>. What type is the result now? Can you extract a rule for what the <code>*</code> operator produces depending on what types the two values have?</p>
 </section>
-<section id="exercise-27" class="level4" data-number="6.4.0.17">
-<h4 data-number="6.4.0.17" class="anchored" data-anchor-id="exercise-27"><strong>Exercise 6.4.0.17</strong></h4>
-<p>In <a href="#sec-type_coercion" class="quarto-xref"><span>Section 6.4.0.16</span></a>, you investigated what types of values the <code>*</code> operator produces. Redo that exercise with the operators: <code>+</code>, <code>-</code>, <code>/</code>, <code>**</code>, <code>//</code>, and <code>%</code>. What are the rules for what is returned if both values are integers, one value is a float, or both values are floats?</p>
+<section id="exercise-27" class="level4" data-number="6.0.0.32">
+<h4 data-number="6.0.0.32" class="anchored" data-anchor-id="exercise-27"><strong>Exercise 6-32</strong></h4>
+<p>In <a href="#sec-type_coercion" class="quarto-xref"><span>Section 6.0.0.31</span></a>, you investigated what types of values the <code>*</code> operator produces. Redo that exercise with the operators: <code>+</code>, <code>-</code>, <code>/</code>, <code>**</code>, <code>//</code>, and <code>%</code>. What are the rules for what is returned if both values are integers, one value is a float, or both values are floats?</p>
 </section>
-<section id="exercise-28" class="level4" data-number="6.4.0.18">
-<h4 data-number="6.4.0.18" class="anchored" data-anchor-id="exercise-28"><strong>Exercise 6.4.0.18</strong></h4>
+<section id="exercise-28" class="level4" data-number="6.0.0.33">
+<h4 data-number="6.0.0.33" class="anchored" data-anchor-id="exercise-28"><strong>Exercise 6-33</strong></h4>
 <p>Make a list of all the operators you know so far in order of precedence (without looking in the notes). Then check yourself.</p>
 </section>
-<section id="exercise-29" class="level4" data-number="6.4.0.19">
-<h4 data-number="6.4.0.19" class="anchored" data-anchor-id="exercise-29"><strong>Exercise 6.4.0.19</strong></h4>
+<section id="exercise-29" class="level4" data-number="6.0.0.34">
+<h4 data-number="6.0.0.34" class="anchored" data-anchor-id="exercise-29"><strong>Exercise 6-34</strong></h4>
 <p>What does his expression reduce to, and what type of value is it?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">&gt;</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-30" class="level4" data-number="6.4.0.20">
-<h4 data-number="6.4.0.20" class="anchored" data-anchor-id="exercise-30"><strong>Exercise 6.4.0.20</strong></h4>
+<section id="exercise-30" class="level4" data-number="6.0.0.35">
+<h4 data-number="6.0.0.35" class="anchored" data-anchor-id="exercise-30"><strong>Exercise 6-35</strong></h4>
 <p>What does his expression reduce to, and what type of value is it? Do all the reduction steps in your head.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">1</span><span class="op">/</span><span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-31" class="level4" data-number="6.4.0.21">
-<h4 data-number="6.4.0.21" class="anchored" data-anchor-id="exercise-31"><strong>Exercise 6.4.0.21</strong></h4>
+<section id="exercise-31" class="level4" data-number="6.0.0.36">
+<h4 data-number="6.0.0.36" class="anchored" data-anchor-id="exercise-31"><strong>Exercise 6-36</strong></h4>
 <p>What does his expression reduce to, and what type of value is it? Do all the reduction steps in your head.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">&gt;</span> <span class="dv">2</span> <span class="kw">and</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-oneline_ifelse" class="level4" data-number="6.4.0.22">
-<h4 data-number="6.4.0.22" class="anchored" data-anchor-id="sec-oneline_ifelse"><strong>Exercise 6.4.0.22</strong></h4>
+<section id="sec-oneline_ifelse" class="level4" data-number="6.0.0.37">
+<h4 data-number="6.0.0.37" class="anchored" data-anchor-id="sec-oneline_ifelse"><strong>Exercise 6-37</strong></h4>
 <p>What is printed here and why?:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span> <span class="kw">and</span> <span class="st">"banana"</span> <span class="kw">or</span> <span class="st">"orange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Try to change the <code>True</code> value to <code>False</code> and see what happens. Can you explain it? If not, look at <a href="values-operators-logic.html#sec-logic_rule_of_thumb" class="quarto-xref"><span>Section 5.2.0.6</span></a> again.</p>
+<p>Try to change the <code>True</code> value to <code>False</code> and see what happens. Can you explain it? If not, look at <a href="values-operators-logic.html#sec-logic_rule_of_thumb" class="quarto-xref"><span>Section 5.0.0.14</span></a> again.</p>
 </section>
-<section id="exercise-32" class="level4" data-number="6.4.0.23">
-<h4 data-number="6.4.0.23" class="anchored" data-anchor-id="exercise-32"><strong>Exercise 6.4.0.23</strong></h4>
+<section id="exercise-32" class="level4" data-number="6.0.0.38">
+<h4 data-number="6.0.0.38" class="anchored" data-anchor-id="exercise-32"><strong>Exercise 6-38</strong></h4>
 <p>What does his expression reduce to? Do all the reduction steps in your head.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-33" class="level4" data-number="6.4.0.24">
-<h4 data-number="6.4.0.24" class="anchored" data-anchor-id="exercise-33"><strong>Exercise 6.4.0.24</strong></h4>
+<section id="exercise-33" class="level4" data-number="6.0.0.39">
+<h4 data-number="6.0.0.39" class="anchored" data-anchor-id="exercise-33"><strong>Exercise 6-39</strong></h4>
 <p>What does his expression reduce to? Do all the reduction steps in your head.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-34" class="level4" data-number="6.4.0.25">
-<h4 data-number="6.4.0.25" class="anchored" data-anchor-id="exercise-34"><strong>Exercise 6.4.0.25</strong></h4>
-<p>If you understood <a href="#sec-oneline_ifelse" class="quarto-xref"><span>Section 6.4.0.22</span></a>, then you should also understand this one:</p>
+<section id="exercise-34" class="level4" data-number="6.0.0.40">
+<h4 data-number="6.0.0.40" class="anchored" data-anchor-id="exercise-34"><strong>Exercise 6-40</strong></h4>
+<p>If you understood <a href="#sec-oneline_ifelse" class="quarto-xref"><span>Section 6.0.0.37</span></a>, then you should also understand this one:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>weather <span class="op">=</span> <span class="st">'rain'</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>what_to_do <span class="op">=</span> weather <span class="op">==</span> <span class="st">'rain'</span> <span class="kw">and</span> <span class="st">'watch movies'</span> <span class="kw">or</span> <span class="st">'go swimming'</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(what_to_do)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What happens if you change <code>'rain'</code> in the first line to something else (like <code>'sun'</code>)?</p>
 </section>
-<section id="exercise-35" class="level4" data-number="6.4.0.26">
-<h4 data-number="6.4.0.26" class="anchored" data-anchor-id="exercise-35"><strong>Exercise 6.4.0.26</strong></h4>
+<section id="exercise-35" class="level4" data-number="6.0.0.41">
+<h4 data-number="6.0.0.41" class="anchored" data-anchor-id="exercise-35"><strong>Exercise 6-41</strong></h4>
 <p>What is the value of <code>results</code> once the code below has run? Do the substitutions, reductions, and assignments in your head before you run the code.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">7</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">13</span></span>
@@ -816,8 +815,8 @@ window.Quarto = {
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-36" class="level4" data-number="6.4.0.27">
-<h4 data-number="6.4.0.27" class="anchored" data-anchor-id="exercise-36"><strong>Exercise 6.4.0.27</strong></h4>
+<section id="exercise-36" class="level4" data-number="6.0.0.42">
+<h4 data-number="6.0.0.42" class="anchored" data-anchor-id="exercise-36"><strong>Exercise 6-42</strong></h4>
 <p>What is the value of <code>results</code> once the code below has run? Do the substitutions, reductions, and assignments in your head before you run the code.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
@@ -825,8 +824,8 @@ window.Quarto = {
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> x <span class="op">+</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-37" class="level4" data-number="6.4.0.28">
-<h4 data-number="6.4.0.28" class="anchored" data-anchor-id="exercise-37"><strong>Exercise 6.4.0.28</strong></h4>
+<section id="exercise-37" class="level4" data-number="6.0.0.43">
+<h4 data-number="6.0.0.43" class="anchored" data-anchor-id="exercise-37"><strong>Exercise 6-43</strong></h4>
 <p>In the code below I have shuffled the statements. Put them in the right order to make the code print <code>9</code>. To do that you must think about which values each variable will in each statement depending on the how you order the statements.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span>
@@ -835,8 +834,8 @@ window.Quarto = {
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> y <span class="op">*</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-38" class="level4" data-number="6.4.0.29">
-<h4 data-number="6.4.0.29" class="anchored" data-anchor-id="exercise-38"><strong>Exercise 6.4.0.29</strong></h4>
+<section id="exercise-38" class="level4" data-number="6.0.0.44">
+<h4 data-number="6.0.0.44" class="anchored" data-anchor-id="exercise-38"><strong>Exercise 6-44</strong></h4>
 <p>In the code below, I have shuffled the statements. Put them in the right order to make the code print <code>'Mogens'</code></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> b</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(c)</span>
@@ -846,8 +845,8 @@ window.Quarto = {
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="st">'M'</span></span>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="st">'ens'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-39" class="level4" data-number="6.4.0.30">
-<h4 data-number="6.4.0.30" class="anchored" data-anchor-id="exercise-39"><strong>Exercise 6.4.0.30</strong></h4>
+<section id="exercise-39" class="level4" data-number="6.0.0.45">
+<h4 data-number="6.0.0.45" class="anchored" data-anchor-id="exercise-39"><strong>Exercise 6-45</strong></h4>
 <p>Make three exercises that require the knowledge of programming so far. Have your fellow students solve them.</p>
 
 
