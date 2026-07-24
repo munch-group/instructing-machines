@@ -1,4 +1,119 @@
 /*-- scss:defaults --*/
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #373a3c !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #2780e3 !default;
+// $indigo:  #6610f2 !default;
+$indigo:  #8045E5 !default;
+$purple:  #613d7c !default;
+$pink:    #e83e8c !default;
+$red:     #ff0039 !default;
+$orange:  #f0ad4e !default;
+$yellow:  #ff7518 !default;
+$green:   #3fb618 !default;
+// $teal:    #20c997 !default;
+$teal:    #0D7D92 !default; // like numpy docs
+// $teal:    #01886f !default;
+$cyan:    #9954bb !default;
+
+// $primary:       $teal !default;
+$primary:       $teal;
+$secondary:     $gray-800 !default;
+$success:       $green !default;
+$info:          $blue !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+
+// $body-color: #222832; // like numpy docs
+// $body-color: $gray-800;
+
+// $body-bg: #faf9f6;
+$body-bg: #ffffff;
+
+$font-size-base:          0.9rem !default;
+$toc-active-border: $secondary;
+
+//$primary: $teal;           // Changes primary color throughout
+$primary: #0D7D92;
+
+// $link-color: $primary;        // Default link color
+// $link-hover-color: darken($link-color, 15%);
+$link-hover-color: $indigo;
+// $link-decoration: none;
+$link-hover-decoration: underline;
+
+// // Navbar background colors
+// $navbar-light-bg: #ffffff;           // Light navbar background
+// $navbar-dark-bg: #2c3e50;           // Dark navbar background
+
+// For Quarto's default navbar
+$navbar-fg: $primary;
+$navbar-bg: $gray-100;                // Custom navbar background
+$navbar-brand-color: $primary;       // Logo/brand text color
+$navbar-brand-hover-color: $primary; // Brand hover color
+$navbar-light-color: $primary;          // Text color for light navbar
+$navbar-dark-color: $primary;           // Text color for dark navbar
+$navbar-brand-font-weight: 900;
+
+$navbar-padding-y: 0.25rem;  // Vertical padding
+$navbar-padding-x: 1rem;     // Horizontal padding
+$navbar-brand-padding-y: 0.25rem;
+$navbar-nav-link-padding-x: 0.5rem;
+
+// // Link colors in navbar
+// $navbar-light-active-color: $primary;
+// $navbar-light-hover-color: $primary;
+// $navbar-dark-active-color: #ffffff;
+// $navbar-dark-hover-color: #f0f0f0;
+
+// $title-block-banner-color: #009278;     // Text color
+// $title-block-banner-bg: white;        // Background color
+
+// // Font weights
+// $font-weight-bold: 600;
+// $font-weight-bolder: 700;
+
+// // Optional: Override more Cosmo defaults
+// $blue: #0066cc;
+// $orange: #ff6b35;
+// $body-color: #333;
+// $headings-font-weight: 600;
+
+// Main sidebar background and text
+$sidebar-bg: #ffffff;                  // Sidebar background color
+$sidebar-fg: #333333;                  // Sidebar text color
+$sidebar-border-color: #dee2e6;        // Sidebar border
+
+// Sidebar navigation colors
+$sidebar-active-color: $teal;        // Active item color
+$sidebar-hover-bg: #ffffff;            // Hover background
+$sidebar-hover-color: #000;            // Hover text color
+
+// // TOC (Table of Contents) specific
+// // $toc-color: #6c757d;                   // TOC text color
+// $toc-active-color: $teal;           // Active TOC item
+// // $toc-inactive-color: #6c757d;         // Inactive TOC items
+// // $toc-font-size: 0.875rem;             // TOC font size
+
+$callout-color-tip: $primary;
+
+$callout-color-note: $indigo;
+
+// //////////////////////////////////////////////////////////////////
+
 $font-size-base:          0.9rem !default;
 //$h4-font-size:          1.1rem !default;
 $navbar-bg: white;
@@ -38,7 +153,479 @@ $h6-font-size:                $font-size-base !default;
 // }
 
 
+
+
+
 /*-- scss:rules --*/
+
+
+
+// // Custom CSS rules after variables
+// .primary {
+//     color: $primary;
+//     font-weight: 600;
+//     font-size: 1.1em;
+// }
+
+// // Additional link styling
+// a {
+//     transition: color 0.3s ease;
+// }
+
+// // Primary links
+// a.primary {
+//     color: $primary;
+//     font-weight: 600;
+    
+//     &:hover {
+//         color: darken($primary, 10%);
+//     }
+// }
+
+
+/* color for navbar at notebook links */
+.quarto-notebook > header.bg-primary,
+.quarto-notebook .bg-primary[style*="position: fixed"],
+header.bg-primary {
+  --bs-primary-rgb: 248, 249, 250 !important;
+  --bslib-color-bg: #F8F9FA !important;
+  --bslib-color-fg: #0D7D93  !important;  
+}
+
+
+
+@import url('https://rsms.me/inter/inter.css');
+html { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
+}
+
+:root {
+  --bs-body-font-family: inter;
+  --bs-body-font-size: 16px;
+}
+
+/* css styles */
+
+
+/* make svg plots behave */
+.column-margin img,
+.column-margin svg {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+}
+
+// .column-margin img,
+// .column-margin svg,
+// .cell-output-display img,
+// .cell-output-display svg,
+// .cell-output-display figure img,
+// .cell-output-display .figure-img,
+// figure.figure .figure-img {
+//   width: auto !important;
+//   height: auto !important;
+//   max-width: 100% !important;
+// }
+
+// .column-margin img,
+// .column-margin svg,
+// .cell-output-display img,
+// .cell-output-display svg,
+// .cell-output-display figure img,
+// .cell-output-display .figure-img,
+// .cell-output-display img.figure-img,
+// .quarto-figure img.figure-img,
+// div.cell-output-display img.figure-img
+// figure.figure .figure-img {
+//   width: auto !important;
+//   height: auto !important;
+//   max-width: 100% !important;
+// }
+
+
+// /* make svg margin plots honor margin width */
+// .column-margin img,
+// .column-margin svg,
+// .cell-output-display img,
+// .cell-output-display svg {
+//   width: 100% !important;
+//   height: auto !important;
+//   max-width: 100% !important;
+// }
+
+
+
+#quarto-sidebar {
+  border-right: 1px solid #D1D5DB; 
+}
+
+#quarto-navbar {
+  border-bottom: 1px solid #D1D5DB;
+}
+
+/* sidebar formatting */
+
+.sidebar a.nav-link {
+  font-size: 14.4px;
+  font-weight: 400;
+}
+
+
+.sidebar-item-container .text-start {
+  font-weight: 600;
+  color:#151617;
+  font-size: 14.4px !important;
+}
+
+.sidebar-item-text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.sidebar-item {
+  margin-top: 0px;
+}
+
+.sidebar-item-section {
+  padding-top: 16px;
+}
+
+.sidebar-section {
+  padding-left: 0px !important;
+}
+
+.sidebar-item-section .sidebar-item-section {
+  padding-top: 0px;
+  padding-left: 10px;
+}
+
+
+.quarto-grid-item .card-body {
+  background-color: $indigo;
+  color: white;
+}
+
+.quarto-grid-item .listing-title {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+// .quarto-grid .frontpage {
+//   // background-color: #c5f7ff;
+//   background-color: #27a7d5;
+// }
+
+/* callouts */
+
+.callout.callout-titled .callout-header {
+  // padding-top: 0.2em;
+  // margin-bottom: -0.2em;
+  font-weight: 600;
+//  color: $primary;
+}
+
+.callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+  padding-left: 1.6em;
+  padding-top: 2em;
+}
+
+
+
+
+td:first-child {
+  text-wrap: nowrap;
+  text-size-adjust: 100%;
+}
+
+td:first-child a {
+  word-break: normal;
+}
+
+
+/* Example Gallery */
+
+// .gallery .gallery-card-body {
+//     height: 250px;
+//     padding-bottom: 20px;
+// }
+
+// .gallery .gallery-card-cta {
+//   font-size: 32px;
+//   text-align: center;
+//   padding: 100px 45px 45px 45px;
+//   width: 100%;
+//   background-color: rgb(248, 249, 250);
+// }
+
+// .gallery a {
+//   text-decoration: none;
+// }
+
+
+// .gallery .gallery-card-body img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: contain;
+// }
+
+// .gallery .card-header {
+//     font-size: 14px;
+//     text-decoration: none;
+//     text-align: center;
+// }
+
+// .gallery .card-header h6 {
+//   margin-top: 0.5rem;
+// }
+
+// .gallery .card-header a {
+//     text-decoration: none;
+// }
+
+// .gallery-links ul {
+//   list-style-type: none;
+// }
+
+// .gallery-links li {
+//   display: inline;
+//   margin-right: 60px;
+
+// }
+
+
+
+// NUMPY STYLES FOR CODE BLOCKS
+
+
+
+/* NumPy Documentation Style for Quarto */
+
+/* Code blocks - matching NumPy's clean style */
+pre.sourceCode {
+  background-color: #f8f8f8;
+  border: 1px solid #D1D5DB;
+  /* border-left: 3px solid #01886f; */
+  border-radius: 3px;
+  padding: 12px;
+  overflow-x: auto;
+  // font-size: 0.85em;
+  line-height: 1.5;
+  font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', monospace;
+
+  // margin: 1em 0;
+  margin: 0;
+
+}
+
+/* Dark mode code blocks */
+.quarto-dark pre.sourceCode,
+[data-bs-theme="dark"] pre.sourceCode {
+  background-color: #202020;
+  border-color: #3d3d3d;
+  color: #f8f8f2;
+}
+
+/* Code block container */
+div.sourceCode {
+
+  // margin: 0.5em 0 1em 0;
+  margin: 0 0 1em 0;
+
+  border-radius: 3px;
+  overflow: visible;
+  background-color: #ffffff !important; /* set to page background color to not get fuzzy borders */
+  border-color: #ffffff !important; /* set to page background color to not get fuzzy borders */
+}
+
+/* Remove extra margins */
+div.sourceCode > pre {
+  margin: 0;
+}
+
+code.sourceCode {
+  font-family: "Fira Code", "DejaVu Sans Mono", monospace !important;
+  // font-size: 100%;
+  font-weight: 500;
+}
+
+/* Inline code - minimal style like NumPy */
+// code:not(.sourceCode) {
+//   background-color: rgba(27, 31, 35, 0.05);
+//   padding: 0.2em 0.4em;
+//   border-radius: 3px;
+//   font-size: 85%;
+//   font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', monospace;
+//   color: #000000;
+// }
+/* .quarto-dark code:not(.sourceCode),
+[data-bs-theme="dark"] code:not(.sourceCode) {
+  background-color: rgba(110, 118, 129, 0.2);
+  color: #f8f8f2;
+} */
+code:not(pre code) {
+  color: #d63384 !important;
+  background-color: #f8f9fa !important;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 90%;
+}
+
+/* Output blocks (like NumPy's output style) */
+pre:not(.sourceCode) {
+  background-color: #ffffff;
+  // border: 1px solid #e1e4e8;
+  /* border-left: 3px solid #0066cc; */
+  // border-radius: 3px;
+  // padding: 12px;
+  font-size: 0.85em;
+  overflow-x: auto;
+  color: #333333;
+  // margin: 0.5em 0;
+}
+
+/* .quarto-dark pre:not(.sourceCode),
+[data-bs-theme="dark"] pre:not(.sourceCode) {
+  background-color: #1a1a1a;
+  border-color: #3d3d3d;
+  border-left-color: #0088ff;
+  color: #e6e6e6;
+} */
+
+/* Copy button - NumPy style */
+.code-copy-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  color: #6c757d;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  transition: color 0.2s;
+  opacity: 0;
+}
+
+div.sourceCode:hover .code-copy-button {
+  opacity: 1;
+}
+
+.code-copy-button:hover {
+  color: #000000;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.quarto-dark .code-copy-button:hover,
+[data-bs-theme="dark"] .code-copy-button:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Code with filename/caption (NumPy style) */
+.code-with-filename .code-with-filename-file {
+  background-color: #f1f3f5;
+  border: 1px solid #e1e4e8;
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125em;
+  font-weight: 600;
+  color: #586069;
+  margin-bottom: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.quarto-dark .code-with-filename .code-with-filename-file,
+[data-bs-theme="dark"] .code-with-filename .code-with-filename-file {
+  background-color: #2b2b2b;
+  border-color: #3d3d3d;
+  color: #b8b8b8;
+}
+
+.code-with-filename div.sourceCode {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Line numbers (if enabled) - NumPy doesn't typically use them */
+pre.numberSource code > span > a:first-child::before {
+  color: #7f7f7f;
+  border-right: 1px solid #e1e4e8;
+  padding-right: 0.5em;
+  margin-right: 0.5em;
+}
+
+.quarto-dark pre.numberSource code > span > a:first-child::before,
+[data-bs-theme="dark"] pre.numberSource code > span > a:first-child::before {
+  border-right-color: #3d3d3d;
+}
+
+/* Python prompt style (>>> and ...) for doctest format */
+.sourceCode .ps {
+  color: #545454;
+  font-weight: bold;
+  user-select: none;
+}
+
+/* Make sure prompts are grayed in dark mode too */
+.quarto-dark .sourceCode .ps,
+[data-bs-theme="dark"] .sourceCode .ps {
+  color: #ababab;
+}
+
+
+
+// slides
+.spacer-half { height: 0.5em; }
+.spacer-1 { height: 1em; }
+.spacer-2 { height: 2em; }
+.spacer-3 { height: 3em; }
+.spacer-4 { height: 4em; }
+.spacer-5 { height: 4em; }
+
+
+
+// div.cell-output pre {
+//   margin-top: 0px !important;
+//   margin-bottom: 15px !important;
+//   font-size: $font-size-base !important;
+// }
+
+
+
+
+/* Code blocks */
+
+// div.sourceCode cell-code {
+//   margin-top : 0px !important;
+// }
+
+
+
+
+// // pre.sourceCode {
+// //   margin-bottom: 0 !important;
+
+// // }
+// // div.cell-output.cell-output-display pre {
+// //   margin-top: 0px !important;
+// //   margin-bottom: 20px !important;
+// //   font-size: $font-size-base !important;
+// // }
+
+// // div.cell-output.cell-output-stdout pre {
+// //   margin-top: 0px !important;
+// //   margin-bottom: 20px !important;
+// //   font-size: $font-size-base !important;
+// // }
+
+
+// //////////////////////////////////////////////////////////////////
+
+
+
 
 // Controls the weight of the book "part" titles in the sidebar (e.g.
 // "Speaking the language"), without affecting the chapter links nested
