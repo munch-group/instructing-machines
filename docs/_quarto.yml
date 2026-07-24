@@ -30,9 +30,9 @@ book:
     downloads: [pdf]
   chapters:
     - index.qmd
-    # - notebooks/getting_started.ipynb
     - part: "You and your machine"
       chapters:
+      - notebooks/getting_started.ipynb
       # - notebooks/machine-insides.ipynb
       # - notebooks/history-of-instruction.ipynb
       # - notebooks/interfaces.ipynb
@@ -82,7 +82,7 @@ book:
        # - notebooks/general_exercises.ipynb
 
 
-    - notebooks/references.ipynb
+#    - notebooks/references.ipynb
 
 # bibliography: references.bib
 
@@ -98,6 +98,8 @@ execute:
   error: false      # false = a runtime error stops the render; true = print the traceback and continue
   freeze: auto      # cache execution; only re-run a notebook when its source changes  
 
+comments:
+  hypothesis: true
 
 format:
   html:

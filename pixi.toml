@@ -6,6 +6,11 @@ platforms = ["osx-arm64"]
 version = "0.1.0"
 
 [tasks]
+# Convenience wrapper: repairs the docs/jupyterlite pixi env if this repo
+# was moved/cloned to a new path and its baked-in interpreter paths went
+# stale. build-demo.sh's pixi tasks already run this automatically; this
+# is for running it by hand.
+jupyterlite-doctor = "pixi run --manifest-path docs/jupyterlite/pixi.toml doctor"
 
 [dependencies]
 jupyter = ">=1.1.1,<2"

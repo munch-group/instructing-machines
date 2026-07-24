@@ -317,6 +317,54 @@ html { font-family: 'Inter', sans-serif; }
 //   background-color: #27a7d5;
 // }
 
+/* More breathing room between the page breadcrumbs (e.g. "Speaking the
+   language > 10 Lists of things") and the chapter h1 below them.
+   Quarto's default theme sets this to 0.5em. */
+.quarto-title-breadcrumbs .breadcrumb {
+  margin-bottom: 1.5rem;
+}
+
+/* Let the left navigation sidebar grow past Quarto's stock 250px max, but
+   ONLY once the main content column and the right margin/TOC column have
+   *already* reached their own maximum widths -- so it never grows at their
+   expense. Quarto's grid ("body.floating .page-columns", from
+   _bootstrap-mixins.scss's page-columns-float-wide) treats the sidebar,
+   content and margin tracks as equal competitors for space up until each
+   hits its own cap; measured empirically (headless Chrome, stock 250px
+   sidebar), all three finish growing and go flat together at a 1349px
+   viewport.
+
+   This rule restates the same grid with the sidebar's three segments
+   widened (250px max -> 300px max); content/margin are untouched copies
+   of the stock values. But the widened grid needs 50px (300-250) more
+   total width to satisfy *itself* fully (its own break-even is ~1399px,
+   not 1349px) -- switching at 1349px would just replay the same
+   competition-for-space at a shifted offset and undershoot content again.
+   So the switch is gated at 1349 + 50 = 1399, plus an 11px cross-browser
+   safety margin: below 1410px content/margin/sidebar are pixel-identical
+   to stock at every width (verified empirically); at 1410px the widened
+   grid is already fully self-satisfied, so sidebar jumps 250px -> 300px
+   with content/margin unchanged, not a gradual reallocation. */
+@media (min-width: 1410px) {
+  body.floating .page-columns {
+    grid-template-columns:
+      [screen-start] 1.5em
+      [screen-start-inset] 5fr
+      [page-start] minmax(30px, 60px)
+      [page-start-inset] minmax(60px, 180px)
+      [body-start-outset] minmax(30px, 60px)
+      [body-start] 1.5em
+      [body-content-start] minmax(500px, calc(800px - 3em))
+      [body-content-end] 1.5em
+      [body-end] minmax(25px, 50px)
+      [body-end-outset] minmax(50px, 150px)
+      [page-end-inset] minmax(25px, 50px)
+      [page-end] 5fr
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+}
+
 /* callouts */
 
 .callout.callout-titled .callout-header {
