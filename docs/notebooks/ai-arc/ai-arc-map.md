@@ -8,12 +8,11 @@ The AI thread runs in the short "different" slot every week (Explainer → Deleg
 
 | Wk | New AI-arc note (demanding slot) | AI role | Core idea | Interfaces with |
 |----|----------------------------------|---------|-----------|-----------------|
-| 9 | **Tests are the contract** | Worker | A test is an *executable specification*: write the test first, let the AI fill the function, and the test tells truth from plausible. | im-pytest **mode 2** (raw `pytest`), **mode 3** (write your own `assert`s); the testing chapter |
-| 10 | **Reading & judging code you didn't write** *(drafted)* | Unreliable Narrator | The AI produces code that runs and is wrong — and wrong *biology*. Judge it with a rubric; the machine is the witness. | the judging rubric; the **check widget**; the HIV project |
-| 11 | **Plan before you prompt** | Collaborator | Break a problem into named, testable functions and write the plan *before* touching the assistant; drive it piece by piece. | the **plan template**; `%%test` per piece; the HIV build |
-| 12 | **Delegating a whole job** (capstone kickoff) | Collaborator → Delegate | Take a real problem apart, write the plan and the first tests, then hand pieces to the assistant. | the assembly capstone brief; im-pytest; the prompt journal |
-| 13 | **Driving the build** (capstone clinic) | Delegate | Build beyond your unaided reach by running the plan → prompt → verify → iterate loop; keep the prompt journal. | the capstone suite; the check widget |
-| 14 | **The limits of the machine** | (reflection) | Over-reliance, hallucinated biology, code that passes weak tests but is still wrong, when *not* to use AI, honest attribution. | the logbook arc; a closing reflection |
+| 9 | **Tests are the contract** *(drafted: `tests-are-the-contract.md`)* | Worker | A test is an *executable specification*: write the test first, let the AI fill the function, and the test tells truth from plausible. | im-pytest **mode 2** (raw `pytest`), **mode 3** (write your own `assert`s); the testing chapter |
+| 10 | **Reading & judging code you didn't write** *(drafted: `reading-and-judging.md`)* | Unreliable Narrator | The AI produces code that runs and is wrong, and wrong *biology*. Judge it with a rubric; the machine is the witness. | the judging rubric; the **check widget**; the HIV project |
+| 11 | **Plan before you prompt** *(drafted: `plan-before-you-prompt.md`)* | Collaborator | Break a problem into named, testable functions and write the plan *before* touching the assistant; drive it piece by piece. | the **plan template**; `%%test` per piece; the HIV build |
+| 12–13 | **Delegating a whole job** *(drafted: `delegating-a-whole-job.md`)* | Collaborator → Delegate | Assemble plan + specify + judge + iterate into one loop on a task beyond your unaided reach; the provided suite is a floor; keep the prompt journal. | the assembly capstone; im-pytest; the prompt journal |
+| 14 | **The limits of the machine** *(drafted: `limits-of-the-machine.md`)* | (reflection) | Automation bias, tests necessary not sufficient, hallucinated biology, when *not* to use AI, responsibility that does not transfer, honest attribution. | the logbook arc; a closing reflection |
 
 ## Per-note detail (what each slot holds)
 
