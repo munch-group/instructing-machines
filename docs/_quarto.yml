@@ -1,14 +1,16 @@
 project:
   type: book
   output-dir: _book
-  post-render:
-    - quarto render slides/
-    - rm -rf _book/_build/slides
-    - mkdir -p _book/_build
-    - mv slides/_build _book/_build/slides
-    - scripts/build-demo.sh
+  # post-render:
+  #   - quarto render slides/
+  #   - rm -rf _book/_build/slides
+  #   - mkdir -p _book/_build
+  #   - mv slides/_build _book/_build/slides
+  #   - scripts/build-demo.sh
+  
   #   - quarto render --to html --profile ta
   #   - quarto render --to html --profile draft
+
   render:
     - "!notebooks/snippet-cast.ipynb"
     - "!slides/"
@@ -34,8 +36,8 @@ book:
     - part: "You and your machine"
       chapters:
       - notebooks/getting_started.ipynb
-      # - notebooks/machine-insides.ipynb
-      # - notebooks/history-of-instruction.ipynb
+      - notebooks/machine-insides.ipynb
+      - notebooks/history-of-instruction.ipynb
       # - notebooks/interfaces.ipynb
       - notebooks/course_tools.ipynb
 
@@ -61,6 +63,8 @@ book:
 
         - notebooks/classes.ipynb
 
+        - notebooks/recursion.ipynb
+
     - part: "Expressing information"
       chapters:         
         - notebooks/data_structures.ipynb
@@ -78,15 +82,35 @@ book:
     - part: "AI"
       chapters:
         - notebooks/ai-arc/ai-arc-map.md
-        - notebooks/ai-arc/tests-are-the-contract.md
-        - notebooks/ai-arc/reading-and-judging.md
-        - notebooks/ai-arc/plan-before-you-prompt.md
+        - notebooks/ai-arc/ask-for-another-way.qmd
         - notebooks/ai-arc/delegating-a-whole-job.md
+        - notebooks/ai-arc/explain-then-confirm.qmd
+        - notebooks/ai-arc/how-models-produce-code.qmd
+        - notebooks/ai-arc/learning-with-an-ai.qmd
+        - notebooks/ai-arc/let-it-draft.qmd
         - notebooks/ai-arc/limits-of-the-machine.md
+        - notebooks/ai-arc/meet-the-assistant.qmd
+        - notebooks/ai-arc/plan-before-you-prompt.md
+        - notebooks/ai-arc/practical-ai-use.qmd
+        - notebooks/ai-arc/predict-then-prove.qmd
+        - notebooks/ai-arc/reading-and-judging.md
+        - notebooks/ai-arc/tests-are-the-contract.md
+        - notebooks/ai-arc/the-ai-off-test.qmd
+        - notebooks/ai-arc/the-docs-are-the-test.qmd
+        - notebooks/aliasing.qmd
+        - notebooks/dataframes.qmd
+        - notebooks/debugging-clinic.qmd
+        - notebooks/decomposition-clinic.qmd
+        - notebooks/directing-a-resource-clinic.qmd
+        - notebooks/documentation-and-resources.qmd
+        - notebooks/finale-build-clinic.qmd
+        - notebooks/finale-finishing.qmd
+        - notebooks/finale-kickoff.qmd
+        - notebooks/worked-example-composition.qmd
 
     - part: "Planning"
       chapters: 
-        - planning/course-design.md
+        - planning/course-design.qmd
 
        # - notebooks/general_exercises.ipynb
 
@@ -107,8 +131,13 @@ execute:
   error: false      # false = a runtime error stops the render; true = print the traceback and continue
   freeze: auto      # cache execution; only re-run a notebook when its source changes  
 
-comments:
-  hypothesis: true
+# comments:
+#   hypothesis: true
+
+margin-footer: |
+  - FAQ
+  - Where am I
+  - Cheat sheet
 
 format:
   html:
@@ -130,7 +159,7 @@ format:
     code-block-bg: "#f9f9f9"
 
     df-print: paged     # pandas DataFrames render as a nice paged/sortable HTML table instead of a text repr
-    code-tools: true     # adds a "</> Code" menu in the top-right to show/hide all code and view page source
+    # code-tools: true     # adds a "</> Code" menu in the top-right to show/hide all code and view page source
     code-fold: false     # project-wide default for folding (per-cell/per-notebook can still override)
 
   # pdf:
