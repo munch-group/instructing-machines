@@ -1,199 +1,149 @@
 # Instructing Machines — Course Design (14 weeks)
 
-*This document locks the week-by-week design: the sequence, the learning curve, the tool-introduction schedule, the workload shape, and the pitfalls with their mitigations. It is downstream of the pedagogy in `course-plan.md` (the AI-role ladder, the widgets, the "AI as a layer of compilation" thesis) — read that for the *why*; this is the *what, when, and in what order*. Where the two differ on the week grid, this file wins.*
+This document locks the week-by-week design: the guiding principles, the sequence, the learning curve, the tool schedule, the workload shape, and the pitfalls with their mitigations. It is downstream of the pedagogy in `course-plan.md` (the AI-role ladder, the widgets, the "AI as a layer of compilation" thesis). Where the two differ on the week grid, this file wins. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): concepts are front-loaded into weeks 1 to 5, weeks 6 to 13 are eight weekly projects in the established order, and week 14 is wrap-up. The design layers the AI thread and the composition-practice principles onto that proven skeleton rather than re-timing it.
 
----
+## 1. Guiding principles and insights
 
-## 1. Fixed constraints (the shape everything fits)
+These are the ideas that shape every decision below. They matter more than any particular week.
 
-- **10 ECTS (~275 h), 14 weeks.** Deliberately under-fill: required work is capped well below the nominal ~19 h/week so the weakest 20% can finish; the ECTS budget is absorbed by optional enrichment and the capstone ramp for stronger students.
-- **Weekly rhythm** — three lecture slots + one TA session:
-  - **Double lecture (2×45 min):** slot 1 = a *demanding* programming topic; slot 2 = the shorter **AI / "different" slot** (the AI thread and other lighter/background material). Because the AI slot rarely fills its 45 min, its spare time is available for programming basics.
-  - **Single lecture (45 min):** a second *demanding* topic.
-  - **TA (3 h):** works the **previous** week's material, so every student has had both lectures first.
-- **At most one demanding new concept per lecture sitting** (Kasper's rule, borne out over years).
-- **The lab-practical split (weeks 4–5).** Half the cohort is away at a parallel lab practical in week 4, the other half in week 5, and the away half misses that week's TA. Consequences, which the grid is built around:
-  - **TA4 and TA5 are one identical session** delivered twice — each half attends the week they're not away — so it can only carry material *both* halves have been lectured on, i.e. **week 3's**.
-  - **Weeks 4 and 5 lecture material gets no TA of its own**; that load lands on **TA6, which covers both week 4 and week 5**.
-  - Therefore weeks 4–5 must hold **light, self-recoverable** topics (survivable on the notes + self-checking widgets + the AI-as-Explainer without a live TA), and the **functions cliff must not fall there**.
-- **The course ends at week 14** — no work extends into the exam period.
+The hard part is not the pieces, it is putting them together. Students can understand variables, loops, functions, and data structures individually and still be unable to compose them into a solution to a new problem. That composition skill lags behind understanding and only comes with a large volume of practice. The previous version of this course is direct evidence: its projects were already broken into individual functions with ready-made tests, and students still stalled at the step of making the pieces work together. So the course must give the back half over to practice and scaffolding rather than to new concepts, and it must not assume that finishing the concept weeks (1 to 5) leaves a student able to think in code. This is exactly why the eight project weeks exist.
 
----
+The AI ideas are light; the programming is the work. The concepts of the AI arc, once the verification habit is in place, are quickly absorbed and do not need much lecture time. They fit in recurring fifteen-minute segments inside programming lectures. This frees almost all of the back half for what actually determines the students' progress, which is programming practice accumulating into fluency through independent work at home and in the TA sessions.
 
-## 2. The 14-week grid (locked)
+There is one verification principle, used in three modes. An AI produces things that are plausible, and turning plausible into trustworthy is verification. What changes between situations is only how you verify. Code is verified by tests and by reading it. A factual claim, a piece of biology, is verified by evidence and by your own knowledge; evidence is to a fact what a passing test is to a function, and a claim with no checkable evidence is plausible, not known. Learning is verified by self-demonstration: you have learned something when you can do it or explain it with the AI switched off, which is to learning what the passing test is to code. This single principle covers using AI to produce code, to answer questions, and to learn, so the whole AI thread is one idea taught three times.
 
-`⛰` = a known cliff week; `⚠️` = a lab-split / disruption week. TA each week works the previous week's two demanding topics unless noted.
+Not all the code you use is code you wrote, and verification splits by who wrote it. When you direct a library or a data tool, the operation it performs is not yours to test, any more than the interpreter or the built-in `len` is; you trust it as machinery, and instead you sanity-check its output against something you already know, a count you can verify, a maximum you can eyeball, a category you can total by hand. What you do test is the code you authored, the domain computation the library has no built-in for, the function that turns a raw value into the quantity your question is actually about. Recognising that boundary, between a trusted library operation you verify by its result and your own code you verify by a test, is itself part of the discipline, and it protects the course from a real trap in the finale: the temptation to make students hand-write and test what a library already does correctly and more elegantly, which teaches the wrong lesson and which a good student will rightly resent. You never reinvent the library; you author only the piece that carries your knowledge, and you let the library amplify it.
 
-| Wk | Demanding A (double-lec 1 + spare) | Demanding B (single lec) | AI / "different" slot | TA covers |
-|----|--------------------------------------|----------------------------|------------------------|-----------|
-| 1 | Machine model + first **script** in the terminal | Edit–save–run; values & types; operators | Levels of instruction; **Explainer**; the machine-map poster; logbook & badges | setup / terminal clinic |
-| 2 | Expressions, precedence, **substitution/reduction** | Variables & assignment (Oath 3) | **Translator**; "the AI predicts, `%%steps` proves" | → wk 1 |
-| 3 | Boolean logic & truthiness | Conditionals: `if`/`else`, blocks, `elif`, nested | **Illustrator** | → wk 2 |
-| 4 ⚠️ | Objects & string methods | Indexing & slicing | AI: practical use (how to prompt, how to read a reply) | **→ wk 3** (shared, half the cohort) |
-| 5 ⚠️ | Lists (+ tuples as a short coda) | Dictionaries | AI: practical use | **→ wk 3** (shared, other half — identical to wk 4) |
-| 6 ⛰ | **Functions:** `def` / call / `return` | **Scope** + built-in functions | AI background: how a model produces code | **→ wk 4 + wk 5** (double) |
-| 7 ⛰ | `for`-loops & `range` (iteration begins) | **Classes: `__init__`, `self`, methods** (add-a-method exercises) | **Comparer** | → wk 6 |
-| 8 ⛰ | Nested loops; building data structures | References & aliasing (`%%codelens`) + consolidation | **Worker**; "it does a job you specify" → why we test | → wk 7 |
-| 9 | **Testing:** tests as executable specifications | Files; a small end-to-end script | Spec & testing as the contract | → wk 8 |
-| 10 | Reading & judging generated code (the rubric) | **Guided project** kickoff (HIV subtyping) | **Unreliable Narrator**; verify the *biology* | → wk 9 |
-| 11 | Decomposition & planning before prompting | Guided project: build & verify | **Collaborator** | → wk 10 |
-| 12 | Capstone kickoff: decompose, plan, first tests | Capstone planning clinic | Collaborator → **Delegate** | → wk 11 |
-| 13 | Capstone build clinic: verify each piece | Capstone build clinic: integrate | **Delegate**; the prompt journal | → wk 12 |
-| 14 | Finishing & debugging clinic | Limits of the machine: over-reliance, hallucinated biology, when *not* to use AI | Reflection / presentations; the logbook arc | → wk 13 |
+Verification is also the line between cheating and augmenting. Producing or claiming something you cannot verify and do not understand is cheating, and students are right to feel uneasy about it. Producing something you formulated, understand, and validated is not cheating, any more than using a microscope is; it is tool use. The same verification habit that keeps the work correct also draws the integrity line and drives the learning, so a student who has internalised "never trust what you cannot check" already has the test for whether they are cheating.
 
-The two demanding slots carry the programming; the AI thread rides the third slot every week from day one, never competing with the hard topic of the day.
+An AI squares the value of what you know. What you can safely get from an AI is roughly what you know multiplied by how much of its work you can steer and judge and validate, and that second factor is itself limited by what you know. Two factors, both your own knowledge, so the value of the AI to you grows like your knowledge squared. Near zero knowledge makes the AI worth near zero, or worse than zero, because you cannot catch its mistakes. And every new thing you learn is now worth more than before, because it pays twice, once directly and once by unlocking more of the AI you can use safely. This is the exact opposite of the defeatist feeling that the AI makes learning pointless, and the course should end on this, with the machine's limits presented as the guardrails that make the augmentation safe.
 
----
+The danger is taught with examples we control, not with a live AI we hope will misbehave. On simple beginner tasks a capable assistant will usually be right, which would make the lessons about its unreliability feel like theatre if they depended on the live AI being wrong. So the planted bugs and the wrong biology are authored by us, in curated examples, where the failure is guaranteed and pedagogically chosen. The live AI is used for genuine help and for the finale, where its competence is the point.
 
-## 3. Concept dependency graph
+Composition is taught by modelling it, repeatedly and aloud. The best-supported intervention for the "understands the pieces, cannot combine them" problem is the worked example: the lecturer solving a small problem live, deciding the decomposition, writing each function, testing it, hitting a bug, reading the error, fixing it. The back-half lectures are these worked examples, and the `snippet-cast` tool turns them into narrated screencasts students replay at home, which is where fluency is actually built.
 
-The sequence walks a strict prerequisite chain, so nothing is used before it's taught:
+The student's leverage is knowing what is possible. As the AI writes more of the code, the human's job shifts to knowing which capabilities exist and being able to specify and check them. Reading the documentation of a library or a web service, understanding its functions as contracts without reading their implementation, is therefore a central skill, not a footnote, and it is the same contract idea the course has taught all along, now at the scale of a whole library.
+
+## 2. Fixed constraints
+
+10 ECTS across 14 weeks, deliberately under-filled so the weakest students can finish; the surplus is optional depth. Each week has a double lecture (two 45-minute slots), a single lecture (45 minutes), and a 3-hour TA session that works the previous week's material. In the double lecture, the first slot carries a demanding topic and the second is a shorter slot that holds the AI segment and other lighter material; its spare time is available for programming. At most one demanding new concept per lecture sitting. Weeks 4 and 5 are a lab-practical split: half the cohort is away each week and misses that week's TA, so the week-4 and week-5 sessions are run to cover the same ground for the two halves and the exercise load that would otherwise fall in those weeks is caught up in TA6. The existing pace places iteration in week 4, so the iteration cliff coincides with the split; it is cushioned by the following-week TA and by the eight project weeks, and the surrounding topics (files, data structures, recursion, testing) are self-recoverable from the notes and the self-checking widgets. The course ends at week 14 with no work extending into the exam period. Students use Microsoft 365 Copilot in the browser, including its Study and Learn agent, a Socratic tutor that guides reasoning rather than handing over answers; VS Code stays an AI-free space. Per-week AI behaviour can be nudged by giving students a prompt to paste or an agent to select, but it cannot be centrally enforced, so it is treated as a soft nudge and never relied on.
+
+## 3. The 14-week grid
+
+`⛰` marks a cliff week, `⚠️` a lab-split week. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): the concepts are delivered in weeks 1 to 5, weeks 6 to 13 are eight weekly programming projects, one per week, in the established order, and week 14 is wrap-up. The AI thread runs in a recurring fifteen-minute segment every week, and in the project weeks the single lecture becomes a supporting worked-example or debugging clinic rather than a new concept. The weekly project is the practice done at home and in the TA session.
+
+Links point to the draft curriculum for each session, with paths relative to this file (`docs/planning/`). Where no document exists yet, the link targets a titled `.qmd` stub in `docs/notebooks/` that records what the document is meant to contain.
+
+| Wk | Lecture 1 (double, 2×45 + spare) | Lecture 2 (single, 45) | AI segment (~15 min) | TA works (previous week) |
+|----|----------------------------------|------------------------|----------------------|--------------------------|
+| 1 | [Inside the machine / how a program runs](../notebooks/machine-insides.ipynb); [Hello world](../notebooks/hello-world.ipynb); [values, math & logic](../notebooks/values-operators-logic.ipynb) | [Variables, precedence, substitution & reduction](../notebooks/precedence-steps.ipynb); [course tools](../notebooks/course_tools.ipynb) | [Levels of instruction](../notebooks/history-of-instruction.ipynb); [poster](machine-map-poster.html); [Meet the assistant](../notebooks/ai-arc/meet-the-assistant.qmd) | install & setup — [Getting started](../notebooks/getting_started.ipynb) |
+| 2 ⛰ | [Control flow: `if`/`else` & logic](../notebooks/if-else.ipynb); [Functions](../notebooks/functions.ipynb) | [More functions & scope](../notebooks/functions.ipynb) | [The AI predicts, `%%steps` proves](../notebooks/ai-arc/predict-then-prove.qmd) | wk 1 — [Hello world](../notebooks/hello-world.ipynb), [Values & logic](../notebooks/values-operators-logic.ipynb), [Precedence & steps](../notebooks/precedence-steps.ipynb), [Course tools](../notebooks/course_tools.ipynb) |
+| 3 | [Objects & string methods](../notebooks/objects.ipynb); [Lists](../notebooks/lists.ipynb) | [Dictionaries](../notebooks/dictionaries.ipynb); [Tuples](../notebooks/tuples.ipynb) | [Ask it to explain, then confirm](../notebooks/ai-arc/explain-then-confirm.qmd) | wk 2 — [Control flow](../notebooks/if-else.ipynb), [Functions](../notebooks/functions.ipynb) |
+| 4 ⚠️ ⛰ | [Iteration & lists](../notebooks/iteration.ipynb) | [Files](../notebooks/files.ipynb) | [Practical AI use](../notebooks/ai-arc/practical-ai-use.qmd) | wk 3 (lab-split) — [Objects](../notebooks/objects.ipynb), [Lists](../notebooks/lists.ipynb), [Dictionaries](../notebooks/dictionaries.ipynb), [Tuples](../notebooks/tuples.ipynb) |
+| 5 ⚠️ | [Building data structures](../notebooks/data_structures.ipynb); [nested loops & aliasing](../notebooks/aliasing.qmd) | [Recursion](../notebooks/recursion.ipynb); [Testing your code](../notebooks/testing.ipynb) | [How a model produces code](../notebooks/ai-arc/how-models-produce-code.qmd) | wk 4 (lab-split, repeated) — [Iteration](../notebooks/iteration.ipynb), [Files](../notebooks/files.ipynb) |
+| 6 | Project 1 — [translation](../../projects/translationproject); project workflow & the check widget | [Worked example: composition](../notebooks/worked-example-composition.qmd) | [Tests are the contract](../notebooks/ai-arc/tests-are-the-contract.md) | wk 5 — [Data structures](../notebooks/data_structures.ipynb), [Recursion](../notebooks/recursion.ipynb), [Testing](../notebooks/testing.ipynb) |
+| 7 | [Classes: `__init__`, `self`, methods](../notebooks/classes.ipynb); Project 2 — [folding](../../projects/foldingproject) | [Debugging clinic](../notebooks/debugging-clinic.qmd) | [Reading & judging code](../notebooks/ai-arc/reading-and-judging.md) | wk 6 — [translation project](../../projects/translationproject) |
+| 8 | Project 3 — [alignment](../../projects/alignmentproject); programming topics | [Worked example: decomposition](../notebooks/decomposition-clinic.qmd) | [Plan before you prompt](../notebooks/ai-arc/plan-before-you-prompt.md) | wk 7 — [folding project](../../projects/foldingproject), [Classes](../notebooks/classes.ipynb) |
+| 9 | Project 4 — [codon bias](../../projects/codonbiasproject); [reusing others' code: modules & BioPython](../notebooks/modules.ipynb) | [Documentation & resources](../notebooks/documentation-and-resources.qmd) | [The docs are the test](../notebooks/ai-arc/the-docs-are-the-test.qmd) | wk 8 — [alignment project](../../projects/alignmentproject) |
+| 10 | Project 5 — [HIV subtyping](../../projects/hivproject); directing a resource | [Directing the AI to use a resource](../notebooks/directing-a-resource-clinic.qmd) | [Delegating a whole job](../notebooks/ai-arc/delegating-a-whole-job.md) | wk 9 — [codon-bias project](../../projects/codonbiasproject) |
+| 11 | Project 6 — [sequence distance](../../projects/seqdistproject) | [Debugging / review clinic](../notebooks/debugging-clinic.qmd) | [Let it draft a piece you can test](../notebooks/ai-arc/let-it-draft.qmd) | wk 10 — [HIV project](../../projects/hivproject) |
+| 12 | Project 7 — [ORF finding](../../projects/orfproject) | [Dataframes: a table you can plot](../notebooks/dataframes.qmd) | [Ask for another way](../notebooks/ai-arc/ask-for-another-way.qmd) | wk 11 — [sequence-distance project](../../projects/seqdistproject) |
+| 13 | Project 8 — [assembly](../../projects/assemblyproject) | [Review & interface-testing clinic](../notebooks/debugging-clinic.qmd) | [Learning with an AI](../notebooks/ai-arc/learning-with-an-ai.qmd) | wk 12 — [ORF-finding project](../../projects/orfproject) |
+| 14 | Python & algorithms; guest talk; [the limits & the augmentation](../notebooks/ai-arc/limits-of-the-machine.md) | course evaluation & exam practicalities | [The AI-off test](../notebooks/ai-arc/the-ai-off-test.qmd) | wk 13 — [assembly project](../../projects/assemblyproject) |
+
+The concept sequence in weeks 1 to 5 (hello world and values, then control flow and functions, then objects and the containers, then iteration and files, then data structures, recursion, and testing) matches the reading order of the existing course exactly, as does the project order in weeks 6 to 13 (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly). Classes enter in week 7 alongside the folding project, and testing is taught in week 5 so the first project in week 6 can be verified against a suite. The existing course places its two mandatory hand-ins at the translation project (week 6) and the HIV project (week 10); the assessment question is still deferred (section 10), but those are the natural spotlight weeks if hand-ins are reinstated.
+
+The scaffolding fades across the eight project weeks rather than being switched off at once: the earliest projects arrive fully decomposed with stubs and a complete test suite, exactly like the old course, and the later ones give less skeleton and leave more of the tests for the student to write, so that by the assembly project the student is doing much more of the decomposition and verification. The `iplot-widget` and matplotlib plotting appear inside the later projects (see the dataframes note, week 12) so students see graphics, text, and code blend on one notebook page. The student-formulated finale and the gene-CSV tool from the previous draft are deferred for now, since the existing pace fills weeks 6 to 13 with the eight projects and closes on wrap-up; the drafted finale notes (`finale-kickoff`, `finale-build-clinic`, `finale-finishing`) are parked for when that capstone is added back.
+
+## 4. Concept dependency graph
 
 ```
-values/types/operators (wk1-2)
-        └─ expressions & precedence → substitution/reduction model (wk2)   ← the spine
-                └─ variables & assignment (wk2)
-                        └─ boolean logic & truthiness (wk3)
-                                └─ conditionals (wk3)
-        objects & string methods (wk4) ─┐
-        indexing & slicing (wk4-5) ─────┤
-        lists / dictionaries / tuples (wk5) ────┐
-                                                ├─ functions (wk6) ── scope (wk6)
-                                                │        ├─ classes: __init__/self/methods (wk7)   ← needs functions + objects
-                                                │        └─ iteration: for/range (wk7)
-                                                │                └─ nested loops & building data structures (wk8)
-                                                │                        └─ references & aliasing (wk8)
-                                                └─ testing (wk9) ── files (wk9)
-                                                        └─ AI integration: read/judge (wk10) → plan (wk11)
-                                                                └─ guided project (wk10-11) → capstone (wk12-14)
+values/types/operators, math & logic (wk1)
+        └─ expressions & precedence → substitution/reduction (wk1)      ← the spine
+                └─ variables & assignment (wk1)
+                        └─ boolean logic & truthiness (wk1) → conditionals (wk2)
+                                └─ functions (wk2) ── scope (wk2)
+        objects & string methods (wk3), lists / dictionaries / tuples (wk3)
+                └─ iteration: for/range (wk4) ── files (wk4)
+                        └─ building data structures, nested loops & aliasing (wk5)
+                                └─ recursion (wk5) ── testing (wk5)
+        classes: __init__/self/methods (wk7, with the folding project)
+                └─ reading library/API docs as contracts (wk9, with BioPython)
+        the eight weekly projects (wk6-13, fading scaffold)
+                └─ wrap-up, limits & the augmentation idea (wk14)
 ```
 
-Two placement facts the graph guarantees: **functions depend only on values/expressions/variables** (all taught with full TA support in weeks 1–3), so putting functions at week 6 is safe even though the week 4–5 container topics sit "between" — functions don't need them. And **testing (wk9) is the hinge**: everything in the AI arc (specify, judge, plan) stands on being able to write a test.
+The documentation skill is a direct descendant of classes: a class taught them that an object is a thing with methods you call by their contract, and reading a library is reading a catalogue of such contracts. It arrives in week 9 alongside the codon-bias project and BioPython, where the projects first lean on machinery the student did not write.
 
----
+## 5. The learning curve, the cliffs, and the composition problem
 
-## 4. The learning curve & cliff cushioning
+Two historical dropout points, functions and scope (now week 2) and iteration and nested loops (weeks 4 to 5), are cushioned as much as the compressed pace allows: a dedicated TA the following week, the codelens and steps widgets, high exercise density, and above all the eight project weeks that follow, in which the same constructs are exercised again and again. The faster pace is a deliberate trade the existing course already makes: it accepts earlier and sharper cliffs in exchange for eight weeks of project practice, which is where fluency is actually built. The lab-split weeks 4 to 5 coincide with iteration and the first data-structure building; those topics are ones a student who misses a session can rebuild from the notes and the self-checking widgets. Conditionals finish in week 2 and the containers in week 3 so each gets a full TA the following week. Classes (week 7) are kept to the basic scaffolding, `class`, `__init__`, `self`, attributes, methods, and a light `__str__`, with exercises that add a method to a given class, and they are introduced alongside the folding project rather than in a standalone concept week.
 
-Kasper's two historical dropout points are **functions & scope** and **iteration & nested loops**. Both are cushioned by *depth of practice*, not extra lecture time:
+The deeper problem is the composition cliff, and it is not a single week but the whole stretch of project weeks. Understanding the pieces does not make a student able to combine them, and the only cure is volume of guided practice, which is what weeks 6 to 13 provide. The single-lecture slot in each project week is a worked-example or debugging clinic in which composition is modelled live, because watching the whole process of decomposing, writing, testing, and fixing, and then doing it, is what builds the missing schema; the `snippet-cast` tool turns these into screencasts students replay at home. The projects fade in scaffolding across the eight weeks: the earliest arrive fully decomposed with stubs and a complete test suite, the middle ones give the plan but leave more of the writing and testing, and the later ones give less skeleton still, so that by the assembly project the student is doing much more of the decomposition and verification themselves.
 
-- **Functions & scope — week 6.** One intensive week (both demanding slots), then a **dedicated 3-hour TA in week 7**, `%%codelens` on call frames and the "temporary little world" of scope, and heavy exercise density. Week 6's second slot is scope + built-ins (consolidation of the same idea), not a second brand-new hard thing.
-- **Iteration & nested loops — weeks 7–8.** `for`/`range` in week 7 (dedicated TA in week 8), nested loops and building data structures in week 8 (dedicated TA in week 9), with `%%steps`/`%%codelens` to watch the loop variable change. Week 8's second slot is aliasing + consolidation.
+## 6. The back half in detail (weeks 6 to 14)
 
-**The disruption zone (weeks 4–5)** deliberately holds the most self-recoverable topics — objects, string methods, indexing/slicing, lists, dictionaries — because a student who misses that week's lecture and TA can rebuild them from the notes and the **self-checking widgets** (`%%puzzle`, `%%codelens`, and the AI-as-Explainer) without a human. None is a prerequisite for the functions cliff, and all are reinforced constantly afterward, so a shaky first exposure doesn't compound. **Conditionals finish in week 3**, so they get the full shared TA. Booleans/truthiness (which Kasper's notes flag for overload) also sit in week 3 with full TA.
+Week 5 delivers the last new programming machinery before the projects take over: building data structures, recursion, and testing as executable specification, including the raw `pytest` command. Testing sits one week before the first project so that from week 6 on every project can be verified against a suite.
 
-**Classes (week 7, single lecture)** cap the objects arc — "you've been *using* objects; here is the scaffolding one is made from." Scope is deliberately small so it doesn't crowd the iteration onset in the same week: `class`, `__init__`, `self`, instance attributes, and methods, with a light `__str__`; the exercises have students **add a method to a given class** rather than design one from scratch. It sits at week 7 because methods *are* functions (taught week 6) and it builds on the objects/methods work of week 4. `%%codelens` visualizes `__init__` and attribute assignment, so the "what `self` is" question is answered by watching it. The advanced OOP material in the old `classes.ipynb` (multiple inheritance, mixins, static/class methods, SOLID) stays cut to an optional appendix.
+Weeks 6 to 13 are the eight weekly projects from the ported catalogue (`projects/` in the repo), in the established order: translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, and assembly. Each project week runs the same shape: the double lecture introduces the project and any remaining Python topic, the single lecture is a worked-example or debugging clinic on a similar but different problem, and the student does the week's project at home and in the TA session. Classes enter in week 7 with the folding project, and the documentation-and-resources note enters in week 9 with the codon-bias project and BioPython, the first point where a project leans on machinery the student did not write. The scaffolding fades across the eight weeks, from fully decomposed stubs with a complete test suite in the early projects to much less skeleton and much more student-written testing by the assembly project. The existing course marks the translation project (week 6) and the HIV project (week 10) as mandatory hand-ins; the assessment decision here is still deferred, but those remain the natural spotlight weeks.
 
----
+Dataframes and plotting enter in the later project weeks (around week 12), deliberately light. The course does not teach data analysis; there is no time for it and the students have no prerequisite for it, so a dataframe is presented as nothing more than a complex data type worth knowing exists, one that reads a CSV into a table that makes plotting convenient and, for the curious and ambitious student, analysis convenient too. It is introduced the way `list` and `dict` were, by doing rather than by theory: `read_csv` hands you back an object, the object has columns you can pull out, and you can hand the whole thing to a plotting call and get a picture. Nothing about indexing, grouping, or joining is promised. Standard matplotlib plotting and the `iplot-widget`, which turns a dataframe into a dropdown-driven plot builder that also reveals the code it generated, are folded into the projects rather than given their own lecture, so that a student sees prose, a code cell, and a rendered plot sitting together on one notebook page and understands that this blending of graphics, text, and code is what a notebook is for. That motivation, which was part of the original reason to use notebooks at all, lands inside the practice without costing a lecture slot the back half does not have.
 
-## 5. Tool-introduction schedule
+The documentation and resources note (week 9), grafted onto the classes material and arriving with the codon-bias project and BioPython, teaches reading a library's reference, or a web API's documentation, as a catalogue of contracts: what each function or endpoint takes and returns, understood without reading how it works inside. It teaches directing the AI to use those capabilities, and it teaches catching the AI when it invents functions or parameters that do not exist, which is one of its most common and most confident failures, and for which the real documentation is the test that fails it. This is the skill that lets the later projects build on machinery the student did not write, because it is how a student comes to know what is possible.
 
-Each tool is introduced at the moment it *relieves* cognitive load rather than adds it. This schedule is itself a design artifact — front-loading all of it in weeks 1–2 would drown beginners.
+Week 13 finishes with the assembly project, the hardest and most integrative of the eight, and week 14 is wrap-up: a lecture on Python and algorithms with a guest talk on bioinformatics beyond the classroom, the course evaluation and exam practicalities, and the closing limits-and-augmentation discussion. This is where the "limits of the machine" note lands, recast to close on augmentation rather than caution: the student brought the biology and the judgment, the assistant wrote plumbing they could not, the course gave them the ability to produce and validate it, and that is the AI squaring what they know.
+
+The student-formulated finale and the gene-CSV tool from the previous draft are deferred while the course matches the existing pace, which fills weeks 6 to 13 with the eight projects and closes on wrap-up. The thinking behind that finale is not lost: when it is reinstated it would extend or replace the assembly weeks, and the material is ready for it, the drafted finale notes (`finale-kickoff`, `finale-build-clinic`, `finale-finishing`), the light dataframe introduction, and the `apply` bridge by which a student's own hand-tested function such as `gc_content(seq)` is run by the library across every row of a table (`df['gc'] = df['sequence'].apply(gc_content)`). That bridge is the squaring argument made concrete: the authored function gets a test, the library's aggregate output gets a sanity check against a number the student already knows, and nothing the library does well is reinvented.
+
+The five AI-arc notes already drafted (`docs/notebooks/ai-arc/`) are repositioned by this. They are no longer standalone lecture content; they become the source material for the fifteen-minute AI segments and for the students' reading, delivered light. The "limits of the machine" note is recast to close on augmentation rather than on caution, carrying the squaring idea and the one-principle-three-modes framing.
+
+## 7. The AI thread and the one verification principle
+
+The AI thread runs in the short segment every week, escalating through the role ladder (Explainer, Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate; detail in `course-plan.md`), and every exercise it sets resolves at the check widget or at a test the student runs, so that "the AI predicts, you verify" is the literal structure of the work and not a slogan. In the later weeks the thread broadens from producing code to the general skill of working with an AI, held together by the single verification principle: verify code with tests and reading, verify facts with evidence and knowledge, verify your own learning by doing it with the AI switched off. This is where the course teaches learning with an AI rather than taking answers from it, using the Study and Learn agent as the tutoring mode, and where it confronts the "isn't this cheating" feeling with the verification-and-understanding line and the squaring argument. Every exercise carries a licence badge (a role, or `SOLO` for do-it-yourself-first), the AI lives in the browser, and each week prompts one logbook entry. The dangers are taught throughout on curated examples we author, so that the lessons hold regardless of how capable the live assistant is that week.
+
+## 8. Tool-introduction schedule
 
 | When | Tool / apparatus | Introduced because |
 |------|------------------|--------------------|
-| Wk 1 | Terminal, VS Code, first `.py` script, the **machine-map poster** | The script-first model makes disk/memory/CPU/interpreter legible before notebooks hide them |
-| Wk 1 | **AI in the browser** (Copilot Chat), the **licence badges**, the **logbook** | The AI thread starts as *Explainer* on day one, in its own low-stakes slot |
-| Wk 1–2 | **`script-widget`** (`%%exercise` / `%%test`), notebooks & IPython | The bridge from terminal scripts to notebooks — a cell that "starts clean" like a script |
-| Wk 2 | **`steps-widget`** (`%%steps`) | Lands exactly on the substitution/reduction lecture; first "AI predicts, the widget proves" demo |
-| Wk 2–4 | **`puzzle-widget`** (`%%puzzle`) | Order/structure drills; self-checking, ideal for the disruption weeks |
-| Wk 3–4 | **`turtle-widget`** (optional) | Visual functions/loops; the safe first place to let the AI *Draft* |
-| Wk 4–8 | **`codelens-widget`** (`%%codelens`) | Arrives at the aliasing/scope/reference cliff, where paper stops working; also visualizes `__init__` and attribute assignment for classes (wk7) |
-| Wk 9 | **raw `pytest`** (im-pytest mode 2) | The testing chapter — students read the real tool's output |
-| Wk 10–14 | **student-authored tests** (im-pytest mode 3) | They write tests to validate AI-produced code in the projects |
+| Wk 1 | Terminal, VS Code, first script, the machine-map poster; AI in the browser, badges, logbook | Script-first makes the machine legible; the AI thread starts as Explainer in its own slot |
+| Wk 1 | `steps-widget` (`%%steps`) | Lands on the substitution/reduction lecture; first AI-predicts-widget-proves demo |
+| Wk 1-2 | `script-widget` (`%%exercise` / `%%test`), notebooks & IPython | The bridge from terminal scripts to notebooks |
+| Wk 2-3 | `puzzle-widget` (`%%puzzle`) | Order/structure drills; self-checking for the disruption weeks |
+| Wk 2-3 | `turtle-widget` (optional) | Visual functions/loops; safe first place to let the AI draft |
+| Wk 2-7 | `codelens-widget` (`%%codelens`) | The scope/aliasing/reference cliff, and `__init__`/attribute assignment for classes |
+| Wk 5 | raw `pytest` (im-pytest mode 2) | The testing lecture: read the real tool's output |
+| Wk 6-13 | student-authored tests (im-pytest mode 3); `snippet-cast` for home worked examples | Writing tests to validate the projects; replayable modelled composition |
+| Wk 9-14 | the Study and Learn agent; reading library/API documentation | Learning-with-AI mode; the documentation-literacy skill for the resource-backed projects |
+| Wk 12-13 | dataframes (`read_csv`), matplotlib plotting, `iplot-widget` | Introduced light inside the later projects as a complex data type worth knowing exists; graphics/text/code blending in a notebook |
 
-The **im-pytest check widget** (mode 1 — the friendly ✓/✗ panel) is available from week 1 for any auto-checked interspersed exercise, and becomes the everyday interface for the projects from week 10. All three modes are built and validated (see §7).
+The im-pytest check widget (mode 1) is available from week 1 for any auto-checked exercise and is the everyday interface for the projects. All three modes are built and validated, and the eight ported projects live in `projects/`.
 
----
+## 9. Workload
 
-## 6. Per-week workload
+Contact time is fixed at 5.25 hours per week. The target for required self-study is about 5 to 7 hours per week for the median student, below the roughly 14 hours the nominal 10 ECTS would imply, with the surplus offered as optional depth. In the project weeks almost all of that required work is programming practice on the weekly projects, not new reading, which is the point: the pace of the course is set by how fast students accumulate fluency through practice, and the plan leaves room for that by keeping the project-week single lectures in a supporting rather than a concept-adding role. Breather weeks are week 1 and week 14; the concept weeks 2 to 5 are the densest, with the two cliffs (functions in week 2, iteration in week 4) the heaviest, and the project weeks settle into a steady rhythm of practice.
 
-Contact time is fixed at **5.25 h/week** (135 min lecture + 180 min TA). The design target for **required self-study is ~5–7 h/week for the median student** — below the ~14 h the nominal 10 ECTS would imply — with the surplus offered as *optional* enrichment and absorbed by the capstone for stronger students. This protects the floor while keeping the ceiling high.
+## 10. Assessment (deferred)
 
-Relative load by week (to smooth the curve, not to fill it):
+No mandatory graded hand-ins are part of the current design; the projects are formative, with students checking their own work through the im-pytest suites. When graded assessment is designed, the course's logic argues for assessing judgment and verification over working output: grade the plan and the tests the student wrote, grade the logbook and prompt journal, weight "can explain and defend every part of this" above "it runs", and consider an exam that hands the student a piece of AI-generated code to find, fix, and justify a fault in.
 
-| Wk | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
-|----|---|---|---|---|---|---|---|---|---|----|----|----|----|----|
-| Load | light | med | med | light⚠️ | light⚠️ | **heavy**⛰ | med⛰ | **heavy**⛰ | med | med | med | build | build | light |
-
-Deliberate breathers: **week 1** (onboarding), **weeks 4–5** (disruption + the weakest students' cushion), **week 14** (reflection). The heavy weeks are the two cliffs; nothing brand-new-and-hard is stacked next to them. The capstone weeks are self-study-heavy but carry *no new lectured concepts* — the demanding slots are clinics, so the load is applied effort, not new material.
-
-*(Exact hour budgets should be validated against a pilot cohort; the shape above is the commitment, the numbers are estimates.)*
-
----
-
-## 7. The AI arc and the projects (project-based)
-
-The AI thread runs in the "different" slot for all 14 weeks, escalating through the role ladder (§8). From week 9 the demanding slots turn from new syntax to **applying it through bioinformatics projects** — Kasper's proven, project-driven style — using the ported test suites as the verification spine.
-
-- **Week 9 — the verification toolkit.** Testing (tests as executable specs, raw `pytest`), files, a small end-to-end script.
-- **Weeks 10–11 — guided project: HIV subtyping.** Chosen as the flagship: self-contained-ish, intro-only concepts, a clean function-composition ladder, and the "ignore columns that are gaps in both sequences" rule is the perfect *spec detail an AI gets subtly wrong while the code still runs* — caught by the data-pinned tests. The AI-integration skills (reading/judging in wk10, planning in wk11) are taught in this project's context, run through the im-pytest widget: plan → prompt → verify.
-- **Weeks 12–14 — capstone: genome assembly.** The standout for this audience: no algorithm over-scope, biology fully self-contained, and a strong 25-check suite whose order-independence and no-false-overlap tests punish the sloppy code beginners can't spot. **ORF finding** is the sanctioned alternative for students who want a gene-finding flavour. Workflow: plan → specify with tests → prompt → read & verify → iterate; keep the prompt journal; week 14 closes with the limits-of-the-machine discussion.
-- **Cut:** **alignment** (dynamic programming is the wrong hill for absolute beginners, even with AI). **seqdist** and **folding** are secondary/optional.
-
-**The testing layer is built and in the repo** (`im-pytest` + `projects/`). Every project ships three ways — the friendly hidden check widget (early self-checking + project work), raw `pytest` (week 9), and student-authored tests (capstone) — all validated end to end. See `projects/<name>/` for each ported suite, stub, data, encrypted solution, and a `solution_walkthrough.ipynb`.
-
-**Assessment.** There are **no mandatory graded hand-ins for now** — the projects are formative, and students verify their own work with the im-pytest suites. If graded assessment is added later, the natural candidates are the translation warm-up and the HIV guided project (both auto-checkable via their suites); grade *process* (plan, tests written, logbook) over *product* (see §9).
-
----
-
-## 8. The AI-role ladder, badges & logbook (locked; detail in `course-plan.md`)
-
-The AI's sanctioned role escalates with the student's competence, one named role at a time, each a two-word name + a one-sentence dogma:
-
-| Wk | Role | Dogma |
-|----|------|-------|
-| 1 | **Explainer** | It explains; the running machine decides if that's true. |
-| 2 | **Translator** | It turns errors and jargon into plain words; the interpreter has the final word. |
-| 3 | **Illustrator** | It gives more examples like the one you know; predict before you run. |
-| 4 | **Comparer** | It offers another way; you decide which is better, and why. |
-| 5 | **Drafter** | It drafts a small piece you can already read; read it, run it, compare it. |
-| 6 | **Unreliable Narrator** | It states things confidently — including biology — that can be false. Check everything. |
-| 8–9 | **Worker** | It does a job you've specified; your tests decide if it's done. |
-| 10–11 | **Collaborator** | You plan and specify; it builds piece by piece; you verify each piece. |
-| 12–14 | **Delegate** | You hand it a job you couldn't do alone — and you stay responsible for the result. |
-
-Every exercise carries a **licence badge** (🟢 the role permitted, or 🔒 `SOLO` — do it yourself first). The **AI lives in the browser**; VS Code stays an AI-free space all term. Each week prompts one **logbook** entry: what the AI got right, what it got wrong, how the student knew.
-
----
-
-## 9. Assessment (deferred)
-
-No mandatory graded hand-ins are part of the current design — the projects are **formative**, with students checking their own work through the im-pytest suites. When graded assessment *is* designed, the course's logic argues for assessing **judgment and verification, not just working output** (otherwise a student passes by pasting an AI's answer — the exact failure the course exists to prevent). Levers to reach for then, several free from the structure above:
-
-- Grade the **plan** and the **tests the student wrote** as deliverables in their own right.
-- Grade the **logbook / prompt journal** — honest reporting of the AI's failures and the student's catches.
-- Weight "can explain and defend every part of this program" above "it runs" in the capstone rubric.
-- The translation and HIV suites are auto-checkable (a grade/report mode can be re-added to im-pytest when needed).
-- **An exam format that tests the transferable skill directly:** hand the student a piece of AI-generated code, ask them to find the defect, fix it, and justify the fix.
-
----
-
-## 10. Pitfalls & mitigations
+## 11. Pitfalls and mitigations
 
 | Pitfall | Mitigation |
 |---------|-----------|
-| Functions/scope cliff (wk6) | Dedicated TA (wk7), `%%codelens` on frames/scope, high exercise density, no competing new-hard concept |
-| Iteration/nested cliff (wk7–8) | Same pattern; dedicated TAs (wk8, wk9); `%%steps`/`%%codelens` |
-| Lab-split weeks 4–5 (no own TA, half-cohort away) | Light, self-recoverable container topics; self-checking widgets substitute for the missing TA; TA6 catches up wk4+wk5 |
-| Meta-tool overload | Staggered tool schedule (§5); the AI confined to its own weekly slot |
-| Over-reliance on AI | Licence badges + `SOLO` exercises; the logbook; "verify everything" rule; the whole role ladder |
-| Hallucinated biology (high-stakes for this cohort) | The Unreliable Narrator week (wk6/wk10); "verify domain facts, not just code" |
-| Workload creep losing the weakest 20% | Required work capped (§6); enrichment optional; breather weeks 1, 4–5, 14 |
-| Voice/scope drift in materials | Authored against the writing-style guide + quality checklist in the repo `CLAUDE.md` |
+| The composition cliff (understands pieces, cannot combine them) | The eight project weeks of guided practice: fading-scaffold projects, worked-example and debugging clinics that model composition, and snippet-cast for home |
+| Functions/scope cliff (wk2), iteration/nested cliff (wk4-5) | Dedicated following-week TA, codelens/steps, exercise density, and the eight project weeks that re-exercise the same constructs |
+| Lab-split weeks 4-5 (coincides with the iteration cliff) | Self-recoverable surrounding topics; self-checking widgets replace the missing TA; TA6 catches up |
+| The AI aces every simple task, making the danger lessons feel like theatre | Teach the dangers on curated authored bugs and wrong biology; use the live AI for genuine help and in the projects, where its competence is the point |
+| Over-reliance, and the defeatist feeling that AI makes learning pointless | The verification-and-understanding line; the squaring argument; the augmentation ending; badges and SOLO exercises; the AI-off test |
+| Hallucinated biology and invented library/API functions | Verify facts against evidence; verify library and API calls against the real documentation |
+| The blank-page finale is too hard (finale deferred for now) | When reinstated it is scaffolded (resource menu, tool skeleton, plan-first, a live worked example) and two-tiered (dataset floor, resource ceiling); for now the eight fading-scaffold projects carry the practice |
+| A dataframe-plus-CSV project drifts from the trained skills, becoming click-and-plot with nothing authored or verified | Dataframes are introduced only as a container; the authored, tested core is the domain function the library has no built-in for, reached through `apply`; the library's output is sanity-checked against known quantities; students are never made to reinvent what the library does well |
+| Workload creep losing the weakest 20% | Required work capped; optional depth; breather weeks; the back half adds practice, not concepts |
 
----
+## 12. Decisions
 
-## 11. Decisions
+Resolved: the Python content sequence and pace follow the existing course (`weekplan.qmd`), with concepts in weeks 1 to 5, the eight projects in weeks 6 to 13 in the established order (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly), and wrap-up in week 14; the `translationproject.py` stub is fixed; no mid-course auto-checked mini-project; classes are in the core (week 7, alongside the folding project, basic scaffolding plus add-a-method exercises); testing is taught in week 5, one week before the first project; students use Microsoft 365 Copilot with the Study and Learn agent; the AI concepts run in recurring fifteen-minute lecture segments. Dataframes and plotting are a light introduction only, a complex data type worth knowing exists, folded into the later projects (weeks 12 to 13) rather than given a lecture, with matplotlib and the `iplot-widget` used to show graphics, text, and code blending in a notebook; real data analysis is out of scope. The dataframe-project drift risk is handled by locating the authored, tested code in the domain function the library lacks (reached through `apply`) and verifying the library's output by sanity check, following the authorship split in the guiding principles.
 
-**Resolved.**
-- The `translationproject.py` stub is fixed (`translate_codon` returns `'?'` for an untranslatable codon, not the leftover `'kasper'`).
-- **No mid-course auto-checked mini-project** — weeks 1–8 stay exercise-only; the first project is the week 10–11 guided one.
-- **No mandatory graded hand-ins for now** — the projects are formative (§9).
-- **Classes are in the core** — a week-7 lecture on the basic scaffolding (`class`, `__init__`, `self`, attributes, methods, light `__str__`) with exercises that have students *add a method to a given class*, so they understand the machinery. Advanced OOP stays cut to an optional appendix. Tuples fold into week 5 (a short coda to lists) so nothing is displaced.
+Deferred for now: the student-formulated finale and the teacher-supplied gene CSV are set aside while the course matches the existing pace; the drafted finale notes and the `apply` bridge are parked for when that capstone is added back.
 
-**Still open.**
-1. **Per-week required-hour budgets** — validate the §6 estimates against a real cohort.
-
----
-
-*Once §11 is settled, the next production step is Week 1 end to end — the integrated specimen (first script, the machine model + poster, the compiler thesis staged so students derive it, the first Explainer exercise, the logbook + badge reference page) — built in markdown against the repo `CLAUDE.md`.*
+Still open: whether the existing course's two mandatory hand-ins (translation in week 6, HIV in week 10) carry over or the projects stay formative; how much skeleton to give at each of the eight project weeks as the scaffold fades; validate the per-week required-hour budgets against a real cohort; and, if the finale returns, settle the precise columns and contents of the gene CSV.
