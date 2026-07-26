@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Working with files – Instructing Machines</title>
+<title>45&nbsp; Directing the AI to use a resource: clinic – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,41 +26,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -71,8 +36,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../notebooks/classes.html" rel="next">
-<link href="../notebooks/list-comprehensions.html" rel="prev">
+<link href="../notebooks/documentation-and-resources.html" rel="next">
+<link href="../notebooks/decomposition-clinic.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -123,7 +88,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/widget-demo.html">Speaking the language</a></li><li class="breadcrumb-item"><a href="../notebooks/files.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Working with files</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/ai-arc/ai-arc-map.html">AI</a></li><li class="breadcrumb-item"><a href="../notebooks/directing-a-resource-clinic.html"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directing the AI to use a resource: clinic</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -191,13 +156,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Speaking the language</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/widget-demo.html" class="sidebar-item-text sidebar-link">
@@ -272,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/files.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notebooks/files.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Working with files</span></span></a>
   </div>
 </li>
@@ -355,13 +320,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">AI</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/ai-arc/ai-arc-map.html" class="sidebar-item-text sidebar-link">
@@ -484,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/directing-a-resource-clinic.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/directing-a-resource-clinic.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directing the AI to use a resource: clinic</span></span></a>
   </div>
 </li>
@@ -543,15 +508,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#writing-files" id="toc-writing-files" class="nav-link active" data-scroll-target="#writing-files">Writing files</a></li>
-  <li><a href="#reading-files" id="toc-reading-files" class="nav-link" data-scroll-target="#reading-files">Reading files</a></li>
-  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
-  </ul>
-</nav>
+        
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <ul>
 <li>FAQ</li>
@@ -562,9 +519,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/widget-demo.html">Speaking the language</a></li><li class="breadcrumb-item"><a href="../notebooks/files.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Working with files</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/ai-arc/ai-arc-map.html">AI</a></li><li class="breadcrumb-item"><a href="../notebooks/directing-a-resource-clinic.html"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directing the AI to use a resource: clinic</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-files" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Working with files</span></span></h1>
+<h1 class="title"><span id="sec-directing-a-resource-clinic" class="quarto-section-identifier"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directing the AI to use a resource: clinic</span></span></h1>
 </div>
 
 
@@ -581,126 +538,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><em>This chapter covers the bare necessities of making your program read data from a file on your computer and how to create a file to write results.</em></p>
-<section id="writing-files" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="writing-files">Writing files</h2>
-<p>To interact with a file on your hard disk, you need to know its name and whether you want to write to it or read from it. Then, you can use the built-in function <code>open</code> to create a file object that lets you read or write to that file. The <code>open</code> function takes two arguments: The first is a string, which gives the file’s name. The second argument is also a string and should be <code>'w'</code> for “write” if you want to write to the file or <code>'r'</code> for “read” if you are going to read from the file. To keep things simple, we will assume that the file you want to open is always in the same folder (directory) as the Python script that calls the <code>open</code> function.</p>
-<section id="sec-write_to_file" class="level4" data-number="17.0.0.1">
-<h4 data-number="17.0.0.1" class="anchored" data-anchor-id="sec-write_to_file"><strong>Exercise 17-1</strong></h4>
-<p>Try to write the code below and run it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"First line</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"Second line</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Now open the <code>workfile.txt</code> in <em>VScode</em> and see what is in it now. It should contain:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">First</span> line</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Second</span> line</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let’s break down what happened:</p>
-<ol type="1">
-<li>You used the <code>open</code> built-in function to open a file called “workfile.txt” in <em>writing</em> mode using the <code>'w'</code> as the second argument.</li>
-<li>You then wrote the string <code>"First line\n"</code> to the file using the <code>write</code> method of the file object.</li>
-<li>You wrote another string <code>"Second line\n"</code> to the file using the <code>write</code> method of the file object.</li>
-<li>You closed the file using the <code>close</code> method of the file object.</li>
-</ol>
-<p>Note that if you open a file for writing, a file with that name is created. If a file of that name already exists, it is overwritten.</p>
-</section>
-<section id="exercise" class="level4" data-number="17.0.0.2">
-<h4 data-number="17.0.0.2" class="anchored" data-anchor-id="exercise"><strong>Exercise 17-2</strong></h4>
-<p>Close workfile.txt in <em>VScode</em> again and change your program above to this (removing the <code>\n</code> characters):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"First line"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"Second line"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>What do you think the content of workfile.txt is now? Decide before you open workfile.txt in <em>VScode</em> again and have a look. What do you think the <code>\n</code> character represents?</p>
-</section>
-<section id="exercise-1" class="level4" data-number="17.0.0.3">
-<h4 data-number="17.0.0.3" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 17-3</strong></h4>
-<p>Close workfile.txt in <em>VScode</em> and change your program above to this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f.write(<span class="st">"First line</span><span class="ch">\n</span><span class="st">Second line</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Can you see how that is equivalent to what you did before? Open workfile.txt in <em>VScode</em> again and have a look.</p>
-</section>
-<section id="sec-write_to_file_with_print" class="level4" data-number="17.0.0.4">
-<h4 data-number="17.0.0.4" class="anchored" data-anchor-id="sec-write_to_file_with_print"><strong>Exercise 17-4</strong></h4>
-<p>You can also make <code>print</code> write to a file instead of the terminal. That way, your output will end up in the file instead of the terminal. To make print write to a file, you need to use print’s <code>file</code> keyword argument to tell print which file to write to. The argument must be an object that represents the file you want to write to (<code>file=f</code> below). Try to write the code below and run it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'w'</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"First line"</span>, <span class="bu">file</span><span class="op">=</span>f)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Second line, file=f"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Compare the code to that in <a href="#sec-write_to_file" class="quarto-xref"><span>Section 17.0.0.1</span></a>. Notice how the strings we print end with a newline character <code>\n</code>. This is because the default behavior for <code>print</code> is to add a new line to the end of what it prints—just like when you print to the terminal.</p>
-</section>
-</section>
-<section id="reading-files" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="reading-files">Reading files</h2>
-<p>When you want to read a from an existing file, you give the <code>open</code> function the name of that file and specify <code>'r'</code> for reading as a second argument. If the file you name does not exist, Python will tell you it does not exist (it is nice like that). Before you head into the rest of this section, make sure you redo <a href="#sec-write_to_file" class="quarto-xref"><span>Section 17.0.0.1</span></a> so the content of workfile.txt is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">First</span> line</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Second</span> line</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="sec-read_from_file" class="level4" data-number="17.0.0.5">
-<h4 data-number="17.0.0.5" class="anchored" data-anchor-id="sec-read_from_file"><strong>Exercise 17-5</strong></h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>file_content <span class="op">=</span> f.read()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(file_content)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let’s break down what happened:</p>
-<ol type="1">
-<li>You used the <code>open</code> built-in function to open a file called workfile.txt in <em>reading</em> mode using the <code>'r'</code> as the second argument.</li>
-<li>You then read the file’s content using the <code>read</code> method, which returns the contents as a string.</li>
-<li>You printed the string.</li>
-<li>You closed the file using the <code>close</code> method of the file object.</li>
-</ol>
-</section>
-<section id="exercise-2" class="level4" data-number="17.0.0.6">
-<h4 data-number="17.0.0.6" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 17-6</strong></h4>
-<p>Try to read from the file after you close it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile'</span>, <span class="st">'r'</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>f.close()</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>file_content <span class="op">=</span> f.read()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Do you get an error? Which one? Do you understand why?</p>
-</section>
-<section id="exercise-3" class="level4" data-number="17.0.0.7">
-<h4 data-number="17.0.0.7" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 17-7</strong></h4>
-<p>You can use the <code>readline</code> method to read one line at a time. What do you think happens if you run this code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> f.readline()</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(line)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> f.readline()</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(line)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> f.readline()</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(line)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Once you decide, try it out. What is printed in the last print statement? The thing is, the file object keeps track of how much of the file it has read. Once it ends, you can read as much as you like- nothing is left. If you want to start reading from the top of the file, you can close it and open it again. Try to insert the following two statements at various places in the code above and see what happens.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>f.close()</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="exercise-4" class="level4" data-number="17.0.0.8">
-<h4 data-number="17.0.0.8" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 17-8</strong></h4>
-<p>Look at the code below and figure out for yourself what it does:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>input_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'workfile.txt'</span>, <span class="st">'r'</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'results.txt'</span>, <span class="st">'w'</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> input_file:</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    line <span class="op">=</span> line.upper()</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    output_file.write(line)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then, run it and open results.txt in <em>VScode</em> and see what it produced.</p>
-<p>Were you surprised that the file object can be an iterator in a for-loop? Just like stings can iterate over characters, lists can iterate over values, dictionaries can iterate over keys, and file objects can iterate over the lines in the file.</p>
-<p>Try to modify your code to use the <code>print</code> function instead of the <code>write</code> method (see <a href="#sec-write_to_file_with_print" class="quarto-xref"><span>Section 17.0.0.4</span></a>).</p>
-</section>
-</section>
-<section id="general-exercises" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
-<section id="exercise-5" class="level4" data-number="17.0.0.9">
-<h4 data-number="17.0.0.9" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 17-9</strong></h4>
-<p>Write a function <code>read_file</code> that takes the name of a file as an argument. The function should read the content and return it. Like:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>content_of_file <span class="op">=</span> read_file(<span class="st">'some_file.txt'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="exercise-6" class="level4" data-number="17.0.0.10">
-<h4 data-number="17.0.0.10" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 17-10</strong></h4>
-<p>Write a function that takes the name of two files as arguments. The file should read the content of the first file and write it to the second file.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>copy_file(<span class="st">'some_file.txt'</span>, <span class="st">'other_file.txt'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A companion to the week-twelve clinic on building on machinery you did not write.</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Draft stub — planned contents
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Works a small example live: reading a piece of a library’s or an API’s documentation, deciding which function or endpoint is wanted, instructing the assistant to use it, and verifying the result against the documentation and a test. The first modelled instance of building on machinery the student did not write, and the rehearsal for project D and the finale ceiling.</p>
+</div>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1105,13 +958,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../notebooks/list-comprehensions.html" class="pagination-link" aria-label="Building lists on the fly">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Building lists on the fly</span></span>
+      <a href="../notebooks/decomposition-clinic.html" class="pagination-link" aria-label="Worked example: decomposition modelled live">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Worked example: decomposition modelled live</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../notebooks/classes.html" class="pagination-link" aria-label="Your Own Objects">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Your Own Objects</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/documentation-and-resources.html" class="pagination-link" aria-label="Documentation and resources">
+        <span class="nav-page-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
