@@ -1,7 +1,7 @@
 
 # From machine code to Python to AI {#sec-instruction}
 
-## The ladder of instruction {#sec-instruction-ladder}
+## The ladder of instruction {#sec-ladder}
 
 Everyone who has ever programmed has faced the same trade-off. The closer your instructions are to the machine's own language, the more precise control you have — and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write — and the more you are trusting something else to fill in the details. The history of programming is a ladder built out of exactly this trade-off, one rung at a time.
 
@@ -11,7 +11,7 @@ At the bottom is **machine code**, the raw bits the CPU runs. One step up is **a
 
 The key move to notice in @fig-instruction-ladder is that *every rung is a translator down to the rung below*. Assembly is translated to machine code; C is translated to machine code; Python is handled by a program that turns it into machine steps as it goes. At each level, people worried that the level below would become a lost art — and every time, understanding the level below stayed valuable exactly for the moments when the translation went wrong or the stakes were high. Molecular biology is full of high-stakes moments. Keep that thought; we'll return to it.
 
-## Compilers and interpreters: two kinds of honest translator {#sec-instruction-compile-interpret}
+## Compilers and interpreters: two kinds of honest translator {#sec-compile-interpret}
 
 Since Python is an *interpreted* language, it's worth seeing clearly what that means, next to its cousin the compiler.
 
@@ -28,13 +28,13 @@ This is also, quietly, why we make you run scripts from the terminal before we e
 *The AI predicts; the machine proves.* An interpreter is a translator you can trust to mean exactly what your code says. Hold that thought right up against the AI — because the AI is about to look like just one more rung on the ladder, and the most important lesson in this course is the precise way in which it is **not**.
 :::
 
-## The newest rung: instructing a machine in plain language {#sec-instruction-ai-rung}
+## The newest rung: instructing a machine in plain language {#sec-ai-rung}
 
 Now the AI. For the purpose of producing code, an AI assistant looks like it belongs at the very top of the ladder: you describe what you want in ordinary English — *"read this DNA sequence, find the open reading frames, and translate them"* — and it hands back Python. No syntax, no rules to memorise, closer to human language than any rung before it. On the ladder, it is simply the next translator: from a description even nearer to how you actually think, down toward code the machine can run.
 
 That framing is genuinely useful — right up until the moment it breaks. And where it breaks is the whole point. To see the break, you have to look at what the AI is actually doing under the hood, which is nothing like what a compiler does.
 
-## What the AI is actually doing: guessing the next word {#sec-instruction-next-word}
+## What the AI is actually doing: guessing the next word {#sec-next-word}
 
 A modern AI language model, underneath all the polish, does one small thing over and over: it guesses the next word.
 
@@ -44,7 +44,7 @@ You give it some text — your question, your request. It reads all of it and th
 
 Look carefully at the example in @fig-next-word. Asked to continue *"The stop codon in this sequence is…"*, the model rates `TAG` as the most likely next word and picks it. But notice *why*: it chose `TAG` because, across the mountains of text it has seen, that word tends to follow in sentences like this — **not** because it went and checked your actual sequence. It is producing a *plausible* continuation. Often the plausible answer is also the correct one. Sometimes it is fluent, confident, and simply wrong. That gap — between *plausible* and *true* — is the most important thing to understand about these tools.
 
-## Where the skill comes from: training and weights {#sec-instruction-training}
+## Where the skill comes from: training and weights {#sec-training}
 
 Fair question: how does it know that `TAG` usually follows? Nobody programmed grammar or biology into it by hand. It learned, in a process called **training**, which happens once, before you ever use it.
 
@@ -58,7 +58,7 @@ First, when you chat with the model, it is **not learning** and it is **not look
 
 Second, because it learned patterns from human text rather than following rules someone wrote down, it can produce something that *sounds* exactly like a correct answer while being false. It has no separate sense of "true"; it has a sense of "likely to come next." When a false statement is a *likely-sounding* one — a plausible-but-wrong gene function, an off-by-one in a loop, a codon table with a quiet mistake — the model will hand it to you with total confidence. This has a name you'll hear a lot: a **hallucination**.
 
-## The break in the metaphor — and the reason for this course {#sec-instruction-the-break}
+## The break in the metaphor — and the reason for this course {#sec-the-break}
 
 Now we can put the two pictures side by side, and the whole course snaps into focus.
 

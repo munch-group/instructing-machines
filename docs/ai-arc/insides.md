@@ -2,6 +2,10 @@
 
 *Before you write a single line of Python, two pictures are worth having in your head: what a computer actually is, and what the AI you will be talking to actually is. This note draws both — and shows why the second one is the reason this whole course exists.*
 
+
+{{< video https://youtu.be/d86ws7mQYIg >}}
+
+
 ::: {.callout-note}
 ## A note on where this lives
 This is a two-part draft written to sit early in the book, right after the getting-started material. Part 1 is the content flagged for `machine-insides` (what's inside the machine) and Part 2 grows out of `history-of-instruction` (the ladder from machine code to AI) and carries it into how modern AI models work. It leans on the same visual language as the re-anchoring poster (`machine-map-poster.html`): **amber = kept on the disk**, **blue = temporary in memory**, **slate = the CPU**, **teal = tools you drive**, **purple = the AI, elsewhere on purpose**. Keep the poster next to you while you read.
@@ -15,7 +19,7 @@ Let's open the box.
 
 # Part 1 — What a computer is, from the bottom up {#sec-part1-machine}
 
-## It's switches all the way down {#sec-insides-switches}
+## It's switches all the way down {#sec-switches}
 
 Deep down, a computer is millions of tiny switches, and each switch is either off or on. That's it. There is no secret third thing. We write "off" as `0` and "on" as `1`, and one such off-or-on is called a **bit** — the smallest possible piece of information.
 
@@ -25,7 +29,7 @@ One bit on its own can't say much. But line eight of them up and you get a **byt
 
 Here is the one idea to carry out of this section, because we will lean on it all term. The bits are dumb. The number `01100100` in @fig-everything-is-numbers does not "know" whether it is the number 100, the letter `'d'`, or a shade of grey. Its meaning comes entirely from the piece of code that decides how to read it. When you learn later that in Python `'d'` and `100` are different *types*, this is why: a type is nothing more than an agreement about how to read some bits. Hold onto that; it will save you a lot of confusion in a few weeks.
 
-## The three parts that do the work {#sec-insides-anatomy}
+## The three parts that do the work {#sec-anatomy}
 
 Inside the box, three components matter most for us (@fig-machine-anatomy), and the whole trick to keeping them straight is a single distinction: some things are **kept** and some things are **temporary**.
 
@@ -89,7 +93,7 @@ The **differences** are mostly about being real instead of imagined. The Turing 
 
 Keep this picture close, because it quietly sets up everything ahead: if *any* computation is really just simple steps following a table of rules over stored symbols, then the whole game of programming is writing good tables of rules — and the whole story of Part 2 is about the ever-friendlier ways we have invented to write them.
 
-## The operating system: the manager in the middle {#sec-insides-os}
+## The operating system: the manager in the middle {#sec-os}
 
 You never actually talk to the disk, memory, and CPU directly. Sitting between your programs and the hardware is the **operating system** — macOS, Windows, or Linux are all operating systems. Think of it as the manager of the whole building.
 
@@ -99,7 +103,7 @@ As @fig-os-stack shows, when your program wants to open a file, it doesn't go ru
 
 For this course you mostly won't think about the operating system — but two of its jobs will touch you directly. It is the operating system that gives you the **terminal**, the place where you'll type `python hello.py`. And it is the operating system that organises your files into folders, which is why the very first practical skill in this course is finding your way around folders in the terminal with `cd` and `ls`.
 
-## Software is just files full of instructions {#sec-insides-software}
+## Software is just files full of instructions {#sec-software}
 
 So what is a "program," or a piece of "software"? It is, in the end, a file on the disk full of instructions for the CPU. A game, your browser, VS Code, Python itself — every one of them is a file of instructions that the operating system loads into memory and lets the CPU carry out.
 
