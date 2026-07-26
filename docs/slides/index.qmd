@@ -1,0 +1,294 @@
+---
+title: "Phase-type distribution graphs for population genetics"
+data: today
+author: "Kasper Munch"
+institute: BiRC, Department of Molecular Biology and Genetics, Aarhus University
+format:
+  revealjs: 
+    logo: images/au_segl.svg
+    # footer: "Kasper Munch"  
+    controls-layout: bottom-right    
+    slide-number: c
+    classoption: fleqn
+    fleqn: true
+    # margin: 0.03
+    mainfont: "Helvetica"
+    # width: "100%"
+    # height: "100%"
+    # min-scale: 1
+    # max-scale: 1    
+    # # smaller: true
+    # # width: 1050	# Normal width (defaults to 1050)
+    # # height:	700 # Normal height (defaults to 700)
+    # # width: 933	# "standard"
+    # # height:	700 # "standard"
+    # # width: 1050 # "wide"
+    # # height: 590 # "wide"
+    # width: 1244 # "wide"
+    # height:	700 # "wide"
+---
+
+```{=html}
+<!--
+# ARROWS: 
+↑ ↓ ← → ↔ ↕
+← → ↔ ↑ ↓ • ↕ • ↖ ↗ ↘ ↙ • ⤡ ⤢
+⬅ ( ⮕ ➡ ) ⬆ ⬇ • ⬌ ⬍ • ⬉ ⬈ ⬊ ⬋
+⇦ ⇨ ⇧ ⇩ • ⬁ ⬀ ⬂ ⬃ • ⬄ ⇳
+➛ ➜ ➔ ➝ ➞ ➟ ➠ ➧ ➨
+⭠ ⭢ ⭤ ⭡ ⭣ ⭥ 
+-->
+```
+
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+# Week 1
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+
+
+<!-- Red text: -->
+<!-- [important note]{.alert} -->
+
+
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+# Week 2
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+
+## Slide
+
+
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+# Other Research...
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+
+## Three connected topics
+
+::: {.absolute top="15%" left="10%" width="50%"}
+![](images/x-y-auto-armsrace.png)
+:::
+::: {.absolute top="10%" left="60%" width="30%"}
+![](images/x-y-incompat.png)
+:::
+::: {.absolute top="60%" left="30%" width="40%"}
+![](images/drive-and-autism.png)
+:::
+
+## Baboons 
+
+<!-- ::: {.absolute top="10%" left="10%" width="40%"}
+![](images/cell-genomics-graphical-abstract.png)
+::: -->
+<!-- ::: {.absolute top="10%" left="30%" width="40%"}
+![](images/science-online-figure.png)
+::: -->
+::: {.absolute top="10%" left="15%" width="80%"}
+![](images/fig1-eriks-paper.png)
+:::
+
+## chrX and genomic "swampings"
+
+::: {.absolute top="10%" left="15%" width="80%"}
+![](images/baboon-lai-chrX-chr8.png)
+:::
+
+## Spermatogenesis scRNA
+
+::: {.absolute top="25%" left="10%" width="40%"}
+![](images/scRNA-spermatogenesis.png)
+Mikkel Schierup
+:::
+::: {.absolute top="20%" left="50%" width="40%"}
+![](images/CFAP47-trajectory.png)
+Meritxell Riera Belles
+:::
+
+## Sperm chromatin compartments
+
+::: {.absolute top="10%" left="10%" width="80%"}
+![](images/sperm-a-b-compartments.png)
+:::
+::: {.absolute top="45%" left="15%" width="70%"}
+![](images/sperm-A-B-cDEG-ideogram.png)
+:::
+
+## Large Danish Autism cohorts
+
+
+![](images/ipsych.png){.r-stretch}
+
+## Three way overlap
+
+::: {.absolute top="10%" left="30%" width="40%"}
+![](images/three-way-venn.png)
+(CDKL5, CLCN4, HUWE1, IL1RAPL1, PTCHD1)
+:::
+
+
+
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+# Menu
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+
+
+<!-- =============================================================================== -->
+## Why?
+
+- Motivations:
+  - Exploration of statistical properties.
+  - Can we do with less data if you model more of its properties? 
+  - What can be computed given enough time and money? And can we share such precomputed models?
+  - How far can we take inference on unphased data?
+  - Bayesian inference with true posterior.
+
+<!-- =============================================================================== -->
+## What?
+
+::::: {layout="[0.55,-0.05,0.4]"}
+
+::: column
+
+- Represents phase-type distributions as graphs.
+
+::: spacer-1
+:::
+
+- **Exact**:
+  - Takes phase-type distributions from theory to practice.
+  - Continuous and discrete
+  - Moments and PMFs
+  - Sojourn times.
+  - Joint probability distribution over discrete events
+
+::: spacer-1
+:::
+
+- **Arb. approx.**:
+  - State probabilities at time t.
+  - PDF
+
+:::
+::: column
+
+- **Time inhomogeneous models**:
+  - Joint probabilities at time t.
+  - Moment matched distributions
+  - (full PDF)
+
+::: spacer-1
+:::
+
+- **Inference**:
+  - SVGD
+  - Method of moments
+  - MCMC
+
+:::
+:::::
+
+<!-- =============================================================================== -->
+## Code
+
+```{.python code-line-numbers="1-3|4,6|7"}
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+<!-- =============================================================================== -->
+## Docs
+
+::: {.absolute top="10%" left=0 width="100%"}
+![](images/phasic-docs.png)
+
+:::
+
+<!-- =============================================================================== -->
+## The coalescent is a **Markov jump process**
+
+:::: {.absolute top="25%"}
+::: r-stack
+
+![](./images/coal_mc_jump_anim_2-nostart.svg){.nostretch .fragment width="100%" fig-align="center"}
+
+![](./images/coal_mc_jump_anim_3-nostart.svg){.nostretch .fragment width="100%" fig-align="center"}
+
+![](./images/coal_mc_jump_anim_4-nostart.svg){.nostretch .fragment width="100%" fig-align="center"}
+
+![](./images/coal_mc_jump_anim_5-nostart.svg){.nostretch .fragment width="100%" fig-align="center"}
+:::
+::::
+
+
+<!-- =============================================================================== -->
+## Phase-type distribution with **rewards**
+
+::::::: {layout="[[-0.1,0.45,-0.05,0.4], [-0.1,0.45,-0.05,0.4]]"}
+::: column
+![](./images/coalescent-unit-rewards.svg)
+:::
+
+::: {.column }
+**TMRCA (tree height):**
+
+${\color{red} \boldsymbol{r}} = (1,\ 1,\ 1,\ 1)$
+
+$\mathbb{E}[\tau] = \boldsymbol{\alpha} \boldsymbol{U}\!\, \triangle \! \,({\color{red}\boldsymbol{r}})\, \mathbf{e}$
+:::
+
+::: {.column }
+![](./images/coalescent-tot-brlen-rewards.svg)
+:::
+
+::: {.column }
+**Total branch length:**
+
+${\color{red} \boldsymbol{r}} = (4,\ 3,\ 2,\ 2)$
+
+$\mathbb{E}[\tau] = \boldsymbol{\alpha} \boldsymbol{U}\!\, \triangle \! \,({\color{red}\boldsymbol{r}})\, \mathbf{e}$
+:::
+:::::::
+
+<!-- =============================================================================== -->
+## **Graph** formulation
+
+::: {.absolute top="15%" left="50%" width="60%"}
+![](./images/sparse-matrix-as-graph.png){.nostretch width="100%"}
+:::
+
+::: spacer-1
+:::
+
+:::: {layout="[[0.45,-0.05,0.45], [0.45,-0.05,0.45]]"}
+:::: column
+**Analytically tractable** 😀 
+
+::: spacer-1
+:::
+
+- As graph algorithms:
+  - Elimination
+  - Exponentiation
+
+- Allows:
+  - Decomposition
+  - Parallelization
+  - Parametrization
+  - Caching
+  - Sharing
+  - Inference
+
+::::
