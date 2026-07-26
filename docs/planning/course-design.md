@@ -34,6 +34,8 @@ The student's leverage is knowing what is possible. As the AI writes more of the
 
 Links point to the draft curriculum for each session, with paths relative to this file (`docs/planning/`). Where no document exists yet, the link targets a titled `.qmd` stub in `docs/notebooks/` that records what the document is meant to contain.
 
+:::{.column-page}
+
 | Wk | Lecture 1 (double, 2×45 + spare) | Lecture 2 (single, 45) | AI segment (~15 min) | TA works (previous week) |
 |----|----------------------------------|------------------------|----------------------|--------------------------|
 | 1 | [Inside the machine / how a program runs](../notebooks/machine-insides.ipynb); [Hello world](../notebooks/hello-world.ipynb); [values, math & logic](../notebooks/values-operators-logic.ipynb) | [Variables, precedence, substitution & reduction](../notebooks/precedence-steps.ipynb); [course tools](../notebooks/course_tools.ipynb) | [Levels of instruction](../notebooks/history-of-instruction.ipynb); [poster](machine-map-poster.html); [Meet the assistant](../notebooks/ai-arc/meet-the-assistant.qmd) | install & setup — [Getting started](../notebooks/getting_started.ipynb) |
@@ -50,6 +52,8 @@ Links point to the draft curriculum for each session, with paths relative to thi
 | 12 | Project 7 — [ORF finding](../../projects/orfproject) | [Dataframes: a table you can plot](../notebooks/dataframes.qmd) | [Ask for another way](../notebooks/ai-arc/ask-for-another-way.qmd) | wk 11 — [sequence-distance project](../../projects/seqdistproject) |
 | 13 | Project 8 — [assembly](../../projects/assemblyproject) | [Review & interface-testing clinic](../notebooks/debugging-clinic.qmd) | [Learning with an AI](../notebooks/ai-arc/learning-with-an-ai.qmd) | wk 12 — [ORF-finding project](../../projects/orfproject) |
 | 14 | Python & algorithms; guest talk; [the limits & the augmentation](../notebooks/ai-arc/limits-of-the-machine.md) | course evaluation & exam practicalities | [The AI-off test](../notebooks/ai-arc/the-ai-off-test.qmd) | wk 13 — [assembly project](../../projects/assemblyproject) |
+
+:::
 
 The concept sequence in weeks 1 to 5 (hello world and values, then control flow and functions, then objects and the containers, then iteration and files, then data structures, recursion, and testing) matches the reading order of the existing course exactly, as does the project order in weeks 6 to 13 (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly). Classes enter in week 7 alongside the folding project, and testing is taught in week 5 so the first project in week 6 can be verified against a suite. The existing course places its two mandatory hand-ins at the translation project (week 6) and the HIV project (week 10); the assessment question is still deferred (section 10), but those are the natural spotlight weeks if hand-ins are reinstated.
 
