@@ -1,4 +1,4 @@
-# Plan before you prompt
+# Plan before you prompt {#sec-plan-before-you-prompt}
 
 By now you can specify a single function by writing its contract as tests, and you can read a single function the assistant produced and judge whether it keeps that contract. Both of those skills are about one function at a time. Real problems are not one function. The tasks you will tackle for the rest of the course, and the kind of task you took this course in order to be able to attempt at all, are made of several functions that fit together, and the difficulty is no longer in any one piece but in the fitting together. This week is about how you get an assistant to help you build something of that size without losing control of it, and the whole answer is contained in the title: you plan before you prompt.
 

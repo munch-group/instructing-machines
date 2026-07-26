@@ -18,6 +18,7 @@ listing:
     contents:
       - notebooks/getting_started.ipynb
       - notebooks/lists.ipynb
+      - blocks/for-loop.qmd
     # sort: "date desc"
     # categories: true
     # sort-ui: true
@@ -47,12 +48,14 @@ format:
             # background-size: contain;
             /* im-horizontal.svg is 1647x198; cap the width so the 80%-scaled
                image never renders taller than the 200px header on wide screens */
-            background-size: min(70%, calc(200px * 1647 / 198)) auto;
+            /* background-size: min(60%, calc(200px * 1647 / 198)) auto; */
+            background-size: max(450px, min(60%, calc(200px * 5))) auto;
             background-color: #F0F2F4;
             background-repeat: no-repeat;
             background-position-x: center;
             background-position-y: center;
-            height: 200px;
+            /* height: 200px; */
+            height: 150px;
             opacity: 1; /* Adjust as needed */
             z-index: -1;
           </style>
@@ -60,12 +63,12 @@ format:
 
 # Welcome {.unnumbered}
 
+
 ::: {.panel-tabset group="role"}
 
 ## <i class="bi bi-mortarboard-fill"></i> Students
 
 *Instructing Machines* is a collection of lecture notes, slides, exercises, tutorials, projects.
-
 
 ## <i class="bi bi-bank"></i> Educators
 
@@ -77,12 +80,9 @@ It was made for the [Bioinformatics course]() at [Aarhus University]() teaching 
 
 :::
 
-{{< video https://youtu.be/d86ws7mQYIg >}}
-
-
 ## News/background on AI {.unnumbered}
 
-See @sec-AI-opening for an AI opening AI update.
+Follow some of the [latest news on AI](AI-opening.qmd).
 
 ## Mind maps and resources {.unnumbered}
 

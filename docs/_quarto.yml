@@ -33,84 +33,82 @@ book:
     downloads: [pdf]
   chapters:
     - index.qmd
-    - part: "You and your machine"
+    - course-design.qmd
+    - planning/ai-arc-map.md
+    - AI-opening.qmd
+    - part: "The machine"
       chapters:
       - notebooks/getting_started.ipynb
-      - notebooks/machine-insides.ipynb
-      - notebooks/history-of-instruction.ipynb
+      - new/machine-insides.qmd
       # - notebooks/interfaces.ipynb
-      - notebooks/course_tools.ipynb
-
+      - notebooks/widget-demo.ipynb
     - part: "Speaking the language"
       chapters: 
-        - notebooks/widget-demo.ipynb
-
         - notebooks/hello-world.ipynb
         - notebooks/values-operators-logic.ipynb
         - notebooks/precedence-steps.ipynb
-
+        - notebooks/course_tools.ipynb
         - notebooks/if-else.ipynb
         - notebooks/functions.ipynb
-
         - notebooks/objects.ipynb
         - notebooks/lists.ipynb
-        - notebooks/tuples.ipynb
         - notebooks/dictionaries.ipynb
-
+        - new/aliasing.qmd
+        - notebooks/tuples.ipynb
         - notebooks/iteration.ipynb
         - notebooks/list-comprehensions.ipynb
         - notebooks/files.ipynb
-
-        - notebooks/classes.ipynb
-
-        - notebooks/recursion.ipynb
-
-    - part: "Expressing information"
-      chapters:         
         - notebooks/data_structures.ipynb
-
-    - part: "Defining truth"
-      chapters:
         - notebooks/testing.ipynb
-
-    - part: "Tools of the trade"
+        - notebooks/recursion.ipynb
+        - notebooks/classes.ipynb
+    - part: "New docs"
       chapters:
-        - notebooks/modules.ipynb
-        - notebooks/packages.ipynb
-        - notebooks/biopython.ipynb
-
-    - part: "AI"
+        - new/debugging-clinic.qmd
+        - new/decomposition-clinic.qmd
+        - new/directing-a-resource-clinic.qmd
+        - new/documentation-and-resources.qmd
+        - new/worked-example-composition.qmd
+    - part: "Working with tools"
       chapters:
-        - notebooks/ai-arc/ai-arc-map.md
-        - notebooks/ai-arc/ask-for-another-way.qmd
-        - notebooks/ai-arc/delegating-a-whole-job.md
-        - notebooks/ai-arc/explain-then-confirm.qmd
-        - notebooks/ai-arc/how-models-produce-code.qmd
-        - notebooks/ai-arc/learning-with-an-ai.qmd
-        - notebooks/ai-arc/let-it-draft.qmd
-        - notebooks/ai-arc/limits-of-the-machine.md
-        - notebooks/ai-arc/meet-the-assistant.qmd
-        - notebooks/ai-arc/plan-before-you-prompt.md
-        - notebooks/ai-arc/practical-ai-use.qmd
-        - notebooks/ai-arc/predict-then-prove.qmd
-        - notebooks/ai-arc/reading-and-judging.md
-        - notebooks/ai-arc/tests-are-the-contract.md
-        - notebooks/ai-arc/the-ai-off-test.qmd
-        - notebooks/ai-arc/the-docs-are-the-test.qmd
-        - notebooks/aliasing.qmd
-        - notebooks/dataframes.qmd
-        - notebooks/debugging-clinic.qmd
-        - notebooks/decomposition-clinic.qmd
-        - notebooks/directing-a-resource-clinic.qmd
-        - notebooks/documentation-and-resources.qmd
-        - notebooks/finale-build-clinic.qmd
-        - notebooks/finale-finishing.qmd
-        - notebooks/finale-kickoff.qmd
-        - notebooks/worked-example-composition.qmd
+        - new/modules.ipynb
+        - new/packages.ipynb
+        - new/biopython.ipynb
+        - new/dataframes.qmd
+    - part: "Projects"
+      chapters:
+        - projects/alignment-project.qmd
+        - projects/assembly-project.qmd
+        - projects/codonbias-project.qmd
+        - projects/curration-project.qmd
+        - projects/folding-project.qmd
+        - projects/hiv-project.qmd
+        - projects/orf-project.qmd
+        - projects/seqdist-project.qmd
+        - projects/translation-project.qmd
+    - part: "AI arc"
+      chapters:
+        - ai-arc/meet-ai.qmd
+        - ai-arc/predict-then-prove.qmd
+        - ai-arc/explain-then-confirm.qmd
+        - ai-arc/practical-ai-use.qmd
+        - ai-arc/how-models-produce-code.qmd
+        - ai-arc/tests-are-the-contract.md
+        - ai-arc/reading-and-judging.md
+        - ai-arc/plan-before-you-prompt.md
+        - ai-arc/the-docs-are-the-test.qmd
+        - ai-arc/delegating-a-whole-job.md
+        - ai-arc/let-it-draft.qmd
+        - ai-arc/ask-for-another-way.qmd
+        - ai-arc/learning-with-an-ai.qmd
+        - ai-arc/the-ai-off-test.qmd
+        - ai-arc/surviving-ai.md
+    - part: "Finale"
+      chapters:
+        - new/finale-build-clinic.qmd
+        - new/finale-finishing.qmd
+        - new/finale-kickoff.qmd
 
-    - part: "Planning"
-      chapters: 
-        - planning/course-design.qmd
 
        # - notebooks/general_exercises.ipynb
 
@@ -131,13 +129,13 @@ execute:
   error: false      # false = a runtime error stops the render; true = print the traceback and continue
   freeze: auto      # cache execution; only re-run a notebook when its source changes  
 
-# comments:
-#   hypothesis: true
+comments:
+  hypothesis: true
 
 margin-footer: |
-  - FAQ
-  - Where am I
-  - Cheat sheet
+  - [FAQ]()
+  - [Where am I]()
+  - [Cheat sheet]()
 
 format:
   html:

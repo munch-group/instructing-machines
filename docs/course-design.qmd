@@ -1,8 +1,8 @@
-# Instructing Machines — Course Design (14 weeks)
+# Course Design {.unnumbered}
 
 This document locks the week-by-week design: the guiding principles, the sequence, the learning curve, the tool schedule, the workload shape, and the pitfalls with their mitigations. It is downstream of the pedagogy in `course-plan.md` (the AI-role ladder, the widgets, the "AI as a layer of compilation" thesis). Where the two differ on the week grid, this file wins. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): concepts are front-loaded into weeks 1 to 5, weeks 6 to 13 are eight weekly projects in the established order, and week 14 is wrap-up. The design layers the AI thread and the composition-practice principles onto that proven skeleton rather than re-timing it.
 
-## 1. Guiding principles and insights
+## Guiding principles and insights
 
 These are the ideas that shape every decision below. They matter more than any particular week.
 
@@ -24,44 +24,55 @@ Composition is taught by modelling it, repeatedly and aloud. The best-supported 
 
 The student's leverage is knowing what is possible. As the AI writes more of the code, the human's job shifts to knowing which capabilities exist and being able to specify and check them. Reading the documentation of a library or a web service, understanding its functions as contracts without reading their implementation, is therefore a central skill, not a footnote, and it is the same contract idea the course has taught all along, now at the scale of a whole library.
 
-## 2. Fixed constraints
+## Fixed constraints
 
 10 ECTS across 14 weeks, deliberately under-filled so the weakest students can finish; the surplus is optional depth. Each week has a double lecture (two 45-minute slots), a single lecture (45 minutes), and a 3-hour TA session that works the previous week's material. In the double lecture, the first slot carries a demanding topic and the second is a shorter slot that holds the AI segment and other lighter material; its spare time is available for programming. At most one demanding new concept per lecture sitting. Weeks 4 and 5 are a lab-practical split: half the cohort is away each week and misses that week's TA, so the week-4 and week-5 sessions are run to cover the same ground for the two halves and the exercise load that would otherwise fall in those weeks is caught up in TA6. The existing pace places iteration in week 4, so the iteration cliff coincides with the split; it is cushioned by the following-week TA and by the eight project weeks, and the surrounding topics (files, data structures, recursion, testing) are self-recoverable from the notes and the self-checking widgets. The course ends at week 14 with no work extending into the exam period. Students use Microsoft 365 Copilot in the browser, including its Study and Learn agent, a Socratic tutor that guides reasoning rather than handing over answers; VS Code stays an AI-free space. Per-week AI behaviour can be nudged by giving students a prompt to paste or an agent to select, but it cannot be centrally enforced, so it is treated as a soft nudge and never relied on.
 
-## 3. The 14-week grid
+## The 14-week grid
 
 `⛰` marks a cliff week, `⚠️` a lab-split week. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): the concepts are delivered in weeks 1 to 5, weeks 6 to 13 are eight weekly programming projects, one per week, in the established order, and week 14 is wrap-up. The AI thread runs in a recurring fifteen-minute segment every week, and in the project weeks the single lecture becomes a supporting worked-example or debugging clinic rather than a new concept. The weekly project is the practice done at home and in the TA session.
 
-Links point to the draft curriculum for each session, with paths relative to this file (`docs/planning/`). Where no document exists yet, the link targets a titled `.qmd` stub in `docs/notebooks/` that records what the document is meant to contain.
+Links point to the draft curriculum for each session, with paths relative to this file (`docs/planning/`). Where no document exists yet, the link targets a titled `.qmd` stub in `docs/notebooks/` that records what the document is meant to contain. @sec-translation-project
 
-:::{.column-page}
-
-| Wk | Lecture 1 (double, 2×45 + spare) | Lecture 2 (single, 45) | AI segment (~15 min) | TA works (previous week) |
-|----|----------------------------------|------------------------|----------------------|--------------------------|
-| 1 | @sec-machine-insides; @sec-hello-world; @sec-values-operators-logic | @sec-precedence-steps; @sec-course_tools | @sec-history-of-instruction; [poster](machine-map-poster.html); @sec-meet-the-assistant | install & setup — @sec-getting_started |
-| 2 ⛰ | @sec-if-else; @sec-functions | @sec-functions | @sec-predict-then-prove | wk 1 — @sec-hello-world, @sec-values-operators-logic, @sec-precedence-steps, @sec-course_tools |
-| 3 | @sec-objects; @sec-lists | @sec-dictionaries; @sec-tuples | @sec-explain-then-confirm | wk 2 — @sec-if-else, @sec-functions |
-| 4 ⚠️ ⛰ | @sec-iteration | @sec-files | @sec-practical-ai-use | wk 3 (lab-split) — @sec-objects, @sec-lists, @sec-dictionaries, @sec-tuples |
-| 5 ⚠️ | @sec-data_structures; @sec-aliasing | @sec-recursion; @sec-testing | @sec-how-models-produce-code | wk 4 (lab-split, repeated) — @sec-iteration, @sec-files |
-| 6 | Project 1 — [translation](../../projects/translationproject); project workflow & the check widget | @sec-worked-example-composition | [Tests are the contract](../notebooks/ai-arc/tests-are-the-contract.md) | wk 5 — @sec-data_structures, @sec-recursion, @sec-testing |
-| 7 | @sec-classes; Project 2 — [folding](../../projects/foldingproject) | @sec-debugging-clinic | [Reading & judging code](../notebooks/ai-arc/reading-and-judging.md) | wk 6 — [translation project](../../projects/translationproject) |
-| 8 | Project 3 — [alignment](../../projects/alignmentproject); programming topics | @sec-decomposition-clinic | [Plan before you prompt](../notebooks/ai-arc/plan-before-you-prompt.md) | wk 7 — [folding project](../../projects/foldingproject), @sec-classes |
-| 9 | Project 4 — [codon bias](../../projects/codonbiasproject); @sec-modules | @sec-documentation-and-resources | @sec-the-docs-are-the-test | wk 8 — [alignment project](../../projects/alignmentproject) |
-| 10 | Project 5 — [HIV subtyping](../../projects/hivproject); directing a resource | @sec-directing-a-resource-clinic | [Delegating a whole job](../notebooks/ai-arc/delegating-a-whole-job.md) | wk 9 — [codon-bias project](../../projects/codonbiasproject) |
-| 11 | Project 6 — [sequence distance](../../projects/seqdistproject) | @sec-debugging-clinic | @sec-let-it-draft | wk 10 — [HIV project](../../projects/hivproject) |
-| 12 | Project 7 — [ORF finding](../../projects/orfproject) | @sec-dataframes | @sec-ask-for-another-way | wk 11 — [sequence-distance project](../../projects/seqdistproject) |
-| 13 | Project 8 — [assembly](../../projects/assemblyproject) | @sec-debugging-clinic | @sec-learning-with-an-ai | wk 12 — [ORF-finding project](../../projects/orfproject) |
-| 14 | Python & algorithms; guest talk; [the limits & the augmentation](../notebooks/ai-arc/limits-of-the-machine.md) | course evaluation & exam practicalities | @sec-the-ai-off-test | wk 13 — [assembly project](../../projects/assemblyproject) |
-
+::: column-page
+| Wk  | Double 1                                                             | Double 2                             | Single                                  | Exercises                                                                               |
+| --- | -------------------------------------------------------------------- | ------------------------------------ | --------------------------------------- | --------------------------------------------------------------------------------------- |
+| 1   | @sec-hello-world, @sec-values-operators-logic, @sec-precedence-steps | @insides, @instruction; @sec-meet-ai | @sec-machine-insides, @sec-course_tools | install & setup — @sec-getting_started                                                  |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 2   | @sec-if-else, @sec-functions                                         | @sec-predict-then-prove              | @sec-functions                          | @sec-hello-world, @sec-values-operators-logic, @sec-precedence-steps, @sec-course_tools |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 3   | @sec-objects; @sec-lists                                             | @sec-explain-then-confirm            | @sec-dictionaries; @sec-tuples          | @sec-if-else, @sec-functions                                                            |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 4   | @sec-iteration                                                       | @sec-practical-ai-use                | @sec-files                              | (lab-split) @sec-objects, @sec-lists, @sec-dictionaries, @sec-tuples                    |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 5   | @sec-data_structures; @sec-aliasing                                  | @sec-how-models-produce-code         | @sec-recursion; @sec-testing            | (repeated) — @sec-iteration, @sec-files                                                 |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 6   | @sec-translation-project, project workflow & the check widget        | @sec-tests-are-the-contract          | @sec-worked-example-composition         | @sec-data_structures, @sec-recursion, @sec-testing                                      |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 7   | @sec-classes; @sec-folding-project                                   | @sec-reading-and-judging             | @sec-debugging-clinic                   | @sec-translation-project                                                                |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 8   | @sec-alignment-project                                               | @sec-plan-before-you-prompt          | @sec-decomposition-clinic               | @sec-folding-project , @sec-classes                                                     |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 9   | @sec-codonbias-project, @sec-modules                                 | @sec-the-docs-are-the-test           | @sec-documentation-and-resources        | @sec-alignment-project                                                                  |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 10  | @sec-hiv-project; @sec-directing-a-resource-clinic                   | @sec-delegating-a-whole-job          | @sec-directing-a-resource-clinic        | @sec-codonbias-project                                                                  |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 11  | @sec-seqdist-project                                                 | @sec-let-it-draft                    | @sec-debugging-clinic                   | @sec-hiv-project                                                                        |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 12  | @sec-orf-project                                                     | @sec-ask-for-another-way             | @sec-dataframes                         | @sec-seqdist-project                                                                    |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 13  | @sec-assembly-project                                                | @sec-learning-with-an-ai             | @sec-debugging-clinic                   | @sec-orf-project                                                                        |
+|     |                                                                      |                                      |                                         |                                                                                         |
+| 14  | @sec-surviving-ai                                                    | @sec-the-ai-off-test                 | Evaluation, Exam info                   | @sec-assembly-project                                                                   |
 :::
 
 The concept sequence in weeks 1 to 5 (hello world and values, then control flow and functions, then objects and the containers, then iteration and files, then data structures, recursion, and testing) matches the reading order of the existing course exactly, as does the project order in weeks 6 to 13 (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly). Classes enter in week 7 alongside the folding project, and testing is taught in week 5 so the first project in week 6 can be verified against a suite. The existing course places its two mandatory hand-ins at the translation project (week 6) and the HIV project (week 10); the assessment question is still deferred (section 10), but those are the natural spotlight weeks if hand-ins are reinstated.
 
 The scaffolding fades across the eight project weeks rather than being switched off at once: the earliest projects arrive fully decomposed with stubs and a complete test suite, exactly like the old course, and the later ones give less skeleton and leave more of the tests for the student to write, so that by the assembly project the student is doing much more of the decomposition and verification. The `iplot-widget` and matplotlib plotting appear inside the later projects (see the dataframes note, week 12) so students see graphics, text, and code blend on one notebook page. The student-formulated finale and the gene-CSV tool from the previous draft are deferred for now, since the existing pace fills weeks 6 to 13 with the eight projects and closes on wrap-up; the drafted finale notes (`finale-kickoff`, `finale-build-clinic`, `finale-finishing`) are parked for when that capstone is added back.
 
-## 4. Concept dependency graph
+## Concept dependency graph
 
-```
+```         
 values/types/operators, math & logic (wk1)
         └─ expressions & precedence → substitution/reduction (wk1)      ← the spine
                 └─ variables & assignment (wk1)
@@ -79,13 +90,13 @@ values/types/operators, math & logic (wk1)
 
 The documentation skill is a direct descendant of classes: a class taught them that an object is a thing with methods you call by their contract, and reading a library is reading a catalogue of such contracts. It arrives in week 9 alongside the codon-bias project and BioPython, where the projects first lean on machinery the student did not write.
 
-## 5. The learning curve, the cliffs, and the composition problem
+## The learning curve, the cliffs, and the composition problem
 
 Two historical dropout points, functions and scope (now week 2) and iteration and nested loops (weeks 4 to 5), are cushioned as much as the compressed pace allows: a dedicated TA the following week, the codelens and steps widgets, high exercise density, and above all the eight project weeks that follow, in which the same constructs are exercised again and again. The faster pace is a deliberate trade the existing course already makes: it accepts earlier and sharper cliffs in exchange for eight weeks of project practice, which is where fluency is actually built. The lab-split weeks 4 to 5 coincide with iteration and the first data-structure building; those topics are ones a student who misses a session can rebuild from the notes and the self-checking widgets. Conditionals finish in week 2 and the containers in week 3 so each gets a full TA the following week. Classes (week 7) are kept to the basic scaffolding, `class`, `__init__`, `self`, attributes, methods, and a light `__str__`, with exercises that add a method to a given class, and they are introduced alongside the folding project rather than in a standalone concept week.
 
 The deeper problem is the composition cliff, and it is not a single week but the whole stretch of project weeks. Understanding the pieces does not make a student able to combine them, and the only cure is volume of guided practice, which is what weeks 6 to 13 provide. The single-lecture slot in each project week is a worked-example or debugging clinic in which composition is modelled live, because watching the whole process of decomposing, writing, testing, and fixing, and then doing it, is what builds the missing schema; the `snippet-cast` tool turns these into screencasts students replay at home. The projects fade in scaffolding across the eight weeks: the earliest arrive fully decomposed with stubs and a complete test suite, the middle ones give the plan but leave more of the writing and testing, and the later ones give less skeleton still, so that by the assembly project the student is doing much more of the decomposition and verification themselves.
 
-## 6. The back half in detail (weeks 6 to 14)
+## The back half in detail (weeks 6 to 14)
 
 Week 5 delivers the last new programming machinery before the projects take over: building data structures, recursion, and testing as executable specification, including the raw `pytest` command. Testing sits one week before the first project so that from week 6 on every project can be verified against a suite.
 
@@ -99,16 +110,16 @@ Week 13 finishes with the assembly project, the hardest and most integrative of 
 
 The student-formulated finale and the gene-CSV tool from the previous draft are deferred while the course matches the existing pace, which fills weeks 6 to 13 with the eight projects and closes on wrap-up. The thinking behind that finale is not lost: when it is reinstated it would extend or replace the assembly weeks, and the material is ready for it, the drafted finale notes (`finale-kickoff`, `finale-build-clinic`, `finale-finishing`), the light dataframe introduction, and the `apply` bridge by which a student's own hand-tested function such as `gc_content(seq)` is run by the library across every row of a table (`df['gc'] = df['sequence'].apply(gc_content)`). That bridge is the squaring argument made concrete: the authored function gets a test, the library's aggregate output gets a sanity check against a number the student already knows, and nothing the library does well is reinvented.
 
-The five AI-arc notes already drafted (`docs/notebooks/ai-arc/`) are repositioned by this. They are no longer standalone lecture content; they become the source material for the fifteen-minute AI segments and for the students' reading, delivered light. The "limits of the machine" note is recast to close on augmentation rather than on caution, carrying the squaring idea and the one-principle-three-modes framing.
+The five AI-arc notes already drafted (`docs/ai-arc/`) are repositioned by this. They are no longer standalone lecture content; they become the source material for the fifteen-minute AI segments and for the students' reading, delivered light. The "limits of the machine" note is recast to close on augmentation rather than on caution, carrying the squaring idea and the one-principle-three-modes framing.
 
-## 7. The AI thread and the one verification principle
+## The AI thread and the one verification principle
 
 The AI thread runs in the short segment every week, escalating through the role ladder (Explainer, Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate; detail in `course-plan.md`), and every exercise it sets resolves at the check widget or at a test the student runs, so that "the AI predicts, you verify" is the literal structure of the work and not a slogan. In the later weeks the thread broadens from producing code to the general skill of working with an AI, held together by the single verification principle: verify code with tests and reading, verify facts with evidence and knowledge, verify your own learning by doing it with the AI switched off. This is where the course teaches learning with an AI rather than taking answers from it, using the Study and Learn agent as the tutoring mode, and where it confronts the "isn't this cheating" feeling with the verification-and-understanding line and the squaring argument. Every exercise carries a licence badge (a role, or `SOLO` for do-it-yourself-first), the AI lives in the browser, and each week prompts one logbook entry. The dangers are taught throughout on curated examples we author, so that the lessons hold regardless of how capable the live assistant is that week.
 
-## 8. Tool-introduction schedule
+## Tool-introduction schedule
 
 | When | Tool / apparatus | Introduced because |
-|------|------------------|--------------------|
+|-------------------|--------------------------|----------------------------|
 | Wk 1 | Terminal, VS Code, first script, the machine-map poster; AI in the browser, badges, logbook | Script-first makes the machine legible; the AI thread starts as Explainer in its own slot |
 | Wk 1 | `steps-widget` (`%%steps`) | Lands on the substitution/reduction lecture; first AI-predicts-widget-proves demo |
 | Wk 1-2 | `script-widget` (`%%exercise` / `%%test`), notebooks & IPython | The bridge from terminal scripts to notebooks |
@@ -122,18 +133,18 @@ The AI thread runs in the short segment every week, escalating through the role 
 
 The im-pytest check widget (mode 1) is available from week 1 for any auto-checked exercise and is the everyday interface for the projects. All three modes are built and validated, and the eight ported projects live in `projects/`.
 
-## 9. Workload
+## Workload
 
 Contact time is fixed at 5.25 hours per week. The target for required self-study is about 5 to 7 hours per week for the median student, below the roughly 14 hours the nominal 10 ECTS would imply, with the surplus offered as optional depth. In the project weeks almost all of that required work is programming practice on the weekly projects, not new reading, which is the point: the pace of the course is set by how fast students accumulate fluency through practice, and the plan leaves room for that by keeping the project-week single lectures in a supporting rather than a concept-adding role. Breather weeks are week 1 and week 14; the concept weeks 2 to 5 are the densest, with the two cliffs (functions in week 2, iteration in week 4) the heaviest, and the project weeks settle into a steady rhythm of practice.
 
-## 10. Assessment (deferred)
+## Assessment (deferred)
 
 No mandatory graded hand-ins are part of the current design; the projects are formative, with students checking their own work through the im-pytest suites. When graded assessment is designed, the course's logic argues for assessing judgment and verification over working output: grade the plan and the tests the student wrote, grade the logbook and prompt journal, weight "can explain and defend every part of this" above "it runs", and consider an exam that hands the student a piece of AI-generated code to find, fix, and justify a fault in.
 
-## 11. Pitfalls and mitigations
+## Pitfalls and mitigations
 
 | Pitfall | Mitigation |
-|---------|-----------|
+|---------------------------------|---------------------------------------|
 | The composition cliff (understands pieces, cannot combine them) | The eight project weeks of guided practice: fading-scaffold projects, worked-example and debugging clinics that model composition, and snippet-cast for home |
 | Functions/scope cliff (wk2), iteration/nested cliff (wk4-5) | Dedicated following-week TA, codelens/steps, exercise density, and the eight project weeks that re-exercise the same constructs |
 | Lab-split weeks 4-5 (coincides with the iteration cliff) | Self-recoverable surrounding topics; self-checking widgets replace the missing TA; TA6 catches up |
@@ -144,7 +155,7 @@ No mandatory graded hand-ins are part of the current design; the projects are fo
 | A dataframe-plus-CSV project drifts from the trained skills, becoming click-and-plot with nothing authored or verified | Dataframes are introduced only as a container; the authored, tested core is the domain function the library has no built-in for, reached through `apply`; the library's output is sanity-checked against known quantities; students are never made to reinvent what the library does well |
 | Workload creep losing the weakest 20% | Required work capped; optional depth; breather weeks; the back half adds practice, not concepts |
 
-## 12. Decisions
+## Decisions
 
 Resolved: the Python content sequence and pace follow the existing course (`weekplan.qmd`), with concepts in weeks 1 to 5, the eight projects in weeks 6 to 13 in the established order (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly), and wrap-up in week 14; the `translationproject.py` stub is fixed; no mid-course auto-checked mini-project; classes are in the core (week 7, alongside the folding project, basic scaffolding plus add-a-method exercises); testing is taught in week 5, one week before the first project; students use Microsoft 365 Copilot with the Study and Learn agent; the AI concepts run in recurring fifteen-minute lecture segments. Dataframes and plotting are a light introduction only, a complex data type worth knowing exists, folded into the later projects (weeks 12 to 13) rather than given a lecture, with matplotlib and the `iplot-widget` used to show graphics, text, and code blending in a notebook; real data analysis is out of scope. The dataframe-project drift risk is handled by locating the authored, tested code in the domain function the library lacks (reached through `apply`) and verifying the library's output by sanity check, following the authorship split in the guiding principles.
 
