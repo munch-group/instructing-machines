@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Instructing Machines</title>
+<title>25&nbsp; Plan before you prompt – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -64,26 +64,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./notebooks/getting_started.html" rel="next">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e89ea000c0c84f0741974ac7ad73179c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-84ded7f4cd259c1887f49429a844fa2d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../notebooks/ai-arc/delegating-a-whole-job.html" rel="next">
+<link href="../../notebooks/ai-arc/reading-and-judging.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e89ea000c0c84f0741974ac7ad73179c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-84ded7f4cd259c1887f49429a844fa2d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -111,129 +110,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-showcase .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-showcase'] = new List('listing-showcase', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
-<style>
 
-      .quarto-title-block .quarto-title-banner h1,
-      .quarto-title-block .quarto-title-banner h2,
-      .quarto-title-block .quarto-title-banner h3,
-      .quarto-title-block .quarto-title-banner h4,
-      .quarto-title-block .quarto-title-banner h5,
-      .quarto-title-block .quarto-title-banner h6
-      {
-        color: #ffffffff;
-      }
-
-      .quarto-title-block .quarto-title-banner {
-        color: #ffffffff;
-background: #ffffffff;
-      }
-</style>
-<style>
-#title-block-header.quarto-title-block.default .quarto-title-meta {
-  color: #ffffff;
-}
-.quarto-title-block .quarto-title-banner {
-  height: 0;
-  min-height: 0;
-  padding: 0;
-  overflow: hidden;
-}
-#title-block-header {
-  /*
-  background-image: url(./logo/im-horizontal.svg);
-  */
-  background-image: url(./logo_alt/im-horizontal2.svg);
-  # background-size: cover;
-  # background-size: contain;
-  /* im-horizontal.svg is 1647x198; cap the width so the 80%-scaled
-     image never renders taller than the 200px header on wide screens */
-  background-size: min(70%, calc(200px * 1647 / 198)) auto;
-  background-color: #F0F2F4;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
-  height: 200px;
-  opacity: 1; /* Adjust as needed */
-  z-index: -1;
-</style>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/ai-arc/ai-arc-map.html">AI</a></li><li class="breadcrumb-item"><a href="../../notebooks/ai-arc/plan-before-you-prompt.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -243,28 +139,12 @@ window.Quarto = {
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <div class="quarto-title-block"><div><h1 class="title">Instructing Machines</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Home</a> 
+      <a href="../../">Home</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -276,7 +156,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -291,13 +171,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/getting_started.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Before you begin</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/course_tools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/course_tools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
   </div>
 </li>
@@ -314,85 +194,85 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/widget-demo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/widget-demo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Demo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/hello-world.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/hello-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing a program</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/values-operators-logic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dealing with values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/precedence-steps.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/precedence-steps.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The order of events</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/if-else.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/if-else.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Controlling behavior</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Organizing code</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/objects.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/objects.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Values are objects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/lists.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/lists.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lists of things</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/tuples.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/tuples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Grouping values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/dictionaries.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/dictionaries.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Pairs of things</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/iteration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/iteration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Iterating values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/list-comprehensions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/list-comprehensions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Building lists on the fly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/files.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/files.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Working with files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/classes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/classes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Your Own Objects</span></span></a>
   </div>
 </li>
@@ -409,7 +289,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/data_structures.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/data_structures.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Structuring data</span></span></a>
   </div>
 </li>
@@ -426,7 +306,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/testing.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/testing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Testing your code</span></span></a>
   </div>
 </li>
@@ -443,19 +323,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/modules.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/modules.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Giant’s shoulders</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/biopython.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/biopython.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">BioPython</span></span></a>
   </div>
 </li>
@@ -463,46 +343,46 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">AI</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/ai-arc/ai-arc-map.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/ai-arc/ai-arc-map.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">The AI arc — content map (weeks 9–14)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/ai-arc/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/ai-arc/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/ai-arc/reading-and-judging.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/ai-arc/reading-and-judging.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Reading and judging code you didn’t write</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/ai-arc/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/ai-arc/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/ai-arc/delegating-a-whole-job.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/ai-arc/delegating-a-whole-job.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Delegating a whole job</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/ai-arc/limits-of-the-machine.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/ai-arc/limits-of-the-machine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The limits of the machine</span></span></a>
   </div>
 </li>
@@ -513,80 +393,62 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
-  <li><a href="#mind-maps-and-resources" id="toc-mind-maps-and-resources" class="nav-link" data-scroll-target="#mind-maps-and-resources">Mind maps and resources</a></li>
-  </ul>
-</nav>
-    <div class="quarto-margin-footer"><div class="margin-footer-item">
-<p><a href="AI-opening.qmd">AI-opening AI update</a></p>
-</div></div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-
-
-
-
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="role">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><i class="bi bi-mortarboard-fill"></i> Students</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><i class="bi bi-bank"></i> Educators</a></li></ul>
-<div class="tab-content" data-group="role">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p><em>Instructing Machines</em> is a collection of lecture notes, slides, exercises, tutorials, projects.</p>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/ai-arc/ai-arc-map.html">AI</a></li><li class="breadcrumb-item"><a href="../../notebooks/ai-arc/plan-before-you-prompt.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><em>Instructing Machines</em> is a collection of lecture notes, slides, exercises, tutorials, projects.</p>
-<p>It was made for the <a href="">Bioinformatics course</a> at <a href="">Aarhus University</a> teaching undergraduates in <a href="">Molecular Biology and Molecular Medicine</a>. If you teach a similar course, feel free to <a href="">fork it</a> and make your own.</p>
-<ul>
-<li><em>Veronica Schmetterling</em></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/d86ws7mQYIg" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-<section id="mind-maps-and-resources" class="level1 unnumbered">
-<h1 class="unnumbered">Mind maps and resources</h1>
 
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>By now you can specify a single function by writing its contract as tests, and you can read a single function the assistant produced and judge whether it keeps that contract. Both of those skills are about one function at a time. Real problems are not one function. The tasks you will tackle for the rest of the course, and the kind of task you took this course in order to be able to attempt at all, are made of several functions that fit together, and the difficulty is no longer in any one piece but in the fitting together. This week is about how you get an assistant to help you build something of that size without losing control of it, and the whole answer is contained in the title: you plan before you prompt.</p>
+<p>Consider first what happens if you do not. The tempting way to use an assistant on a real task is to describe the whole thing in one prompt and ask for the complete program. You will get one. It will be a single block of code, often quite long, that appears to do what you asked. The trouble begins the moment you try to trust it. You cannot read all of it with the care you gave a four line function last week, so you skim, and skimming is precisely how the plausible wrong code you studied slips past you. You cannot test it piece by piece, because it is not in pieces; it is one lump, and your only test is to run the whole thing and see whether the final answer looks right, which tells you nothing about the parts. And when the final answer is wrong, as it usually will be at first, you have no way to find out which part is at fault, because you never separated the parts. You are left staring at a wall of code that a machine wrote and that you do not understand, with a bug somewhere inside it and no way in. What has actually gone wrong here is subtle and worth naming: by asking for everything at once, you did not merely delegate the typing to the assistant, you delegated the thinking, and the thinking is the part you cannot afford to give away.</p>
+<p>The alternative rests on a division of labour that you must keep clear in your head. You drive; the assistant types. The thinking that matters in a program of any size is the decision about what the pieces are, what each piece is responsible for, and how they connect to each other. That thinking is yours and stays yours. What the assistant is good for is filling in the implementation of a piece once you have decided what that piece is and what it must do. It is an extremely fast, extremely fluent, and extremely unreliable typist for parts that you have specified. It is not a designer, and the surest way to get into trouble is to let it act like one.</p>
+<p>The thinking you keep for yourself is called decomposition, and it is the same skill you learned when you first met functions, now used at a larger scale. To decompose a task is to break it into functions, each of which does one thing, has a name that says what that thing is, takes some inputs, and returns a result. A good decomposition is not measured by cleverness; it is measured by whether each piece is small enough that you can do three things with it: read it, test it, and understand it entirely on its own without holding the rest of the program in your head. If a piece is too big to test in isolation, or too tangled to understand without knowing what four other pieces are doing, the decomposition is not yet good enough, and no amount of help from the assistant will rescue a bad decomposition, because the assistant will simply fill your unclear pieces with unclear code.</p>
+<p>The plan is where this thinking is written down, and it is written before you prompt for anything. A plan is the list of functions the task will need, and for each function, its name, what goes into it, what comes out of it, and one concrete example of an input and its correct output. You do not need a special format for this, because Python already gives you a perfect one. A plan is most naturally written as a set of empty functions with docstrings and no bodies, which is to say, exactly the kind of stub file the projects have been handing you all along. Suppose the task is to take a DNA strand and report its length, its GC content, and whether it counts as GC rich. A plan for it might look like this, written before a single line of working code exists:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gc_content(dna):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Fraction of bases that are G or C. Example: gc_content('GGAT') == 0.5"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_gc_rich(dna):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"True if more than half the bases are G or C, using gc_content. is_gc_rich('GGGA') == True"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> describe(dna):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"A sentence reporting the strand's length, its GC content, and whether it is GC rich."</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Look at what you have before you have asked the assistant for anything. You have decided that the task divides into three pieces and not some other number. You have named each piece and stated what goes in and what comes out. You have committed to one example per piece that you can check by hand, which means you have started deciding the awkward cases as well, because to write the example for is_gc_rich you had to decide what happens at exactly one half. You have even recorded a dependency, that is_gc_rich uses gc_content and describe uses both, so you know the order in which the pieces must be built. All of that is design, all of it is yours, and none of it required the assistant. This is what it means to plan before you prompt.</p>
+<p>Writing the plan first, rather than after, matters for the same reason writing the tests first mattered last week. If you prompt for the code first and plan afterwards, the assistant’s code becomes the thing you react to. Its choice of how to break up the problem, which may be sensible or may be strange, becomes your starting point, and you find yourself adjusting your understanding to fit its structure instead of making it fit yours. Plan first and the order of authority is correct: you decide the shape of the solution, and the assistant is asked only to fill shapes you have already drawn.</p>
+<p>With the plan in hand, you build one piece at a time, and you verify each piece before you build the next one on top of it. You prompt the assistant for gc_content alone, you read what it gives you against the questions from last week, you run the tests you seeded from your example, and only when that piece is proven do you move on to is_gc_rich, which you can now build trusting that the gc_content underneath it is sound. Then describe, last, on top of two pieces you have already checked. The reason this is so much safer than the single lump is that it localises everything. When something is wrong, it is wrong in the piece you are currently working on, because everything beneath it has already passed its tests, so you always know where to look. Integration, the fitting together that was the whole difficulty, becomes the almost boring act of assembling parts you have each already proven, rather than the terrifying act of debugging a whole you never understood.</p>
+<p>Notice that the plan and the contract from last week are the same object seen at two scales. Each function’s example in the plan is the seed of that function’s test, so to plan a program is already to begin specifying it. Planning tells you what the pieces are; the tests tell you what each piece must satisfy; and building piece by piece with the tests as you go is simply the two ideas used together. When you give the assistant its instructions, you give it the context it needs and no licence to wander: the plan, the signature of the one function you want now, and the example or test that function must satisfy. You ask for that one function, you verify it, and you move on. You do not let the assistant race ahead and write three functions you have not planned, because a function you did not plan is a function you did not decide you needed, and it will cost you more to understand and check than it would have cost you to write yourself.</p>
+<p>This is exactly the method by which you will build the capstone, which is deliberately larger than anything you could write unaided. That is not a threat; it is the point. The plan is what makes a task that is too big to hold in your head at once into a task you can actually do, because with a plan you never face the whole thing. You face one small, named, testable piece at a time, on top of pieces you have already proven, and the assistant does the fast typing for each piece while you do the deciding and the checking. A problem you could not have written alone becomes a sequence of problems each of which you can.</p>
+<p>For your first exercise, practise the deciding without any code at all. Take a task a little larger than one function, such as reading a file of DNA sequences and reporting which one has the highest GC content, and write only the plan for it, as a set of empty functions with docstrings, no bodies. Do not prompt the assistant, and do not write any working code. The whole exercise is the decomposition: deciding what the pieces are, naming them, and stating what goes in and out of each. When you think you are done, check your plan against the standard from earlier: is each piece small enough to read, to test, and to understand on its own.</p>
+<p>For the second exercise, strengthen the plan you just wrote by adding to each function one concrete example of an input and its correct output, worked out by hand. As you do this you will find that some functions are harder to give an example for than others, and that difficulty is information: a function you cannot easily give an example for is usually a function that is doing too much or that you have not thought through, and it should be split or reconsidered before any code is written for it.</p>
+<p>For the third exercise, take the discipline all the way through on a single piece. From your plan, choose one function, and only when its plan and its example are written do you allow yourself to prompt the assistant for that one function. Verify the result against your example, using the check widget or your own asserts. The rule to feel here is the one in the title of the week: the plan comes first, the prompt comes second, and the verification comes before you are allowed to believe any of it.</p>
+<p>For your logbook this week, include the plan you wrote as stubs for one task, and note which function in it was hardest to write an example for and what that difficulty told you about your decomposition. If you built one of the pieces with the assistant, record whether having planned it first changed how you judged the code it gave you.</p>
 
 
 <!-- -->
 
-</section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-showcase">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1785044624363" data-listing-reading-time-sort="14" data-listing-word-count-sort="2659">
-<a href="./notebooks/getting_started.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="notebooks/notebooks/images/vscode.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Before you begin
-</h5>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1785044660020" data-listing-reading-time-sort="7" data-listing-word-count-sort="1251">
-<a href="./notebooks/lists.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Lists of things
-</h5>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1040,99 +902,59 @@ Lists of things
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../notebooks/ai-arc/reading-and-judging.html" class="pagination-link" aria-label="Reading and judging code you didn't write">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Reading and judging code you didn’t write</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./notebooks/getting_started.html" class="pagination-link" aria-label="Before you begin">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Before you begin</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../notebooks/ai-arc/delegating-a-whole-job.html" class="pagination-link" aria-label="Delegating a whole job">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Delegating a whole job</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># title-block-banner: images/banner3.png</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># title-block-banner: logo_alt/im-horizontal.svg</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># title-block-banner: "#003257"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># title-block-banner-color: "#FFFFFF"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">hide-hidden:</span><span class="co"> true</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">hide-exam:</span><span class="co"> true</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># title: "&amp;nbsp;"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># subtitle: "&amp;nbsp;"</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">title-block-banner:</span><span class="co"> "#ffffffff"</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">title-block-banner-color:</span><span class="co"> "#ffffffff"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">margin-footer:</span><span class="co"> |</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  [AI-opening AI update](AI-opening.qmd)</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - id: showcase</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">    type: grid</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">    fields: [image, title]</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">    grid-columns: 3</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">    contents:</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">      - notebooks/getting_started.ipynb</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">      - notebooks/lists.ipynb</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">    # sort: "date desc"</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">    # categories: true</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">    # sort-ui: true</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">    # filter-ui: true</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">    # fields: [image, title, description]</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">    include-in-header:</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">      - text: |</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">          &lt;style&gt;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">          #title-block-header.quarto-title-block.default .quarto-title-meta {</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">            color: #ffffff;</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">          }</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">          .quarto-title-block .quarto-title-banner {</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">            height: 0;</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">            min-height: 0;</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">            padding: 0;</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">            overflow: hidden;</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">          }</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">          #title-block-header {</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">            /* </span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">            background-image: url(./logo/im-horizontal.svg); </span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">            */</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">            background-image: url(./logo_alt/im-horizontal2.svg);</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">            # background-size: cover;</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">            # background-size: contain;</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">            /* im-horizontal.svg is 1647x198; cap the width so the 80%-scaled</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">               image never renders taller than the 200px header on wide screens */</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">            background-size: min(70%, calc(200px * 1647 / 198)) auto;</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">            background-color: #F0F2F4;</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">            background-repeat: no-repeat;</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">            background-position-x: center;</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">            background-position-y: center;</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">            height: 200px;</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">            opacity: 1; /* Adjust as needed */</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">            z-index: -1;</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">          &lt;/style&gt;</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># Welcome {.unnumbered}</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset group="role"}</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## &lt;i class="bi bi-mortarboard-fill"&gt;&lt;/i&gt; Students</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>*Instructing Machines* is a collection of lecture notes, slides, exercises, tutorials, projects.</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## &lt;i class="bi bi-bank"&gt;&lt;/i&gt; Educators</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>*Instructing Machines* is a collection of lecture notes, slides, exercises, tutorials, projects.</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>It was made for the <span class="co">[</span><span class="ot">Bioinformatics course</span><span class="co">]()</span> at <span class="co">[</span><span class="ot">Aarhus University</span><span class="co">]()</span> teaching undergraduates in <span class="co">[</span><span class="ot">Molecular Biology and Molecular Medicine</span><span class="co">]()</span>. If you teach a similar course, feel free to <span class="co">[</span><span class="ot">fork it</span><span class="co">]()</span> and make your own.</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Veronica Schmetterling*</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>{{&lt; video https://youtu.be/d86ws7mQYIg &gt;}}</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mind maps and resources {.unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Plan before you prompt</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>By now you can specify a single function by writing its contract as tests, and you can read a single function the assistant produced and judge whether it keeps that contract. Both of those skills are about one function at a time. Real problems are not one function. The tasks you will tackle for the rest of the course, and the kind of task you took this course in order to be able to attempt at all, are made of several functions that fit together, and the difficulty is no longer in any one piece but in the fitting together. This week is about how you get an assistant to help you build something of that size without losing control of it, and the whole answer is contained in the title: you plan before you prompt.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Consider first what happens if you do not. The tempting way to use an assistant on a real task is to describe the whole thing in one prompt and ask for the complete program. You will get one. It will be a single block of code, often quite long, that appears to do what you asked. The trouble begins the moment you try to trust it. You cannot read all of it with the care you gave a four line function last week, so you skim, and skimming is precisely how the plausible wrong code you studied slips past you. You cannot test it piece by piece, because it is not in pieces; it is one lump, and your only test is to run the whole thing and see whether the final answer looks right, which tells you nothing about the parts. And when the final answer is wrong, as it usually will be at first, you have no way to find out which part is at fault, because you never separated the parts. You are left staring at a wall of code that a machine wrote and that you do not understand, with a bug somewhere inside it and no way in. What has actually gone wrong here is subtle and worth naming: by asking for everything at once, you did not merely delegate the typing to the assistant, you delegated the thinking, and the thinking is the part you cannot afford to give away.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>The alternative rests on a division of labour that you must keep clear in your head. You drive; the assistant types. The thinking that matters in a program of any size is the decision about what the pieces are, what each piece is responsible for, and how they connect to each other. That thinking is yours and stays yours. What the assistant is good for is filling in the implementation of a piece once you have decided what that piece is and what it must do. It is an extremely fast, extremely fluent, and extremely unreliable typist for parts that you have specified. It is not a designer, and the surest way to get into trouble is to let it act like one.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>The thinking you keep for yourself is called decomposition, and it is the same skill you learned when you first met functions, now used at a larger scale. To decompose a task is to break it into functions, each of which does one thing, has a name that says what that thing is, takes some inputs, and returns a result. A good decomposition is not measured by cleverness; it is measured by whether each piece is small enough that you can do three things with it: read it, test it, and understand it entirely on its own without holding the rest of the program in your head. If a piece is too big to test in isolation, or too tangled to understand without knowing what four other pieces are doing, the decomposition is not yet good enough, and no amount of help from the assistant will rescue a bad decomposition, because the assistant will simply fill your unclear pieces with unclear code.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>The plan is where this thinking is written down, and it is written before you prompt for anything. A plan is the list of functions the task will need, and for each function, its name, what goes into it, what comes out of it, and one concrete example of an input and its correct output. You do not need a special format for this, because Python already gives you a perfect one. A plan is most naturally written as a set of empty functions with docstrings and no bodies, which is to say, exactly the kind of stub file the projects have been handing you all along. Suppose the task is to take a DNA strand and report its length, its GC content, and whether it counts as GC rich. A plan for it might look like this, written before a single line of working code exists:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gc_content(dna):</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Fraction of bases that are G or C. Example: gc_content('GGAT') == 0.5"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_gc_rich(dna):</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">"True if more than half the bases are G or C, using gc_content. is_gc_rich('GGGA') == True"</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> describe(dna):</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">"A sentence reporting the strand's length, its GC content, and whether it is GC rich."</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>Look at what you have before you have asked the assistant for anything. You have decided that the task divides into three pieces and not some other number. You have named each piece and stated what goes in and what comes out. You have committed to one example per piece that you can check by hand, which means you have started deciding the awkward cases as well, because to write the example for is_gc_rich you had to decide what happens at exactly one half. You have even recorded a dependency, that is_gc_rich uses gc_content and describe uses both, so you know the order in which the pieces must be built. All of that is design, all of it is yours, and none of it required the assistant. This is what it means to plan before you prompt.</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>Writing the plan first, rather than after, matters for the same reason writing the tests first mattered last week. If you prompt for the code first and plan afterwards, the assistant's code becomes the thing you react to. Its choice of how to break up the problem, which may be sensible or may be strange, becomes your starting point, and you find yourself adjusting your understanding to fit its structure instead of making it fit yours. Plan first and the order of authority is correct: you decide the shape of the solution, and the assistant is asked only to fill shapes you have already drawn.</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>With the plan in hand, you build one piece at a time, and you verify each piece before you build the next one on top of it. You prompt the assistant for gc_content alone, you read what it gives you against the questions from last week, you run the tests you seeded from your example, and only when that piece is proven do you move on to is_gc_rich, which you can now build trusting that the gc_content underneath it is sound. Then describe, last, on top of two pieces you have already checked. The reason this is so much safer than the single lump is that it localises everything. When something is wrong, it is wrong in the piece you are currently working on, because everything beneath it has already passed its tests, so you always know where to look. Integration, the fitting together that was the whole difficulty, becomes the almost boring act of assembling parts you have each already proven, rather than the terrifying act of debugging a whole you never understood.</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Notice that the plan and the contract from last week are the same object seen at two scales. Each function's example in the plan is the seed of that function's test, so to plan a program is already to begin specifying it. Planning tells you what the pieces are; the tests tell you what each piece must satisfy; and building piece by piece with the tests as you go is simply the two ideas used together. When you give the assistant its instructions, you give it the context it needs and no licence to wander: the plan, the signature of the one function you want now, and the example or test that function must satisfy. You ask for that one function, you verify it, and you move on. You do not let the assistant race ahead and write three functions you have not planned, because a function you did not plan is a function you did not decide you needed, and it will cost you more to understand and check than it would have cost you to write yourself.</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>This is exactly the method by which you will build the capstone, which is deliberately larger than anything you could write unaided. That is not a threat; it is the point. The plan is what makes a task that is too big to hold in your head at once into a task you can actually do, because with a plan you never face the whole thing. You face one small, named, testable piece at a time, on top of pieces you have already proven, and the assistant does the fast typing for each piece while you do the deciding and the checking. A problem you could not have written alone becomes a sequence of problems each of which you can.</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>For your first exercise, practise the deciding without any code at all. Take a task a little larger than one function, such as reading a file of DNA sequences and reporting which one has the highest GC content, and write only the plan for it, as a set of empty functions with docstrings, no bodies. Do not prompt the assistant, and do not write any working code. The whole exercise is the decomposition: deciding what the pieces are, naming them, and stating what goes in and out of each. When you think you are done, check your plan against the standard from earlier: is each piece small enough to read, to test, and to understand on its own.</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>For the second exercise, strengthen the plan you just wrote by adding to each function one concrete example of an input and its correct output, worked out by hand. As you do this you will find that some functions are harder to give an example for than others, and that difficulty is information: a function you cannot easily give an example for is usually a function that is doing too much or that you have not thought through, and it should be split or reconsidered before any code is written for it.</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>For the third exercise, take the discipline all the way through on a single piece. From your plan, choose one function, and only when its plan and its example are written do you allow yourself to prompt the assistant for that one function. Verify the result against your example, using the check widget or your own asserts. The rule to feel here is the one in the title of the week: the plan comes first, the prompt comes second, and the verification comes before you are allowed to believe any of it.</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>For your logbook this week, include the plan you wrote as stubs for one task, and note which function in it was hardest to write an example for and what that difficulty told you about your decomposition. If you built one of the pieces with the assistant, record whether having planned it first changed how you judged the code it gave you.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
