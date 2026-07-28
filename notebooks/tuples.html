@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Tuples – Instructing Machines</title>
+<title>15&nbsp; Tuples – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../notebooks/iteration.html" rel="next">
-<link href="../new/aliasing.html" rel="prev">
+<link href="../notebooks/dictionaries.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e89ea000c0c84f0741974ac7ad73179c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-09a93a4ea52d697491be5f57a8177fc3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -130,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Python basics</a></li><li class="breadcrumb-item"><a href="../notebooks/tuples.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Tuples</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Python basics</a></li><li class="breadcrumb-item"><a href="../notebooks/tuples.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tuples</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,31 +169,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../planning/ai-arc-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The AI arc (weeks 9–14)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../AI-opening.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A eye-opening updates</span></a>
+  <a href="../notebooks/widget-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">The machine</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
-  </div>
-</li>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/machine-insides.html" class="sidebar-item-text sidebar-link">
@@ -202,8 +190,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Demo</span></span></a>
+  <a href="../ai-arc/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-arc/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">From machine code to Python to AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
   </div>
 </li>
       </ul>
@@ -220,380 +220,374 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/hello-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/values-operators-logic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/precedence-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The order of events</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/course_tools.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/if-else.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">If-else</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">If-else</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/objects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/lists.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/dictionaries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../new/aliasing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">References and aliasing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/tuples.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/list-comprehensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/files.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Programming</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/data_structures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/recursion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/debugging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Worked example: decomposition modelled live</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Worked example: decomposition modelled live</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/directing-a-resource.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/documentation-and-resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/composition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Working with tools</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/modules.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Giant’s shoulders</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Giant’s shoulders</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/biopython.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">BioPython</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">BioPython</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/dataframes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Projects</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/curration-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Sequence Curation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Sequence Curation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/seqdist-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">AI arc</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/meet-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/predict-then-prove.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">The AI predicts, the widget proves</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">The AI predicts, the widget proves</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/practical-ai-use.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Practical AI use</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Practical AI use</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">How a model produces code, and why it can be wrong</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">How a model produces code, and why it can be wrong</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/reading-and-judging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Reading and judging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Reading and judging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/the-docs-are-the-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/let-it-draft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Ask for another way</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Ask for another way</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Finale</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/finale-build.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Finale build clinic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Finale build clinic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/finale-finishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Finale finishing and interface testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Finale finishing and interface testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/finale-kickoff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span></a>
   </div>
 </li>
       </ul>
@@ -604,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><a href="#dnldts57124" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgVHVwbGVzICB7I3NlYy10dXBsZXN9XG4iLAogICAgIlxuIiwKICAgICIjIyBHcm91cGluZyB2YWx1ZXNcbiIsCiAgICAiXG4iLAogICAgIkEgdHVwbGUgaXMgYSBzZXF1ZW5jZSBvZiB2YWx1ZXMsIGp1c3QgbGlrZSBhIGxpc3QuIEhvd2V2ZXIsIHVubGlrZSBhIGxpc3QsIHRoZSBlbGVtZW50cyBvZiBhIHR1cGxlIGNhbiBub3QgYmUgY2hhbmdlZC4gWW91IGNhbm5vdCBhcHBlbmQgdG8gYSB0dXBsZSwgZWl0aGVyLiBPbmNlIGEgdHVwbGUgaXMgbWFkZSwgaXQgaXMgaW1tdXRhYmxlIChvciB1bmNoYW5nZWFibGUpLiBUbyBtYWtlIGEgdHVwbGUsIHlvdSBqdXN0IHVzZSByb3VuZCBicmFja2V0cyBpbnN0ZWFkIG9mIHNxdWFyZSBicmFja2V0czpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJmcnVpdHMgPSAoXCJhcHBsZVwiLCBcImJhbmFuYVwiLCBcImNoZXJyeVwiKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkl0IG1heSBzZWVtIHN0cmFuZ2UgdGhhdCBQeXRob24gaGFzIGJvdGggdHVwbGVzIGFuZCBsaXN0cy4gT25lIHJlYXNvbiBpcyB0aGF0IHR1cGxlcyBhcmUgbW9yZSBlZmZpY2llbnQsIHdoZXJlYXMgbGlzdHMgYXJlIG1vcmUgZmxleGlibGUuIFdlIHdpbGwgbm90IHVzZSB0dXBsZXMgb2Z0ZW4sIGJ1dCB5b3UgbXVzdCBrbm93IHdoYXQgdGhleSBhcmUuXG4iLAogICAgIlxuIiwKICAgICJZb3UgY2FuIGRvIG1vc3Qgb2YgdGhlIG9wZXJhdGlvbnMgb24gYSB0dXBsZSB0aGF0IHlvdSBjYW4gYWxzbyBkbyBvbiBhIGxpc3QuIFRoZSBmb2xsb3dpbmcgZXhlcmNpc2VzIHNob3VsZCBiZSBlYXN5IGlmIHlvdSByZW1lbWJlciBob3cgdG8gZG8gdGhlIHNhbWUgdGhpbmcgb24gbGlzdHM6XG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIkZpbmQgdGhlIG51bWJlciBvZiBlbGVtZW50cyBpbiB0aGUgYGZydWl0c2AgdHVwbGUgdXNpbmcgdGhlIGBsZW5gIGZ1bmN0aW9uLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJFeHRyYWN0IHRoZSBzZWNvbmQgZWxlbWVudCBvZiB0aGUgYGZydWl0c2AgdHVwbGUgKGBcImJhbmFuYVwiYCkgdXNpbmcgaW5kZXhpbmcuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlRyeSB0byBjaGFuZ2UgdGhlIHNlY29uZCBlbGVtZW50IG9mIHRoZSBgZnJ1aXRzYCB0dXBsZSB0byBgXCJhcHBsZVwiYCBhbmQgc2VlIHdoYXQgaGFwcGVucy4gSXQgc2hvdWxkIGJlIHNvbWV0aGluZyBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBcbiIsCiAgICAiVHJhY2ViYWNrIChtb3N0IHJlY2VudCBjYWxsIGxhc3QpOlxuIiwKICAgICIgIEZpbGUgXCJzY3JpcHQucHlcIiwgbGluZSAyLCBpbiA8bW9kdWxlPlxuIiwKICAgICIgICAgZnJ1aXRzWzNdID0gXCJhcHBsZVwiXG4iLAogICAgIlR5cGVFcnJvcjogJ3R1cGxlJyBvYmplY3QgZG9lcyBub3Qgc3VwcG9ydCBpdGVtIGFzc2lnbm1lbnRcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJZb3UgY2Fubm90IGNoYW5nZSBlbGVtZW50cyBvZiBhIHR1cGxlIGJlY2F1c2UgdGhleSBhcmUgaW1tdXRhYmxlIChvbmNlIG1hZGUsIHRoZXkgc3RheSB0aGF0IHdheSkuXG4iLAogICAgIlxuIiwKICAgICIjIyBUdXBsZSBhc3NpZ25tZW50XG4iLAogICAgIlxuIiwKICAgICJQeXRob24gbGV0cyB5b3UgYXNzaWduIGEgdHVwbGUgb2YgdmFsdWVzIHRvIGEgdHVwbGUgb2YgdmFyaWFibGVzIGxpa2UgdGhpczpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJmYXRoZXIsIG1vdGhlciwgc29uID0gKFwiRG9uYWxkXCIsIFwiSXZhbmFcIiwgXCJFcmljXCIpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiSXQgZG9lcyB0aGUgc2FtZSBhcyB0aGUgZm9sbG93aW5nIHRocmVlIGFzc2lnbm1lbnRzOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImZhdGhlciA9IFwiRG9uYWxkXCJcbiIsCiAgICAibW90aGVyID0gXCJJdmFuYVwiXG4iLAogICAgInNvbiA9IFwiRXJpY1wiXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiV2hlbiBhIHR1cGxlIGlzIG1hZGUsIHRoZSB2YWx1ZXMgYXJlIFwicGFja2VkXCIgaW4gc2VxdWVuY2U6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiZmFtaWx5ID0gKFwiRG9uYWxkXCIsIFwiSXZhbmFcIiwgXCJFcmljXCIpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiVXNpbmcgdGhlIHNhbWUgYW5hbG9neSwgdmFsdWVzIGNhbiBiZSBcInVucGFja2VkXCIgdXNpbmcgdHVwbGUgYXNzaWdubWVudDpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJmYXRoZXIsIG1vdGhlciwgc29uID0gZmFtaWx5XG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiVGhlIG9ubHkgcmVxdWlyZW1lbnQgaXMgdGhhdCB0aGUgbnVtYmVyIG9mIHZhcmlhYmxlcyBlcXVhbHMgdGhlIG51bWJlciBvZiB2YWx1ZXMgaW4gdGhlIHR1cGxlLlxuIiwKICAgICJcbiIsCiAgICAiT25jZSBpbiBhIHdoaWxlLCBpdCBpcyB1c2VmdWwgdG8gc3dhcCB0aGUgdmFsdWVzIG9mIHR3byB2YXJpYWJsZXMuIFdpdGggY29udmVudGlvbmFsIGFzc2lnbm1lbnQgc3RhdGVtZW50cywgd2UgaGF2ZSB0byB1c2UgYSB0ZW1wb3JhcnkgdmFyaWFibGUuIEZvciBleGFtcGxlLCB0byBzd2FwIGEgYW5kIGI6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAidG1wID0gYVxuIiwKICAgICJhID0gYlxuIiwKICAgICJiID0gdG1wXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIlRyeSB0aGlzIGFuZCByZWFkIHRoZSBlcnJvciBtZXNzYWdlOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImZhbWlseSA9IChcIkRvbmFsZFwiLCBcIkl2YW5hXCIsIFwiRXJpY1wiKVxuIiwKICAgICJmYXRoZXIsIG1vdGhlciA9IGZhbWlseVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIlRyeSB0aGlzIGFuZCByZWFkIHRoZSBlcnJvciBtZXNzYWdlOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImZhbWlseSA9IChcIkRvbmFsZFwiLCBcIkl2YW5hXCIsIFwiRXJpY1wiKVxuIiwKICAgICJmYXRoZXIsIG1vdGhlciwgc29uLCBkYXVnaHRlciA9IGZhbWlseVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkNvbXBhcmUgdG8gdGhlIGVycm9yIG1lc3NhZ2UgaW4gdGhlIHByZXZpb3VzIGV4ZXJjaXNlLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiU2F5IHlvdSB3YW50IHRvIHN3YXAgdGhlIHZhbHVlcyBvZiB0d28gdmFyaWFibGVzLCBgYWAgYW5kIGBiYC4gVG8gZG8gdGhhdCwgeW91IHdvdWxkIG5lZWQgdG8ga2VlcCBvbmUgb2YgdGhlIHZhbHVlcyBpbiBhbiBleHRyYSB2YXJpYWJsZSBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAidGVtcCA9IGFcbiIsCiAgICAiYSA9IGJcbiIsCiAgICAiYiA9IHRlbXBcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJVc2luZyB3aGF0IHlvdSBoYXZlIGxlYXJuZWQgaW4gdGhpcyBjaGFwdGVyLCBjYW4geW91IGRldmlzZSBhIHNpbXBsZSBhbmQgcHJldHR5IHdheSBvZiBzd2FwcGluZyBgYWAgYW5kIGBiYCBpbiBvbmUgc3RhdGVtZW50PyBJdCBtYXkgb2NjdXIgdG8geW91IGJlZm9yZSB5b3UgcmVhbGl6ZSBob3cgaXQgd29ya3MsIHNvIG1ha2Ugc3VyZSB5b3UgY2FuIGNvbm5lY3QgeW91ciBzb2x1dGlvbiB0byB0aGUgcnVsZXMgb2YgdHVwbGVzIGFuZCB0dXBsZSBhc3NpZ25tZW50LlxuIiwKICAgICJcbiIsCiAgICAiXG4iLAogICAgIjwhLS0gVE9ETzogRmluZCBhbm90aGVyIGV4YW1wbGUgdGhhbiBEb25hbGQgVHJ1bXAgLS0+IgogICBdCiAgfQogXSwKICJtZXRhZGF0YSI6IHsKICAia2VybmVsc3BlYyI6IHsKICAgImRpc3BsYXlfbmFtZSI6ICJQeXRob24gMyIsCiAgICJsYW5ndWFnZSI6ICJweXRob24iLAogICAibmFtZSI6ICJweXRob24zIgogIH0sCiAgImxhbmd1YWdlX2luZm8iOiB7CiAgICJjb2RlbWlycm9yX21vZGUiOiB7CiAgICAibmFtZSI6ICJpcHl0aG9uIiwKICAgICJ2ZXJzaW9uIjogMwogICB9LAogICAiZmlsZV9leHRlbnNpb24iOiAiLnB5IiwKICAgIm1pbWV0eXBlIjogInRleHQveC1weXRob24iLAogICAibmFtZSI6ICJweXRob24iLAogICAibmJjb252ZXJ0X2V4cG9ydGVyIjogInB5dGhvbiIsCiAgICJweWdtZW50c19sZXhlciI6ICJpcHl0aG9uMyIsCiAgICJ2ZXJzaW9uIjogIjMuMTQuNiIKICB9CiB9LAogIm5iZm9ybWF0IjogNCwKICJuYmZvcm1hdF9taW5vciI6IDQKfQo=').then(res => res.blob()).then(blob => {
+<p><a href="#dnldts41074" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgVHVwbGVzICB7I3NlYy10dXBsZXN9XG4iLAogICAgIlxuIiwKICAgICIjIyBHcm91cGluZyB2YWx1ZXNcbiIsCiAgICAiXG4iLAogICAgIkEgdHVwbGUgaXMgYSBzZXF1ZW5jZSBvZiB2YWx1ZXMsIGp1c3QgbGlrZSBhIGxpc3QuIEhvd2V2ZXIsIHVubGlrZSBhIGxpc3QsIHRoZSBlbGVtZW50cyBvZiBhIHR1cGxlIGNhbiBub3QgYmUgY2hhbmdlZC4gWW91IGNhbm5vdCBhcHBlbmQgdG8gYSB0dXBsZSwgZWl0aGVyLiBPbmNlIGEgdHVwbGUgaXMgbWFkZSwgaXQgaXMgaW1tdXRhYmxlIChvciB1bmNoYW5nZWFibGUpLiBUbyBtYWtlIGEgdHVwbGUsIHlvdSBqdXN0IHVzZSByb3VuZCBicmFja2V0cyBpbnN0ZWFkIG9mIHNxdWFyZSBicmFja2V0czpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJmcnVpdHMgPSAoXCJhcHBsZVwiLCBcImJhbmFuYVwiLCBcImNoZXJyeVwiKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkl0IG1heSBzZWVtIHN0cmFuZ2UgdGhhdCBQeXRob24gaGFzIGJvdGggdHVwbGVzIGFuZCBsaXN0cy4gT25lIHJlYXNvbiBpcyB0aGF0IHR1cGxlcyBhcmUgbW9yZSBlZmZpY2llbnQsIHdoZXJlYXMgbGlzdHMgYXJlIG1vcmUgZmxleGlibGUuIFdlIHdpbGwgbm90IHVzZSB0dXBsZXMgb2Z0ZW4sIGJ1dCB5b3UgbXVzdCBrbm93IHdoYXQgdGhleSBhcmUuXG4iLAogICAgIlxuIiwKICAgICJZb3UgY2FuIGRvIG1vc3Qgb2YgdGhlIG9wZXJhdGlvbnMgb24gYSB0dXBsZSB0aGF0IHlvdSBjYW4gYWxzbyBkbyBvbiBhIGxpc3QuIFRoZSBmb2xsb3dpbmcgZXhlcmNpc2VzIHNob3VsZCBiZSBlYXN5IGlmIHlvdSByZW1lbWJlciBob3cgdG8gZG8gdGhlIHNhbWUgdGhpbmcgb24gbGlzdHM6XG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIkZpbmQgdGhlIG51bWJlciBvZiBlbGVtZW50cyBpbiB0aGUgYGZydWl0c2AgdHVwbGUgdXNpbmcgdGhlIGBsZW5gIGZ1bmN0aW9uLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJFeHRyYWN0IHRoZSBzZWNvbmQgZWxlbWVudCBvZiB0aGUgYGZydWl0c2AgdHVwbGUgKGBcImJhbmFuYVwiYCkgdXNpbmcgaW5kZXhpbmcuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlRyeSB0byBjaGFuZ2UgdGhlIHNlY29uZCBlbGVtZW50IG9mIHRoZSBgZnJ1aXRzYCB0dXBsZSB0byBgXCJhcHBsZVwiYCBhbmQgc2VlIHdoYXQgaGFwcGVucy4gSXQgc2hvdWxkIGJlIHNvbWV0aGluZyBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBcbiIsCiAgICAiVHJhY2ViYWNrIChtb3N0IHJlY2VudCBjYWxsIGxhc3QpOlxuIiwKICAgICIgIEZpbGUgXCJzY3JpcHQucHlcIiwgbGluZSAyLCBpbiA8bW9kdWxlPlxuIiwKICAgICIgICAgZnJ1aXRzWzNdID0gXCJhcHBsZVwiXG4iLAogICAgIlR5cGVFcnJvcjogJ3R1cGxlJyBvYmplY3QgZG9lcyBub3Qgc3VwcG9ydCBpdGVtIGFzc2lnbm1lbnRcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJZb3UgY2Fubm90IGNoYW5nZSBlbGVtZW50cyBvZiBhIHR1cGxlIGJlY2F1c2UgdGhleSBhcmUgaW1tdXRhYmxlIChvbmNlIG1hZGUsIHRoZXkgc3RheSB0aGF0IHdheSkuXG4iLAogICAgIlxuIiwKICAgICIjIyBUdXBsZSBhc3NpZ25tZW50XG4iLAogICAgIlxuIiwKICAgICJQeXRob24gbGV0cyB5b3UgYXNzaWduIGEgdHVwbGUgb2YgdmFsdWVzIHRvIGEgdHVwbGUgb2YgdmFyaWFibGVzIGxpa2UgdGhpczpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJmYXRoZXIsIG1vdGhlciwgc29uID0gKFwiRG9uYWxkXCIsIFwiSXZhbmFcIiwgXCJFcmljXCIpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiSXQgZG9lcyB0aGUgc2FtZSBhcyB0aGUgZm9sbG93aW5nIHRocmVlIGFzc2lnbm1lbnRzOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImZhdGhlciA9IFwiRG9uYWxkXCJcbiIsCiAgICAibW90aGVyID0gXCJJdmFuYVwiXG4iLAogICAgInNvbiA9IFwiRXJpY1wiXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiV2hlbiBhIHR1cGxlIGlzIG1hZGUsIHRoZSB2YWx1ZXMgYXJlIFwicGFja2VkXCIgaW4gc2VxdWVuY2U6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiZmFtaWx5ID0gKFwiRG9uYWxkXCIsIFwiSXZhbmFcIiwgXCJFcmljXCIpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiVXNpbmcgdGhlIHNhbWUgYW5hbG9neSwgdmFsdWVzIGNhbiBiZSBcInVucGFja2VkXCIgdXNpbmcgdHVwbGUgYXNzaWdubWVudDpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJmYXRoZXIsIG1vdGhlciwgc29uID0gZmFtaWx5XG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiVGhlIG9ubHkgcmVxdWlyZW1lbnQgaXMgdGhhdCB0aGUgbnVtYmVyIG9mIHZhcmlhYmxlcyBlcXVhbHMgdGhlIG51bWJlciBvZiB2YWx1ZXMgaW4gdGhlIHR1cGxlLlxuIiwKICAgICJcbiIsCiAgICAiT25jZSBpbiBhIHdoaWxlLCBpdCBpcyB1c2VmdWwgdG8gc3dhcCB0aGUgdmFsdWVzIG9mIHR3byB2YXJpYWJsZXMuIFdpdGggY29udmVudGlvbmFsIGFzc2lnbm1lbnQgc3RhdGVtZW50cywgd2UgaGF2ZSB0byB1c2UgYSB0ZW1wb3JhcnkgdmFyaWFibGUuIEZvciBleGFtcGxlLCB0byBzd2FwIGEgYW5kIGI6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAidG1wID0gYVxuIiwKICAgICJhID0gYlxuIiwKICAgICJiID0gdG1wXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIlRyeSB0aGlzIGFuZCByZWFkIHRoZSBlcnJvciBtZXNzYWdlOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImZhbWlseSA9IChcIkRvbmFsZFwiLCBcIkl2YW5hXCIsIFwiRXJpY1wiKVxuIiwKICAgICJmYXRoZXIsIG1vdGhlciA9IGZhbWlseVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIlRyeSB0aGlzIGFuZCByZWFkIHRoZSBlcnJvciBtZXNzYWdlOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImZhbWlseSA9IChcIkRvbmFsZFwiLCBcIkl2YW5hXCIsIFwiRXJpY1wiKVxuIiwKICAgICJmYXRoZXIsIG1vdGhlciwgc29uLCBkYXVnaHRlciA9IGZhbWlseVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkNvbXBhcmUgdG8gdGhlIGVycm9yIG1lc3NhZ2UgaW4gdGhlIHByZXZpb3VzIGV4ZXJjaXNlLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiU2F5IHlvdSB3YW50IHRvIHN3YXAgdGhlIHZhbHVlcyBvZiB0d28gdmFyaWFibGVzLCBgYWAgYW5kIGBiYC4gVG8gZG8gdGhhdCwgeW91IHdvdWxkIG5lZWQgdG8ga2VlcCBvbmUgb2YgdGhlIHZhbHVlcyBpbiBhbiBleHRyYSB2YXJpYWJsZSBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAidGVtcCA9IGFcbiIsCiAgICAiYSA9IGJcbiIsCiAgICAiYiA9IHRlbXBcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJVc2luZyB3aGF0IHlvdSBoYXZlIGxlYXJuZWQgaW4gdGhpcyBjaGFwdGVyLCBjYW4geW91IGRldmlzZSBhIHNpbXBsZSBhbmQgcHJldHR5IHdheSBvZiBzd2FwcGluZyBgYWAgYW5kIGBiYCBpbiBvbmUgc3RhdGVtZW50PyBJdCBtYXkgb2NjdXIgdG8geW91IGJlZm9yZSB5b3UgcmVhbGl6ZSBob3cgaXQgd29ya3MsIHNvIG1ha2Ugc3VyZSB5b3UgY2FuIGNvbm5lY3QgeW91ciBzb2x1dGlvbiB0byB0aGUgcnVsZXMgb2YgdHVwbGVzIGFuZCB0dXBsZSBhc3NpZ25tZW50LlxuIiwKICAgICJcbiIsCiAgICAiXG4iLAogICAgIjwhLS0gVE9ETzogRmluZCBhbm90aGVyIGV4YW1wbGUgdGhhbiBEb25hbGQgVHJ1bXAgLS0+IgogICBdCiAgfQogXSwKICJtZXRhZGF0YSI6IHsKICAia2VybmVsc3BlYyI6IHsKICAgImRpc3BsYXlfbmFtZSI6ICJQeXRob24gMyIsCiAgICJsYW5ndWFnZSI6ICJweXRob24iLAogICAibmFtZSI6ICJweXRob24zIgogIH0sCiAgImxhbmd1YWdlX2luZm8iOiB7CiAgICJjb2RlbWlycm9yX21vZGUiOiB7CiAgICAibmFtZSI6ICJpcHl0aG9uIiwKICAgICJ2ZXJzaW9uIjogMwogICB9LAogICAiZmlsZV9leHRlbnNpb24iOiAiLnB5IiwKICAgIm1pbWV0eXBlIjogInRleHQveC1weXRob24iLAogICAibmFtZSI6ICJweXRob24iLAogICAibmJjb252ZXJ0X2V4cG9ydGVyIjogInB5dGhvbiIsCiAgICJweWdtZW50c19sZXhlciI6ICJpcHl0aG9uMyIsCiAgICJ2ZXJzaW9uIjogIjMuMTQuNiIKICB9CiB9LAogIm5iZm9ybWF0IjogNCwKICJuYmZvcm1hdF9taW5vciI6IDQKfQo=').then(res => res.blob()).then(blob => {
     const downloadURL = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     document.body.appendChild(a);
@@ -612,7 +606,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     a.download = 'tuples.ipynb'; a.click();
     window.URL.revokeObjectURL(downloadURL);
     document.body.removeChild(a);
-      });"><button class="btn btn-light downloadthis  " id="dnldts57124"><i class="bi bi-download"></i> Download notebook </button></a></p>
+      });"><button class="btn btn-light downloadthis  " id="dnldts41074"><i class="bi bi-download"></i> Download notebook </button></a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
@@ -626,9 +620,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Python basics</a></li><li class="breadcrumb-item"><a href="../notebooks/tuples.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Tuples</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Python basics</a></li><li class="breadcrumb-item"><a href="../notebooks/tuples.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tuples</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-tuples" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Tuples</span></span></h1>
+<h1 class="title"><span id="sec-tuples" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tuples</span></span></h1>
 </div>
 
 
@@ -651,16 +645,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="op">=</span> (<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>It may seem strange that Python has both tuples and lists. One reason is that tuples are more efficient, whereas lists are more flexible. We will not use tuples often, but you must know what they are.</p>
 <p>You can do most of the operations on a tuple that you can also do on a list. The following exercises should be easy if you remember how to do the same thing on lists:</p>
-<section id="exercise" class="level4" data-number="14.0.0.1">
-<h4 data-number="14.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 14-1</strong></h4>
+<section id="exercise" class="level4" data-number="15.0.0.1">
+<h4 data-number="15.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 15-1</strong></h4>
 <p>Find the number of elements in the <code>fruits</code> tuple using the <code>len</code> function.</p>
 </section>
-<section id="exercise-1" class="level4" data-number="14.0.0.2">
-<h4 data-number="14.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 14-2</strong></h4>
+<section id="exercise-1" class="level4" data-number="15.0.0.2">
+<h4 data-number="15.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 15-2</strong></h4>
 <p>Extract the second element of the <code>fruits</code> tuple (<code>"banana"</code>) using indexing.</p>
 </section>
-<section id="exercise-2" class="level4" data-number="14.0.0.3">
-<h4 data-number="14.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 14-3</strong></h4>
+<section id="exercise-2" class="level4" data-number="15.0.0.3">
+<h4 data-number="15.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 15-3</strong></h4>
 <p>Try to change the second element of the <code>fruits</code> tuple to <code>"apple"</code> and see what happens. It should be something like this:</p>
 <pre><code>Traceback (most recent call last):
   File "script.py", line 2, in &lt;module&gt;
@@ -686,21 +680,21 @@ TypeError: 'tuple' object does not support item assignment</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tmp <span class="op">=</span> a</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> tmp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="exercise-3" class="level4" data-number="14.0.0.4">
-<h4 data-number="14.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 14-4</strong></h4>
+<section id="exercise-3" class="level4" data-number="15.0.0.4">
+<h4 data-number="15.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 15-4</strong></h4>
 <p>Try this and read the error message:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>family <span class="op">=</span> (<span class="st">"Donald"</span>, <span class="st">"Ivana"</span>, <span class="st">"Eric"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>father, mother <span class="op">=</span> family</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-4" class="level4" data-number="14.0.0.5">
-<h4 data-number="14.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 14-5</strong></h4>
+<section id="exercise-4" class="level4" data-number="15.0.0.5">
+<h4 data-number="15.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 15-5</strong></h4>
 <p>Try this and read the error message:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>family <span class="op">=</span> (<span class="st">"Donald"</span>, <span class="st">"Ivana"</span>, <span class="st">"Eric"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>father, mother, son, daughter <span class="op">=</span> family</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Compare to the error message in the previous exercise.</p>
 </section>
-<section id="exercise-5" class="level4" data-number="14.0.0.6">
-<h4 data-number="14.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 14-6</strong></h4>
+<section id="exercise-5" class="level4" data-number="15.0.0.6">
+<h4 data-number="15.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 15-6</strong></h4>
 <p>Say you want to swap the values of two variables, <code>a</code> and <code>b</code>. To do that, you would need to keep one of the values in an extra variable like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> a</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b</span>
@@ -1120,13 +1114,13 @@ TypeError: 'tuple' object does not support item assignment</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../new/aliasing.html" class="pagination-link" aria-label="References and aliasing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">References and aliasing</span></span>
+      <a href="../notebooks/dictionaries.html" class="pagination-link" aria-label="Dictionaries">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dictionaries</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../notebooks/iteration.html" class="pagination-link" aria-label="Iteration">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Iteration</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Iteration</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
