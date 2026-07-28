@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Values are objects – Instructing Machines</title>
+<title>10&nbsp; Objects – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,7 +82,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e89ea000c0c84f0741974ac7ad73179c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-84ded7f4cd259c1887f49429a844fa2d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-09a93a4ea52d697491be5f57a8177fc3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -129,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Speaking the language</a></li><li class="breadcrumb-item"><a href="../notebooks/objects.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Values are objects</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Python basics</a></li><li class="breadcrumb-item"><a href="../notebooks/objects.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objects</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -162,14 +163,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../course-design.html" class="sidebar-item-text sidebar-link">
+  <a href="../planning/course-design.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Design</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../planning/ai-arc-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The AI arc — content map (weeks 9–14)</span></span></a>
+ <span class="menu-text">The AI arc (weeks 9–14)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -190,19 +191,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Before you begin</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/machine-insides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Machine insides</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machine insides</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -210,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Speaking the language</span></a>
+ <span class="menu-text">Python basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -219,97 +220,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/hello-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Writing a program</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/values-operators-logic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dealing with values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/precedence-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The order of events</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The order of events</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/course_tools.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/if-else.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Controlling behavior</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">If-else</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Organizing code</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/objects.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Values are objects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/lists.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lists of things</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/dictionaries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Pairs of things</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/aliasing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References and aliasing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">References and aliasing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/tuples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Grouping values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Iterating values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/list-comprehensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Building lists on the fly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/files.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Working with files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../notebooks/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Programming</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../notebooks/data_structures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Structuring data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Testing testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -320,49 +338,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Your Own Objects</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">New docs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../new/debugging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Worked example: decomposition modelled live</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Worked example: decomposition modelled live</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/directing-a-resource.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/documentation-and-resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/composition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span></a>
   </div>
 </li>
       </ul>
@@ -379,25 +380,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/modules.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Giant’s shoulders</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Giant’s shoulders</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/biopython.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">BioPython</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">BioPython</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/dataframes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
   </div>
 </li>
       </ul>
@@ -414,55 +415,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/curration-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Sequence Curation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Sequence Curation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/seqdist-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
   </div>
 </li>
       </ul>
@@ -479,91 +480,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/meet-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/predict-then-prove.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">The AI predicts, the widget proves</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">The AI predicts, the widget proves</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/practical-ai-use.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Practical AI use</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Practical AI use</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">How a model produces code, and why it can be wrong</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">How a model produces code, and why it can be wrong</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/reading-and-judging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Reading and judging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Reading and judging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/the-docs-are-the-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/let-it-draft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Ask for another way</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Ask for another way</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-arc/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,19 +581,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/finale-build.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Finale build clinic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Finale build clinic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/finale-finishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Finale finishing and interface testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Finale finishing and interface testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/finale-kickoff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span></a>
   </div>
 </li>
       </ul>
@@ -602,7 +603,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="#dnldts1220" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgT2JqZWN0cyB7I3NlYy1vYmplY3RzfVxuIiwKICAgICJcbiIsCiAgICAiKlRoaXMgY2hhcHRlciBpbnRyb2R1Y2VzIHRoZSBub3Rpb24gb2YgYW4gb2JqZWN0LCBvbmUgb2YgdGhlIG1vc3QgY2VudHJhbCBhc3BlY3RzIG9mIFB5dGhvbi4gT25jZSB5b3UgY2F0Y2ggeW91ciBicmVhdGgsIHlvdSB3aWxsIGxvdmUgdGhhdCBhbGwgUHl0aG9uIHZhbHVlcyBhcmUgb2JqZWN0cy4qXG4iLAogICAgIlxuIiwKICAgICIjIyBNZXRob2RzXG4iLAogICAgIlxuIiwKICAgICJJbiBQeXRob24sIGEgdmFsdWUgbGlrZSBhbiBpbnRlZ2VyIG9yIHN0cmluZyBub3Qgb25seSBob2xkcyBkYXRhLiBJdCBpcyBhbHNvIHBhY2thZ2VkIHdpdGggYSBsb3Qgb2YgdXNlZnVsIGZ1bmN0aW9uYWxpdHkgcmVsZXZhbnQgdG8gdGhlIHBhcnRpY3VsYXIgdHlwZSBvZiB2YWx1ZS4gV2hlbiBhIHZhbHVlIGlzIHBhY2thZ2VkIHdpdGggc3VjaCByZWxldmFudCBmdW5jdGlvbmFsaXR5IGFuZCBtZXRhIGluZm9ybWF0aW9uLCBwcm9ncmFtbWVycyBjYWxsIGl0IGFuIG9iamVjdOKAlGFuZCBpbiBQeXRob24sIGFsbCB2YWx1ZXMgYXJlIG9iamVjdHMuXG4iLAogICAgIlxuIiwKICAgICJUaGUgYXNzb2NpYXRlZCBmdW5jdGlvbmFsaXR5IGNvbWVzIGluIHRoZSBmb3JtIG9mICptZXRob2RzKi4gWW91IGNhbiB0aGluayBvZiBtZXRob2RzIGFzIGZ1bmN0aW9ucyB0aGF0IGFyZSBwYWNrYWdlZCB0b2dldGhlciB3aXRoIHRoZSB2YWx1ZS4gRm9yIGV4YW1wbGUsIHN0cmluZyB2YWx1ZXMgaGF2ZSBhIG1ldGhvZCBjYWxsZWQgYGNhcGl0YWxpemVgLiAgVHJ5IGl0IG91dDpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJ4ID0gXCJiYW5hbmFcIi5jYXBpdGFsaXplKClcbiIsCiAgICAicHJpbnQoeClcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJUbyBjYWxsIHRoZSBtZXRob2Qgb24gdGhlIHN0cmluZyB2YWx1ZSwgeW91IGNvbm5lY3QgdGhlIHN0cmluZyB2YWx1ZSBhbmQgdGhlIG1ldGhvZCBjYWxsIHdpdGggYSBkb3QuIFNvLCB0byBjYWxsIGEgbWV0aG9kIG9uIGEgdmFsdWUsIHlvdSBkbyB0aGUgZm9sbG93aW5nOlxuIiwKICAgICJcbiIsCiAgICAiMS4gV3JpdGUgdGhlIHZhbHVlIChvciBhIHZhcmlhYmxlIG5hbWUgdGhhdCBzdWJzdGl0dXRlcyBmb3IgYSB2YWx1ZSkuXG4iLAogICAgIjIuIFRoZW4gd3JpdGUgYSBgLmAuXG4iLAogICAgIjMuIFRoZW4gd3JpdGUgdGhlIG5hbWUgb2YgdGhlIG1ldGhvZCAobGlrZSBgY2FwaXRhbGl6ZWApLlxuIiwKICAgICI0LiBUaGVuLCB3cml0ZSB0d28gcGFyZW50aGVzZXMgdG8gY2FsbCB0aGUgbWV0aG9kLiBJZiB0aGUgbWV0aG9kIHRha2VzIGFueSBhcmd1bWVudHMgb3RoZXIgdGhhbiB0aGUgdmFsdWUgaXQgYmVsb25ncyB0bywgdGhlbiB5b3Ugd3JpdGUgdGhvc2UgYWRkaXRpb25hbCB2YWx1ZXMgYmV0d2VlbiB0aGUgcGFyZW50aGVzZXMgd2l0aCBjb21tYXMgaW4gYmV0d2VlbiwganVzdCBhcyB3aGVuIHlvdSBjYWxsIGEgZnVuY3Rpb24uXG4iLAogICAgIlxuIiwKICAgICJZb3UgY2FuIHNlZSB0aGF0IHRoZSBtZXRob2QgY2FsbCBsb29rcyBqdXN0IGxpa2UgYSBmdW5jdGlvbiBjYWxsLCBhbmQgaW4gbWFueSB3YXlzLCBjYWxsaW5nIGEgbWV0aG9kIHdvcmtzIG11Y2ggbGlrZSBjYWxsaW5nIGEgZnVuY3Rpb24uIFRoZSBkaWZmZXJlbmNlIGlzIHRoYXQgd2hlbiB3ZSBjYWxsIGEgZnVuY3Rpb24sIHdlIHNheTogXCIqSGV5IGZ1bmN0aW9uLCBjYXBpdGFsaXplIHRoaXMgc3RyaW5nISpcIi4gV2hlbiB3ZSBjYWxsIGEgbWV0aG9kLCB3ZSBzYXk6IFwiKkhleSBzdHJpbmcsIGNhcGl0YWxpemUgeW91cnNlbGYhKlwiXG4iLAogICAgIlxuIiwKICAgICJTbyB3aHkgZG8gd2UgbmVlZCBtZXRob2RzPyBXaHkgZG8gd2UgbmVlZCB0aGVtIHdoZW4gd2UgaGF2ZSBmdW5jdGlvbnM/IEl0IGlzIHZlcnkgaGFuZHkgdG8gaGF2ZSBzb21lIHJlbGV2YW50IGFuZCByZWFkeS10by11c2UgZnVuY3Rpb25hbGl0eSBwYWNrYWdlZCB0b2dldGhlciB3aXRoIHRoZSBkYXRhIGl0IHdvcmtzIG9uLiBZb3Ugd2lsbCBzdGFydCB0byBhcHByZWNpYXRlIHRoYXQgc29vbmVyIHRoYW4geW91IHRoaW5rLlxuIiwKICAgICJcbiIsCiAgICAiTWV0aG9kcyBhcmUgYWxtb3N0IGFsd2F5cyB1c2VkIHdpdGggdmFyaWFibGVzLiBTbyByZW1lbWJlciB0byBtYWtlIGFueSBzdWJzdGl0dXRpb25zIGFuZCByZWR1Y3Rpb25zIHJlcXVpcmVkLiBXaGVuIHdlIHB1dCBhIG1ldGhvZCBjYWxsIGFmdGVyIGEgKnZhcmlhYmxlKiBsaWtlIGJlbG93LCB0aGUgdmFyaWFibGUgaXMgZmlyc3Qgc3Vic3RpdHV0ZWQgZm9yIGl0cyB2YWx1ZSwgYW5kICp0aGVuKiB0aGUgbWV0aG9kIGlzIGNhbGxlZCBvbiB0aGUgdmFsdWUuIENvbnNpZGVyIHRoZSBzZWNvbmQgbGluZSBvZiB0aGlzIGV4YW1wbGU6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAieCA9IFwiYmFuYW5hXCJcbiIsCiAgICAicHJpbnQoeC5jYXBpdGFsaXplKCkpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiSGVyZSwgYHhgIGlzIGZpcnN0IHN1YnN0aXR1dGVkIGJ5IGBcImJhbmFuYVwiYCBhbmQgKnRoZW4qIHRoZSBtZXRob2QgaXMgY2FsbGVkIG9uIHRoYXQgdmFsdWUsIGxpa2UgdGhpczogYFwiYmFuYW5hXCIuY2FwaXRhbGl6ZSgpYC5cbiIsCiAgICAiXG4iLAogICAgIk5vdyB3cml0ZSBhbmQgcnVuIHRoZXNlIGV4YW1wbGVzOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgIm1lc3NhZ2UgPSBcIk1ldGhvZHMgQXJlIENvb2xcIlxuIiwKICAgICJwcmludChtZXNzYWdlKVxuIiwKICAgICJcbiIsCiAgICAic2hvdXQgPSBtZXNzYWdlLnVwcGVyKClcbiIsCiAgICAicHJpbnQoc2hvdXQpXG4iLAogICAgIlxuIiwKICAgICJ3aGlzcGVyID0gbWVzc2FnZS5sb3dlcigpXG4iLAogICAgInByaW50KHdoaXNwZXIpXG4iLAogICAgIlxuIiwKICAgICJuZXdfbWVzc2FnZSA9IG1lc3NhZ2UucmVwbGFjZShcIkNvb2xcIiwgXCJGYW50YXN0aWNcIilcbiIsCiAgICAicHJpbnQobmV3X21lc3NhZ2UpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiWW91IGNhbiBzZWUgd2hhdCB0aGVzZSBtZXRob2RzIGRvLiBGb3IgZXhhbXBsZTogYHVwcGVyYCByZXR1cm5zIGFuIHVwcGVyY2FzZWQgY29weSBvZiB0aGUgc3RyaW5nLiBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2UgeyNzZWMtZmlyc3RfZm9ybWF0X2V4ZX1cbiIsCiAgICAiV3JpdGUgYW5kIHJ1biB0aGUgZm9sbG93aW5nIGNvZGUuIFdoYXQgZG8geW91IHRoaW5rIGl0IGRvZXM/XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAibGluZSA9ICdcXG5cXHRTb21lIHRleHRcXG4nXG4iLAogICAgInByaW50KFwiPnt9PFwiLmZvcm1hdChsaW5lKSlcbiIsCiAgICAiXG4iLAogICAgImxpbmUgPSBsaW5lLnN0cmlwKClcbiIsCiAgICAicHJpbnQoXCI+e308XCIuZm9ybWF0KGxpbmUpKVxuIiwKICAgICJcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJNYWtlIHN1cmUgeW91IGRvIHRoZSBzdWJzdGl0dXRpb24gYW5kIHJlZHVjdGlvbiBzdGVwcyBpbiB5b3VyIGhlYWQuIEJlIGVzcGVjaWFsbHkgY2FyZWZ1bCBhYm91dCB0aGUgdGhpcmQgbGluZSBvZiBjb2RlLiBBbHNvLCB3aGF0IGRvIHlvdSB0aGluayB0aGUgc3BlY2lhbCBgXFx0YCBjaGFyYWN0ZXIgaXM/XG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlRoZSBzdHJpbmcgbWV0aG9kcyB5b3UgaGF2ZSB0cmllZCBzbyBmYXIgaGF2ZSBhbGwgcmV0dXJuZWQgYSBuZXcgc3RyaW5nLiBUcnkgdGhpcyBleGFtcGxlOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgIidBVEdBQ0dDR0dBJy5zdGFydHN3aXRoKCdBVEcnKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgImFuZCB0aGlzXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiJ0FUR0FDR0NHR0EnLmVuZHN3aXRoKCdBVEcnKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIldoYXQgZG8gdGhlIG1ldGhvZHMgZG8sIGFuZCB3aGF0IGRvIHRoZXkgcmV0dXJuP1xuIiwKICAgICJcbiIsCiAgICAiIyMgVXNpbmcgdGhlIFB5dGhvbiBkb2N1bWVudGF0aW9uXG4iLAogICAgIlxuIiwKICAgICJOb3cgdGhhdCB5b3UgYXJlIHdlbGwgdW5kZXJ3YXkgdG8gYmVjb21pbmcgYSBwcm9ncmFtbWVyLCB5b3Ugc2hvdWxkIGtub3cgeW91ciB3YXkgYXJvdW5kIHRoZSBbUHl0aG9uIGRvY3VtZW50YXRpb25dKGh0dHBzOi8vZG9jcy5weXRob24ub3JnLzMpLiBFc3BlY2lhbGx5IHRoZSBwYXJ0IGNhbGxlZCB0aGUgW1B5dGhvbiBzdGFuZGFyZCBsaWJyYXJ5XShodHRwczovL2RvY3MucHl0aG9uLm9yZy8zL2xpYnJhcnkpLiBUaGVyZSBpcyBhICpsb3QqIG9mIGRldGFpbHMgaW4gdGhlcmUgdGhhdCB3ZSBkbyBub3QgY292ZXIgaW4gdGhpcyBjb3Vyc2UuIFRoZXNlIGFyZSBtYWlubHkgdG9vbHMgYW5kIHRlY2huaXF1ZXMgZm9yIHdyaXRpbmcgbW9yZSBlZmZpY2llbnQsIGV4dGVuc2libGUsIHJvYnVzdCwgYW5kIGZsZXhpYmxlIGNvZGUuIFRoZSBwYXJ0cyB3ZSBjb3ZlciBpbiB0aGlzIGNvdXJzZSBhcmUgdGhlIG1pbmltYWwgc2V0IHRoYXQgd2lsbCBhbGxvdyB5b3UgdG8gd3JpdGUgYSBwcm9ncmFtIHRoYXQgY2FuIGRvICphbnl0aGluZyouXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlRoZXJlIGlzIGEgc3RyaW5nIG1ldGhvZCB0aGF0IHJldHVybnMgYSBzZWNyZXQgYWdlbnQ6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicHJpbnQoJzcnLnpmaWxsKDMpKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIllvdSBjYW4gbG9vayBpdCB1cCBpbiB0aGUgW1B5dGhvbiBkb2N1bWVudGF0aW9uXShodHRwczovL2RvY3MucHl0aG9uLm9yZy8zL2xpYnJhcnkvc3RkdHlwZXMuaHRtbCNzdHIuemZpbGwpLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiQnJvd3NlIHRocm91Z2ggYWxsIHRoZSBbc3RyaW5nIG1ldGhvZHNdKGh0dHBzOi8vZG9jcy5weXRob24ub3JnLzMvbGlicmFyeS9zdGR0eXBlcy5odG1sI3N0cmluZy1tZXRob2RzKSB0byBnZXQgYW4gaW1wcmVzc2lvbiBvZiBhbGwgdGhlIGZ1bmN0aW9uYWxpdHkgdGhhdCBpcyBwYWNrYWdlZCB3aXRoIHN0cmluZyBvYmplY3RzLiBcbiIsCiAgICAiXG4iLAogICAgIlxuIiwKICAgICIjIyBTdHJpbmcgZm9ybWF0dGluZ1xuIiwKICAgICJcbiIsCiAgICAiWW91IGhhdmUgYWxyZWFkeSB0cmllZCBzdHJpbmcgZm9ybWF0dGluZyBpbiBAc2VjLWZpcnN0X2Zvcm1hdF9leGUuIFN0cmluZyBmb3JtYXR0aW5nIGlzIGEgc2ltcGxlIGJ1dCBwb3dlcmZ1bCB0ZWNobmlxdWUgdGhhdCBsZXRzIHlvdSBnZW5lcmF0ZSBwcmV0dHkgc3RyaW5ncyBmcm9tIHByZS1jb21wdXRlZCB2YWx1ZXMuIFlvdSBtYXkgaGF2ZSBub3RpY2VkIHRoYXQgbWFueSBkZWNpbWFscyBhcmUgc2hvd24gZXZlcnkgdGltZSB3ZSBwcmludCBhIGZsb2F0aW5nLXBvaW50IG51bWJlci4gSXQgaXMgbm90IHZlcnkgcHJldHR5IGlmIHlvdSBhcmUgb25seSBpbnRlcmVzdGVkIGluIHR3byBkZWNpbWFscy4gWW91IHVzZSB0aGUgYGZvcm1hdGAgbWV0aG9kIChzdXJwcmlzZSkgdG8gZm9ybWF0IGEgc3RyaW5nLiBJbiBpdHMgbW9zdCBzdHJhaWdodGZvcndhcmQgdXNlLCBgZm9ybWF0YCByZXBsYWNlcyBvY2N1cnJlbmNlcyBvZiBge31gIHdpdGggdGhlIGFyZ3VtZW50cyB0aGF0IGFyZSBwYXNzZWQgdG8gaXQgLSBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAidGF4b24gPSBcImdlbnVzOnt9LCBzcGVjaWVzOnt9XCIuZm9ybWF0KCdIb21vJywgJ3NhcGllbnMnKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiV2hhdCBoYXBwZW5zIGlmIHlvdSB0cnkgdGhpcz9cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJxdWVzdGlvbiA9IFwiV2FzIHt9IHt9IFN3ZWRpc2g/XCIuZm9ybWF0KCdDYXJsJywgJ0xpbm5lYXVzJylcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJhbmQgdGhpcz9cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJxdWVzdGlvbiA9IFwiV2FzIHt9IFN3ZWRpc2g/XCIuZm9ybWF0KCdDYXJsJywgJ0xpbm5lYXVzJylcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJhbmQgdGhpcz9cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJxdWVzdGlvbiA9IFwiV2FzIHt9IHt9IFN3ZWRpc2g/XCIuZm9ybWF0KCdDYXJsIExpbm5lYXVzJylcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJJbiB0aGUgdHdvIGxhc3QgZXhhbXBsZXMsIHRoZSBudW1iZXIgb2YgYHt9YCBkaWQgbm90IG1hdGNoIHRoZSBudW1iZXIgb2YgYXJndW1lbnRzIHRvIGBmb3JtYXRgLiBXaGF0IGhhcHBlbnMgd2hlbiB0aGVyZSBhcmUgdG9vIGZldyBhbmQgd2hlbiB0aGVyZSBhcmUgdG9vIG1hbnk/XG4iLAogICAgIlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJDb25zaWRlciB0aGlzIGNvZGU6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicyA9IFwie30gaXMgbGFyZ2VyIHRoYW4ge31cIi5mb3JtYXQoNCwgMylcbiIsCiAgICAicHJpbnQocylcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJXaGF0IHdpbGwgaGFwcGVuIGlmIHlvdSBydW4gdGhpcyBjb2RlPyBXcml0ZSB0aGUgY29kZSBhbmQgc2VlIGZvciB5b3Vyc2VsZiBvbmNlIHlvdSB0aGluayB5b3Uga25vdy4gSWYgeW91IHdlcmUgd3JvbmcsIG1ha2Ugc3VyZSB5b3UgdW5kZXJzdGFuZCB3aHkuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIkNvbnNpZGVyIHRoaXMgY29kZTpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJsYW5ndWFnZSA9ICdQeXRob24nXG4iLAogICAgImludmVudGlvbiA9ICdzbGljZWQgYnJlYWQnXG4iLAogICAgInMgPSAne30gaXMgdGhlIGJlc3QgdGhpbmcgc2luY2Uge30nLmZvcm1hdChsYW5ndWFnZSwgaW52ZW50aW9uKVxuIiwKICAgICJwcmludChzKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIldoYXQgd2lsbCBoYXBwZW4gaWYgeW91IHJ1biB0aGlzIGNvZGU/IFdyaXRlIHRoZSBjb2RlIGFuZCBzZWUgZm9yIHlvdXJzZWxmIG9uY2UgeW91IHRoaW5rIHlvdSBrbm93LiBJZiB5b3Ugd2VyZSB3cm9uZywgbWFrZSBzdXJlIHlvdSB1bmRlcnN0YW5kIHdoeS5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiQ29uc2lkZXIgdGhpcyBjb2RlOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgIm15X3RlbXBsYXRlID0gJ3t9IGlzIHRoZSBiZXN0IHRoaW5nIHNpbmNlIHt9J1xuIiwKICAgICJsYW5ndWFnZSA9ICdQeXRob24nXG4iLAogICAgInByaW50KG15X3RlbXBsYXRlLmZvcm1hdChsYW5ndWFnZSwgJ3NsaWNlZCBicmVhZCcpKVxuIiwKICAgICJwcmludChteV90ZW1wbGF0ZS5mb3JtYXQobGFuZ3VhZ2UsIDE5MDAgKyA4OSkpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiV2hhdCB3aWxsIGhhcHBlbiBpZiB5b3UgcnVuIHRoaXMgY29kZT8gRG8gdGhlIHN1YnN0aXR1dGlvbiBhbmQgcmVkdWN0aW9uIHN0ZXBzIGluIHlvdXIgaGVhZC5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiVGhpbmsgYmFjayB0byBAc2VjLWNob2NvbGF0ZWJhcnMsIHdoZXJlIHlvdSBjYWxjdWxhdGVkIGhvdyBtYW55IGNvb2tpZXMgeW91IGNvdWxkIGJ1eSBmb3IgMzAga3IuIFRoZSBiYXJzIGFyZSA3IGtyLiBTbyB5b3VyIHByb2dyYW0gbG9va2VkIHNvbWV0aGluZyBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAibnJfYmFycyA9IDMwIC8gN1xuIiwKICAgICJwcmludCgnSSBjYW4gYnV5JywgbnJfYmFycywgJ2Nob2NvbGF0ZSBiYXJzIScpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiYW5kIGl0IHJhbiBsaWtlIHRoaXM6IGBweXRob24gY2hvY29sYXRlLnB5YFxuIiwKICAgICJcbiIsCiAgICAiYGBgXG4iLAogICAgIkkgY2FuIGJ1eSA0LjI4NTcxNDI4NTcxNDI4NiBjaG9jb2xhdGUgYmFycyFcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJTdHJpbmcgZm9ybWF0dGluZyBsZXRzIHlvdSByZXdyaXRlIHRoZSBwcm9ncmFtIGxpa2UgdGhpczpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJucl9iYXJzID0gMzAgLyA3XG4iLAogICAgIm1lc3NhZ2UgPSBcIkkgY2FuIGJ1eSB7fSBjaG9jb2xhdGUgYmFycyFcIi5mb3JtYXQobnJfYmFycylcbiIsCiAgICAicHJpbnQobWVzc2FnZSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJUcnkgdG8gcmVwbGFjZSBge31gIHdpdGggYHs6LjJmfWAuIGBmb3JtYXRgIHJlYWRzIHRoZSBzdHVmZiBhZnRlciB0aGUgY29sb24gaW4gZWFjaCBzZXQgb2YgY3VybHkgYnJhY2tldHMgYW5kIHVzZXMgaXQgYXMgZGlyZWN0aW9ucyBmb3IgZm9ybWF0dGluZyB0aGUgdmFsdWUgaXQgaW5zZXJ0cy4gVHJ5IGl0IG91dCBhbmQgc2VlIHdoYXQgaGFwcGVucyBpZiB5b3UgY2hhbmdlIHRoZSBudW1iZXIgYDJgIHRvIGAzYCwgYDRgLCBgNWAgb3IgYDEwYC5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiU2VlIGlmIHlvdSBjYW4gZmluZCB0aGUgZG9jdW1lbnRhdGlvbiBmb3IgdGhlIGBmb3JtYXRgIGZ1bmN0aW9uIGluIHRoZSBbUHl0aG9uIGRvY3VtZW50YXRpb25dKGh0dHBzOi8vZG9jcy5weXRob24ub3JnLzMpLiBJdCBjYW4gZG8gd29uZHJvdXMgdGhpbmdzLCBmb3IgdGhpcyBjb3Vyc2Ugd2Ugd2lsbCBvbmx5IHRyeSB0byBjb250cm9sIHRoZSBudW1iZXIgb2YgZGlnaXRzIGFuZCBwYWRkaW5nIHdpdGggc3BhY2VzLiBMb29rIGF0IHRoZSBleGFtcGxlcyBiZWxvdy4gTWF5YmUgeW91IGNhbiBmaWd1cmUgb3V0IGhvdyBpdCB3b3Jrcy5cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJwaSA9IDMuMTQxNTkyNjUzNTlcbiIsCiAgICAicHJpbnQoXCIqe30qXCIuZm9ybWF0KHBpKSlcbiIsCiAgICAicHJpbnQoXCIqezouM2Z9KlwiLmZvcm1hdChwaSkpXG4iLAogICAgInByaW50KFwiKns6LjZmfSpcIi5mb3JtYXQocGkpKVxuIiwKICAgICJwcmludChcIip7Oj41LjNmfSpcIi5mb3JtYXQocGkpKVxuIiwKICAgICJwcmludChcIip7Oj4xMC4zZn0qXCIuZm9ybWF0KHBpKSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlIHsjc2VjLWFkZF9tZXRob2R9XG4iLAogICAgIlRoaXMgaXMgYm9udXMgaW5mbyByYXRoZXIgdGhhbiBhbiBhY3R1YWwgZXhlcmNpc2UuIEhvdyBkbyB5b3UgdGhpbmsgUHl0aG9uIGNhbiBmaWd1cmUgb3V0IHRoYXQgYWRkaW5nIHN0cmluZ3MgaXMgc3VwcG9zZWQgdG8gd29yayBkaWZmZXJlbnRseSB0aGFuIGFkZGluZyBudW1iZXJzPyBSZW1lbWJlciB0aGF0IGAnMScgKyAnMidgIGlzIGAnMTInYCBub3QgYDNgLiBUaGUgYW5zd2VyIGlzIHRoYXQgYWxsIHZhbHVlcyB5b3UgY2FuIGFkZCB3aXRoIHRoZSBgK2Agb3BlcmF0b3IgaGF2ZSBhIHNlY3JldCBtZXRob2QgY2FsbGVkIGBfX2FkZF9fYCB0aGF0IGRlZmluZXMgaG93IGFkZGluZyB3b3JrcyBmb3IgdGhhdCB0eXBlIG9mIHZhbHVlOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgInMxID0gXCIxMVwiXG4iLAogICAgInMyID0gXCIyMlwiXG4iLAogICAgIm4xID0gMTFcbiIsCiAgICAibjIgPSAyMlxuIiwKICAgICJwcmludChzMSArIHMyKVxuIiwKICAgICJwcmludChzMS5fX2FkZF9fKHMyKSlcbiIsCiAgICAicHJpbnQobjEgKyBuMilcbiIsCiAgICAicHJpbnQobjEuX19hZGRfXyhuMikpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiVGhpcyBpcyBvbmUgb2YgbWFueSBleGFtcGxlcyBvZiBob3cgb2JqZWN0cyBhbGxvdyBQeXRob24gdG8gaW1wbGVtZW50IGZ1bmN0aW9uYWxpdHkgdGhhdCBmaXRzIGVhY2ggdmFsdWUgdHlwZS4gVGhpcyB3YXMgdG8gc2hvdyBob3cgUHl0aG9uIGRvZXMgdGhpcy4gTGlrZSB5ZWxsb3cgYW5kIGJsYWNrIHN0cmlwZXMgaW4gbmF0dXJlIG1lYW5zIFwiZG9uJ3QgdG91Y2ggbWUhXCIgLS0gZG91YmxlIHVuZGVyc2NvcmVzIChgX19gKSBpcyBQeXRob24ncyB3YXkgb2Ygc2F5aW5nIFwiZG8gbm90IHVzZSB0aGlzIVwiLiBZb3UgYXJlIHN1cHBvc2VkIHRvIHVzZSB0aGUgYCtgIG9wZXJhdG9yLCBub3QgdGhlIGBfX2FkZF9fYCBtZXRob2QuXG4iLAogICAgIlxuIiwKICAgICJcbiIsCiAgICAiIyMgSW5kZXhpbmcgYW5kIHNsaWNpbmcgc3RyaW5nc1xuIiwKICAgICJcbiIsCiAgICAiQW5vdGhlciBmZWF0dXJlIG9mIHN0cmluZyBvYmplY3RzIGlzIHRoYXQgdGhleSBhbGxvdyB5b3UgdG8gZXh0cmFjdCBpbmRpdmlkdWFsIHBhcnRzIG9mIHRoZSBzdHJpbmcuXG4iLAogICAgIlxuIiwKICAgICJFYWNoIGNoYXJhY3RlciBpbiBhIHN0cmluZyBpcyBpZGVudGlmaWVkIGJ5IGl0cyAqaW5kZXgqIGluIHRoZSBzdHJpbmcuIFRvIGFjY2VzcyBhIGNoYXJhY3RlciBpbiBhIGxpc3QsIHlvdSB3cml0ZSBicmFja2V0cyBhZnRlciB0aGUgc3RyaW5nLiBCZXR3ZWVuIHRob3NlIGJyYWNrZXRzLCB5b3Ugc3BlY2lmeSB0aGUgaW5kZXggb2YgdGhlIGNoYXJhY3RlciB5b3Ugd2FudC4gVGhlIGZpcnN0IGNoYXJhY3RlciBoYXMgYW4gaW5kZXggb2YgMDsgdGhlIHNlY29uZCBoYXMgYW4gaW5kZXggb2YgMSwgYW5kIHNvIG9uLlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImNvZG9uID0gJ0FURydcbiIsCiAgICAicHJpbnQoXCJmaXJzdCBiYXNlIGlzXCIsIGNvZG9uWzBdKVxuIiwKICAgICJwcmludChcInNlY29uZCBiYXNlIGlzXCIsIGNvZG9uWzFdKVxuIiwKICAgICJwcmludChcInRoaXJkIGJhc2UgaXNcIiwgY29kb25bMl0pXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiWW91IG1heSB3b25kZXIgd2h5IHRoZSBpbmRleCBvZiB0aGUgZmlyc3QgY2hhcmFjdGVyIGlzIHplcm8gYW5kIG5vdCBvbmUuIFRoYXQgaXMgc2ltcGx5IHRoZSBjb252ZW50aW9uIGluIHByb2dyYW1taW5nIGFuZCBpcyBzbyBmb3IgZ29vZCByZWFzb24uIE92ZXIgdGltZSB5b3Ugd2lsbCBiZWdpbiB0byBmaW5kIHRoaXMgdXNlZnVsIHJhdGhlciB0aGFuIGFubm95aW5nLiBZb3Ugc2hvdWxkIHRoaW5rIG9mIHRoZSBpbmRleCBhcyB0aGUgb2Zmc2V0IGZyb20gdGhlIHN0YXJ0IG9mIHRoZSBzdHJpbmcuXG4iLAogICAgIlxuIiwKICAgICJUaGF0IGFsc28gbWVhbnMgdGhhdCB0aGUgaW5kZXggaXMgbm90IHRoZSBsZW5ndGggb2YgdGhlIHN0cmluZyBidXQgdGhlIGxlbmd0aCBtaW51cyBvbmU6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiYW1pbm9fYWNpZHMgPSAnQVJORENRRUdISUxLTUZQU1RXWVYnXG4iLAogICAgImxhc3RfaW5kZXggPSBsZW4oYW1pbm9fYWNpZHMpLTFcbiIsCiAgICAicHJpbnQoXCJMYXN0IGFtaW5vIGFjaWQgaXNcIiwgYW1pbm9fYWNpZHNbbGFzdF9pbmRleF0pXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiSWYgeW91IHdhbnQgYSBzdWItc3RyaW5nIGZyb20gYSBsYXJnZXIgc3RyaW5nICh3ZSBjYWxsIHRoYXQgYSAqc2xpY2UqKSwgeW91IHNwZWNpZnkgYSBzdGFydCBpbmRleCBhbmQgYW4gZW5kIGluZGV4IHNlcGFyYXRlZCBieSBhIGNvbG9uOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgInByaW50KGFtaW5vX2FjaWRzWzE6NF0pXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiV2hlbiB5b3UgcnVuIHRoYXQsIHlvdSBjYW4gc2VlIHRoYXQgYGFtaW5vX2FjaWRzWzE6NF1gIGlzIHN1YnN0aXR1dGVkIGZvciBgJ1JORCdgLCBzbyB0aGUgc2xpY2luZyBvcGVyYXRpb24gcHJvZHVjZXMgYSBzdWItc3RyaW5nIG9mIGBhbWlub19hY2lkc2AuIFlvdSBtYXkgd29uZGVyIHdoeSB0aGUgdmFsdWUgYXQgaW5kZXggNCBpcyBub3QgaW4gdGhlIHJlc3VsdGluZyBzdWItc3RyaW5nLiBUaGF0IGlzIGFub3RoZXIgcHJvZ3JhbW1pbmcgY29udmVudGlvbjogaW50ZXJ2YWxzIGFyZSAqZW5kcyBleGNsdXNpdmUqLiBTbyB3aGVuIHlvdSBzcGVjaWZ5IGFuIGludGVydmFsIHdpdGggYSBzdGFydCBpbmRleCBvZiAxIGFuZCBhbiBlbmQgaW5kZXggb2YgNCwgaXQgcmVwcmVzZW50cyBhbGwgdGhlIGNoYXJhY3RlcnMgc3RhcnRpbmcgZnJvbSAxIGFuZCB1cCB0bywgKmJ1dCBub3QgaW5jbHVkaW5nKiwgNC4gU28sIHRoZSBzbGljZSBgMTo0YCBjb3JyZXNwb25kcyB0byB0aGUgY2hhcmFjdGVycyBhdCBpbmRleGVzIDEsIDIsIGFuZCAzLiBUaGUgcmVhc29uIHByb2dyYW1tZXJzIGhhbmRsZSBpbnRlcnZhbHMgaW4gdGhpcyB3YXkgaXMgdGhhdCBpdCBtYWtlcyBpdCBlYXNpZXIgdG8gd3JpdGUgY2xlYXIgYW5kIHNpbXBsZSBjb2RlIGFzIHlvdSB3aWxsIHNlZSBpbiB0aGUgZXhlcmNpc2VzLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJXaGF0IGRvZXMgdGhpcyBleHByZXNzaW9uIHJlZHVjZSB0bz9cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJcIkZ1dHRlcndhY2tlblwiWzddXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJXaGF0IGlzIHByaW50ZWQgaGVyZT8gRG8gYWxsIHRoZSBzdWJzdGl0dXRpb24gYW5kIHJlZHVjdGlvbiBzdGVwcyBhbmQgY29tcGFyZSB0byB0aGUgZXhlcmNpc2UgYWJvdmUuXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicyA9IFwiRnV0dGVyd2Fja2VuXCJcbiIsCiAgICAicHJpbnQoc1s3XSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIldoYXQgaXMgcHJpbnRlZCBoZXJlPyBEbyBhbGwgdGhlIHN1YnN0aXR1dGlvbiBhbmQgcmVkdWN0aW9uIHN0ZXBzIC0tIGFuZCBkbyBpdCAqdHdpY2UqLiBOZXh0IHdlZWsgeW91IHdpbGwgYmUgaGFwcHkgeW91IGRpZC5cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJkbmEgPSAnVEdBQydcbiIsCiAgICAiaSA9IDBcbiIsCiAgICAicHJpbnQoZG5hW2ldKVxuIiwKICAgICJpID0gMVxuIiwKICAgICJwcmludChkbmFbaV0pXG4iLAogICAgImkgPSAyXG4iLAogICAgInByaW50KGRuYVtpXSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZSB7I3NlYy1pbW11dGFibGVfc3RyaW5nc31cbiIsCiAgICAiV2hhdCBkbyB5b3UgdGhpbmsgaGFwcGVucyBoZXJlPyBNYWtlIHVwIHlvdXIgbWluZCBhbmQgdHJ5IG91dCB0aGUgY29kZSBiZWxvdzpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJzID0gXCJGdXR0ZXJ3YWNrZW5cIlxuIiwKICAgICJzWzZdID0gJ1cnXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiRGlkIHlvdSBzZWUgdGhhdCBjb21pbmc/IFN0cmluZ3MgYXJlICppbW11dGFibGUqLCB3aGljaCBtZWFucyB0aGF0IHlvdSBjYW5ub3QgY2hhbmdlIHRoZW0gb25jZSB5b3UgaGF2ZSBtYWRlIHRoZW0uIElmIHlvdSB3YW50IGBcIkZ1dHRlcldhY2tlblwiYCB5b3UgbmVlZCB0byBwcm9kdWNlIGEgbmV3IHN0cmluZyB3aXRoIHRoYXQgdmFsdWUuIFRyeSB0byBmaWd1cmUgb3V0IGhvdyB0byBkbyB0aGF0IHdpdGggdGhlIFtgcmVwbGFjZWBdKGh0dHBzOi8vZG9jcy5weXRob24ub3JnLzMvbGlicmFyeS9zdGR0eXBlcy5odG1sI3N0cmluZy1tZXRob2RzKSBtZXRob2Qgb2Ygc3RyaW5ncy5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiV2hlbiB5b3UgZG8gbm90IHNwZWNpZnkgYSBzbGljZSdzIHN0YXJ0IGFuZC9vciBlbmQsIFB5dGhvbiB3aWxsIGFzc3VtZSBzZW5zaWJsZSBkZWZhdWx0cyBmb3IgdGhlIHN0YXJ0IGFuZCBlbmQgaW5kZXhlcy4gV2hhdCBkbyB5b3UgdGhpbmsgdGhleSBhcmU/IE1ha2UgdXAgeW91ciBtaW5kIGFuZCB0cnkgb3V0IHRoZSBjb2RlIGJlbG93OlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgInMgPSAnYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnh5eidcbiIsCiAgICAicHJpbnQoc1s6MTFdKVxuIiwKICAgICJwcmludChzWzExOl0pXG4iLAogICAgInByaW50KHNbOl0pXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZSAgeyNzZWMtc2xpY2luZ19kb2NzfVxuIiwKICAgICJGaW5kIHRoZSBkb2N1bWVudGF0aW9uIGZvciBob3cgdGhlIHNsaWNpbmcgb2Ygc3RyaW5ncyB3b3Jrcy5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiV2hhdCBkbyB5b3UgdGhpbmsgaGFwcGVucyB3aGVuIHlvdSBzcGVjaWZ5IGFuIGluZGV4IHRoYXQgZG9lcyBub3QgY29ycmVzcG9uZCB0byBhIHZhbHVlIGluIHRoZSBsaXN0OlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImFscGhhYmV0ID0gJ2FiY2RlZmdoaWprbG1ub3BxcnN0dXZ4eXonXG4iLAogICAgInByaW50KGFscGhhYmV0Wzk5XSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJSZWFkIGFuZCBtYWtlIHN1cmUgeW91IHVuZGVyc3RhbmQgdGhlIGVycm9yIG1lc3NhZ2UuIFlvdSBjYW4gdHJ5IHRvIEdvb2dsZSB0aGUgZXJyb3IgbWVzc2FnZS5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiRG8geW91IHRoaW5rIHlvdSBhbHNvIGdldCBhbiBlcnJvciB3aGVuIHlvdSBzcGVjaWZ5IGEgc2xpY2Ugd2hlcmUgdGhlIGVuZCBpcyB0b28gaGlnaD8gVHJ5IGl0IG91dDpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJhbHBoYWJldCA9ICdhYmNkZWZnaGlqa2xtbm9wcXJzdHV2eHl6J1xuIiwKICAgICJwcmludChhbHBoYWJldFsxMzo5OV0pXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiYW5kIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiYWxwaGFiZXQgPSAnYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnh5eidcbiIsCiAgICAicHJpbnQoYWxwaGFiZXRbMTAwMDA6MTAwMDddKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkkgZ3Vlc3MgdGhhdCBpcyB3b3J0aCByZW1lbWJlcmluZy5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiV2hpY2ggY2hhcmFjdGVyIGluIGEgc3RyaW5nIG5hbWVkIGBhbHBoYWJldGAgZG9lcyB0aGlzIGV4cHJlc3Npb24gcmVkdWNlIHRvP1xuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImFscGhhYmV0W2xlbihhbHBoYWJldCktMV1cbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIkJlY2F1c2UgaW50ZXJ2YWxzIGFyZSBcImVuZHMgZXhjbHVzaXZlXCIgLHdlIGNhbiBjb21wdXRlIHRoZSBsZW5ndGggb2YgYSBzbGljZSBhcyBgZW5kIC0gc3RhcnRgOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImRuYSA9IFwiQVRHQUdHVENBQUdcIlxuIiwKICAgICJzdGFydCA9IDFcbiIsCiAgICAiZW5kID0gNFxuIiwKICAgICJwcmludChcInt9IGhhcyBsZW5ndGgge31cIi5mb3JtYXQoZG5hW3N0YXJ0OmVuZF0sIGVuZC1zdGFydCkpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiRmlndXJlIG91dCB3aGF0IHRoaXMgY29kZSB3b3VsZCBsb29rIGxpa2UgaWYgZW5kcyB3ZXJlIGluY2x1ZGVkIGluIGludGVydmFscy5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiQW5vdGhlciBhZHZhbnRhZ2Ugb2YgXCJlbmRzIGV4Y2x1c2l2ZVwiIGludGVydmFscyBpcyB0aGF0IHlvdSBvbmx5IG5lZWQgb25lIGluZGV4IHRvIHNwbGl0IGEgc3RyaW5nIGluIHR3bzpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJzID0gJ0JhbmFuYSdcbiIsCiAgICAiaWR4ID0gM1xuIiwKICAgICJiZWdpbm5pbmcgPSBzWzppZHhdXG4iLAogICAgImVuZCA9IHNbaWR4Ol1cbiIsCiAgICAicHJpbnQoYmVnaW5uaW5nICsgZW5kKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkZpZ3VyZSBvdXQgd2hhdCBpbmRleGVzIHlvdSB3b3VsZCBuZWVkIHRvIHVzZSB0byBzcGxpdCBhIHNlcXVlbmNlIGluIHR3byBpZiBlbmRzIHdlcmUgaW5jbHVkZWQgaW4gaW50ZXJ2YWxzLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJEaWQgeW91IGxvb2sgdXAgdGhlIGRldGFpbHMgb2YgaG93IHNsaWNpbmcgd29ya3MgaW4gQHNlYy1zbGljaW5nX2RvY3M/IFRoZW4geW91IHNob3VsZCBiZSBhYmxlIHRvIGV4cGxhaW4gd2hhdCBoYXBwZW5zIGhlcmU6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicyA9ICd6eXh2dXRzcnFwb25tbGtqaWhnZmVkY2JhJ1xuIiwKICAgICJwcmludChzWzo6LTFdKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIlxuIiwKICAgICIjIyBHZW5lcmFsIGV4ZXJjaXNlc1xuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJXaWxsIHRoaXMgcHJpbnQgYEJhbmFuYXMgcnVsZSFgPyBEbyBhbGwgdGhlIHN1YnN0aXR1dGlvbnMgYW5kIHJlZHVjdGlvbnMuIFxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImlmICduYScgKiAyID09IFwiQmFuYW5hXCJbMjpdOlxuIiwKICAgICIgICAgcHJpbnQoXCJCYW5hbmFzIHJ1bGUhXCIpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJXaWxsIHRoaXMgcHJpbnQgYEJhbmFuYXMgcnVsZSFgPyBEbyBhbGwgdGhlIHN1YnN0aXR1dGlvbnMgYW5kIHJlZHVjdGlvbnMuIFxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImlmIFwie31zXCIuZm9ybWF0KCdCYW5hbmEnWzE6XS5jYXBpdGFsaXplKCkpID09ICdBbmFuYXMnOlxuIiwKICAgICIgICAgcHJpbnQoXCJCYW5hbmFzIHJ1bGUhXCIpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJXcml0ZSBhIGZ1bmN0aW9uIGNhbGxlZCBgZXZlbl9zdHJpbmdgIHRoYXQgdGFrZXMgYSBzdHJpbmcgYXJndW1lbnQgYW5kIHJldHVybnMgYFRydWVgIGlmIHRoZSBsZW5ndGggb2YgdGhlIHN0cmluZyBpcyBhbiBldmVuIG51bWJlciBhbmQgYEZhbHNlYCBvdGhlcndpc2UuIEUuZy4gYGV2ZW5fc3RyaW5nKCdQZWFyJylgIHNob3VsZCByZXR1cm4gYFRydWVgIGFuZCBgZXZlbl9zdHJpbmcoJ0FwcGxlJylgIHNob3VsZCByZXR1cm4gYEZhbHNlYCAocmVtZW1iZXIgdGhlIGBtb2R1bG9gIG9wZXJhdG9yPykuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIkxvb2sgYXQgdGhlIGNvZGUgYmVsb3cgYW5kIGRlY2lkZSB3aGF0IGlzIHByaW50ZWQgYXQgdGhlIGVuZC4gVGhlbiwgd3JpdGUgdGhlIGNvZGUgYW5kIHRlc3QgeW91ciBwcmVkaWN0aW9uLiBJZiB5b3UgYXJlIHdyb25nLCBmaWd1cmUgb3V0IHdoeSBieSByZXZpc2l0aW5nIHRoZSBjaGFwdGVyIGFib3V0IGZ1bmN0aW9ucy5cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJkZWYgZW5pZ21hKHgpOlxuIiwKICAgICIgICAgaWYgeCA9PSA0OlxuIiwKICAgICIgICAgICAgIHJldHVybiB4XG4iLAogICAgIlxuIiwKICAgICJyZXN1bHQgPSBlbmlnbWEoNSlcbiIsCiAgICAicHJpbnQocmVzdWx0KVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiSW5zcGVjdCB0aGUgY29kZSBiZWxvdyBhbmQgZGV0ZXJtaW5lIHdoeSBpdCBkb2VzIG5vdCBwcmludCB0aGF0IHlvdSBhcmUgYSBzdXBlciBzdGFyLiBUZXN0IHRoZSBmdW5jdGlvbiB1c2luZyB2YXJpb3VzIGlucHV0cyBhbmQgaWRlbnRpZnkgdGhlIG1pc3Rha2UuXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiZGVmIGV2ZW5fbnVtYmVyKHgpOlxuIiwKICAgICIgICAgaWYgeCAlIDI6XG4iLAogICAgIiAgICAgICAgcmV0dXJuIEZhbHNlXG4iLAogICAgIlxuIiwKICAgICJpZiBldmVuX251bWJlcig0KTpcbiIsCiAgICAiICAgIHByaW50KCdZb3UgYXJlIGEgc3VwZXIgc3RhciEnKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIlxuIiwKICAgICJcbiIsCiAgICAiPCEtLSBUT0RPOiBNb3JlIGdlbmVyYWwgZXhlcmNpc2VzIFxuIiwKICAgICItLT5cbiIKICAgXQogIH0KIF0sCiAibWV0YWRhdGEiOiB7CiAgImtlcm5lbHNwZWMiOiB7CiAgICJkaXNwbGF5X25hbWUiOiAiUHl0aG9uIDMiLAogICAibGFuZ3VhZ2UiOiAicHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uMyIKICB9LAogICJsYW5ndWFnZV9pbmZvIjogewogICAiY29kZW1pcnJvcl9tb2RlIjogewogICAgIm5hbWUiOiAiaXB5dGhvbiIsCiAgICAidmVyc2lvbiI6IDMKICAgfSwKICAgImZpbGVfZXh0ZW5zaW9uIjogIi5weSIsCiAgICJtaW1ldHlwZSI6ICJ0ZXh0L3gtcHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uIiwKICAgIm5iY29udmVydF9leHBvcnRlciI6ICJweXRob24iLAogICAicHlnbWVudHNfbGV4ZXIiOiAiaXB5dGhvbjMiLAogICAidmVyc2lvbiI6ICIzLjE0LjYiCiAgfQogfSwKICJuYmZvcm1hdCI6IDQsCiAibmJmb3JtYXRfbWlub3IiOiA0Cn0K').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'objects.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts1220"><i class="bi bi-download"></i> Download notebook </button></a></p>
+</div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
@@ -614,19 +625,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
   </ul>
 </nav>
-    <div class="quarto-margin-footer"><div class="margin-footer-item">
-<ul>
-<li><a href="">FAQ</a></li>
-<li><a href="">Where am I</a></li>
-<li><a href="">Cheat sheet</a></li>
-</ul>
-</div></div></div>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Speaking the language</a></li><li class="breadcrumb-item"><a href="../notebooks/objects.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Values are objects</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/hello-world.html">Python basics</a></li><li class="breadcrumb-item"><a href="../notebooks/objects.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objects</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-objects" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Values are objects</span></span></h1>
+<h1 class="title"><span id="sec-objects" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objects</span></span></h1>
 </div>
 
 
@@ -676,8 +681,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>new_message <span class="op">=</span> message.replace(<span class="st">"Cool"</span>, <span class="st">"Fantastic"</span>)</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_message)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can see what these methods do. For example: <code>upper</code> returns an uppercased copy of the string.</p>
-<section id="sec-first_format_exe" class="level4" data-number="11.0.0.1">
-<h4 data-number="11.0.0.1" class="anchored" data-anchor-id="sec-first_format_exe"><strong>Exercise 11-1</strong></h4>
+<section id="sec-first_format_exe" class="level4" data-number="10.0.0.1">
+<h4 data-number="10.0.0.1" class="anchored" data-anchor-id="sec-first_format_exe"><strong>Exercise 10-1</strong></h4>
 <p>Write and run the following code. What do you think it does?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> <span class="st">'</span><span class="ch">\n\t</span><span class="st">Some text</span><span class="ch">\n</span><span class="st">'</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&gt;</span><span class="sc">{}</span><span class="st">&lt;"</span>.<span class="bu">format</span>(line))</span>
@@ -686,8 +691,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&gt;</span><span class="sc">{}</span><span class="st">&lt;"</span>.<span class="bu">format</span>(line))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Make sure you do the substitution and reduction steps in your head. Be especially careful about the third line of code. Also, what do you think the special <code>\t</code> character is?</p>
 </section>
-<section id="exercise" class="level4" data-number="11.0.0.2">
-<h4 data-number="11.0.0.2" class="anchored" data-anchor-id="exercise"><strong>Exercise 11-2</strong></h4>
+<section id="exercise" class="level4" data-number="10.0.0.2">
+<h4 data-number="10.0.0.2" class="anchored" data-anchor-id="exercise"><strong>Exercise 10-2</strong></h4>
 <p>The string methods you have tried so far have all returned a new string. Try this example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">'ATGACGCGGA'</span>.startswith(<span class="st">'ATG'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and this</p>
@@ -698,23 +703,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="using-the-python-documentation" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="using-the-python-documentation">Using the Python documentation</h2>
 <p>Now that you are well underway to becoming a programmer, you should know your way around the <a href="https://docs.python.org/3">Python documentation</a>. Especially the part called the <a href="https://docs.python.org/3/library">Python standard library</a>. There is a <em>lot</em> of details in there that we do not cover in this course. These are mainly tools and techniques for writing more efficient, extensible, robust, and flexible code. The parts we cover in this course are the minimal set that will allow you to write a program that can do <em>anything</em>.</p>
-<section id="exercise-1" class="level4" data-number="11.0.0.3">
-<h4 data-number="11.0.0.3" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 11-3</strong></h4>
+<section id="exercise-1" class="level4" data-number="10.0.0.3">
+<h4 data-number="10.0.0.3" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 10-3</strong></h4>
 <p>There is a string method that returns a secret agent:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'7'</span>.zfill(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can look it up in the <a href="https://docs.python.org/3/library/stdtypes.html#str.zfill">Python documentation</a>.</p>
 </section>
-<section id="exercise-2" class="level4" data-number="11.0.0.4">
-<h4 data-number="11.0.0.4" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 11-4</strong></h4>
+<section id="exercise-2" class="level4" data-number="10.0.0.4">
+<h4 data-number="10.0.0.4" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 10-4</strong></h4>
 <p>Browse through all the <a href="https://docs.python.org/3/library/stdtypes.html#string-methods">string methods</a> to get an impression of all the functionality that is packaged with string objects.</p>
 </section>
 </section>
 <section id="string-formatting" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="string-formatting">String formatting</h2>
-<p>You have already tried string formatting in <a href="#sec-first_format_exe" class="quarto-xref"><span>Section 11.0.0.1</span></a>. String formatting is a simple but powerful technique that lets you generate pretty strings from pre-computed values. You may have noticed that many decimals are shown every time we print a floating-point number. It is not very pretty if you are only interested in two decimals. You use the <code>format</code> method (surprise) to format a string. In its most straightforward use, <code>format</code> replaces occurrences of <code>{}</code> with the arguments that are passed to it - like this:</p>
+<p>You have already tried string formatting in <a href="#sec-first_format_exe" class="quarto-xref"><span>Section 10.0.0.1</span></a>. String formatting is a simple but powerful technique that lets you generate pretty strings from pre-computed values. You may have noticed that many decimals are shown every time we print a floating-point number. It is not very pretty if you are only interested in two decimals. You use the <code>format</code> method (surprise) to format a string. In its most straightforward use, <code>format</code> replaces occurrences of <code>{}</code> with the arguments that are passed to it - like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>taxon <span class="op">=</span> <span class="st">"genus:</span><span class="sc">{}</span><span class="st">, species:</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="st">'Homo'</span>, <span class="st">'sapiens'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="exercise-3" class="level4" data-number="11.0.0.5">
-<h4 data-number="11.0.0.5" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 11-5</strong></h4>
+<section id="exercise-3" class="level4" data-number="10.0.0.5">
+<h4 data-number="10.0.0.5" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 10-5</strong></h4>
 <p>What happens if you try this?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"Was </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="st"> Swedish?"</span>.<span class="bu">format</span>(<span class="st">'Carl'</span>, <span class="st">'Linneaus'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and this?</p>
@@ -723,15 +728,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"Was </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="st"> Swedish?"</span>.<span class="bu">format</span>(<span class="st">'Carl Linneaus'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In the two last examples, the number of <code>{}</code> did not match the number of arguments to <code>format</code>. What happens when there are too few and when there are too many?</p>
 </section>
-<section id="exercise-4" class="level4" data-number="11.0.0.6">
-<h4 data-number="11.0.0.6" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 11-6</strong></h4>
+<section id="exercise-4" class="level4" data-number="10.0.0.6">
+<h4 data-number="10.0.0.6" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 10-6</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"</span><span class="sc">{}</span><span class="st"> is larger than </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="dv">4</span>, <span class="dv">3</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What will happen if you run this code? Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
 </section>
-<section id="exercise-5" class="level4" data-number="11.0.0.7">
-<h4 data-number="11.0.0.7" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 11-7</strong></h4>
+<section id="exercise-5" class="level4" data-number="10.0.0.7">
+<h4 data-number="10.0.0.7" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 10-7</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>language <span class="op">=</span> <span class="st">'Python'</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>invention <span class="op">=</span> <span class="st">'sliced bread'</span></span>
@@ -739,8 +744,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What will happen if you run this code? Write the code and see for yourself once you think you know. If you were wrong, make sure you understand why.</p>
 </section>
-<section id="exercise-6" class="level4" data-number="11.0.0.8">
-<h4 data-number="11.0.0.8" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 11-8</strong></h4>
+<section id="exercise-6" class="level4" data-number="10.0.0.8">
+<h4 data-number="10.0.0.8" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 10-8</strong></h4>
 <p>Consider this code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>my_template <span class="op">=</span> <span class="st">'</span><span class="sc">{}</span><span class="st"> is the best thing since </span><span class="sc">{}</span><span class="st">'</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>language <span class="op">=</span> <span class="st">'Python'</span></span>
@@ -748,9 +753,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_template.<span class="bu">format</span>(language, <span class="dv">1900</span> <span class="op">+</span> <span class="dv">89</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What will happen if you run this code? Do the substitution and reduction steps in your head.</p>
 </section>
-<section id="exercise-7" class="level4" data-number="11.0.0.9">
-<h4 data-number="11.0.0.9" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 11-9</strong></h4>
-<p>Think back to <a href="values-operators-logic.html#sec-chocolatebars" class="quarto-xref"><span>Section 6.0.0.3</span></a>, where you calculated how many cookies you could buy for 30 kr. The bars are 7 kr. So your program looked something like this:</p>
+<section id="exercise-7" class="level4" data-number="10.0.0.9">
+<h4 data-number="10.0.0.9" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 10-9</strong></h4>
+<p>Think back to <a href="values-operators-logic.html#sec-chocolatebars" class="quarto-xref"><span>Section 5.0.0.3</span></a>, where you calculated how many cookies you could buy for 30 kr. The bars are 7 kr. So your program looked something like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nr_bars <span class="op">=</span> <span class="dv">30</span> <span class="op">/</span> <span class="dv">7</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'I can buy'</span>, nr_bars, <span class="st">'chocolate bars!'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and it ran like this: <code>python chocolate.py</code></p>
@@ -761,8 +766,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Try to replace <code>{}</code> with <code>{:.2f}</code>. <code>format</code> reads the stuff after the colon in each set of curly brackets and uses it as directions for formatting the value it inserts. Try it out and see what happens if you change the number <code>2</code> to <code>3</code>, <code>4</code>, <code>5</code> or <code>10</code>.</p>
 </section>
-<section id="exercise-8" class="level4" data-number="11.0.0.10">
-<h4 data-number="11.0.0.10" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 11-10</strong></h4>
+<section id="exercise-8" class="level4" data-number="10.0.0.10">
+<h4 data-number="10.0.0.10" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 10-10</strong></h4>
 <p>See if you can find the documentation for the <code>format</code> function in the <a href="https://docs.python.org/3">Python documentation</a>. It can do wondrous things, for this course we will only try to control the number of digits and padding with spaces. Look at the examples below. Maybe you can figure out how it works.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="fl">3.14159265359</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*</span><span class="sc">{}</span><span class="st">*"</span>.<span class="bu">format</span>(pi))</span>
@@ -771,8 +776,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*</span><span class="sc">{:&gt;5.3f}</span><span class="st">*"</span>.<span class="bu">format</span>(pi))</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*</span><span class="sc">{:&gt;10.3f}</span><span class="st">*"</span>.<span class="bu">format</span>(pi))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-add_method" class="level4" data-number="11.0.0.11">
-<h4 data-number="11.0.0.11" class="anchored" data-anchor-id="sec-add_method"><strong>Exercise 11-11</strong></h4>
+<section id="sec-add_method" class="level4" data-number="10.0.0.11">
+<h4 data-number="10.0.0.11" class="anchored" data-anchor-id="sec-add_method"><strong>Exercise 10-11</strong></h4>
 <p>This is bonus info rather than an actual exercise. How do you think Python can figure out that adding strings is supposed to work differently than adding numbers? Remember that <code>'1' + '2'</code> is <code>'12'</code> not <code>3</code>. The answer is that all values you can add with the <code>+</code> operator have a secret method called <code>__add__</code> that defines how adding works for that type of value:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>s1 <span class="op">=</span> <span class="st">"11"</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="op">=</span> <span class="st">"22"</span></span>
@@ -801,19 +806,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you want a sub-string from a larger string (we call that a <em>slice</em>), you specify a start index and an end index separated by a colon:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(amino_acids[<span class="dv">1</span>:<span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When you run that, you can see that <code>amino_acids[1:4]</code> is substituted for <code>'RND'</code>, so the slicing operation produces a sub-string of <code>amino_acids</code>. You may wonder why the value at index 4 is not in the resulting sub-string. That is another programming convention: intervals are <em>ends exclusive</em>. So when you specify an interval with a start index of 1 and an end index of 4, it represents all the characters starting from 1 and up to, <em>but not including</em>, 4. So, the slice <code>1:4</code> corresponds to the characters at indexes 1, 2, and 3. The reason programmers handle intervals in this way is that it makes it easier to write clear and simple code as you will see in the exercises.</p>
-<section id="exercise-9" class="level4" data-number="11.0.0.12">
-<h4 data-number="11.0.0.12" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 11-12</strong></h4>
+<section id="exercise-9" class="level4" data-number="10.0.0.12">
+<h4 data-number="10.0.0.12" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 10-12</strong></h4>
 <p>What does this expression reduce to?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">"Futterwacken"</span>[<span class="dv">7</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-10" class="level4" data-number="11.0.0.13">
-<h4 data-number="11.0.0.13" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 11-13</strong></h4>
+<section id="exercise-10" class="level4" data-number="10.0.0.13">
+<h4 data-number="10.0.0.13" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 10-13</strong></h4>
 <p>What is printed here? Do all the substitution and reduction steps and compare to the exercise above.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"Futterwacken"</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[<span class="dv">7</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-11" class="level4" data-number="11.0.0.14">
-<h4 data-number="11.0.0.14" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 11-14</strong></h4>
+<section id="exercise-11" class="level4" data-number="10.0.0.14">
+<h4 data-number="10.0.0.14" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 10-14</strong></h4>
 <p>What is printed here? Do all the substitution and reduction steps – and do it <em>twice</em>. Next week you will be happy you did.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'TGAC'</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
@@ -823,34 +828,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dna[i])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-immutable_strings" class="level4" data-number="11.0.0.15">
-<h4 data-number="11.0.0.15" class="anchored" data-anchor-id="sec-immutable_strings"><strong>Exercise 11-15</strong></h4>
+<section id="sec-immutable_strings" class="level4" data-number="10.0.0.15">
+<h4 data-number="10.0.0.15" class="anchored" data-anchor-id="sec-immutable_strings"><strong>Exercise 10-15</strong></h4>
 <p>What do you think happens here? Make up your mind and try out the code below:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"Futterwacken"</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>s[<span class="dv">6</span>] <span class="op">=</span> <span class="st">'W'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Did you see that coming? Strings are <em>immutable</em>, which means that you cannot change them once you have made them. If you want <code>"FutterWacken"</code> you need to produce a new string with that value. Try to figure out how to do that with the <a href="https://docs.python.org/3/library/stdtypes.html#string-methods"><code>replace</code></a> method of strings.</p>
 </section>
-<section id="exercise-12" class="level4" data-number="11.0.0.16">
-<h4 data-number="11.0.0.16" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 11-16</strong></h4>
+<section id="exercise-12" class="level4" data-number="10.0.0.16">
+<h4 data-number="10.0.0.16" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 10-16</strong></h4>
 <p>When you do not specify a slice’s start and/or end, Python will assume sensible defaults for the start and end indexes. What do you think they are? Make up your mind and try out the code below:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvxyz'</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[:<span class="dv">11</span>])</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[<span class="dv">11</span>:])</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[:])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-slicing_docs" class="level4" data-number="11.0.0.17">
-<h4 data-number="11.0.0.17" class="anchored" data-anchor-id="sec-slicing_docs"><strong>Exercise 11-17</strong></h4>
+<section id="sec-slicing_docs" class="level4" data-number="10.0.0.17">
+<h4 data-number="10.0.0.17" class="anchored" data-anchor-id="sec-slicing_docs"><strong>Exercise 10-17</strong></h4>
 <p>Find the documentation for how the slicing of strings works.</p>
 </section>
-<section id="exercise-13" class="level4" data-number="11.0.0.18">
-<h4 data-number="11.0.0.18" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 11-18</strong></h4>
+<section id="exercise-13" class="level4" data-number="10.0.0.18">
+<h4 data-number="10.0.0.18" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 10-18</strong></h4>
 <p>What do you think happens when you specify an index that does not correspond to a value in the list:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>alphabet <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvxyz'</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alphabet[<span class="dv">99</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Read and make sure you understand the error message. You can try to Google the error message.</p>
 </section>
-<section id="exercise-14" class="level4" data-number="11.0.0.19">
-<h4 data-number="11.0.0.19" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 11-19</strong></h4>
+<section id="exercise-14" class="level4" data-number="10.0.0.19">
+<h4 data-number="10.0.0.19" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 10-19</strong></h4>
 <p>Do you think you also get an error when you specify a slice where the end is too high? Try it out:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>alphabet <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvxyz'</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alphabet[<span class="dv">13</span>:<span class="dv">99</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -859,13 +864,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alphabet[<span class="dv">10000</span>:<span class="dv">10007</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>I guess that is worth remembering.</p>
 </section>
-<section id="exercise-15" class="level4" data-number="11.0.0.20">
-<h4 data-number="11.0.0.20" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 11-20</strong></h4>
+<section id="exercise-15" class="level4" data-number="10.0.0.20">
+<h4 data-number="10.0.0.20" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 10-20</strong></h4>
 <p>Which character in a string named <code>alphabet</code> does this expression reduce to?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>alphabet[<span class="bu">len</span>(alphabet)<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-16" class="level4" data-number="11.0.0.21">
-<h4 data-number="11.0.0.21" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 11-21</strong></h4>
+<section id="exercise-16" class="level4" data-number="10.0.0.21">
+<h4 data-number="10.0.0.21" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 10-21</strong></h4>
 <p>Because intervals are “ends exclusive” ,we can compute the length of a slice as <code>end - start</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">"ATGAGGTCAAG"</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="dv">1</span></span>
@@ -873,8 +878,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">{}</span><span class="st"> has length </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(dna[start:end], end<span class="op">-</span>start))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Figure out what this code would look like if ends were included in intervals.</p>
 </section>
-<section id="exercise-17" class="level4" data-number="11.0.0.22">
-<h4 data-number="11.0.0.22" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 11-22</strong></h4>
+<section id="exercise-17" class="level4" data-number="10.0.0.22">
+<h4 data-number="10.0.0.22" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 10-22</strong></h4>
 <p>Another advantage of “ends exclusive” intervals is that you only need one index to split a string in two:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">'Banana'</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> <span class="dv">3</span></span>
@@ -883,33 +888,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(beginning <span class="op">+</span> end)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Figure out what indexes you would need to use to split a sequence in two if ends were included in intervals.</p>
 </section>
-<section id="exercise-18" class="level4" data-number="11.0.0.23">
-<h4 data-number="11.0.0.23" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 11-23</strong></h4>
-<p>Did you look up the details of how slicing works in <a href="#sec-slicing_docs" class="quarto-xref"><span>Section 11.0.0.17</span></a>? Then you should be able to explain what happens here:</p>
+<section id="exercise-18" class="level4" data-number="10.0.0.23">
+<h4 data-number="10.0.0.23" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 10-23</strong></h4>
+<p>Did you look up the details of how slicing works in <a href="#sec-slicing_docs" class="quarto-xref"><span>Section 10.0.0.17</span></a>? Then you should be able to explain what happens here:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">'zyxvutsrqponmlkjihgfedcba'</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="general-exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
-<section id="exercise-19" class="level4" data-number="11.0.0.24">
-<h4 data-number="11.0.0.24" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 11-24</strong></h4>
+<section id="exercise-19" class="level4" data-number="10.0.0.24">
+<h4 data-number="10.0.0.24" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 10-24</strong></h4>
 <p>Will this print <code>Bananas rule!</code>? Do all the substitutions and reductions.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'na'</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">==</span> <span class="st">"Banana"</span>[<span class="dv">2</span>:]:</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Bananas rule!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-20" class="level4" data-number="11.0.0.25">
-<h4 data-number="11.0.0.25" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 11-25</strong></h4>
+<section id="exercise-20" class="level4" data-number="10.0.0.25">
+<h4 data-number="10.0.0.25" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 10-25</strong></h4>
 <p>Will this print <code>Bananas rule!</code>? Do all the substitutions and reductions.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"</span><span class="sc">{}</span><span class="st">s"</span>.<span class="bu">format</span>(<span class="st">'Banana'</span>[<span class="dv">1</span>:].capitalize()) <span class="op">==</span> <span class="st">'Ananas'</span>:</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Bananas rule!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-21" class="level4" data-number="11.0.0.26">
-<h4 data-number="11.0.0.26" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 11-26</strong></h4>
+<section id="exercise-21" class="level4" data-number="10.0.0.26">
+<h4 data-number="10.0.0.26" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 10-26</strong></h4>
 <p>Write a function called <code>even_string</code> that takes a string argument and returns <code>True</code> if the length of the string is an even number and <code>False</code> otherwise. E.g. <code>even_string('Pear')</code> should return <code>True</code> and <code>even_string('Apple')</code> should return <code>False</code> (remember the <code>modulo</code> operator?).</p>
 </section>
-<section id="exercise-22" class="level4" data-number="11.0.0.27">
-<h4 data-number="11.0.0.27" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 11-27</strong></h4>
+<section id="exercise-22" class="level4" data-number="10.0.0.27">
+<h4 data-number="10.0.0.27" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 10-27</strong></h4>
 <p>Look at the code below and decide what is printed at the end. Then, write the code and test your prediction. If you are wrong, figure out why by revisiting the chapter about functions.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> enigma(x):</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">==</span> <span class="dv">4</span>:</span>
@@ -918,8 +923,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> enigma(<span class="dv">5</span>)</span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="exercise-23" class="level4" data-number="11.0.0.28">
-<h4 data-number="11.0.0.28" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 11-28</strong></h4>
+<section id="exercise-23" class="level4" data-number="10.0.0.28">
+<h4 data-number="10.0.0.28" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 10-28</strong></h4>
 <p>Inspect the code below and determine why it does not print that you are a super star. Test the function using various inputs and identify the mistake.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> even_number(x):</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span>:</span>
@@ -1022,6 +1027,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1337,13 +1347,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../notebooks/functions.html" class="pagination-link" aria-label="Organizing code">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Organizing code</span></span>
+      <a href="../notebooks/functions.html" class="pagination-link" aria-label="Functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../notebooks/lists.html" class="pagination-link" aria-label="Lists of things">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lists of things</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/lists.html" class="pagination-link" aria-label="Lists">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Lists</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

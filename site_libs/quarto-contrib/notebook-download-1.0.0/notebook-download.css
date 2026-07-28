@@ -1,0 +1,65 @@
+/* Download-notebook control in the margin header. Sized and colored to
+   match the page breadcrumbs: same inherited font (Inter, 0.9rem) and
+   var(--bs-teal), the CSS variable Bootstrap compiles from custom.scss's
+   $teal, so it stays in sync if that value ever changes. */
+
+.downloadthis {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.2rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.downloadthis:focus,
+.downloadthis:active {
+  box-shadow: none !important;
+}
+
+/* --- Option C: outline chip (active) ---
+   Hairline teal border, transparent fill; inverts to solid teal on hover. */
+/* 
+.downloadthis {
+  color: var(--bs-teal) !important;
+  background-color: transparent !important;
+  border: 1px solid var(--bs-teal) !important;
+}
+
+.downloadthis:hover {
+  color: #fff !important;
+  background-color: var(--bs-teal) !important;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.downloadthis:active {
+  filter: brightness(0.9);
+} */
+
+/* --- Option B: ghost link (kept for comparison, disabled) ---
+   No box at all -- reads as part of the breadcrumb: teal text, underline
+   on hover, same 0.9rem type. To try it, comment out the "Option C" rules
+   above and uncomment this block instead. */
+
+.downloadthis {
+  color: var(--bs-teal) !important;
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+  padding: 0.15rem 0 !important;
+  border-radius: 0 !important;
+}
+
+.downloadthis:hover {
+  color: var(--bs-teal) !important;
+  background-color: transparent !important;
+  text-decoration: underline;
+}
+
+.downloadthis:active {
+  filter: brightness(0.85);
+}
+
+
