@@ -1,12 +1,12 @@
 project:
   type: book
   output-dir: _book
-  # post-render:
-  #   - quarto render slides/
-  #   - rm -rf _book/_build/slides
-  #   - mkdir -p _book/_build
-  #   - mv slides/_build _book/_build/slides
-  #   - scripts/build-demo.sh
+  post-render:
+    - quarto render slides/
+    - rm -rf _book/_build/slides
+    - mkdir -p _book/_build
+    - mv slides/_build _book/_build/slides
+    - scripts/build-demo.sh
   
   #   - quarto render --to html --profile ta
   #   - quarto render --to html --profile draft
@@ -27,21 +27,21 @@ book:
   # author: "Kasper Munch"
   sidebar:
     title: "Home"
-    collapse-level: 1
+    collapse-level: 2
     background: "white" 
     lightbox: true     
     downloads: [pdf]
   chapters:
     - index.qmd
     - planning/course-design.qmd
-    - planning/ai-arc-map.md
-    - AI-opening.qmd
+    - notebooks/widget-demo.ipynb
     - part: "The machine"
       chapters:
-      - notebooks/getting_started.ipynb
       - new/machine-insides.qmd
+      - ai-arc/insides.md
+      - ai-arc/instruction.md
+      - notebooks/getting_started.ipynb
       # - notebooks/interfaces.ipynb
-      - notebooks/widget-demo.ipynb
     - part: "Python basics"
       chapters: 
         - notebooks/hello-world.ipynb
@@ -53,7 +53,6 @@ book:
         - notebooks/objects.ipynb
         - notebooks/lists.ipynb
         - notebooks/dictionaries.ipynb
-        - new/aliasing.qmd
         - notebooks/tuples.ipynb
         - notebooks/iteration.ipynb
         - notebooks/list-comprehensions.ipynb

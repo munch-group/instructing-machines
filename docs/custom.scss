@@ -272,7 +272,6 @@ html { font-family: 'Inter', sans-serif; }
   font-weight: 400;
 }
 
-
 .sidebar-item-container .text-start {
   font-weight: 600;
   color:#151617;
@@ -300,6 +299,16 @@ html { font-family: 'Inter', sans-serif; }
 .sidebar-item-section .sidebar-item-section {
   padding-top: 0px;
   padding-left: 10px;
+}
+
+// Quarto books require index.qmd to be the first entry in book.chapters, so
+// it can't simply be dropped from the sidebar config -- it would break the
+// book's home-page requirement. But it also duplicates the "Home" link
+// already shown in the sidebar title/header above, so hide its redundant
+// list entry here instead. It's always the first item in the sidebar's
+// top-level list, regardless of which page you're viewing.
+.sidebar-menu-container > ul.list-unstyled > li.sidebar-item:first-child {
+  display: none;
 }
 
 
@@ -678,9 +687,16 @@ pre.numberSource code > span > a:first-child::before {
 
 // Controls the weight of the book "part" titles in the sidebar (e.g.
 // "Speaking the language"), without affecting the chapter links nested
-// under them. Set to 700 to bold them again.
+// under them. Set to normal to un-bold them again.
 .sidebar-item-section > .sidebar-item-container .sidebar-item-text {
-  font-weight: normal;
+  font-weight: 700;
+}
+
+// Adds space below a "part" header equal to the .2em gap that
+// .sidebar-item's margin-bottom already puts between chapters, so the
+// first chapter isn't visually closer to its part than to the next chapter.
+.sidebar-item-section > .sidebar-item-container {
+  padding-bottom: 0.2em;
 }
 
 // Styled output for Python code blocks that produce figures
