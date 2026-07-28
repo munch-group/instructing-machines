@@ -1,4 +1,4 @@
-# The AI arc — content map (weeks 9–14)
+# The AI arc (weeks 9–14) {.unnumbered }
 
 *A map of the notes and exercises that flesh out the AI arc, so we can judge what realistically fits a 45-minute slot and how the notes, the check widget, and the projects interface. The one fully-drafted note — `reading-and-judging.md` (week 10) — is the density/voice specimen; everything here is calibrated to that unit: roughly one worked example + a reusable rubric/template + 3–4 interspersed exercises + a logbook prompt per 45-minute demanding slot.*
 

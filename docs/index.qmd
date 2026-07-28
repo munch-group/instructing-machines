@@ -14,17 +14,29 @@ listing:
   - id: showcase
     type: grid
     fields: [image, title]
-    grid-columns: 3
+    grid-columns: 4
+    image-height: 100px
     contents:
-      - notebooks/getting_started.ipynb
       - notebooks/lists.ipynb
-      - blocks/for-loop.qmd
+      - notebooks/classes.ipynb
+      - notebooks/dictionaries.ipynb
+      - notebooks/iteration.ipynb
+      - notebooks/objects.ipynb
+      - notebooks/recursion.ipynb
+      - notebooks/testing.ipynb
+      - notebooks/tuples.ipynb
+      - notebooks/files.ipynb
+      - notebooks/functions.ipynb
+
     # sort: "date desc"
     # categories: true
     # sort-ui: true
     # filter-ui: true
     # fields: [image, title, description]
 
+# margin-footer: |
+#   ""
+  
 format:
   html:
     include-in-header:
@@ -63,28 +75,41 @@ format:
 
 # Welcome {.unnumbered}
 
-
 ::: {.panel-tabset group="role"}
 
 ## <i class="bi bi-mortarboard-fill"></i> Students
 
-*Instructing Machines* is a collection of lecture notes, slides, exercises, tutorials, projects.
+**Instructing Machines** is a collection of lecture notes, slides, exercises, tutorials, and projects, which serve as course content for the {{< var year >}} version of the undergraduate course [Bioinformatics](https://kursuskatalog.au.dk/en/course/133215/Bioinformatics) at Aarhus University. The aim of this course is to learn how produce code that solves problems relevant to molecular biology. Having completed to course will be able to:
+
+- Read code the way the machine does.
+- Write Python code to solve small problems.
+- Decompose a problem into smaller sub-problems and implement these as testable functions.
+- Verify correctness of plausibly correct code written by an AI or someone else.
+- Choose an appropriate level of AI involvement for a given task.
+- Explain why an AI's usefulness is bounded by what the student already knows and is able to verify.
 
 ## <i class="bi bi-bank"></i> Educators
 
-*Instructing Machines* is a collection of lecture notes, slides, exercises, tutorials, projects.
+This content was made for the [Bioinformatics course]() at [Aarhus University]() teaching undergraduates in [Molecular Biology and Molecular Medicine](). The whole thing is [MIT licensed](https://opensource.org/license/mit), so if you teach a similar course, feel free to [fork it]() and make your own.
 
-It was made for the [Bioinformatics course]() at [Aarhus University]() teaching undergraduates in [Molecular Biology and Molecular Medicine](). If you teach a similar course, feel free to [fork it]() and make your own.
-
-- *Veronica Schmetterling*
+<p style="text-align: right;">/ <i>Kasper Munch</i></p>
 
 :::
 
-![Microsoft Copilot](images/Copilot-logo.png)(https://copilot.microsoft.com/)
+### The AI {.unnumbered}
 
-## News/background on AI {.unnumbered}
+::: {.grid}
+::: {.g-col-9}
+In this course we use Microsoft 365 Copilot AI. As a student at Aarhus University, you can use this free of charge if you choose "Work" on the landing page and then use your student credentials to log in. That being said, the course material is not made for use with any particular AI. 
+:::
+::: {.g-col-3}
+[![](images/copilot-logo.png)](https://copilot.microsoft.com/)
+:::
+:::
 
-Follow some of the [latest news on AI](AI-opening.qmd).
+As this This iteration of the course runs ais likely to see
+
+To learn something extra about AIs or follow some of the news and developments, have a look at the [AI-opening page](AI-opening.qmd).
 
 ## Mind maps and resources {.unnumbered}
 
