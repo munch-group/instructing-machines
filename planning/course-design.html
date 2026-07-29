@@ -297,7 +297,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new/decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Worked example: decomposition modelled live</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -613,7 +613,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The first goal is reading code the way the machine does. A student should be able to integrate precedence, evaluation order, and variable binding into one reliable procedure for tracing what a piece of code will do, substituting values for names and reducing expressions step by step, and use that trace to predict output before running anything. Naming what precedence or a variable does on its own is only multistructural; <code>steps-widget</code>, <code>puzzle-widget</code>, and Oath 3 exist to force the step from knowing the rules to running the combined procedure, which is the relational move this goal is pitched at.</p>
 <p>The second is composition, and it is the hinge of the whole design. A student should be able to take a new, bounded problem, one of the weekly projects, and decompose it into named, testable functions, then combine loops, conditionals, and data structures so the pieces work together rather than merely correctly in isolation. This is the relational outcome the eight fading-scaffold project weeks exist to build, moving students out of the multistructural trap named above, understanding the pieces without being able to combine them. It stays at relational rather than extended abstract because it is exercised on problems of a kind already practiced, not transferred to an unrelated domain.</p>
 <p>The third is verification as one principle used in three modes. A student should be able to apply a single habit, turning plausible into checked, across three different kinds of claim: code, verified by testing and reading it; a factual or biological claim, verified by evidence and existing knowledge; and their own learning, verified by demonstrating it with the AI switched off. This is the one goal that has to reach extended abstract on its own terms: it asks the student to take a procedure learned concretely in one domain, does the test pass, and re-derive the same underlying abstraction in two domains never drilled the same way, which is also where the line between cheating and augmenting gets drawn.</p>
-<p>The fourth is directing and judging code the student did not write, whether an AI produced it or a library did. A student should be able to choose an appropriate level of AI involvement for a task, from Explainer to Delegate, specify it precisely enough to test, read library and API documentation as a contract, and catch confidently wrong output, an invented function, a plausible but incorrect piece of biology, rather than trusting it by default, while telling apart library machinery to sanity-check from their own authored code to test. It integrates several already-taught pieces, specification, testing, the role ladder, the contract idea inherited from classes, into one working judgement, exercised on a new library or a new AI answer each time but within a practiced pattern, which keeps it at relational rather than extended abstract.</p>
+<p>The fourth is directing and judging code the student did not write, whether an AI produced it or a library did. A student should be able to choose an appropriate level of AI involvement for a task, from Explainer to Delegate, specify it precisely enough to test, read library and API documentation as a contract, and catch confidently wrong output, an invented function, a plausible but incorrect piece of biology, rather than trusting it by default, while telling apart library machinery to sanity-check from their own authored code to test. It integrates several already-taught pieces, specification, testing, the role ladder, the contract idea inherited from classes, into one working judgment, exercised on a new library or a new AI answer each time but within a practiced pattern, which keeps it at relational rather than extended abstract.</p>
 <p>The fifth is the squaring argument: knowing more makes the AI worth more, not less necessary. A student should be able to explain why an AI’s usefulness to them is bounded by what they already know and can verify, and carry that understanding, together with the verification habit, into tools, problems, and courses this one never covered. This is the intended closing note of the whole course, a reflection on one’s own learning generalized to situations the syllabus cannot enumerate in advance, and the extended-abstract counterpart to the third goal: the antidote to both over-trusting the AI and the defeatist feeling that the AI makes learning pointless.</p>
 </section>
 <section id="guiding-principles-and-insights" class="level2 unnumbered">
@@ -622,16 +622,16 @@ ul.task-list li input[type="checkbox"] {
 <p>The hard part is not the pieces, it is putting them together. Students can understand variables, loops, functions, and data structures individually and still be unable to compose them into a solution to a new problem. That composition skill lags behind understanding and only comes with a large volume of practice. The previous version of this course is direct evidence: its projects were already broken into individual functions with ready-made tests, and students still stalled at the step of making the pieces work together. So the course must give the back half over to practice and scaffolding rather than to new concepts, and it must not assume that finishing the concept weeks (1 to 5) leaves a student able to think in code. This is exactly why the eight project weeks exist.</p>
 <p>The AI ideas are light; the programming is the work. The concepts of the AI arc, once the verification habit is in place, are quickly absorbed and do not need much lecture time. They fit in recurring fifteen-minute segments inside programming lectures. This frees almost all of the back half for what actually determines the students’ progress, which is programming practice accumulating into fluency through independent work at home and in the TA sessions.</p>
 <p>There is one verification principle, used in three modes. An AI produces things that are plausible, and turning plausible into trustworthy is verification. What changes between situations is only how you verify. Code is verified by tests and by reading it. A factual claim, a piece of biology, is verified by evidence and by your own knowledge; evidence is to a fact what a passing test is to a function, and a claim with no checkable evidence is plausible, not known. Learning is verified by self-demonstration: you have learned something when you can do it or explain it with the AI switched off, which is to learning what the passing test is to code. This single principle covers using AI to produce code, to answer questions, and to learn, so the whole AI thread is one idea taught three times.</p>
-<p>Not all the code you use is code you wrote, and verification splits by who wrote it. When you direct a library or a data tool, the operation it performs is not yours to test, any more than the interpreter or the built-in <code>len</code> is; you trust it as machinery, and instead you sanity-check its output against something you already know, a count you can verify, a maximum you can eyeball, a category you can total by hand. What you do test is the code you authored, the domain computation the library has no built-in for, the function that turns a raw value into the quantity your question is actually about. Recognising that boundary, between a trusted library operation you verify by its result and your own code you verify by a test, is itself part of the discipline, and it protects the course from a real trap in the finale: the temptation to make students hand-write and test what a library already does correctly and more elegantly, which teaches the wrong lesson and which a good student will rightly resent. You never reinvent the library; you author only the piece that carries your knowledge, and you let the library amplify it.</p>
+<p>Not all the code you use is code you wrote, and verification splits by who wrote it. When you direct a library or a data tool, the operation it performs is not yours to test, any more than the interpreter or the built-in <code>len</code> is; you trust it as machinery, and instead you sanity-check its output against something you already know, a count you can verify, a maximum you can eyeball, a category you can total by hand. What you do test is the code you authored, the domain computation the library has no built-in for, the function that turns a raw value into the quantity your question is actually about. Recognizing that boundary, between a trusted library operation you verify by its result and your own code you verify by a test, is itself part of the discipline, and it protects the course from a real trap in the finale: the temptation to make students hand-write and test what a library already does correctly and more elegantly, which teaches the wrong lesson and which a good student will rightly resent. You never reinvent the library; you author only the piece that carries your knowledge, and you let the library amplify it.</p>
 <p>Verification is also the line between cheating and augmenting. Producing or claiming something you cannot verify and do not understand is cheating, and students are right to feel uneasy about it. Producing something you formulated, understand, and validated is not cheating, any more than using a microscope is; it is tool use. The same verification habit that keeps the work correct also draws the integrity line and drives the learning, so a student who has internalised “never trust what you cannot check” already has the test for whether they are cheating.</p>
 <p>An AI squares the value of what you know. What you can safely get from an AI is roughly what you know multiplied by how much of its work you can steer and judge and validate, and that second factor is itself limited by what you know. Two factors, both your own knowledge, so the value of the AI to you grows like your knowledge squared. Near zero knowledge makes the AI worth near zero, or worse than zero, because you cannot catch its mistakes. And every new thing you learn is now worth more than before, because it pays twice, once directly and once by unlocking more of the AI you can use safely. This is the exact opposite of the defeatist feeling that the AI makes learning pointless, and the course should end on this, with the machine’s limits presented as the guardrails that make the augmentation safe.</p>
-<p>The danger is taught with examples we control, not with a live AI we hope will misbehave. On simple beginner tasks a capable assistant will usually be right, which would make the lessons about its unreliability feel like theatre if they depended on the live AI being wrong. So the planted bugs and the wrong biology are authored by us, in curated examples, where the failure is guaranteed and pedagogically chosen. The live AI is used for genuine help and for the finale, where its competence is the point.</p>
-<p>Composition is taught by modelling it, repeatedly and aloud. The best-supported intervention for the “understands the pieces, cannot combine them” problem is the worked example: the lecturer solving a small problem live, deciding the decomposition, writing each function, testing it, hitting a bug, reading the error, fixing it. The back-half lectures are these worked examples, and the <code>snippet-cast</code> tool turns them into narrated screencasts students replay at home, which is where fluency is actually built.</p>
+<p>The danger is taught with examples we control, not with a live AI we hope will misbehave. On simple beginner tasks a capable assistant will usually be right, which would make the lessons about its unreliability feel like theater if they depended on the live AI being wrong. So the planted bugs and the wrong biology are authored by us, in curated examples, where the failure is guaranteed and pedagogically chosen. The live AI is used for genuine help and for the finale, where its competence is the point.</p>
+<p>Composition is taught by modeling it, repeatedly and aloud. The best-supported intervention for the “understands the pieces, cannot combine them” problem is the worked example: the lecturer solving a small problem live, deciding the decomposition, writing each function, testing it, hitting a bug, reading the error, fixing it. The back-half lectures are these worked examples, and the <code>snippet-cast</code> tool turns them into narrated screencasts students replay at home, which is where fluency is actually built.</p>
 <p>The student’s leverage is knowing what is possible. As the AI writes more of the code, the human’s job shifts to knowing which capabilities exist and being able to specify and check them. Reading the documentation of a library or a web service, understanding its functions as contracts without reading their implementation, is therefore a central skill, not a footnote, and it is the same contract idea the course has taught all along, now at the scale of a whole library.</p>
 </section>
 <section id="fixed-constraints" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="fixed-constraints">Fixed constraints</h2>
-<p>10 ECTS across 14 weeks, deliberately under-filled so the weakest students can finish; the surplus is optional depth. Each week has a double lecture (two 45-minute slots), a single lecture (45 minutes), and a 3-hour TA session that works the previous week’s material. In the double lecture, the first slot carries a demanding topic and the second is a shorter slot that holds the AI segment and other lighter material; its spare time is available for programming. At most one demanding new concept per lecture sitting. Weeks 4 and 5 are a lab-practical split: half the cohort is away each week and misses that week’s TA, so the week-4 and week-5 sessions are run to cover the same ground for the two halves and the exercise load that would otherwise fall in those weeks is caught up in TA6. The existing pace places iteration in week 4, so the iteration cliff coincides with the split; it is cushioned by the following-week TA and by the eight project weeks, and the surrounding topics (files, data structures, recursion, testing) are self-recoverable from the notes and the self-checking widgets. The course ends at week 14 with no work extending into the exam period. Students use Microsoft 365 Copilot in the browser, including its Study and Learn agent, a Socratic tutor that guides reasoning rather than handing over answers; VS Code stays an AI-free space. Per-week AI behaviour can be nudged by giving students a prompt to paste or an agent to select, but it cannot be centrally enforced, so it is treated as a soft nudge and never relied on.</p>
+<p>10 ECTS across 14 weeks, deliberately under-filled so the weakest students can finish; the surplus is optional depth. Each week has a double lecture (two 45-minute slots), a single lecture (45 minutes), and a 3-hour TA session that works the previous week’s material. In the double lecture, the first slot carries a demanding topic and the second is a shorter slot that holds the AI segment and other lighter material; its spare time is available for programming. At most one demanding new concept per lecture sitting. Weeks 4 and 5 are a lab-practical split: half the cohort is away each week and misses that week’s TA, so the week-4 and week-5 sessions are run to cover the same ground for the two halves and the exercise load that would otherwise fall in those weeks is caught up in TA6. The existing pace places iteration in week 4, so the iteration cliff coincides with the split; it is cushioned by the following-week TA and by the eight project weeks, and the surrounding topics (files, data structures, recursion, testing) are self-recoverable from the notes and the self-checking widgets. The course ends at week 14 with no work extending into the exam period. Students use Microsoft 365 Copilot in the browser, including its Study and Learn agent, a Socratic tutor that guides reasoning rather than handing over answers; VS Code stays an AI-free space. Per-week AI behavior can be nudged by giving students a prompt to paste or an agent to select, but it cannot be centrally enforced, so it is treated as a soft nudge and never relied on.</p>
 </section>
 <section id="the-14-week-grid" class="level2 unnumbered page-columns page-full">
 <h2 class="unnumbered anchored" data-anchor-id="the-14-week-grid">The 14-week grid</h2>
@@ -640,11 +640,11 @@ ul.task-list li input[type="checkbox"] {
 <div class="column-page">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 1%">
-<col style="width: 27%">
 <col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 37%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -758,7 +758,7 @@ ul.task-list li input[type="checkbox"] {
 <td>8</td>
 <td><a href="../ai-arc/plan-before-you-prompt.html" class="quarto-xref"><span>47&nbsp; Plan before you prompt</span></a></td>
 <td><a href="../projects/alignment-project.html" class="quarto-xref"><span>31&nbsp; Pairwise alignment</span></a></td>
-<td><a href="../new/decomposition.html" class="quarto-xref"><span>23&nbsp; Worked example: decomposition modelled live</span></a></td>
+<td><a href="../new/decomposition.html" class="quarto-xref"><span>23&nbsp; Worked example: decomposition modeled live</span></a></td>
 <td><a href="../projects/folding-project.html" class="quarto-xref"><span>35&nbsp; Primer analysis</span></a>, <a href="../notebooks/classes.html" class="quarto-xref"><span>18&nbsp; Classes</span></a></td>
 </tr>
 <tr class="even">
@@ -851,9 +851,9 @@ ul.task-list li input[type="checkbox"] {
 <div class="column-page">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 69%">
-<col style="width: 13%">
-<col style="width: 16%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -865,16 +865,16 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="../new/documentation-and-resources.html" class="quarto-xref"><span>25&nbsp; Documentation and resources</span></a></td>
-<td>Reading a library or a web service as a catalogue of contracts.</td>
+<td>Reading a library or a web service as a catalog of contracts.</td>
 <td>The week-twelve lecture, grafted onto the classes material. Teaches reading the reference documentation of a library, or the documentation of a web API, as a list of functions and endpoints each with a contract: what it takes and what it returns, understood without reading how it works inside. Connects this to the class idea that an object is a thing with methods you call by their contract. Teaches directing the assistant to combine such capabilities, and catching it when it invents functions or parameters that are not there, for which the real documentation is the test. This is the skill that makes the finale possible, because it is how a student learns what is possible. Introduces the dataframe here as one such resource, pointing to the dataframes note, and keeps real data analysis out of scope.</td>
 </tr>
 <tr class="even">
 <td><a href="../new/directing-a-resource.html" class="quarto-xref"><span>24&nbsp; Directing to resources: clinic</span></a></td>
 <td>A companion to the week-twelve clinic on building on machinery you did not write.</td>
-<td>Works a small example live: reading a piece of a library’s or an API’s documentation, deciding which function or endpoint is wanted, instructing the assistant to use it, and verifying the result against the documentation and a test. The first modelled instance of building on machinery the student did not write, and the rehearsal for project D and the finale ceiling.</td>
+<td>Works a small example live: reading a piece of a library’s or an API’s documentation, deciding which function or endpoint is wanted, instructing the assistant to use it, and verifying the result against the documentation and a test. The first modeled instance of building on machinery the student did not write, and the rehearsal for project D and the finale ceiling.</td>
 </tr>
 <tr class="odd">
-<td><a href="../new/decomposition.html" class="quarto-xref"><span>23&nbsp; Worked example: decomposition modelled live</span></a></td>
+<td><a href="../new/decomposition.html" class="quarto-xref"><span>23&nbsp; Worked example: decomposition modeled live</span></a></td>
 <td>A companion to the week-eleven lecture on breaking a task into pieces.</td>
 <td>Takes a task made of several functions and models the decision of what the pieces are before any code is written: naming each function, stating its inputs and outputs, and giving one worked example per piece. Pairs with the plan-before-you-prompt note, and produces the stub-and-docstring plan the student then builds against.</td>
 </tr>
@@ -890,27 +890,27 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><a href="../ai-arc/delegate-the-full-problem.html" class="quarto-xref"><span>49&nbsp; Delegate the full problem</span></a></td>
-<td></td>
+<td>Walk through how to delegate a full problem and have AI produce tests</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><a href="../ai-arc/plan-before-you-prompt.html" class="quarto-xref"><span>47&nbsp; Plan before you prompt</span></a></td>
-<td></td>
-<td></td>
+<td>Planning, what does “Done” look like</td>
+<td>Live demo</td>
 </tr>
 <tr class="even">
 <td><a href="../ai-arc/reading-and-judging.html" class="quarto-xref"><span>46&nbsp; Reading and judging</span></a></td>
-<td></td>
-<td></td>
+<td>Handing over to AI…</td>
+<td>… From here on, most of the code you work with will be code you did not write, produced by a machine that is very good at making it look correct. The skill you need now is not writing but reading, and more than reading, judging: deciding whether a piece of code actually does what it claims, and proving that decision rather than trusting it. …</td>
 </tr>
 <tr class="odd">
 <td><a href="../ai-arc/tests-are-the-contract.html" class="quarto-xref"><span>45&nbsp; Tests are the contract</span></a></td>
-<td></td>
-<td></td>
+<td>testing assert, pytest</td>
+<td><strong>Add more detail on all the ways to organize tests and run pytest (including with widget and vscode side-panel)</strong></td>
 </tr>
 <tr class="even">
 <td><a href="../ai-arc/surviving-ai.html" class="quarto-xref"><span>54&nbsp; Surviving AI</span></a></td>
-<td></td>
+<td>Perspective on learning and AI</td>
 <td></td>
 </tr>
 </tbody>
@@ -919,9 +919,9 @@ ul.task-list li input[type="checkbox"] {
 <div class="column-page">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 6%">
-<col style="width: 73%">
-<col style="width: 20%">
+<col style="width: 24%">
+<col style="width: 26%">
+<col style="width: 49%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -934,7 +934,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><a href="../ai-arc/meet-ai.html" class="quarto-xref"><span>40&nbsp; Meet the assistant</span></a></td>
 <td>The week-one introduction to working with an AI assistant in this course.</td>
-<td>Introduces the assistant as the newest layer in the history of instructing machines, to be used from week one in sanctioned roles. Explains where the assistant lives, the browser, through Microsoft 365 Copilot and its Study and Learn agent, and why the editor stays an AI-free space. Introduces the licence badges that mark what the assistant may do in each exercise, the SOLO marker for do-it-yourself-first work, and the weekly logbook that records what the assistant got right, what it got wrong, and how the student knew. Sets the one rule the whole course turns on, that the AI predicts and the machine or a test proves.</td>
+<td>Introduces the assistant as the newest layer in the history of instructing machines, to be used from week one in sanctioned roles. Explains where the assistant lives, the browser, through Microsoft 365 Copilot and its Study and Learn agent, and why the editor stays an AI-free space. Introduces the license badges that mark what the assistant may do in each exercise, the SOLO marker for do-it-yourself-first work, and the weekly logbook that records what the assistant got right, what it got wrong, and how the student knew. Sets the one rule the whole course turns on, that the AI predicts and the machine or a test proves.</td>
 </tr>
 <tr class="even">
 <td><a href="../ai-arc/the-ai-off-test.html" class="quarto-xref"><span>53&nbsp; The AI-off test: how you know you have learned it</span></a></td>
@@ -964,7 +964,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><a href="../ai-arc/the-docs-are-the-test.html" class="quarto-xref"><span>48&nbsp; The AI invents functions; the docs are the test</span></a></td>
 <td>The week-twelve AI beat, paired with the documentation lecture.</td>
-<td>Shows the assistant confidently calling a library function or an API endpoint that does not exist, one of its most common and most costly failures. Teaches that the real documentation is what the invented call fails against, and that reading a library or service as a catalogue of contracts is how you catch it. The verification principle applied to capability claims.</td>
+<td>Shows the assistant confidently calling a library function or an API endpoint that does not exist, one of its most common and most costly failures. Teaches that the real documentation is what the invented call fails against, and that reading a library or service as a catalog of contracts is how you catch it. The verification principle applied to capability claims.</td>
 </tr>
 <tr class="even">
 <td><a href="../ai-arc/explain-then-confirm.html" class="quarto-xref"><span>42&nbsp; Ask it to explain, then confirm by running</span></a></td>
@@ -998,7 +998,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><a href="../new/finale-kickoff.html" class="quarto-xref"><span>57&nbsp; Finale: formulating and planning your own tool</span></a></td>
-<td>The week-thirteen kickoff, modelled live.</td>
+<td>The week-thirteen kickoff, modeled live.</td>
 <td>A student formulates a small tool that is genuinely useful in molecular biology, something their own background lets them pose, understand, and sanity-check, and plans it from a scaffolded blank page: deciding the pieces, naming them, stating inputs and outputs, and writing the first tests before prompting anything. Describes the floor, a tool over the supplied gene CSV held in a dataframe, and the ceiling, a tool built on a public resource such as BioPython or a REST API. Points to the dataframes note and the documentation note.</td>
 </tr>
 <tr class="odd">
@@ -1027,26 +1027,26 @@ ul.task-list li input[type="checkbox"] {
                 └─ reading library/API docs as contracts (wk9, with BioPython)
         the eight weekly projects (wk6-13, fading scaffold)
                 └─ wrap-up, limits &amp; the augmentation idea (wk14)</code></pre>
-<p>The documentation skill is a direct descendant of classes: a class taught them that an object is a thing with methods you call by their contract, and reading a library is reading a catalogue of such contracts. It arrives in week 9 alongside the codon-bias project and BioPython, where the projects first lean on machinery the student did not write.</p>
+<p>The documentation skill is a direct descendant of classes: a class taught them that an object is a thing with methods you call by their contract, and reading a library is reading a catalog of such contracts. It arrives in week 9 alongside the codon-bias project and BioPython, where the projects first lean on machinery the student did not write.</p>
 </section>
 <section id="the-learning-curve-the-cliffs-and-the-composition-problem" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="the-learning-curve-the-cliffs-and-the-composition-problem">The learning curve, the cliffs, and the composition problem</h2>
 <p>Two historical dropout points, functions and scope (now week 2) and iteration and nested loops (weeks 4 to 5), are cushioned as much as the compressed pace allows: a dedicated TA the following week, the codelens and steps widgets, high exercise density, and above all the eight project weeks that follow, in which the same constructs are exercised again and again. The faster pace is a deliberate trade the existing course already makes: it accepts earlier and sharper cliffs in exchange for eight weeks of project practice, which is where fluency is actually built. The lab-split weeks 4 to 5 coincide with iteration and the first data-structure building; those topics are ones a student who misses a session can rebuild from the notes and the self-checking widgets. Conditionals finish in week 2 and the containers in week 3 so each gets a full TA the following week. Classes (week 7) are kept to the basic scaffolding, <code>class</code>, <code>__init__</code>, <code>self</code>, attributes, methods, and a light <code>__str__</code>, with exercises that add a method to a given class, and they are introduced alongside the folding project rather than in a standalone concept week.</p>
-<p>The deeper problem is the composition cliff, and it is not a single week but the whole stretch of project weeks. Understanding the pieces does not make a student able to combine them, and the only cure is volume of guided practice, which is what weeks 6 to 13 provide. The single-lecture slot in each project week is a worked-example or debugging clinic in which composition is modelled live, because watching the whole process of decomposing, writing, testing, and fixing, and then doing it, is what builds the missing schema; the <code>snippet-cast</code> tool turns these into screencasts students replay at home. The projects fade in scaffolding across the eight weeks: the earliest arrive fully decomposed with stubs and a complete test suite, the middle ones give the plan but leave more of the writing and testing, and the later ones give less skeleton still, so that by the assembly project the student is doing much more of the decomposition and verification themselves.</p>
+<p>The deeper problem is the composition cliff, and it is not a single week but the whole stretch of project weeks. Understanding the pieces does not make a student able to combine them, and the only cure is volume of guided practice, which is what weeks 6 to 13 provide. The single-lecture slot in each project week is a worked-example or debugging clinic in which composition is modeled live, because watching the whole process of decomposing, writing, testing, and fixing, and then doing it, is what builds the missing schema; the <code>snippet-cast</code> tool turns these into screencasts students replay at home. The projects fade in scaffolding across the eight weeks: the earliest arrive fully decomposed with stubs and a complete test suite, the middle ones give the plan but leave more of the writing and testing, and the later ones give less skeleton still, so that by the assembly project the student is doing much more of the decomposition and verification themselves.</p>
 </section>
 <section id="the-back-half-in-detail-weeks-6-to-14" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="the-back-half-in-detail-weeks-6-to-14">The back half in detail (weeks 6 to 14)</h2>
 <p>Week 5 delivers the last new programming machinery before the projects take over: building data structures, recursion, and testing as executable specification, including the raw <code>pytest</code> command. Testing sits one week before the first project so that from week 6 on every project can be verified against a suite.</p>
-<p>Weeks 6 to 13 are the eight weekly projects from the ported catalogue (<code>projects/</code> in the repo), in the established order: translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, and assembly. Each project week runs the same shape: the double lecture introduces the project and any remaining Python topic, the single lecture is a worked-example or debugging clinic on a similar but different problem, and the student does the week’s project at home and in the TA session. Classes enter in week 7 with the folding project, and the documentation-and-resources note enters in week 9 with the codon-bias project and BioPython, the first point where a project leans on machinery the student did not write. The scaffolding fades across the eight weeks, from fully decomposed stubs with a complete test suite in the early projects to much less skeleton and much more student-written testing by the assembly project. The existing course marks the translation project (week 6) and the HIV project (week 10) as mandatory hand-ins; the assessment decision here is still deferred, but those remain the natural spotlight weeks.</p>
+<p>Weeks 6 to 13 are the eight weekly projects from the ported catalog (<code>projects/</code> in the repo), in the established order: translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, and assembly. Each project week runs the same shape: the double lecture introduces the project and any remaining Python topic, the single lecture is a worked-example or debugging clinic on a similar but different problem, and the student does the week’s project at home and in the TA session. Classes enter in week 7 with the folding project, and the documentation-and-resources note enters in week 9 with the codon-bias project and BioPython, the first point where a project leans on machinery the student did not write. The scaffolding fades across the eight weeks, from fully decomposed stubs with a complete test suite in the early projects to much less skeleton and much more student-written testing by the assembly project. The existing course marks the translation project (week 6) and the HIV project (week 10) as mandatory hand-ins; the assessment decision here is still deferred, but those remain the natural spotlight weeks.</p>
 <p>Dataframes and plotting enter in the later project weeks (around week 12), deliberately light. The course does not teach data analysis; there is no time for it and the students have no prerequisite for it, so a dataframe is presented as nothing more than a complex data type worth knowing exists, one that reads a CSV into a table that makes plotting convenient and, for the curious and ambitious student, analysis convenient too. It is introduced the way <code>list</code> and <code>dict</code> were, by doing rather than by theory: <code>read_csv</code> hands you back an object, the object has columns you can pull out, and you can hand the whole thing to a plotting call and get a picture. Nothing about indexing, grouping, or joining is promised. Standard matplotlib plotting and the <code>iplot-widget</code>, which turns a dataframe into a dropdown-driven plot builder that also reveals the code it generated, are folded into the projects rather than given their own lecture, so that a student sees prose, a code cell, and a rendered plot sitting together on one notebook page and understands that this blending of graphics, text, and code is what a notebook is for. That motivation, which was part of the original reason to use notebooks at all, lands inside the practice without costing a lecture slot the back half does not have.</p>
-<p>The documentation and resources note (week 9), grafted onto the classes material and arriving with the codon-bias project and BioPython, teaches reading a library’s reference, or a web API’s documentation, as a catalogue of contracts: what each function or endpoint takes and returns, understood without reading how it works inside. It teaches directing the AI to use those capabilities, and it teaches catching the AI when it invents functions or parameters that do not exist, which is one of its most common and most confident failures, and for which the real documentation is the test that fails it. This is the skill that lets the later projects build on machinery the student did not write, because it is how a student comes to know what is possible.</p>
+<p>The documentation and resources note (week 9), grafted onto the classes material and arriving with the codon-bias project and BioPython, teaches reading a library’s reference, or a web API’s documentation, as a catalog of contracts: what each function or endpoint takes and returns, understood without reading how it works inside. It teaches directing the AI to use those capabilities, and it teaches catching the AI when it invents functions or parameters that do not exist, which is one of its most common and most confident failures, and for which the real documentation is the test that fails it. This is the skill that lets the later projects build on machinery the student did not write, because it is how a student comes to know what is possible.</p>
 <p>Week 13 finishes with the assembly project, the hardest and most integrative of the eight, and week 14 is wrap-up: a lecture on Python and algorithms with a guest talk on bioinformatics beyond the classroom, the course evaluation and exam practicalities, and the closing limits-and-augmentation discussion. This is where the “limits of the machine” note lands, recast to close on augmentation rather than caution: the student brought the biology and the judgment, the assistant wrote plumbing they could not, the course gave them the ability to produce and validate it, and that is the AI squaring what they know.</p>
 <p>The student-formulated finale and the gene-CSV tool from the previous draft are deferred while the course matches the existing pace, which fills weeks 6 to 13 with the eight projects and closes on wrap-up. The thinking behind that finale is not lost: when it is reinstated it would extend or replace the assembly weeks, and the material is ready for it, the drafted finale notes (<code>finale-kickoff</code>, <code>finale-build-clinic</code>, <code>finale-finishing</code>), the light dataframe introduction, and the <code>apply</code> bridge by which a student’s own hand-tested function such as <code>gc_content(seq)</code> is run by the library across every row of a table (<code>df['gc'] = df['sequence'].apply(gc_content)</code>). That bridge is the squaring argument made concrete: the authored function gets a test, the library’s aggregate output gets a sanity check against a number the student already knows, and nothing the library does well is reinvented.</p>
 <p>The five AI-arc notes already drafted (<code>docs/ai-arc/</code>) are repositioned by this. They are no longer standalone lecture content; they become the source material for the fifteen-minute AI segments and for the students’ reading, delivered light. The “limits of the machine” note is recast to close on augmentation rather than on caution, carrying the squaring idea and the one-principle-three-modes framing.</p>
 </section>
 <section id="the-ai-thread-and-the-one-verification-principle" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="the-ai-thread-and-the-one-verification-principle">The AI thread and the one verification principle</h2>
-<p>The AI thread runs in the short segment every week, escalating through the role ladder (Explainer, Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate; detail in <code>course-plan.md</code>), and every exercise it sets resolves at the check widget or at a test the student runs, so that “the AI predicts, you verify” is the literal structure of the work and not a slogan. In the later weeks the thread broadens from producing code to the general skill of working with an AI, held together by the single verification principle: verify code with tests and reading, verify facts with evidence and knowledge, verify your own learning by doing it with the AI switched off. This is where the course teaches learning with an AI rather than taking answers from it, using the Study and Learn agent as the tutoring mode, and where it confronts the “isn’t this cheating” feeling with the verification-and-understanding line and the squaring argument. Every exercise carries a licence badge (a role, or <code>SOLO</code> for do-it-yourself-first), the AI lives in the browser, and each week prompts one logbook entry. The dangers are taught throughout on curated examples we author, so that the lessons hold regardless of how capable the live assistant is that week.</p>
+<p>The AI thread runs in the short segment every week, escalating through the role ladder (Explainer, Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate; detail in <code>course-plan.md</code>), and every exercise it sets resolves at the check widget or at a test the student runs, so that “the AI predicts, you verify” is the literal structure of the work and not a slogan. In the later weeks the thread broadens from producing code to the general skill of working with an AI, held together by the single verification principle: verify code with tests and reading, verify facts with evidence and knowledge, verify your own learning by doing it with the AI switched off. This is where the course teaches learning with an AI rather than taking answers from it, using the Study and Learn agent as the tutoring mode, and where it confronts the “isn’t this cheating” feeling with the verification-and-understanding line and the squaring argument. Every exercise carries a license badge (a role, or <code>SOLO</code> for do-it-yourself-first), the AI lives in the browser, and each week prompts one logbook entry. The dangers are taught throughout on curated examples we author, so that the lessons hold regardless of how capable the live assistant is that week.</p>
 </section>
 <section id="tool-introduction-schedule" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="tool-introduction-schedule">Tool-introduction schedule</h2>
@@ -1102,7 +1102,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>Wk 6-13</td>
 <td>student-authored tests (im-pytest mode 3); <code>snippet-cast</code> for home worked examples</td>
-<td>Writing tests to validate the projects; replayable modelled composition</td>
+<td>Writing tests to validate the projects; replayable modeled composition</td>
 </tr>
 <tr class="odd">
 <td>Wk 9-14</td>
@@ -1153,7 +1153,7 @@ ul.task-list li input[type="checkbox"] {
 <td>Self-recoverable surrounding topics; self-checking widgets replace the missing TA; TA6 catches up</td>
 </tr>
 <tr class="even">
-<td>The AI aces every simple task, making the danger lessons feel like theatre</td>
+<td>The AI aces every simple task, making the danger lessons feel like theater</td>
 <td>Teach the dangers on curated authored bugs and wrong biology; use the live AI for genuine help and in the projects, where its competence is the point</td>
 </tr>
 <tr class="odd">
@@ -1193,11 +1193,11 @@ ul.task-list li input[type="checkbox"] {
 <p>The AI thread runs in the short “different” slot every week (Explainer → Delegate). From week 9 the <em>demanding</em> slots turn from new syntax to <strong>applying it through verification</strong>, and the escalating role is what each note trains:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 34%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
