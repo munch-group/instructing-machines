@@ -10,10 +10,10 @@
 
 | Suffix | Use |
 |---|---|
-| *(none)* | Two-colour: purple `#7F77DD` ring, near-black `#1A1A18` prompt and wordmark. |
+| *(none)* | Two-color: purple `#7F77DD` ring, near-black `#1A1A18` prompt and wordmark. |
 | `-au-blue` | Same, in Aarhus blue `#002546`, for official university material. |
-| `-mono-black` | Single colour. Print, photocopies, embroidery, laser cutting. |
-| `-mono-white` | Single colour white. **Only visible on a dark background** — it will look blank in a light image viewer. |
+| `-mono-black` | Single color. Print, photocopies, embroidery, laser cutting. |
+| `-mono-white` | Single color white. **Only visible on a dark background** — it will look blank in a light image viewer. |
 
 SVGs have transparent backgrounds and the wordmark converted to outlines, so no
 font installation is needed anywhere. Prefer the SVG for anything that will be
@@ -34,7 +34,7 @@ include a small internal margin; add the rest in your layout.
 
 `build_logo.py` produces every file here. Gear geometry is controlled by the
 `N_TEETH`, `TIP_RATIO`, `HOLE`, `W_ROOT` and `W_TIP` constants; to change the
-colour scheme, edit the
+color scheme, edit the
 `PURPLE` / `INK` / `AUBLUE` constants at the top and re-run:
 
 ```bash

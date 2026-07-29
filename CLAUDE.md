@@ -4,7 +4,7 @@ Guidance for Claude (and collaborators) when writing or editing content in this 
 
 **What this is.** *Instructing Machines* is a Quarto book of lecture notes, exercises, and tutorials for a 14-week introductory programming course for undergraduates in Molecular Biology and Molecular Medicine at Aarhus University. The audience has **no prior programming experience** and little sense of how a computer works. The goal is not to make programmers, but to build abstract/computational thinking and the vocabulary to direct and verify AI-generated code. The course introduces an AI assistant **from week 1** in escalating "roles," and leans on a family of custom notebook widgets.
 
-**Read first.** The full course design lives in `docs/planning/course-plan.md` (learning goals, the 14-week distribution, the AI-role ladder + licence badges, the logbook, the widget mapping, tooling). The one-page student mental-model visual is `docs/planning/machine-map-poster.html`. Anything below is downstream of that plan.
+**Read first.** The full course design lives in `docs/planning/course-plan.md` (learning goals, the 14-week distribution, the AI-role ladder + license badges, the logbook, the widget mapping, tooling). The one-page student mental-model visual is `docs/planning/machine-map-poster.html`. Anything below is downstream of that plan.
 
 ---
 
@@ -55,7 +55,7 @@ New notes must sound like the author. The voice is warm, funny, and rigorous. Co
 
 Full detail is in `docs/planning/course-plan.md`; the essentials for authoring:
 
-- **AI from week 1, in escalating roles.** Each note that uses the assistant states the sanctioned **role** for that context via a licence badge — the cumulative ladder is Explainer → Translator → Illustrator → Comparer → Drafter → Unreliable Narrator → Worker → Collaborator → Delegate. Exercises carry either a role badge (🟢 `AI: Drafter`) or 🔒 `SOLO` (do it yourself first). The AI lives in the **browser** (Copilot Chat), never inside the editor; VS Code is the AI-free space.
+- **AI from week 1, in escalating roles.** Each note that uses the assistant states the sanctioned **role** for that context via a license badge — the cumulative ladder is Explainer → Translator → Illustrator → Comparer → Drafter → Unreliable Narrator → Worker → Collaborator → Delegate. Exercises carry either a role badge (🟢 `AI: Drafter`) or 🔒 `SOLO` (do it yourself first). The AI lives in the **browser** (Copilot Chat), never inside the editor; VS Code is the AI-free space.
 - **The rule that ties AI to the widgets:** *"the AI predicts; the widget proves."* Whenever the assistant claims what code does, students check it with the machine.
 - **Logbook.** A term-long student artifact — one weekly entry: what the AI got right, what it got wrong, how they knew. New weekly notes should prompt an entry.
 - **Widgets — where each fits when authoring:**
@@ -81,6 +81,7 @@ The audit of the existing notes surfaced recurring, avoidable defects. Do not re
 7. **Copyedit pass.** Recurring typos to watch: "his"→"this", "source"→"course", "stings"→"strings", "substations"→"substitutions", "Celcius"→"Celsius". Danish-authored spellings leak in.
 8. **Modern idioms.** Introduce `with open(...) as f:` for files (the notes teach only the `close`-heavy form); soften "dictionary order is arbitrary" to "don't rely on order" (dicts preserve insertion order since 3.7).
 9. **Keep it in scope.** Calibrate for absolute-beginner molecular-biology students. `classes.ipynb`-style material (multiple inheritance, mixins, MRO, static/class methods, SOLID) is over-scoped; defer to an optional appendix.
+10. **US English spelling.** Write `color`, `organize`, `behavior`, `license` (noun and verb), `catalog`, `program`, `defense`, `judgment`, `practice` (noun and verb), `toward`/`forward`/`backward` (no trailing *-s*), `modeled`/`modeling`, `theater`, `gray`, not their British equivalents (`colour`, `organise`, `behaviour`, `licence`, `catalogue`, `programme`, `defence`, `judgement`, `practise`, `towards`/`forwards`/`backwards`, `modelled`/`modelling`, `theatre`, `grey`). Proper nouns keep their own spelling regardless (e.g. Aarhus University's *Bioinformatics Research Centre*).
 
 ---
 
@@ -140,6 +141,6 @@ Status legend: **Solid** = reusable after a copyedit; **Needs work** = good bone
 2. Teach by doing → naming; keep the warm second-person voice all the way through.
 3. Intersperse small `%%exercise` cells; every exercise is predict-then-run.
 4. Reinforce substitution & reduction; reach for the matching widget (`steps`/`puzzle`/`codelens`/`turtle`).
-5. State the AI **role/licence** for each exercise (badge), keep the AI in the browser, and prompt a logbook entry where appropriate.
+5. State the AI **role/license** for each exercise (badge), keep the AI in the browser, and prompt a logbook entry where appropriate.
 6. Make all code runnable; never hand-type output. Label any deliberate-bug exercise.
 7. Run the §4 quality checklist before calling it done.

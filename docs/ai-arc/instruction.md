@@ -30,7 +30,7 @@ This is also, quietly, why we make you run scripts from the terminal before we e
 
 ## The newest rung: instructing a machine in plain language {#sec-ai-rung}
 
-Now the AI. For the purpose of producing code, an AI assistant looks like it belongs at the very top of the ladder: you describe what you want in ordinary English — *"read this DNA sequence, find the open reading frames, and translate them"* — and it hands back Python. No syntax, no rules to memorise, closer to human language than any rung before it. On the ladder, it is simply the next translator: from a description even nearer to how you actually think, down toward code the machine can run.
+Now the AI. For the purpose of producing code, an AI assistant looks like it belongs at the very top of the ladder: you describe what you want in ordinary English — *"read this DNA sequence, find the open reading frames, and translate them"* — and it hands back Python. No syntax, no rules to memorize, closer to human language than any rung before it. On the ladder, it is simply the next translator: from a description even nearer to how you actually think, down toward code the machine can run.
 
 That framing is genuinely useful — right up until the moment it breaks. And where it breaks is the whole point. To see the break, you have to look at what the AI is actually doing under the hood, which is nothing like what a compiler does.
 
@@ -48,7 +48,7 @@ Look carefully at the example in @fig-next-word. Asked to continue *"The stop co
 
 Fair question: how does it know that `TAG` usually follows? Nobody programmed grammar or biology into it by hand. It learned, in a process called **training**, which happens once, before you ever use it.
 
-![Training: over an enormous amount of text, the model repeatedly plays "guess the hidden next word," and each time nudges millions of internal dials — its *weights* — so that its next guess is a little better. Afterwards the dials are frozen.](./images/fig-training.svg){#fig-training}
+![Training: over an enormous amount of text, the model repeatedly plays "guess the hidden next word," and each time nudges millions of internal dials — its *weights* — so that its next guess is a little better. Afterward the dials are frozen.](./images/fig-training.svg){#fig-training}
 
 During training, the model is shown an enormous amount of text — books, websites, articles, code, much of the public internet. Over and over it plays a game: hide the next word, let the model guess it, then compare the guess to the word that was really there. Every time, it nudges millions of internal numbers — called **weights**, the "dials" in @fig-training — a tiny bit, so that next time the guess is a little closer. Repeat that billions of times and the dials settle into a configuration that makes startlingly good guesses about what word comes next. Those weights *are* everything the model knows. There is no library of facts inside it, no lookup table — only the dials.
 

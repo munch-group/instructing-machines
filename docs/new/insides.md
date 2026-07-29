@@ -23,11 +23,11 @@ Let's open the box.
 
 Deep down, a computer is millions of tiny switches, and each switch is either off or on. That's it. There is no secret third thing. We write "off" as `0` and "on" as `1`, and one such off-or-on is called a **bit** — the smallest possible piece of information.
 
-One bit on its own can't say much. But line eight of them up and you get a **byte**, and a byte can be in 256 different patterns — enough to stand for a number from 0 to 255, or a single letter, or one dot of colour. Group bytes together and you can represent anything at all: this sentence, a photograph, a song, an entire genome, or the program that is reading them.
+One bit on its own can't say much. But line eight of them up and you get a **byte**, and a byte can be in 256 different patterns — enough to stand for a number from 0 to 255, or a single letter, or one dot of color. Group bytes together and you can represent anything at all: this sentence, a photograph, a song, an entire genome, or the program that is reading them.
 
 ![Underneath everything, a computer stores numbers made of bits — and the *meaning* of those bits comes from the program that reads them, never from the bits themselves.](./images/fig-everything-is-numbers.svg){#fig-everything-is-numbers}
 
-Here is the one idea to carry out of this section, because we will lean on it all term. The bits are dumb. The number `01100100` in @fig-everything-is-numbers does not "know" whether it is the number 100, the letter `'d'`, or a shade of grey. Its meaning comes entirely from the piece of code that decides how to read it. When you learn later that in Python `'d'` and `100` are different *types*, this is why: a type is nothing more than an agreement about how to read some bits. Hold onto that; it will save you a lot of confusion in a few weeks.
+Here is the one idea to carry out of this section, because we will lean on it all term. The bits are dumb. The number `01100100` in @fig-everything-is-numbers does not "know" whether it is the number 100, the letter `'d'`, or a shade of gray. Its meaning comes entirely from the piece of code that decides how to read it. When you learn later that in Python `'d'` and `100` are different *types*, this is why: a type is nothing more than an agreement about how to read some bits. Hold onto that; it will save you a lot of confusion in a few weeks.
 
 ## The three parts that do the work {#sec-anatomy}
 
@@ -101,7 +101,7 @@ You never actually talk to the disk, memory, and CPU directly. Sitting between y
 
 As @fig-os-stack shows, when your program wants to open a file, it doesn't go rummaging through the disk itself; it asks the operating system, and the operating system finds the file and hands it over. When a program needs memory to work in, the operating system parcels some out. When you have a browser, an editor, and a music player all running at once, the operating system is the one sharing the single CPU between them, giving each a slice of time so quickly that they all *seem* to run at the same moment. It also draws the windows on your screen and listens to your keyboard.
 
-For this course you mostly won't think about the operating system — but two of its jobs will touch you directly. It is the operating system that gives you the **terminal**, the place where you'll type `python hello.py`. And it is the operating system that organises your files into folders, which is why the very first practical skill in this course is finding your way around folders in the terminal with `cd` and `ls`.
+For this course you mostly won't think about the operating system — but two of its jobs will touch you directly. It is the operating system that gives you the **terminal**, the place where you'll type `python hello.py`. And it is the operating system that organizes your files into folders, which is why the very first practical skill in this course is finding your way around folders in the terminal with `cd` and `ls`.
 
 ## Software is just files full of instructions {#sec-software}
 

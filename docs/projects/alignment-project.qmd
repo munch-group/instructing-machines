@@ -309,7 +309,7 @@ def trace_back(seq1, seq2, matrix, score_matrix, gap_score):
     row = len(seq1)
     col = len(seq2)
 
-    # Keep stepping backwards through the matrix untill
+    # Keep stepping backward through the matrix untill
     # we get to the top row or the left col:
     while row > 0 and col > 0:
 
@@ -350,7 +350,7 @@ def trace_back(seq1, seq2, matrix, score_matrix, gap_score):
         aligned2 = '-' + aligned2
         row -= 1
 
-    # If col is not zero, step upwards in the left col to the top left cell:
+    # If col is not zero, step upward in the left col to the top left cell:
     while col > 0:
         base2 = seq2[col-1]
         aligned1 = '-' + aligned1
