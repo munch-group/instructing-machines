@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>28&nbsp; Primer analysis – Instructing Machines</title>
+<title>35&nbsp; Directing to resources: clinic – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,8 +71,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../python/debugging.html" rel="next">
-<link href="../python/classes.html" rel="prev">
+<link href="../projects/codonbias-project.html" rel="next">
+<link href="../ai/the-docs-are-the-test.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -83,7 +83,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,35 +117,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -159,7 +129,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/the-docs-are-the-test.html">Week 9</a></li><li class="breadcrumb-item"><a href="../ai/directing-a-resource.html"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -435,7 +405,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link active">
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
@@ -499,7 +469,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link">
+  <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
   </div>
 </li>
@@ -680,19 +650,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#count-the-number-of-bases-in-your-candidate-primer" id="toc-count-the-number-of-bases-in-your-candidate-primer" class="nav-link active" data-scroll-target="#count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</a></li>
-  <li><a href="#compute-the-melting-temperature" id="toc-compute-the-melting-temperature" class="nav-link" data-scroll-target="#compute-the-melting-temperature">Compute the melting temperature</a></li>
-  <li><a href="#reverse-complement-the-sequence" id="toc-reverse-complement-the-sequence" class="nav-link" data-scroll-target="#reverse-complement-the-sequence">Reverse complement the sequence</a></li>
-  <li><a href="#check-for-hairpins" id="toc-check-for-hairpins" class="nav-link" data-scroll-target="#check-for-hairpins">Check for hairpins</a></li>
+  <li><a href="#deciding-what-the-task-needs-before-asking-for-anything" id="toc-deciding-what-the-task-needs-before-asking-for-anything" class="nav-link active" data-scroll-target="#deciding-what-the-task-needs-before-asking-for-anything">Deciding what the task needs before asking for anything</a></li>
+  <li><a href="#checking-the-contracts-before-prompting" id="toc-checking-the-contracts-before-prompting" class="nav-link" data-scroll-target="#checking-the-contracts-before-prompting">Checking the contracts before prompting</a></li>
+  <li><a href="#directing-the-assistant" id="toc-directing-the-assistant" class="nav-link" data-scroll-target="#directing-the-assistant">Directing the assistant</a></li>
+  <li><a href="#verifying-the-result-twice" id="toc-verifying-the-result-twice" class="nav-link" data-scroll-target="#verifying-the-result-twice">Verifying the result, twice</a></li>
+  <li><a href="#why-this-is-the-rehearsal-it-claims-to-be" id="toc-why-this-is-the-rehearsal-it-claims-to-be" class="nav-link" data-scroll-target="#why-this-is-the-rehearsal-it-claims-to-be">Why this is the rehearsal it claims to be</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/the-docs-are-the-test.html">Week 9</a></li><li class="breadcrumb-item"><a href="../ai/directing-a-resource.html"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-folding-project" class="quarto-section-identifier"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></h1>
+<h1 class="title"><span id="sec-directing-to-resources" class="quarto-section-identifier"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></h1>
 </div>
 
 
@@ -709,122 +680,44 @@ window.Quarto = {
 </header>
 
 
-<p>Say you have a short sequence that you want to use as a PCR primer. To evaluate if it a suitable primer, you need to know the melting temperature of the sequence. You also need to make sure that it will not fold up on itself so that it cannot bind to the DNA sequence you want to amplify.</p>
-<p>Download the files you need for this project:</p>
-<p><a href="#dnldts753" onclick="fetch('data:application/x-python;base64,CiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBXcml0ZSB5b3VyIGZ1bmN0aW9ucyBkZWZpbml0aW9ucyBiZWxvdy4KIyBEbyBub3Qgd3JpdGUgYW55IG90aGVyIGNvZGUgaGVyZS4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBvbmx5IHlvdXIgZnVuY3Rpb24gZGVmaW5pdGlvbnMuLi4KCgoKCgoKCgoKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBDb2RlIGZvciBjYWxsaW5nIGFuZCB0ZXN0aW5nIHlvdXIgZnVuY3Rpb25zIHNob3VsZCBiZSBiZWxvdwojIGhlcmUuIElmIHlvdSBzZXBhcmF0ZSBmdW5jdGlvbiBkZWZpbml0aW9ucyBmcm9tIHRoZSByZXN0IG9mCiMgeW91ciBzY3JpcHQgaW4gdGhpcyB3YXksIHlvdSBhcmUgbGVzcyBsaWtlbHkgdG8gbWFrZSBtaXN0YWtlcy4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBhbnkgb3RoZXIgY29kZSAuLi4KCgoKCgo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts753"><i class="bi bi-download"></i> foldingproject.py </button></a> <a href="#dnldts49721" onclick="fetch('data:application/x-python;base64,IiIiVGVzdHMgZm9yIHRoZSBmb2xkaW5nIC8gcHJpbWVyLWFuYWx5c2lzIHByb2plY3QgKHBvcnRlZCB0byBweXRlc3QpLgoKRXZlcnkgdGVzdCByZWNlaXZlcyBgYHNvbGBgIOKAlCB5b3VyIHNvbHV0aW9uIG1vZHVsZSDigJQgYW5kIHVzZXMgdGhlIGBgcmVxdWlyZXNgYAptYXJrZXIgc28gYW4gdW53cml0dGVuIGZ1bmN0aW9uIGlzIHJlcG9ydGVkIGFzICJub3QgZGVmaW5lZCIgaW5zdGVhZCBvZiBjcmFzaGluZy4KIiIiCmltcG9ydCBweXRlc3QKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImNvdW50X2Jhc2VzIikKZGVmIHRlc3RfY291bnRfYmFzZXMoc29sKToKICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJ0FUR0cnKSA9PSB7J0EnOiAxLCAnQyc6IDAsICdHJzogMiwgJ1QnOiAxfQogICAgYXNzZXJ0IHNvbC5jb3VudF9iYXNlcygnQVRHR0NDJykgPT0geydBJzogMSwgJ1QnOiAxLCAnRyc6IDIsICdDJzogMn0KICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJycpID09IHsnQSc6IDAsICdUJzogMCwgJ0cnOiAwLCAnQyc6IDB9CgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnQoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCdBVEdDJykgPT0gJ0dDQVQnCgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnRfZW1wdHkoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCcnKSA9PSAnJwoKCkBweXRlc3QubWFyay5yZXF1aXJlcygicmV2ZXJzZV9jb21wbGVtZW50IikKZGVmIHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50X2hvbW9wb2x5bWVyKHNvbCk6CiAgICAjIFByZXZpb3VzbHkgc2hhZG93ZWQgYnkgYSBkdXBsaWNhdGUgYHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50XzJgIG5hbWUgaW4gdGhlCiAgICAjIG9yaWdpbmFsIHVuaXR0ZXN0IGZpbGU7IHBvcnRlZCBoZXJlIHVuZGVyIGEgZGlzdGluY3QgbmFtZSBzbyBpdCBydW5zLgogICAgYXNzZXJ0IHNvbC5yZXZlcnNlX2NvbXBsZW1lbnQoJ0FBQUFBQUEnKSA9PSAnVFRUVFRUVCcKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoIm1lbHRpbmdfdGVtcCIpCmRlZiB0ZXN0X21lbHRpbmdfdGVtcChzb2wpOgogICAgYXNzZXJ0IHNvbC5tZWx0aW5nX3RlbXAoJ0FURycpID09IHB5dGVzdC5hcHByb3goOCwgYWJzPTFlLTQpCiAgICBhc3NlcnQgc29sLm1lbHRpbmdfdGVtcCgnQUFBQUFUVFRUVENDQ0NDR0dHR0cnKSA9PSBweXRlc3QuYXBwcm94KAogICAgICAgIDUxLjc4MDAwMDAwMDAwMDAxLCBhYnM9MWUtNCkKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImhhc19oYWlycGluIikKZGVmIHRlc3RfaGFzX2hhaXJwaW4oc29sKToKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0NDQVRBVCcsIDQpID09IFRydWUKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0FUQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCAyKSA9PSBUcnVlCiAgICBhc3NlcnQgc29sLmhhc19oYWlycGluKCdHR0dHQVRBVENDQ0NBVEFUJywgNCkgPT0gVHJ1ZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignR0dHR0dHQVRBVENDQ0NDQ0FUQVQnLCA2KSA9PSBUcnVlCg==').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'test_foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts49721"><i class="bi bi-download"></i> test_foldingproject.py </button></a></p>
-<p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
-<ul>
-<li><code>foldingproject.py</code> is an empty file where you must write your code.</li>
-<li><code>test_foldingproject.py</code> is the test program that lets you test the code you write in translationproject.py.</li>
-</ul>
-<p>Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose “Save file as…” or “Download linked file”.</p>
-<section id="count-the-number-of-bases-in-your-candidate-primer" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</h2>
-<p>Before you can compute the melting temperature, you need to determine how many times each base occurs in the sequence. You can assume that the only characters in the string are A, T, G, and C.</p>
-<p><em>Write a function</em>, <code>count_bases</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A dictionary, which in which keys are strings that represent bases and values are integers that represent the number of occurrences of each base. If a base is not found in the sequence, its count must be zero.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count_bases(<span class="st">"ATGG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return (not necessarily with key-value pairs in the same order):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"A"</span>: <span class="dv">1</span>, <span class="st">"C"</span>: <span class="dv">0</span>, <span class="st">"G"</span>: <span class="dv">2</span>, <span class="st">"T"</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A companion clinic on building on machinery you did not write, rehearsing the move the codon-bias project and the finale both ask of you.</em></p>
+<p>You now have the two halves separately: reading a library’s documentation as a set of contracts, and catching the assistant when it invents one that is not real. This clinic puts both halves to work on an actual small task, live, the way you will need to on this week’s project and, eventually, on the finale. The task: given a DNA coding sequence, report whether its reverse complement, read as a coding sequence, translates cleanly to a protein with no internal stop codon.</p>
+<section id="deciding-what-the-task-needs-before-asking-for-anything" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="deciding-what-the-task-needs-before-asking-for-anything">Deciding what the task needs before asking for anything</h3>
+<p>Before typing a single prompt, name the capabilities the task actually requires, the way you would decompose a task into functions. This one needs a reverse complement of a DNA sequence, a translation of a DNA sequence into a protein, and a check for whether a stop codon, shown by BioPython as <code>*</code>, appears anywhere before the final position of that protein. The first two are exactly the <code>Seq</code> methods you met two notes ago. The third is not a library operation at all, it is a small piece of logic over the result, which matters: you are about to direct the assistant to combine library calls, and knowing in advance which parts are the library’s job and which part is yours is what keeps you from asking it to reinvent <code>.translate()</code> badly, or from quietly accepting logic it wrote for the one part you should have written yourself.</p>
 </section>
-<section id="compute-the-melting-temperature" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="compute-the-melting-temperature">Compute the melting temperature</h2>
-<p>Knowing the base composition in your sequence, you can now calculate the melting temperature the double-stranded DNA that forms when your primer pairs up with the sequence to amplify. If the primer has less than 14 bases the formula for calculating melting temperature is:</p>
-<p><span class="math display">\[ Temp = (A + T) * 2 + (G + C) * 4 \]</span></p>
-<p>and if the primer has 14 bases or more it is calculated like this:</p>
-<p><span class="math display">\[ Temp = 64.9 + 41 * (G + C - 16.4) / (A + T + G + C) \]</span></p>
-<p>The A, T, C, and G in the formulas represent the numbers of A, T, C and G in the DNA primer.</p>
-<p>You must write a function that applies these two formulas appropriately by taking the length of the primer into account.</p>
-<p><em>Write a function</em>, <code>melting_temp</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence (your primer).</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A number, which represents the melting temperature of the double-stranded DNA corresponding to the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>melting_temp(<span class="st">"ATG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="checking-the-contracts-before-prompting" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="checking-the-contracts-before-prompting">Checking the contracts before prompting</h3>
+<p>Two methods, two contracts to confirm from the actual documentation, not from memory or from what the assistant assumes. <code>Seq.reverse_complement()</code> takes no required arguments and returns a new <code>Seq</code>. <code>Seq.translate()</code> takes an optional <code>to_stop</code> argument; read its entry and you will find that when <code>to_stop=True</code>, translation stops at the first in-frame stop codon and the <code>*</code> is simply omitted from the result, rather than translation continuing past it the way the default behaves. That single optional argument changes which of two different questions the code answers, and choosing between them is a decision you make before prompting, not one you leave for the assistant to make silently.</p>
 </section>
-<section id="reverse-complement-the-sequence" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="reverse-complement-the-sequence">Reverse complement the sequence</h2>
-<p>It is possible that one part of the primer forms base pairs with another part of the primer to form a hairpin structure. To figure out if this can happen to your primer, you need to be able to find the reverse complement of DNA sequence. The reverse complement of a DNA sequence is one where the sequence of bases is first reversed, and then each base is replaced with its Watson-Crick complementary base.</p>
-<p><em>Write a function</em>, <code>reverse_complement</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A string, which represents the reverse complement of the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reverse_complement(<span class="st">"AATTC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"GAATT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<!-- TODO: Add function to test if the primer can form a dimer (interacting with another sequence) -->
+<section id="directing-the-assistant" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="directing-the-assistant">Directing the assistant</h3>
+<p>With the contracts in hand, the prompt can be precise: “Using <code>Bio.Seq.Seq</code>, write a function <code>translates_cleanly(dna)</code> that takes a DNA coding sequence, returns its reverse complement, translates it with <code>to_stop=False</code> so any internal stop codon stays visible in the result, and returns <code>True</code> if the resulting protein contains no <code>*</code> before its final character.” Notice how much of that sentence is contract, not code: which method, which argument, which behavior you are relying on. A vague version of the same request, “check if the reverse complement translates okay,” leaves the assistant to guess <code>to_stop</code>’s value the same way it once guessed a tie-breaking rule, and you would have no way to know which guess it made without reading the code closely enough that you might as well have specified it yourself.</p>
 </section>
-<section id="check-for-hairpins" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="check-for-hairpins">Check for hairpins</h2>
-<p>You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consequtive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick basepairs. Here is an example of a hairpin with five basepairs and a loop of four bases (four Cs):</p>
-<pre><code>        C C
-      C     C
-       A - T
-       T - A
-       A - T
-       T - A
-       A - T</code></pre>
-<p>To test if a sequence can form a hairpin with at least four consequtive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another nonoverlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.</p>
-<p><em>Write a function</em>, <code>has_hairpin</code>, which takes two arguments:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-<li>An integer, which represents the minimum number of consequtive base pairs in the hairpins to search for.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li><code>True</code> if the sequence contains a hairpin of at least the specified length and <code>False</code> otherwise.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(has_hairpin(<span class="st">"ATATACCCCTATAT"</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is a hard one, so I will give you a bit of help. Here is the function with some parts missing.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> has_hairpin(s, k):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    looplen <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        subs <span class="op">=</span> <span class="co"># Hint A</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        right <span class="op">=</span> <span class="co"># Hint B</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        revcl <span class="op">=</span> reverse_complement(subs)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> revcl <span class="kw">in</span> right[looplen:]:</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Hint A: Here you need to extract a substring of length k starting at i. Hint B: Here you need to extract all the sequence to the right of <code>substr</code>.</p>
+<section id="verifying-the-result-twice" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="verifying-the-result-twice">Verifying the result, twice</h3>
+<p>The assistant’s answer gets checked in the two different ways this course has been building toward. First, against the documentation: did it call <code>.reverse_complement()</code> and <code>.translate()</code> with real arguments that mean what you asked, or does anything in the call look invented, the way <code>.gc_content()</code> did? Second, against a test, because a documented call can still be assembled into wrong logic:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> translates_cleanly(dna):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"True if the reverse complement's translation has no internal stop codon."</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    protein <span class="op">=</span> Seq(dna).reverse_complement().translate(to_stop<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'*'</span> <span class="kw">not</span> <span class="kw">in</span> protein[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> translates_cleanly(<span class="st">'ATGGCCTGA'</span>) <span class="kw">in</span> (<span class="va">True</span>, <span class="va">False</span>)   <span class="co"># runs at all</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(translates_cleanly(<span class="st">'ATGGCCTGA'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Work out by hand what <code>'ATGGCCTGA'</code>’s reverse complement is, and what that translates to, and confirm the function’s answer against your own. That hand-worked case is the sanity check standing in for the test you cannot write against a library you trust as machinery: you are not testing that <code>.translate()</code> implements the genetic code correctly, you are checking that the pieces were assembled the way you specified.</p>
+</section>
+<section id="why-this-is-the-rehearsal-it-claims-to-be" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="why-this-is-the-rehearsal-it-claims-to-be">Why this is the rehearsal it claims to be</h3>
+<p>Nothing about this clinic was larger than a single function. What it rehearsed was the shape of every later task that leans on a library: decide what capabilities you need before prompting, confirm their contracts in the real documentation, direct the assistant with the contract instead of a mood, and verify twice, once against the documentation and once against a hand-worked case. The codon-bias project this week, and the finale later, are this same shape, just with more pieces.</p>
+<section id="exercise-ai-collaborator" class="level4" data-number="35.0.0.1">
+<h4 data-number="35.0.0.1" class="anchored" data-anchor-id="exercise-ai-collaborator"><strong>Exercise 35-1</strong></h4>
+<p>Direct the assistant to write a function <code>longest_orf_protein(dna)</code> that finds the longest open reading frame in a DNA sequence starting at any <code>ATG</code> and translates it, using <code>Bio.Seq.Seq</code> for the translation step only; the search for <code>ATG</code> and the comparison of lengths is logic you specify, not a library call. Before prompting, decide and write down which part is the library’s job and which is yours, the way this clinic did.</p>
+<p>For your logbook this week, name one library call from this week’s project that you verified against real documentation before trusting it, and one you are not fully sure you checked closely enough.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1235,13 +1128,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../python/classes.html" class="pagination-link" aria-label="Classes">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Classes</span></span>
+      <a href="../ai/the-docs-are-the-test.html" class="pagination-link" aria-label="The AI invents functions; the docs are the test">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../python/debugging.html" class="pagination-link" aria-label="Debugging">
-        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Debugging</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../projects/codonbias-project.html" class="pagination-link" aria-label="Codon usage">
+        <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Codon usage</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

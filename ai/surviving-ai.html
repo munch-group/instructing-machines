@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>28&nbsp; Primer analysis – Instructing Machines</title>
+<title>52&nbsp; Surviving AI – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,41 +26,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -71,8 +36,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../python/debugging.html" rel="next">
-<link href="../python/classes.html" rel="prev">
+<link href="../ai/the-ai-off-test.html" rel="next">
+<link href="../ai/finale-kickoff.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -83,7 +48,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,35 +82,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -159,7 +94,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/surviving-ai.html">Week 14</a></li><li class="breadcrumb-item"><a href="../ai/surviving-ai.html"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Surviving AI</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -435,7 +370,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link active">
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
@@ -656,7 +591,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
+  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
   </div>
 </li>
@@ -676,23 +611,14 @@ window.Quarto = {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
 
 </div></div>
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#count-the-number-of-bases-in-your-candidate-primer" id="toc-count-the-number-of-bases-in-your-candidate-primer" class="nav-link active" data-scroll-target="#count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</a></li>
-  <li><a href="#compute-the-melting-temperature" id="toc-compute-the-melting-temperature" class="nav-link" data-scroll-target="#compute-the-melting-temperature">Compute the melting temperature</a></li>
-  <li><a href="#reverse-complement-the-sequence" id="toc-reverse-complement-the-sequence" class="nav-link" data-scroll-target="#reverse-complement-the-sequence">Reverse complement the sequence</a></li>
-  <li><a href="#check-for-hairpins" id="toc-check-for-hairpins" class="nav-link" data-scroll-target="#check-for-hairpins">Check for hairpins</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/surviving-ai.html">Week 14</a></li><li class="breadcrumb-item"><a href="../ai/surviving-ai.html"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Surviving AI</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-folding-project" class="quarto-section-identifier"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></h1>
+<h1 class="title"><span id="sec-surviving-ai" class="quarto-section-identifier"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></h1>
 </div>
 
 
@@ -709,123 +635,17 @@ window.Quarto = {
 </header>
 
 
-<p>Say you have a short sequence that you want to use as a PCR primer. To evaluate if it a suitable primer, you need to know the melting temperature of the sequence. You also need to make sure that it will not fold up on itself so that it cannot bind to the DNA sequence you want to amplify.</p>
-<p>Download the files you need for this project:</p>
-<p><a href="#dnldts753" onclick="fetch('data:application/x-python;base64,CiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBXcml0ZSB5b3VyIGZ1bmN0aW9ucyBkZWZpbml0aW9ucyBiZWxvdy4KIyBEbyBub3Qgd3JpdGUgYW55IG90aGVyIGNvZGUgaGVyZS4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBvbmx5IHlvdXIgZnVuY3Rpb24gZGVmaW5pdGlvbnMuLi4KCgoKCgoKCgoKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBDb2RlIGZvciBjYWxsaW5nIGFuZCB0ZXN0aW5nIHlvdXIgZnVuY3Rpb25zIHNob3VsZCBiZSBiZWxvdwojIGhlcmUuIElmIHlvdSBzZXBhcmF0ZSBmdW5jdGlvbiBkZWZpbml0aW9ucyBmcm9tIHRoZSByZXN0IG9mCiMgeW91ciBzY3JpcHQgaW4gdGhpcyB3YXksIHlvdSBhcmUgbGVzcyBsaWtlbHkgdG8gbWFrZSBtaXN0YWtlcy4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBhbnkgb3RoZXIgY29kZSAuLi4KCgoKCgo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts753"><i class="bi bi-download"></i> foldingproject.py </button></a> <a href="#dnldts49721" onclick="fetch('data:application/x-python;base64,IiIiVGVzdHMgZm9yIHRoZSBmb2xkaW5nIC8gcHJpbWVyLWFuYWx5c2lzIHByb2plY3QgKHBvcnRlZCB0byBweXRlc3QpLgoKRXZlcnkgdGVzdCByZWNlaXZlcyBgYHNvbGBgIOKAlCB5b3VyIHNvbHV0aW9uIG1vZHVsZSDigJQgYW5kIHVzZXMgdGhlIGBgcmVxdWlyZXNgYAptYXJrZXIgc28gYW4gdW53cml0dGVuIGZ1bmN0aW9uIGlzIHJlcG9ydGVkIGFzICJub3QgZGVmaW5lZCIgaW5zdGVhZCBvZiBjcmFzaGluZy4KIiIiCmltcG9ydCBweXRlc3QKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImNvdW50X2Jhc2VzIikKZGVmIHRlc3RfY291bnRfYmFzZXMoc29sKToKICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJ0FUR0cnKSA9PSB7J0EnOiAxLCAnQyc6IDAsICdHJzogMiwgJ1QnOiAxfQogICAgYXNzZXJ0IHNvbC5jb3VudF9iYXNlcygnQVRHR0NDJykgPT0geydBJzogMSwgJ1QnOiAxLCAnRyc6IDIsICdDJzogMn0KICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJycpID09IHsnQSc6IDAsICdUJzogMCwgJ0cnOiAwLCAnQyc6IDB9CgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnQoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCdBVEdDJykgPT0gJ0dDQVQnCgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnRfZW1wdHkoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCcnKSA9PSAnJwoKCkBweXRlc3QubWFyay5yZXF1aXJlcygicmV2ZXJzZV9jb21wbGVtZW50IikKZGVmIHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50X2hvbW9wb2x5bWVyKHNvbCk6CiAgICAjIFByZXZpb3VzbHkgc2hhZG93ZWQgYnkgYSBkdXBsaWNhdGUgYHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50XzJgIG5hbWUgaW4gdGhlCiAgICAjIG9yaWdpbmFsIHVuaXR0ZXN0IGZpbGU7IHBvcnRlZCBoZXJlIHVuZGVyIGEgZGlzdGluY3QgbmFtZSBzbyBpdCBydW5zLgogICAgYXNzZXJ0IHNvbC5yZXZlcnNlX2NvbXBsZW1lbnQoJ0FBQUFBQUEnKSA9PSAnVFRUVFRUVCcKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoIm1lbHRpbmdfdGVtcCIpCmRlZiB0ZXN0X21lbHRpbmdfdGVtcChzb2wpOgogICAgYXNzZXJ0IHNvbC5tZWx0aW5nX3RlbXAoJ0FURycpID09IHB5dGVzdC5hcHByb3goOCwgYWJzPTFlLTQpCiAgICBhc3NlcnQgc29sLm1lbHRpbmdfdGVtcCgnQUFBQUFUVFRUVENDQ0NDR0dHR0cnKSA9PSBweXRlc3QuYXBwcm94KAogICAgICAgIDUxLjc4MDAwMDAwMDAwMDAxLCBhYnM9MWUtNCkKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImhhc19oYWlycGluIikKZGVmIHRlc3RfaGFzX2hhaXJwaW4oc29sKToKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0NDQVRBVCcsIDQpID09IFRydWUKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0FUQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCAyKSA9PSBUcnVlCiAgICBhc3NlcnQgc29sLmhhc19oYWlycGluKCdHR0dHQVRBVENDQ0NBVEFUJywgNCkgPT0gVHJ1ZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignR0dHR0dHQVRBVENDQ0NDQ0FUQVQnLCA2KSA9PSBUcnVlCg==').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'test_foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts49721"><i class="bi bi-download"></i> test_foldingproject.py </button></a></p>
-<p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
-<ul>
-<li><code>foldingproject.py</code> is an empty file where you must write your code.</li>
-<li><code>test_foldingproject.py</code> is the test program that lets you test the code you write in translationproject.py.</li>
-</ul>
-<p>Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose “Save file as…” or “Download linked file”.</p>
-<section id="count-the-number-of-bases-in-your-candidate-primer" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</h2>
-<p>Before you can compute the melting temperature, you need to determine how many times each base occurs in the sequence. You can assume that the only characters in the string are A, T, G, and C.</p>
-<p><em>Write a function</em>, <code>count_bases</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A dictionary, which in which keys are strings that represent bases and values are integers that represent the number of occurrences of each base. If a base is not found in the sequence, its count must be zero.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count_bases(<span class="st">"ATGG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return (not necessarily with key-value pairs in the same order):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"A"</span>: <span class="dv">1</span>, <span class="st">"C"</span>: <span class="dv">0</span>, <span class="st">"G"</span>: <span class="dv">2</span>, <span class="st">"T"</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="compute-the-melting-temperature" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="compute-the-melting-temperature">Compute the melting temperature</h2>
-<p>Knowing the base composition in your sequence, you can now calculate the melting temperature the double-stranded DNA that forms when your primer pairs up with the sequence to amplify. If the primer has less than 14 bases the formula for calculating melting temperature is:</p>
-<p><span class="math display">\[ Temp = (A + T) * 2 + (G + C) * 4 \]</span></p>
-<p>and if the primer has 14 bases or more it is calculated like this:</p>
-<p><span class="math display">\[ Temp = 64.9 + 41 * (G + C - 16.4) / (A + T + G + C) \]</span></p>
-<p>The A, T, C, and G in the formulas represent the numbers of A, T, C and G in the DNA primer.</p>
-<p>You must write a function that applies these two formulas appropriately by taking the length of the primer into account.</p>
-<p><em>Write a function</em>, <code>melting_temp</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence (your primer).</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A number, which represents the melting temperature of the double-stranded DNA corresponding to the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>melting_temp(<span class="st">"ATG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="reverse-complement-the-sequence" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="reverse-complement-the-sequence">Reverse complement the sequence</h2>
-<p>It is possible that one part of the primer forms base pairs with another part of the primer to form a hairpin structure. To figure out if this can happen to your primer, you need to be able to find the reverse complement of DNA sequence. The reverse complement of a DNA sequence is one where the sequence of bases is first reversed, and then each base is replaced with its Watson-Crick complementary base.</p>
-<p><em>Write a function</em>, <code>reverse_complement</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A string, which represents the reverse complement of the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reverse_complement(<span class="st">"AATTC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"GAATT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<!-- TODO: Add function to test if the primer can form a dimer (interacting with another sequence) -->
-</section>
-<section id="check-for-hairpins" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="check-for-hairpins">Check for hairpins</h2>
-<p>You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consequtive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick basepairs. Here is an example of a hairpin with five basepairs and a loop of four bases (four Cs):</p>
-<pre><code>        C C
-      C     C
-       A - T
-       T - A
-       A - T
-       T - A
-       A - T</code></pre>
-<p>To test if a sequence can form a hairpin with at least four consequtive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another nonoverlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.</p>
-<p><em>Write a function</em>, <code>has_hairpin</code>, which takes two arguments:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-<li>An integer, which represents the minimum number of consequtive base pairs in the hairpins to search for.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li><code>True</code> if the sequence contains a hairpin of at least the specified length and <code>False</code> otherwise.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(has_hairpin(<span class="st">"ATATACCCCTATAT"</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is a hard one, so I will give you a bit of help. Here is the function with some parts missing.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> has_hairpin(s, k):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    looplen <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        subs <span class="op">=</span> <span class="co"># Hint A</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        right <span class="op">=</span> <span class="co"># Hint B</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        revcl <span class="op">=</span> reverse_complement(subs)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> revcl <span class="kw">in</span> right[looplen:]:</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Hint A: Here you need to extract a substring of length k starting at i. Hint B: Here you need to extract all the sequence to the right of <code>substr</code>.</p>
+<p>The whole of this course has been an argument that you can trust the assistant more precisely because you have learned to check it. That argument is true, and it is the right way to work, but it would be dishonest to end there, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.</p>
+<p>Begin with a fact about people rather than about machines, because it is the one most likely to undo you. Humans tend to trust the output of an automated system more than they should, and the more fluent and confident that output looks, the stronger the pull. This is a well documented tendency, and it has a name, automation bias, and it does not spare people who know about it. The danger for you is not that you will fail to learn the checking discipline; it is that once you have it, it will quietly erode. The first weeks of using the assistant you will check everything, because it is new and you are wary. Then it will be right several times in a row, and you will relax, and you will start accepting a function because it looks like the ones that were fine before, which is exactly the plausible surface you were taught to distrust. The better the code looks and the longer the assistant’s recent record, the more suspicious you should become, not less, because that is the situation in which your guard is lowest and its confident wrongness is most expensive. The checking is not a phase you pass through on the way to trusting the machine. It is the permanent condition of using it well.</p>
+<p>The second limit is one you have already met but must now state sharply, because it is easy to half learn. Passing tests is necessary, and it is not sufficient. A green result tells you that the code produced the right answer on the particular inputs you thought to try. It tells you nothing whatever about the inputs you did not try, and there are always inputs you did not try, because a handful of tests cannot cover the infinity of possible inputs. This means a wrong function can pass a weak suite, and a function that passes even a strong suite can still be wrong on a case nobody imagined. Tests are a floor under your confidence, not a proof of correctness, and the assistant is specifically good at producing code that clears the visible floor while hiding a fault just out of sight of it. The only thing that stands behind the tests is your understanding of what the code does, which is why the rule that you never accept code you cannot read is not a beginner’s caution you will one day outgrow. It is the last line of defense for every case your tests forgot.</p>
+<p>The third limit is the one that matters most in your field, and it is the one no amount of testing can reach, because it is not about the code at all. The assistant states facts about biology with exactly the same fluent confidence whether those facts are true or false, because it has no way of knowing which they are. It will tell you a base pairing, a codon assignment, a gene function, a statistical assumption, and it will sound equally certain when it is right and when it is inventing. A wrong fact of this kind is more dangerous than a wrong loop for two reasons. It hides better, because there is no error and no failing test to draw your eye to it, and it does more damage, because a false premise propagates silently into every result built on top of it. No test you write about the code will ever catch a mistake in the biology the code assumes, because the code may be a flawless implementation of a wrong idea. The only defense is to check the domain facts against something other than the assistant: your own knowledge, a textbook, a database, a primary source. In a scientific context this is not an optional nicety. A result that rests on a biological claim you accepted from the assistant without checking is a result you cannot defend, however green its tests.</p>
+<p>These limits together sharpen a question the course has mostly answered by demonstration and should now answer directly, which is when you should not use the assistant at all. The clearest case is when you do not understand the problem well enough to check the answer. The assistant amplifies judgment you already have; it cannot supply judgment you lack. If you could not tell a correct solution from a plausible wrong one, then delegating the problem does not get you a solution, it gets you a guess you are unable to evaluate, and you are simply trusting blind, which is the one thing this course was built to stop. A second case is when the stakes are high and you cannot verify. If a wrong answer would matter and you have no way to check the answer, the assistant’s speed is worth nothing, because speed toward an unverifiable result is not progress. A third case is more ordinary and more common than students expect: when the task is small enough that writing it yourself is faster and surer than specifying it, prompting for it, reading it, and testing it. The whole apparatus of delegation has a cost, and for a three line function you understand completely, paying that cost is slower than just typing the three lines. And a fourth case is the one that matters while you are still learning: when using the assistant would rob you of understanding you actually need to acquire. There are things you must be able to do yourself, not because the assistant cannot do them, but because your ability to check its work on everything else depends on your having learned them. Handing those to the machine early is a false economy that leaves you unable to judge it later.</p>
+<p>Underneath all of these is a single principle that does not bend, which is that responsibility does not transfer. Whatever the assistant produces, the moment you submit it, run it, or publish a result that depends on it, it is yours. The AI wrote it is not a defense for a wrong answer, in this course or in the science you will go on to do, any more than a calculator’s arithmetic excuses a wrong sum you copied without checking. Delegating the typing never delegates the responsibility, and the entire structure you have learned, the specifying and reading and planning and testing, exists so that you can accept that responsibility honestly while still using the machine heavily. This has a practical companion, which is honesty about what the assistant did. Recording where and how you used it, in your logbook, in your prompt journal, in the notes on a piece of work, is not an admission of weakness and it is not something to hide. Concealing the assistant’s involvement is the dishonest act; disclosing it is simply an accurate account of how the work was done, and in a scientific setting an accurate account of method is not optional. The habit of honest attribution you build now is the same habit that will keep your later research defensible.</p>
+<p>It is worth ending where the course began. In the first week the idea was offered that instructing a machine has passed through a sequence of layers, from switches to machine code to compiled languages to interpreted languages like Python, and that an assistant is one more layer, a way of describing what you want in something close to ordinary language and having code come back. The difference, the one that has organized everything since, is that a compiler is a faithful translator and an assistant is not. A compiler always produces code that means exactly what you wrote; an assistant produces code that is merely plausible, and may mean something other than what you wanted, and cannot tell you which. That single difference is why this new layer, unlike the ones beneath it, cannot be trusted and must be verified, and it is why you had to learn what a program is, and what correct means, and how to specify and read and test, in order to use the newest layer safely. The syntax you learned this term may fade with disuse, and the assistants will keep improving, but the durable skill, the one that will still be yours when the tools have changed, is the judgment: knowing what correct means, being able to say it precisely, being able to read what you are given, and always, always checking. The machine is a powerful new way to instruct a computer. It is your job to instruct it well, and to never stop verifying what it does.</p>
+<p>For your final exercises, turn the term’s habits back on themselves. Identify one task from the course where, looking back, you should not have used the assistant, either because you could not really check its answer, or because leaning on it cost you an understanding you later needed, and say what you would do differently. Then identify one task where the assistant genuinely let you produce something correct that you could not have written unaided, and be specific about which part of your checking made that safe. Finally, take one biological claim the assistant makes, in an explanation or a comment, and verify it against a real source rather than against the assistant itself, and record whether it held.</p>
+<p>For your last logbook entry, look across the whole term. Describe how your use of the assistant changed as your understanding grew, from the first weeks when it could only explain things to you, through the point where you let it draft and learned to distrust the draft, to the capstone where you delegated real work and kept the responsibility. Name the single habit from this course you most want to still have in three years, and say why.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1235,13 +1055,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../python/classes.html" class="pagination-link" aria-label="Classes">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Classes</span></span>
+      <a href="../ai/finale-kickoff.html" class="pagination-link" aria-label="Finale: formulating and planning your own tool">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../python/debugging.html" class="pagination-link" aria-label="Debugging">
-        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Debugging</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ai/the-ai-off-test.html" class="pagination-link" aria-label="The AI-off test: how you know you have learned it">
+        <span class="nav-page-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

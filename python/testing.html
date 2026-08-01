@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>28&nbsp; Primer analysis – Instructing Machines</title>
+<title>19&nbsp; Testing – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,8 +71,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../python/debugging.html" rel="next">
-<link href="../python/classes.html" rel="prev">
+<link href="../ai/explain-then-confirm.html" rel="next">
+<link href="../python/iteration.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,35 +118,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -159,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/iteration.html">Week 4</a></li><li class="breadcrumb-item"><a href="../python/testing.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Testing</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -348,7 +319,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
   </div>
 </li>
@@ -435,7 +406,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link active">
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
@@ -674,25 +645,32 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-
+<p><a href="#dnldts1629" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgVGVzdGluZyB7I3NlYy10ZXN0aW5nfVxuIiwKICAgICJcbiIsCiAgICAiKlRoaXMgY2hhcHRlciBpcyBhYm91dCBob3cgeW91IGZpZ3VyZSBvdXQgaWYgdGhlIGNvZGUgeW91IHdyb3RlIHNvbHZlcyB0aGUgcHJvYmxlbSBpbiB0aGUgd2F5IHlvdSBpbnRlbmRlZC4gWW91IHdpbGwgYmUgc3VycHJpc2VkIGhvdyBvZnRlbiB0aGF0IGlzIG5vdCB0aGUgY2FzZSAtLSBldmVuIGZvciBzZWFzb25lZCBwcm9ncmFtbWVycy4qXG4iLAogICAgIlxuIiwKICAgICIjIyBXaHkgdGVzdCB5b3VyIGNvZGU/XG4iLAogICAgIlxuIiwKICAgICJUaGVyZSBhcmUgdG9ucyBvZiByZWFzb25zIHdoeSB5b3Ugc2hvdWxkIHRlc3QgeW91ciBjb2RlLiBIZXJlIGFyZSB3aGF0IEkgdGhpbmsgYXJlIHRoZSB0d28gbW9zdCBpbXBvcnRhbnQgb25lczpcbiIsCiAgICAiXG4iLAogICAgIjEuICoqTWFrZXMgeW91IHRoaW5rOioqIFRlc3RpbmcgZm9yY2VzIHlvdSB0byBzbG93IGRvd24gYW5kIHRoaW5rIGFib3V0IGV4YWN0bHkgd2hhdCB0aGUgY29kZSBpcyBzdXBwb3NlZCB0byBkby4gQnkgZGVjaWRpbmcgd2hhdCB0ZXN0cyB0byBkbyBiZWZvcmUgeW91IHN0YXJ0IGNvZGluZywgeW91IHRyeSB0byBhbnRpY2lwYXRlIGVycm9ycyBhbmQgY2FzZXMgdGhhdCBuZWVkIHRvIGJlIGNvdmVyZWQgYnkgaG93IHlvdSB3YW50IHRvIHNvbHZlIHRoZSBwcm9ibGVtLiBUaGUgbm90aW9uIG9mIGZhbHNpZmljYXRpb24gaXMgaW1wb3J0YW50IGluIHNjaWVuY2UgYW5kIGluIGNvZGluZywgdG9vLiBZb3Ugc2hvdWxkIHRyeSB0byBwcm92ZSB0aGF0IHlvdXIgaWRlYSBpcyB3cm9uZyBhbmQgY29uc2lkZXIgaXQgdmFsaWQgb25seSBpZiB0aGlzIHByb2Nlc3MgZmFpbHMuIFNvLCB0ZXN0aW5nIG1vdGl2YXRlcyB5b3UgdG8gdGhpbmsgYWJvdXQgd2F5cyB0byBicmVhayB0aGVpciBjb2RlLCB0aGVyZWJ5IGhlbHBpbmcgeW91IHNvbHZlIHlvdXIgcHJvZ3JhbW1pbmcgcHJvYmxlbSBpbiBhIGdlbmVyYWwgYW5kIHJvYnVzdCB3YXkgc28gdGhhdCBpdCBkb2VzIGV4YWN0bHkgd2hhdCB5b3UgZXhwZWN0IGl0IHRvIGRvLlxuIiwKICAgICIyLiAqKkdpdmVzIHlvdSBwZWFjZSBvZiBtaW5kOioqIFRlc3RpbmcgaW5jcmVhc2VzIHlvdXIgY29uZmlkZW5jZSB0aGF0IGEgZnVuY3Rpb24geW91IGhhdmUgd3JpdHRlbiB3b3JrcyBhcyBpdCBpcyBzdXBwb3NlZCB0byBzbyB0aGF0IHlvdSBjYW4gbm93IHN0b3AgdGhpbmtpbmcgYWJvdXQgaG93IGl0IGlzIGltcGxlbWVudGVkIGFuZCBmb2N1cyBvbiB1c2luZyBpdCBhcyBhIGNvbXBvbmVudCBpbiBzb2x2aW5nIGEgbGFyZ2VyLCBtb3JlIGNvbXBsaWNhdGVkIHByb2JsZW0uIEhhdmluZyBzZXQgdXAgYSBzZXJpZXMgb2YgdGVzdHMgYWxzbyBhbGxvd3MgeW91IHRvIGNoYW5nZSBhbmQgaW1wcm92ZSB5b3VyIGZ1bmN0aW9uJ3MgaW1wbGVtZW50YXRpb24gd2l0aG91dCB3b3JyeWluZyB0aGF0IGl0IHN0b3BzIHdvcmtpbmcgdGhlIHdheSBpdCBpcyBzdXBwb3NlZCB0by4gQXMgbG9uZyBhcyBpdCBwYXNzZXMgYWxsIHRoZSB0ZXN0cywgaXQgc2hvdWxkIGJlIG9rLlxuIiwKICAgICJcbiIsCiAgICAiVGVzdGluZyBvZiBjb2RlIGlzIGEgKmJpZyogdGhpbmcgaW4gcHJvZ3JhbW1pbmcuIFByb2Zlc3Npb25hbHMgY29uc2lzdGVudGx5IHRlc3QgdGhlaXIgY29kZS4gWW91IHdpbGwgZG8gaXQgaW4gdGltZSwgdG9vLCBidXQgaW4gdGhpcyBjb3Vyc2UsIHlvdSB3aWxsIG9ubHkgZG8gdGhlIGJhc2ljIHRlc3RpbmcgeW91cnNlbGYuIEluc3RlYWQsIHlvdSB3aWxsIGhhdmUgYWNjZXNzIHRvIHJlYWR5bWFkZSB0ZXN0aW5nIHN1aXRlcyBtYWRlIGVzcGVjaWFsbHkgZm9yIGVhY2ggb2YgeW91ciBwcm9ncmFtbWluZyBwcm9qZWN0cy5cbiIsCiAgICAiXG4iLAogICAgIiMjIEJhc2ljIHRlc3RpbmdcbiIsCiAgICAiXG4iLAogICAgIlNheSB0aGF0IHlvdSBhcmUgYXNrZWQgdG8gbWFrZSBhIGZ1bmN0aW9uIHRoYXQgdGFrZXMgYSBzdHJpbmcgYXJndW1lbnQgYW5kIHJldHVybnMgYFRydWVgIGlmIHRoYXQgc3RyaW5nIGlzIGEgcGFsaW5kcm9tZSBhbmQgYEZhbHNlYCBvdGhlcndpc2UgKGh5cG90aGV0aWNhbCBleGFtcGxlKS4gVGhlbiB5b3Ugc3RhcnQgdGhpbmtpbmcgYWJvdXQgd2hpY2ggc3RyaW5ncyBzaG91bGQgbWFrZSB0aGUgZnVuY3Rpb24gcmV0dXJuIGBUcnVlYCBhbmQgd2hpY2ggcmV0dXJuIGBGYWxzZWAuIE9uY2UgeW91IGhhdmUgZGVmaW5lZCB5b3VyIGBpc19wYWxpbmRyb21lYCBmdW5jdGlvbiwgeW91IGNhbiBzZXQgdXAgc29tZSBmYWlybHkgb2J2aW91cyB0ZXN0cyBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicHJpbnQoaXNfcGFsaW5kb21lKCcxMjMzMjEnKSA9PSBUcnVlKVxuIiwKICAgICJwcmludChpc19wYWxpbmRvbWUoJ0FUR0dUQScpID09IFRydWUpXG4iLAogICAgInByaW50KGlzX3BhbGluZG9tZSgnQVRHQVRHJykgPT0gRmFsc2UpXG4iLAogICAgInByaW50KGlzX3BhbGluZG9tZSgnWFknKSA9PSBGYWxzZSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJCdXQgaWYgeW91IGtlZXAgdGhpbmtpbmcsIG1heWJlIHlvdSB3aWxsIGNvbWUgdXAgd2l0aCBtb3JlIHRlc3RzIHRvIGNvdmVyIGFsbCB0aGUgZGlmZmVyZW50IHR5cGVzIG9mIGNhc2VzIHlvdSBtYXkgZW5jb3VudGVyOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgInByaW50KGlzX3BhbGluZG9tZSgnMTIzMjEnKSA9PSBUcnVlKSAjIHVuZXZlbiBsZW5ndGhcbiIsCiAgICAicHJpbnQoaXNfcGFsaW5kb21lKCcxMjEnKSA9PSBUcnVlKSAjIHVuZXZlbiBsZW5ndGhcbiIsCiAgICAicHJpbnQoaXNfcGFsaW5kb21lKCdBQScpID09IFRydWUpXG4iLAogICAgInByaW50KGlzX3BhbGluZG9tZSgnQScpID09IFRydWUpICMgc2luZ2xlIGNoYXJcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICIjIyBUaGUgcHJvamVjdCB0ZXN0aW5nIHV0aWxpdHlcbiIsCiAgICAiXG4iLAogICAgIlRvIGtlZXAgeW91IGZvY3VzZWQgb24gdGhlIHByb2dyYW1taW5nIHBhcnQsIGVhY2ggb2YgdGhlIHByb2dyYW1taW5nIHByb2plY3RzIHlvdSB3aWxsIGRvIGluIHRoaXMgY291cnNlIGNvbWVzIHdpdGggYSByZWFkeS1tYWRlIHN1aXRlIG9mIHRlc3RzIG9mIHRoZSBmdW5jdGlvbnMgeW91IGFyZSBhc2tlZCB0byBpbXBsZW1lbnQuIFNvLCBmb3IgZWFjaCBmdW5jdGlvbiwgeW91IGNhbiBydW4gdGVzdHMgdG8gZW5zdXJlIGl0IGltcGxlbWVudHMgdGhlIGJlaGF2aW9yIGl0IGlzIHN1cHBvc2VkIHRvLlxuIiwKICAgICJcbiIsCiAgICAiRWFjaCBwcm9qZWN0IGNvbWVzIHdpdGggdHdvIGZpbGVzIHRoYXQgeW91IGNhbiBkb3dubG9hZCBmcm9tIHRoZSBjb3Vyc2UgcGFnZS4gVGhleSBoYXZlIHRoZWlyIG5hbWVzIGZvciBhIGdvb2QgcmVhc29uLCBzbyBkbyBub3QgY2hhbmdlIHRoZW0uIEluIHRoZSBmaXJzdCBwcm9qZWN0IGFib3V0IHRyYW5zbGF0aW5nIEROQSwgdGhleSBhcmUgY2FsbGVkIGB0cmFuc2xhdGlvbnByb2plY3QucHlgIGFuZCBgdGVzdF90cmFuc2xhdGlvbnByb2plY3QucHlgLiAgXG4iLAogICAgIlxuIiwKICAgICJUbyBiZSBhYmxlIHRvIHRlc3QgeW91ciBmdW5jdGlvbnMsIHlvdSAqbXVzdCogd3JpdGUgeW91ciBjb2RlIGluIHRoZSBmaWxlIGNhbGxlZCBgdHJhbnNsYXRpb25wcm9qZWN0LnB5YC4gVG8gcnVuIHlvdXIgY29kZSwgeW91IHR5cGUgdGhpcyBpbiB0aGUgVGVybWluYWwgYXMgdXN1YWw6XG4iLAogICAgIlxuIiwKICAgICJgYGB7LnR4dCBmaWxlbmFtZT1cIlRlcm1pbmFsXCJ9XG4iLAogICAgInB5dGhvbiB0cmFuc2xhdGlvbnByb2plY3QucHlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJUbyB0ZXN0IHRoZSBmdW5jdGlvbnMgYXMgeW91IGNvbXBsZXRlIGVhY2ggb25lLCB5b3UgY2FuIHJ1biB0aGUgdGVzdCBzY3JpcHQgYHRlc3RfdHJhbnNsYXRpb25wcm9qZWN0LnB5YCBsaWtlIHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGB7LnR4dCBmaWxlbmFtZT1cIlRlcm1pbmFsXCJ9XG4iLAogICAgInB5dGhvbiB0ZXN0X3RyYW5zbGF0aW9ucHJvamVjdC5weVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIlRoZSBjb2RlIGluIGB0ZXN0X3RyYW5zbGF0aW9ucHJvamVjdC5weWAgcmVhZHMgeW91ciBjb2RlIGluIGB0cmFuc2xhdGlvbnByb2plY3QucHlgIGFuZCBwZXJmb3JtcyBhIHNlcmllcyBvZiB0ZXN0cyBvZiBlYWNoIGZ1bmN0aW9uLiBXaGVuIHlvdSBydW4gdGhlIHRlc3Qgc2NyaXB0LCBmb3VyIHRoaW5ncyBtYXkgaGFwcGVuIGRlcGVuZGluZyBvbiB0aGUgc3RhdGUgb2YgeW91ciBjb2RlOlxuIiwKICAgICJcbiIsCiAgICAiKipDYXNlIDE6KiogSWYgeW91IGhhdmUgbm90IHlldCBpbXBsZW1lbnRlZCBhbGwgdGhlIGZ1bmN0aW9ucywgdGhlIHRlc3Qgc2NyaXB0IHdpbGwgcmVtaW5kIHlvdSAob25jZSBmb3IgZWFjaCB0ZXN0KSB0aGF0IHlvdSBkaWQgbm90IGltcGxlbWVudCB0aGUgZnVuY3Rpb25zIHdpdGggdGhlIG5hbWVzIHJlcXVpcmVkLlxuIiwKICAgICJcbiIsCiAgICAiYGBgey50eHQgZmlsZW5hbWU9XCJUZXJtaW5hbFwifVxuIiwKICAgICIqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKipcbiIsCiAgICAiQVRURU5USU9OISBUaGUgZm9sbG93aW5nIGZ1bmN0aW9ucyBhcmUgbm90IGRlZmluZWQ6XG4iLAogICAgIlxuIiwKICAgICJcdHRyYW5zbGF0ZV9jb2RvblxuIiwKICAgICJcdHNwbGl0X2NvZG9uc1xuIiwKICAgICJcdHRyYW5zbGF0ZV9vcmZcbiIsCiAgICAiXG4iLAogICAgIlRoZXNlIGZ1bmN0aW9ucyBhcmUgZWl0aGVyIG5vdCBjb3JyZWN0bHkgbmFtZWQgKHNwZWxsZWQpXG4iLAogICAgIm9yIG5vdCBkZWZpbmVkIGF0IGFsbC4gVGhleSB3aWxsIGJlIG1hcmtlZCBhcyBGQUlMRUQuXG4iLAogICAgIkNoZWNrIHlvdXIgc3BlbGxpbmcgaWYgdGhpcyBpcyBub3Qgd2hhdCB5b3UgaW50ZW5kLlxuIiwKICAgICIqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKipcbiIsCiAgICAiXG4iLAogICAgIlJhbiAxNiB0ZXN0cyBpbiAwLjAwMHNcbiIsCiAgICAiXG4iLAogICAgIk9LIChza2lwcGVkPTE0KVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIklmIHlvdSBoYXZlIGltcGxlbWVudGVkIGEgZnVuY3Rpb24gYnV0IG1pc3NwZWxsZWQgaXRzIG5hbWUsIHlvdSB3aWxsIGFsc28gZ2V0IHRoaXMgdHlwZSBvZiByZW1pbmRlci4gVGhlIHJlbWluZGVycyBhcmUgbWVhbnQgdG8gZW5zdXJlIHRoYXQgeW91IGRvIG5vdCBoYW5kIGluIHRoZSBhc3NpZ25tZW50IHdpdGggbWlzc2luZyBvciBtaXNzcGVsbGVkIGZ1bmN0aW9uIGRlZmluaXRpb25zLlxuIiwKICAgICJcbiIsCiAgICAiKipDYXNlIDI6KiogSWYgYSB0ZXN0IGZvciBvbmUgb2YgdGhlIGZ1bmN0aW9ucyB5b3UgaGF2ZSB3cml0dGVuIGZhaWxzLCB0aGUgdGVzdGluZyBpcyBhYm9ydGVkLCBhbmQgdGhlIHNjcmlwdCBwcmludHMgc29tZSBpbmZvcm1hdGlvbiB0byBoZWxwIHlvdSB1bmRlcnN0YW5kIHdoYXQgdGhlIHByb2JsZW0gY291bGQgYmUuIFNheSB5b3Ugd3JvdGUgdGhlIGZ1bmN0aW9uIGB0cmFuc2xhdGVfY29kb25gIHdyb25nbHkgc28gdGhhdCBpdCBhbHdheXMgcmV0dXJucyBgTWAgZm9yIHNvbWUgcmVhc29uOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImRlZiB0cmFuc2xhdGVfY29kb24oY29kb24pOlxuIiwKICAgICIgICAgcmV0dXJuICdNJyAjIGNyYXp5XG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAidGhlbiB5b3Ugd291bGQgZ2V0IHRoaXMgbWVzc2FnZTpcbiIsCiAgICAiXG4iLAogICAgImBgYHsudHh0IGZpbGVuYW1lPVwiVGVybWluYWxcIn1cbiIsCiAgICAiRkFJTEVEIFRFU1QgQ0FTRTogdGVzdF90cmFuc2xhdGVfY29kb25fMlxuIiwKICAgICJcbiIsCiAgICAiTUVTU0FHRTpcbiIsCiAgICAiICAgIFRoZSBjYWxsOlxuIiwKICAgICJcbiIsCiAgICAiICAgICAgICB0cmFuc2xhdGVfY29kb24oJ1RBQScpXG4iLAogICAgIlxuIiwKICAgICIgICAgcmV0dXJuZWQ6XG4iLAogICAgIlxuIiwKICAgICIgICAgICAgICdNJ1xuIiwKICAgICJcbiIsCiAgICAiICAgIEhvd2V2ZXIsIGl0IHNob3VsZCByZXR1cm46XG4iLAogICAgIlxuIiwKICAgICIgICAgICAgICcqJ1xuIiwKICAgICJcbiIsCiAgICAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuIiwKICAgICJSYW4gNCB0ZXN0cyBpbiAwLjAwMXNcbiIsCiAgICAiXG4iLAogICAgIkZBSUxFRCAoZmFpbHVyZXM9MSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJJdCBpcyBub3cgbGVmdCB0byB5b3UgdG8gZmlndXJlIG91dCB3aHkgeW91ciBmdW5jdGlvbiByZXR1cm5zIHRoZSB3cm9uZyB2YWx1ZSB3aGVuIGNhbGxlZCB3aXRoIHRoZXNlIGFyZ3VtZW50cy5cbiIsCiAgICAiXG4iLAogICAgIioqQ2FzZSAzOioqIElmIHlvdSBkZWZpbmVkIGFsbCBmdW5jdGlvbnMgY29ycmVjdGx5IGFuZCB0aGV5IGFsbCB3b3JrIHRoZSB3YXkgdGhleSBhcmUgc3VwcG9zZWQgdG8sIHRoZW4gdGhlIHRlc3Qgc2NyaXB0IGp1c3QgcHJpbnRzOlxuIiwKICAgICJcbiIsCiAgICAiYGBgXG4iLAogICAgIlJhbiAxNCB0ZXN0cyBpbiAwLjE0MHNcbiIsCiAgICAiXG4iLAogICAgIk9LXG4iLAogICAgImBgYFxuIgogICBdCiAgfQogXSwKICJtZXRhZGF0YSI6IHsKICAia2VybmVsc3BlYyI6IHsKICAgImRpc3BsYXlfbmFtZSI6ICJQeXRob24gMyIsCiAgICJsYW5ndWFnZSI6ICJweXRob24iLAogICAibmFtZSI6ICJweXRob24zIgogIH0sCiAgImxhbmd1YWdlX2luZm8iOiB7CiAgICJjb2RlbWlycm9yX21vZGUiOiB7CiAgICAibmFtZSI6ICJpcHl0aG9uIiwKICAgICJ2ZXJzaW9uIjogMwogICB9LAogICAiZmlsZV9leHRlbnNpb24iOiAiLnB5IiwKICAgIm1pbWV0eXBlIjogInRleHQveC1weXRob24iLAogICAibmFtZSI6ICJweXRob24iLAogICAibmJjb252ZXJ0X2V4cG9ydGVyIjogInB5dGhvbiIsCiAgICJweWdtZW50c19sZXhlciI6ICJpcHl0aG9uMyIsCiAgICJ2ZXJzaW9uIjogIjMuMTQuNiIKICB9CiB9LAogIm5iZm9ybWF0IjogNCwKICJuYmZvcm1hdF9taW5vciI6IDQKfQo=').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'testing.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts1629"><i class="bi bi-download"></i> Download notebook </button></a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#count-the-number-of-bases-in-your-candidate-primer" id="toc-count-the-number-of-bases-in-your-candidate-primer" class="nav-link active" data-scroll-target="#count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</a></li>
-  <li><a href="#compute-the-melting-temperature" id="toc-compute-the-melting-temperature" class="nav-link" data-scroll-target="#compute-the-melting-temperature">Compute the melting temperature</a></li>
-  <li><a href="#reverse-complement-the-sequence" id="toc-reverse-complement-the-sequence" class="nav-link" data-scroll-target="#reverse-complement-the-sequence">Reverse complement the sequence</a></li>
-  <li><a href="#check-for-hairpins" id="toc-check-for-hairpins" class="nav-link" data-scroll-target="#check-for-hairpins">Check for hairpins</a></li>
+  <li><a href="#why-test-your-code" id="toc-why-test-your-code" class="nav-link active" data-scroll-target="#why-test-your-code">Why test your code?</a></li>
+  <li><a href="#basic-testing" id="toc-basic-testing" class="nav-link" data-scroll-target="#basic-testing">Basic testing</a></li>
+  <li><a href="#the-project-testing-utility" id="toc-the-project-testing-utility" class="nav-link" data-scroll-target="#the-project-testing-utility">The project testing utility</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/iteration.html">Week 4</a></li><li class="breadcrumb-item"><a href="../python/testing.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Testing</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-folding-project" class="quarto-section-identifier"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></h1>
+<h1 class="title"><span id="sec-testing" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Testing</span></span></h1>
 </div>
 
 
@@ -709,120 +687,103 @@ window.Quarto = {
 </header>
 
 
-<p>Say you have a short sequence that you want to use as a PCR primer. To evaluate if it a suitable primer, you need to know the melting temperature of the sequence. You also need to make sure that it will not fold up on itself so that it cannot bind to the DNA sequence you want to amplify.</p>
-<p>Download the files you need for this project:</p>
-<p><a href="#dnldts753" onclick="fetch('data:application/x-python;base64,CiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBXcml0ZSB5b3VyIGZ1bmN0aW9ucyBkZWZpbml0aW9ucyBiZWxvdy4KIyBEbyBub3Qgd3JpdGUgYW55IG90aGVyIGNvZGUgaGVyZS4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBvbmx5IHlvdXIgZnVuY3Rpb24gZGVmaW5pdGlvbnMuLi4KCgoKCgoKCgoKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBDb2RlIGZvciBjYWxsaW5nIGFuZCB0ZXN0aW5nIHlvdXIgZnVuY3Rpb25zIHNob3VsZCBiZSBiZWxvdwojIGhlcmUuIElmIHlvdSBzZXBhcmF0ZSBmdW5jdGlvbiBkZWZpbml0aW9ucyBmcm9tIHRoZSByZXN0IG9mCiMgeW91ciBzY3JpcHQgaW4gdGhpcyB3YXksIHlvdSBhcmUgbGVzcyBsaWtlbHkgdG8gbWFrZSBtaXN0YWtlcy4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBhbnkgb3RoZXIgY29kZSAuLi4KCgoKCgo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts753"><i class="bi bi-download"></i> foldingproject.py </button></a> <a href="#dnldts49721" onclick="fetch('data:application/x-python;base64,IiIiVGVzdHMgZm9yIHRoZSBmb2xkaW5nIC8gcHJpbWVyLWFuYWx5c2lzIHByb2plY3QgKHBvcnRlZCB0byBweXRlc3QpLgoKRXZlcnkgdGVzdCByZWNlaXZlcyBgYHNvbGBgIOKAlCB5b3VyIHNvbHV0aW9uIG1vZHVsZSDigJQgYW5kIHVzZXMgdGhlIGBgcmVxdWlyZXNgYAptYXJrZXIgc28gYW4gdW53cml0dGVuIGZ1bmN0aW9uIGlzIHJlcG9ydGVkIGFzICJub3QgZGVmaW5lZCIgaW5zdGVhZCBvZiBjcmFzaGluZy4KIiIiCmltcG9ydCBweXRlc3QKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImNvdW50X2Jhc2VzIikKZGVmIHRlc3RfY291bnRfYmFzZXMoc29sKToKICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJ0FUR0cnKSA9PSB7J0EnOiAxLCAnQyc6IDAsICdHJzogMiwgJ1QnOiAxfQogICAgYXNzZXJ0IHNvbC5jb3VudF9iYXNlcygnQVRHR0NDJykgPT0geydBJzogMSwgJ1QnOiAxLCAnRyc6IDIsICdDJzogMn0KICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJycpID09IHsnQSc6IDAsICdUJzogMCwgJ0cnOiAwLCAnQyc6IDB9CgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnQoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCdBVEdDJykgPT0gJ0dDQVQnCgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnRfZW1wdHkoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCcnKSA9PSAnJwoKCkBweXRlc3QubWFyay5yZXF1aXJlcygicmV2ZXJzZV9jb21wbGVtZW50IikKZGVmIHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50X2hvbW9wb2x5bWVyKHNvbCk6CiAgICAjIFByZXZpb3VzbHkgc2hhZG93ZWQgYnkgYSBkdXBsaWNhdGUgYHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50XzJgIG5hbWUgaW4gdGhlCiAgICAjIG9yaWdpbmFsIHVuaXR0ZXN0IGZpbGU7IHBvcnRlZCBoZXJlIHVuZGVyIGEgZGlzdGluY3QgbmFtZSBzbyBpdCBydW5zLgogICAgYXNzZXJ0IHNvbC5yZXZlcnNlX2NvbXBsZW1lbnQoJ0FBQUFBQUEnKSA9PSAnVFRUVFRUVCcKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoIm1lbHRpbmdfdGVtcCIpCmRlZiB0ZXN0X21lbHRpbmdfdGVtcChzb2wpOgogICAgYXNzZXJ0IHNvbC5tZWx0aW5nX3RlbXAoJ0FURycpID09IHB5dGVzdC5hcHByb3goOCwgYWJzPTFlLTQpCiAgICBhc3NlcnQgc29sLm1lbHRpbmdfdGVtcCgnQUFBQUFUVFRUVENDQ0NDR0dHR0cnKSA9PSBweXRlc3QuYXBwcm94KAogICAgICAgIDUxLjc4MDAwMDAwMDAwMDAxLCBhYnM9MWUtNCkKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImhhc19oYWlycGluIikKZGVmIHRlc3RfaGFzX2hhaXJwaW4oc29sKToKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0NDQVRBVCcsIDQpID09IFRydWUKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0FUQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCAyKSA9PSBUcnVlCiAgICBhc3NlcnQgc29sLmhhc19oYWlycGluKCdHR0dHQVRBVENDQ0NBVEFUJywgNCkgPT0gVHJ1ZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignR0dHR0dHQVRBVENDQ0NDQ0FUQVQnLCA2KSA9PSBUcnVlCg==').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'test_foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts49721"><i class="bi bi-download"></i> test_foldingproject.py </button></a></p>
-<p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
-<ul>
-<li><code>foldingproject.py</code> is an empty file where you must write your code.</li>
-<li><code>test_foldingproject.py</code> is the test program that lets you test the code you write in translationproject.py.</li>
-</ul>
-<p>Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose “Save file as…” or “Download linked file”.</p>
-<section id="count-the-number-of-bases-in-your-candidate-primer" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</h2>
-<p>Before you can compute the melting temperature, you need to determine how many times each base occurs in the sequence. You can assume that the only characters in the string are A, T, G, and C.</p>
-<p><em>Write a function</em>, <code>count_bases</code>, which takes one argument:</p>
+<p><em>This chapter is about how you figure out if the code you wrote solves the problem in the way you intended. You will be surprised how often that is not the case – even for seasoned programmers.</em></p>
+<section id="why-test-your-code" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="why-test-your-code">Why test your code?</h2>
+<p>There are tons of reasons why you should test your code. Here are what I think are the two most important ones:</p>
 <ol type="1">
-<li>A string, which is a DNA sequence.</li>
+<li><strong>Makes you think:</strong> Testing forces you to slow down and think about exactly what the code is supposed to do. By deciding what tests to do before you start coding, you try to anticipate errors and cases that need to be covered by how you want to solve the problem. The notion of falsification is important in science and in coding, too. You should try to prove that your idea is wrong and consider it valid only if this process fails. So, testing motivates you to think about ways to break their code, thereby helping you solve your programming problem in a general and robust way so that it does exactly what you expect it to do.</li>
+<li><strong>Gives you peace of mind:</strong> Testing increases your confidence that a function you have written works as it is supposed to so that you can now stop thinking about how it is implemented and focus on using it as a component in solving a larger, more complicated problem. Having set up a series of tests also allows you to change and improve your function’s implementation without worrying that it stops working the way it is supposed to. As long as it passes all the tests, it should be ok.</li>
 </ol>
-<p>The function must return:</p>
-<ul>
-<li>A dictionary, which in which keys are strings that represent bases and values are integers that represent the number of occurrences of each base. If a base is not found in the sequence, its count must be zero.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count_bases(<span class="st">"ATGG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return (not necessarily with key-value pairs in the same order):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"A"</span>: <span class="dv">1</span>, <span class="st">"C"</span>: <span class="dv">0</span>, <span class="st">"G"</span>: <span class="dv">2</span>, <span class="st">"T"</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Testing of code is a <em>big</em> thing in programming. Professionals consistently test their code. You will do it in time, too, but in this course, you will only do the basic testing yourself. Instead, you will have access to readymade testing suites made especially for each of your programming projects.</p>
 </section>
-<section id="compute-the-melting-temperature" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="compute-the-melting-temperature">Compute the melting temperature</h2>
-<p>Knowing the base composition in your sequence, you can now calculate the melting temperature the double-stranded DNA that forms when your primer pairs up with the sequence to amplify. If the primer has less than 14 bases the formula for calculating melting temperature is:</p>
-<p><span class="math display">\[ Temp = (A + T) * 2 + (G + C) * 4 \]</span></p>
-<p>and if the primer has 14 bases or more it is calculated like this:</p>
-<p><span class="math display">\[ Temp = 64.9 + 41 * (G + C - 16.4) / (A + T + G + C) \]</span></p>
-<p>The A, T, C, and G in the formulas represent the numbers of A, T, C and G in the DNA primer.</p>
-<p>You must write a function that applies these two formulas appropriately by taking the length of the primer into account.</p>
-<p><em>Write a function</em>, <code>melting_temp</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence (your primer).</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A number, which represents the melting temperature of the double-stranded DNA corresponding to the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>melting_temp(<span class="st">"ATG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="basic-testing" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="basic-testing">Basic testing</h2>
+<p>Say that you are asked to make a function that takes a string argument and returns <code>True</code> if that string is a palindrome and <code>False</code> otherwise (hypothetical example). Then you start thinking about which strings should make the function return <code>True</code> and which return <code>False</code>. Once you have defined your <code>is_palindrome</code> function, you can set up some fairly obvious tests like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'123321'</span>) <span class="op">==</span> <span class="va">True</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'ATGGTA'</span>) <span class="op">==</span> <span class="va">True</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'ATGATG'</span>) <span class="op">==</span> <span class="va">False</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'XY'</span>) <span class="op">==</span> <span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>But if you keep thinking, maybe you will come up with more tests to cover all the different types of cases you may encounter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'12321'</span>) <span class="op">==</span> <span class="va">True</span>) <span class="co"># uneven length</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'121'</span>) <span class="op">==</span> <span class="va">True</span>) <span class="co"># uneven length</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'AA'</span>) <span class="op">==</span> <span class="va">True</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_palindome(<span class="st">'A'</span>) <span class="op">==</span> <span class="va">True</span>) <span class="co"># single char</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="reverse-complement-the-sequence" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="reverse-complement-the-sequence">Reverse complement the sequence</h2>
-<p>It is possible that one part of the primer forms base pairs with another part of the primer to form a hairpin structure. To figure out if this can happen to your primer, you need to be able to find the reverse complement of DNA sequence. The reverse complement of a DNA sequence is one where the sequence of bases is first reversed, and then each base is replaced with its Watson-Crick complementary base.</p>
-<p><em>Write a function</em>, <code>reverse_complement</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A string, which represents the reverse complement of the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reverse_complement(<span class="st">"AATTC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"GAATT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<!-- TODO: Add function to test if the primer can form a dimer (interacting with another sequence) -->
-</section>
-<section id="check-for-hairpins" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="check-for-hairpins">Check for hairpins</h2>
-<p>You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consequtive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick basepairs. Here is an example of a hairpin with five basepairs and a loop of four bases (four Cs):</p>
-<pre><code>        C C
-      C     C
-       A - T
-       T - A
-       A - T
-       T - A
-       A - T</code></pre>
-<p>To test if a sequence can form a hairpin with at least four consequtive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another nonoverlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.</p>
-<p><em>Write a function</em>, <code>has_hairpin</code>, which takes two arguments:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-<li>An integer, which represents the minimum number of consequtive base pairs in the hairpins to search for.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li><code>True</code> if the sequence contains a hairpin of at least the specified length and <code>False</code> otherwise.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(has_hairpin(<span class="st">"ATATACCCCTATAT"</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is a hard one, so I will give you a bit of help. Here is the function with some parts missing.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> has_hairpin(s, k):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    looplen <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        subs <span class="op">=</span> <span class="co"># Hint A</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        right <span class="op">=</span> <span class="co"># Hint B</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        revcl <span class="op">=</span> reverse_complement(subs)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> revcl <span class="kw">in</span> right[looplen:]:</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Hint A: Here you need to extract a substring of length k starting at i. Hint B: Here you need to extract all the sequence to the right of <code>substr</code>.</p>
+<section id="the-project-testing-utility" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="the-project-testing-utility">The project testing utility</h2>
+<p>To keep you focused on the programming part, each of the programming projects you will do in this course comes with a ready-made suite of tests of the functions you are asked to implement. So, for each function, you can run tests to ensure it implements the behavior it is supposed to.</p>
+<p>Each project comes with two files that you can download from the course page. They have their names for a good reason, so do not change them. In the first project about translating DNA, they are called <code>translationproject.py</code> and <code>test_translationproject.py</code>.</p>
+<p>To be able to test your functions, you <em>must</em> write your code in the file called <code>translationproject.py</code>. To run your code, you type this in the Terminal as usual:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>python translationproject.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To test the functions as you complete each one, you can run the test script <code>test_translationproject.py</code> like this:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>python test_translationproject.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The code in <code>test_translationproject.py</code> reads your code in <code>translationproject.py</code> and performs a series of tests of each function. When you run the test script, four things may happen depending on the state of your code:</p>
+<p><strong>Case 1:</strong> If you have not yet implemented all the functions, the test script will remind you (once for each test) that you did not implement the functions with the names required.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>*********************************************************</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ATTENTION! The following functions are not defined:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    translate_codon</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    split_codons</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    translate_orf</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>These functions are either not correctly named (spelled)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>or not defined at all. They will be marked as FAILED.</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>Check your spelling if this is not what you intend.</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>*********************************************************</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>Ran 16 tests in 0.000s</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>OK (skipped=14)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you have implemented a function but misspelled its name, you will also get this type of reminder. The reminders are meant to ensure that you do not hand in the assignment with missing or misspelled function definitions.</p>
+<p><strong>Case 2:</strong> If a test for one of the functions you have written fails, the testing is aborted, and the script prints some information to help you understand what the problem could be. Say you wrote the function <code>translate_codon</code> wrongly so that it always returns <code>M</code> for some reason:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> translate_codon(codon):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'M'</span> <span class="co"># crazy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>then you would get this message:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>FAILED TEST CASE: test_translate_codon_2</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>MESSAGE:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    The call:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        translate_codon('TAA')</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    returned:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        'M'</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    However, it should return:</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        '*'</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>======================================================================</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>Ran 4 tests in 0.001s</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>FAILED (failures=1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It is now left to you to figure out why your function returns the wrong value when called with these arguments.</p>
+<p><strong>Case 3:</strong> If you defined all functions correctly and they all work the way they are supposed to, then the test script just prints:</p>
+<pre><code>Ran 14 tests in 0.140s
+
+OK</code></pre>
 
 
 </section>
@@ -1235,13 +1196,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../python/classes.html" class="pagination-link" aria-label="Classes">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Classes</span></span>
+      <a href="../python/iteration.html" class="pagination-link" aria-label="Iteration">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Iteration</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../python/debugging.html" class="pagination-link" aria-label="Debugging">
-        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Debugging</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ai/explain-then-confirm.html" class="pagination-link" aria-label="Ask it to explain, then confirm by running">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

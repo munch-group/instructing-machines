@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>28&nbsp; Primer analysis – Instructing Machines</title>
+<title>2&nbsp; Insides – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,8 +71,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../python/debugging.html" rel="next">
-<link href="../python/classes.html" rel="prev">
+<link href="../ai/meet-ai.html" rel="next">
+<link href="../ai/machine-insides.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -83,7 +83,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,35 +117,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -159,7 +129,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/machine-insides.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/insides.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Insides</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -213,7 +183,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
   </div>
 </li>
@@ -435,7 +405,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link active">
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
@@ -680,19 +650,23 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#count-the-number-of-bases-in-your-candidate-primer" id="toc-count-the-number-of-bases-in-your-candidate-primer" class="nav-link active" data-scroll-target="#count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</a></li>
-  <li><a href="#compute-the-melting-temperature" id="toc-compute-the-melting-temperature" class="nav-link" data-scroll-target="#compute-the-melting-temperature">Compute the melting temperature</a></li>
-  <li><a href="#reverse-complement-the-sequence" id="toc-reverse-complement-the-sequence" class="nav-link" data-scroll-target="#reverse-complement-the-sequence">Reverse complement the sequence</a></li>
-  <li><a href="#check-for-hairpins" id="toc-check-for-hairpins" class="nav-link" data-scroll-target="#check-for-hairpins">Check for hairpins</a></li>
+  <li><a href="#sec-part1-machine" id="toc-sec-part1-machine" class="nav-link active" data-scroll-target="#sec-part1-machine"><span class="header-section-number">3</span> Part 1 — What a computer is, from the bottom up</a>
+  <ul class="collapse">
+  <li><a href="#sec-switches" id="toc-sec-switches" class="nav-link" data-scroll-target="#sec-switches">It’s switches all the way down</a></li>
+  <li><a href="#sec-anatomy" id="toc-sec-anatomy" class="nav-link" data-scroll-target="#sec-anatomy">The three parts that do the work</a></li>
+  <li><a href="#sec-turing" id="toc-sec-turing" class="nav-link" data-scroll-target="#sec-turing">A machine that was only ever imagined: the Turing machine</a></li>
+  <li><a href="#sec-os" id="toc-sec-os" class="nav-link" data-scroll-target="#sec-os">The operating system: the manager in the middle</a></li>
+  <li><a href="#sec-software" id="toc-sec-software" class="nav-link" data-scroll-target="#sec-software">Software is just files full of instructions</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/machine-insides.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/insides.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Insides</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-folding-project" class="quarto-section-identifier"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></h1>
+<h1 class="title"><span id="sec-insides" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Insides</span></span></h1>
 </div>
 
 
@@ -709,122 +683,159 @@ window.Quarto = {
 </header>
 
 
-<p>Say you have a short sequence that you want to use as a PCR primer. To evaluate if it a suitable primer, you need to know the melting temperature of the sequence. You also need to make sure that it will not fold up on itself so that it cannot bind to the DNA sequence you want to amplify.</p>
-<p>Download the files you need for this project:</p>
-<p><a href="#dnldts753" onclick="fetch('data:application/x-python;base64,CiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBXcml0ZSB5b3VyIGZ1bmN0aW9ucyBkZWZpbml0aW9ucyBiZWxvdy4KIyBEbyBub3Qgd3JpdGUgYW55IG90aGVyIGNvZGUgaGVyZS4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBvbmx5IHlvdXIgZnVuY3Rpb24gZGVmaW5pdGlvbnMuLi4KCgoKCgoKCgoKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBDb2RlIGZvciBjYWxsaW5nIGFuZCB0ZXN0aW5nIHlvdXIgZnVuY3Rpb25zIHNob3VsZCBiZSBiZWxvdwojIGhlcmUuIElmIHlvdSBzZXBhcmF0ZSBmdW5jdGlvbiBkZWZpbml0aW9ucyBmcm9tIHRoZSByZXN0IG9mCiMgeW91ciBzY3JpcHQgaW4gdGhpcyB3YXksIHlvdSBhcmUgbGVzcyBsaWtlbHkgdG8gbWFrZSBtaXN0YWtlcy4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBhbnkgb3RoZXIgY29kZSAuLi4KCgoKCgo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts753"><i class="bi bi-download"></i> foldingproject.py </button></a> <a href="#dnldts49721" onclick="fetch('data:application/x-python;base64,IiIiVGVzdHMgZm9yIHRoZSBmb2xkaW5nIC8gcHJpbWVyLWFuYWx5c2lzIHByb2plY3QgKHBvcnRlZCB0byBweXRlc3QpLgoKRXZlcnkgdGVzdCByZWNlaXZlcyBgYHNvbGBgIOKAlCB5b3VyIHNvbHV0aW9uIG1vZHVsZSDigJQgYW5kIHVzZXMgdGhlIGBgcmVxdWlyZXNgYAptYXJrZXIgc28gYW4gdW53cml0dGVuIGZ1bmN0aW9uIGlzIHJlcG9ydGVkIGFzICJub3QgZGVmaW5lZCIgaW5zdGVhZCBvZiBjcmFzaGluZy4KIiIiCmltcG9ydCBweXRlc3QKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImNvdW50X2Jhc2VzIikKZGVmIHRlc3RfY291bnRfYmFzZXMoc29sKToKICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJ0FUR0cnKSA9PSB7J0EnOiAxLCAnQyc6IDAsICdHJzogMiwgJ1QnOiAxfQogICAgYXNzZXJ0IHNvbC5jb3VudF9iYXNlcygnQVRHR0NDJykgPT0geydBJzogMSwgJ1QnOiAxLCAnRyc6IDIsICdDJzogMn0KICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJycpID09IHsnQSc6IDAsICdUJzogMCwgJ0cnOiAwLCAnQyc6IDB9CgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnQoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCdBVEdDJykgPT0gJ0dDQVQnCgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnRfZW1wdHkoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCcnKSA9PSAnJwoKCkBweXRlc3QubWFyay5yZXF1aXJlcygicmV2ZXJzZV9jb21wbGVtZW50IikKZGVmIHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50X2hvbW9wb2x5bWVyKHNvbCk6CiAgICAjIFByZXZpb3VzbHkgc2hhZG93ZWQgYnkgYSBkdXBsaWNhdGUgYHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50XzJgIG5hbWUgaW4gdGhlCiAgICAjIG9yaWdpbmFsIHVuaXR0ZXN0IGZpbGU7IHBvcnRlZCBoZXJlIHVuZGVyIGEgZGlzdGluY3QgbmFtZSBzbyBpdCBydW5zLgogICAgYXNzZXJ0IHNvbC5yZXZlcnNlX2NvbXBsZW1lbnQoJ0FBQUFBQUEnKSA9PSAnVFRUVFRUVCcKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoIm1lbHRpbmdfdGVtcCIpCmRlZiB0ZXN0X21lbHRpbmdfdGVtcChzb2wpOgogICAgYXNzZXJ0IHNvbC5tZWx0aW5nX3RlbXAoJ0FURycpID09IHB5dGVzdC5hcHByb3goOCwgYWJzPTFlLTQpCiAgICBhc3NlcnQgc29sLm1lbHRpbmdfdGVtcCgnQUFBQUFUVFRUVENDQ0NDR0dHR0cnKSA9PSBweXRlc3QuYXBwcm94KAogICAgICAgIDUxLjc4MDAwMDAwMDAwMDAxLCBhYnM9MWUtNCkKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImhhc19oYWlycGluIikKZGVmIHRlc3RfaGFzX2hhaXJwaW4oc29sKToKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0NDQVRBVCcsIDQpID09IFRydWUKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0FUQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCAyKSA9PSBUcnVlCiAgICBhc3NlcnQgc29sLmhhc19oYWlycGluKCdHR0dHQVRBVENDQ0NBVEFUJywgNCkgPT0gVHJ1ZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignR0dHR0dHQVRBVENDQ0NDQ0FUQVQnLCA2KSA9PSBUcnVlCg==').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'test_foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts49721"><i class="bi bi-download"></i> test_foldingproject.py </button></a></p>
-<p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
-<ul>
-<li><code>foldingproject.py</code> is an empty file where you must write your code.</li>
-<li><code>test_foldingproject.py</code> is the test program that lets you test the code you write in translationproject.py.</li>
-</ul>
-<p>Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose “Save file as…” or “Download linked file”.</p>
-<section id="count-the-number-of-bases-in-your-candidate-primer" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</h2>
-<p>Before you can compute the melting temperature, you need to determine how many times each base occurs in the sequence. You can assume that the only characters in the string are A, T, G, and C.</p>
-<p><em>Write a function</em>, <code>count_bases</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A dictionary, which in which keys are strings that represent bases and values are integers that represent the number of occurrences of each base. If a base is not found in the sequence, its count must be zero.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count_bases(<span class="st">"ATGG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return (not necessarily with key-value pairs in the same order):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"A"</span>: <span class="dv">1</span>, <span class="st">"C"</span>: <span class="dv">0</span>, <span class="st">"G"</span>: <span class="dv">2</span>, <span class="st">"T"</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Before you write a single line of Python, two pictures are worth having in your head: what a computer actually is, and what the AI you will be talking to actually is. This note draws both — and shows why the second one is the reason this whole course exists.</em></p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/d86ws7mQYIg" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A note on where this lives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a two-part draft written to sit early in the book, right after the getting-started material. Part 1 is the content flagged for <code>machine-insides</code> (what’s inside the machine) and Part 2 grows out of <code>history-of-instruction</code> (the ladder from machine code to AI) and carries it into how modern AI models work. It leans on the same visual language as the re-anchoring poster (<code>machine-map-poster.html</code>): <strong>amber = kept on the disk</strong>, <strong>blue = temporary in memory</strong>, <strong>slate = the CPU</strong>, <strong>teal = tools you drive</strong>, <strong>purple = the AI, elsewhere on purpose</strong>. Keep the poster next to you while you read.</p>
+</div>
+</div>
+<p>You are about to spend fourteen weeks giving instructions to a machine, and part of that time telling an AI to give instructions to the same machine on your behalf. It helps enormously to know, in broad strokes, what is actually sitting under your fingers. You do not need to become an electrical engineer. You need a mental model — a small, sturdy picture you can return to whenever the words pile up. That is all Part 1 is. Part 2 then builds the same kind of picture for the AI, and the two pictures together set up the single most important idea in the course.</p>
+<p>Let’s open the box.</p>
+<hr>
+<section id="sec-part1-machine" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part 1 — What a computer is, from the bottom up</h1>
+<section id="sec-switches" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-switches">It’s switches all the way down</h2>
+<p>Deep down, a computer is millions of tiny switches, and each switch is either off or on. That’s it. There is no secret third thing. We write “off” as <code>0</code> and “on” as <code>1</code>, and one such off-or-on is called a <strong>bit</strong> — the smallest possible piece of information.</p>
+<p>One bit on its own can’t say much. But line eight of them up and you get a <strong>byte</strong>, and a byte can be in 256 different patterns — enough to stand for a number from 0 to 255, or a single letter, or one dot of color. Group bytes together and you can represent anything at all: this sentence, a photograph, a song, an entire genome, or the program that is reading them.</p>
+<div id="fig-everything-is-numbers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-everything-is-numbers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/fig-everything-is-numbers.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-everything-is-numbers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Underneath everything, a computer stores numbers made of bits — and the <em>meaning</em> of those bits comes from the program that reads them, never from the bits themselves.
+</figcaption>
+</figure>
+</div>
+<p>Here is the one idea to carry out of this section, because we will lean on it all term. The bits are dumb. The number <code>01100100</code> in <a href="#fig-everything-is-numbers" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> does not “know” whether it is the number 100, the letter <code>'d'</code>, or a shade of gray. Its meaning comes entirely from the piece of code that decides how to read it. When you learn later that in Python <code>'d'</code> and <code>100</code> are different <em>types</em>, this is why: a type is nothing more than an agreement about how to read some bits. Hold onto that; it will save you a lot of confusion in a few weeks.</p>
 </section>
-<section id="compute-the-melting-temperature" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="compute-the-melting-temperature">Compute the melting temperature</h2>
-<p>Knowing the base composition in your sequence, you can now calculate the melting temperature the double-stranded DNA that forms when your primer pairs up with the sequence to amplify. If the primer has less than 14 bases the formula for calculating melting temperature is:</p>
-<p><span class="math display">\[ Temp = (A + T) * 2 + (G + C) * 4 \]</span></p>
-<p>and if the primer has 14 bases or more it is calculated like this:</p>
-<p><span class="math display">\[ Temp = 64.9 + 41 * (G + C - 16.4) / (A + T + G + C) \]</span></p>
-<p>The A, T, C, and G in the formulas represent the numbers of A, T, C and G in the DNA primer.</p>
-<p>You must write a function that applies these two formulas appropriately by taking the length of the primer into account.</p>
-<p><em>Write a function</em>, <code>melting_temp</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence (your primer).</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A number, which represents the melting temperature of the double-stranded DNA corresponding to the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>melting_temp(<span class="st">"ATG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="sec-anatomy" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-anatomy">The three parts that do the work</h2>
+<p>Inside the box, three components matter most for us (<a href="#fig-machine-anatomy" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>), and the whole trick to keeping them straight is a single distinction: some things are <strong>kept</strong> and some things are <strong>temporary</strong>.</p>
+<div id="fig-machine-anatomy" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-machine-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/fig-machine-anatomy.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-machine-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: The three parts that do the work. The disk <em>keeps</em> things; memory <em>forgets</em> things; the CPU works only on whatever memory is holding right now.
+</figcaption>
+</figure>
+</div>
+<p>The <strong>hard disk</strong> is where your files live — your code, your data, everything. Crucially, the disk is <em>permanent</em>: what you save there survives when you switch the computer off. When you “save a file,” you are writing it to the disk. It is roomy but slow.</p>
+<p>The <strong>memory</strong>, usually called <strong>RAM</strong>, holds whatever is <em>running right now</em> — the program that is currently going and the values it is working on. Memory is <em>temporary</em>: the instant a program stops, or the computer restarts, whatever was in memory is gone. This is the single most common source of beginner heartbreak, so let me say it plainly: <strong>nothing in memory is saved unless you write it to the disk.</strong> A value your program computed but never saved vanishes when the program ends. It was in the blue, not the amber.</p>
+<p>The <strong>CPU</strong> — the central processing unit — is the worker. It does the actual computing, one tiny step at a time, but staggeringly fast, billions of steps a second. And it has one important limitation: it only ever works on what is currently in memory. So the normal rhythm of a running program is <em>disk → memory → CPU</em>: a copy of your file is loaded from the disk into memory, and the CPU works through it from there.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The kept-vs-temporary habit
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Whenever something surprising happens — a value that “disappeared,” a change that “didn’t stick” — your first question should be: <em>was that thing kept on the disk, or was it only ever temporary in memory?</em> Nine times out of ten, that question is the answer.</p>
+</div>
+</div>
+<section id="exercise-solo" class="level4" data-number="3.0.0.1">
+<h4 data-number="3.0.0.1" class="anchored" data-anchor-id="exercise-solo"><strong>Exercise 3-1</strong></h4>
+<p>Before reading on, decide what you think and write it down. You run a program that calculates the number of <code>A</code> bases in a DNA sequence and prints the answer to the screen. You then close the program. Is that count still anywhere on the computer? Where was it while the program ran — kept, or temporary? Where would it need to go for you to still have it tomorrow?</p>
+<p><em>(Predict first. We will build the tools to actually save such a result in the chapter on files. For now the point is only to feel the kept/temporary line.)</em></p>
 </section>
-<section id="reverse-complement-the-sequence" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="reverse-complement-the-sequence">Reverse complement the sequence</h2>
-<p>It is possible that one part of the primer forms base pairs with another part of the primer to form a hairpin structure. To figure out if this can happen to your primer, you need to be able to find the reverse complement of DNA sequence. The reverse complement of a DNA sequence is one where the sequence of bases is first reversed, and then each base is replaced with its Watson-Crick complementary base.</p>
-<p><em>Write a function</em>, <code>reverse_complement</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A string, which represents the reverse complement of the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reverse_complement(<span class="st">"AATTC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"GAATT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<!-- TODO: Add function to test if the primer can form a dimer (interacting with another sequence) -->
 </section>
-<section id="check-for-hairpins" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="check-for-hairpins">Check for hairpins</h2>
-<p>You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consequtive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick basepairs. Here is an example of a hairpin with five basepairs and a loop of four bases (four Cs):</p>
-<pre><code>        C C
-      C     C
-       A - T
-       T - A
-       A - T
-       T - A
-       A - T</code></pre>
-<p>To test if a sequence can form a hairpin with at least four consequtive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another nonoverlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.</p>
-<p><em>Write a function</em>, <code>has_hairpin</code>, which takes two arguments:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-<li>An integer, which represents the minimum number of consequtive base pairs in the hairpins to search for.</li>
-</ol>
-<p>The function must return:</p>
+<section id="sec-turing" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turing">A machine that was only ever imagined: the Turing machine</h2>
+<p>You just met the CPU: a worker that does one tiny step at a time, extremely fast. That idea — <em>everything, no matter how clever, is really just a long chain of tiny mechanical steps</em> — is so important that it is worth meeting the moment it was born, years before any chip existed.</p>
+<p>In 1936, a young mathematician named Alan Turing asked a beautifully simple question: <em>what is the least a machine would need in order to compute anything at all?</em> His answer became one of the most famous ideas in all of science, and it is small enough to fit in your head.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>“Wait — was it a real machine?”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Not quite, and the difference is lovely. The Turing machine was a <em>thought experiment</em> — a machine Turing built on paper and in his head to reason about what computers could and could not do, never a device he bolted together in a workshop. (People have since built working models for the fun of it, and Turing himself went on to help design very real machines, including ones that broke wartime codes.) So when we say “the machine does this,” picture a machine you are running in your imagination. That it was imaginary is exactly what made it powerful: Turing could prove things about <em>every possible computer</em> by studying this one tiny made-up one.</p>
+</div>
+</div>
+<p>Here is the whole machine. There is a long paper <strong>tape</strong> divided into squares, and each square holds a single symbol — say a <code>0</code>, a <code>1</code>, or a blank. There is a <strong>head</strong> parked over one square that can do only three things: <em>read</em> the symbol under it, <em>write</em> a new symbol in its place, and <em>move</em> one square left or right. There is a <strong>state</strong> — a little sticky-note reminding the machine roughly “where am I in the task.” And there is a fixed <strong>table of rules</strong>: for every combination of <em>(current state, symbol under the head)</em> the table says what to write, which way to move, and which state to switch to next.</p>
+<div id="fig-turing-machine" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-turing-machine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/fig-turing-machine.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-turing-machine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.3: The Turing machine: a tape of symbols, a head that reads and writes one square, a current state, and a fixed table of rules. It reads, looks up the matching rule, writes, moves one step, changes state, and repeats.
+</figcaption>
+</figure>
+</div>
+<p>And that is <em>all</em> it does, as <a href="#fig-turing-machine" class="quarto-xref">Figure&nbsp;<span>3.3</span></a> shows: read the square under the head, look up the one rule that matches the current state and symbol, write, move one step, change state — then do it again, and again, until it reaches a rule that says <em>stop</em>. No screen, no keyboard, no apps. Just a head shuffling along a tape, following a table.</p>
+<p>If that sounds too feeble to matter, hold that thought — and first try running it yourself, because the whole spirit of this course is to <em>do all the little steps in your head</em> before trusting anything to do them for you.</p>
+<section id="exercise-solo-1" class="level4" data-number="3.0.0.2">
+<h4 data-number="3.0.0.2" class="anchored" data-anchor-id="exercise-solo-1"><strong>Exercise 3-2</strong></h4>
+<p>Grab a scrap of paper. Draw three squares holding <code>0 1 1</code>, put the head on the leftmost square, and set the state to <strong>A</strong>. Now follow exactly these three rules, one step at a time:</p>
 <ul>
-<li><code>True</code> if the sequence contains a hairpin of at least the specified length and <code>False</code> otherwise.</li>
+<li>In state <strong>A</strong> reading <code>0</code> → write <code>1</code>, move right, stay in <strong>A</strong>.</li>
+<li>In state <strong>A</strong> reading <code>1</code> → write <code>0</code>, move right, switch to <strong>B</strong>.</li>
+<li>In state <strong>B</strong> reading <code>1</code> → write <code>1</code>, move left, then <strong>STOP</strong>.</li>
 </ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(has_hairpin(<span class="st">"ATATACCCCTATAT"</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is a hard one, so I will give you a bit of help. Here is the function with some parts missing.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> has_hairpin(s, k):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    looplen <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        subs <span class="op">=</span> <span class="co"># Hint A</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        right <span class="op">=</span> <span class="co"># Hint B</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        revcl <span class="op">=</span> reverse_complement(subs)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> revcl <span class="kw">in</span> right[looplen:]:</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Hint A: Here you need to extract a substring of length k starting at i. Hint B: Here you need to extract all the sequence to the right of <code>substr</code>.</p>
+<p>Before you start: <em>predict</em> what the three squares will say when the machine stops, and where the head will end up. Then trace it slowly and check. (Did you get <code>1 0 1</code>, halted on the middle square? If not, find the step where your prediction and the rules parted ways — that hunt is the real exercise.)</p>
+<p>Now the astonishing part. This ridiculous little tape-shuffler can compute <strong>anything that any computer can compute</strong> — your laptop included. Give it the right table of rules and it can add numbers, sort a list, or translate a DNA sequence into a protein. Even better, Turing showed you can build a <em>universal</em> one: a single machine whose rules let it read <em>a description of any other machine</em> written on its tape, and then act it out. One machine that can become any machine, just by being fed the right instructions. That is the theoretical birth certificate of the thing on your desk — a <strong>general-purpose computer</strong> that runs any program you give it.</p>
+<p>So how does this paper fantasy line up with the chips from the last section? Strikingly well in its bones, and completely differently in its body.</p>
+<div id="fig-turing-vs-modern" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-turing-vs-modern-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/fig-turing-vs-modern.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-turing-vs-modern-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.4: The Turing machine and a modern computer share a deep idea — fixed rules, one step at a time, a universal machine that runs any program — but differ completely in how they are built and how fast they go.
+</figcaption>
+</figure>
+</div>
+<p>The <strong>similarities</strong> run deep, as <a href="#fig-turing-vs-modern" class="quarto-xref">Figure&nbsp;<span>3.4</span></a> lays out. Both grind through a fixed set of instructions one tiny step at a time — the head’s read-write-move loop is a paper ancestor of the CPU doing one small operation after another. Both keep the <em>storage</em> (the tape) separate from the <em>worker</em> (the head and its rules), just as your computer keeps memory separate from the CPU. And notice that on the tape, the rules and the data sit together as plain symbols — which is exactly the modern truth that <em>a program is just more data in memory</em>. When Python reads your <code>hello.py</code> and acts it out, it is playing the role of a universal machine reading instructions off a tape. You will feel that same idea again in Part 2.</p>
+<p>The <strong>differences</strong> are mostly about being real instead of imagined. The Turing machine has an <em>endless</em> tape; your computer has finite memory — enormous, but not infinite. The head must shuffle left and right, square by square, to reach a distant spot; your computer can jump straight to any location at once (that instant jumping is the “random access” in the name <strong>RAM</strong>). And where the imagined machine plods one symbol at a time, a real chip does billions of steps a second, using the tiny on/off switches — transistors — you met at the very start of this note. The tape became memory, the head became the CPU, and the rule table became the program. The dream was 1936; the hardware caught up later.</p>
+<p>Keep this picture close, because it quietly sets up everything ahead: if <em>any</em> computation is really just simple steps following a table of rules over stored symbols, then the whole game of programming is writing good tables of rules — and the whole story of Part 2 is about the ever-friendlier ways we have invented to write them.</p>
+</section>
+</section>
+<section id="sec-os" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-os">The operating system: the manager in the middle</h2>
+<p>You never actually talk to the disk, memory, and CPU directly. Sitting between your programs and the hardware is the <strong>operating system</strong> — macOS, Windows, or Linux are all operating systems. Think of it as the manager of the whole building.</p>
+<div id="fig-os-stack" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-os-stack-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/fig-os-stack.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-os-stack-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.5: The operating system sits between your programs and the hardware, handing out memory, finding files, and sharing the CPU so your programs don’t have to fight over the electronics.
+</figcaption>
+</figure>
+</div>
+<p>As <a href="#fig-os-stack" class="quarto-xref">Figure&nbsp;<span>3.5</span></a> shows, when your program wants to open a file, it doesn’t go rummaging through the disk itself; it asks the operating system, and the operating system finds the file and hands it over. When a program needs memory to work in, the operating system parcels some out. When you have a browser, an editor, and a music player all running at once, the operating system is the one sharing the single CPU between them, giving each a slice of time so quickly that they all <em>seem</em> to run at the same moment. It also draws the windows on your screen and listens to your keyboard.</p>
+<p>For this course you mostly won’t think about the operating system — but two of its jobs will touch you directly. It is the operating system that gives you the <strong>terminal</strong>, the place where you’ll type <code>python hello.py</code>. And it is the operating system that organizes your files into folders, which is why the very first practical skill in this course is finding your way around folders in the terminal with <code>cd</code> and <code>ls</code>.</p>
+</section>
+<section id="sec-software" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-software">Software is just files full of instructions</h2>
+<p>So what is a “program,” or a piece of “software”? It is, in the end, a file on the disk full of instructions for the CPU. A game, your browser, VS Code, Python itself — every one of them is a file of instructions that the operating system loads into memory and lets the CPU carry out.</p>
+<p>But there’s a catch that the whole rest of this note hangs on. The CPU only understands one language, and it is a brutally simple one: <strong>machine code</strong>, raw numbers standing for the tiniest possible actions — <em>move this number here, add these two, compare them, jump to that instruction</em>. Machine code is total control and utterly unreadable by humans:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>10111000 00000100 00000000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>That is roughly “put the number 4 into a register.” No human writes serious programs like that, and no human should have to. The entire history of programming is the story of building friendlier and friendlier languages on <em>top</em> of machine code — and then having the machine translate back down. That story is Part 2’s on-ramp, and it’s where your first program and your first AI conversation both fit in.</p>
+<p>–</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1235,13 +1246,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../python/classes.html" class="pagination-link" aria-label="Classes">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Classes</span></span>
+      <a href="../ai/machine-insides.html" class="pagination-link" aria-label="Machine insides">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Machine insides</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../python/debugging.html" class="pagination-link" aria-label="Debugging">
-        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Debugging</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ai/meet-ai.html" class="pagination-link" aria-label="Meet the assistant">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

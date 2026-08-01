@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>28&nbsp; Primer analysis – Instructing Machines</title>
+<title>16&nbsp; Dictionaries – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,8 +71,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../python/debugging.html" rel="next">
-<link href="../python/classes.html" rel="prev">
+<link href="../python/tuples.html" rel="next">
+<link href="../python/lists.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,35 +118,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -159,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/how-models-produce-code.html">Week 3</a></li><li class="breadcrumb-item"><a href="../python/dictionaries.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dictionaries</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -319,7 +290,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
   </div>
 </li>
@@ -435,7 +406,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link active">
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
@@ -674,25 +645,31 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-
+<p><a href="#dnldts26818" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgRGljdGlvbmFyaWVzIHsjc2VjLWRpY3Rpb25hcmllc31cbiIsCiAgICAiXG4iLAogICAgIjwhLS0gXFxpbmNsdWRlZ3JhcGhpY3NbaGVpZ2h0PVxcZm9udGNoYXJodFxcZm9udGBcXEJde3BpY3R1cmUucG5nfSAtLT5cbiIsCiAgICAiXG4iLAogICAgIipUaGlzIGNoYXB0ZXIgaXMgYWJvdXQgZGljdGlvbmFyaWVzIHRoYXQsIGxpa2UgbGlzdHMsIGlzIGFub3RoZXIgUHl0aG9uIHZhbHVlIHRoYXQgY2FuIGNvbnRhaW4gb3RoZXIgUHl0aG9uIHZhbHVlcy4gRGljdGlvbmFyaWVzIGRpY3Rpb25hcmllcyBsZXQgeW91IGJ1aWxkIHJlbGF0aW9uc2hpcHMgYmV0d2VlbiB2YWx1ZXMsIHdoaWNoIGlzIHdoYXQgZGF0YSBzdHJ1Y3R1cmVzIHJlcHJlc2VudC4qXG4iLAogICAgIlxuIiwKICAgICIjIyBEaWN0aW9uYXJpZXNcbiIsCiAgICAiXG4iLAogICAgIkxpc3RzIGFyZSB1c2VmdWwgZm9yIHN0b3JpbmcgdmFsdWVzIHdoZW4gdGhlIG9yZGVyIG9mIHRoZSB2YWx1ZXMgaXMgaW1wb3J0YW50LCBidXQgdGhleSBoYXZlIG9uZSBkcmF3YmFjazogeW91IGNhbiBvbmx5IGFjY2VzcyBhIHZhbHVlIGluIGEgbGlzdCB1c2luZyBpdHMgaW5kZXguXG4iLAogICAgIlxuIiwKICAgICJBIGRpY3Rpb25hcnkgY2FsbGVkIGBkaWN0YCBpbiBQeXRob24sIGlzIGEgbXVjaCBtb3JlIGZsZXhpYmxlIGRhdGEgdHlwZS4gTGlrZSBhIGxpc3QsIGEgZGljdGlvbmFyeSBpcyBhIGNvbnRhaW5lciBmb3Igb3RoZXIgdmFsdWVzLCBidXQgZGljdGlvbmFyaWVzIGRvIG5vdCBzdG9yZSB2YWx1ZXMgaW4gc2VxdWVuY2UuIFRoZXkgd29yayBtb3JlIGxpa2UgYSBkYXRhYmFzZSB0aGF0IGxldHMgeW91IHN0b3JlIGluZGl2aWR1YWwgKnZhbHVlcyouIFdoZW4geW91IHN0b3JlIGEgdmFsdWUsIHlvdSBhc3NpZ24gaXQgdG8gYSAqa2V5KiB0aGF0IHlvdSBjYW4gdXNlIHRvIGFjY2VzcyB0aGUgc3RvcmVkIHZhbHVlLiBOb3csIGNyZWF0ZSB5b3VyIGZpcnN0IGRpY3Rpb25hcnk6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicGVyc29uID0geyduYW1lJzogJ1JvYmVydCBSZWRmb3JkJywgJ2hlaWdodCc6IDE3OSwgJ2pvYic6ICdBY3Rvcid9XG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiVGhpcyBkaWN0aW9uYXJ5IGhhcyB0aHJlZSB2YWx1ZXMgKGAnQWN0b3InYCwgYCdSb2JlcnQgUmVkZm9yZCdgIGFuZCBgMTc5YCkgYW5kIGVhY2ggdmFsdWUgaXMgYXNzb2NpYXRlZCB3aXRoIGEga2V5LiBIZXJlIGAnaGVpZ2h0J2AgaXMgdGhlIGtleSBmb3IgdGhlIHZhbHVlIGAxNzlgLiBTbywgd2hlbiBkZWZpbmluZyBhIGRpY3Rpb25hcnksIHlvdSBzaG91bGQgbm90ZSB0aGUgZm9sbG93aW5nOlxuIiwKICAgICJcbiIsCiAgICAiMS4gWW91IG1ha2UgYSBkaWN0aW9uYXJ5IHVzaW5nIGJyYWNlcy5cbiIsCiAgICAiMi4geW91IHB1dCBrZXktdmFsdWUgcGFpcnMgc2VwYXJhdGVkIGJ5IGEgY29sb24gYmV0d2VlbiB5b3VyIGJyYWNlcy5cbiIsCiAgICAiMy4gQ29tbWFzIHNlcGFyYXRlIHRoZSBrZXktdmFsdWUgcGFpcnMuXG4iLAogICAgIjQuIFRvIG1ha2UgYW4gZW1wdHkgZGljdGlvbmFyeSwgd3JpdGUgdGhlIGJyYWNlcyB3aXRoIG5vdGhpbmcgYmV0d2VlbiB0aGVtOiBge31gLlxuIiwKICAgICJcbiIsCiAgICAiVG8gYWNjZXNzIGEgdmFsdWUgaW4gdGhlIGRpY3Rpb25hcnksIHlvdSBwdXQgaXRzIGtleSBpbiBzcXVhcmUgYnJhY2tldHMgYWZ0ZXIgdGhlIGRpY3Rpb25hcnk6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiXCJ7fSBpcyBhIHt9IGNtIHt9XCIuZm9ybWF0KHBlcnNvblsnbmFtZSddLCBwZXJzb25bJ2hlaWdodCddLCBwZXJzb25bJ2pvYiddKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkhlcmUgd2UgdXNlZCBzdHJpbmdzIGFzIGtleXMsIGJ1dCB5b3UgY2FuIGFsc28gdXNlIG1hbnkgdHlwZXMgb2YgdmFsdWVzIGFzIGtleXMgKFB5dGhvbiB3aWxsIGdpdmUgeW91IGFuIGVycm9yIGlmIHlvdSB0cnkgdG8gdXNlIGEgdHlwZSB0aGF0IGlzIG5vdCBhbGxvd2VkKTpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJtaXNjX2RpY3QgPSB7NDI6IFwiTWVhbmluZyBvZiBsaWZlXCIsIFwicGlcIjogMy4xNDE1OSwgVHJ1ZTogN31cbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJBIGRpY3Rpb25hcnkgc3RvcmVzIGtleS12YWx1ZSBwYWlycyBidXQgZG9lcyBub3Qga2VlcCB0cmFjayBvZiB0aGVpciBvcmRlci4gU28sIHdoZW4geW91IHByaW50IGEgZGljdGlvbmFyeSwgdGhlIG9yZGVyIG9mIHRoZSBrZXktdmFsdWUgcGFpcnMgaXMgYXJiaXRyYXJ5LlxuIiwKICAgICJcbiIsCiAgICAiSWYgeW91IGhhdmUgYSBkaWN0aW9uYXJ5LCB5b3UgY2FuIGFkZCBrZXktdmFsdWUgcGFpcnMgaW4gdGhpcyB3YXk6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicGVyc29uWydqb2InXSA9ICdSZXRpcmVkJ1xuIiwKICAgICJwZXJzb25bJ2hhaXInXSA9ICd1bmlxdWVseSBjb21iZWQnXG4iLAogICAgInByaW50KHBlcnNvbilcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJOb3RpY2UgdGhhdCBpZiB5b3UgYXNzaWduIGEgdmFsdWUgKGA3MWApIHRvIGEga2V5IHRoYXQgaXMgYWxyZWFkeSBpbiB0aGUgZGljdGlvbmFyeSAoYCdhZ2UnYCksIHRoZW4gdGhlIG9sZCB2YWx1ZSAoYDcwYCkgaXMgcmVwbGFjZWQuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIldoYXQgZG9lcyB0aGlzIGV4cHJlc3Npb24gZXZhbHVhdGUgdG8/XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAieyduYW1lJzogJ1JvYmVydCBSZWRmb3JkJywgJ2hlaWdodCc6IDE3OSwgJ2pvYic6ICdBY3Rvcid9WyduYW1lJ11cbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIkFzc3VtaW5nIHRoZSBkZWZpbml0aW9uIG9mIHRoZSBgcGVyc29uYCBkaWN0aW9uYXJ5IGFib3ZlLCB3aGF0IGRvZXMgdGhpcyBleHByZXNzaW9uIGV2YWx1YXRlPyBDb21wYXJlIHRoaXMgdG8gdGhlIGV4cHJlc3Npb24gaW4gdGhlIHByZXZpb3VzIGV4ZXJjaXNlLlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgInBlcnNvblsnbmFtZSddXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJUaGUgKmluKiBvcGVyYXRvciBhbHNvIHdvcmtzIHdpdGggZGljdGlvbmFyaWVzLiBMb29rIGF0IHdoYXQgdGhlc2UgZXhwcmVzc2lvbnMgcmVkdWNlIHRvIGFuZCB0aGVuIHRyeSB0byBmaWd1cmUgb3V0IHdoYXQgKmluKiBkb2VzIHdoZW4gYXBwbGllZCB0byBhIGRpY3Rpb25hcnk6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiJ25hbWUnIGluIHBlcnNvblxuIiwKICAgICInaGVpZ2h0JyBpbiBwZXJzb25cbiIsCiAgICAiJ2pvYicgaW4gcGVyc29uXG4iLAogICAgIjg0IGluIHBlcnNvblxuIiwKICAgICInQWN0b3InIGluIHBlcnNvblxuIiwKICAgICInUm9iZXJ0IFJlZGZvcmQnIGluIHBlcnNvblxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiV3JpdGUgYW5kIHJ1biB0aGlzIGNvZGUgd2l0aCBkaWZmZXJlbnQgdmFsdWVzIG9mIGBrZXlgIGFuZCByZWFkIGFueSBlcnJvciBtZXNzYWdlcy5cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJrZXkgPSAzXG4iLAogICAgIiMga2V5ID0gJ2JhbmFuYSdcbiIsCiAgICAiIyBrZXkgPSAzLjE0MTU5XG4iLAogICAgIiMga2V5ID0gVHJ1ZVxuIiwKICAgICIjIGtleSA9IHt9XG4iLAogICAgIiMga2V5ID0gW11cbiIsCiAgICAiZCA9IHt9XG4iLAogICAgImRba2V5XSA9IDdcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJBcmUgYW55IG9mIHRoZSB2YWx1ZXMgbm90IGFsbG93ZWQgYXMga2V5cz9cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiRG8geW91IHRoaW5rIHRoaXMgd2lsbCB3b3JrP1xuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgInBlcnNvbiA9IHsnbmFtZSc6ICdSb2JlcnQgUmVkZm9yZCcsIFxuIiwKICAgICIgICAgICAgICAgICAgICAgJ2hlaWdodCc6IDE3OSxcbiIsCiAgICAiICAgICAgICAgICAgICAgICdqb2InOiAnQWN0b3InfVxuIiwKICAgICJwcmludChwZXJzb24pXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiIyMgR2VuZXJhbCBleGVyY2lzZXNcbiIsCiAgICAiXG4iLAogICAgIjwhLS0gVE9ETzogRmluZCBhbm90aGVyIGV4YW1wbGUgdGhhbiBEb25hbGQgVHJ1bXAgLS0+XG4iLAogICAgIlxuIiwKICAgICJTdGFydCBieSBtYWtpbmcgZGljdGlvbmFyaWVzIGZvciAoc29tZSBvZikgdGhlIFRydW1wIGZhbWlseTpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJkb25hbGQgPSB7J25hbWUnOiAnRG9uYWxkIFRydW1wJywgJ2FnZSc6IDcwLCAnam9iJzogJ1ByZXNpZGVudCcgfVxuIiwKICAgICJtZWxhbmlhID0geyduYW1lJzogJ01lbGFuaWEgVHJ1bXAnLCAnYWdlJzogNzAsICdqb2InOiAnRmlyc3QgbGFkeScgfVxuIiwKICAgICJ0aWZmYW55ID0geyduYW1lJzogJ1RpZmZhbnkgVHJ1bXAnLCAnYWdlJzogMjMsICdqb2InOiAnSW50ZXJuZXQgcGVyc29uYWxpdHknIH1cbiIsCiAgICAiaXZhbmthID0geyduYW1lJzogJ0l2YW5rYSBUcnVtcCcsICdhZ2UnOiAzNSwgJ2pvYic6ICdUb3AgYWlkZScgfVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiV2hhdCBkbyB5b3UgdGhpbmsgdGhlIGZvbGxvd2luZyBjb2RlIHByb2R1Y2VzPyBEbyAqYWxsKiBvZiB0aGUgc3Vic3RpdHV0aW9uIGFuZCByZWR1Y3Rpb24gc3RlcHMgaW4geW91ciBoZWFkLCBhbmQgb25seSB0aGVuIHRyeSBvdXQgdGhlIGNvZGUuXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiZG9uYWxkWydjaGlsZCddID0gdGlmZmFueVxuIiwKICAgICJtZWxhbmlhWydodXNiYW5kJ10gPSBkb25hbGRcbiIsCiAgICAiXG4iLAogICAgInByaW50KG1lbGFuaWEpXG4iLAogICAgInByaW50KG1lbGFuaWFbJ2h1c2JhbmQnXVsnY2hpbGQnXSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIkEgZGljdGlvbmFyeSBjYW4gY29udGFpbiAqYW55KiBraW5kIG9mIFB5dGhvbiB2YWx1ZXMsIGV2ZW4gbGlzdHMgb3IgZGljdGlvbmFyaWVzLiBDb25zaWRlciB0aGUgY29kZSBiZWxvdywgd2hlcmUgd2UgYWRkIGEgbGlzdCBvZiBleC13aXZlcyB0byB0aGUgVHJ1bXAgcGVyc29uYS4gQ2FuIHlvdSBzZWUgd2h5IHdlIG5lZWQgdG8gY2hlY2sgdGhlIGAnZXgtd2l2ZXMnYCBrZXkgYmVmb3JlIHdlIGFkZCBpdCB0byB0aGUgbGlzdCBvZiBleC13aXZlcz9cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJkb25hbGQgPSB7J25hbWUnOiAnRG9uYWxkIFRydW1wJywgJ2FnZSc6IDcwLCAnam9iJzogJ1ByZXNpZGVudCcgfVxuIiwKICAgICJcbiIsCiAgICAiaWYgJ2V4LXdpdmVzJyBub3QgaW4gZG9uYWxkOlxuIiwKICAgICIgICAgZG9uYWxkWydleC13aXZlcyddID0gW11cbiIsCiAgICAiZG9uYWxkWydleC13aXZlcyddLmFwcGVuZCgnTWFybGEgTWFwbGVzJylcbiIsCiAgICAiZG9uYWxkWydleC13aXZlcyddLmFwcGVuZCgnSXZhbmEgVHJ1bXAnKVxuIiwKICAgICJcbiIsCiAgICAicHJpbnQoZG9uYWxkKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiSW4gY2FzZSB5b3Ugd29uZGVyIHdoYXQgdGhlICp0eXBlKiBvZiB2YWx1ZSBhIGxpc3QgaXMsIG9yIGEgZGljdGlvbmFyeSwgdHJ5IHRoaXM6XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAicHJpbnQoXCJBIGxpc3QgaGFzIHR5cGU6XCIsIHR5cGUoW10pKVxuIiwKICAgICJwcmludChcIkEgZGljdGlvbmFyeSBoYXMgdHlwZTpcIiwgdHlwZSh7fSkpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiTm93IHRoZSB0eXBlcyBgbGlzdGAgYW5kIGBkaWN0YCBhcmUgeW91ciBmcmllbmRzIHRvby5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiTGlzdHMgY2FuIGFsc28gY29udGFpbiBhbnkgdHlwZSBvZiB2YWx1ZS4gQ29uc2lkZXIgdGhpcyBleGFtcGxlLiBXaGF0IGRvIHlvdSB0aGluayB0aGUgZm9sbG93aW5nIGNvZGUgcHJvZHVjZXM/IERvICphbGwqIHRoZSBzdWJzdGl0dXRpb24gYW5kIHJlZHVjdGlvbiBzdGVwcyBpbiB5b3VyIGhlYWQsIGFuZCBvbmx5IHRoZW4gdHJ5IG91dCB0aGUgY29kZS5cbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJ0cnVtcF9mYW1pbHkgPSBbZG9uYWxkLCBtZWxhbmlhLCBpdmFua2EsIHRpZmZhbnldXG4iLAogICAgInByaW50KHRydW1wX2ZhbWlseSlcbiIsCiAgICAicHJpbnQodHJ1bXBfZmFtaWx5WzFdWydqb2InXSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIldyaXRlIGFuZCBydW4gdGhpcyBjb2RlXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiYW1pbm9fYWNpZHMgPSB7fVxuIiwKICAgICJhbWlub19hY2lkc1snQVRHJ10gPSAnbWV0J1xuIiwKICAgICJhbWlub19hY2lkc1snVENUJ10gPSAnc2VyJ1xuIiwKICAgICJhbWlub19hY2lkc1snVEFDJ10gPSAndHlyJ1xuIiwKICAgICJcbiIsCiAgICAiY29kb24gPSAnVENUJ1xuIiwKICAgICJwcmludChcInt9IGVuY29kZXMge31cIi5mb3JtYXQoY29kb24sIGFtaW5vX2FjaWRzW2NvZG9uXSkpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiXG4iLAogICAgIj4gWW91IGhhdmUgcHJvYmFibHkgbm90aWNlZCB0aGF0IHRoZSBpbnRlcnByZXRhdGlvbiBvZiBsZW5ndGggaXMgZGlmZmVyZW50IGZvciBlYWNoIHR5cGUgb2YgdmFsdWUuIEluIGEgc3RyaW5nLCBpdCBpcyB0aGUgbnVtYmVyIG9mIGNoYXJhY3RlcnM7IGluIGEgbGlzdCwgaXQgaXMgdGhlIG51bWJlciBvZiB2YWx1ZXMgaW4gdGhlIGxpc3Q7IGluIGEgZGljdGlvbmFyeSwgaXQgaXMgdGhlIG51bWJlciBvZiBrZXktdmFsdWUgcGFpcnMuIEhvdyBkbyB5b3UgdGhpbmsgUHl0aG9uIGtub3dzIHdoaWNoIGxlbmd0aCBpbnRlcnByZXRhdGlvbiB0byB1c2Ugd2hlbiB0aGUgYGxlbmAgZnVuY3Rpb24gaXMgY2FsbGVkPyBUaGlzIGlzIHdoZXJlIG9iamVjdHMgc2hpbmUuIGBsZW4oeClgIHJldHVybnMgdGhlIHZhbHVlIHRoYXQgYHguX19sZW5fXygpYCByZXR1cm5zLiBTbyB0aGUgYGxlbmAgZnVuY3Rpb24gaXMgZGVmaW5lZCByb3VnaGx5IGxpa2UgdGhpczpcbiIsCiAgICAiPiBgYGBcbiIsCiAgICAiPiBkZWYgbGVuKHgpOlxuIiwKICAgICI+ICAgICByZXR1cm4geC5fX2xlbl9fKClcbiIsCiAgICAiPiBgYGBcbiIsCiAgICAiPlxuIiwKICAgICI+IFNpbWlsYXJseSwgdGhlIGBpbmAgb3BlcmF0b3IgY2FsbHMgYSBzZWNyZXQgYF9fY29udGFpbnNfX2AgbWV0aG9kLiBcbiIKICAgXQogIH0KIF0sCiAibWV0YWRhdGEiOiB7CiAgImtlcm5lbHNwZWMiOiB7CiAgICJkaXNwbGF5X25hbWUiOiAiUHl0aG9uIDMiLAogICAibGFuZ3VhZ2UiOiAicHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uMyIKICB9LAogICJsYW5ndWFnZV9pbmZvIjogewogICAiY29kZW1pcnJvcl9tb2RlIjogewogICAgIm5hbWUiOiAiaXB5dGhvbiIsCiAgICAidmVyc2lvbiI6IDMKICAgfSwKICAgImZpbGVfZXh0ZW5zaW9uIjogIi5weSIsCiAgICJtaW1ldHlwZSI6ICJ0ZXh0L3gtcHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uIiwKICAgIm5iY29udmVydF9leHBvcnRlciI6ICJweXRob24iLAogICAicHlnbWVudHNfbGV4ZXIiOiAiaXB5dGhvbjMiLAogICAidmVyc2lvbiI6ICIzLjE0LjYiCiAgfQogfSwKICJuYmZvcm1hdCI6IDQsCiAibmJmb3JtYXRfbWlub3IiOiA0Cn0K').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'dictionaries.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts26818"><i class="bi bi-download"></i> Download notebook </button></a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#count-the-number-of-bases-in-your-candidate-primer" id="toc-count-the-number-of-bases-in-your-candidate-primer" class="nav-link active" data-scroll-target="#count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</a></li>
-  <li><a href="#compute-the-melting-temperature" id="toc-compute-the-melting-temperature" class="nav-link" data-scroll-target="#compute-the-melting-temperature">Compute the melting temperature</a></li>
-  <li><a href="#reverse-complement-the-sequence" id="toc-reverse-complement-the-sequence" class="nav-link" data-scroll-target="#reverse-complement-the-sequence">Reverse complement the sequence</a></li>
-  <li><a href="#check-for-hairpins" id="toc-check-for-hairpins" class="nav-link" data-scroll-target="#check-for-hairpins">Check for hairpins</a></li>
+  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link active" data-scroll-target="#dictionaries">Dictionaries</a></li>
+  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/classes.html">Week 7</a></li><li class="breadcrumb-item"><a href="../projects/folding-project.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/how-models-produce-code.html">Week 3</a></li><li class="breadcrumb-item"><a href="../python/dictionaries.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dictionaries</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-folding-project" class="quarto-section-identifier"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></h1>
+<h1 class="title"><span id="sec-dictionaries" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></h1>
 </div>
 
 
@@ -709,122 +686,134 @@ window.Quarto = {
 </header>
 
 
-<p>Say you have a short sequence that you want to use as a PCR primer. To evaluate if it a suitable primer, you need to know the melting temperature of the sequence. You also need to make sure that it will not fold up on itself so that it cannot bind to the DNA sequence you want to amplify.</p>
-<p>Download the files you need for this project:</p>
-<p><a href="#dnldts753" onclick="fetch('data:application/x-python;base64,CiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBXcml0ZSB5b3VyIGZ1bmN0aW9ucyBkZWZpbml0aW9ucyBiZWxvdy4KIyBEbyBub3Qgd3JpdGUgYW55IG90aGVyIGNvZGUgaGVyZS4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBvbmx5IHlvdXIgZnVuY3Rpb24gZGVmaW5pdGlvbnMuLi4KCgoKCgoKCgoKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBDb2RlIGZvciBjYWxsaW5nIGFuZCB0ZXN0aW5nIHlvdXIgZnVuY3Rpb25zIHNob3VsZCBiZSBiZWxvdwojIGhlcmUuIElmIHlvdSBzZXBhcmF0ZSBmdW5jdGlvbiBkZWZpbml0aW9ucyBmcm9tIHRoZSByZXN0IG9mCiMgeW91ciBzY3JpcHQgaW4gdGhpcyB3YXksIHlvdSBhcmUgbGVzcyBsaWtlbHkgdG8gbWFrZSBtaXN0YWtlcy4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBhbnkgb3RoZXIgY29kZSAuLi4KCgoKCgo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts753"><i class="bi bi-download"></i> foldingproject.py </button></a> <a href="#dnldts49721" onclick="fetch('data:application/x-python;base64,IiIiVGVzdHMgZm9yIHRoZSBmb2xkaW5nIC8gcHJpbWVyLWFuYWx5c2lzIHByb2plY3QgKHBvcnRlZCB0byBweXRlc3QpLgoKRXZlcnkgdGVzdCByZWNlaXZlcyBgYHNvbGBgIOKAlCB5b3VyIHNvbHV0aW9uIG1vZHVsZSDigJQgYW5kIHVzZXMgdGhlIGBgcmVxdWlyZXNgYAptYXJrZXIgc28gYW4gdW53cml0dGVuIGZ1bmN0aW9uIGlzIHJlcG9ydGVkIGFzICJub3QgZGVmaW5lZCIgaW5zdGVhZCBvZiBjcmFzaGluZy4KIiIiCmltcG9ydCBweXRlc3QKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImNvdW50X2Jhc2VzIikKZGVmIHRlc3RfY291bnRfYmFzZXMoc29sKToKICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJ0FUR0cnKSA9PSB7J0EnOiAxLCAnQyc6IDAsICdHJzogMiwgJ1QnOiAxfQogICAgYXNzZXJ0IHNvbC5jb3VudF9iYXNlcygnQVRHR0NDJykgPT0geydBJzogMSwgJ1QnOiAxLCAnRyc6IDIsICdDJzogMn0KICAgIGFzc2VydCBzb2wuY291bnRfYmFzZXMoJycpID09IHsnQSc6IDAsICdUJzogMCwgJ0cnOiAwLCAnQyc6IDB9CgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnQoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCdBVEdDJykgPT0gJ0dDQVQnCgoKQHB5dGVzdC5tYXJrLnJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnRfZW1wdHkoc29sKToKICAgIGFzc2VydCBzb2wucmV2ZXJzZV9jb21wbGVtZW50KCcnKSA9PSAnJwoKCkBweXRlc3QubWFyay5yZXF1aXJlcygicmV2ZXJzZV9jb21wbGVtZW50IikKZGVmIHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50X2hvbW9wb2x5bWVyKHNvbCk6CiAgICAjIFByZXZpb3VzbHkgc2hhZG93ZWQgYnkgYSBkdXBsaWNhdGUgYHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50XzJgIG5hbWUgaW4gdGhlCiAgICAjIG9yaWdpbmFsIHVuaXR0ZXN0IGZpbGU7IHBvcnRlZCBoZXJlIHVuZGVyIGEgZGlzdGluY3QgbmFtZSBzbyBpdCBydW5zLgogICAgYXNzZXJ0IHNvbC5yZXZlcnNlX2NvbXBsZW1lbnQoJ0FBQUFBQUEnKSA9PSAnVFRUVFRUVCcKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoIm1lbHRpbmdfdGVtcCIpCmRlZiB0ZXN0X21lbHRpbmdfdGVtcChzb2wpOgogICAgYXNzZXJ0IHNvbC5tZWx0aW5nX3RlbXAoJ0FURycpID09IHB5dGVzdC5hcHByb3goOCwgYWJzPTFlLTQpCiAgICBhc3NlcnQgc29sLm1lbHRpbmdfdGVtcCgnQUFBQUFUVFRUVENDQ0NDR0dHR0cnKSA9PSBweXRlc3QuYXBwcm94KAogICAgICAgIDUxLjc4MDAwMDAwMDAwMDAxLCBhYnM9MWUtNCkKCgpAcHl0ZXN0Lm1hcmsucmVxdWlyZXMoImhhc19oYWlycGluIikKZGVmIHRlc3RfaGFzX2hhaXJwaW4oc29sKToKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0NDQVRBVCcsIDQpID09IFRydWUKICAgIGFzc2VydCBzb2wuaGFzX2hhaXJwaW4oJ0FUQVRDQ0FUQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCA0KSA9PSBGYWxzZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignQVRDQ0NDQVQnLCAyKSA9PSBUcnVlCiAgICBhc3NlcnQgc29sLmhhc19oYWlycGluKCdHR0dHQVRBVENDQ0NBVEFUJywgNCkgPT0gVHJ1ZQogICAgYXNzZXJ0IHNvbC5oYXNfaGFpcnBpbignR0dHR0dHQVRBVENDQ0NDQ0FUQVQnLCA2KSA9PSBUcnVlCg==').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'test_foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts49721"><i class="bi bi-download"></i> test_foldingproject.py </button></a></p>
-<p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
-<ul>
-<li><code>foldingproject.py</code> is an empty file where you must write your code.</li>
-<li><code>test_foldingproject.py</code> is the test program that lets you test the code you write in translationproject.py.</li>
-</ul>
-<p>Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose “Save file as…” or “Download linked file”.</p>
-<section id="count-the-number-of-bases-in-your-candidate-primer" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</h2>
-<p>Before you can compute the melting temperature, you need to determine how many times each base occurs in the sequence. You can assume that the only characters in the string are A, T, G, and C.</p>
-<p><em>Write a function</em>, <code>count_bases</code>, which takes one argument:</p>
+<!-- \includegraphics[height=\fontcharht\font`\B]{picture.png} -->
+<p><em>This chapter is about dictionaries that, like lists, is another Python value that can contain other Python values. Dictionaries dictionaries let you build relationships between values, which is what data structures represent.</em></p>
+<section id="dictionaries" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="dictionaries">Dictionaries</h2>
+<p>Lists are useful for storing values when the order of the values is important, but they have one drawback: you can only access a value in a list using its index.</p>
+<p>A dictionary called <code>dict</code> in Python, is a much more flexible data type. Like a list, a dictionary is a container for other values, but dictionaries do not store values in sequence. They work more like a database that lets you store individual <em>values</em>. When you store a value, you assign it to a <em>key</em> that you can use to access the stored value. Now, create your first dictionary:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Robert Redford'</span>, <span class="st">'height'</span>: <span class="dv">179</span>, <span class="st">'job'</span>: <span class="st">'Actor'</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This dictionary has three values (<code>'Actor'</code>, <code>'Robert Redford'</code> and <code>179</code>) and each value is associated with a key. Here <code>'height'</code> is the key for the value <code>179</code>. So, when defining a dictionary, you should note the following:</p>
 <ol type="1">
-<li>A string, which is a DNA sequence.</li>
+<li>You make a dictionary using braces.</li>
+<li>you put key-value pairs separated by a colon between your braces.</li>
+<li>Commas separate the key-value pairs.</li>
+<li>To make an empty dictionary, write the braces with nothing between them: <code>{}</code>.</li>
 </ol>
-<p>The function must return:</p>
-<ul>
-<li>A dictionary, which in which keys are strings that represent bases and values are integers that represent the number of occurrences of each base. If a base is not found in the sequence, its count must be zero.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count_bases(<span class="st">"ATGG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return (not necessarily with key-value pairs in the same order):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"A"</span>: <span class="dv">1</span>, <span class="st">"C"</span>: <span class="dv">0</span>, <span class="st">"G"</span>: <span class="dv">2</span>, <span class="st">"T"</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To access a value in the dictionary, you put its key in square brackets after the dictionary:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">"{} is a {} cm {}"</span>.<span class="bu">format</span>(person[<span class="st">'name'</span>], person[<span class="st">'height'</span>], person[<span class="st">'job'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here we used strings as keys, but you can also use many types of values as keys (Python will give you an error if you try to use a type that is not allowed):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>misc_dict <span class="op">=</span> {<span class="dv">42</span>: <span class="st">"Meaning of life"</span>, <span class="st">"pi"</span>: <span class="fl">3.14159</span>, <span class="va">True</span>: <span class="dv">7</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A dictionary stores key-value pairs but does not keep track of their order. So, when you print a dictionary, the order of the key-value pairs is arbitrary.</p>
+<p>If you have a dictionary, you can add key-value pairs in this way:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>person[<span class="st">'job'</span>] <span class="op">=</span> <span class="st">'Retired'</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>person[<span class="st">'hair'</span>] <span class="op">=</span> <span class="st">'uniquely combed'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that if you assign a value (<code>71</code>) to a key that is already in the dictionary (<code>'age'</code>), then the old value (<code>70</code>) is replaced.</p>
+<section id="exercise" class="level4" data-number="16.0.0.1">
+<h4 data-number="16.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 16-1</strong></h4>
+<p>What does this expression evaluate to?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">'name'</span>: <span class="st">'Robert Redford'</span>, <span class="st">'height'</span>: <span class="dv">179</span>, <span class="st">'job'</span>: <span class="st">'Actor'</span>}[<span class="st">'name'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="compute-the-melting-temperature" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="compute-the-melting-temperature">Compute the melting temperature</h2>
-<p>Knowing the base composition in your sequence, you can now calculate the melting temperature the double-stranded DNA that forms when your primer pairs up with the sequence to amplify. If the primer has less than 14 bases the formula for calculating melting temperature is:</p>
-<p><span class="math display">\[ Temp = (A + T) * 2 + (G + C) * 4 \]</span></p>
-<p>and if the primer has 14 bases or more it is calculated like this:</p>
-<p><span class="math display">\[ Temp = 64.9 + 41 * (G + C - 16.4) / (A + T + G + C) \]</span></p>
-<p>The A, T, C, and G in the formulas represent the numbers of A, T, C and G in the DNA primer.</p>
-<p>You must write a function that applies these two formulas appropriately by taking the length of the primer into account.</p>
-<p><em>Write a function</em>, <code>melting_temp</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence (your primer).</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A number, which represents the melting temperature of the double-stranded DNA corresponding to the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>melting_temp(<span class="st">"ATG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exercise-1" class="level4" data-number="16.0.0.2">
+<h4 data-number="16.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 16-2</strong></h4>
+<p>Assuming the definition of the <code>person</code> dictionary above, what does this expression evaluate? Compare this to the expression in the previous exercise.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>person[<span class="st">'name'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="reverse-complement-the-sequence" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="reverse-complement-the-sequence">Reverse complement the sequence</h2>
-<p>It is possible that one part of the primer forms base pairs with another part of the primer to form a hairpin structure. To figure out if this can happen to your primer, you need to be able to find the reverse complement of DNA sequence. The reverse complement of a DNA sequence is one where the sequence of bases is first reversed, and then each base is replaced with its Watson-Crick complementary base.</p>
-<p><em>Write a function</em>, <code>reverse_complement</code>, which takes one argument:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li>A string, which represents the reverse complement of the DNA string given as argument.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reverse_complement(<span class="st">"AATTC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"GAATT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<!-- TODO: Add function to test if the primer can form a dimer (interacting with another sequence) -->
+<section id="exercise-2" class="level4" data-number="16.0.0.3">
+<h4 data-number="16.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 16-3</strong></h4>
+<p>The <em>in</em> operator also works with dictionaries. Look at what these expressions reduce to and then try to figure out what <em>in</em> does when applied to a dictionary:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">'name'</span> <span class="kw">in</span> person</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">'height'</span> <span class="kw">in</span> person</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">'job'</span> <span class="kw">in</span> person</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dv">84</span> <span class="kw">in</span> person</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">'Actor'</span> <span class="kw">in</span> person</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">'Robert Redford'</span> <span class="kw">in</span> person</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="check-for-hairpins" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="check-for-hairpins">Check for hairpins</h2>
-<p>You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consequtive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick basepairs. Here is an example of a hairpin with five basepairs and a loop of four bases (four Cs):</p>
-<pre><code>        C C
-      C     C
-       A - T
-       T - A
-       A - T
-       T - A
-       A - T</code></pre>
-<p>To test if a sequence can form a hairpin with at least four consequtive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another nonoverlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.</p>
-<p><em>Write a function</em>, <code>has_hairpin</code>, which takes two arguments:</p>
-<ol type="1">
-<li>A string, which is a DNA sequence.</li>
-<li>An integer, which represents the minimum number of consequtive base pairs in the hairpins to search for.</li>
-</ol>
-<p>The function must return:</p>
-<ul>
-<li><code>True</code> if the sequence contains a hairpin of at least the specified length and <code>False</code> otherwise.</li>
-</ul>
-<p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(has_hairpin(<span class="st">"ATATACCCCTATAT"</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is a hard one, so I will give you a bit of help. Here is the function with some parts missing.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> has_hairpin(s, k):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    looplen <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        subs <span class="op">=</span> <span class="co"># Hint A</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        right <span class="op">=</span> <span class="co"># Hint B</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        revcl <span class="op">=</span> reverse_complement(subs)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> revcl <span class="kw">in</span> right[looplen:]:</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Hint A: Here you need to extract a substring of length k starting at i. Hint B: Here you need to extract all the sequence to the right of <code>substr</code>.</p>
+<section id="exercise-3" class="level4" data-number="16.0.0.4">
+<h4 data-number="16.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 16-4</strong></h4>
+<p>Write and run this code with different values of <code>key</code> and read any error messages.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>key <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># key = 'banana'</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># key = 3.14159</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># key = True</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># key = {}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># key = []</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {}</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>d[key] <span class="op">=</span> <span class="dv">7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Are any of the values not allowed as keys?</p>
+</section>
+<section id="exercise-4" class="level4" data-number="16.0.0.5">
+<h4 data-number="16.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 16-5</strong></h4>
+<p>Do you think this will work?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Robert Redford'</span>, </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">'height'</span>: <span class="dv">179</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">'job'</span>: <span class="st">'Actor'</span>}</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="general-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
+<!-- TODO: Find another example than Donald Trump -->
+<p>Start by making dictionaries for (some of) the Trump family:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>donald <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Donald Trump'</span>, <span class="st">'age'</span>: <span class="dv">70</span>, <span class="st">'job'</span>: <span class="st">'President'</span> }</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>melania <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Melania Trump'</span>, <span class="st">'age'</span>: <span class="dv">70</span>, <span class="st">'job'</span>: <span class="st">'First lady'</span> }</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>tiffany <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Tiffany Trump'</span>, <span class="st">'age'</span>: <span class="dv">23</span>, <span class="st">'job'</span>: <span class="st">'Internet personality'</span> }</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ivanka <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Ivanka Trump'</span>, <span class="st">'age'</span>: <span class="dv">35</span>, <span class="st">'job'</span>: <span class="st">'Top aide'</span> }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exercise-5" class="level4" data-number="16.0.0.6">
+<h4 data-number="16.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 16-6</strong></h4>
+<p>What do you think the following code produces? Do <em>all</em> of the substitution and reduction steps in your head, and only then try out the code.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>donald[<span class="st">'child'</span>] <span class="op">=</span> tiffany</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>melania[<span class="st">'husband'</span>] <span class="op">=</span> donald</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(melania)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(melania[<span class="st">'husband'</span>][<span class="st">'child'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-6" class="level4" data-number="16.0.0.7">
+<h4 data-number="16.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 16-7</strong></h4>
+<p>A dictionary can contain <em>any</em> kind of Python values, even lists or dictionaries. Consider the code below, where we add a list of ex-wives to the Trump persona. Can you see why we need to check the <code>'ex-wives'</code> key before we add it to the list of ex-wives?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>donald <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Donald Trump'</span>, <span class="st">'age'</span>: <span class="dv">70</span>, <span class="st">'job'</span>: <span class="st">'President'</span> }</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'ex-wives'</span> <span class="kw">not</span> <span class="kw">in</span> donald:</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    donald[<span class="st">'ex-wives'</span>] <span class="op">=</span> []</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>donald[<span class="st">'ex-wives'</span>].append(<span class="st">'Marla Maples'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>donald[<span class="st">'ex-wives'</span>].append(<span class="st">'Ivana Trump'</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(donald)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-7" class="level4" data-number="16.0.0.8">
+<h4 data-number="16.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 16-8</strong></h4>
+<p>In case you wonder what the <em>type</em> of value a list is, or a dictionary, try this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A list has type:"</span>, <span class="bu">type</span>([]))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A dictionary has type:"</span>, <span class="bu">type</span>({}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now the types <code>list</code> and <code>dict</code> are your friends too.</p>
+</section>
+<section id="exercise-8" class="level4" data-number="16.0.0.9">
+<h4 data-number="16.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 16-9</strong></h4>
+<p>Lists can also contain any type of value. Consider this example. What do you think the following code produces? Do <em>all</em> the substitution and reduction steps in your head, and only then try out the code.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>trump_family <span class="op">=</span> [donald, melania, ivanka, tiffany]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(trump_family)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(trump_family[<span class="dv">1</span>][<span class="st">'job'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-9" class="level4" data-number="16.0.0.10">
+<h4 data-number="16.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 16-10</strong></h4>
+<p>Write and run this code</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>amino_acids <span class="op">=</span> {}</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>amino_acids[<span class="st">'ATG'</span>] <span class="op">=</span> <span class="st">'met'</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>amino_acids[<span class="st">'TCT'</span>] <span class="op">=</span> <span class="st">'ser'</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>amino_acids[<span class="st">'TAC'</span>] <span class="op">=</span> <span class="st">'tyr'</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>codon <span class="op">=</span> <span class="st">'TCT'</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">{}</span><span class="st"> encodes </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(codon, amino_acids[codon]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>You have probably noticed that the interpretation of length is different for each type of value. In a string, it is the number of characters; in a list, it is the number of values in the list; in a dictionary, it is the number of key-value pairs. How do you think Python knows which length interpretation to use when the <code>len</code> function is called? This is where objects shine. <code>len(x)</code> returns the value that <code>x.__len__()</code> returns. So the <code>len</code> function is defined roughly like this:</p>
+<pre><code>def len(x):
+    return x.__len__()</code></pre>
+<p>Similarly, the <code>in</code> operator calls a secret <code>__contains__</code> method.</p>
+</blockquote>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1235,13 +1224,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../python/classes.html" class="pagination-link" aria-label="Classes">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Classes</span></span>
+      <a href="../python/lists.html" class="pagination-link" aria-label="Lists">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Lists</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../python/debugging.html" class="pagination-link" aria-label="Debugging">
-        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Debugging</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../python/tuples.html" class="pagination-link" aria-label="Tuples">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tuples</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
