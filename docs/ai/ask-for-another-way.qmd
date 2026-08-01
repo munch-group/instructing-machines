@@ -1,61 +1,85 @@
 # Ask for another way {#sec-ask-for-another-way}
 
-*The assistant as Comparer: judging between alternatives is the student's job.*
+Judging between alternatives is your job and not the assistant's, and this session is where you practise it. There is rarely one correct way to write a function, and an assistant asked for a second solution will usually produce one, cheerfully, whether or not it is actually better. The skill this session builds is not getting a second opinion, which is easy and nearly free. It is judging between two things that both run, both look plausible, and may both even pass your tests. That judgment is yours to make, and making it depends on understanding both versions well enough to say specifically why one is better than the other, for a stated reason rather than a feeling.
 
-::: {.callout-note}
-## Session length
-Estimated 3 hours, run as this week's TA session, alongside this week's translation project.
-:::
+Notice what has changed from the last two sessions. There, the machine could settle the question for you, because there was a right answer and running the code produced it. Here there is often no single right answer, and running the code cannot tell you which of two correct functions you should keep. The assistant cannot tell you either, and if you ask it which one is better it will produce a fluent argument for whichever one it happens to start defending. This is the first session where the machine cannot rescue you and the reasoning has to be yours.
 
-There is rarely one correct way to write a function, and an assistant asked for a second solution will usually produce one, cheerfully, whether or not it is actually better. The skill this session builds is not getting a second opinion; it is judging between two things that both run, both look plausible, and may both even pass your tests. That judgment is yours to make, and it depends on understanding both versions well enough to say, specifically, why one is better than the other for a stated reason, not a feeling.
+## A rubric for judging two solutions {#sec-rubric}
 
-::: {.callout-tip}
-## A rubric for judging two solutions
-- **Correctness on edge cases.** Do they agree on an empty input, a one-element input, and the nastiest input you can think of? Test both, do not just read them.
-- **Readability.** Could someone who has never seen this problem before understand what it does in under a minute?
-- **Honest efficiency.** Does one clearly redo work the other avoids, for reasons you can name, not just guess at?
-- **Idiom.** Does one use Python the way this course has taught you to read it, or does it lean on a trick you cannot yet explain?
-:::
+Four questions, in this order, will decide almost every comparison you make today.
 
-## Part 1 — Warm-up, done together (20 min)
+The first is correctness on edge cases. Do the two versions agree on an empty input, on a one-element input, and on the nastiest input you can think of? Test both rather than reading both. Two functions that agree on the obvious case and differ on the empty one are not two styles of the same solution, they are one solution and one bug, and no amount of reading will tell you which is which as quickly as running them will.
 
-As a group, ask the assistant for two ways to reverse a DNA string: one using slicing, one using a loop. Read both aloud. Run both on `'ATGGCC'` and on `''`. Apply the rubric above out loud as a class before anyone works alone, so everyone has seen the process modeled once.
+The second is readability. Could someone who has never seen this problem before work out what the function does in under a minute? That someone will often be you, in six weeks, having forgotten everything about why you wrote it.
 
-## Part 2 — Two solutions, three problems (50 min)
+The third is honest efficiency. Does one version clearly redo work that the other avoids, for a reason you can actually name? The word honest is there deliberately. Guessing that one version is faster because it looks tighter is not a rubric point, it is a hunch, and at the size of data you will handle in this course the difference usually does not exist at all. Use this criterion when you can say what the wasted work is, and leave it alone when you cannot.
 
-Working alone or in pairs, for each problem below, ask the assistant for two different solutions in two separate requests (do not ask for "two ways" in one prompt, which tends to produce two trivial variations of the same idea rather than two genuinely different approaches). Test both against at least one gentle and one nasty input. Apply the rubric and write one sentence naming your winner and the specific rubric point that decided it.
+The fourth is idiom. Does the version use Python the way this course has taught you to read it, or does it lean on a trick you cannot yet explain? A construct you cannot explain is one you cannot verify, and an unverifiable solution is worth less than a plainer one you can check, however elegant it looks.
 
-#### Exercise 1 `AI: Comparer`
-A function that counts how many times the codon `'ATG'` appears in a longer DNA string, **including overlapping occurrences**.
+## Warm-up, done together {#sec-warmup-together}
 
-#### Exercise 2 `AI: Comparer`
-A function that checks whether a DNA string is a palindrome, meaning it reads the same as its own reverse complement.
+As a group, ask the assistant for two ways to reverse a DNA string, one using slicing and one using a loop. Read both aloud. Run both on `'ATGGCC'` and on `''`. Then apply the rubric out loud as a class before anyone works alone, so that everyone has seen the process modelled once and has heard what a specific reason sounds like next to a vague one.
 
-#### Exercise 3 `AI: Comparer`
-A function that takes a list of DNA strings and returns the one with the highest GC content.
+## Two solutions, three problems {#sec-two-solutions}
 
-## Part 3 — Clever versus readable (30 min)
+Working alone or in pairs, for each problem below, ask the assistant for two different solutions in two separate requests. Do not ask for two ways in a single prompt, because that tends to produce two trivial variations of one idea rather than two genuinely different approaches. Test both against at least one gentle and one nasty input. Then apply the rubric and write one sentence naming your winner and the specific rubric point that decided it.
 
-Some second solutions are not just different, they are compressed: a one-liner using a comprehension or a chained method call, offered in place of a plainer loop.
+Writing the sentence is not busywork. A choice you cannot state a reason for is a preference, and preferences do not survive an argument with a collaborator or a supervisor.
 
-#### Exercise 4 `AI: Comparer`
-Take your solution to Exercise 1 or 2. Explicitly ask the assistant for "a more Pythonic, more compact version" of it. Read the compact version line by line until you can explain every part of it out loud to a partner without looking at the original.
+#### Exercise {#sec-ex-compare-1}
 
-#### Exercise 5 🔒 `SOLO`
-Decide, honestly, whether you would have understood the compact version if you had been handed it cold, with no plainer version alongside it to compare against. Write down the specific feature, a comprehension, a chained call, a slice trick, that made it harder, if anything did.
+`AI: Comparer`
 
-## Part 4 — Defend your choice, in writing (30 min)
+Ask for a function that counts how many times the codon `'ATG'` appears in a longer DNA string, counting overlapping occurrences as well. The overlap requirement is the whole exercise, so state it explicitly in your request and check specifically whether each version honours it.
 
-#### Exercise 6 `AI: Comparer`
-Pick whichever of Exercises 1 through 3 produced the closest call between its two solutions. Write a short paragraph, three to five sentences, defending your choice of winner to someone who has not seen either solution: name the specific rubric point that decided it, and name one real weakness of the version you did **not** pick, so your defense is honest about the trade-off rather than one-sided.
+#### Exercise {#sec-ex-compare-2}
 
-## Part 5 — Ask for a third way (25 min)
+`AI: Comparer`
 
-A comparer's job does not stop at picking a winner between two options; sometimes the right move is to ask for better.
+Ask for a function that checks whether a DNA string is a palindrome, meaning that it reads the same as its own reverse complement.
 
-#### Exercise 7 `AI: Comparer`
-Take the losing solution from any one of Exercises 1 through 3. Without showing the assistant the winner, tell it specifically what was weak about the loser, using your own rubric-based reasoning from earlier, and ask for a third version that fixes exactly that weakness. Test the third version the same way you tested the first two. Did naming the specific weakness produce a real improvement, or did the assistant just rephrase the same approach?
+#### Exercise {#sec-ex-compare-3}
 
-## Wrap-up (10 min)
+`AI: Comparer`
 
-For your logbook this week, report which rubric point, correctness, readability, efficiency, or idiom, did the most work deciding your choices today, and describe one moment where your first instinct about which solution was "better" changed after you actually tested both on a nasty input.
+Ask for a function that takes a list of DNA strings and returns the one with the highest GC content. Consider what each version does when the list is empty, and whether the two versions agree about it.
+
+## Clever versus readable {#sec-clever-vs-readable}
+
+Some second solutions are not merely different, they are shorter, offering a one-liner built from a comprehension or a chain of method calls in place of a plainer loop. Compactness is genuinely a virtue and it is also the single easiest thing to mistake for quality, because a short solution looks expert whether or not you have understood it.
+
+#### Exercise {#sec-ex-compact-4}
+
+`AI: Comparer`
+
+Take your solution to either of the first two exercises and explicitly ask the assistant for a more compact and more idiomatic version of it. Read the compact version line by line until you can explain every part of it out loud to a partner without looking at the original. If you cannot get to that point, that is a result rather than a failure, and it belongs in your answer to the next exercise.
+
+#### Exercise {#sec-ex-compact-5}
+
+`SOLO`
+
+Decide honestly whether you would have understood the compact version if you had been handed it cold, with no plainer version beside it for comparison. Name the specific feature that made it harder, whether that was a comprehension, a chained call, a slice trick, or something else. Then answer the question that actually matters, which is whether you would be able to tell, six weeks from now, that this compact version had a bug in it.
+
+## Defend your choice in writing {#sec-defend}
+
+Judging well and being able to explain the judgment are different skills, and the second is the one that will be visible to everyone you ever work with.
+
+#### Exercise {#sec-ex-defend-6}
+
+`AI: Comparer`
+
+Pick whichever of the three comparison exercises produced the closest call between its two solutions. Write a short paragraph of three to five sentences defending your choice of winner to someone who has seen neither solution. Name the specific rubric point that decided it, and name one real weakness of the version you did not pick, so that your defence is honest about the trade-off rather than one-sided. A defence that finds nothing good in the loser is usually a sign that you did not understand the loser.
+
+## Ask for a third way {#sec-third-way}
+
+This is the move that people forget exists. A comparer's job does not stop at picking a winner between two options, because sometimes the right response to two mediocre options is to ask for better rather than to settle.
+
+#### Exercise {#sec-ex-third-7}
+
+`AI: Comparer`
+
+Take the losing solution from any one of the three comparison exercises. Without showing the assistant the winner, tell it specifically what was weak about the loser, using your own rubric-based reasoning from earlier, and ask for a third version that fixes exactly that weakness. Test the third version the same way you tested the first two.
+
+Then ask the more interesting question. Did naming the specific weakness produce a real improvement, or did the assistant simply rephrase the same approach in different words while agreeing enthusiastically that your criticism was a good one? Both outcomes are common, and telling them apart is the point.
+
+For your logbook this week, report which of the four rubric points did the most work in deciding your choices today, and describe one moment where your first instinct about which solution was better changed after you actually tested both on a nasty input. If your instinct was never overturned, say so, and consider whether your nasty inputs were nasty enough.

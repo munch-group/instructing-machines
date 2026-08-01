@@ -12,7 +12,7 @@ project:
   #   - quarto render --to html --profile draft
 
   render:
-    - "!notebooks/snippet-cast.ipynb"
+    - "!python/snippet-cast.ipynb"
     - "!slides/"
     - "!_build/"
     - "!jupyterlite/"
@@ -34,14 +34,17 @@ book:
   chapters:
     - index.qmd
     - planning/course-design.qmd
+    - planning/authorship-split.md
+    - planning/turtle-widget-and-the-ai-arc.md
     # - planning/new_material.qmd
     - part: "Week 1"
       chapters: 
         - python/getting_started.ipynb
         - ai/machine-insides.qmd
         - ai/insides.md
-        - ai/meet-ai.qmd
         - ai/instruction.md
+        - ai/meet-ai.qmd
+        - ai/about-microsoft-copilot.qmd
         # - python/interfaces.ipynb
         - python/hello-world.ipynb
         - python/values-operators-logic.ipynb
@@ -61,9 +64,9 @@ book:
         - python/tuples.ipynb
     - part: "Week 4"
       chapters: 
+        - ai/explain-then-confirm.qmd
         - python/iteration.ipynb
         - python/testing.ipynb
-        - ai/explain-then-confirm.qmd
     - part: "Week 5"
       chapters: 
         - ai/practical-ai-use.qmd        
@@ -72,15 +75,15 @@ book:
         - python/files.ipynb
     - part: "Week 6"
       chapters: 
+        - ai/ask-for-another-way.qmd
         - projects/translation-project.qmd
         - python/composition.qmd
-        - ai/ask-for-another-way.qmd
     - part: "Week 7"
       chapters: 
+        - ai/let-it-draft.qmd
         - python/classes.ipynb
         - projects/folding-project.qmd
         - python/debugging.qmd
-        - ai/let-it-draft.qmd
     - part: "Week 8"
       chapters: 
         - ai/reading-and-judging.md
@@ -110,10 +113,10 @@ book:
         - python/dataframes.qmd
     - part: "Week 13"
       chapters: 
-        - projects/assembly-project.qmd
+        - ai/finale-kickoff.qmd
         - ai/finale-build.qmd
         - ai/finale-finishing.qmd
-        - ai/finale-kickoff.qmd
+        - projects/assembly-project.qmd
     - part: "Week 14"
       chapters: 
         - ai/surviving-ai.md

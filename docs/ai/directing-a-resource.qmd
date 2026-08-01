@@ -1,24 +1,30 @@
-# Directing to resources: clinic {#sec-directing-to-resources}
+# Directing to resources {#sec-directing-to-resources}
 
-*A companion clinic on building on machinery you did not write, rehearsing the move the codon-bias project and the finale both ask of you.*
+You now have the two halves separately, which are reading a library's documentation as a set of contracts, and catching the assistant when it invents one that is not real. Here both halves go to work on an actual small task, live, the way you will need them on this week's codon-bias project and, eventually, on the finale. Nothing below is larger than a single function, but the shape is the shape of every later task that leans on machinery you did not write. You decide what capabilities you need before prompting, confirm their contracts in the real documentation, direct the assistant with the contract instead of a mood, and verify twice, once against the documentation and once against a hand-worked case. The bigger tasks later are this same shape with more pieces in it.
 
-You now have the two halves separately: reading a library's documentation as a set of contracts, and catching the assistant when it invents one that is not real. This clinic puts both halves to work on an actual small task, live, the way you will need to on this week's project and, eventually, on the finale. The task: given a DNA coding sequence, report whether its reverse complement, read as a coding sequence, translates cleanly to a protein with no internal stop codon.
+The task is this. Given a DNA coding sequence, report whether its reverse complement, read as a coding sequence, translates cleanly to a protein with no internal stop codon.
 
-### Deciding what the task needs before asking for anything
+## Deciding what the task needs before asking for anything {#sec-decompose-first}
 
-Before typing a single prompt, name the capabilities the task actually requires, the way you would decompose a task into functions. This one needs a reverse complement of a DNA sequence, a translation of a DNA sequence into a protein, and a check for whether a stop codon, shown by BioPython as `*`, appears anywhere before the final position of that protein. The first two are exactly the `Seq` methods you met two notes ago. The third is not a library operation at all, it is a small piece of logic over the result, which matters: you are about to direct the assistant to combine library calls, and knowing in advance which parts are the library's job and which part is yours is what keeps you from asking it to reinvent `.translate()` badly, or from quietly accepting logic it wrote for the one part you should have written yourself.
+Before typing a single prompt, name the capabilities the task actually requires, the way you would decompose a task into functions. This one needs a reverse complement of a DNA sequence, a translation of a DNA sequence into a protein, and a check for whether a stop codon, shown by BioPython as `*`, appears anywhere before the final position of that protein.
 
-### Checking the contracts before prompting
+The first two are exactly the `Seq` methods you met two notes ago. The third is not a library operation at all. It is a small piece of logic over the result, and that distinction matters. You are about to direct the assistant to combine library calls, and knowing in advance which parts are the library's job and which part is yours is what keeps you from asking it to reinvent `.translate()` badly, or from quietly accepting logic it wrote for the one part you should have written yourself.
 
-Two methods, two contracts to confirm from the actual documentation, not from memory or from what the assistant assumes. `Seq.reverse_complement()` takes no required arguments and returns a new `Seq`. `Seq.translate()` takes an optional `to_stop` argument; read its entry and you will find that when `to_stop=True`, translation stops at the first in-frame stop codon and the `*` is simply omitted from the result, rather than translation continuing past it the way the default behaves. That single optional argument changes which of two different questions the code answers, and choosing between them is a decision you make before prompting, not one you leave for the assistant to make silently.
+## Checking the contracts before prompting {#sec-check-contracts}
 
-### Directing the assistant
+Two methods means two contracts to confirm from the actual documentation, not from memory and not from what the assistant assumes. `Seq.reverse_complement()` takes no required arguments and returns a new `Seq`. `Seq.translate()` takes an optional `to_stop` argument, and reading its entry you will find that when `to_stop=True`, translation stops at the first in-frame stop codon and the `*` is simply omitted from the result, rather than translation continuing past it the way the default behaves.
 
-With the contracts in hand, the prompt can be precise: "Using `Bio.Seq.Seq`, write a function `translates_cleanly(dna)` that takes a DNA coding sequence, returns its reverse complement, translates it with `to_stop=False` so any internal stop codon stays visible in the result, and returns `True` if the resulting protein contains no `*` before its final character." Notice how much of that sentence is contract, not code: which method, which argument, which behavior you are relying on. A vague version of the same request, "check if the reverse complement translates okay," leaves the assistant to guess `to_stop`'s value the same way it once guessed a tie-breaking rule, and you would have no way to know which guess it made without reading the code closely enough that you might as well have specified it yourself.
+That single optional argument changes which of two different questions the code answers, and choosing between them is a decision you make before prompting, not one you leave for the assistant to make silently.
 
-### Verifying the result, twice
+## Directing the assistant {#sec-directing}
 
-The assistant's answer gets checked in the two different ways this course has been building toward. First, against the documentation: did it call `.reverse_complement()` and `.translate()` with real arguments that mean what you asked, or does anything in the call look invented, the way `.gc_content()` did? Second, against a test, because a documented call can still be assembled into wrong logic:
+With the contracts in hand, the prompt can be precise. Using `Bio.Seq.Seq`, write a function `translates_cleanly(dna)` that takes a DNA coding sequence, returns its reverse complement, translates it with `to_stop=False` so that any internal stop codon stays visible in the result, and returns `True` if the resulting protein contains no `*` before its final character.
+
+Notice how much of that request is contract rather than code, in that it names which method, which argument, and which behaviour you are relying on. A vague version of the same request, asking whether the reverse complement translates okay, leaves the assistant to guess the value of `to_stop` the same way it once guessed a tie-breaking rule, and you would have no way to know which guess it made without reading the code closely enough that you might as well have specified it yourself.
+
+## Verifying the result, twice {#sec-verify-twice}
+
+The assistant's answer gets checked in the two different ways this course has been building toward. First against the documentation, asking whether it called `.reverse_complement()` and `.translate()` with real arguments that mean what you asked, or whether anything in the call looks invented the way `.gc_content()` did. Second against a test, because a documented call can still be assembled into wrong logic.
 
 ```python
 from Bio.Seq import Seq
@@ -32,14 +38,12 @@ assert translates_cleanly('ATGGCCTGA') in (True, False)   # runs at all
 print(translates_cleanly('ATGGCCTGA'))
 ```
 
-Work out by hand what `'ATGGCCTGA'`'s reverse complement is, and what that translates to, and confirm the function's answer against your own. That hand-worked case is the sanity check standing in for the test you cannot write against a library you trust as machinery: you are not testing that `.translate()` implements the genetic code correctly, you are checking that the pieces were assembled the way you specified.
+Work out by hand what the reverse complement of `'ATGGCCTGA'` is, and what that translates to, and confirm the function's answer against your own. That hand-worked case is the sanity check standing in for the test you cannot write against a library you trust as machinery. You are not testing that `.translate()` implements the genetic code correctly. You are checking that the pieces were assembled the way you specified.
 
-### Why this is the rehearsal it claims to be
+#### Exercise {#sec-ex-longest-orf}
 
-Nothing about this clinic was larger than a single function. What it rehearsed was the shape of every later task that leans on a library: decide what capabilities you need before prompting, confirm their contracts in the real documentation, direct the assistant with the contract instead of a mood, and verify twice, once against the documentation and once against a hand-worked case. The codon-bias project this week, and the finale later, are this same shape, just with more pieces.
+`AI: Collaborator`
 
-#### Exercise `AI: Collaborator`
-
-Direct the assistant to write a function `longest_orf_protein(dna)` that finds the longest open reading frame in a DNA sequence starting at any `ATG` and translates it, using `Bio.Seq.Seq` for the translation step only; the search for `ATG` and the comparison of lengths is logic you specify, not a library call. Before prompting, decide and write down which part is the library's job and which is yours, the way this clinic did.
+Direct the assistant to write a function `longest_orf_protein(dna)` that finds the longest open reading frame in a DNA sequence starting at any `ATG` and translates it, using `Bio.Seq.Seq` for the translation step only. The search for `ATG` and the comparison of lengths is logic you specify, not a library call. Before prompting, decide and write down which part is the library's job and which is yours, the way the worked example above did, and check afterwards whether the code you got respected that division or quietly moved the boundary.
 
 For your logbook this week, name one library call from this week's project that you verified against real documentation before trusting it, and one you are not fully sure you checked closely enough.

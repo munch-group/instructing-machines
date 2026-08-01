@@ -16,11 +16,11 @@ CONTENT_DIR="$LITE_DIR/content"
 echo "==> Syncing course notebooks into $CONTENT_DIR"
 rm -rf "$CONTENT_DIR"
 mkdir -p "$CONTENT_DIR"
-for nb in notebooks/*.ipynb; do
+for nb in python/*.ipynb; do
   [ "$(basename "$nb")" = "snippet-cast.ipynb" ] && continue
   cp "$nb" "$CONTENT_DIR/"
 done
-cp -r notebooks/images "$CONTENT_DIR/images"
+cp -r python/images "$CONTENT_DIR/images"
 
 # Strip baked-in outputs/execution counts/widget state from the copies.
 # The book intentionally ships some notebooks pre-executed (e.g. widget-demo.ipynb

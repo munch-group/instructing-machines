@@ -1,16 +1,14 @@
 # Documentation and resources {#sec-docs-and-resources}
 
-*Reading a library or a web service as a catalog of contracts.*
+A few weeks ago you wrote your own `translate` function, codon by codon, and you hit a real bug doing it. That was worth doing by hand once, because now you understand exactly what translation involves. You are not going to keep doing it by hand. Now you meet BioPython, a library written and tested by people who work on exactly this kind of problem, and the skill this note actually teaches is not how to use BioPython. It is how to read any library, or any web service, as a catalogue of contracts, well enough to use it correctly without ever reading how it works inside.
 
-A few weeks ago you wrote your own `translate` function, codon by codon, and you hit a real bug doing it. That was worth doing by hand once, because now you understand exactly what translation involves. You are not going to keep doing it by hand. This week you meet BioPython, a library written and tested by people who work on exactly this kind of problem, and the skill this note actually teaches is not "how to use BioPython." It is how to read *any* library, or any web API, well enough to use it correctly without ever reading how it works inside.
+## The idea you already have {#sec-contract-idea}
 
-### The idea you already have
+You already learned this idea, and it just had a different name. A class bundles data with the methods that act on it, and you call those methods without needing to know how they are implemented, because a method is a promise. Given an object in a certain state, called with certain arguments, it returns or does a certain thing. That promise is a contract, and you trust it the same way you trust `len` or `.append()`, not because you have read their source, but because their contract is documented and you have seen it hold. A library is nothing more than a large collection of such contracts, written by someone else, that you are now allowed to call the same way.
 
-You already learned this idea; it just had a different name. A class bundles data with the methods that act on it, and you call those methods without needing to know how they are implemented, because a method is a promise: given an object in a certain state, called with certain arguments, it returns or does a certain thing. That promise is a **contract**, and you trust it the same way you trust `len` or `.append()`, not because you have read their source, but because their contract is documented and you have seen it hold. A library is nothing more than a large collection of such contracts, written by someone else, that you are now allowed to call the same way.
+## Reading a contract instead of an implementation {#sec-reading-contracts}
 
-### Reading a contract instead of an implementation
-
-Here is BioPython's `Seq` object, which represents a DNA or protein sequence and behaves a great deal like the strings you already know:
+Here is BioPython's `Seq` object, which represents a DNA or protein sequence and behaves a great deal like the strings you already know.
 
 ```python
 from Bio.Seq import Seq
@@ -20,24 +18,30 @@ print(dna.translate())
 print(dna.reverse_complement())
 ```
 
-Before you run it, notice what you are being asked to trust: two methods you did not write, `.translate()` and `.reverse_complement()`, doing jobs you built yourself by hand a few weeks ago. You are not going to read BioPython's source to check that `.translate()` correctly stops at a stop codon the way your own function eventually did. You are going to read its **documentation**, which states the contract: what the method takes, what it returns, and what it assumes about the object it is called on. The documentation says `.translate()` reads the sequence as a coding sequence and stops translating at the first in-frame stop codon by default, exactly the fix you made to your own bug in the composition note. You did not need to reinvent that fix. You needed to know it already existed and where to look.
+Before you run it, notice what you are being asked to trust, which is two methods you did not write, `.translate()` and `.reverse_complement()`, doing jobs you built yourself by hand a few weeks ago. You are not going to read BioPython's source to check that `.translate()` correctly stops at a stop codon the way your own function eventually did. You are going to read its documentation, which states the contract, meaning what the method takes, what it returns, and what it assumes about the object it is called on. The documentation says that `.translate()` reads the sequence as a coding sequence and stops translating at the first in-frame stop codon by default, which is exactly the fix you made to your own bug in the composition note. You did not need to reinvent that fix. You needed to know it already existed and where to look.
 
-This is the actual reading skill: for any function or method you are about to call, find its entry in the documentation, and answer three questions before you call it. What does it take, precisely, including anything optional? What does it return, precisely, including the type? What does it assume that, if untrue, would make the result meaningless, such as the sequence being in frame, or the case of the letters, or which strand you are reading? Answering those three questions is reading a contract. Running the code and hoping is not.
+This is the actual reading skill. For any function or method you are about to call, find its entry in the documentation and answer three questions before you call it. What does it take, precisely, including anything optional? What does it return, precisely, including the type? And what does it assume that, if untrue, would make the result meaningless, such as the sequence being in frame, or the case of the letters, or which strand you are reading? Answering those three questions is reading a contract. Running the code and hoping is not.
 
-### What you do and do not verify
+## What you verify and what you merely sanity-check {#sec-what-you-verify}
 
-You will not write a test that checks `.translate()` implements the standard genetic code correctly; that is BioPython's job, done by people with far more time to get it right than you have this term, and treating it as machinery you trust rather than code you must personally verify is not laziness, it is the correct division of labor. What you do instead is **sanity-check** its output against something you can compute or already know: translate a short sequence whose protein you can work out by hand, or a start codon you know should give methionine, and confirm the library agrees. That is a different, lighter kind of checking than testing your own code, and telling the two apart, what you test because you wrote it and what you sanity-check because a library wrote it, is part of the skill this week teaches.
+You will not write a test that checks `.translate()` implements the standard genetic code correctly. That is BioPython's job, done by people with far more time to get it right than you have this term, and treating it as machinery you trust rather than code you must personally verify is not laziness. It is the correct division of labour.
 
-### Combining capabilities, and where it goes wrong
+What you do instead is sanity-check its output against something you can compute or already know, such as translating a short sequence whose protein you can work out by hand, or a start codon you know should give methionine, and confirming that the library agrees. That is a different and lighter kind of checking than testing your own code, and telling the two apart, meaning what you test because you wrote it and what you sanity-check because a library wrote it, is part of the skill this material teaches.
 
-The genuinely useful move is combining several such contracts to do something none of them does alone: read a file of sequences, translate each one, and report which produces the longest protein before hitting a stop codon, say. Directing an assistant to write code like this is exactly where library work and AI work meet, and it is also exactly where the assistant's weakest habit shows up. An assistant trained on a huge amount of code involving popular libraries will sometimes call a method that sounds exactly like something the library ought to have, with a name and a signature that fit the library's style perfectly, and that simply does not exist. It is guessing a plausible next token again, the same habit from three weeks ago, now aimed at a library's API instead of at Python's own syntax. The documentation is what catches this, because an invented method has no entry to check against, and the next note works through exactly that failure.
+## Combining capabilities, and where it goes wrong {#sec-combining}
 
-### One more resource, mentioned and set aside
+The genuinely useful move is combining several such contracts to do something none of them does alone, such as reading a file of sequences, translating each one, and reporting which produces the longest protein before hitting a stop codon. Directing an assistant to write code like this is exactly where library work and AI work meet, and it is also exactly where the assistant's weakest habit shows up.
 
-Later in the course you will meet the **dataframe**, a table-shaped object from a different library, `pandas`, that several of the later projects use to hold and plot sequence data. It is exactly one more resource of the kind this note is about: an object with a documented contract you read rather than code you write, and @sec-dataframes introduces it properly when you need it. For now, file it under the same heading as `Seq`: a capability that exists, that you will learn to reach for by reading what it promises, not by reading how it is built.
+An assistant trained on a huge amount of code involving popular libraries will sometimes call a method that sounds exactly like something the library ought to have, with a name and a signature that fit the library's style perfectly, and that simply does not exist. It is guessing a plausible next token again, the same habit from a few weeks ago, now aimed at a library's interface instead of at Python's own syntax. The documentation is what catches this, because an invented method has no entry to check against, and the next note works through exactly that failure.
 
-#### Exercise `AI: Worker`
+## One more resource, mentioned and set aside {#sec-dataframe-preview}
 
-Ask the assistant to write a short function using `Bio.Seq.Seq` that takes a DNA string and returns `True` if its reverse complement, translated, contains no internal stop codon before the end. Before running anything, find `.translate()` and `.reverse_complement()` in the BioPython documentation and check the assistant's use of them against what the documentation actually promises, particularly any optional arguments it did or did not pass. Then run it on a sequence whose answer you can work out by hand, and confirm.
+Later in the course you will meet the dataframe, a table-shaped object from a different library, `pandas`, that several of the later projects use to hold and plot sequence data. It is exactly one more resource of the kind this note is about, an object with a documented contract you read rather than code you write, and @sec-dataframes introduces it properly when you need it. For now, file it under the same heading as `Seq`, as a capability that exists, and that you will learn to reach for by reading what it promises rather than by reading how it is built.
+
+#### Exercise {#sec-ex-contract-check}
+
+`AI: Worker`
+
+Ask the assistant to write a short function using `Bio.Seq.Seq` that takes a DNA string and returns `True` if its reverse complement, translated, contains no internal stop codon before the end. Before running anything, find `.translate()` and `.reverse_complement()` in the BioPython documentation and check the assistant's use of them against what the documentation actually promises, paying particular attention to any optional arguments it did or did not pass. Then run it on a sequence whose answer you can work out by hand, and confirm.
 
 For your logbook this week, name one method or function you used this week purely by trusting its documented contract, without reading its implementation, and say what you checked to make sure you were using it as documented rather than as guessed.
