@@ -64,6 +64,23 @@ There are now **two registers** in the book, and you should match the one belong
 
 **The AI-arc notes (`docs/ai/`) use a deliberately plainer register**, per Kasper's explicit instruction: continuous prose, more of it, with **no bold, no bulleted or numbered lists, no emoji/icons, no em-dashes, and no fancy paragraph titles** — concentrate on the content, not the voice. The five long conceptual notes (`insides.md`, `instruction.md`, `reading-and-judging.md`, `tests-are-the-contract.md`, `plan-before-you-prompt.md`, `delegate-the-full-problem.md`, `surviving-ai.md`) are pure prose in this style. The shorter AI beats and in-class clinics (`.qmd`) add a light session scaffold on top of that prose: a `## Session length` note, `## Part 1 / ## Part 2` segments, and `#### Exercise` blocks carrying an `AI: <Role>` or `SOLO` badge. When editing an AI-arc note, keep the plainer register; do not import the Python notes' bold/list/emoji habits.
 
+**Overused words and constructions to avoid (both registers).** These are tics of AI-generated prose rather than Kasper's, and they have accumulated across the notes. Do not reach for them when drafting, and rewrite them when you find them:
+
+- **"points out"** — for a person or a text drawing attention to something, prefer "says", "shows", "notes", or recast the sentence so the thing itself does the work.
+- **"not X but Y"** — the corrective-contrast frame. Occasionally it earns its place; as a habit it makes every paragraph sound like a rebuttal. Prefer stating Y directly, or splitting into two sentences.
+- **"is real" / "are real"** — as in "the difference is real" or "that failure is real". Say what is actually being claimed instead: that it happens, that it can be measured, that it will bite you.
+- **"worth remembering"** (and "worth noting", "worth saying") — usually a throat-clearing preface. Delete it and state the thing.
+- **"load-bearing"** — the architectural metaphor. Prefer saying what depends on what.
+- **"mechanism"** — prefer "how it works", "the machinery", or naming the specific thing.
+- **"precise" / "precisely"** — usually padding on a claim that is either exact or not. Prefer "exactly", or give the number.
+- **"clean" / "cleanly"** — vague praise. Say what property is meant: it runs without error, it reads easily, it has no leftover state.
+- **"critical gate"** — and the gatekeeping metaphor generally.
+- **"literally"** — almost always deletable; where it is doing real work, prefer "actually" or restate the claim.
+- **"genuine" / "genuinely"** — delete, or say why the thing is not merely apparent.
+- **"honest" / "honestly"** — as an intensifier. Keep it only where honesty is the subject, as in asking a student to answer honestly.
+
+None of these is banned outright; the test is whether the word is doing work that no plainer word would do. Where one survives, it should be because the sentence would be worse without it.
+
 **Two standing cautions:**
 
 - **Don't let the voice drift.** `classes.ipynb` remains the cautionary example — it is AI-generated reference-manual prose with zero exercises (see §5). New and rewritten Python notes must keep the warm, exercise-dense voice all the way through.

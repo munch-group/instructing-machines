@@ -1,0 +1,252 @@
+# Turtle, week 5: drawings described by data {#sec-turtle-week-5}
+
+This week you built things out of dictionaries and lists of lists, counted occurrences into a dictionary, put values into buckets, walked a matrix with two loops, and learned to read from and write to files. All of that is about the same move, which is getting the information out of the code and into a data structure, so that the code says how to do something and the data says what to do it to.
+
+The turtle makes that move visible in an unusually satisfying way, because once a drawing is described by data you can change the picture without touching a single command. You will write a drawing as a list of steps, then as a dictionary from letters to turns, then as a matrix, and by the end of the session you will save a drawing to a file, hand the file to somebody else, and have them redraw it. What is stored in that file is not a picture. It is a description that any turtle can carry out, which is the same relationship a recipe has to a meal.
+
+You will also meet counting again, and this time you can check your count against a count the turtle kept independently, which is a small foretaste of the habit of verifying one thing against another that the rest of the course is built on.
+
+## A drawing as a list of steps {#sec-turtle-week-5-list}
+
+#### Exercise
+
+`SOLO`
+
+A step in a path is naturally two numbers, a distance and a turn, so a path is naturally a list of tuples. Predict the shape this draws before you run it.
+
+```python
+from turtle_widget import Turtle
+
+path = [(100, 90), (60, 90), (100, 90), (60, 90)]
+
+t = Turtle()
+for distance, angle in path:
+    t.forward(distance)
+    t.left(angle)
+```
+
+The unpacking happens in the `for` line itself. Each time round the loop, one tuple comes out of the list and its two items go into the two names, which is the same unpacking you did last week with `x, y = t.position()`, done automatically once per repetition.
+
+Now change the data and not the code. Make the path draw a triangle, then a staircase of five steps. If you find yourself editing anything below the `for` line, stop and put the change in the list instead.
+
+## A drawing as a dictionary of instructions {#sec-turtle-week-5-dict}
+
+A path written as a list of tuples is still fairly close to the turtle. You can go further and invent a tiny language of your own, where a drawing is just a string of letters and a dictionary says what each letter means.
+
+#### Exercise
+
+`SOLO`
+
+Read the dictionary and the string, work out the shape on paper, and then run it.
+
+```python
+from turtle_widget import Turtle
+
+turn = {'F': 0, 'L': 90, 'R': -90}
+program = 'FFLFFLFFLFF'
+
+t = Turtle()
+for letter in program:
+    t.forward(30)
+    t.left(turn[letter])
+```
+
+Notice that a turn of `-90` to the left is a turn of ninety to the right, so you did not need a second command. Now extend the language. Add a letter that lifts the pen and a letter that puts it down, and change the loop so that those two letters do not also move the turtle forward. You will need an `if` to do it, and the interesting design question is whether the dictionary is still the right place to keep the meaning of a letter once some letters mean something other than a turn. Answer that question in a sentence before you write the code.
+
+#### Exercise
+
+`SOLO`
+
+Count the letters of the program into a dictionary, in the way you counted this week, and then check your count against a count the turtle kept for itself.
+
+```python
+from turtle_widget import Turtle
+
+turn = {'F': 0, 'L': 90, 'R': -90}
+program = 'FFLFFRFFLFFRFF'
+
+counts = {}
+for letter in program:
+    if letter not in counts:
+        counts[letter] = 0
+    counts[letter] = counts[letter] + 1
+print(counts)
+
+t = Turtle()
+for letter in program:
+    t.forward(30)
+    t.left(turn[letter])
+
+print(t.nr_left)
+```
+
+Predict, before running, what `t.nr_left` will be, and be careful, because the answer is not the number of `L` letters in the program. The turtle counts every call to `left`, and the loop calls `left` on every letter, including the ones that turn by zero degrees. Two counts of two different things came out of the same run, and neither is wrong. What would have been wrong is assuming that a number called `nr_left` counts the thing you happened to be thinking about.
+
+## A drawing as a matrix {#sec-turtle-week-5-matrix}
+
+#### Exercise
+
+`SOLO`
+
+A list of lists of zeros and ones is a picture in the most literal sense. Predict what appears, then run it.
+
+```python
+from turtle_widget import Turtle
+
+grid = [
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
+]
+
+t = Turtle()
+t.speed(0)
+t.penup()
+for row in range(len(grid)):
+    for col in range(len(grid[row])):
+        if grid[row][col] == 1:
+            t.goto(col * 30 - 60, 60 - row * 30)
+            t.dot(20)
+```
+
+Take the expression `grid[row][col]` apart before you decide it is obvious. The first pair of brackets reduces `grid[row]` to one of the five inner lists, and the second pair then takes one item out of that list. The row index comes first because a list of lists is a list of rows, and that ordering is a decision somebody made, not a law.
+
+Then look at the arithmetic in the `goto` line and work out why the row uses `60 - row * 30` while the column uses `col * 30 - 60`. Draw the grid with `row * 30 - 60` instead and see what happens to your picture. On a turtle canvas y grows upwards, and in a matrix rows grow downwards, so somewhere the two conventions have to be reconciled, and that line is where.
+
+#### Exercise
+
+`SOLO`
+
+Count the bases in a strand into a dictionary and draw the result as a bar chart. Write it yourself, using the counting pattern from the exercise above and the drawing pattern from the matrix exercise, and predict the relative heights of the four bars from the strand before you look at the picture.
+
+```python
+from turtle_widget import Turtle
+
+dna = 'ATGGCGCTAAGCTTAGCGCGATTAACGGCTA'
+
+counts = {}
+for base in dna:
+    if base not in counts:
+        counts[base] = 0
+    counts[base] = counts[base] + 1
+print(counts)
+
+t = Turtle()
+t.speed(0)
+t.pensize(20)
+x = -120
+for base in 'ACGT':
+    t.penup()
+    t.goto(x, -100)
+    t.setheading(90)
+    t.pendown()
+    t.forward(counts[base] * 8)
+    x = x + 60
+```
+
+Notice that the loop walks `'ACGT'` and not `counts`, so the bars come out in an order you chose rather than an order the dictionary happened to give you. If the strand contained no `C` at all this code would fail, and it is worth deciding now whether the right answer is a bar of height zero or an error. Write the version that does whichever you decided.
+
+## Saving a drawing and getting it back {#sec-turtle-week-5-files}
+
+A file is how a drawing survives the end of the cell. Everything in this section uses the `with` form of `open`, which is the form you should use from now on, because it closes the file for you as soon as the indented block ends, including when something goes wrong inside it.
+
+#### Exercise
+
+`SOLO`
+
+Write your little language to a file, then look at what you wrote.
+
+```python
+program = 'FFLFFRFFLFFRFF'
+
+with open('drawing.txt', 'w') as f:
+    f.write(program)
+
+with open('drawing.txt') as f:
+    print(f.read())
+```
+
+The `'w'` means writing, and it empties the file first, so running this twice does not give you the program twice. Opening without a second argument means reading. Change the string, run the cell again, and check that the file changed.
+
+#### Exercise
+
+`SOLO`
+
+Now read the file in one cell and draw it, with no program string written anywhere in the drawing code.
+
+```python
+from turtle_widget import Turtle
+
+turn = {'F': 0, 'L': 90, 'R': -90}
+
+with open('drawing.txt') as f:
+    program = f.read()
+
+t = Turtle()
+for letter in program:
+    t.forward(30)
+    t.left(turn[letter])
+```
+
+If your file ends with a newline this will fail, because a newline is a letter as far as the loop is concerned and it is not a key in the dictionary. Read the error, then fix it with `strip`, which removes whitespace from both ends of a string. The lesson is worth more than the fix: what comes out of a file is never quite what you thought you put in, and a program that reads files has to say what it does about that.
+
+#### Exercise
+
+`SOLO`
+
+A file with one number per line is the ordinary way to store a column of data, and iterating over an open file hands you one line at a time. Predict how many bars appear before you run it.
+
+```python
+from turtle_widget import Turtle
+
+with open('heights.txt', 'w') as f:
+    for height in [40, 90, 60, 130, 75]:
+        print(height, file=f)
+
+t = Turtle()
+t.speed(0)
+t.pensize(20)
+x = -120
+with open('heights.txt') as f:
+    for line in f:
+        t.penup()
+        t.goto(x, -100)
+        t.setheading(90)
+        t.pendown()
+        t.forward(int(line))
+        x = x + 60
+```
+
+The call `int(line)` is doing two jobs that are easy to miss. It turns text into a number, which you knew, and it quietly tolerates the newline on the end of the line, which you did not. Try `float` instead and it behaves the same way. Now put a blank line in the middle of the file by hand and run it again, and read the error you get, because that is the error you will meet every time you are handed a data file by somebody else.
+
+#### Exercise
+
+`AI: Explainer`
+
+Ask the assistant to explain what `strip` does, and specifically whether `strip` and `int` are doing the same job when they meet a line that ends in a newline. Then confirm the answer with the machine rather than accepting it, by writing four lines that print the length of a line before and after stripping and the value that `int` gives for the unstripped version. If the assistant's explanation and your four lines disagree, the four lines win, and it is worth working out where the explanation went wrong before you move on.
+
+#### Exercise
+
+`SOLO`
+
+Finish by making the turtle record its own journey. Keep a list of the turtle's position after every step, write those positions to a file, then read them back in a second cell and replay the path with `goto`.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.speed(0)
+positions = []
+for step in range(12):
+    t.forward(20 + step * 8)
+    t.left(75)
+    positions.append(t.position())
+
+with open('path.txt', 'w') as f:
+    for x, y in positions:
+        print(x, y, file=f)
+```
+
+Then write the cell that reads `path.txt` and draws the same path on a fresh turtle. You will have to split each line into two pieces and turn each piece into a number, and `split` is how you do it. When it works, compare the two pictures. They should be the same path, drawn by two programs that have almost nothing in common, one of which never knew there was a loop, an angle or a distance involved. What travelled between them was the data.

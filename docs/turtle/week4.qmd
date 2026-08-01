@@ -1,0 +1,228 @@
+# Turtle, week 4: loops, and the first tests {#sec-turtle-week-4}
+
+This week brought the for-loop, `range`, loops inside loops, and the first proper discussion of testing. The turtle is a good place to practise all four, for one reason above all others: when a loop goes wrong the picture tells you which loop went wrong. A drawing that comes out as a fan instead of a square, or as one row instead of a grid, is a diagnosis and not merely a complaint.
+
+That same quality is a trap, and this session sets the trap deliberately in its second half. A picture is a fast and truthful report about the run you just made. It is not a report about any other run, and it says nothing at all about the parts of the turtle that the picture does not show. So after you have used loops to draw a few things, you will start writing down what you expected in a form Python can check, in exactly the style you met in the testing note this week, and you will find that the turtle can answer questions about itself that the canvas never showed you.
+
+Remember the practical rule from last week. One drawing, one cell, including the line that makes the turtle.
+
+## The same thing, several times {#sec-turtle-week-4-repeat}
+
+#### Exercise
+
+`SOLO`
+
+Here is a square written out the long way. Run it first so you know what you are aiming at, then rewrite it using a for-loop and `range` so that the pair of commands appears only once. Predict, before running your version, whether the picture will be identical.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.forward(120)
+t.left(90)
+t.forward(120)
+t.left(90)
+t.forward(120)
+t.left(90)
+t.forward(120)
+t.left(90)
+```
+
+If you wrote `for i in range(4):` and never used `i` inside the loop, use the underscore instead, as in `for _ in range(4):`. The underscore is an ordinary name and Python does not treat it specially. It is a message to whoever reads the code that this loop repeats a fixed number of times and does not care which repetition it is on.
+
+#### Exercise
+
+`SOLO`
+
+Turn your square into a polygon with any number of sides. Decide first what the turn has to be for the shape to close, then write it. Test it with three, five and eight before you read on.
+
+```python
+from turtle_widget import Turtle
+
+sides = 5
+size = 90
+
+t = Turtle()
+for _ in range(sides):
+    t.forward(size)
+    t.left(360 / sides)
+```
+
+A closed shape is one where the turns add up to a full circle, which is why the turn is `360 / sides` and not something you have to look up. Try `sides = 3`, then `sides = 12`, then `sides = 60`, and notice what a polygon with enough sides starts to look like.
+
+#### Exercise
+
+`SOLO`
+
+Now let the loop variable do some work. Predict the shape of the result before running.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+for step in range(10, 200, 20):
+    t.forward(step)
+    t.left(90)
+```
+
+Then change the third number in `range` and predict again before each run. The three numbers are start, stop and step, and the value at `stop` is never used, which is the single most common source of an off-by-one drawing.
+
+#### Exercise
+
+`SOLO`
+
+A loop can walk a list, and it can walk a string, because both hand out one item at a time. Decide how many lines will be drawn, then run it.
+
+```python
+from turtle_widget import Turtle
+
+angles = [60, 120, 60, 120, 60, 120]
+
+t = Turtle()
+for angle in angles:
+    t.forward(70)
+    t.left(angle)
+```
+
+Then replace the list with a strand of DNA and turn left for one base and right for another, so that `for base in dna:` draws a path whose shape is decided by the sequence. Choose a strand of at least twelve bases and look at what comes out.
+
+## Loops inside loops {#sec-turtle-week-4-nested}
+
+A loop inside a loop is where most beginners lose their footing, and it is where the turtle earns its place in this course. The inner loop finishes all of its repetitions every single time the outer loop goes round once. That sentence is the whole thing, and the next two exercises are designed to make you believe it rather than merely accept it.
+
+#### Exercise
+
+`SOLO`
+
+Before you run this, say out loud how many squares will appear and how many times `t.forward(40)` will be called in total.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.speed(10)
+for _ in range(5):
+    for _ in range(4):
+        t.forward(40)
+        t.left(90)
+    t.penup()
+    t.forward(60)
+    t.pendown()
+```
+
+Notice the three lines after the inner loop. They belong to the outer loop and not to the inner one, and the only thing that says so is the indentation. Move them one level further in, predict what will happen, and then run it to see. This is Oath 2 doing its work: the lines run top to bottom, and the indentation decides which lines are inside which repetition.
+
+#### Exercise
+
+`SOLO`
+
+Here is a grid of dots. Predict the number of dots, then swap the two `range` calls so that the outer loop counts columns and the inner one counts rows, and predict what changes about the picture before running it again.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.speed(0)
+t.penup()
+for row in range(4):
+    for col in range(6):
+        t.goto(col * 40 - 100, row * 40 - 60)
+        t.dot(10)
+```
+
+One of the two versions draws the grid row by row and the other draws it column by column, and the finished pictures are identical. That is not a small observation, and it is the first time in this course that two visibly different programs have left the same evidence behind. Hold on to it. Week eight is built on it.
+
+#### Exercise
+
+`AI: Explainer`
+
+Paste the nested loop from the exercise before last into the assistant and ask it two things. Ask how many times in total the body of the inner loop runs, and ask which of the two loops is responsible for the gap between the squares. Then confirm both answers with the machine rather than taking its word for either. For the first, count the calls yourself by adding a counter variable that starts at zero and goes up by one inside the inner loop, and print it after the loops have finished. For the second, change the number in the outer loop's `t.forward(60)` and look.
+
+## Checking with the machine instead of your eyes {#sec-turtle-week-4-tests}
+
+In the testing note this week you wrote claims about a function in a form Python can check, by writing the call and the expected answer with `==` between them and printing the result. Every one of those lines prints `True` when the claim holds and `False` when it does not, and a column of `True` is a much better piece of evidence than a feeling that the output looked right.
+
+The turtle can be checked in exactly the same way, because it will answer questions about itself. This is where the questions you met last week stop being curiosities.
+
+#### Exercise
+
+`SOLO`
+
+Write down, before you run this, what each of the two claims should print if the square is really a square.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+for _ in range(4):
+    t.forward(120)
+    t.left(90)
+
+print(t.heading() == 0)
+print(t.position() == (0.0, 0.0))
+```
+
+A shape that closes properly brings the turtle back to where it started, facing the way it started. Those are two claims about the drawing that the drawing itself never displayed, because the canvas shows you four lines and says nothing whatever about which way the turtle ended up pointing.
+
+The second claim almost certainly printed `False`, and the picture is a perfectly good square. Nothing is wrong with the drawing and nothing is wrong with your loop. Print `t.position()` on its own and look at the numbers. What is wrong is the claim, because working out where a turn of ninety degrees points requires a fraction the machine cannot store exactly, so the turtle lands a vanishingly small distance from where it started. Every language that stores fractions this way has this property, and it is the reason that comparing two calculated numbers with `==` is almost always the wrong test.
+
+#### Exercise
+
+`SOLO`
+
+Since exact equality is not available, you have to decide how close counts as the same place, and `round` is the blunt way to say what you decided. Predict what all six of these print before running.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+for _ in range(7):
+    t.forward(90)
+    t.left(360 / 7)
+
+print(t.position() == (0.0, 0.0))
+print(round(t.xcor(), 6) == 0.0)
+print(round(t.ycor(), 6) == 0.0)
+print(round(t.heading(), 6) == 0.0)
+print(round(t.xcor(), 12) == 0.0)
+print(round(t.xcor()) == 0)
+```
+
+Notice that the answer depends on a number you chose, and that nobody can choose it for you, because how close is close enough is a question about what you are doing and not about arithmetic. Six decimal places is a reasonable default for turtle work in this course and you should be able to say why you picked it if asked. Deciding what counts as equal is part of writing the test rather than a detail you can skip, and this is the first time in this course that the decision has been yours.
+
+#### Exercise
+
+`SOLO`
+
+The turtle keeps a running total of how far it has travelled, in `t.total_movement`, and it counts your turns in `t.nr_left` and `t.nr_right`. None of these three is a method, so you write them without brackets. Predict all three numbers for the square below, and write your prediction as three checks that should all print `True`.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+for _ in range(4):
+    t.forward(120)
+    t.left(90)
+
+print(t.total_movement == 480)
+print(t.nr_left == 4)
+print(t.nr_right == 0)
+```
+
+Then break the loop on purpose. Change the four in `range` to three and add one more `t.forward(120)` on its own line after the loop, so that there are four straight sides and only three turns.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+for _ in range(3):
+    t.forward(120)
+    t.left(90)
+t.forward(120)
+
+print(t.total_movement == 480)
+print(t.nr_left == 4)
+print(t.heading() == 0)
+```
+
+Look at the picture first, and decide whether you would have spotted anything. You will not have, because the picture is a perfect square in the same place as before, drawn in the same order, ending in the same corner. The turtle travelled the same total distance, so the first check still passes. What changed is that the turtle is left facing a quarter turn away from where it started, and the two checks that ask about that are the only reports you have of it. Nothing you could have done by looking harder would have told you, because the fact was never in the image. Remember that this happened. It is the whole subject of week eight.

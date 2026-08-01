@@ -1,0 +1,188 @@
+# Turtle, week 6: building a drawing out of pieces {#sec-turtle-week-6}
+
+This week has two halves that fit together. In the worked example on composition you watched a problem get taken apart into three functions before a single body was written, and you saw that deciding the pieces is a separate job from filling them in, done first and on purpose. In the AI note you practised judging between two solutions that both run, using four questions in a fixed order: whether they agree on the awkward cases, whether a stranger could read them, whether one of them clearly redoes work you can name, and whether they use Python in a way you can explain. The translation project asks you to do both on assessed work.
+
+The turtle is a good rehearsal room for this because a drawing decomposes naturally and because a piece of a drawing can be wrong in more than one way at a time. A function that draws a polygon can produce the right shape and still leave the turtle in the wrong place, which means two versions can be equally correct about the picture and not equally correct about anything else. That is the kind of difference the rubric exists to catch, and it is much easier to see with a pen on a canvas than in prose.
+
+One convention runs through the whole session. Every function that draws takes the turtle as its first argument, written `t`, rather than reaching out for a turtle that happens to exist somewhere else. A function that depends on a name it did not receive is a function you cannot move, cannot reuse, and cannot test on a second turtle, and you will want to do all three before the session is over.
+
+## Making the pieces {#sec-turtle-week-6-pieces}
+
+#### Exercise
+
+`SOLO`
+
+Take the polygon loop you wrote in week four and wrap it in a function. Decide what it needs to be told before you write the `def` line.
+
+```python
+from turtle_widget import Turtle
+
+def polygon(t, sides, size):
+    "Draw a regular polygon with the given number of sides."
+    for _ in range(sides):
+        t.forward(size)
+        t.left(360 / sides)
+
+t = Turtle()
+t.speed(0)
+polygon(t, 6, 70)
+```
+
+Then call it three times in the same cell with different numbers of sides and watch the three shapes land on top of each other. That overlapping mess is a result and not a failure. It is telling you that `polygon` says nothing about where it draws, which is a decision somebody has to make and which `polygon` has decided not to be responsible for.
+
+#### Exercise
+
+`SOLO`
+
+Write the piece that takes responsibility for position. It should move the turtle somewhere without drawing a line on the way, and it should leave the pen as it found it.
+
+```python
+def move_to(t, x, y):
+    "Move the turtle to (x, y) without drawing."
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+```
+
+Now answer a design question in a sentence, in writing, before you write any more code. Should `move_to` also set the heading? There is no right answer, there is only a decision, and the two possible decisions lead to two different functions that behave identically in the first program you write and differently in the third. Write down which one you chose and why, because you will need that sentence again in the last exercise of this session.
+
+#### Exercise
+
+`SOLO`
+
+Now compose. Using `polygon` and `move_to` and nothing else new, draw a row of five hexagons of increasing size. Write the plan first, as one sentence saying what the loop repeats and what changes each time, and only then write the code.
+
+The point of writing the sentence first is not bureaucracy. If you cannot say in one sentence what changes each time round the loop, the loop will not come out right, and you will spend twenty minutes discovering that by trial and error instead of ninety seconds discovering it by thinking.
+
+#### Exercise
+
+`SOLO`
+
+Not every piece of a drawing program draws. Write a function that computes and returns a number and never touches a turtle at all.
+
+```python
+def polygon_perimeter(sides, size):
+    "Return the total distance a turtle travels drawing this polygon."
+    return sides * size
+
+print(polygon_perimeter(6, 70) == 420)
+```
+
+Then use it. Draw a hexagon with your `polygon` function and check the answer against the turtle's own record.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.speed(0)
+polygon(t, 6, 70)
+print(t.total_movement == polygon_perimeter(6, 70))
+```
+
+Notice what just happened. Two independent things agreed: a number you worked out from the specification, and a number the machine accumulated while carrying the drawing out. That agreement is worth more than either number on its own, and this pattern of checking one thing against a second thing that was arrived at differently is the single most useful habit in the whole course.
+
+## Judging between two versions {#sec-turtle-week-6-comparing}
+
+Everything from here uses the four questions from this week's AI note, in the same order: the awkward cases first, then readability, then efficiency you can actually name, then whether you can explain the Python being used. Run both versions before you read either of them.
+
+#### Exercise
+
+`AI: Comparer`
+
+Here are two functions that draw the same hexagon. Decide which you prefer, for a stated reason, before you run anything.
+
+```python
+def polygon_a(t, sides, size):
+    for _ in range(sides):
+        t.forward(size)
+        t.left(360 / sides)
+
+def polygon_b(t, sides, size):
+    angle = 360 / sides
+    for _ in range(sides):
+        t.forward(size)
+        t.left(angle)
+```
+
+Now apply the rubric properly. For the first question, find an input on which they behave differently, and say so if you cannot find one. For the third question, say exactly what work `polygon_a` redoes and then say whether you can measure it, because a difference you cannot measure is a difference you should not claim. This exercise is here mostly so that you learn what it feels like when the rubric returns a shrug, which it will do often and which is a perfectly good answer.
+
+#### Exercise
+
+`AI: Comparer`
+
+Now two versions that really do differ. Read both, predict for each whether the turtle ends where it started, and then run each one twice in a row in the same cell.
+
+```python
+def flower_a(t, petals, size):
+    for _ in range(petals):
+        t.circle(size)
+        t.left(360 / petals)
+
+def flower_b(t, petals, size):
+    for _ in range(petals):
+        t.circle(size)
+        t.left(360 / petals)
+    t.left(17)
+```
+
+The second version is the first with one extra line, and one drawing of each is enough to convince anybody that they are the same function. Two drawings of each is enough to prove that they are not. Add this to your rubric answers as a fifth thing worth asking about a function: what does it leave behind. A function that does not put things back where it found them cannot be used twice, and you will not discover that by looking at it once.
+
+#### Exercise
+
+`AI: Comparer`
+
+Ask the assistant for another way to draw a regular polygon, one that does not use a loop of `forward` and `left`. It will probably reach for `t.circle`, which takes a `steps` argument and can draw a polygon directly. Get its version, run it beside yours, and judge them with the four questions.
+
+Pay particular attention to the fourth question, which is idiom, and read it strictly. If you cannot explain what the `steps` argument does to somebody who has not seen it, then for you, today, that version is the worse one, however much shorter it is. This is not a permanent judgment about the function. It is a judgment about what you can currently verify, and it will change the week you understand it.
+
+#### Exercise
+
+`AI: Comparer`
+
+Ask the assistant to write a function that draws a five-pointed star, and hold it to the discipline you have been building. Before you prompt, write down what you want the function to be called, what it takes, and what it should leave behind, including where the turtle should end up and which way it should be facing. Then get the code, read every line of it, and check the promise about what it leaves behind by comparing `t.position()` and `t.heading()` before and after the call.
+
+Almost every star function you get will draw a correct star and leave the turtle rotated. This is not the assistant being careless. It is the assistant answering the question you asked, which was about a picture, while you were also silently caring about something you never said out loud.
+
+## Two pens on one canvas {#sec-turtle-week-6-two-turtles}
+
+Comparing two versions is easier when you can see both at once, and a canvas can carry more than one turtle. The first turtle owns the canvas, and any further turtle joins it with `new_turtle`.
+
+#### Exercise
+
+`SOLO`
+
+Run your version and the assistant's version side by side in two colours.
+
+```python
+from turtle_widget import Turtle
+
+red = Turtle()
+red.speed(0)
+blue = red.new_turtle(color='blue')
+blue.speed(0)
+
+red.pencolor('red')
+move_to(red, -120, 0)
+polygon(red, 6, 60)
+
+move_to(blue, 40, 0)
+polygon(blue, 6, 60)
+```
+
+The two turtles take turns rather than moving at the same time, in the order the lines run, exactly as Oath 2 says they should. Now put them both at the same place and run two different implementations of the same drawing, and watch for the step at which the pens stop lying on top of each other. That step is the answer to the question of where the two versions actually differ, and it took you no reading at all to find it.
+
+Be careful about how much you conclude from this. Two pens that stay on top of each other for the whole drawing have told you that the two functions produce the same picture, for these arguments, on this canvas, starting here. They have told you nothing about any other arguments, and nothing about what either function leaves behind.
+
+## Comparing designs rather than code {#sec-turtle-week-6-designs}
+
+The four questions were written for two versions of a function, and they work just as well one level up, on two ways of cutting a problem into pieces. This is the most useful thing you will take from this session, and it is worth doing carefully.
+
+#### Exercise
+
+`AI: Comparer`
+
+Choose a drawing with enough parts to argue about, such as a house with a door, three windows and a roof, or a simple bar chart with axes and labels. Write down your own decomposition first, meaning the name of each function, what it takes, what it returns, and one sentence about what it leaves behind. Write no bodies.
+
+Then give the assistant the same problem, ask it for a decomposition and nothing else, and refuse the code if it offers it. Now compare the two lists of function signatures with the four questions, adapted one level up. For correctness on the awkward cases, ask whether each design can express a house with no windows, or a chart with one bar. For readability, ask whether somebody could tell what each function does from its name and arguments alone. For efficiency, ask whether either design forces the same work to be done twice. For idiom, ask whether either design contains a piece you could not test on its own.
+
+Then say which design you are going to build and why, in two sentences, and build it. The reason for writing the two sentences down is that in seven weeks you will be doing exactly this on the hardest problem in the course, with nothing given to you and nobody's decomposition to fall back on but your own.

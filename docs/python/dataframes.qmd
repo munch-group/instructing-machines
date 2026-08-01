@@ -30,7 +30,7 @@ That is the whole shape of the object worth learning right now: a dataframe is a
 
 ### The apply bridge
 
-Here is the one pattern in this note actually worth remembering, because it is where something you already built meets something the library already built. Suppose you have your own tested `gc_content(dna)` function from several weeks ago, and the CSV instead gave you a raw `sequence` column rather than a precomputed one. You do not write a loop:
+Here is the one pattern in this note that matters, because it is where something you already built meets something the library already built. Suppose you have your own tested `gc_content(dna)` function from several weeks ago, and the CSV instead gave you a raw `sequence` column rather than a precomputed one. You do not write a loop:
 
 ```python
 genes['gc_content'] = genes['sequence'].apply(gc_content)
@@ -48,7 +48,7 @@ genes['gc_content'].hist()
 
 That single line, using `matplotlib` underneath, is enough to see a distribution rather than stare at a column of numbers. The `iplot-widget` you will meet in the projects does the same job with a dropdown interface instead of code, and, usefully, shows you the plotting code it generated as it does it, which is worth reading even when you did not type it yourself: it is one more small piece of code you can check against what you asked for, rather than trust because a picture appeared.
 
-That is genuinely all this note promises: a dataframe is a table you can pull columns from, run your own tested functions across with `.apply()`, and hand to a plotting call to see rather than just compute. Everything more elaborate that `pandas` can do, and it can do a great deal more, is outside what this course asks of you.
+That is all this note promises: a dataframe is a table you can pull columns from, run your own tested functions across with `.apply()`, and hand to a plotting call to see rather than just compute. Everything more elaborate that `pandas` can do, and it can do a great deal more, is outside what this course asks of you.
 
 #### Exercise 🔒 `SOLO`
 

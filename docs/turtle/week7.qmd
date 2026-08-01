@@ -1,0 +1,235 @@
+# Turtle, week 7: your own kind of object, and finding the bug {#sec-turtle-week-7}
+
+Three things landed this week. You learned to define a class, which is to say to make your own kind of object with its own state and its own methods, using `__init__` and `self`. You learned a method for debugging, four steps applied in the same order every time, which begins with reading the traceback from the bottom and refuses to let you change anything until you have confirmed your hypothesis. And in the AI note you let the assistant write code you intend to keep, for the first time, under two conditions that make it safe: the piece is small enough to read in full, and a test stands behind it before you are allowed to believe it.
+
+All three come together on a turtle. You have been using an object with state and methods since week three, and now you build one of your own that drives it. You have been reading tracebacks all term, and now you get two bugs on purpose, one that stops the program and one that does not. And you will nominate exactly one small method for the assistant to draft, with its gentle and nasty tests written before the prompt is sent.
+
+Keep the convention from last week. A drawing function is given the turtle rather than helping itself to one, and that includes a method on your own class.
+
+## An object of your own {#sec-turtle-week-7-class}
+
+#### Exercise
+
+`SOLO`
+
+Here is a class with state and one method. Read it, predict what the last three lines do, and then run it.
+
+```python
+from turtle_widget import Turtle
+
+class Polygon:
+
+    def __init__(self, sides, size):
+        self.sides = sides
+        self.size = size
+
+    def draw(self, t):
+        for _ in range(self.sides):
+            t.forward(self.size)
+            t.left(360 / self.sides)
+
+t = Turtle()
+t.speed(0)
+hexagon = Polygon(6, 60)
+hexagon.draw(t)
+```
+
+Two objects are on that canvas, in a manner of speaking, and only one of them is a turtle. The `Polygon` knows how many sides it has and how long they are and nothing else. It does not know where it is, what colour it is, or when it will be drawn, because all of that belongs to the turtle. Deciding what a class knows about is the same job as deciding what a function takes, done once for a whole family of methods.
+
+Notice that `hexagon.draw(t)` calls a method defined as `draw(self, t)` and that you passed one argument rather than two. The object before the dot becomes `self`, automatically, every time. This is the same arrangement you have been using since week three, when `t.forward(100)` put the turtle before the dot into the first parameter of `forward`, and you are now on the other side of it.
+
+#### Exercise
+
+`SOLO`
+
+Make three of them and predict the picture before you run it.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.speed(0)
+shapes = [Polygon(3, 80), Polygon(5, 60), Polygon(8, 40)]
+for shape in shapes:
+    shape.draw(t)
+    t.left(120)
+
+print(shapes[0].sides)
+print(shapes[1].sides)
+```
+
+Three objects, each holding its own numbers, all made from one class. The class is the recipe and each `Polygon(...)` call bakes one cake, and changing what is on one plate does nothing to the others. Confirm that last claim rather than believing it: set `shapes[0].size` to some other number and print `shapes[1].size` afterwards.
+
+#### Exercise
+
+`SOLO`
+
+Add a method that changes the object rather than drawing it, and give the class a `__str__` so that printing one tells you something useful.
+
+```python
+class Polygon:
+
+    def __init__(self, sides, size):
+        self.sides = sides
+        self.size = size
+
+    def __str__(self):
+        return 'a polygon with ' + str(self.sides) + ' sides of length ' + str(self.size)
+
+    def grow(self, factor):
+        self.size = self.size * factor
+
+    def draw(self, t):
+        for _ in range(self.sides):
+            t.forward(self.size)
+            t.left(360 / self.sides)
+
+p = Polygon(5, 40)
+print(p)
+p.grow(2)
+print(p)
+```
+
+Look at `grow` and at `__str__` together, because they are the two kinds of method you first met in week three, now written by you. The method `grow` is a command. It changes the object and hands nothing back, which is why `print(p.grow(2))` would be a mistake. The method `__str__` is a question. It works out an answer and returns it and leaves the object exactly as it was. Your own class has the same two categories that the turtle does, because they are a fact about objects rather than a fact about turtles.
+
+#### Exercise
+
+`SOLO`
+
+Write a second class of your own with the same shape. Call it `Star`, give it a number of points and a size, give it a `draw` method that leaves the turtle exactly as it found it, and give it a `__str__`. Then write the check that proves the claim about what it leaves behind.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.speed(0)
+before = t.position()
+facing = t.heading()
+Star(5, 80).draw(t)
+print(t.position() == before)
+print(t.heading() == facing)
+```
+
+If either check prints `False`, the picture is not the thing to look at. Add a `t.left(...)` at the end of `draw` until both print `True`, and then say in one sentence why the number you needed is what it is.
+
+#### Exercise
+
+`AI: Drafter`
+
+Nominate one method for the assistant to write, and follow the full order from this week's AI note without cutting any of it.
+
+First specify, in writing and before you prompt: a method `perimeter(self)` on `Polygon` that returns the total distance a turtle would travel drawing it, with the worked example that `Polygon(6, 70).perimeter()` is `420`. Decide, also before you prompt, what it should do for a polygon with zero sides, because that is the awkward case and the assistant will decide it for you silently if you do not.
+
+Then write the two tests, still before prompting.
+
+```python
+print(Polygon(6, 70).perimeter() == 420)
+print(Polygon(0, 70).perimeter() == 0)
+```
+
+Then ask for the body, read every line of what comes back, and run both tests. A passing gentle test tells you the method is not catastrophically broken. Only the nasty test passing earns your belief, and if it fails then the interesting question is whether it was answering the question you actually asked, rather than whether it was wrong.
+
+## Two bugs, on purpose {#sec-turtle-week-7-bugs}
+
+The four steps from this week are read the traceback from the bottom, locate the failing line, form a hypothesis you could be wrong about, and confirm the hypothesis before changing anything. The temptation to skip to the last step and change something hopefully is strongest when the fix looks obvious, which is exactly when it is most likely to be a different bug wearing the same clothes.
+
+#### Exercise
+
+`SOLO`
+
+This one stops. Run it, then work the four steps in order, out loud or on paper, before you touch the code.
+
+```python
+from turtle_widget import Turtle
+
+class Spiral:
+
+    def __init__(self, turns, step):
+        self.turns = turns
+        self.step = step
+
+    def draw(self, t):
+        for i in range(self.turns):
+            t.forward(self.step * i)
+            t.left(self.angle)
+
+t = Turtle()
+t.speed(0)
+Spiral(20, 6).draw(t)
+```
+
+Read the last line of the traceback first and say what it names. Then find the line it points at. Then state your hypothesis as a sentence that could turn out to be false, in the form of a claim about what is or is not true of the object at that moment. Then confirm it, by printing something, before you decide what the fix is. There is more than one defensible fix here, and which one is right depends on a decision about what a spiral is, which the error message cannot make for you.
+
+#### Exercise
+
+`SOLO`
+
+This one does not stop. It runs without complaint and draws the wrong thing, which is the harder case because Python has nothing to say about it.
+
+```python
+from turtle_widget import Turtle
+
+def staircase(t, steps, size):
+    "Draw a staircase going up and to the right."
+    for _ in range(steps):
+        t.forward(size)
+        t.left(90)
+        t.forward(size)
+        t.left(90)
+
+t = Turtle()
+t.speed(0)
+staircase(t, 5, 40)
+```
+
+There is no traceback to read, so the first step of the method is replaced by a different one: say exactly what you expected and what you got, in a way somebody else could check. Then halve the problem. Run it with `steps` set to one and look at what a single step of the staircase actually draws, because a bug that repeats five times is five copies of a bug that happens once, and it is always cheaper to find the one.
+
+#### Exercise
+
+`SOLO`
+
+Confirm your hypothesis about the staircase by watching the state rather than the picture, which is the print-based version of what the codelens widget shows you.
+
+```python
+from turtle_widget import Turtle
+
+def staircase(t, steps, size):
+    for i in range(steps):
+        t.forward(size)
+        t.left(90)
+        t.forward(size)
+        t.left(90)
+        print(i, t.position(), t.heading())
+
+t = Turtle()
+t.speed(0)
+staircase(t, 3, 40)
+```
+
+Read the printed heading after each step and compare it with the heading you expected. The picture and the numbers were always saying the same thing, but the numbers say it in a form you can be exact about, and being exact is what turns a hunch into a hypothesis. When you have found it, fix it, and delete the `print` line afterwards, because a debugging print left in finished code is a small lie about what the function is for.
+
+#### Exercise
+
+`AI: Drafter`
+
+Take the traceback from the spiral exercise, paste it into the assistant along with the class, and ask it what is wrong. Then treat the answer as what it is, which is a hypothesis produced by something that has never run your code.
+
+Do the third and fourth steps of the method yourself. Turn its answer into a sentence that could be false, and confirm it with the machine before you change anything. Then ask yourself the question that matters more than whether it was right: did its answer include the decision about what a spiral is, or did it quietly choose one for you and present the result as the fix?
+
+#### Exercise
+
+`SOLO`
+
+Finish both bugs properly, by adding the check that would have caught each one. For the spiral, write a check that the object has the attribute the method expects, which you can do by drawing it and confirming the turtle moved at all. For the staircase, write a check on the turtle's heading after one step, with the value you decided was correct.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle(autoshow=False)
+staircase(t, 1, 40)
+print(round(t.heading(), 6) == 0.0)
+print(round(t.xcor(), 6) == 40.0)
+print(round(t.ycor(), 6) == 40.0)
+```
+
+The `autoshow=False` is there because this cell is not drawing anything for you to look at. It is asking questions, and it does not need a canvas to do it. That is a small thing now and it is the entire subject of next week, so it is worth noticing that you have just written a check on a drawing without producing the drawing.

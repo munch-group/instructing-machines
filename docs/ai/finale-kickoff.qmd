@@ -1,53 +1,8 @@
 # Finale: formulating and planning your own tool {#sec-finale-kickoff}
 
-Every project you have built so far arrived with the problem already chosen for you. Somebody decided what the tool should do, what counted as a correct answer, and which pieces it needed, and your job began after all of that had been settled. The finale takes that scaffolding away. You choose the problem, you decide what a correct answer looks like, and you write the plan before you prompt anything. The assistant will do a great deal of the typing, and none of the deciding.
+*The week-thirteen kickoff, modeled live.*
 
-That is a larger amount of freedom than you have had at any point in this course, and freedom is uncomfortable, so it is worth saying what the freedom is actually for. You are a molecular biology student. You know things about sequences, genes, codons and annotation that a general-purpose programmer does not, and that knowledge is what lets you pose a question worth answering and, far more importantly, recognise a wrong answer when you see one. The tool you build should sit squarely inside that knowledge. It should be small enough to finish, useful enough to be worth finishing, and, above everything else, checkable by you.
-
-## What makes a good finale problem {#sec-choosing-a-problem}
-
-Three tests will tell you whether the idea you are considering is a good one, and you should apply all three before you write a line of anything.
-
-The first is whether you can state, in one sentence, what goes in and what comes out. Not what the tool is about, but what it takes and what it returns. If your sentence contains the word and more than once, or trails off into a description of everything the tool might eventually do, you have an ambition rather than a specification, and ambitions cannot be planned.
-
-The second is whether you can name at least one input whose correct output you already know, without running any code. This is the test that most quietly disqualifies otherwise attractive ideas. A tool that classifies sequences by some property you cannot compute by hand for even one small example is a tool whose answers you will have to take on faith, and taking answers on faith is the one thing this course has spent fourteen weeks training you not to do. If you cannot construct a tiny case and work out the right answer yourself, choose a different problem.
-
-The third is whether you would notice if the answer were wrong by a factor of two, or off by one position, or reported on the wrong strand. This is where your biology earns its place. You are not looking for a problem you can solve. You are looking for a problem you can adjudicate.
-
-## The floor and the ceiling {#sec-floor-and-ceiling}
-
-There is a wide range of acceptable finale projects, and it helps to see both ends of it, because a project at either end can be excellent and a project that reaches too far can be worse than one that does not.
-
-The floor is a tool that works over the gene table you have been given, loaded into a dataframe as introduced in @sec-dataframes. Something that reads the table, computes a per-gene quantity such as GC content or length distribution or codon usage, filters or groups by an annotation column, and reports or plots the result. This is a real tool. It reads real data, it produces a real answer, and every intermediate value in it is something you can spot-check against a row you inspect by hand. A well-built, fully verified, thoroughly understood project at the floor is worth more than a half-working one that reached higher, and you should choose it without embarrassment if it is what you can finish and defend.
-
-The ceiling is a tool that stands on a public resource, whether a library such as BioPython or a web service you query for records. Here you are combining contracts written by other people, exactly as in @sec-docs-and-resources, and the extra difficulty is not the programming but the verification. Every call you make into somebody else's machinery is a promise you have to look up rather than assume, and the assistant's habit of inventing plausible method names, which you met head on in @sec-the-docs-are-the-test, is at its most dangerous precisely here.
-
-Wherever you land between those two, the rule about authorship does not change. Code you wrote, or directed the assistant to write for you, gets tests. Library output gets a sanity check against a value you already know. Keeping those two kinds of checking distinct is what stops you from either testing BioPython's genetic code, which is not your job, or waving through your own logic because a trusted library was involved somewhere in it.
-
-## Planning from a blank page {#sec-planning-the-finale}
-
-Now do what @sec-plan-before-you-prompt asked you to do, on your own problem, with nobody having pre-drawn the boxes. Write the plan as a stub file, meaning a set of empty functions with docstrings and no bodies, before you prompt for anything at all.
-
-For each function, the docstring says what goes in, what comes out, and one worked example with its answer computed by hand. When you have written them all, read the plan back and ask the question that decides whether it is finished. Is each piece small enough that you could read it, test it, and understand it entirely on its own, without holding the rest of the tool in your head? If any piece fails that, split it now, while splitting is free. Splitting a stub costs a minute. Splitting a function you have already built, tested and wired into two other functions costs an afternoon.
-
-Two pieces deserve particular attention as you plan. The first is whichever piece reads your data, because that is where the awkward cases live, in the form of a missing value, a header row, a lowercase sequence, an unexpected character. The second is whichever piece faces you, meaning the one that prints or plots or reports, because it is the one you are most likely to leave untested on the grounds that you can see it working. You will come back to that second one at the very end.
-
-#### Exercise {#sec-ex-finale-one-sentence}
-
-`SOLO`
-
-Write the one-sentence statement of your tool, naming exactly what goes in and what comes out, and beneath it write one input whose correct output you already know, with that output worked out by hand. Do not prompt anything. If you cannot complete both halves of this exercise, you do not yet have your finale problem, and finding one is the work in front of you rather than a delay before it.
-
-#### Exercise {#sec-ex-finale-plan}
-
-`SOLO`
-
-Write the full plan as a stub file, with one function per piece, a docstring for each stating inputs and outputs, and one hand-worked example per function. Mark, in the plan itself, which pieces are yours to write and which will lean on a library, because that division decides how each one gets verified.
-
-#### Exercise {#sec-ex-finale-first-tests}
-
-`SOLO`
-
-Take the first piece in dependency order, meaning the one that depends on nothing else, and write its contract as tests before you prompt for any implementation. Include at least one awkward case that forces a decision you have to make deliberately rather than discover afterwards.
-
-For your logbook this week, record the problem you chose and the one input whose answer you already know, and say honestly which of the three tests above your idea passed most easily and which one you had to work hardest to satisfy. If you changed your problem after applying them, say what the original idea was and what disqualified it, because a discarded idea with a stated reason is evidence of judgment rather than of indecision.
+::: {.callout-note}
+## Draft stub — planned contents
+A student formulates a small tool that is useful in molecular biology, something their own background lets them pose, understand, and sanity-check, and plans it from a scaffolded blank page: deciding the pieces, naming them, stating inputs and outputs, and writing the first tests before prompting anything. Describes the floor, a tool over the supplied gene CSV held in a dataframe, and the ceiling, a tool built on a public resource such as BioPython or a REST API. Refers to the dataframes note and the documentation note.
+:::

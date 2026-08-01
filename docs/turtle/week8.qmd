@@ -1,0 +1,252 @@
+# Turtle, week 8: retiring the turtle {#sec-turtle-week-8}
+
+This is the last turtle session, and it ends with the turtle being put away deliberately rather than quietly dropped. Say that out loud, because the reason for retiring it is the lesson. For five weeks the picture has been your evidence. You wrote something, you looked at what appeared, and if it was what you meant then you moved on. This week you are going to find out exactly how far that gets you, and the answer is: further than you would guess on the first try, and nothing like far enough on the fiftieth.
+
+The two AI notes this week are the other half of the argument. In one of them the assistant is an unreliable narrator, producing code and explanations that read beautifully and are sometimes wrong, and your job is to work out how you would know. In the other, tests are the contract, which is to say that the thing you write down before the code is what settles whether the code is right, and not your impression of the output afterwards. The alignment project is where both get used on work that counts.
+
+The turtle earned its place in this course because looking is cheap and immediate. It has to be put away for exactly the same reason. When the artefact is a picture, looking is a direct check on the thing itself. When the artefact is an alignment of two sequences, a table of counts, or a file of gene annotations, looking is a check on a formatted report about the thing, done for one case, by an eye that already knows what it expects to see. Everything below is about the difference.
+
+## The two ways looking fails {#sec-turtle-week-8-two-failures}
+
+Looking at output fails in two quite different ways, and it matters which one you have got, because they have different remedies.
+
+The first is sampling. You looked at one run. The code will be run many times, on inputs you have not thought of, and the one you looked at was chosen by you, which means it was chosen by the same understanding that wrote the code. If your understanding has a hole in it, the case that falls in the hole is exactly the case you will not think to try. The remedy for a sampling failure is more cases, chosen adversarially rather than conveniently, which is what a nasty test is.
+
+The second is observability. You looked at the whole output and the output does not contain the fact you needed. No amount of extra cases helps here, because every one of them will be equally silent. The remedy is a different question, asked of a different thing: the state behind the picture rather than the picture. That is what `t.heading()`, `t.total_movement` and `t.isdown()` have been for all along.
+
+The two get confused constantly, so you should be able to say which one you are looking at. A one-case test suite fails in exactly the way one glance fails, and dressing it up as a test does not fix it. A test that asks the wrong question about a hundred cases fails in exactly the way a hundred glances would.
+
+#### Exercise
+
+`SOLO`
+
+A sampling failure, in the simplest form it comes in. Run this with `n` set to four, then five, then six, then eight, then ten.
+
+```python
+from turtle_widget import Turtle
+
+n = 5
+t = Turtle()
+t.speed(0)
+for _ in range(n):
+    t.forward(80)
+    t.right(360 // n)
+```
+
+Every one of those draws a shape that closes perfectly, and after five of them you would be entitled to conclude that the function is correct. Now run it with `n` set to seven and look at what appears. Then work out what `360 // 7` is, and say in one sentence why the five cases you tried could never have told you.
+
+The values you tried were not chosen carelessly. They are the obvious ones, the ones a reasonable person picks, and that is exactly the problem, because the code was written by the same reasonable person and divides evenly in the same places.
+
+#### Exercise
+
+`SOLO`
+
+Now catch the same fault without looking at anything. This is the week `assert` becomes available to you, and it is the same claim you have been printing since week four with a different consequence when it is false.
+
+```python
+from turtle_widget import Turtle
+
+def polygon(t, n, size):
+    for _ in range(n):
+        t.forward(size)
+        t.right(360 // n)
+
+for n in [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]:
+    t = Turtle(autoshow=False)
+    polygon(t, n, 80)
+    assert round(t.heading(), 6) == 0.0, 'fails to close for n = ' + str(n)
+```
+
+A `print` of a comparison invites you to skim a column of `True` and miss the one `False` in the middle of it. An `assert` stops the program at the first false claim and tells you which one it was, which is the whole difference, and it is why tests are written with `assert` once you have more than about three of them. Note the message after the comma. Without it you are told that something failed and not which thing, and with ten cases in a loop that is half the information you need.
+
+Notice also what this cell did not do. It drew nothing, looked at nothing, and found in a fraction of a second a fault that would have taken you ten deliberate runs and ten deliberate looks.
+
+#### Exercise
+
+`SOLO`
+
+An observability failure, which no number of extra cases would have caught. Run this and look hard at the star.
+
+```python
+from turtle_widget import Turtle
+
+def star(t, size):
+    for _ in range(5):
+        t.forward(size)
+        t.right(144)
+
+t = Turtle()
+t.speed(0)
+star(t, 120)
+```
+
+It is a perfect five-pointed star. It closes, the points are even, the turtle is back where it began. Write down, before the next exercise, whether you believe the function is correct, and try to say what you are actually claiming when you say that.
+
+#### Exercise
+
+`SOLO`
+
+Now ask the star the question the picture could not answer, and then draw the consequence.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle(autoshow=False)
+before = t.heading()
+star(t, 120)
+print(before, t.heading())
+```
+
+Five turns of one hundred and forty-four degrees is seven hundred and twenty degrees, which is two full circles, and yet the heading has moved. Work out why on paper before you accept it, and then confirm your explanation by printing the heading after each of the five repetitions.
+
+Then make the fault visible in the only way it ever becomes visible, by using the function more than once.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle()
+t.speed(0)
+for _ in range(10):
+    star(t, 120)
+```
+
+Ten stars in a fan, each one tilted a little further than the last. The bug was in the function from the first line you ran, and the first star showed you nothing at all, because the function's fault is in what it leaves behind and a single call leaves you no way to see what was left. Fix `star` so that it puts the heading back, and then write the `assert` that would have caught it on the very first run.
+
+#### Exercise
+
+`SOLO`
+
+The same shape of fault, in the two other places the turtle keeps state that the canvas cannot show. Both of these draw something you would accept without hesitation.
+
+```python
+from turtle_widget import Turtle
+
+def side_a(t, size):
+    t.forward(size - 1)
+
+def side_b(t, size):
+    t.penup()
+    t.forward(size)
+```
+
+Write a cell that calls `side_a` four times with a left turn between them, and another that does the same with `side_b`, and look at both. The first draws a square that is one unit short on each side, which at a size of one hundred and twenty you will not see and could not measure by eye. The second draws nothing whatsoever, which you will certainly notice, so change it to put the pen down again at the end and leave the fault in place somewhere less obvious.
+
+Then check both without looking, using the two facts the turtle keeps for you.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle(autoshow=False)
+for _ in range(4):
+    side_a(t, 120)
+    t.left(90)
+
+assert t.total_movement == 480
+assert t.isdown()
+```
+
+The first assertion fails by four units out of four hundred and eighty, which is under one per cent, and no eye has ever caught a one per cent error in a line length. Now imagine the same function inside a loop of fifty, where the error is two hundred units and the drawing is visibly ruined, and notice that the check you just wrote would have told you at four.
+
+#### Exercise
+
+`AI: Unreliable Narrator`
+
+Give the assistant the original `star` function, the one that leaves the turtle rotated, and ask it a question with an assumption buried in it: ask it to explain why this function returns the turtle to its starting state.
+
+Read what comes back carefully. There is a decent chance it will explain, fluently and at length, why the turtle ends as it began, because you told it that it does and it is obliging. This is the failure mode from this week's AI note in its purest form, and it is a failure of arbitration rather than of knowledge, because nothing in the conversation was ever going to contradict it.
+
+Then run the check that does contradict it, paste the actual heading back into the conversation, and watch the explanation change. Record the whole exchange in your logbook, including what you asked and what you got, because this is the clearest example you are likely to produce all term of an answer being shaped by the question rather than by the code.
+
+## Looking is a filter, not a verdict {#sec-turtle-week-8-asymmetry}
+
+There is an asymmetry in all of this that is easy to miss and needs stating plainly. Looking is very good at finding faults and very bad at confirming correctness. A glance at the seven-sided polygon told you instantly that something was wrong, and it took no setup, no thought about what to assert, and no decision about how close counts as equal. That is valuable, and it is why you should still look.
+
+What a glance cannot do is the opposite job. When the picture looks right, you have learned that this run, on these arguments, produced output containing no fault large enough and visible enough for you to notice. That is a much smaller claim than it feels like from the inside, and the feeling of having checked is the dangerous part, because it is indistinguishable from the feeling of having checked properly.
+
+So the working position for the rest of the course is that looking is the cheap first filter and never the last word. You look because it costs nothing and sometimes saves you an hour. You assert because looking cannot tell you the thing you actually needed to know.
+
+#### Exercise
+
+`SOLO`
+
+Here are two functions that draw a square, and this is the exercise the whole session has been building towards. Run them both and compare the pictures pixel by pixel if you like.
+
+```python
+from turtle_widget import Turtle
+
+def square_a(t, size):
+    for _ in range(4):
+        t.forward(size)
+        t.right(90)
+
+def square_b(t, size):
+    t.goto(size, 0)
+    t.goto(size, -size)
+    t.goto(0, -size)
+    t.goto(0, 0)
+```
+
+Run each on its own turtle from the starting position and satisfy yourself that the two pictures are identical, because they are. Now run each again on a turtle you have first moved somewhere else with `move_to(t, -100, 80)`, and look at what happens.
+
+The first function draws a square wherever the turtle happens to be. The second draws a square in one fixed place and gets there by dragging a line across the canvas from wherever the turtle was. The two are not remotely the same function, and the evidence you had was identical, and would have stayed identical for as long as you kept starting at the origin.
+
+#### Exercise
+
+`SOLO`
+
+Stage the same comparison with two pens so the moment of divergence is visible rather than inferred.
+
+```python
+from turtle_widget import Turtle
+
+red = Turtle()
+red.speed(0)
+blue = red.new_turtle(color='blue')
+blue.speed(0)
+red.pencolor('red')
+
+square_a(red, 100)
+square_b(blue, 100)
+```
+
+The two pens lie exactly on top of each other for the whole drawing, and the canvas is telling you the truth about what happened. Now do it again with both turtles first moved to the same point away from the origin, and watch where they part company.
+
+Then state what the first version of this cell actually established, in one careful sentence, and count how many words of qualification you needed. Every one of those qualifications is a condition you would have to hold constant for the evidence to keep being evidence, and holding conditions constant is not something you can promise about code you have written into a project.
+
+#### Exercise
+
+`AI: Drafter`
+
+Write the contract first, then get the code, in that order and with no negotiation about the order.
+
+Specify a function `arc(t, radius, degrees)` that draws part of a circle and, when given three hundred and sixty degrees, closes it. Write down before you prompt what it should leave behind: where the turtle should be and which way it should face when the call returns. Then write the assertions.
+
+```python
+from turtle_widget import Turtle
+
+t = Turtle(autoshow=False)
+before = t.position()
+facing = t.heading()
+arc(t, 60, 360)
+assert round(t.xcor(), 3) == round(before[0], 3)
+assert round(t.ycor(), 3) == round(before[1], 3)
+assert round(t.heading(), 3) == round(facing, 3)
+
+t = Turtle(autoshow=False)
+arc(t, 60, 90)
+assert round(t.heading(), 3) == 90.0
+```
+
+Now prompt for the body, read every line, and run all four assertions. The first three are the gentle test, in the sense that any reasonable implementation passes them. The fourth is the nasty one, because a partial arc is where implementations differ, and it is also the one you would never have thought to look at, since a quarter circle drawn slightly wrong looks exactly like a quarter circle.
+
+If the assistant's version fails on the fourth, the interesting question is not whether it made a mistake. It is whether your specification said which way the turtle should face after a partial arc, or whether you left that for somebody else to decide and are now unhappy with the decision.
+
+#### Exercise
+
+`SOLO`
+
+Finish by deciding, for each of five claims, what would actually settle it. Write the check for each one, run it, and for any claim where you conclude that looking really is sufficient, say exactly why.
+
+The claims are these. That a function draws a hexagon rather than a pentagon. That a function draws a hexagon of exactly the size it was asked for. That a function can be called twice in a row without the second drawing coming out crooked. That a function works when the turtle does not start at the origin. That a function leaves the pen down.
+
+One of the five really is settled by looking, because the artefact is the picture, you can see the whole of it at once, and the property is the sort of thing an eye is good at, which is counting six of something. The other four are all about parts of the state the picture never contained, or about runs you did not make. Sort them, write the four assertions, and put the sorted list in your logbook, because from next week the artefacts stop being pictures and every single claim you make will be in the second category.

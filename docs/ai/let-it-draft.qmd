@@ -1,65 +1,53 @@
 # Let it draft a small piece you can read and test {#sec-let-it-draft}
 
-This is the first time this course lets the assistant write code you did not type yourself, and it is safe for exactly two reasons. The piece is small enough that you can read all of it, and a test stands behind it before you are allowed to believe it. Take either of those away and the arrangement stops working. A piece too large to read in full cannot be judged, and a piece with no test behind it has only been judged by the same eyes that were about to be fooled.
+*The assistant as Drafter, kept safe by the smallness of the piece and a test.*
 
-Every round below follows the same order, and the order is the whole point. Specify first, draft second, read every line third, test fourth. Never let the assistant race ahead of a step you have not done yet.
+::: {.callout-note}
+## Session length
+Estimated 3 hours, run as this week's TA session, alongside this week's folding project and the introduction of classes.
+:::
 
-Specifying comes first because it is the step that decides what correct means. Write down the function's name, its inputs and its outputs, and one worked example, before you prompt anything at all. The worked example is doing more work than it looks like it is doing, because it forces you to know one answer in advance, and one answer known in advance is the difference between testing a function and merely watching it run.
+This is the first time this course lets the assistant write code you did not type yourself, and it is safe for exactly two reasons: the piece is small enough to read in full, and a test stands behind it before you are allowed to believe it. Every round below follows the same order, and the order is the whole point: specify first, draft second, read every line third, test fourth. Never let the assistant race ahead of a step you have not done yet.
 
-Then you draft, asking for exactly that one function, giving the assistant the specification and nothing more. Then you read what comes back, line by line, and this step has a hard rule attached to it. If there is a line you cannot explain, stop there. Do not test it, do not run it, and do not accept it. Ask what that line does, or ask for a version without it, because code you cannot explain is code you cannot verify, and accepting it means the whole arrangement has quietly collapsed back into trusting the tone.
+::: {.callout-tip}
+## The order, every time
+1. **Specify.** Write the function's name, its inputs and outputs, and one worked example, before prompting anything.
+2. **Draft.** Ask for exactly that one function, giving it the specification, nothing more.
+3. **Read.** Go through what it returns line by line. If there is a line you cannot explain, stop here.
+4. **Test.** Write one gentle test and one nasty test, seeded from your own worked example and from a case designed to break it. Only a passing nasty test earns your belief.
+:::
 
-Then you test, with one gentle test seeded from your own worked example and one nasty test designed to break the function. Only a passing nasty test earns your belief. A gentle test passing tells you the function is not catastrophically broken, which is worth knowing and is not the same as the function being right.
+## Part 1 — Warm-up, done together (25 min)
 
-## Warm-up, done together {#sec-warmup-together}
+As a class, specify `gc_content(dna)`: fraction of bases that are `G` or `C`, with the worked example `gc_content('GGCC') == 1.0`. Draft it with the assistant. Read it aloud, line by line. Write `assert gc_content('GGCC') == 1.0` as the gentle test and `assert gc_content('') == 0` or a documented decision not to allow it as the nasty one. Run both. This models the full order once before anyone works alone.
 
-As a class, specify `gc_content(dna)` as the fraction of bases that are `G` or `C`, with the worked example `gc_content('GGCC') == 1.0`. Draft it with the assistant. Read it aloud, line by line. Write `assert gc_content('GGCC') == 1.0` as the gentle test, and for the nasty test either `assert gc_content('') == 0` or a written decision that an empty string is not allowed. Run both.
+## Part 2 — Three small functions (60 min)
 
-That last choice is worth pausing on. An empty sequence has no sensible fraction, so there is no answer the machine can tell you here. You have to decide what the function should do and then check that it does it. Deciding, rather than discovering, is what specifying means.
+For each function below, follow the full order: specify with a worked example first, draft, read every line, write one gentle and one nasty test, run both. Do not move to the next function until the current one's tests pass.
 
-## Three small functions {#sec-three-functions}
+#### Exercise 1 `AI: Drafter`
+`is_palindrome(dna)`: `True` if the DNA string reads the same as its own reverse complement. Worked example: `is_palindrome('GAATTC') == True`. Nasty case to consider: an odd-length string, and a string containing a base outside `A`, `T`, `G`, `C`.
 
-For each function below, follow the full order. Specify with a worked example first, draft, read every line, write one gentle and one nasty test, and run both. Do not move on to the next function until the current one's tests pass.
+#### Exercise 2 `AI: Drafter`
+`count_codon(dna, codon)`: how many times a given three-letter codon appears, including overlaps. Worked example: `count_codon('ATGATGC', 'ATG') == 2`. Nasty case to consider: a codon that does not appear at all, and a codon longer or shorter than three letters.
 
-#### Exercise {#sec-ex-draft-1}
+#### Exercise 3 `AI: Drafter`
+`most_common_base(dna)`: the single most frequent base in a DNA string. Worked example: `most_common_base('GGGATC') == 'G'`. Nasty case to consider: a tie between two bases, so decide, in writing, before you draft, what you want to happen, since last term's cohort found the assistant will pick silently and inconsistently if you do not.
 
-`AI: Drafter`
+## Part 3 — Catch the silent bug (35 min)
 
-Specify `is_palindrome(dna)`, returning `True` if the DNA string reads the same as its own reverse complement. Worked example: `is_palindrome('GAATTC') == True`. Nasty cases to consider are an odd-length string, and a string containing a base outside `A`, `T`, `G` and `C`.
+Not every draft that passes a gentle test deserves your belief, which is the entire reason the nasty test exists. This round is curated so the gentle test passes and the nasty one does not, on purpose.
 
-#### Exercise {#sec-ex-draft-2}
+#### Exercise 4 `AI: Drafter`
+Specify `gc_content(dna)` again, but this time specify it to be **case-insensitive**: it should count lowercase `g`/`c` the same as uppercase. Worked example: `gc_content('ggcc') == 1.0`. Draft it, read it, and write two tests: `assert gc_content('GGCC') == 1.0` and `assert gc_content('ggcc') == 1.0`. Many drafts pass the first and silently fail the second because they only check the uppercase letters. If yours does, do not just accept a patched version — reread the fixed line until you can say in one sentence why the first draft missed lowercase input.
 
-`AI: Drafter`
+## Part 4 — Drafting a method, not just a function (35 min)
 
-Specify `count_codon(dna, codon)`, returning how many times a given three-letter codon appears, counting overlaps. Worked example: `count_codon('ATGATGC', 'ATG') == 2`. Nasty cases to consider are a codon that does not appear at all, and a codon longer or shorter than three letters.
+Classes entered this week, and a method is drafted the same way a function is, specified first, read in full, tested before belief.
 
-#### Exercise {#sec-ex-draft-3}
+#### Exercise 5 `AI: Drafter`
+Specify a small `Codon` class with an attribute `bases` and a method `translate(self)` that returns the corresponding amino acid letter for a short, fixed table of codons you provide (four or five entries is enough). Worked example: `Codon('ATG').translate() == 'M'`. Draft the class, read `__init__` and `translate` line by line, and write one gentle test plus one nasty test using a codon not in your table — decide, before drafting, what should happen then, and check the draft actually does what you decided rather than whatever it happened to do.
 
-`AI: Drafter`
+## Wrap-up (15 min)
 
-Specify `most_common_base(dna)`, returning the single most frequent base in a DNA string. Worked example: `most_common_base('GGGATC') == 'G'`. The nasty case here is a genuine tie between two bases. Decide in writing, before you draft, what you want to happen in a tie, because last term's cohort found that the assistant will pick one silently and inconsistently if you do not say. This is the clearest example in the session of a question the code cannot answer for you.
-
-## Catch the silent bug {#sec-silent-bug}
-
-This is the case the whole session is built around. Not every draft that passes a gentle test deserves your belief, and that is the entire reason the nasty test exists. This round is arranged so that the gentle test passes and the nasty one does not, deliberately.
-
-#### Exercise {#sec-ex-draft-4}
-
-`AI: Drafter`
-
-Specify `gc_content(dna)` again, but this time specify that it must be case-insensitive, counting lowercase `g` and `c` the same as uppercase. Worked example: `gc_content('ggcc') == 1.0`. Draft it, read it, and write two tests, `assert gc_content('GGCC') == 1.0` and `assert gc_content('ggcc') == 1.0`.
-
-Many drafts pass the first and silently fail the second, because they count only the uppercase letters, which is the version that appears most often in the text the model learned from. If yours does, do not simply accept a patched version. Reread the fixed line until you can say in one sentence why the first draft missed lowercase input, and notice that you specified the requirement explicitly and got a draft that ignored it anyway. Stating a requirement improves your odds. It does not enforce anything.
-
-## Drafting a method, not just a function {#sec-drafting-a-method}
-
-Classes have now entered the course, and a method is drafted exactly the way a function is, specified first, read in full, and tested before belief.
-
-#### Exercise {#sec-ex-draft-5}
-
-`AI: Drafter`
-
-Specify a small `Codon` class with an attribute `bases` and a method `translate(self)` that returns the corresponding amino acid letter, using a short fixed table of codons that you provide. Four or five entries is enough, and providing the table yourself matters, because a table the assistant supplies from memory is exactly the kind of plausible content that can be quietly wrong.
-
-Worked example: `Codon('ATG').translate() == 'M'`. Draft the class, read `__init__` and `translate` line by line, and write one gentle test plus one nasty test using a codon that is not in your table. Decide before drafting what should happen in that case, and then check that the draft does what you decided rather than whatever it happened to do.
-
-For your logbook this week, name the one function or method from today where reading it line by line, before testing, made you suspicious enough to write a nastier test than you otherwise would have. Say what specifically in the code raised your suspicion, and whether the nasty test confirmed it or turned out to be unfounded. Both answers are worth having, because a suspicion that proves unfounded is still evidence that you were reading rather than skimming.
+For your logbook this week, name the one function or method from today where reading it line by line, before testing, made you suspicious enough to write a nastier test than you otherwise would have. Say what specifically in the code raised your suspicion, and whether the nasty test confirmed it or turned out to be unfounded.
