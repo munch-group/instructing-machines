@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <rect width="880" height="420" fill="#f6f4ef"/>
+  <text x="40" y="40" font-size="20" font-weight="700" fill="#26313f">Two ways to turn your code into something the CPU runs</text>
+  <text x="40" y="63" font-size="14" fill="#5a6675">A <tspan font-weight="600" fill="#1f7a68">compiler</tspan> translates the whole file ahead of time. An <tspan font-weight="600" fill="#2f6db3">interpreter</tspan> reads and runs it line by line, live.</text>
+
+  <!-- COMPILER -->
+  <g>
+    <rect x="40" y="88" width="390" height="300" rx="14" fill="#ffffff" stroke="#b6ddd2"/>
+    <rect x="40" y="88" width="6" height="300" rx="3" fill="#1f7a68"/>
+    <text x="64" y="116" font-size="16" font-weight="700" fill="#1f7a68">Compiler — translate first, run later</text>
+
+    <rect x="70" y="132" width="150" height="42" rx="8" fill="#e6f3ef" stroke="#b6ddd2"/>
+    <text x="145" y="152" font-size="12.5" font-weight="600" fill="#26313f" text-anchor="middle">your code file</text>
+    <text x="145" y="168" font-size="11" fill="#5a6675" text-anchor="middle" font-family="monospace">program.c</text>
+
+    <text x="240" y="158" font-size="18" fill="#1f7a68" text-anchor="middle">→</text>
+
+    <rect x="258" y="132" width="140" height="42" rx="8" fill="#eceef1" stroke="#cfd4db"/>
+    <text x="328" y="152" font-size="12.5" font-weight="600" fill="#3a4250" text-anchor="middle">the compiler</text>
+    <text x="328" y="168" font-size="11" fill="#5a6675" text-anchor="middle">translates all of it</text>
+
+    <text x="145" y="200" font-size="18" fill="#1f7a68" text-anchor="middle">↓ once</text>
+
+    <rect x="70" y="212" width="328" height="46" rx="8" fill="#fbf1e2" stroke="#e9cfa5"/>
+    <text x="234" y="232" font-size="12.5" font-weight="600" fill="#b26a1f" text-anchor="middle">a finished machine-code file</text>
+    <text x="234" y="249" font-size="11" fill="#5a6675" text-anchor="middle" font-family="monospace">10111000 00000100 …</text>
+
+    <text x="234" y="284" font-size="16" fill="#1f7a68" text-anchor="middle">↓ run it any time — the CPU</text>
+
+    <rect x="70" y="298" width="328" height="40" rx="8" fill="#eceef1" stroke="#cfd4db"/>
+    <text x="234" y="323" font-size="13" font-weight="600" fill="#3a4250" text-anchor="middle">⚙️ CPU runs the machine code</text>
+
+    <text x="64" y="366" font-size="12.5" fill="#5a6675">Fast to run · slow to build · the code file is left behind</text>
+  </g>
+
+  <!-- INTERPRETER -->
+  <g>
+    <rect x="450" y="88" width="390" height="300" rx="14" fill="#ffffff" stroke="#bcd6f0"/>
+    <rect x="450" y="88" width="6" height="300" rx="3" fill="#2f6db3"/>
+    <text x="474" y="116" font-size="16" font-weight="700" fill="#2f6db3">Interpreter — read and run, line by line</text>
+
+    <rect x="480" y="132" width="150" height="42" rx="8" fill="#e8f1fb" stroke="#bcd6f0"/>
+    <text x="555" y="152" font-size="12.5" font-weight="600" fill="#26313f" text-anchor="middle">your code file</text>
+    <text x="555" y="168" font-size="11" fill="#5a6675" text-anchor="middle" font-family="monospace">hello.py</text>
+
+    <text x="650" y="158" font-size="18" fill="#2f6db3" text-anchor="middle">→</text>
+
+    <rect x="668" y="132" width="150" height="42" rx="8" fill="#e6f3ef" stroke="#b6ddd2"/>
+    <text x="743" y="152" font-size="12.5" font-weight="600" fill="#1f7a68" text-anchor="middle">Python 🐍</text>
+    <text x="743" y="168" font-size="11" fill="#5a6675" text-anchor="middle">the interpreter</text>
+
+    <!-- loop -->
+    <rect x="480" y="196" width="338" height="128" rx="10" fill="#f7fafe" stroke="#bcd6f0" stroke-dasharray="5 4"/>
+    <text x="649" y="216" font-size="11.5" font-weight="700" fill="#2f6db3" text-anchor="middle" letter-spacing="0.5">FOR EACH LINE, LIVE</text>
+
+    <rect x="500" y="228" width="130" height="34" rx="7" fill="#ffffff" stroke="#bcd6f0"/>
+    <text x="565" y="250" font-size="12" fill="#26313f" text-anchor="middle">read one line</text>
+    <text x="648" y="249" font-size="15" fill="#2f6db3" text-anchor="middle">→</text>
+    <rect x="668" y="228" width="130" height="34" rx="7" fill="#eceef1" stroke="#cfd4db"/>
+    <text x="733" y="250" font-size="12" fill="#3a4250" text-anchor="middle">⚙️ CPU does it</text>
+
+    <text x="649" y="284" font-size="14" fill="#2f6db3" text-anchor="middle">↺ then straight on to the next line</text>
+    <text x="649" y="308" font-size="12" fill="#5a6675" text-anchor="middle">no separate machine-code file is ever kept</text>
+
+    <text x="474" y="366" font-size="12.5" fill="#5a6675">Slower to run · nothing to build first · easy to try things live</text>
+  </g>
+</svg>
