@@ -1,0 +1,118 @@
+# Worked example: solving a problem by composition {#sec-composition}
+
+*A companion to this week's worked-example lecture and its snippet-cast recording.*
+
+You have spent five weeks learning the pieces: variables, conditionals, functions, containers, loops. This week you start the first project, and the projects are where a fact you have not yet had to face catches up with you: knowing the pieces is not the same skill as putting them together. This note models that second skill, live, on a small problem, from a completely blank page. Nothing here is more advanced than what you already know. What is new is only the process of assembling it, which is exactly what the snippet-cast recording for this lecture shows in real time and what you should replay at home before you touch this week's project.
+
+### The problem
+
+Here is the task, stated the way a task usually arrives: vaguely. "Given a DNA coding sequence, tell me the protein it makes, and warn me if the sequence doesn't end the way a coding sequence should." That sentence is not a program. Before writing a line of code, decide what pieces it needs.
+
+### Deciding the pieces
+
+A coding sequence is read three bases at a time, and each triplet, or **codon**, stands for one amino acid, until a **stop codon** ends the protein. That reading-in-threes step feels like one job, and translating a single codon into an amino acid feels like a different job, and reporting the whole result in a sentence feels like a third job again. Three feels right: split the sequence into codons, translate the codons into a protein, and describe the result. Each of those should be small enough to test on its own before the next one leans on it.
+
+```python
+def split_into_codons(dna):
+    "Split a DNA string into a list of three-base codons."
+    ...
+
+def translate(dna):
+    "Translate a DNA coding sequence into a protein string, using split_into_codons."
+    ...
+
+def describe(dna):
+    "A sentence reporting the protein and whether the sequence ended in a stop codon."
+    ...
+```
+
+Three empty functions with docstrings, no bodies yet. This is the plan, and it already contains a decision worth noticing: `translate` depends on `split_into_codons`, and `describe` depends on `translate`, so that is the order they get built and tested in.
+
+### Building the first piece
+
+```python
+def split_into_codons(dna):
+    "Split a DNA string into a list of three-base codons."
+    codons = []
+    for i in range(0, len(dna), 3):
+        codons.append(dna[i:i + 3])
+    return codons
+```
+
+Predict what `split_into_codons('ATGGCC')` gives back before you run it, then check:
+
+```python
+print(split_into_codons('ATGGCC'))
+```
+
+`['ATG', 'GCC']`. Good. One piece, proven, before anything is built on top of it.
+
+### Building the second piece, and hitting a bug
+
+For `translate`, a small codon table is enough to make the example work; a real project would use the full table of sixty-four.
+
+```python
+codon_table = {
+    'ATG': 'M', 'GCC': 'A', 'TGG': 'W', 'TAA': '*', 'TAG': '*', 'TGA': '*',
+}
+
+def translate(dna):
+    "Translate a DNA coding sequence into a protein string, using split_into_codons."
+    protein = ''
+    for codon in split_into_codons(dna):
+        protein += codon_table[codon]
+    return protein
+
+print(translate('ATGGCCTGA'))
+```
+
+::: {.callout-important}
+## Spot the bug
+Run the cell above before reading past this box. It raises `KeyError: '*'`. Read that traceback the way earlier chapters taught you to: find the line it points at, and ask what value was actually being looked up when it failed. This bug is planted on purpose, to give you a real one to diagnose rather than a described one to take on faith.
+:::
+
+The traceback points at the line `protein += codon_table[codon]`, and the key it could not find is `'*'`, not one of the DNA codons. That is the giveaway: `codon_table['TGA']` correctly returns `'*'`, and then the loop keeps going and tries to look up `'*'` itself as if it were a fourth codon, because nothing told the loop to stop at a stop codon. The bug is not in the table. It is in the logic: the function translates every codon including the ones after the stop, instead of stopping there.
+
+### Fixing it
+
+```python
+def translate(dna):
+    "Translate a DNA coding sequence into a protein string, stopping at the first stop codon."
+    protein = ''
+    for codon in split_into_codons(dna):
+        amino_acid = codon_table[codon]
+        if amino_acid == '*':
+            break
+        protein += amino_acid
+    return protein
+
+print(translate('ATGGCCTGA'))
+```
+
+`MA`. Fixed, and proven on the one example so far. A second call, `translate('ATGGCC')`, has no stop codon at all in this small table; deciding what should happen then is exactly the kind of awkward case a real test would pin down before it became a surprise.
+
+### The last piece
+
+With `translate` proven, `describe` is now allowed to trust it completely and only has to decide what to report:
+
+```python
+def describe(dna):
+    "A sentence reporting the protein and whether the sequence ended in a stop codon."
+    protein = translate(dna)
+    codons = split_into_codons(dna)
+    ends_properly = codon_table.get(codons[-1]) == '*'
+    return f"Protein: {protein}. Ends in a stop codon: {ends_properly}."
+
+print(describe('ATGGCCTGA'))
+print(describe('ATGGCC'))
+```
+
+### Zooming out
+
+Notice what just happened, because it is the whole point of the exercise and not a detail of this particular protein problem. Nothing above required a construct you had not already met by week four. What made the problem tractable was the order: decide the pieces before writing any of them, build and prove the piece with no dependencies first, and only then build the piece that leans on it, so that when something breaks, as `translate` did, you know exactly where to look, because everything underneath the broken piece was already trusted. That discipline, decompose, build the foundation first, test before you build on top, is the entire difference between a problem that feels impossible from a blank page and one you can just start.
+
+#### Exercise 🔒 `SOLO`
+
+Extend `describe` to also report the sequence's length in bases and its GC content, reusing a `gc_content` function from an earlier chapter if you still have it, or writing a short one now. Decide the pieces and their order before you write anything, the way this note did, and prove each piece before leaning on it.
+
+For your logbook this week, describe the moment in this week's project where a bug first appeared, and say whether reading the traceback, the way this note modeled it, actually told you where to look.

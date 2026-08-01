@@ -1,0 +1,57 @@
+# Dataframes: a table you can plot {#sec-dataframes}
+
+*A complex data type worth knowing exists. Used inside the back-half projects, not as a lecture.*
+
+This note is short on purpose. A **dataframe** is a table, rows and columns, and the only claim this note makes is that it exists, that it is convenient, and that you already know enough to start using one. Real data analysis, indexing tricks, grouping, joining tables together, is out of scope for this course; there simply is not room for it, and none of the projects need it. What the projects do need, here and there, is a quick way to hold a table of results and turn it into a picture, and that is exactly what a dataframe gives you.
+
+### Meeting it by doing, the way you met lists and dictionaries
+
+A dataframe usually arrives from a file, the way a dict arrived from a file when you first read one with `open`. The library that provides it is `pandas`, and the function that hands you a dataframe is `read_csv`:
+
+```python
+import pandas as pd
+
+genes = pd.read_csv('genes.csv')
+print(genes)
+```
+
+Run that, on a CSV with columns such as `name`, `length`, and `gc_content`, and what prints looks exactly like what it is: a table. You did not build this table by looping over lines and splitting on commas the way you might have in the files chapter; `read_csv` did that for you and handed back an object that already knows its own columns.
+
+### Pulling out a column
+
+A single column of a dataframe behaves a great deal like the lists you already know how to work with:
+
+```python
+print(genes['gc_content'])
+print(genes['gc_content'].mean())
+```
+
+That is the whole shape of the object worth learning right now: a dataframe is a dict-like collection of columns, each column is a list-like sequence of values, and you reach a column the same way you reach a dictionary's value, by its name in square brackets.
+
+### The apply bridge
+
+Here is the one pattern in this note actually worth remembering, because it is where something you already built meets something the library already built. Suppose you have your own tested `gc_content(dna)` function from several weeks ago, and the CSV instead gave you a raw `sequence` column rather than a precomputed one. You do not write a loop:
+
+```python
+genes['gc_content'] = genes['sequence'].apply(gc_content)
+```
+
+`.apply()` takes a function, your function, the one you wrote and tested by hand on small examples, and runs it once per row, collecting the results into a new column. This is the exact place authored code and library amplification meet: `gc_content` is yours, tested the way every function in this course has been tested, on cases you worked out by hand; `.apply()` is the library's, trusted as machinery the same way `.translate()` was. Neither one reinvents the other. You did not write a loop to run `gc_content` over every gene, and the library did not, and could not, know what GC content means; it only knows how to run a function you hand it, once per row.
+
+### From a table to a picture
+
+Once a dataframe holds the numbers you care about, turning them into a picture costs almost nothing:
+
+```python
+genes['gc_content'].hist()
+```
+
+That single line, using `matplotlib` underneath, is enough to see a distribution rather than stare at a column of numbers. The `iplot-widget` you will meet in the projects does the same job with a dropdown interface instead of code, and, usefully, shows you the plotting code it generated as it does it, which is worth reading even when you did not type it yourself: it is one more small piece of code you can check against what you asked for, rather than trust because a picture appeared.
+
+That is genuinely all this note promises: a dataframe is a table you can pull columns from, run your own tested functions across with `.apply()`, and hand to a plotting call to see rather than just compute. Everything more elaborate that `pandas` can do, and it can do a great deal more, is outside what this course asks of you.
+
+#### Exercise 🔒 `SOLO`
+
+Given a dataframe `genes` with a `sequence` column, write and test a small function `is_gc_rich(dna)` on a few examples by hand the way earlier chapters taught you, then use `.apply()` to add an `is_gc_rich` column to `genes` without writing a loop. Plot the resulting column and describe in one sentence what the picture shows.
+
+For your logbook this week, note the difference, in your own words, between the part of this exercise you tested yourself and the part you trusted as library machinery, and say how you decided which was which.

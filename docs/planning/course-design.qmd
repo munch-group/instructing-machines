@@ -2,7 +2,7 @@
 
 This document locks the week-by-week design: the learning goals, the guiding principles, the sequence, the learning curve, the tool schedule, the workload shape, and the pitfalls with their mitigations. It is downstream of the pedagogy in `course-plan.md` (the AI-role ladder, the widgets, the "AI as a layer of compilation" thesis). Where the two differ on the week grid, this file wins. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): concepts are front-loaded into weeks 1 to 5, weeks 6 to 13 are eight weekly projects in the established order, and week 14 is wrap-up. The design layers the AI thread and the composition-practice principles onto that proven skeleton rather than re-timing it.
 
-## Learning goals
+## Learning goals {.unnumbered}
 
 Five goals cover the ambition of the course. Each is pitched at the level of the SOLO taxonomy (Structure of the Observed Learning Outcome) that it actually asks for, rather than at the content it names: unistructural and multistructural stop at an isolated fact or an unconnected list of them, relational fuses several taught pieces into one working whole applied to problems of a practiced kind, and extended abstract takes that whole and generalizes it to a context the course did not drill. Three of the five stop at relational, which is the honest ceiling for in-domain integration inside fourteen weeks. Two reach extended abstract, because the design already asks, in exactly those two places, for a habit learned concretely in one setting to be re-derived in a setting the course never drilled the same way.
 
@@ -16,7 +16,7 @@ The fourth is directing and judging code the student did not write, whether an A
 
 The fifth is the squaring argument: knowing more makes the AI worth more, not less necessary. A student should be able to explain why an AI's usefulness to them is bounded by what they already know and can verify, and carry that understanding, together with the verification habit, into tools, problems, and courses this one never covered. This is the intended closing note of the whole course, a reflection on one's own learning generalized to situations the syllabus cannot enumerate in advance, and the extended-abstract counterpart to the third goal: the antidote to both over-trusting the AI and the defeatist feeling that the AI makes learning pointless.
 
-## Guiding principles and insights
+## Guiding principles and insights {.unnumbered}
 
 These are the ideas that shape every decision below. They matter more than any particular week.
 
@@ -38,17 +38,49 @@ Composition is taught by modeling it, repeatedly and aloud. The best-supported i
 
 The student's leverage is knowing what is possible. As the AI writes more of the code, the human's job shifts to knowing which capabilities exist and being able to specify and check them. Reading the documentation of a library or a web service, understanding its functions as contracts without reading their implementation, is therefore a central skill, not a footnote, and it is the same contract idea the course has taught all along, now at the scale of a whole library.
 
-## Fixed constraints
+## Fixed constraints {.unnumbered}
 
 10 ECTS across 14 weeks, deliberately under-filled so the weakest students can finish; the surplus is optional depth. Each week has a double lecture (two 45-minute slots), a single lecture (45 minutes), and a 3-hour TA session that works the previous week's material. In the double lecture, the first slot carries a demanding topic and the second is a shorter slot that holds the AI segment and other lighter material; its spare time is available for programming. At most one demanding new concept per lecture sitting. Weeks 4 and 5 are a lab-practical split: half the cohort is away each week and misses that week's TA, so the week-4 and week-5 sessions are run to cover the same ground for the two halves and the exercise load that would otherwise fall in those weeks is caught up in TA6. The existing pace places iteration in week 4, so the iteration cliff coincides with the split; it is cushioned by the following-week TA and by the eight project weeks, and the surrounding topics (files, data structures, recursion, testing) are self-recoverable from the notes and the self-checking widgets. The course ends at week 14 with no work extending into the exam period. Students use Microsoft 365 Copilot in the browser, including its Study and Learn agent, a Socratic tutor that guides reasoning rather than handing over answers; VS Code stays an AI-free space. Per-week AI behavior can be nudged by giving students a prompt to paste or an agent to select, but it cannot be centrally enforced, so it is treated as a soft nudge and never relied on.
 
-## The 14-week grid
+## The 14-week grid {.unnumbered}
 
 `⛰` marks a cliff week, `⚠️` a lab-split week. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): the concepts are delivered in weeks 1 to 5, weeks 6 to 13 are eight weekly programming projects, one per week, in the established order, and week 14 is wrap-up. The AI thread runs in a recurring fifteen-minute segment every week, and in the project weeks the single lecture becomes a supporting worked-example or debugging clinic rather than a new concept. The weekly project is the practice done at home and in the TA session.
 
 Links point to the draft curriculum for each session, with paths relative to this file (`docs/planning/`). Where no document exists yet, the link targets a titled `.qmd` stub in `docs/notebooks/` that records what the document is meant to contain. @sec-translation-project
 
 ::: column-page
+| Wk  | Double AI                                               | Double Python                                 | Single                             | Exercises                                                                                       |
+| --- | ------------------------------------------------------- | --------------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| 1   | @sec-insides, @sec-instruction, @sec-meet-ai            | @sec-hello-world, @sec-values-operators-logic | @sec-precedence                    | @sec-getting_started, @sec-course_tools,                                                        |
+|     | (intro / machine / ai)                                  |                                               |                                    |                                                                                                 |
+| 2   | None                                                    | @sec-if-else, @sec-functions                  | @sec-functions                     | @sec-hello-world, @sec-values-operators-logic, @sec-precedence, @sec-predict-then-prove         |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 3   | @sec-how-models-produce-code                            | @sec-objects, @sec-lists                      | @sec-dictionaries, @sec-tuples     | @sec-if-else, @sec-functions                                                                    |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 4   | None                                                    | @sec-iteration                                | @sec-testing                       | (lab-split) @sec-objects, @sec-lists, @sec-dictionaries, @sec-tuples, @sec-explain-then-confirm |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 5   | @sec-practical-ai-use                                   | @sec-data_structures                          | @sec-files                         | (repeated)                                                                                      |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 6   | None                                                    | @sec-translation-project                      | @sec-composition                   | @sec-iteration, @sec-testing, @sec-data_structures, @sec-files, @sec-ask-for-another-way        |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 7   | None                                                    | @sec-classes, @sec-folding-project            | @sec-debugging                     | @sec-translation-project, @sec-let-it-draft                                                     |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 8   | @sec-reading-and-judging, @sec-tests-are-the-contract   | @sec-alignment-project                        | TBA                                | @sec-folding-project, @sec-classes                                                              |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 9   | @sec-the-docs-are-the-test, @sec-directing-to-resources | @sec-codonbias-project, @sec-modules          | @sec-docs-and-resources            | @sec-alignment-project                                                                          |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 10  | @sec-plan-before-you-prompt                             | @sec-hiv-project                              | @sec-recursion, @sec-decomposition | @sec-codonbias-project                                                                          |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 11  | @sec-delegate-the-full-problem                          | @sec-seqdist-project                          | TBA                                | @sec-recursion, @sec-hiv-project                                                                |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 12  | @sec-learning-with-an-ai                                | @sec-orf-project                              | @sec-dataframes                    | @sec-seqdist-project                                                                            |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 13  | None                                                    | @sec-assembly-project                         | @sec-decomposition                   | @sec-orf-project, @sec-finale-kickoff, @sec-finale-build, @sec-finale-finishing                 |
+|     |                                                         |                                               |                                    |                                                                                                 |
+| 14  | @sec-surviving-ai, @sec-the-ai-off-test                 | None                                          | Evaluation, Exam info              | @sec-assembly-project                                                                           |
+:::
+
+<!-- ::: column-page
 | Wk | Double AI | Double Python | Single | Exercises |
 |---------------|---------------|---------------|---------------|---------------|
 | 1 | @sec-insides, @sec-instruction, @sec-meet-ai | @sec-hello-world, @sec-values-operators-logic | @sec-precedence | @sec-getting_started |
@@ -78,47 +110,52 @@ Links point to the draft curriculum for each session, with paths relative to thi
 | 13 | @sec-learning-with-an-ai | @sec-assembly-project | @sec-composition | @sec-orf-project |
 |  |  |  |  |  |
 | 14 | @sec-surviving-ai, @sec-the-ai-off-test |  | Evaluation, Exam info | @sec-assembly-project |
-:::
+::: -->
 
 ::: column-page
-| Lecture | Draft | Header | Content |
-|------------|------------|------------|------------------------------------|
-| @sec-meet-ai | NO | The week-one introduction to working with an AI assistant in this course. | Introduces the assistant as the newest layer in the history of instructing machines, to be used from week one in sanctioned roles. Explains where the assistant lives, the browser, through Microsoft 365 Copilot and its Study and Learn agent, and why the editor stays an AI-free space. Introduces the license badges that mark what the assistant may do in each exercise, the SOLO marker for do-it-yourself-first work, and the weekly logbook that records what the assistant got right, what it got wrong, and how the student knew. Sets the one rule the whole course turns on, that the AI predicts and the machine or a test proves. |
-| @sec-decomposition | NO | A companion to the week-eleven lecture on breaking a task into pieces. | Takes a task made of several functions and models the decision of what the pieces are before any code is written: naming each function, stating its inputs and outputs, and giving one worked example per piece. Pairs with the plan-before-you-prompt note, and produces the stub-and-docstring plan the student then builds against. |
-| @sec-debugging | NO | A companion to the debugging clinics in weeks ten and eleven. | Works through reading a traceback, locating the failing line, forming a hypothesis about the cause, and confirming it with a test or a codelens trace. Uses curated, authored bugs so the failure is guaranteed and pedagogically chosen rather than relying on a live assistant to misbehave. Reused across the two clinic weeks. |
-| @sec-learning-with-an-ai | NO | The shift from using the assistant to produce code to using it to learn. | Introduces the Study and Learn agent as a tutor that guides reasoning rather than handing over answers. Extends the one verification principle to facts: a claim, including a biological one, is plausible until checked against evidence or your own knowledge, and evidence is to a fact what a passing test is to a function. Where the course teaches learning with an AI rather than taking answers from it. |
+| AI Lecture | Draft | Header | Content |
+|-----------------|-----------------|-----------------|---------------------|
 | @sec-tests-are-the-contract | YES | testing assert, pytest | **Add more detail on all the ways to organize tests and run pytest (including with widget and vscode side-panel)** |
-| @sec-delegate-the-full-problem | YES | Walk through how to delegate a full problem and have AI produce tests |  |
-| @sec-plan-before-you-prompt | YES | Planning, what does "Done" look like | Live demo |
 | @sec-reading-and-judging | YES | Handing over to AI... | ... From here on, most of the code you work with will be code you did not write, produced by a machine that is very good at making it look correct. The skill you need now is not writing but reading, and more than reading, judging: deciding whether a piece of code actually does what it claims, and proving that decision rather than trusting it. ... |
-| @sec-directing-to-resources | NO | A companion to the week-twelve clinic on building on machinery you did not write. | Works a small example live: reading a piece of a library's or an API's documentation, deciding which function or endpoint is wanted, instructing the assistant to use it, and verifying the result against the documentation and a test. The first modeled instance of building on machinery the student did not write, and the rehearsal for project D and the finale ceiling. |
-| @sec-docs-and-resources | NO | Reading a library or a web service as a catalog of contracts. | The week-twelve lecture, grafted onto the classes material. Teaches reading the reference documentation of a library, or the documentation of a web API, as a list of functions and endpoints each with a contract: what it takes and what it returns, understood without reading how it works inside. Connects this to the class idea that an object is a thing with methods you call by their contract. Teaches directing the assistant to combine such capabilities, and catching it when it invents functions or parameters that are not there, for which the real documentation is the test. This is the skill that makes the finale possible, because it is how a student learns what is possible. Introduces the dataframe here as one such resource, pointing to the dataframes note, and keeps real data analysis out of scope. |
+| @sec-plan-before-you-prompt | YES | Planning, what does "Done" look like | Live demo |
+| @sec-delegate-the-full-problem | YES | Walk through how to delegate a full problem and have AI produce tests |  |
 | @sec-surviving-ai | YES | Perspective on learning and AI |  |
 :::
 
 ::: column-page
-| Exercise | Draft | Header | Content |
-|------------|------------|------------|------------------------------------|
+| Programming Lecture | Draft | Header | Content |
+|-----------------|-----------------|-----------------|---------------------|
+| @sec-meet-ai | NO | The week-one introduction to working with an AI assistant in this course. | Introduces the assistant as the newest layer in the history of instructing machines, to be used from **week one** in sanctioned roles. Explains where the assistant lives, the browser, through Microsoft 365 Copilot and its Study and Learn agent, and why the editor stays an AI-free space. Introduces the license badges that mark what the assistant may do in each exercise, the SOLO marker for do-it-yourself-first work, and the weekly logbook that records what the assistant got right, what it got wrong, and how the student knew. Sets the one rule the whole course turns on, that the AI predicts and the machine or a test proves. |
+| @sec-decomposition | NO | A companion to the week-eleven lecture on breaking a task into pieces. | Takes a task made of several functions and models the decision of what the pieces are before any code is written: naming each function, stating its inputs and outputs, and giving one worked example per piece. **Pairs with the plan-before-you-prompt note**, and produces the stub-and-docstring plan the student then builds against. |
+| @sec-debugging | NO | A **companion to the debugging clinics in weeks ten and eleven**. | Works through reading a traceback, locating the failing line, forming a hypothesis about the cause, and confirming it with a test or a codelens trace. Uses curated, authored bugs so the failure is guaranteed and pedagogically chosen rather than relying on a live assistant to misbehave. Reused across the two clinic weeks. |
+| @sec-learning-with-an-ai | NO | The shift from using the assistant to produce code to using it to learn. | Introduces the Study and Learn agent as a tutor that guides reasoning rather than handing over answers. Extends the one verification principle to facts: a claim, including a biological one, is plausible until checked against evidence or your own knowledge, and evidence is to a fact what a passing test is to a function. Where the course teaches learning with an AI rather than taking answers from it. |
+| @sec-directing-to-resources | NO | A companion to the week-twelve clinic on building on machinery you did not write. | Works a small example live: reading a piece of a library's or an API's documentation, deciding which function or endpoint is wanted, instructing the assistant to use it, and verifying the result against the documentation and a test. The first modeled instance of building on machinery the student did not write, and the rehearsal for project D and the finale ceiling. |
+| @sec-docs-and-resources | NO | Reading a library or a web service as a catalog of contracts. | The week-twelve lecture, grafted onto the classes material. Teaches reading the reference documentation of a library, or the documentation of a web API, as a list of functions and endpoints each with a contract: what it takes and what it returns, understood without reading how it works inside. Connects this to the class idea that an object is a thing with methods you call by their contract. Teaches directing the assistant to combine such capabilities, and catching it when it invents functions or parameters that are not there, for which the real documentation is the test. This is the skill that makes the finale possible, because it is how a student learns what is possible. Introduces the dataframe here as one such resource, pointing to the dataframes note, and keeps real data analysis out of scope. |
 | @sec-the-ai-off-test | NO | The closing AI beat: verification turned on your own learning. | You have learned something when you can do it or explain it with the assistant switched off. Frames this as the test that separates augmenting from cheating, and as the reason the course insists on SOLO work and honest attribution. Sends the student back to the logbook to judge their own progress across the term. |
 | @sec-dataframes | NO | A complex data type worth knowing exists. Used inside the back-half projects, not as a lecture. | A deliberately light introduction. Presents a dataframe as a complex data type, introduced by doing as list and dict were: read_csv hands back an object, the object has columns you can pull out, and the whole thing can be handed to a plotting call or to the iplot widget to get a picture. Nothing about indexing, grouping, or joining is promised. Shows the apply pattern as the bridge from a small function the student wrote and tested to the library running it across every row, which is where authored code and library amplification meet. Real data analysis is explicitly out of scope; matplotlib and the iplot widget appear so students see graphics, text, and code blend on one notebook page. |
-| @sec-ask-for-another-way | NO | The assistant as Comparer: judging between alternatives is the student's job. | The student asks for a second solution to the same problem and compares the two, deciding which is clearer or more correct and why. Teaches that there is rarely a single right answer, that choosing between alternatives is the human's work, and that the ability to choose depends on understanding both. |
 | @sec-composition | NO | A companion to the week-ten worked-example lecture and its snippet-cast recording. | Records a small biology problem solved live from a blank page: deciding the decomposition into named functions, writing each, testing it, hitting a bug, reading the error, and fixing it. The point is to model the whole process of putting the pieces together, which is the skill that lags behind understanding the pieces, so that students can replay it at home and then do the week's project themselves. |
 | @sec-practical-ai-use | NO | A short, tool-light guide to using the assistant in the browser for this course. Shared by weeks four and five. | How to ask for something clearly, how to give the assistant the context it needs, how to read a reply critically, and how to tell a helpful answer from a confident-sounding but unchecked one. Kept deliberately light and tool-agnostic because the interface changes from term to term. The point is habits, not clicks. |
 | @sec-the-docs-are-the-test | NO | The week-twelve AI beat, paired with the documentation lecture. | Shows the assistant confidently calling a library function or an API endpoint that does not exist, one of its most common and most costly failures. Teaches that the real documentation is what the invented call fails against, and that reading a library or service as a catalog of contracts is how you catch it. The verification principle applied to capability claims. |
+| @sec-predict-then-prove | NO | The week-two AI beat: a claim about what code does is a prediction to be checked. | The assistant is asked to say what a small expression will evaluate to, the student predicts too, and then the steps widget runs the substitution and reduction and settles it. Establishes the habit that a statement about what code does is a prediction rather than a fact, and that the widget, not the assistant, is the witness. Pairs with the precedence and steps lecture. |
+:::
+
+::: column-page
+| Exercise | Draft | Header | Content |
+|-----------------|-----------------|-----------------|---------------------|
 | @sec-explain-then-confirm | NO | The assistant as Explainer: an explanation is useful but provisional. | A student pastes an error or a short piece of code and asks the assistant to explain it, then confirms the explanation by running the code and reading what actually happens. Teaches that an explanation is worth having but is not yet knowledge, and that running the code is how you find out whether the explanation was right. |
 | @sec-how-models-produce-code | NO | A plain, non-technical account of what a model is doing when it writes code. | The assistant predicts plausible continuations rather than reasoning about correctness. This is what makes it fast and fluent, and it is also why it can produce code that runs and is wrong, or that invents things that do not exist. Motivates the verification habit without any mathematics, and sets up why this new layer, unlike a compiler, must be verified. |
 | @sec-let-it-draft | NO | The assistant as Drafter, kept safe by the smallness of the piece and a test | The student specifies a small function, lets the assistant draft it, reads every line, and runs a test before believing it. The first taste of delegation, made safe because the piece is small enough to read in full and because a test stands behind it. Leads directly into the week-nine idea that the test is the contract. |
-| @sec-predict-then-prove | NO | The week-two AI beat: a claim about what code does is a prediction to be checked. | The assistant is asked to say what a small expression will evaluate to, the student predicts too, and then the steps widget runs the substitution and reduction and settles it. Establishes the habit that a statement about what code does is a prediction rather than a fact, and that the widget, not the assistant, is the witness. Pairs with the precedence and steps lecture. |
 | @sec-finale-build | NO | The weeks-thirteen-and-fourteen supported build time. | Students build their tool with the assistant against their own plan and tests, one piece at a time, keeping the prompt journal that records where the assistant was wrong and how they caught it. Pairs with the delegating-a-whole-job note. Verification follows the authorship split: functions the student wrote get tests, and any library output gets a sanity check against a value already known. |
 | @sec-finale-kickoff | NO | The week-thirteen kickoff, modeled live. | A student formulates a small tool that is genuinely useful in molecular biology, something their own background lets them pose, understand, and sanity-check, and plans it from a scaffolded blank page: deciding the pieces, naming them, stating inputs and outputs, and writing the first tests before prompting anything. Describes the floor, a tool over the supplied gene CSV held in a dataframe, and the ceiling, a tool built on a public resource such as BioPython or a REST API. Points to the dataframes note and the documentation note. |
 | @sec-finale-finishing | NO | The week-fourteen close, ending on augmentation. | Students finish the tool and test the one function that faces them, then step back to the limits-of-the-machine discussion and the augmentation idea: they brought the biology, the assistant wrote the plumbing they could not, and the course gave them the ability to produce and validate it. Pairs with the limits-of-the-machine note and the AI-off test |
+| @sec-ask-for-another-way | NO | The assistant as Comparer: judging between alternatives is the student's job. | The student asks for a second solution to the same problem and compares the two, deciding which is clearer or more correct and why. Teaches that there is rarely a single right answer, that choosing between alternatives is the human's work, and that the ability to choose depends on understanding both. |
 :::
 
 The concept sequence in weeks 1 to 5 (hello world and values, then control flow and functions, then objects and the containers, then iteration and files, then data structures, recursion, and testing) matches the reading order of the existing course exactly, as does the project order in weeks 6 to 13 (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly). Classes enter in week 7 alongside the folding project, and testing is taught in week 5 so the first project in week 6 can be verified against a suite. The existing course places its two mandatory hand-ins at the translation project (week 6) and the HIV project (week 10); the assessment question is still deferred (section 10), but those are the natural spotlight weeks if hand-ins are reinstated.
 
 The scaffolding fades across the eight project weeks rather than being switched off at once: the earliest projects arrive fully decomposed with stubs and a complete test suite, exactly like the old course, and the later ones give less skeleton and leave more of the tests for the student to write, so that by the assembly project the student is doing much more of the decomposition and verification. The `iplot-widget` and matplotlib plotting appear inside the later projects (see the dataframes note, week 12) so students see graphics, text, and code blend on one notebook page. The student-formulated finale and the gene-CSV tool from the previous draft are deferred for now, since the existing pace fills weeks 6 to 13 with the eight projects and closes on wrap-up; the drafted finale notes (`finale-kickoff`, `finale-build-clinic`, `finale-finishing`) are parked for when that capstone is added back.
 
-## Concept dependency graph
+## Concept dependency graph {.unnumbered}
 
 ```         
 values/types/operators, math & logic (wk1)
@@ -138,13 +175,13 @@ values/types/operators, math & logic (wk1)
 
 The documentation skill is a direct descendant of classes: a class taught them that an object is a thing with methods you call by their contract, and reading a library is reading a catalog of such contracts. It arrives in week 9 alongside the codon-bias project and BioPython, where the projects first lean on machinery the student did not write.
 
-## The learning curve, the cliffs, and the composition problem
+## The learning curve, the cliffs, and the composition problem {.unnumbered}
 
 Two historical dropout points, functions and scope (now week 2) and iteration and nested loops (weeks 4 to 5), are cushioned as much as the compressed pace allows: a dedicated TA the following week, the codelens and steps widgets, high exercise density, and above all the eight project weeks that follow, in which the same constructs are exercised again and again. The faster pace is a deliberate trade the existing course already makes: it accepts earlier and sharper cliffs in exchange for eight weeks of project practice, which is where fluency is actually built. The lab-split weeks 4 to 5 coincide with iteration and the first data-structure building; those topics are ones a student who misses a session can rebuild from the notes and the self-checking widgets. Conditionals finish in week 2 and the containers in week 3 so each gets a full TA the following week. Classes (week 7) are kept to the basic scaffolding, `class`, `__init__`, `self`, attributes, methods, and a light `__str__`, with exercises that add a method to a given class, and they are introduced alongside the folding project rather than in a standalone concept week.
 
 The deeper problem is the composition cliff, and it is not a single week but the whole stretch of project weeks. Understanding the pieces does not make a student able to combine them, and the only cure is volume of guided practice, which is what weeks 6 to 13 provide. The single-lecture slot in each project week is a worked-example or debugging clinic in which composition is modeled live, because watching the whole process of decomposing, writing, testing, and fixing, and then doing it, is what builds the missing schema; the `snippet-cast` tool turns these into screencasts students replay at home. The projects fade in scaffolding across the eight weeks: the earliest arrive fully decomposed with stubs and a complete test suite, the middle ones give the plan but leave more of the writing and testing, and the later ones give less skeleton still, so that by the assembly project the student is doing much more of the decomposition and verification themselves.
 
-## The back half in detail (weeks 6 to 14)
+## The back half in detail (weeks 6 to 14) {.unnumbered}
 
 Week 5 delivers the last new programming machinery before the projects take over: building data structures, recursion, and testing as executable specification, including the raw `pytest` command. Testing sits one week before the first project so that from week 6 on every project can be verified against a suite.
 
@@ -160,11 +197,11 @@ The student-formulated finale and the gene-CSV tool from the previous draft are 
 
 The five AI-arc notes already drafted (`docs/ai-arc/`) are repositioned by this. They are no longer standalone lecture content; they become the source material for the fifteen-minute AI segments and for the students' reading, delivered light. The "limits of the machine" note is recast to close on augmentation rather than on caution, carrying the squaring idea and the one-principle-three-modes framing.
 
-## The AI thread and the one verification principle
+## The AI thread and the one verification principle {.unnumbered}
 
 The AI thread runs in the short segment every week, escalating through the role ladder (Explainer, Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate; detail in `course-plan.md`), and every exercise it sets resolves at the check widget or at a test the student runs, so that "the AI predicts, you verify" is the literal structure of the work and not a slogan. In the later weeks the thread broadens from producing code to the general skill of working with an AI, held together by the single verification principle: verify code with tests and reading, verify facts with evidence and knowledge, verify your own learning by doing it with the AI switched off. This is where the course teaches learning with an AI rather than taking answers from it, using the Study and Learn agent as the tutoring mode, and where it confronts the "isn't this cheating" feeling with the verification-and-understanding line and the squaring argument. Every exercise carries a license badge (a role, or `SOLO` for do-it-yourself-first), the AI lives in the browser, and each week prompts one logbook entry. The dangers are taught throughout on curated examples we author, so that the lessons hold regardless of how capable the live assistant is that week.
 
-## Tool-introduction schedule
+## Tool-introduction schedule {.unnumbered}
 
 | When | Tool / apparatus | Introduced because |
 |-------------------|--------------------------|----------------------------|
@@ -181,15 +218,15 @@ The AI thread runs in the short segment every week, escalating through the role 
 
 The im-pytest check widget (mode 1) is available from week 1 for any auto-checked exercise and is the everyday interface for the projects. All three modes are built and validated, and the eight ported projects live in `projects/`.
 
-## Workload
+## Workload {.unnumbered}
 
 Contact time is fixed at 5.25 hours per week. The target for required self-study is about 5 to 7 hours per week for the median student, below the roughly 14 hours the nominal 10 ECTS would imply, with the surplus offered as optional depth. In the project weeks almost all of that required work is programming practice on the weekly projects, not new reading, which is the point: the pace of the course is set by how fast students accumulate fluency through practice, and the plan leaves room for that by keeping the project-week single lectures in a supporting rather than a concept-adding role. Breather weeks are week 1 and week 14; the concept weeks 2 to 5 are the densest, with the two cliffs (functions in week 2, iteration in week 4) the heaviest, and the project weeks settle into a steady rhythm of practice.
 
-## Assessment (deferred)
+## Assessment (deferred) {.unnumbered}
 
 No mandatory graded hand-ins are part of the current design; the projects are formative, with students checking their own work through the im-pytest suites. When graded assessment is designed, the course's logic argues for assessing judgment and verification over working output: grade the plan and the tests the student wrote, grade the logbook and prompt journal, weight "can explain and defend every part of this" above "it runs", and consider an exam that hands the student a piece of AI-generated code to find, fix, and justify a fault in.
 
-## Pitfalls and mitigations
+## Pitfalls and mitigations {.unnumbered}
 
 | Pitfall | Mitigation |
 |---------------------------------|---------------------------------------|
@@ -203,7 +240,7 @@ No mandatory graded hand-ins are part of the current design; the projects are fo
 | A dataframe-plus-CSV project drifts from the trained skills, becoming click-and-plot with nothing authored or verified | Dataframes are introduced only as a container; the authored, tested core is the domain function the library has no built-in for, reached through `apply`; the library's output is sanity-checked against known quantities; students are never made to reinvent what the library does well |
 | Workload creep losing the weakest 20% | Required work capped; optional depth; breather weeks; the back half adds practice, not concepts |
 
-## Decisions
+## Decisions {.unnumbered}
 
 Resolved: the Python content sequence and pace follow the existing course (`weekplan.qmd`), with concepts in weeks 1 to 5, the eight projects in weeks 6 to 13 in the established order (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly), and wrap-up in week 14; the `translationproject.py` stub is fixed; no mid-course auto-checked mini-project; classes are in the core (week 7, alongside the folding project, basic scaffolding plus add-a-method exercises); testing is taught in week 5, one week before the first project; students use Microsoft 365 Copilot with the Study and Learn agent; the AI concepts run in recurring fifteen-minute lecture segments. Dataframes and plotting are a light introduction only, a complex data type worth knowing exists, folded into the later projects (weeks 12 to 13) rather than given a lecture, with matplotlib and the `iplot-widget` used to show graphics, text, and code blending in a notebook; real data analysis is out of scope. The dataframe-project drift risk is handled by locating the authored, tested code in the domain function the library lacks (reached through `apply`) and verifying the library's output by sanity check, following the authorship split in the guiding principles.
 
@@ -215,7 +252,7 @@ Still open: whether the existing course's two mandatory hand-ins (translation in
 
 *A map of the notes and exercises that flesh out the AI arc, so we can judge what realistically fits a 45-minute slot and how the notes, the check widget, and the projects interface. The one fully-drafted note — `reading-and-judging.md` (week 10) — is the density/voice specimen; everything here is calibrated to that unit: roughly one worked example + a reusable rubric/template + 3–4 interspersed exercises + a logbook prompt per 45-minute demanding slot.*
 
-### The through-line
+### The through-line {.unnumbered}
 
 The AI thread runs in the short "different" slot every week (Explainer → Delegate). From week 9 the *demanding* slots turn from new syntax to **applying it through verification**, and the escalating role is what each note trains:
 
@@ -227,7 +264,7 @@ The AI thread runs in the short "different" slot every week (Explainer → Deleg
 | 12–13 | **Delegating a whole job** *(drafted: `delegating-a-whole-job.md`)* | Collaborator → Delegate | Assemble plan + specify + judge + iterate into one loop on a task beyond your unaided reach; the provided suite is a floor; keep the prompt journal. | the assembly capstone; im-pytest; the prompt journal |
 | 14 | **The limits of the machine** *(drafted: `limits-of-the-machine.md`)* | (reflection) | Automation bias, tests necessary not sufficient, hallucinated biology, when *not* to use AI, responsibility that does not transfer, honest attribution. | the logbook arc; a closing reflection |
 
-### Per-note detail (what each slot holds)
+### Per-note detail (what each slot holds) {.unnumbered}
 
 **Week 9 — Tests are the contract.** Do-first: take a vague ask ("a function that finds the GC-richest window"), turn it into concrete input→output examples, turn those into `assert`s, *then* let the assistant write the function and run the tests. Refrain: a green test is the only reason to believe generated code. Exercises: (a) turn one vague ask into three examples then three `assert`s; (b) 🔒 SOLO write one *failing* test and one *passing* test for a given function; (c) prompt the assistant for a function that "looks perfect," then catch it with your own nasty test. Interface: this is where students first run raw `pytest` (mode 2) and first author their own tests (mode 3).
 
@@ -237,7 +274,7 @@ The AI thread runs in the short "different" slot every week (Explainer → Deleg
 
 **Weeks 12–14 — the capstone (assembly).** These are clinics, not new-concept lectures. Week 12: choose/scope, decompose, write the plan and the first tests (reviewed before building). Week 13: build with the assistant against the suite, keeping the **prompt journal** (what the AI got wrong, how you caught it). Week 14: finish, then the **limits-of-the-machine** discussion and reflection. Interface: the ported `assemblyproject` suite is the adjudicator throughout; the prompt journal feeds assessment.
 
-### Realism notes (what this exercise surfaced)
+### Realism notes (what this exercise surfaced) {.unnumbered}
 
 - **One note ≈ one worked example + one reusable artifact (rubric/template) + 3–4 short exercises + a logbook prompt.** The week-10 draft is about the largest that fits a 45-minute slot with in-class exercises. Anything with two big new artifacts (e.g. a rubric *and* a template in one slot) should be split.
 - **Week 9 is the densest and the riskiest to overload:** it carries the testing chapter *and* the spec-as-contract framing *and* the first raw-pytest exposure. Consider letting the testing mechanics live in the week-9 *slot A* (the existing testing note, reworked) and keeping *slot B / the AI slot* purely for "the test is the contract you give the AI." Flagged for a decision.

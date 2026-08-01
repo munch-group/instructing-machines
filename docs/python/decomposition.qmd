@@ -1,0 +1,93 @@
+# Worked example: decomposition modeled live {#sec-decomposition}
+
+*A companion to this week's lecture on breaking a task into pieces, pairing with @sec-plan-before-you-prompt.*
+
+In the plan-before-you-prompt note, you were set an exercise: without writing any code, plan a task that reads a file of DNA sequences and reports which one has the highest GC content. This note is that exercise, done properly and out loud, the way the lecture models it live. If you already wrote a plan of your own, keep it beside you and compare it to the decisions made here; disagreeing with a decision below is a perfectly good outcome, as long as you can say why.
+
+### Naming the pieces
+
+The task, stated in full: given several named DNA sequences, report the name of the one with the highest GC content. Said that way, it already suggests its own pieces. Something needs to compute the GC content of one sequence, since you cannot compare what you cannot measure. Something needs to look across all the sequences and find the best one, once each can be measured. And something needs to turn that result into an actual report, since "find the best one" and "tell the user which one" are not quite the same job. Three pieces, and notice the shape: the second piece cannot be built without the first, and the third leans on the second. That dependency order is itself a decision, and it is the order they get built and tested in.
+
+```python
+def gc_content(dna):
+    "Fraction of bases in a strand that are G or C."
+    ...
+
+def most_gc_rich(sequences):
+    "Given a dict of name to DNA string, return the name with the highest GC content."
+    ...
+
+def report(sequences):
+    "A sentence naming the most GC-rich sequence and its GC content."
+    ...
+```
+
+### Naming the shape of the data, not just the functions
+
+There is a decision hiding above that is easy to walk past: `most_gc_rich` takes "a dict of name to DNA string." Nothing forced that shape. The sequences could have arrived as two parallel lists, one of names and one of strings, or as a list of two-element tuples. A dictionary was chosen because a name naturally maps to one sequence and you will want to look sequences up by name later, but this is exactly the kind of decision a decomposition has to make explicit and in writing, because if you leave it implicit, the assistant will guess a shape for you, silently, and it may not be the one the rest of your program expects.
+
+### One worked example per piece
+
+A plan is not finished until each piece has a concrete input and output you worked out by hand, because that is what turns a vague name into something you could test.
+
+```python
+def gc_content(dna):
+    "Fraction of bases in a strand that are G or C. gc_content('GGCC') == 1.0"
+    ...
+
+def most_gc_rich(sequences):
+    "Given a dict of name to DNA string, return the name with the highest GC content.
+    most_gc_rich({'a': 'GGCC', 'b': 'ATAT'}) == 'a'"
+    ...
+
+def report(sequences):
+    "A sentence naming the most GC-rich sequence and its GC content.
+    report({'a': 'GGCC', 'b': 'ATAT'}) == 'a is the most GC-rich sequence, at 1.0.'"
+    ...
+```
+
+Writing the `most_gc_rich` example is where a real decision surfaces, the same way it did for `is_gc_rich` in the plan-before-you-prompt note: what happens on a tie, two sequences with exactly the same GC content? The example above simply does not have a tie in it, which means the decomposition has quietly left that case unspecified. That is worth noticing rather than hiding. A stronger plan would add a second example that does contain a tie, and decide, in writing, which name wins or whether both should be reported.
+
+### From plan to code, one piece at a time
+
+The plan above is not decoration; it is what you hand the assistant, one function at a time, in the order the dependencies demand. `gc_content` first, since nothing else can be built without it:
+
+```python
+def gc_content(dna):
+    "Fraction of bases in a strand that are G or C."
+    gc = dna.count('G') + dna.count('C')
+    return gc / len(dna)
+
+assert gc_content('GGCC') == 1.0
+```
+
+Only once that test passes do you move to `most_gc_rich`, which is now allowed to call `gc_content` and trust it completely:
+
+```python
+def most_gc_rich(sequences):
+    "Given a dict of name to DNA string, return the name with the highest GC content."
+    return max(sequences, key=lambda name: gc_content(sequences[name]))
+
+assert most_gc_rich({'a': 'GGCC', 'b': 'ATAT'}) == 'a'
+```
+
+And last, `report`, on top of two pieces already proven:
+
+```python
+def report(sequences):
+    "A sentence naming the most GC-rich sequence and its GC content."
+    name = most_gc_rich(sequences)
+    return f"{name} is the most GC-rich sequence, at {gc_content(sequences[name])}."
+
+print(report({'a': 'GGCC', 'b': 'ATAT'}))
+```
+
+### What the plan bought you
+
+Look back at how that went. At no point did you face "write the whole program." You faced, in order, three small named problems, each with a worked example that told you exactly what correct looked like before you or the assistant wrote a line. When you hand a piece like `most_gc_rich` to the assistant, you can hand it the one-line docstring and the worked example together, which is a request precise enough to check, not a mood. That is the entire payoff of decomposition: not that it makes the code shorter, but that it turns one large, unverifiable request into several small, verifiable ones.
+
+#### Exercise 🔒 `SOLO`
+
+Decide, in writing, what `most_gc_rich` should do when two sequences tie exactly, add a second worked example that exercises that tie, and update the function so it satisfies both examples on purpose rather than by accident of how `max` breaks ties.
+
+For your logbook this week, name one function from your own project plan where writing the worked example was harder than you expected, and say what that difficulty told you about the decomposition.

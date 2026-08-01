@@ -1,0 +1,101 @@
+# Debugging {#sec-debugging}
+
+*A companion to this week's debugging clinic, reused across the project weeks.*
+
+Every piece of code you have written so far has broken at least once, and every piece you write for the rest of the course will too, whether you typed it or the assistant did. That is not a sign you are behind; it is what writing code is. What separates a bad afternoon from a five-minute fix is not luck, it is a method, and this note gives you one: read the traceback, locate the failing line, form a hypothesis, confirm it. The bugs below are planted on purpose, curated so that each one teaches a different way code breaks, rather than left to chance the way a real bug is.
+
+### The method
+
+1. **Read the traceback from the bottom up.** The last line names the error and usually says what value was involved. Start there, not at the top.
+2. **Locate the failing line.** Python tells you the exact line, and the file and function it was in. Find it before you theorize about anything else.
+3. **Form a hypothesis.** Given the error and the line, what specific thing must be true about the values at that moment for this error to happen? State it as a sentence you could be wrong about, not a vague feeling.
+4. **Confirm it before you fix it.** Print the value you suspect, or step through the line with the codelens widget, or write a small test that isolates just this case. Only once you have seen the actual value that caused the failure do you know your hypothesis was right, and only then do you change the code.
+
+Skipping straight to step four, changing something and hoping, is how a five-minute bug turns into an hour. The method is slower on the first bug and much faster on every one after it, because it is the same four steps every time.
+
+### Bug one: an error that stops the program
+
+```python
+def gc_content(dna):
+    "Fraction of bases that are G or C."
+    gc = dna.count('G') + dna.count('C')
+    return gc / len(dna)
+
+sequences = ['ATGC', 'GGCC', '']
+for seq in sequences:
+    print(gc_content(seq))
+```
+
+::: {.callout-important}
+## Spot the bug
+Run it before reading on. It crashes partway through with `ZeroDivisionError: division by zero`. This bug is planted on purpose.
+:::
+
+Reading from the bottom: `ZeroDivisionError`, in `gc_content`, on the line `return gc / len(dna)`. The hypothesis writes itself once you look at the line: this fails when `len(dna)` is `0`, which means one of the strings in `sequences` must be empty. Confirm it by looking at the list: yes, the last entry is `''`. The fix is a decision, not just a patch: what should the GC content of an empty sequence even be? Undefined, arguably, so a reasonable fix is to say so explicitly rather than let the program crash:
+
+```python
+def gc_content(dna):
+    "Fraction of bases that are G or C. Undefined for an empty sequence."
+    if len(dna) == 0:
+        return None
+    gc = dna.count('G') + dna.count('C')
+    return gc / len(dna)
+```
+
+### Bug two: no error at all
+
+The bugs that crash are, in one sense, the friendly ones, because Python is shouting at you about exactly where to look. The next kind is quieter and more dangerous.
+
+```python
+def count_start_codons(dna):
+    "Count how many times the start codon ATG appears, including overlaps."
+    count = 0
+    for i in range(0, len(dna), 3):
+        if dna[i:i+3] == 'ATG':
+            count += 1
+    return count
+
+print(count_start_codons('AATGATGC'))
+```
+
+::: {.callout-important}
+## Spot the bug
+Run it. It does not crash, and it returns `1`. Decide for yourself, by counting on paper, whether that is actually correct before you read on. This bug is planted on purpose.
+:::
+
+By hand: `AATGATGC` contains `ATG` starting at position 1 and again at position 4, so the honest answer is 2, but a plausible-looking answer of 1 does not announce that it is wrong. There is no traceback here, so the method's first two steps have nothing to bite on, which is itself the lesson: when there is no error, the "failing line" is not a crash site, it is the line whose *assumption* is wrong. The hypothesis: `range(0, len(dna), 3)` only checks positions 0, 3, 6, stepping by three as if codons could not overlap, but the task explicitly asked for overlaps, so a start codon beginning at position 1 or 2 is never even looked at. Confirm it by printing the positions the loop actually checks: `list(range(0, 8, 3))` gives `[0, 3, 6]`, and position 1 is simply not among them. The fix is to step by one instead of by three:
+
+```python
+def count_start_codons(dna):
+    "Count how many times the start codon ATG appears, including overlaps."
+    count = 0
+    for i in range(len(dna) - 2):
+        if dna[i:i+3] == 'ATG':
+            count += 1
+    return count
+```
+
+### Confirming with codelens instead of print
+
+Printing a suspect value works, but sometimes you want to watch a loop's variables change on every single step rather than guess where to insert a print. That is exactly what the codelens widget is for: point it at `count_start_codons('AATGATGC')` with the fix above and step through it one line at a time, watching `i` and `count` in the panel beside the code. Use it whenever your hypothesis is about *how a value changes over several steps* rather than about *what a value is at one point*; a single print statement cannot show you a sequence of changes the way stepping through the loop can.
+
+#### Exercise 🔒 `SOLO`
+
+Here is a third planted bug. Use the four-step method, in order, and write down your hypothesis in a sentence before you attempt any fix.
+
+```python
+def reverse_complement(dna):
+    "Return the reverse complement of a DNA strand."
+    complement = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G'}
+    result = ''
+    for base in dna:
+        result = complement[base] + result
+    return result
+
+print(reverse_complement('ATGC'))
+print(reverse_complement('atgc'))
+```
+
+The first call is correct. The second is not, and it fails the same quiet way bug two did: no traceback at all. Find the failing line, form the hypothesis, confirm it by printing the one value that matters, and only then fix it.
+
+For your logbook this week, describe a bug from your own project code this week that you found using this four-step method rather than by guessing, and say which step actually found it.

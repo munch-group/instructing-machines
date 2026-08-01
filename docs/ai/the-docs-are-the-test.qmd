@@ -1,0 +1,38 @@
+# The AI invents functions; the docs are the test {#sec-the-docs-are-the-test}
+
+*The week-nine AI beat, paired with the documentation lecture.*
+
+You just met BioPython, and the note on reading it as a catalog of contracts mentioned, in passing, the assistant's weakest habit around libraries: it sometimes invents a method that sounds exactly right and does not exist. This beat is that failure, in the flesh, so you recognize it the first time it happens to you for real.
+
+Ask an assistant for the GC content of a BioPython `Seq` object and you may well get back something like this:
+
+```python
+from Bio.Seq import Seq
+
+dna = Seq('ATGGCCTGA')
+print(dna.gc_content())
+```
+
+Read that before you run it. It looks completely unremarkable: a method name that matches the concept exactly, called the same way `.translate()` and `.reverse_complement()` were in the last note, on the same kind of object. It has every surface feature of a correct call. Run it anyway.
+
+```txt
+AttributeError: 'Seq' object has no attribute 'gc_content'
+```
+
+There is no `.gc_content()` method on a `Seq` object. The assistant did not look this up; it predicted a plausible next method name given everything it has seen written about sequences and GC content, in the same way it predicts a plausible next word, and `gc_content` was a very good guess by that measure. It is simply not the guess BioPython's actual authors made. The real function lives elsewhere, as `Bio.SeqUtils.gc_fraction`, called on the sequence rather than as a method of it:
+
+```python
+from Bio.SeqUtils import gc_fraction
+
+print(gc_fraction(dna))
+```
+
+Notice exactly what caught this, because it generalizes to every library and every API you will ever touch. It was not that the code looked wrong; it looked fine, right up until it ran. It was not a hunch. It was the documentation, checked, that had no entry for `Seq.gc_content` and did have an entry for `SeqUtils.gc_fraction`, with a stated contract that matched what you actually wanted. The real documentation is the test an invented call fails, exactly the way a hand-written `assert` is a test a wrong function fails, and it is the only thing that reliably catches this particular failure, because reading the call a second time, more carefully, will not help: it was written to look right.
+
+The same failure shows up with web APIs, not just libraries: an assistant confidently naming a REST endpoint, a query parameter, or a JSON field that the actual service does not offer, with exactly the same fluent certainty whether the field exists or not. The habit that catches it is identical. Before you trust a call the assistant produced against a library or a service you did not write, find that exact function or endpoint in the real documentation and confirm it exists, takes what the assistant assumed it takes, and returns what the assistant assumed it returns. If you cannot find it, it very likely is not real, no matter how natural it looked.
+
+#### Exercise `AI: Unreliable Narrator`
+
+Ask the assistant for a one-line way to reverse-translate a protein string back into a possible DNA coding sequence using BioPython. Before running anything, search the real BioPython documentation for whatever function or method it names. Does it exist, under that name, taking those arguments? Record what you found either way.
+
+For your logbook this week, note whether you have caught the assistant inventing a function or parameter yet, in this course or elsewhere, and if not, say specifically what you now intend to check before you next call a library method you did not write yourself.

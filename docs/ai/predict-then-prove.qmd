@@ -1,0 +1,107 @@
+# The AI predicts, the widget proves {#sec-predict-then-prove}
+
+*The week-two AI beat: a claim about what code does is a prediction to be checked.*
+
+::: {.callout-note}
+## Session length
+Estimated 3 hours, run as this week's TA session. Bring last week's precedence and substitution/reduction notes; every round below runs on that material.
+:::
+
+The routine for this whole session is the same three-way move, repeated on harder and harder expressions until it is automatic. You predict what an expression evaluates to, by hand, doing the substitution and reduction steps yourself. You ask the assistant what it evaluates to, and read its answer, including whatever reasoning it gives. Then you run it through the `%%steps` widget, which is the only one of the three that actually reduces the expression step by step and cannot be talked around. Three answers, one witness. When your prediction and the assistant's answer agree, that is pleasant and proves nothing. When they disagree, or when either of you turns out to be wrong, that is the session working exactly as intended.
+
+::: {.callout-tip}
+## The three-way move, every time
+1. **Predict.** Write down your answer and the substitution/reduction steps that got you there, before you type anything into the assistant.
+2. **Ask.** Give the assistant the bare expression and ask what it evaluates to and why. Read its reasoning, not just its final answer.
+3. **Prove.** Run the expression through `%%steps`. Its trace is the verdict. Compare it against both of your answers and note any disagreement.
+:::
+
+## Part 1 — Warm-up: arithmetic precedence (30 min)
+
+Straightforward operator precedence, to get the three-way move running smoothly before anything tricky shows up.
+
+#### Exercise 1 `AI: Comparer`
+`4 + 6 * 2 - 3`
+
+#### Exercise 2 `AI: Comparer`
+`2 ** 3 ** 2` (exponentiation groups right-to-left — decide what that means for this one before you predict)
+
+#### Exercise 3 `AI: Comparer`
+`10 - 2 - 3` (subtraction groups left-to-right — same caution as above)
+
+#### Exercise 4 `AI: Comparer`
+`(3 + 2) * (8 - 6) / 2`
+
+#### Exercise 5 `AI: Comparer`
+`7 % 3 + 2 * 5 // 2`
+
+## Part 2 — Comparisons and boolean logic (35 min)
+
+Chained comparisons and `not`/`and`/`or` precedence are a place fluent-sounding wrong answers are common, because the rules read as obvious right up until you meet a case that breaks the obvious reading.
+
+#### Exercise 6 `AI: Comparer`
+`1 < 2 < 3` (this is a chained comparison, not two separate comparisons combined by magic — predict what Python actually does with it before asking)
+
+#### Exercise 7 `AI: Comparer`
+`1 < 2 > 3`
+
+#### Exercise 8 `AI: Comparer`
+`not 1 == 1 == 2`
+
+#### Exercise 9 `AI: Comparer`
+`True and False or True`
+
+#### Exercise 10 `AI: Comparer`
+`not True and not False`
+
+## Part 3 — Short-circuit values, not just True/False (35 min)
+
+`and` and `or` do not return `True` or `False`; they return whichever operand decided the outcome. This is the single richest source of a plausible-but-wrong AI answer in this whole session, because "and/or return booleans" is a very natural, very common, very wrong simplification.
+
+#### Exercise 11 `AI: Comparer`
+`'ATG' and 'GCC'` (predict the actual value returned, not just whether it is "truthy")
+
+#### Exercise 12 `AI: Comparer`
+`'' or 'GCC'`
+
+#### Exercise 13 `AI: Comparer`
+`0 or '' or 'default'`
+
+#### Exercise 14 `AI: Comparer`
+`'ATG' and '' and 'GCC'`
+
+#### Exercise 15 `AI: Comparer`
+Ask the assistant, before predicting or proving anything, to state in one sentence what `and` and `or` return in Python. Only after you have its claim in writing, run Exercises 11–14 through the widget and check its general claim against all four actual results. Does its one-sentence rule survive contact with all four?
+
+## Part 4 — Mixed types and strings (30 min)
+
+Precedence and truthiness interact with strings, repetition, and coercion in ways worth a dedicated round.
+
+#### Exercise 16 `AI: Comparer`
+`'AT' * 3 + 'G'`
+
+#### Exercise 17 `AI: Comparer`
+`'AT' * 2 == 'ATAT'`
+
+#### Exercise 18 `AI: Comparer`
+`bool('False')` (a classic trap — predict carefully)
+
+#### Exercise 19 `AI: Comparer`
+`3 == 3.0 and 3 is 3.0` (if your Python raises a `SyntaxWarning` on `is` with a literal, that is itself worth reading and predicting around)
+
+#### Exercise 20 `AI: Comparer`
+`len('ATG') == 3 and 'G' in 'ATG'`
+
+## Part 5 — Break the AI (30 min)
+
+Now you write the expressions. Working alone or with a partner, construct **two** expressions of your own, each combining precedence, comparison, and short-circuit logic, specifically designed to be the kind of case a fluent guesser would get wrong: something where the obvious-looking simplification (like "and/or return booleans") fails. Trade your two expressions with another pair. For each expression you receive, do the full three-way move: predict, ask, prove.
+
+#### Exercise 21 🔒 `SOLO`
+Before trading anything, write down in one sentence *why* each of your two expressions is designed to trip up a plausible-but-wrong guess. This is the harder half of the exercise: constructing a good trap requires understanding the rule precisely enough to know exactly where it is easy to misapply.
+
+#### Exercise 22 `AI: Comparer`
+Run the full three-way move on the two expressions you received from the other pair. Report back to them, in one sentence each, whether their trap actually caught the assistant, caught you, caught neither, or caught both.
+
+## Wrap-up (10 min)
+
+For your logbook this week, report your personal tally across the whole session: how many of the roughly twenty expressions the assistant got wrong, how many you got wrong, and whether the two of you tended to get the *same* ones wrong or *different* ones. That last question matters more than the raw count — it tells you whether your instincts and the assistant's failure modes overlap, which is exactly the thing you need to know to check it well.
