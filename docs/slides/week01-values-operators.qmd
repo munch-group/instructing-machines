@@ -1,0 +1,480 @@
+---
+title: "Values, operators, precedence, reduction, variables, substitution"
+subtitle: "Week 1"
+date: today
+author: "Kasper Munch"
+institute: BiRC, Department of Molecular Biology and Genetics, Aarhus University
+execute:
+  echo: true
+jupyter: python3
+format:
+  revealjs:
+    logo: images/au_segl.svg
+    # footer: "Kasper Munch"
+    controls-layout: bottom-right
+    slide-number: c
+    classoption: fleqn
+    fleqn: true
+    mainfont: "Helvetica"
+syntax-highlighting: ../numpy.theme
+---
+
+```{=html}
+<!--
+ARROWS: ← ↑ → ↓ ↔ ↕ ⇐ ⇑ ⇒ ⇓ ⇔ ⇕ ⟵ ⟶ ⟷
+Red text: [important note]{.alert}
+-->
+```
+
+```{python}
+#| echo: false
+import script_widget
+import steps_widget
+```
+
+<!-- =============================================================================== -->
+## Workflow
+<!-- =============================================================================== -->
+
+::: {.absolute top="18%" left="1%" width="46%"}
+![](images/w01-vscode.png)
+:::
+
+::: {.absolute top="82%" left="1%" width="46%"}
+VScode
+:::
+
+::: {.absolute top="45%" left="48%" width="6%"}
+[⟶]{.bigass}
+:::
+
+::: {.absolute top="14%" left="55%" width="43%"}
+![](images/w01-terminal-windows.png)
+:::
+
+::: {.absolute top="50%" left="55%" width="30%"}
+![](images/w01-terminal-mac.png)
+:::
+
+::: {.absolute top="82%" left="55%" width="43%"}
+Windows PowerShell / Terminal
+:::
+
+
+<!-- =============================================================================== -->
+## The smallest program
+<!-- =============================================================================== -->
+
+```{python}
+%%sandbox
+print("Hello world")
+```
+
+
+<!-- =============================================================================== -->
+## Text
+<!-- =============================================================================== -->
+
+:::  {.code-big}
+```{.python}
+"Hello world"
+```
+:::
+
+
+<!-- =============================================================================== -->
+## Why is it called "print"?
+<!-- =============================================================================== -->
+
+:::  {.code}
+```{.python}
+print("Hello world")
+```
+:::
+
+
+<!-- =============================================================================== -->
+## {background-image="images/w01-computer-room.png" background-size="contain"}
+<!-- =============================================================================== -->
+
+
+<!-- =============================================================================== -->
+## A program is a series of statements
+<!-- =============================================================================== -->
+
+```{python}
+%%sandbox
+print("Here we go")
+print("still at it")
+print("ok, that was it")
+```
+
+
+<!-- =============================================================================== -->
+## The arrow of execution
+<!-- =============================================================================== -->
+
+:::  {.code}
+```{.python}
+#| code-line-numbers: "1|2|3"
+print("Here we go")
+print("still at it")
+print("ok, that was it")
+```
+:::
+
+
+<!-- =============================================================================== -->
+## `#` ignored code
+<!-- =============================================================================== -->
+
+:::  {.code}
+```{.python}
+print("Here we go")
+# print("still at it")
+print("ok, that was it")
+```
+:::
+
+
+<!-- =============================================================================== -->
+## `#` ignored code
+<!-- =============================================================================== -->
+
+```{python}
+%%sandbox
+print("Here #we go")
+print("still at it") #
+pri#nt("ok, that was it")
+```
+
+
+<!-- =============================================================================== -->
+## Python errors
+<!-- =============================================================================== -->
+
+Syntax error: when Python cannot recognize your code as Python code, it is not
+run at all.
+
+Runtime error: a fault Python does not discover until your code runs.
+
+[Remember that even when your code runs fine, that is no guarantee it does what
+you think it does :-)]{.alert}
+
+
+<!-- =============================================================================== -->
+## Three errors
+<!-- =============================================================================== -->
+
+::::: {layout="[0.45,-0.05,0.5]"}
+
+::: column
+:::  {.code-small}
+```{.python}
+print( , "Hello")
+```
+```{.python}
+prit("Hello")
+```
+```{.python}
+print "Hello"
+```
+:::
+:::
+
+::: column
+```{python}
+%%sandbox
+print( , "Hello")
+```
+:::
+
+:::::
+
+
+<!-- =============================================================================== -->
+## Numbers: integers and floats
+<!-- =============================================================================== -->
+
+:::  {.code}
+```{.python}
+print(42)
+print(3.14159265)
+
+print(3 + 2 * 4 + 9)
+```
+:::
+
+
+<!-- =============================================================================== -->
+## Math operators
+<!-- =============================================================================== -->
+
+::::: {layout="[0.45,-0.05,0.5]"}
+
+::: column
+|     |                |
+|-----|----------------|
+| `+`  | plus          |
+| `-`  | minus         |
+| `*`  | times         |
+| `/`  | divide        |
+:::
+
+::: column
+|      |                     |
+|------|---------------------|
+| `**` | exponent            |
+| `%`  | modulo (remainder)  |
+| `//` | integer division    |
+:::
+
+:::::
+
+
+<!-- =============================================================================== -->
+## Operator precedence
+<!-- =============================================================================== -->
+
+| Level   | Category       | Operators     |
+|---------|----------------|---------------|
+| Highest | exponent       | `**`          |
+|         | multiplication | `*, /, //, %` |
+| Lowest  | addition       | `+, -`        |
+
+
+<!-- =============================================================================== -->
+## Expressions {auto-animate="true"}
+<!-- =============================================================================== -->
+
+### (a piece of code that reduces to a value)
+
+:::  {.code}
+```{.python}
+3 + 2 * 4 + 9
+```
+:::
+
+## Expressions {auto-animate="true"}
+
+### (a piece of code that reduces to a value)
+
+:::  {.code}
+```{.python}
+3 + 8 + 9
+```
+:::
+
+## Expressions {auto-animate="true"}
+
+### (a piece of code that reduces to a value)
+
+:::  {.code}
+```{.python}
+20
+```
+:::
+
+
+<!-- =============================================================================== -->
+## Expressions
+<!-- =============================================================================== -->
+
+:::  {.code}
+```{.python}
+print(3 + 2 * 4 + 9)
+```
+:::
+
+What happens if we leave out the `print`?
+
+
+<!-- =============================================================================== -->
+## Watch it reduce
+<!-- =============================================================================== -->
+
+```{python}
+%%steps
+print(3 + 2 * 4 + 9) # PRINT STEPS
+```
+
+
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+# Variables
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+
+## Variables are names
+
+:::  {.code}
+```{.python}
+n = 17
+pi = 3.1415
+message = "What's up doc?"
+```
+:::
+
+
+<!-- =============================================================================== -->
+## Variables are names
+<!-- =============================================================================== -->
+
+![](images/w01-names-diagram.png){.r-stretch}
+
+
+<!-- =============================================================================== -->
+## A new value for a variable
+<!-- =============================================================================== -->
+
+::::: {layout="[0.5,-0.05,0.45]"}
+
+::: column
+:::  {.code-small}
+```{.python}
+bruce = 5
+bruce = 7
+```
+:::
+:::
+
+::: column
+![](images/w01-bruce-diagram.png)
+:::
+
+:::::
+
+
+<!-- =============================================================================== -->
+## Expressions with variables {auto-animate="true"}
+<!-- =============================================================================== -->
+
+:::  {.code-small}
+```{.python}
+x = 2
+y = 9
+print(3 + x * 4 + y)
+```
+:::
+
+## Expressions with variables {auto-animate="true"}
+
+:::  {.code-small}
+```{.python}
+3 + 2 * 4 + y
+```
+:::
+
+[Substitution]{.fg style="--col: green"}
+
+## Expressions with variables {auto-animate="true"}
+
+:::  {.code-small}
+```{.python}
+3 + 8 + y
+```
+:::
+
+[Reduction]{.alert}
+
+## Expressions with variables {auto-animate="true"}
+
+:::  {.code-small}
+```{.python}
+3 + 8 + 9
+```
+:::
+
+[Substitution]{.fg style="--col: green"}
+
+## Expressions with variables {auto-animate="true"}
+
+:::  {.code-small}
+```{.python}
+20
+```
+:::
+
+[Reduction]{.alert}
+
+
+<!-- =============================================================================== -->
+## Now let the machine do it
+<!-- =============================================================================== -->
+
+```{python}
+%%steps
+x = 2
+y = 9
+print(3 + x * 4 + y) # PRINT STEPS
+```
+
+
+<!-- =============================================================================== -->
+## Mind check
+<!-- =============================================================================== -->
+
+```{python}
+%%sandbox
+a = 1
+b = a + 2
+print(b)
+a = 8
+print(b)
+```
+
+
+<!-- =============================================================================== -->
+## Add one to a variable {auto-animate="true"}
+<!-- =============================================================================== -->
+
+:::  {.code-small}
+```{.python}
+x = 1
+print(x)
+x = *expression*
+print(x)
+```
+:::
+
+## Add one to a variable {auto-animate="true"}
+
+:::  {.code-small}
+```{.python}
+x = 1
+print(x)
+x = x + 1
+print(x)
+```
+:::
+
+
+<!-- =============================================================================== -->
+## Add one to a variable
+<!-- =============================================================================== -->
+
+```{python}
+%%steps
+x = 1
+print(x)
+x = x + 1 # PRINT STEPS
+print(x)
+```
+
+
+<!-- =============================================================================== -->
+## Take home
+<!-- =============================================================================== -->
+
+- Values: strings, numbers
+- Statements, the arrow of execution
+- Operators, precedence
+- Expressions, reduction
+- Variables, substitution
+
+
+<!-- =============================================================================== -->
+## Feedback and comments on today's lecture
+<!-- =============================================================================== -->
+
+![](images/w01-feedback-qr.png){.r-stretch}
