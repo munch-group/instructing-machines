@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Meet the assistant – Instructing Machines</title>
+<title>37&nbsp; Turtle, week 6: building a drawing out of pieces – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -36,8 +71,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../ai/about-microsoft-copilot.html" rel="next">
-<link href="../intro/notebooks-in-vscode.html" rel="prev">
+<link href="../ai/let-it-draft.html" rel="next">
+<link href="../python/composition.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating slimcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -94,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/ask-for-another-way.html">Week 6</a></li><li class="breadcrumb-item"><a href="../turtle/week6.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Turtle, week 6: building a drawing out of pieces</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -207,7 +242,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link active">
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
   </div>
 </li>
@@ -424,7 +459,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../turtle/week6.html" class="sidebar-item-text sidebar-link">
+  <a href="../turtle/week6.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Turtle, week 6: building a drawing out of pieces</span></span></a>
   </div>
 </li>
@@ -715,18 +750,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#where-the-assistant-lives" id="toc-where-the-assistant-lives" class="nav-link active" data-scroll-target="#where-the-assistant-lives">Where the assistant lives</a></li>
-  <li><a href="#badges-what-you-are-allowed-to-ask-of-it-and-when" id="toc-badges-what-you-are-allowed-to-ask-of-it-and-when" class="nav-link" data-scroll-target="#badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</a></li>
-  <li><a href="#the-logbook" id="toc-the-logbook" class="nav-link" data-scroll-target="#the-logbook">The logbook</a></li>
+  <li><a href="#sec-turtle-week-6-pieces" id="toc-sec-turtle-week-6-pieces" class="nav-link active" data-scroll-target="#sec-turtle-week-6-pieces">Making the pieces</a></li>
+  <li><a href="#sec-turtle-week-6-comparing" id="toc-sec-turtle-week-6-comparing" class="nav-link" data-scroll-target="#sec-turtle-week-6-comparing">Judging between two versions</a></li>
+  <li><a href="#sec-turtle-week-6-two-turtles" id="toc-sec-turtle-week-6-two-turtles" class="nav-link" data-scroll-target="#sec-turtle-week-6-two-turtles">Two pens on one canvas</a></li>
+  <li><a href="#sec-turtle-week-6-designs" id="toc-sec-turtle-week-6-designs" class="nav-link" data-scroll-target="#sec-turtle-week-6-designs">Comparing designs rather than code</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/ask-for-another-way.html">Week 6</a></li><li class="breadcrumb-item"><a href="../turtle/week6.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Turtle, week 6: building a drawing out of pieces</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-meet-ai" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></h1>
+<h1 class="title"><span id="sec-turtle-week-6" class="quarto-section-identifier"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Turtle, week 6: building a drawing out of pieces</span></span></h1>
 </div>
 
 
@@ -743,42 +779,145 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>The week-one introduction to working with an AI assistant in this course.</em></p>
-<p>You have just read how an assistant produces its answers: it guesses a plausible next word, over and over, with no separate sense of whether the sentence it is building is true. That is the last thing you needed to know about the machine before you actually start talking to it. This note is about the practical arrangement: where the assistant lives, what you are and are not allowed to ask of it at each point in the term, and the one habit that everything else in this course is built to protect.</p>
-<section id="where-the-assistant-lives" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="where-the-assistant-lives">Where the assistant lives</h3>
-<p>For this course, the assistant lives in your browser, as Microsoft 365 Copilot, which you already have free access to through your university account. Inside it sits a second mode worth knowing about from day one, the <strong>Study and Learn agent</strong>, which behaves less like a machine that answers and more like a patient teaching assistant that asks you questions back. You will meet it properly in a later week; for now, know that it exists and that “the assistant” from this point on can mean either mode depending on what a given exercise asks for.</p>
-<p>VS Code, by contrast, stays an AI-free space for the whole course. No Copilot extension, no inline suggestions, nothing typing over your shoulder while you write. This is not nostalgia for a harder way of working. You cannot learn to judge code you did not write until you have spent real time writing code yourself, one substitution and one reduction at a time, and an assistant humming along inside your editor is exactly the thing that would let you skip that part. Keep the two spaces separate: the browser is where you consult the assistant, the editor is where you think.</p>
+<p>This week has two halves that fit together. In the worked example on composition you watched a problem get taken apart into three functions before a single body was written, and you saw that deciding the pieces is a separate job from filling them in, done first and on purpose. In the AI note you practised judging between two solutions that both run, using four questions in a fixed order: whether they agree on the awkward cases, whether a stranger could read them, whether one of them clearly redoes work you can name, and whether they use Python in a way you can explain. The translation project asks you to do both on assessed work.</p>
+<p>The turtle is a good rehearsal room for this because a drawing decomposes naturally and because a piece of a drawing can be wrong in more than one way at a time. A function that draws a polygon can produce the right shape and still leave the turtle in the wrong place, which means two versions can be equally correct about the picture and not equally correct about anything else. That is the kind of difference the rubric exists to catch, and it is much easier to see with a pen on a canvas than in prose.</p>
+<p>One convention runs through the whole session. Every function that draws takes the turtle as its first argument, written <code>t</code>, rather than reaching out for a turtle that happens to exist somewhere else. A function that depends on a name it did not receive is a function you cannot move, cannot reuse, and cannot test on a second turtle, and you will want to do all three before the session is over.</p>
+<section id="sec-turtle-week-6-pieces" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-6-pieces">Making the pieces</h2>
+<section id="exercise" class="level4" data-number="37.0.0.1">
+<h4 data-number="37.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 37-1</strong></h4>
+<p><code>SOLO</code></p>
+<p>Take the polygon loop you wrote in week four and wrap it in a function. Decide what it needs to be told before you write the <code>def</code> line.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polygon(t, sides, size):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Draw a regular polygon with the given number of sides."</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(sides):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        t.forward(size)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        t.left(<span class="dv">360</span> <span class="op">/</span> sides)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>t.speed(<span class="dv">0</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>polygon(t, <span class="dv">6</span>, <span class="dv">70</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then call it three times in the same cell with different numbers of sides and watch the three shapes land on top of each other. That overlapping mess is a result and not a failure. It is telling you that <code>polygon</code> says nothing about where it draws, which is a decision somebody has to make and which <code>polygon</code> has decided not to be responsible for.</p>
 </section>
-<section id="badges-what-you-are-allowed-to-ask-of-it-and-when" class="level3 unnumbered page-columns page-full">
-<h3 class="unnumbered anchored" data-anchor-id="badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</h3>
-<p>Not every exercise permits the same amount of help, and the course marks this explicitly rather than leaving it to guesswork. Exercises that involve the assistant carry a small badge naming the <strong>role</strong> it is allowed to play, and the roles form a ladder that gets more permissive as the term goes on and your judgment gets sharper:</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>The role ladder</strong></p>
-<p>Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · Worker · Collaborator · Delegate</p>
-</div></div><p>Early on, a badge such as <code>AI: Explainer</code> means the assistant may explain something to you, an error message, a line of code, but you still do the deciding and the running yourself. Much later, a badge such as <code>AI: Delegate</code> means you may hand it a real piece of work, provided you have already learned to specify it exactly and verify what comes back. You never get a badge you have not earned the skills for yet; the ladder is cumulative, and each step assumes everything below it. Some exercises carry no AI badge at all but instead a lock, 🔒 <code>SOLO</code>, which means exactly what it says: no assistant, do it yourself first. SOLO exercises are not a punishment. They are where you build the very judgment the badges later ask you to spend.</p>
+<section id="exercise-1" class="level4" data-number="37.0.0.2">
+<h4 data-number="37.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 37-2</strong></h4>
+<p><code>SOLO</code></p>
+<p>Write the piece that takes responsibility for position. It should move the turtle somewhere without drawing a line on the way, and it should leave the pen as it found it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> move_to(t, x, y):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Move the turtle to (x, y) without drawing."</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    t.penup()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    t.goto(x, y)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    t.pendown()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now answer a design question in a sentence, in writing, before you write any more code. Should <code>move_to</code> also set the heading? There is no right answer, there is only a decision, and the two possible decisions lead to two different functions that behave identically in the first program you write and differently in the third. Write down which one you chose and why, because you will need that sentence again in the last exercise of this session.</p>
 </section>
-<section id="the-logbook" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-logbook">The logbook</h3>
-<p>Once a week, you will write one entry in your <strong>logbook</strong>: a short, candid note about something the assistant got right, something it got wrong, and how you knew which was which. You already wrote the first one, in the exercise at the end of last note. Keep the habit going. By the end of the term the logbook will be a record of your own growing skill at telling a plausible answer from a correct one, which is a more useful thing to have at the end of a course than almost anything else you will produce.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>The rule the whole course turns on
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The AI predicts; the machine, or a test, proves.</strong> Every badge, every SOLO marker, and every widget in this course exists to put that rule into practice. Whatever the assistant tells you, in whatever role, treat it as a claim to be checked, not a fact to be filed away. Nothing that follows makes sense without this.</p>
-</div>
-</div>
-<section id="exercise-ai-explainer" class="level4" data-number="10.0.0.1">
-<h4 data-number="10.0.0.1" class="anchored" data-anchor-id="exercise-ai-explainer"><strong>Exercise 10-1</strong></h4>
-<p>Ask the assistant, in the browser, what a <strong>license badge</strong> and a <strong>SOLO marker</strong> are for in a course, without telling it anything about this course specifically. Read its guess. Then compare it against what this note just told you. Where did it match, and where did it just produce something plausible-sounding that happened to be wrong for our purposes? This is the smallest possible version of the whole term: ask, read, check against the real thing.</p>
-<p>For your logbook this week, note which badge you are most looking forward to earning, and which one makes you the most nervous, and why.</p>
+<section id="exercise-2" class="level4" data-number="37.0.0.3">
+<h4 data-number="37.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 37-3</strong></h4>
+<p><code>SOLO</code></p>
+<p>Now compose. Using <code>polygon</code> and <code>move_to</code> and nothing else new, draw a row of five hexagons of increasing size. Write the plan first, as one sentence saying what the loop repeats and what changes each time, and only then write the code.</p>
+<p>The point of writing the sentence first is not bureaucracy. If you cannot say in one sentence what changes each time round the loop, the loop will not come out right, and you will spend twenty minutes discovering that by trial and error instead of ninety seconds discovering it by thinking.</p>
+</section>
+<section id="exercise-3" class="level4" data-number="37.0.0.4">
+<h4 data-number="37.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 37-4</strong></h4>
+<p><code>SOLO</code></p>
+<p>Not every piece of a drawing program draws. Write a function that computes and returns a number and never touches a turtle at all.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polygon_perimeter(sides, size):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Return the total distance a turtle travels drawing this polygon."</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sides <span class="op">*</span> size</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(polygon_perimeter(<span class="dv">6</span>, <span class="dv">70</span>) <span class="op">==</span> <span class="dv">420</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then use it. Draw a hexagon with your <code>polygon</code> function and check the answer against the turtle’s own record.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>t.speed(<span class="dv">0</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>polygon(t, <span class="dv">6</span>, <span class="dv">70</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.total_movement <span class="op">==</span> polygon_perimeter(<span class="dv">6</span>, <span class="dv">70</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice what just happened. Two independent things agreed: a number you worked out from the specification, and a number the machine accumulated while carrying the drawing out. That agreement is worth more than either number on its own, and this pattern of checking one thing against a second thing that was arrived at differently is the single most useful habit in the whole course.</p>
+</section>
+</section>
+<section id="sec-turtle-week-6-comparing" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-6-comparing">Judging between two versions</h2>
+<p>Everything from here uses the four questions from this week’s AI note, in the same order: the awkward cases first, then readability, then efficiency you can actually name, then whether you can explain the Python being used. Run both versions before you read either of them.</p>
+<section id="exercise-4" class="level4" data-number="37.0.0.5">
+<h4 data-number="37.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 37-5</strong></h4>
+<p><code>AI: Comparer</code></p>
+<p>Here are two functions that draw the same hexagon. Decide which you prefer, for a stated reason, before you run anything.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polygon_a(t, sides, size):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(sides):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        t.forward(size)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        t.left(<span class="dv">360</span> <span class="op">/</span> sides)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polygon_b(t, sides, size):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    angle <span class="op">=</span> <span class="dv">360</span> <span class="op">/</span> sides</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(sides):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        t.forward(size)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        t.left(angle)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now apply the rubric properly. For the first question, find an input on which they behave differently, and say so if you cannot find one. For the third question, say exactly what work <code>polygon_a</code> redoes and then say whether you can measure it, because a difference you cannot measure is a difference you should not claim. This exercise is here mostly so that you learn what it feels like when the rubric returns a shrug, which it will do often and which is a perfectly good answer.</p>
+</section>
+<section id="exercise-5" class="level4" data-number="37.0.0.6">
+<h4 data-number="37.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 37-6</strong></h4>
+<p><code>AI: Comparer</code></p>
+<p>Now two versions that really do differ. Read both, predict for each whether the turtle ends where it started, and then run each one twice in a row in the same cell.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> flower_a(t, petals, size):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(petals):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        t.circle(size)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        t.left(<span class="dv">360</span> <span class="op">/</span> petals)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> flower_b(t, petals, size):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(petals):</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        t.circle(size)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        t.left(<span class="dv">360</span> <span class="op">/</span> petals)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    t.left(<span class="dv">17</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The second version is the first with one extra line, and one drawing of each is enough to convince anybody that they are the same function. Two drawings of each is enough to prove that they are not. Add this to your rubric answers as a fifth thing worth asking about a function: what does it leave behind. A function that does not put things back where it found them cannot be used twice, and you will not discover that by looking at it once.</p>
+</section>
+<section id="exercise-6" class="level4" data-number="37.0.0.7">
+<h4 data-number="37.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 37-7</strong></h4>
+<p><code>AI: Comparer</code></p>
+<p>Ask the assistant for another way to draw a regular polygon, one that does not use a loop of <code>forward</code> and <code>left</code>. It will probably reach for <code>t.circle</code>, which takes a <code>steps</code> argument and can draw a polygon directly. Get its version, run it beside yours, and judge them with the four questions.</p>
+<p>Pay particular attention to the fourth question, which is idiom, and read it strictly. If you cannot explain what the <code>steps</code> argument does to somebody who has not seen it, then for you, today, that version is the worse one, however much shorter it is. This is not a permanent judgment about the function. It is a judgment about what you can currently verify, and it will change the week you understand it.</p>
+</section>
+<section id="exercise-7" class="level4" data-number="37.0.0.8">
+<h4 data-number="37.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 37-8</strong></h4>
+<p><code>AI: Comparer</code></p>
+<p>Ask the assistant to write a function that draws a five-pointed star, and hold it to the discipline you have been building. Before you prompt, write down what you want the function to be called, what it takes, and what it should leave behind, including where the turtle should end up and which way it should be facing. Then get the code, read every line of it, and check the promise about what it leaves behind by comparing <code>t.position()</code> and <code>t.heading()</code> before and after the call.</p>
+<p>Almost every star function you get will draw a correct star and leave the turtle rotated. This is not the assistant being careless. It is the assistant answering the question you asked, which was about a picture, while you were also silently caring about something you never said out loud.</p>
+</section>
+</section>
+<section id="sec-turtle-week-6-two-turtles" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-6-two-turtles">Two pens on one canvas</h2>
+<p>Comparing two versions is easier when you can see both at once, and a canvas can carry more than one turtle. The first turtle owns the canvas, and any further turtle joins it with <code>new_turtle</code>.</p>
+<section id="exercise-8" class="level4" data-number="37.0.0.9">
+<h4 data-number="37.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 37-9</strong></h4>
+<p><code>SOLO</code></p>
+<p>Run your version and the assistant’s version side by side in two colours.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>red <span class="op">=</span> Turtle()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>red.speed(<span class="dv">0</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>blue <span class="op">=</span> red.new_turtle(color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>blue.speed(<span class="dv">0</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>red.pencolor(<span class="st">'red'</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>move_to(red, <span class="op">-</span><span class="dv">120</span>, <span class="dv">0</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>polygon(red, <span class="dv">6</span>, <span class="dv">60</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>move_to(blue, <span class="dv">40</span>, <span class="dv">0</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>polygon(blue, <span class="dv">6</span>, <span class="dv">60</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The two turtles take turns rather than moving at the same time, in the order the lines run, exactly as Oath 2 says they should. Now put them both at the same place and run two different implementations of the same drawing, and watch for the step at which the pens stop lying on top of each other. That step is the answer to the question of where the two versions actually differ, and it took you no reading at all to find it.</p>
+<p>Be careful about how much you conclude from this. Two pens that stay on top of each other for the whole drawing have told you that the two functions produce the same picture, for these arguments, on this canvas, starting here. They have told you nothing about any other arguments, and nothing about what either function leaves behind.</p>
+</section>
+</section>
+<section id="sec-turtle-week-6-designs" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-6-designs">Comparing designs rather than code</h2>
+<p>The four questions were written for two versions of a function, and they work just as well one level up, on two ways of cutting a problem into pieces. This is the most useful thing you will take from this session, and it is worth doing carefully.</p>
+<section id="exercise-9" class="level4" data-number="37.0.0.10">
+<h4 data-number="37.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 37-10</strong></h4>
+<p><code>AI: Comparer</code></p>
+<p>Choose a drawing with enough parts to argue about, such as a house with a door, three windows and a roof, or a simple bar chart with axes and labels. Write down your own decomposition first, meaning the name of each function, what it takes, what it returns, and one sentence about what it leaves behind. Write no bodies.</p>
+<p>Then give the assistant the same problem, ask it for a decomposition and nothing else, and refuse the code if it offers it. Now compare the two lists of function signatures with the four questions, adapted one level up. For correctness on the awkward cases, ask whether each design can express a house with no windows, or a chart with one bar. For readability, ask whether somebody could tell what each function does from its name and arguments alone. For efficiency, ask whether either design forces the same work to be done twice. For idiom, ask whether either design contains a piece you could not test on its own.</p>
+<p>Then say which design you are going to build and why, in two sentences, and build it. The reason for writing the two sentences down is that in seven weeks you will be doing exactly this on the hardest problem in the course, with nothing given to you and nobody’s decomposition to fall back on but your own.</p>
 
 
 </section>
@@ -1192,13 +1331,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro/notebooks-in-vscode.html" class="pagination-link" aria-label="Working with notebooks in VScode">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></span>
+      <a href="../python/composition.html" class="pagination-link" aria-label="Worked example: solving a problem by composition">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../ai/about-microsoft-copilot.html" class="pagination-link" aria-label="About Microsoft Copilot">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">About Microsoft Copilot</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ai/let-it-draft.html" class="pagination-link" aria-label="Let it draft a small piece you can read and test">
+        <span class="nav-page-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

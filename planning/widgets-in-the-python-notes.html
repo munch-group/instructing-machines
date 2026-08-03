@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Meet the assistant – Instructing Machines</title>
+<title>3&nbsp; Widgets in the Python notes – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../ai/about-microsoft-copilot.html" rel="next">
-<link href="../intro/notebooks-in-vscode.html" rel="prev">
+<link href="../intro/course-introduction.html" rel="next">
+<link href="../planning/turtle-widget-and-the-ai-arc.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating slimcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -94,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Planning</a></li><li class="breadcrumb-item"><a href="../planning/widgets-in-the-python-notes.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Widgets in the Python notes</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -154,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../planning/widgets-in-the-python-notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../planning/widgets-in-the-python-notes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Widgets in the Python notes</span></span></a>
   </div>
 </li>
@@ -207,7 +207,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link active">
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
   </div>
 </li>
@@ -715,18 +715,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#where-the-assistant-lives" id="toc-where-the-assistant-lives" class="nav-link active" data-scroll-target="#where-the-assistant-lives">Where the assistant lives</a></li>
-  <li><a href="#badges-what-you-are-allowed-to-ask-of-it-and-when" id="toc-badges-what-you-are-allowed-to-ask-of-it-and-when" class="nav-link" data-scroll-target="#badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</a></li>
-  <li><a href="#the-logbook" id="toc-the-logbook" class="nav-link" data-scroll-target="#the-logbook">The logbook</a></li>
+  <li><a href="#the-precondition-nobody-can-skip" id="toc-the-precondition-nobody-can-skip" class="nav-link active" data-scroll-target="#the-precondition-nobody-can-skip">The precondition nobody can skip</a></li>
+  <li><a href="#what-each-widget-can-and-cannot-do" id="toc-what-each-widget-can-and-cannot-do" class="nav-link" data-scroll-target="#what-each-widget-can-and-cannot-do">What each widget can and cannot do</a></li>
+  <li><a href="#the-steps-widget" id="toc-the-steps-widget" class="nav-link" data-scroll-target="#the-steps-widget">The steps widget</a></li>
+  <li><a href="#the-puzzle-widget" id="toc-the-puzzle-widget" class="nav-link" data-scroll-target="#the-puzzle-widget">The puzzle widget</a></li>
+  <li><a href="#the-script-widget" id="toc-the-script-widget" class="nav-link" data-scroll-target="#the-script-widget">The script widget</a></li>
+  <li><a href="#the-codelens-widget" id="toc-the-codelens-widget" class="nav-link" data-scroll-target="#the-codelens-widget">The codelens widget</a></li>
+  <li><a href="#how-this-ties-to-the-ai-thread" id="toc-how-this-ties-to-the-ai-thread" class="nav-link" data-scroll-target="#how-this-ties-to-the-ai-thread">How this ties to the AI thread</a></li>
+  <li><a href="#what-i-would-do-first" id="toc-what-i-would-do-first" class="nav-link" data-scroll-target="#what-i-would-do-first">What I would do first</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Planning</a></li><li class="breadcrumb-item"><a href="../planning/widgets-in-the-python-notes.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Widgets in the Python notes</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-meet-ai" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></h1>
+<h1 class="title"><span id="sec-widgets-in-the-python-notes" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Widgets in the Python notes</span></span></h1>
 </div>
 
 
@@ -743,45 +748,68 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>The week-one introduction to working with an AI assistant in this course.</em></p>
-<p>You have just read how an assistant produces its answers: it guesses a plausible next word, over and over, with no separate sense of whether the sentence it is building is true. That is the last thing you needed to know about the machine before you actually start talking to it. This note is about the practical arrangement: where the assistant lives, what you are and are not allowed to ask of it at each point in the term, and the one habit that everything else in this course is built to protect.</p>
-<section id="where-the-assistant-lives" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="where-the-assistant-lives">Where the assistant lives</h3>
-<p>For this course, the assistant lives in your browser, as Microsoft 365 Copilot, which you already have free access to through your university account. Inside it sits a second mode worth knowing about from day one, the <strong>Study and Learn agent</strong>, which behaves less like a machine that answers and more like a patient teaching assistant that asks you questions back. You will meet it properly in a later week; for now, know that it exists and that “the assistant” from this point on can mean either mode depending on what a given exercise asks for.</p>
-<p>VS Code, by contrast, stays an AI-free space for the whole course. No Copilot extension, no inline suggestions, nothing typing over your shoulder while you write. This is not nostalgia for a harder way of working. You cannot learn to judge code you did not write until you have spent real time writing code yourself, one substitution and one reduction at a time, and an assistant humming along inside your editor is exactly the thing that would let you skip that part. Keep the two spaces separate: the browser is where you consult the assistant, the editor is where you think.</p>
+<p>This is a review of the twenty-three notebooks and four Quarto files in <code>docs/python</code>, read against the source of the four widgets, with an opinion on where each widget would add something the prose cannot do on its own. It is written as a working note, so it names chapters and section anchors rather than speaking in generalities.</p>
+<section id="the-precondition-nobody-can-skip" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="the-precondition-nobody-can-skip">The precondition nobody can skip</h2>
+<p>Before any widget question can be answered, one fact about the corpus has to be faced. Almost every note in <code>docs/python</code> is a single markdown cell. The cell counts are one for biopython, classes, course_tools, data_structures, dictionaries, files, functions, general_exercises, if-else, iteration, list-comprehensions, lists, modules, objects, packages, preface, recursion, testing, tuples and values-operators-logic; two for hello-world, three for getting_started, and nine for precedence-steps. Everything else that looks like code is a fenced block inside prose. Nothing executes, and nothing ever has.</p>
+<p>That explains the defect pattern the earlier audit found. The <code>numbers</code> and <code>number[i]</code> mismatch in <code>lists.ipynb</code> survives three repetitions because no cell ever raised the <code>NameError</code>. The <code>is_palindome</code> misspelling in <code>testing.ipynb</code> survives eight repetitions for the same reason. The <code>print("Second line, file=f")</code> line in <code>files.ipynb</code> and the <code>open('workfile', 'r')</code> call with the extension dropped are two runtime faults sitting in a chapter about writing and reading files. The worked example in <code>course_tools.ipynb</code> claims that <code>4 * 8</code> reduces to <code>24</code>. Every one of these is caught for free the moment the code lives in a cell that runs.</p>
+<p>So the widget question and the cell-splitting question are the same question. Adopting the widgets turns the notes from a document about Python into a document made of Python, and it does so by forcing the prose apart into cells that have to run. My view is that this consequence is the strongest argument for doing the work at all, stronger than any individual widget’s pedagogical merit, and it deserves to be said out loud in the plan.</p>
 </section>
-<section id="badges-what-you-are-allowed-to-ask-of-it-and-when" class="level3 unnumbered page-columns page-full">
-<h3 class="unnumbered anchored" data-anchor-id="badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</h3>
-<p>Not every exercise permits the same amount of help, and the course marks this explicitly rather than leaving it to guesswork. Exercises that involve the assistant carry a small badge naming the <strong>role</strong> it is allowed to play, and the roles form a ladder that gets more permissive as the term goes on and your judgment gets sharper:</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>The role ladder</strong></p>
-<p>Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · Worker · Collaborator · Delegate</p>
-</div></div><p>Early on, a badge such as <code>AI: Explainer</code> means the assistant may explain something to you, an error message, a line of code, but you still do the deciding and the running yourself. Much later, a badge such as <code>AI: Delegate</code> means you may hand it a real piece of work, provided you have already learned to specify it exactly and verify what comes back. You never get a badge you have not earned the skills for yet; the ladder is cumulative, and each step assumes everything below it. Some exercises carry no AI badge at all but instead a lock, 🔒 <code>SOLO</code>, which means exactly what it says: no assistant, do it yourself first. SOLO exercises are not a punishment. They are where you build the very judgment the badges later ask you to spend.</p>
+<section id="what-each-widget-can-and-cannot-do" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="what-each-widget-can-and-cannot-do">What each widget can and cannot do</h2>
+<p>I read the four widget packages before forming an opinion, because each has constraints that decide which existing exercises can move across unchanged and which need rewriting.</p>
+<p>The <code>steps</code> widget registers <code>%%steps</code> and honours a <code># PRINT STEPS</code> comment tag on individual statements. It walks a single statement one operation at a time and reports each substitution and each reduction. It dispatches on CPython bytecode opcode names through a per-version table, which means it supports Python 3.10 through 3.13 and no other version. The course environment has to pin that range or the keystone chapter stops working. Its command-line twin is <code>print-steps</code>, which is the same tool the notes already call <code>pysteps</code>.</p>
+<p>The <code>puzzle</code> widget registers <code>%%puzzle &lt;result&gt;</code>, where <code>&lt;result&gt;</code> is parsed as a Python literal, not evaluated as an expression. The shuffled lines run in their own namespace, isolated from the notebook. Every line has to be a complete statement at zero indentation, because every permutation the student can produce must at least parse. Blocks are therefore out: no <code>if</code>, no <code>for</code>, no <code>def</code>. The value checked against the expected literal is the value of the last line, so the last line has to be a bare expression rather than a <code>print</code> call.</p>
+<p>The <code>script</code> widget registers <code>%%exercise</code>. The cell runs in a fresh namespace and everything it produces, including standard output, standard error, rich display output and any exception, appears in a shaded box under the cell. Nothing the cell defines survives to the next cell, and nothing the notebook has already defined is visible inside it, with one exception: <code>import</code> statements reach the live module cache, so importing something the notebook already imported costs nothing and yields the same object.</p>
+<p>The <code>codelens</code> widget registers <code>%%codelens</code> and emits Philip Guo’s trace format, rendered by the actual Python Tutor front end inside an iframe. Values are either inline primitives or a reference pair pointing at an object stored once on the heap, which is why aliasing and cycles come out correctly without any special handling: two names holding the same reference draw as two arrows into one box. It shows execution state and standard output and nothing else, so file writes, network calls, plots and turtle drawings are invisible to it. Each instance inlines roughly 850 kilobytes of vendor code, so a chapter can afford a handful of them, not one per exercise.</p>
+<p>The division of labour between <code>steps</code> and <code>codelens</code> falls out of those descriptions, and I think it is the single most useful thing to teach students explicitly. The <code>steps</code> widget looks inside one statement. The <code>codelens</code> widget looks between statements. When the question is how one expression collapses to one value, reach for <code>steps</code>. When the question is what the names and objects look like after a statement has finished, reach for <code>codelens</code>. Stating that rule once, in <code>course_tools</code>, saves a term of students reaching for the wrong one.</p>
 </section>
-<section id="the-logbook" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-logbook">The logbook</h3>
-<p>Once a week, you will write one entry in your <strong>logbook</strong>: a short, candid note about something the assistant got right, something it got wrong, and how you knew which was which. You already wrote the first one, in the exercise at the end of last note. Keep the habit going. By the end of the term the logbook will be a record of your own growing skill at telling a plausible answer from a correct one, which is a more useful thing to have at the end of a course than almost anything else you will produce.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>The rule the whole course turns on
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The AI predicts; the machine, or a test, proves.</strong> Every badge, every SOLO marker, and every widget in this course exists to put that rule into practice. Whatever the assistant tells you, in whatever role, treat it as a claim to be checked, not a fact to be filed away. Nothing that follows makes sense without this.</p>
-</div>
-</div>
-<section id="exercise-ai-explainer" class="level4" data-number="10.0.0.1">
-<h4 data-number="10.0.0.1" class="anchored" data-anchor-id="exercise-ai-explainer"><strong>Exercise 10-1</strong></h4>
-<p>Ask the assistant, in the browser, what a <strong>license badge</strong> and a <strong>SOLO marker</strong> are for in a course, without telling it anything about this course specifically. Read its guess. Then compare it against what this note just told you. Where did it match, and where did it just produce something plausible-sounding that happened to be wrong for our purposes? This is the smallest possible version of the whole term: ask, read, check against the real thing.</p>
-<p>For your logbook this week, note which badge you are most looking forward to earning, and which one makes you the most nervous, and why.</p>
-
-
+<section id="the-steps-widget" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="the-steps-widget">The steps widget</h2>
+<p>This widget has a home already built for it, because the substitution and reduction model is the spine of the book and <code>precedence-steps.ipynb</code> is its keystone chapter. That chapter currently runs a long sequence of drills whose instruction is to do the steps with pen and paper and then check by adding a <code>print</code> at the end: <code>x = 7</code> then <code>y = 4 + x</code> then <code>2 + x * x**2 + y - x</code>; the <code>a = 4; b = a; c = 2; c = a + b + c</code> sequence; the degenerate <code>x = 1; x = x</code>; the string constructions <code>microsatellite = "GTC" * 41</code> and <code>mini_gene = "ATG" + "GCG" + "TAA"</code>; <code>number = 1 / 1 * 4</code>; <code>x = 4; y = x + x</code>; the self-assignment at <code>{#sec-adding_one}</code> and its <code>+=</code> twin. Every one of these is a <code># PRINT STEPS</code> tag away from producing the trace the prose describes in words. The predict-then-run rhythm survives intact, because the student still commits to an answer first; what changes is that the check now shows the intermediate expressions rather than only the final value, which is what the exercise was always asking them to produce.</p>
+<p>The second natural home is the short-circuit material in <code>values-operators-logic.ipynb</code>. The reduction list there (<code>print(True and 4)</code>, <code>print(0 and 7)</code>, <code>print(-27 and 0.5)</code>, <code>print(42 and 0)</code>, <code>print("apple" and "orange")</code>, <code>print("apple" and "")</code>, <code>print(42 or 0)</code>, <code>print("apple" or "")</code>, with one line duplicated) is a set of results with no visible derivation. A student who gets <code>"apple" and ""</code> wrong has no way to see where their model diverged. A step trace answers that directly. The same holds for <code>print(True and "banana" or "orange")</code> at <code>{#sec-oneline_ifelse}</code> and for the ternary construction the chapter presents and then warns against; showing the reduction is a better warning than the prose warning.</p>
+<p>Beyond those two chapters I would use it sparingly and deliberately. The one-liner at the end of <code>lists.ipynb</code>, <code>'a'.join('Banana'.split('a')[:3] * 4)[-5:]</code>, is the best single candidate in the whole book, because the exercise offers three plausible answers and the only way to choose between them without guessing is to reduce it. The coercion drills in <code>values-operators-logic</code> (<code>'9' + '4'</code>, <code>'72' * 3</code>, <code>'Ba' + 'na' * 2</code>) and the compound condition in the <code>if-else</code> general exercises (<code>if -4 and 0 or 'banana' and not False</code>) are worth one trace each.</p>
+<p>One thing to check before committing: what the stepper does when a statement calls a function the student defined. If a call reduces in a single step to its return value, that behaviour matches the refrain in <code>functions.ipynb</code> that a call is substituted by what it returns, and the nested examples <code>square(square(2))</code> and <code>square(2 * square(1) + 2)</code> become good <code>steps</code> exercises. If instead it descends into the body, the trace will be long and the refrain gets muddied, and I would keep <code>steps</code> away from function calls and give that material to <code>codelens</code> instead.</p>
+<p>Finally, <code>course_tools.ipynb</code> should be rewritten around this widget. The chapter already teaches the <code># PRINT STEPS</code> tag and the <code>pysteps</code> command, but its transcripts are typed by hand, which is how it ended up claiming that <code>4 * 8</code> is <code>24</code>, and how the output header came to name <code>test_studentfile.py</code> line 4 when the file in the text is <code>myfile.py</code> line 3. Making the chapter’s own examples run through <code>%%steps</code> repairs both faults by construction and demonstrates the widget in the act of introducing it.</p>
 </section>
+<section id="the-puzzle-widget" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="the-puzzle-widget">The puzzle widget</h2>
+<p>Four shuffled-statement puzzles already exist in the notes, and all four satisfy the flat-statement constraint. In <code>precedence-steps.ipynb</code> there is the one at <code>{#sec-puzzle}</code> that prints <code>100</code>, built from <code>x = x + 4</code>, <code>print(x)</code>, <code>x = x * 5</code>, <code>x = x * x</code> and <code>x = 4</code>; the one that prints <code>Banana</code> from <code>y = 'n'</code>, <code>x = 'B' + y + x</code>, <code>print(x)</code>, <code>x = 'a'</code> and <code>y = (x + y) * 2</code>; the one that prints <code>9</code>; and the one that prints <code>Mogens</code> from <code>c = b</code>, <code>print(c)</code>, <code>a = b + a</code>, <code>b = 'og'</code>, <code>b = c + a</code>, <code>c = 'M'</code> and <code>a = 'ens'</code>. The last two also appear in <code>general_exercises.ipynb</code>. Each needs one small edit to move across: drop the <code>print</code> line and end with the bare name, so that the widget has a value to compare, and declare the expected literal on the magic line. Those edits are mechanical and I would do them first, because they give four working puzzle cells for almost no effort and let the widget prove itself before anything harder is attempted.</p>
+<p>The two best puzzles in the book, though, do not fit. The build-a-dictionary-of-lists exercises in <code>data_structures.ipynb</code> at <code>{#sec-build_lists_fixed}</code> and its generic twin require the student to reorder lines and also to indent them correctly, because the answer contains a <code>for</code> block and, in the generic version, an <code>if</code> block inside it. The widget cannot accept those, since a permutation of indented block lines will not parse. This is the one place where I would consider changing the widget rather than the exercise. Reordering plus indenting is a harder and more instructive task than reordering alone, it is the exact skill the block-structure section of <code>if-else.ipynb</code> is trying to build, and the two exercises are already written and already known to be solvable. An indentation mode would earn its keep across the loops and conditionals chapters, not only here. If that is more work than it is worth, the alternative is to keep those two on paper and say so, but I would not silently drop them.</p>
+<p>New puzzles are cheap to write where the notes already have a sequence whose order matters and whose result is a literal. Three that I would add: the tuple swap in <code>tuples.ipynb</code>, as <code>a = 1</code>, <code>b = 2</code>, <code>a, b = b, a</code>, ending on <code>(a, b)</code> with the expected value <code>(2, 1)</code>, which turns the chapter’s closing exercise into something checkable; the dessert list in <code>lists.ipynb</code>, where successive <code>append</code> and <code>extend</code> calls end on the list itself, and where a wrong ordering changes the answer in a way the student can read; and a short dictionary build in <code>dictionaries.ipynb</code> ending on a lookup. All three are flat, all three end on an expression, and all three have literal answers.</p>
+<p>I would not push the widget further than that. Its answers have to be literals, which rules out floats where formatting is uncertain and rules out anything whose value is an object with a custom representation, and puzzles work best when the ordering is open to more than one plausible reading rather than merely scrambled.</p>
+</section>
+<section id="the-script-widget" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="the-script-widget">The script widget</h2>
+<p>This is the widget with the broadest application and the least drama. Every exercise in the corpus that says type this and run it becomes an <code>%%exercise</code> cell. That is most of <code>values-operators-logic</code>, <code>objects</code>, <code>lists</code>, <code>tuples</code>, <code>dictionaries</code>, <code>iteration</code>, <code>functions</code>, <code>data_structures</code> and <code>if-else</code>, which between them hold well over a hundred such exercises.</p>
+<p>The argument for it that I find most persuasive is narrower than that, though. These notes plant deliberate errors on purpose, and the isolation the widget provides is what makes those errors fire. A shared kernel is the enemy of a chapter that wants a <code>NameError</code>: if an earlier cell defined <code>numbers</code>, then the misspelled <code>number[i]</code> exercise in <code>lists.ipynb</code> may quietly succeed or fail in the wrong way depending on what the student ran before. In a fresh namespace it fails the same way every time, for every student, which is what a teaching example needs. The same applies to the missing-definition demonstration in <code>values-operators-logic</code>, the misspelled chorus variable in <code>functions.ipynb</code>, and the deliberate syntax faults in <code>hello-world.ipynb</code> and <code>if-else.ipynb</code>. Once these run, the hand-typed tracebacks can go, which removes the whole class of defects where the shown error message predates Python 3.8.</p>
+<p>The isolation cuts the other way too, and the cost should be planned for rather than discovered. Several chapters chain exercises across many cells. In <code>lists.ipynb</code>, <code>desserts.extend(cheeses)</code> depends on a <code>desserts</code> list built two exercises earlier. In <code>dictionaries.ipynb</code> the whole nested-family sequence accumulates four dictionaries across the chapter. In <code>data_structures.ipynb</code> the guided palindrome walkthrough builds up over several steps. Each of those cells has to be made self-contained, which means repeating a setup line or two. That is a rewrite cost, but it is a cost that pays back, because a cell that must stand alone is a cell whose identifiers can be checked, and identifier drift between prose and code is the most common defect in the corpus.</p>
+<p>Two chapters deserve specific decisions. In <code>files.ipynb</code>, <code>%%exercise</code> cells run in the notebook’s working directory, so the write-then-read pair actually creates and reads a file, and the two faults in that chapter would have been caught the first time anyone ran it. I would move the entire chapter into cells and introduce the context-manager form of <code>open</code> while doing so. In <code>hello-world.ipynb</code> I would do the opposite and hold back. That chapter’s subject is the edit, save, run loop in a terminal, and Oath 2 is about a file being read from top to bottom. Moving it into a notebook cell dissolves the thing it teaches. I would keep the first two thirds terminal-first and use <code>%%exercise</code> only for the strings and comments material at the end, where the terminal adds nothing.</p>
+<p><code>testing.ipynb</code> is the third specific case, and the most important one. The hand-written boolean checks there are already in exactly the shape <code>%%exercise</code> wants, and running them would have caught the misspelled function name that appears eight times. More than that, this chapter is where the course argues that tests are how you verify code you did not write yourself, which is the same argument the AI arc makes later. Having the tests run in front of the student, rather than being described, is what makes that argument land.</p>
+</section>
+<section id="the-codelens-widget" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="the-codelens-widget">The codelens widget</h2>
+<p>This is the widget with the highest ceiling and the smallest set of correct placements. Its reference model draws aliasing correctly without being asked to, and aliasing is the concept the notes come closest to teaching and then stop short of.</p>
+<p>The clearest case is the container exercise near the end of <code>lists.ipynb</code>, where <code>x</code>, <code>y</code> and <code>z</code> are assigned, collected into <code>lst</code>, and then <code>x</code> is reassigned to <code>'Preben'</code> and the list is printed again. The prose asks the student to reason about the value of a list being a container of values, and this is the moment where two arrows and one box says in a picture what the paragraph says in three sentences. I would put a <code>%%codelens</code> cell there, and I would add the aliasing exercise the chapter never quite reaches: <code>a = [1, 2, 3]</code>, then <code>b = a</code>, then <code>b.append(4)</code>, then print <code>a</code>. Predict first, then adjudicate with the picture.</p>
+<p>The richest case is <code>dictionaries.ipynb</code>. The nested-family exercises there assign one dictionary as a value inside another and then reach through two levels, and then collect all four dictionaries into a list. Four names, several shared references, and a lookup that traverses them: this is the single best payoff for the widget anywhere in the corpus. The chapter is already marked for replacement of its example cast, and the shared-reference structure survives the change to codons or gene annotations without losing anything.</p>
+<p>After those two I would use it in five more places. In <code>functions.ipynb</code> for scope, on the greeting example with the two names and on the pair of calls that pass different variables into the same parameter, because a frame that appears and then vanishes is what the phrase about a temporary little world is trying to convey. In <code>iteration.ipynb</code> on the nested loop at <code>{#sec-ij_pairs}</code>, where the two counters advancing at different rates is the whole lesson. In <code>data_structures.ipynb</code> on the matrix builder, where a list is appended to a list and then appended to again, and where the picture of rows inside a grid resolves the confusion the code creates. In <code>classes.ipynb</code> on the initialiser and attribute assignment for the point example, which is also the cheapest way to give that chapter the exercises it currently lacks entirely. And in <code>if-else.ipynb</code> on the nested conditional at <code>{#sec-nested_if_else}</code>, though this one is optional and I would drop it if the budget is tight.</p>
+<p>Where I would keep it out is as important. It shows execution state and standard output and nothing else, so it has nothing to say about <code>files.ipynb</code>, about <code>hello-world.ipynb</code>, or about the turtle chapters. It also has nothing useful to say about precedence and short-circuit evaluation, because those questions live inside a single statement and this widget reports between statements. Sending a student to <code>codelens</code> for a precedence question teaches them the wrong tool for the rest of the term. And the vendor bundle it inlines means a chapter can carry a few instances comfortably and not dozens, so it should be reserved for the moments where a picture of the heap is the point.</p>
+<p>There is one connection already waiting to be made. The debugging chapter in <code>docs/python/debugging.qmd</code> has a section headed with confirming by codelens instead of print, and the week seven turtle note describes its own print-based check as the print version of what the codelens widget shows. The vocabulary is already in the later material. Establishing it earlier, in <code>lists</code> and <code>dictionaries</code>, is what lets those later references land rather than introduce.</p>
+</section>
+<section id="how-this-ties-to-the-ai-thread" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="how-this-ties-to-the-ai-thread">How this ties to the AI thread</h2>
+<p>The rule the course already states, that the assistant predicts and the machine proves, gives each widget a role in the ladder, and mapping them explicitly would tighten both halves.</p>
+<p>The <code>puzzle</code> widget belongs to the solo side. Its answer is a single literal and its space of wrong orderings is large, so it is a good place to require that a student commit before any assistant is consulted.</p>
+<p>The <code>steps</code> widget is the natural instrument for the unreliable narrator role. Ask the assistant to explain what an expression reduces to and why, then run the trace and compare the two accounts step by step. Disagreements are visible at the level of an individual substitution rather than only at the final answer, which is what makes the comparison instructive rather than a bare right or wrong.</p>
+<p>The <code>codelens</code> widget is the adjudicator for questions about identity and sharing, which is where assistants are least reliable and where students have the weakest intuitions. Asking whether modifying one name changes another, getting an answer, and then looking at the arrows is a complete cycle of the course’s central rule in about ninety seconds.</p>
+<p>The <code>script</code> widget is where drafted code has to survive contact with the interpreter. Anything the assistant writes goes into a cell that runs in isolation, and the shaded output box is the verdict.</p>
+</section>
+<section id="what-i-would-do-first" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="what-i-would-do-first">What I would do first</h2>
+<p>If the whole conversion is too much to take on at once, the order I would choose is this. Rewrite <code>course_tools.ipynb</code> around <code>%%steps</code>, since it introduces the tool, currently misstates its own output, and sets up the distinction between looking inside a statement and looking between statements. Then convert <code>precedence-steps.ipynb</code>, which is the keystone chapter and where <code>steps</code> and <code>puzzle</code> both pay off immediately, including the four ready-made shuffles that need only a trailing expression. Then <code>lists.ipynb</code> and <code>dictionaries.ipynb</code> together, because they carry the aliasing material and give <code>codelens</code> its two best placements. Then <code>testing.ipynb</code>, because it is short, it is the hinge into the AI arc, and running its own examples repairs it. Everything else can follow chapter by chapter, and each conversion will surface its own identifier mismatches as it goes, which is a decent way to work through the copyedit backlog without treating it as a separate task.</p>
+<p>Two loose ends to settle along the way. The Python version pin has to be inside 3.10 to 3.13 for <code>steps</code> to work at all, and that constraint should be recorded wherever the environment is defined. And <code>general_exercises.ipynb</code>, which duplicates a good deal of <code>precedence-steps</code> and is already commented out of the chapter list, should be dissolved into widget cells placed next to the concepts they exercise rather than kept as a chapter of its own.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -1192,13 +1220,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro/notebooks-in-vscode.html" class="pagination-link" aria-label="Working with notebooks in VScode">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></span>
+      <a href="../planning/turtle-widget-and-the-ai-arc.html" class="pagination-link" aria-label="The turtle widget and the AI arc">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The turtle widget and the AI arc</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../ai/about-microsoft-copilot.html" class="pagination-link" aria-label="About Microsoft Copilot">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">About Microsoft Copilot</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../intro/course-introduction.html" class="pagination-link" aria-label="How this course works">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How this course works</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

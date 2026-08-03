@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Meet the assistant – Instructing Machines</title>
+<title>25&nbsp; Turtle, week 3: an object that keeps its own state – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -36,8 +71,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../ai/about-microsoft-copilot.html" rel="next">
-<link href="../intro/notebooks-in-vscode.html" rel="prev">
+<link href="../ai/explain-then-confirm.html" rel="next">
+<link href="../python/tuples.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating slimcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -94,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/how-models-produce-code.html">Week 3</a></li><li class="breadcrumb-item"><a href="../turtle/week3.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Turtle, week 3: an object that keeps its own state</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -207,7 +242,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link active">
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
   </div>
 </li>
@@ -319,7 +354,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../turtle/week3.html" class="sidebar-item-text sidebar-link">
+  <a href="../turtle/week3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Turtle, week 3: an object that keeps its own state</span></span></a>
   </div>
 </li>
@@ -715,18 +750,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#where-the-assistant-lives" id="toc-where-the-assistant-lives" class="nav-link active" data-scroll-target="#where-the-assistant-lives">Where the assistant lives</a></li>
-  <li><a href="#badges-what-you-are-allowed-to-ask-of-it-and-when" id="toc-badges-what-you-are-allowed-to-ask-of-it-and-when" class="nav-link" data-scroll-target="#badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</a></li>
-  <li><a href="#the-logbook" id="toc-the-logbook" class="nav-link" data-scroll-target="#the-logbook">The logbook</a></li>
+  <li><a href="#sec-turtle-week-3-setup" id="toc-sec-turtle-week-3-setup" class="nav-link active" data-scroll-target="#sec-turtle-week-3-setup">Getting a turtle on the screen</a></li>
+  <li><a href="#sec-turtle-week-3-commands" id="toc-sec-turtle-week-3-commands" class="nav-link" data-scroll-target="#sec-turtle-week-3-commands">Commands and questions</a></li>
+  <li><a href="#sec-turtle-week-3-questions" id="toc-sec-turtle-week-3-questions" class="nav-link" data-scroll-target="#sec-turtle-week-3-questions">Asking the turtle where it is</a></li>
+  <li><a href="#sec-turtle-week-3-aliasing" id="toc-sec-turtle-week-3-aliasing" class="nav-link" data-scroll-target="#sec-turtle-week-3-aliasing">Two names, one turtle</a></li>
+  <li><a href="#sec-turtle-week-3-containers" id="toc-sec-turtle-week-3-containers" class="nav-link" data-scroll-target="#sec-turtle-week-3-containers">Lists and dictionaries that describe a drawing</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/how-models-produce-code.html">Week 3</a></li><li class="breadcrumb-item"><a href="../turtle/week3.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Turtle, week 3: an object that keeps its own state</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-meet-ai" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></h1>
+<h1 class="title"><span id="sec-turtle-week-3" class="quarto-section-identifier"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Turtle, week 3: an object that keeps its own state</span></span></h1>
 </div>
 
 
@@ -743,42 +780,187 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>The week-one introduction to working with an AI assistant in this course.</em></p>
-<p>You have just read how an assistant produces its answers: it guesses a plausible next word, over and over, with no separate sense of whether the sentence it is building is true. That is the last thing you needed to know about the machine before you actually start talking to it. This note is about the practical arrangement: where the assistant lives, what you are and are not allowed to ask of it at each point in the term, and the one habit that everything else in this course is built to protect.</p>
-<section id="where-the-assistant-lives" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="where-the-assistant-lives">Where the assistant lives</h3>
-<p>For this course, the assistant lives in your browser, as Microsoft 365 Copilot, which you already have free access to through your university account. Inside it sits a second mode worth knowing about from day one, the <strong>Study and Learn agent</strong>, which behaves less like a machine that answers and more like a patient teaching assistant that asks you questions back. You will meet it properly in a later week; for now, know that it exists and that “the assistant” from this point on can mean either mode depending on what a given exercise asks for.</p>
-<p>VS Code, by contrast, stays an AI-free space for the whole course. No Copilot extension, no inline suggestions, nothing typing over your shoulder while you write. This is not nostalgia for a harder way of working. You cannot learn to judge code you did not write until you have spent real time writing code yourself, one substitution and one reduction at a time, and an assistant humming along inside your editor is exactly the thing that would let you skip that part. Keep the two spaces separate: the browser is where you consult the assistant, the editor is where you think.</p>
+<p>This week you met objects and their methods. You learned that a string is a thing that knows how to do something to itself, that <code>'atgc'.upper()</code> is the way you ask it, and that the same idea explains lists, dictionaries and tuples. Everything in this session is that same idea seen from a second angle, because a turtle is an object too, and the ways it differs from a string are exactly the ways beginners get objects wrong.</p>
+<p>A turtle is a little machine that lives on a canvas, holds a position and a direction, carries a pen that is either down or up, and obeys methods you call on it. When you tell it to move forward it leaves a line behind, and after it has moved it is somewhere else. That is the whole of it, and it is enough to make one distinction very concrete. A string method hands you a new string and leaves the original string exactly as it was. A turtle method changes the turtle and hands the turtle back. Both are methods, both are called with a dot, and they behave in opposite ways, which is why having both in front of you at once is worth an hour.</p>
+<p>The turtle also gives you somewhere to put the containers you met in the same week. A drawing is a natural thing to describe with a list of distances, a dictionary from a letter to a colour, or a tuple of two coordinates, and you will do all three before the end of this session. The turtle’s own answer to the question of where it is comes back as a tuple, so you will meet tuple unpacking on real output rather than on an invented example.</p>
+<section id="sec-turtle-week-3-setup" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-3-setup">Getting a turtle on the screen</h2>
+<p>Turtle exercises are ordinary notebook cells and not <code>%%exercise</code> scripts, because the drawing appears underneath the cell that made it. The rule that follows from this is simple and you should adopt it now: everything belonging to one drawing goes in one cell, including the line that creates the turtle. If you create a turtle in one cell and try to drive it from the next, you will get no picture, because the picture was already drawn and finished at the end of the first cell.</p>
+<p>If you are working in the browser version of the notebooks, install the widget once with the following line. If you are working in your own environment where it is already installed, skip it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q turtle<span class="op">-</span>widget</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, in every cell that draws something, start by importing and making a turtle.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run that. The turtle starts in the middle of the canvas facing right, and the line it leaves behind is the evidence that it moved. Notice that you did not have to write anything on the last line of the cell to make the drawing appear. The turtle shows itself when the cell ends.</p>
+<section id="exercise" class="level4" data-number="25.0.0.1">
+<h4 data-number="25.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 25-1</strong></h4>
+<p><code>SOLO</code></p>
+<p>Decide, before you run it, where the turtle will end up and which way it will be facing. Then run it and see whether the picture agrees with you.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">100</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>t.left(<span class="dv">90</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">100</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>t.left(<span class="dv">90</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The method <code>left</code> turns the turtle counter-clockwise by the number of degrees you give it, and there is a matching <code>right</code>. Neither of them moves the turtle. A turn changes only which way the turtle is facing, and it needs saying out loud because a great many wrong drawings come from forgetting it.</p>
 </section>
-<section id="badges-what-you-are-allowed-to-ask-of-it-and-when" class="level3 unnumbered page-columns page-full">
-<h3 class="unnumbered anchored" data-anchor-id="badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</h3>
-<p>Not every exercise permits the same amount of help, and the course marks this explicitly rather than leaving it to guesswork. Exercises that involve the assistant carry a small badge naming the <strong>role</strong> it is allowed to play, and the roles form a ladder that gets more permissive as the term goes on and your judgment gets sharper:</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>The role ladder</strong></p>
-<p>Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · Worker · Collaborator · Delegate</p>
-</div></div><p>Early on, a badge such as <code>AI: Explainer</code> means the assistant may explain something to you, an error message, a line of code, but you still do the deciding and the running yourself. Much later, a badge such as <code>AI: Delegate</code> means you may hand it a real piece of work, provided you have already learned to specify it exactly and verify what comes back. You never get a badge you have not earned the skills for yet; the ladder is cumulative, and each step assumes everything below it. Some exercises carry no AI badge at all but instead a lock, 🔒 <code>SOLO</code>, which means exactly what it says: no assistant, do it yourself first. SOLO exercises are not a punishment. They are where you build the very judgment the badges later ask you to spend.</p>
+<section id="exercise-1" class="level4" data-number="25.0.0.2">
+<h4 data-number="25.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 25-2</strong></h4>
+<p><code>SOLO</code></p>
+<p>Here is a string doing what strings do. Decide what each of the two <code>print</code> calls will show before you run the cell.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'atgctagc'</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dna.upper()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dna)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dna.upper())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You have seen this before, and the lesson is that <code>dna.upper()</code> produces a new string and leaves <code>dna</code> alone, so calling it on a line by itself accomplishes nothing at all. The result was made and immediately thrown away.</p>
+<p>Now do the same thing to a turtle and watch it behave in the opposite way.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">100</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.position())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Calling <code>t.forward(100)</code> on a line by itself is not a wasted line. It is the whole point. The turtle did not hand you a new turtle that had moved. It moved.</p>
 </section>
-<section id="the-logbook" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-logbook">The logbook</h3>
-<p>Once a week, you will write one entry in your <strong>logbook</strong>: a short, candid note about something the assistant got right, something it got wrong, and how you knew which was which. You already wrote the first one, in the exercise at the end of last note. Keep the habit going. By the end of the term the logbook will be a record of your own growing skill at telling a plausible answer from a correct one, which is a more useful thing to have at the end of a course than almost anything else you will produce.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>The rule the whole course turns on
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The AI predicts; the machine, or a test, proves.</strong> Every badge, every SOLO marker, and every widget in this course exists to put that rule into practice. Whatever the assistant tells you, in whatever role, treat it as a claim to be checked, not a fact to be filed away. Nothing that follows makes sense without this.</p>
-</div>
-</div>
-<section id="exercise-ai-explainer" class="level4" data-number="10.0.0.1">
-<h4 data-number="10.0.0.1" class="anchored" data-anchor-id="exercise-ai-explainer"><strong>Exercise 10-1</strong></h4>
-<p>Ask the assistant, in the browser, what a <strong>license badge</strong> and a <strong>SOLO marker</strong> are for in a course, without telling it anything about this course specifically. Read its guess. Then compare it against what this note just told you. Where did it match, and where did it just produce something plausible-sounding that happened to be wrong for our purposes? This is the smallest possible version of the whole term: ask, read, check against the real thing.</p>
-<p>For your logbook this week, note which badge you are most looking forward to earning, and which one makes you the most nervous, and why.</p>
+</section>
+<section id="sec-turtle-week-3-commands" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-3-commands">Commands and questions</h2>
+<p>Turtle methods come in two kinds, and telling them apart is the skill this section builds. A command tells the turtle to do something, and its effect is a change in the turtle. Methods like <code>forward</code>, <code>backward</code>, <code>left</code>, <code>right</code>, <code>penup</code>, <code>pendown</code> and <code>goto</code> are commands. A question asks the turtle about itself and hands you back an answer, and the turtle is unchanged by being asked. Methods like <code>position</code>, <code>xcor</code>, <code>ycor</code>, <code>heading</code>, <code>isdown</code> and <code>isvisible</code> are questions.</p>
+<p>The string methods you met this week are all questions in this sense, even the ones that sound like commands. When you ask a string to capitalise itself, it does not change. It works out what a capitalised version would look like and hands you that instead. A string cannot be changed at all, which is what immutable means, and it is the reason every useful string method returns something you have to catch. The turtle is the other case. It can be changed, and its commands change it.</p>
+<section id="exercise-2" class="level4" data-number="25.0.0.3">
+<h4 data-number="25.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 25-3</strong></h4>
+<p><code>SOLO</code></p>
+<p>What does a turtle command hand back? Run this and look at what the second and third lines draw.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">80</span>).left(<span class="dv">120</span>).forward(<span class="dv">80</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>t.left(<span class="dv">120</span>).forward(<span class="dv">80</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>That works because each command hands the turtle itself back, already changed, so the next dot in the line has a turtle to talk to. It is the same turtle every time, and not a copy. Chaining like this is legal, and you should recognise it when you see it, but for anything longer than a couple of steps a separate line for each command is far easier to read and far easier to trace in your head.</p>
+</section>
+<section id="exercise-3" class="level4" data-number="25.0.0.4">
+<h4 data-number="25.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 25-4</strong></h4>
+<p><code>AI: Explainer</code></p>
+<p>Ask the assistant to explain, in three sentences and without code, why <code>dna.upper()</code> on a line by itself does nothing useful while <code>t.forward(100)</code> on a line by itself does everything you wanted. Then decide whether its explanation is right, and confirm the part of it you are least sure about by writing a few lines and running them. An explanation stays provisional until the machine has agreed with it, and this week the machine is a turtle.</p>
+</section>
+</section>
+<section id="sec-turtle-week-3-questions" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-3-questions">Asking the turtle where it is</h2>
+<p>The questions are the part of the turtle that will matter most later in the course, so get used to them now. The turtle’s canvas has its origin in the middle, x growing to the right and y growing upwards. A heading of zero means facing right, and the heading grows as the turtle turns counter-clockwise, so ninety is straight up.</p>
+<section id="exercise-4" class="level4" data-number="25.0.0.5">
+<h4 data-number="25.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 25-5</strong></h4>
+<p><code>SOLO</code></p>
+<p>Write down the three numbers you expect before you run this. Then run it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">100</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>t.left(<span class="dv">90</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">50</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.xcor())</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.ycor())</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.heading())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If any of the three surprised you, do the substitution in your head one line at a time until you can say where the turtle was after each command. The picture and the numbers are two reports of the same fact, and if they disagree in your head then one of them is wrong and it is worth finding out which.</p>
+<p>Now ask the same question a second way. The method <code>position</code> answers with both coordinates at once, packed into a tuple. Predict the two lines of output before running.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">120</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>t.left(<span class="dv">90</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">60</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>here <span class="op">=</span> t.position()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(here)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> t.position()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The last two lines are tuple unpacking, exactly as you met it this week. The tuple has two items, the two names on the left take one each, and the order is the order in the tuple.</p>
+</section>
+<section id="exercise-5" class="level4" data-number="25.0.0.6">
+<h4 data-number="25.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 25-6</strong></h4>
+<p><code>SOLO</code></p>
+<p>This one is meant to fail, and the error is the point. Predict which line raises the error and roughly what it will say, then run it and read the message carefully.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">100</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>here <span class="op">=</span> t.position()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>here[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(here)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A tuple cannot be changed after it is made, so there is no way to assign into one. Notice what this means for the turtle. The tuple you got back is a report of where the turtle was when you asked, and rewriting the report would not move the turtle even if Python let you. To move the turtle you have to give the turtle a command.</p>
+</section>
+<section id="exercise-6" class="level4" data-number="25.0.0.7">
+<h4 data-number="25.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 25-7</strong></h4>
+<p><code>SOLO</code></p>
+<p>The pen is a piece of the turtle’s state just like its position, and there is a question for it. Predict all three printed values before running.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.isdown())</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">80</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>t.penup()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.isdown())</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">80</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>t.pendown()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">80</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.isdown())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Look at the picture as well as the numbers. The turtle travelled the same distance three times and the canvas shows only two lines. The middle journey happened, and left no trace of itself, which is a small preview of something that becomes important in week eight.</p>
+</section>
+</section>
+<section id="sec-turtle-week-3-aliasing" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-3-aliasing">Two names, one turtle</h2>
+<p>This week you saw that giving a list a second name does not give you a second list. Turtles behave the same way, and because a turtle is visible the demonstration is unusually blunt.</p>
+<section id="exercise-7" class="level4" data-number="25.0.0.8">
+<h4 data-number="25.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 25-8</strong></h4>
+<p><code>SOLO</code></p>
+<p>Decide what the picture will look like and what the final line will print, then run it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>other <span class="op">=</span> t</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>other.forward(<span class="dv">100</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>other.left(<span class="dv">90</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>other.forward(<span class="dv">100</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t.position())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There is one turtle on that canvas and it has two names. Everything you did through <code>other</code> happened to <code>t</code>, because <code>other</code> and <code>t</code> were never two things. This is the same fact you met with <code>a = [1, 2, 3]</code> followed by <code>b = a</code>, and it is worth having met it twice, in two places where the consequences look completely different.</p>
+</section>
+</section>
+<section id="sec-turtle-week-3-containers" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-turtle-week-3-containers">Lists and dictionaries that describe a drawing</h2>
+<p>A drawing is data before it is a picture, and this section is where you start writing the data down. You do not yet have loops, so you will index into your containers by hand, which is a perfectly good way to see what is in them.</p>
+<section id="exercise-8" class="level4" data-number="25.0.0.9">
+<h4 data-number="25.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 25-9</strong></h4>
+<p><code>SOLO</code></p>
+<p>Fill in the three missing lines so that the turtle walks all four distances in the list, turning ninety degrees to the left after each one. Take each distance out of the list by its index rather than typing the number again.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>distances <span class="op">=</span> [<span class="dv">120</span>, <span class="dv">60</span>, <span class="dv">120</span>, <span class="dv">60</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>t.forward(distances[<span class="dv">0</span>])</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>t.left(<span class="dv">90</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When it works, change one number in the list, run the cell again, and watch the drawing follow the data. Nothing in the drawing commands mentions a size any more. The sizes all live in one place, and that is the beginning of a habit that will carry you a long way.</p>
+</section>
+<section id="exercise-9" class="level4" data-number="25.0.0.10">
+<h4 data-number="25.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 25-10</strong></h4>
+<p><code>SOLO</code></p>
+<p>A dictionary is the natural way to say that each base gets its own colour. Predict which three colours appear, in which order, then run it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> turtle_widget <span class="im">import</span> Turtle</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>colour <span class="op">=</span> {<span class="st">'A'</span>: <span class="st">'green'</span>, <span class="st">'T'</span>: <span class="st">'red'</span>, <span class="st">'G'</span>: <span class="st">'black'</span>, <span class="st">'C'</span>: <span class="st">'blue'</span>}</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'GAT'</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Turtle()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>t.pensize(<span class="dv">6</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>t.pencolor(colour[dna[<span class="dv">0</span>]])</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">80</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>t.pencolor(colour[dna[<span class="dv">1</span>]])</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">80</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>t.pencolor(colour[dna[<span class="dv">2</span>]])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>t.forward(<span class="dv">80</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Read the expression <code>colour[dna[0]]</code> from the inside out, exactly as you would reduce any other expression. First <code>dna[0]</code> reduces to <code>'G'</code>, then <code>colour['G']</code> reduces to <code>'black'</code>, and only then does the method get called. Two lookups of two different kinds sit in that one pair of brackets, one into a string by position and one into a dictionary by key, and being able to take them apart calmly is most of what indexing is.</p>
+<p>Next week the turtle gets loops, and everything you just typed out three times will collapse into three lines that work for a strand of any length.</p>
 
 
 </section>
@@ -1192,13 +1374,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro/notebooks-in-vscode.html" class="pagination-link" aria-label="Working with notebooks in VScode">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></span>
+      <a href="../python/tuples.html" class="pagination-link" aria-label="Tuples">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Tuples</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../ai/about-microsoft-copilot.html" class="pagination-link" aria-label="About Microsoft Copilot">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">About Microsoft Copilot</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ai/explain-then-confirm.html" class="pagination-link" aria-label="Ask it to explain, then confirm by running">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

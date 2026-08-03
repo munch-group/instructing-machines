@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Meet the assistant – Instructing Machines</title>
+<title>9&nbsp; Working with notebooks in VScode – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -36,8 +71,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../ai/about-microsoft-copilot.html" rel="next">
-<link href="../intro/notebooks-in-vscode.html" rel="prev">
+<link href="../ai/meet-ai.html" rel="next">
+<link href="../python/getting_started.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -48,6 +83,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -85,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating slimcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -94,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../intro/notebooks-in-vscode.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -201,13 +237,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro/notebooks-in-vscode.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro/notebooks-in-vscode.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link active">
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
   </div>
 </li>
@@ -709,24 +745,36 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-
+<p><a href="#dnldts45298" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJjMzgwYmYxNiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgV29ya2luZyB3aXRoIG5vdGVib29rcyBpbiBWU2NvZGUgeyNzZWMtbm90ZWJvb2tzLWluLXZzY29kZX1cbiIsCiAgICAiXG4iLAogICAgIlJlYWRpbmcgdGhpcyBwYWdlIGluIGEgYnJvd3NlciB3aWxsIHRlYWNoIHlvdSBub3RoaW5nLCBiZWNhdXNlIHRoaXMgY2hhcHRlciBpcyBhYm91dCBjbGlja2luZyB0aGluZ3MuIERvd25sb2FkIGl0IHVzaW5nIHRoZSBsaW5rIGluIHRoZSBtYXJnaW4sIG9wZW4gdGhlIGRvd25sb2FkZWQgZmlsZSBpbiBWU2NvZGUsIGFuZCB3b3JrIHRocm91Z2ggaXQgdGhlcmUuIEV2ZXJ5dGhpbmcgYmVsb3cgYXNzdW1lcyB5b3UgYXJlIGxvb2tpbmcgYXQgdGhlIHJlYWwgbm90ZWJvb2sgd2l0aCBhIGN1cnNvciBpbiBpdC5cbiIsCiAgICAiXG4iLAogICAgIlZTY29kZSBpcyB3aGVyZSB5b3Ugd2lsbCBkbyBhbGwgb2YgeW91ciBwcm9ncmFtbWluZyBmb3IgdGhpcyBjb3Vyc2UsIGFuZCBpdCBpcyB0aGUgb25lIHBsYWNlIHRoZSBhc3Npc3RhbnQgZG9lcyBub3QgZm9sbG93IHlvdS4gSXQgb3BlbnMgYC5weWAgZmlsZXMsIHdoaWNoIHlvdSBhbHJlYWR5IGtub3csIGFuZCBpdCBvcGVucyBgLmlweW5iYCBmaWxlcywgd2hpY2ggYXJlIG5vdGVib29rcy4gQSBub3RlYm9vayBsb29rcyBkaWZmZXJlbnQgZW5vdWdoIGZyb20gYSBzY3JpcHQgdGhhdCBpdCBkZXNlcnZlcyBoYWxmIGFuIGhvdXIgb2YgZGVsaWJlcmF0ZSBwcmFjdGljZSBiZWZvcmUgeW91IHN0YXJ0IHJlbHlpbmcgb24gaXQsIGFuZCB0aGF0IGlzIHdoYXQgdGhpcyBjaGFwdGVyIGlzLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImZhZTE3ZTVmIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgVHdvIGtpbmRzIG9mIGNlbGwgeyNzZWMtY2VsbC10eXBlc31cbiIsCiAgICAiXG4iLAogICAgIkEgbm90ZWJvb2sgaXMgYSBzdGFjayBvZiBjZWxscywgYW5kIHRoZXJlIGFyZSB0d28ga2luZHMuXG4iLAogICAgIlxuIiwKICAgICJUZXh0IGNlbGxzIGhvbGQgcHJvc2UsIHdyaXR0ZW4gaW4gYSBzaW1wbGUgZm9ybWF0dGluZyBsYW5ndWFnZSBjYWxsZWQgTWFya2Rvd24uIFRoZSBwYXJhZ3JhcGggeW91IGFyZSByZWFkaW5nIGlzIG9uZSBvZiB0aGVtLiBXaGVuIGEgdGV4dCBjZWxsIGlzIGZpbmlzaGVkIGl0IGlzIHJlbmRlcmVkLCBtZWFuaW5nIHlvdSBzZWUgdGhlIGZvcm1hdHRlZCByZXN1bHQgcmF0aGVyIHRoYW4gdGhlIHJhdyB0ZXh0IHlvdSB0eXBlZC4gRG91YmxlLWNsaWNrIG9uZSBhbmQgaXQgdHVybnMgYmFjayBpbnRvIGVkaXRhYmxlIHRleHQ7IHByZXNzIFNoaWZ0IGFuZCBFbnRlciB0b2dldGhlciBhbmQgaXQgcmVuZGVycyBhZ2Fpbi5cbiIsCiAgICAiXG4iLAogICAgIkNvZGUgY2VsbHMgaG9sZCBQeXRob24uIFRoZXkgaGF2ZSBhIHJ1biBidXR0b24gb24gdGhlIGxlZnQgYW5kIGEgc2xvdCBvbiB0aGUgbGVmdCBvZiB0aGF0IHdoZXJlIGEgbnVtYmVyIGFwcGVhcnMgYWZ0ZXIgdGhleSBoYXZlIGJlZW4gcnVuLiBFdmVyeXRoaW5nIGluIGEgY29kZSBjZWxsIGlzIFB5dGhvbiwgd2hpY2ggbWVhbnMgYSBsaW5lIG9mIHByb3NlIHR5cGVkIGludG8gYSBjb2RlIGNlbGwgYnkgbWlzdGFrZSB3aWxsIHByb2R1Y2UgYSBgU3ludGF4RXJyb3JgLCBhbmQgYSBsaW5lIG9mIFB5dGhvbiB0eXBlZCBpbnRvIGEgdGV4dCBjZWxsIGJ5IG1pc3Rha2Ugd2lsbCBzaW1wbHkgc2l0IHRoZXJlIGxvb2tpbmcgbGlrZSBhIHNlbnRlbmNlIGFuZCBuZXZlciBydW4uIEJvdGggbWlzdGFrZXMgYXJlIGNvbW1vbiBhbmQgYm90aCBhcmUgd29ydGggcmVjb2duaXppbmcgb24gc2lnaHQuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlIHsjc2VjLWV4ZXJjaXNlLWVkaXQtbWFya2Rvd259XG4iLAogICAgIlxuIiwKICAgICJgU09MT2BcbiIsCiAgICAiXG4iLAogICAgIkRvdWJsZS1jbGljayB0aGlzIHBhcmFncmFwaC4gWW91IHNob3VsZCBzZWUgdGhlIHJhdyBNYXJrZG93biwgd2l0aCB0aGUgZXhlcmNpc2UgaGVhZGluZyBhYm92ZSBpdCBzdGFydGluZyB3aXRoIGZvdXIgaGFzaCBtYXJrcy4gQWRkIGEgc2VudGVuY2Ugb2YgeW91ciBvd24gYXQgdGhlIGVuZC4gUHJlc3MgU2hpZnQgYW5kIEVudGVyIHRvIHJlbmRlciBpdCBiYWNrLiBOb3cgZG91YmxlLWNsaWNrIGl0IGFnYWluIGFuZCByZW1vdmUgeW91ciBzZW50ZW5jZS4gWW91IGhhdmUganVzdCBkb25lIHRoZSB0d28gdGhpbmdzIHlvdSB3aWxsIGRvIHRvIGV2ZXJ5IHRleHQgY2VsbCBmb3IgdGhlIHJlc3Qgb2YgdGhlIHRlcm0uIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiYjI2YTRiYWQiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBSdW5uaW5nIGEgY29kZSBjZWxsIHsjc2VjLXJ1bm5pbmctY2VsbHN9XG4iLAogICAgIlxuIiwKICAgICJUaGVyZSBhcmUgdGhyZWUgd2F5cyB0byBydW4gdGhlIGNlbGwgeW91ciBjdXJzb3IgaXMgaW4sIGFuZCB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIHRoZW0gaXMgb25seSB3aGVyZSB5b3UgZW5kIHVwIGFmdGVyd2FyZC5cbiIsCiAgICAiXG4iLAogICAgIlNoaWZ0IGFuZCBFbnRlciB0b2dldGhlciBydW5zIHRoZSBjZWxsIGFuZCBtb3ZlcyB0aGUgY3Vyc29yIHRvIHRoZSBuZXh0IG9uZSwgd2hpY2ggaXMgd2hhdCB5b3Ugd2FudCB3aGVuIHlvdSBhcmUgd29ya2luZyBkb3duIGEgcGFnZS4gQ29udHJvbCBhbmQgRW50ZXIgdG9nZXRoZXIsIG9yIENvbW1hbmQgYW5kIEVudGVyIG9uIGEgTWFjLCBydW5zIHRoZSBjZWxsIGFuZCBsZWF2ZXMgdGhlIGN1cnNvciB3aGVyZSBpdCBpcywgd2hpY2ggaXMgd2hhdCB5b3Ugd2FudCB3aGVuIHlvdSBhcmUgZWRpdGluZyBvbmUgY2VsbCByZXBlYXRlZGx5IHVudGlsIGl0IHdvcmtzLiBBbHQgYW5kIEVudGVyIHRvZ2V0aGVyLCBvciBPcHRpb24gYW5kIEVudGVyIG9uIGEgTWFjLCBydW5zIHRoZSBjZWxsIGFuZCBtYWtlcyBhIG5ldyBlbXB0eSBvbmUgYmVsb3cgaXQsIHdoaWNoIGlzIHdoYXQgeW91IHdhbnQgd2hlbiB5b3UgYXJlIGJ1aWxkaW5nIHNvbWV0aGluZyB1cCBhIHBpZWNlIGF0IGEgdGltZS5cbiIsCiAgICAiXG4iLAogICAgIlJ1biB0aGUgY2VsbCBiZWxvdyB3aXRoIFNoaWZ0IGFuZCBFbnRlci4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICIwMmNiYmU5MSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImRuYSA9IFwiQVRHR1RHQ0FUQ1RHQUNUQ0NUR0FHR0FHQUFHXCJcbiIsCiAgICAibGVuKGRuYSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIyMGFjOWNjZCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlR3byB0aGluZ3MgaGFwcGVuZWQuIEEgbnVtYmVyIGFwcGVhcmVkIGluIHRoZSBicmFja2V0cyB0byB0aGUgbGVmdCBvZiB0aGUgY2VsbCwgYW5kIHRoZSB2YWx1ZSBgMjdgIGFwcGVhcmVkIHVuZGVybmVhdGggaXQuXG4iLAogICAgIlxuIiwKICAgICJUaGUgbnVtYmVyIGlzIHRoZSBleGVjdXRpb24gY291bnQuIEl0IHNheXMgd2hpY2ggcnVuIHRoaXMgd2FzLCBjb3VudGluZyBldmVyeSBjb2RlIGNlbGwgeW91IGhhdmUgcnVuIHNpbmNlIHRoZSBrZXJuZWwgc3RhcnRlZC4gVGhlIGZpcnN0IGNlbGwgeW91IHJ1biBnZXRzIGAxYCwgdGhlIG5leHQgZ2V0cyBgMmAsIGFuZCBzbyBvbi4gSWYgeW91IHJ1biB0aGUgc2FtZSBjZWxsIHRocmVlIHRpbWVzIGl0cyBudW1iZXIgY2hhbmdlcyB0aHJlZSB0aW1lcywgYmVjYXVzZSB0aGUgY291bnQgcmVjb3JkcyBydW5zIGFuZCBub3QgY2VsbHMuXG4iLAogICAgIlxuIiwKICAgICJUaGUgdmFsdWUgdW5kZXJuZWF0aCBhcHBlYXJlZCBiZWNhdXNlIHRoZSBsYXN0IGxpbmUgb2YgdGhlIGNlbGwgd2FzIGFuIGV4cHJlc3Npb24gc2l0dGluZyBvbiBpdHMgb3duLiBBIG5vdGVib29rIHNob3dzIHlvdSB0aGUgdmFsdWUgb2YgdGhlIGZpbmFsIGV4cHJlc3Npb24gYXMgYSBjb3VydGVzeSwgd2l0aG91dCB5b3UgYXNraW5nLiBUaGlzIGlzIGEgbm90ZWJvb2sgaGFiaXQgcmF0aGVyIHRoYW4gYSBQeXRob24gcnVsZTogcHV0IGBsZW4oZG5hKWAgb24gaXRzIG93biBsaW5lIGluIGEgc2NyaXB0IGFuZCBub3RoaW5nIGF0IGFsbCBhcHBlYXJzIG9uIHlvdXIgc2NyZWVuLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZSB7I3NlYy1leGVyY2lzZS1leGVjdXRpb24tY291bnR9XG4iLAogICAgIlxuIiwKICAgICJgU09MT2BcbiIsCiAgICAiXG4iLAogICAgIlJ1biB0aGUgY2VsbCBhYm92ZSB0d28gbW9yZSB0aW1lcyBhbmQgd2F0Y2ggdGhlIG51bWJlciBpbiB0aGUgYnJhY2tldHMuIFByZWRpY3Qgd2hhdCBpdCB3aWxsIHNheSBiZWZvcmUgZWFjaCBydW4uIFRoZW4gYWRkIGEgc2Vjb25kIGxpbmUgYGRuYS5jb3VudChcIkFcIilgIGJlbG93IHRoZSBgbGVuKGRuYSlgIGxpbmUsIHJ1biBpdCBvbmNlIG1vcmUsIGFuZCBzZWUgd2hpY2ggb2YgdGhlIHR3byB2YWx1ZXMgZ2V0cyBkaXNwbGF5ZWQuIFdvcmsgb3V0IHRoZSBydWxlIGZyb20gd2hhdCB5b3Ugb2JzZXJ2ZS4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIxNzVmNDliYSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIE9yZGVyIG9uIHRoZSBwYWdlIGFuZCBvcmRlciBpbiB0aW1lIHsjc2VjLW9yZGVyfVxuIiwKICAgICJcbiIsCiAgICAiVGhpcyBpcyB0aGUgcGFydCBvZiBub3RlYm9va3MgdGhhdCBjYXRjaGVzIGV2ZXJ5b25lLCBzbyBpdCBpcyB3b3J0aCBtZWV0aW5nIGl0IGRlbGliZXJhdGVseSByYXRoZXIgdGhhbiBieSBhY2NpZGVudCBhdCBtaWRuaWdodC5cbiIsCiAgICAiXG4iLAogICAgIkEgc2NyaXB0IHJ1bnMgZnJvbSB0b3AgdG8gYm90dG9tLCBhbHdheXMuIEEgbm90ZWJvb2sgcnVucyBpbiB3aGF0ZXZlciBvcmRlciB5b3UgY2xpY2tlZC4gVGhlIGNlbGxzIGFyZSBsYWlkIG91dCBkb3duIHRoZSBwYWdlLCBidXQgdGhlIGtlcm5lbCByZW1lbWJlcnMgdGhlbSBpbiB0aGUgb3JkZXIgeW91IHJhbiB0aGVtLCBhbmQgdGhvc2UgdHdvIG9yZGVycyBoYXZlIG5vdGhpbmcgdG8gZG8gd2l0aCBlYWNoIG90aGVyLiBBIG5vdGVib29rIHdoZXJlIHlvdSBoYXZlIGJlZW4ganVtcGluZyBhcm91bmQgY2FuIHNob3cgYSBwYWdlIHRoYXQgcmVhZHMgcGVyZmVjdGx5IGFuZCBwcm9kdWNlcyByZXN1bHRzIHRoYXQgbm9ib2R5IGNvdWxkIHJlcHJvZHVjZSwgaW5jbHVkaW5nIHlvdSwgYmVjYXVzZSB0aGUgc3RhdGUgdGhhdCBwcm9kdWNlZCB0aGVtIGNhbWUgZnJvbSBhIHNlcXVlbmNlIG9mIGNsaWNrcyB0aGF0IGlzIG5vdCB3cml0dGVuIGRvd24gYW55d2hlcmUuXG4iLAogICAgIlxuIiwKICAgICJUaGUgZXhlY3V0aW9uIGNvdW50cyBhcmUgdGhlIG9ubHkgcmVjb3JkIHlvdSBoYXZlIG9mIHRoYXQgc2VxdWVuY2UuIFdoZW4geW91IG9wZW4gc29tZWJvZHkncyBub3RlYm9vayBhbmQgdGhlIGNvdW50cyBkb3duIHRoZSBwYWdlIHJlYWQgNCwgMSwgOSwgMiwgeW91IGFyZSBsb29raW5nIGF0IGEgcGFnZSB0aGF0IGhhcyBuZXZlciBvbmNlIGJlZW4gcnVuIGluIHRoZSBvcmRlciBpdCBpcyB3cml0dGVuLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjI5MTFmMTk1IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiY29kb25fY291bnQgPSA2NFxuIiwKICAgICJjb2Rvbl9jb3VudCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjVlNWJhYWVkIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZSB7I3NlYy1leGVyY2lzZS1ydW4tb3V0LW9mLW9yZGVyfVxuIiwKICAgICJcbiIsCiAgICAiYFNPTE9gXG4iLAogICAgIlxuIiwKICAgICJDbGljayBpbnRvIHRoZSBgZG5hYCBjZWxsIGZ1cnRoZXIgdXAgdGhlIHBhZ2UgYW5kIHJ1biBpdCBhZ2Fpbi4gVGhlbiBjb21lIGJhY2sgZG93biBoZXJlIGFuZCBydW4gdGhlIGBjb2Rvbl9jb3VudGAgY2VsbC4gTG9vayBhdCB0aGUgZXhlY3V0aW9uIGNvdW50cyBvbiB0aGUgdHdvIGNlbGxzIGFuZCBjb25maXJtIHRoYXQgdGhlIGhpZ2hlciBudW1iZXIgaXMgbm93IG9uIHRoZSBjZWxsIHRoYXQgYXBwZWFycyBlYXJsaWVyIG9uIHRoZSBwYWdlLiBUaGF0IGlzIGEgbm90ZWJvb2sgdGVsbGluZyB5b3UgdGhlIHRydXRoIGFib3V0IGl0c2VsZiwgYW5kIGl0IGlzIHRoZSBvbmx5IHdhcm5pbmcgeW91IHdpbGwgZ2V0LiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjAxNjc1NzljIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgQWRkaW5nLCBtb3ZpbmcsIGNvcHlpbmcgYW5kIGRlbGV0aW5nIGNlbGxzIHsjc2VjLWVkaXRpbmctY2VsbHN9XG4iLAogICAgIlxuIiwKICAgICJIb3ZlciBpbiB0aGUgc3BhY2UgYmV0d2VlbiB0d28gY2VsbHMgYW5kIGEgc21hbGwgdG9vbGJhciBhcHBlYXJzIG9mZmVyaW5nIGEgbmV3IGNvZGUgY2VsbCBvciBhIG5ldyB0ZXh0IGNlbGwgYXQgdGhhdCBzcG90LiBUaGF0IGlzIHRoZSBlYXNpZXN0IHdheSB0byBhZGQgb25lLCBhbmQgaXQgaXMgdGhlIHdheSB5b3Ugd2lsbCB1c2UgbW9zdCBvZiB0aGUgdGltZS5cbiIsCiAgICAiXG4iLAogICAgIkV2ZXJ5dGhpbmcgZWxzZSBpcyBmYXN0ZXIgZnJvbSB0aGUga2V5Ym9hcmQsIGFuZCB0byB1c2UgdGhlIGtleWJvYXJkIHlvdSBuZWVkIHRvIGtub3cgYWJvdXQgdGhlIHR3byBtb2RlcyBhIGNlbGwgY2FuIGJlIGluLiBXaGVuIHlvdXIgY3Vyc29yIGlzIGluc2lkZSBhIGNlbGwsIHR5cGluZyBjaGFuZ2VzIGl0cyBjb250ZW50cywgYW5kIHRoYXQgaXMgZWRpdCBtb2RlLiBQcmVzcyBFc2NhcGUgYW5kIHRoZSBjdXJzb3IgbGVhdmVzIHRoZSBjZWxsOyB0aGUgY2VsbCBpcyBzdGlsbCBzZWxlY3RlZCwgc2hvd24gYnkgYSBiYXIgZG93biBpdHMgbGVmdCBzaWRlLCBidXQgbm93IHRoZSBrZXlzIGFyZSBjb21tYW5kcyByYXRoZXIgdGhhbiB0ZXh0LiBUaGF0IGlzIGNvbW1hbmQgbW9kZS4gUHJlc3MgRW50ZXIgdG8gZ28gYmFjayBpbnRvIHRoZSBjZWxsLlxuIiwKICAgICJcbiIsCiAgICAiSW4gY29tbWFuZCBtb2RlLCBgQWAgbWFrZXMgYSBuZXcgY2VsbCBhYm92ZSB0aGUgc2VsZWN0ZWQgb25lIGFuZCBgQmAgbWFrZXMgb25lIGJlbG93LiBgTWAgdHVybnMgdGhlIHNlbGVjdGVkIGNlbGwgaW50byBhIHRleHQgY2VsbCBhbmQgYFlgIHR1cm5zIGl0IGJhY2sgaW50byBhIGNvZGUgY2VsbC4gYENgIGNvcGllcyB0aGUgc2VsZWN0ZWQgY2VsbCwgYFhgIGN1dHMgaXQsIGFuZCBgVmAgcGFzdGVzIHdoYXQgeW91IGNvcGllZCBiZWxvdyB0aGUgc2VsZWN0aW9uLiBQcmVzc2luZyBgRGAgdHdpY2UsIHF1aWNrbHksIGRlbGV0ZXMgdGhlIHNlbGVjdGVkIGNlbGwsIGFuZCBgWmAgdW5kb2VzIHRoYXQsIHdoaWNoIGlzIGEgZ29vZCBwYWlyIHRvIGtub3cgaW4gdGhhdCBvcmRlci5cbiIsCiAgICAiXG4iLAogICAgIlRvIG1vdmUgYSBjZWxsIHVwIG9yIGRvd24sIHVzZSB0aGUgdHdvIGFycm93IGJ1dHRvbnMgaW4gdGhlIHRvb2xiYXIgdGhhdCBhcHBlYXJzIGF0IHRoZSB0b3AgcmlnaHQgb2YgdGhlIHNlbGVjdGVkIGNlbGwsIG9yIHBpY2sgdGhlIGNlbGwgdXAgYnkgaXRzIGxlZnQgZWRnZSBhbmQgZHJhZyBpdC4gRXZlcnkgb25lIG9mIHRoZXNlIGNvbW1hbmRzIGFsc28gbGl2ZXMgaW4gdGhlIENvbW1hbmQgUGFsZXR0ZSwgd2hpY2ggeW91IG9wZW4gd2l0aCBDb250cm9sIGFuZCBTaGlmdCBhbmQgUCB0b2dldGhlciwgb3IgQ29tbWFuZCBhbmQgU2hpZnQgYW5kIFAgb24gYSBNYWMuIFR5cGluZyBwYXJ0IG9mIGEgY29tbWFuZCBuYW1lIHRoZXJlIHNob3dzIHlvdSB0aGUgY29tbWFuZCBhbG9uZyB3aXRoIHdoYXRldmVyIGtleWJvYXJkIHNob3J0Y3V0IHlvdXIgY29weSBvZiBWU2NvZGUgaGFzIGFzc2lnbmVkIHRvIGl0LCB3aGljaCBpcyB0aGUgcmVsaWFibGUgd2F5IHRvIGFuc3dlciBhbnkgc2hvcnRjdXQgcXVlc3Rpb24gcmF0aGVyIHRoYW4gdHJ1c3RpbmcgYSBsaXN0IGluIGEgYm9vay5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2UgeyNzZWMtZXhlcmNpc2UtY2VsbC1zdXJnZXJ5fVxuIiwKICAgICJcbiIsCiAgICAiYFNPTE9gXG4iLAogICAgIlxuIiwKICAgICJEbyBhbGwgb2YgdGhpcyB3aXRob3V0IHRvdWNoaW5nIHRoZSBtb3VzZSBhZnRlciB0aGUgZmlyc3QgY2xpY2suIENsaWNrIG9uIHRoaXMgY2VsbCBhbmQgcHJlc3MgRXNjYXBlIHRvIGdldCBpbnRvIGNvbW1hbmQgbW9kZS4gUHJlc3MgYEJgIHRvIG1ha2UgYSBuZXcgY2VsbCBiZWxvdywgcHJlc3MgRW50ZXIgdG8gZ2V0IGludG8gaXQsIGFuZCB0eXBlIGBwcmludChcImZpcnN0XCIpYC4gUHJlc3MgRXNjYXBlLCB0aGVuIGBCYCBhZ2FpbiwgdGhlbiBFbnRlciwgYW5kIHR5cGUgYHByaW50KFwic2Vjb25kXCIpYC4gUnVuIGJvdGguIE5vdyBzZWxlY3QgdGhlIGBwcmludChcImZpcnN0XCIpYCBjZWxsIGFuZCBtb3ZlIGl0IGJlbG93IHRoZSBvdGhlciBvbmUgdXNpbmcgdGhlIGFycm93cyBpbiBpdHMgdG9vbGJhciwgYW5kIHJ1biBib3RoIGFnYWluIGluIHBhZ2Ugb3JkZXIgdG8gY29uZmlybSB0aGUgb3V0cHV0IGNoYW5nZWQuIEZpbmFsbHkgc2VsZWN0IGVhY2ggb2YgeW91ciB0d28gY2VsbHMgaW4gdHVybiBhbmQgcHJlc3MgYERgIHR3aWNlIHRvIHJlbW92ZSB0aGVtLCBsZWF2aW5nIHRoZSBwYWdlIGFzIHlvdSBmb3VuZCBpdC4gSWYgeW91IGRlbGV0ZSBvbmUgY2VsbCB0b28gbWFueSwgcHJlc3MgYFpgLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImJlYjA5OTQxIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgQ2hvb3NpbmcgdGhlIGtlcm5lbCB7I3NlYy1rZXJuZWx9XG4iLAogICAgIlxuIiwKICAgICJUaGUgY2VsbHMgYXJlIHRoZSBub3RlYm9vay4gVGhlIHRoaW5nIHRoYXQgYWN0dWFsbHkgcnVucyB5b3VyIGNvZGUgaXMgYSBzZXBhcmF0ZSBwcm9ncmFtIGNhbGxlZCB0aGUga2VybmVsLCBhbmQgaXQgaXMgYSByZWFsIFB5dGhvbiBpbnRlcnByZXRlciBsaXZpbmcgaW4gdGhlIGJhY2tncm91bmQgd2l0aCBhbGwgeW91ciB2YXJpYWJsZXMgaW4gaXQuIFRoZSBub3RlYm9vayBzZW5kcyBhIGNlbGwgdG8gdGhlIGtlcm5lbCwgdGhlIGtlcm5lbCBydW5zIGl0IGFuZCBzZW5kcyBiYWNrIHdoYXRldmVyIGNhbWUgb3V0LlxuIiwKICAgICJcbiIsCiAgICAiTG9vayBhdCB0aGUgdG9wIHJpZ2h0IG9mIHRoZSBub3RlYm9vayB3aW5kb3cuIFRoZXJlIGlzIGEgYnV0dG9uIHRoZXJlIG5hbWluZyB0aGUga2VybmVsIHRoaXMgbm90ZWJvb2sgaXMgYXR0YWNoZWQgdG8uIElmIGl0IHNheXMgc29tZXRoaW5nIGxpa2UgU2VsZWN0IEtlcm5lbCwgbm8gaW50ZXJwcmV0ZXIgaXMgYXR0YWNoZWQgeWV0LCBhbmQgbm90aGluZyB3aWxsIHJ1biB1bnRpbCB5b3UgYXR0YWNoIG9uZS4gQ2xpY2sgaXQgYW5kIGNob29zZSB0aGUgZW52aXJvbm1lbnQgZm9yIHRoaXMgY291cnNlLiBJZiB5b3UgcGljayBhIGRpZmZlcmVudCBQeXRob24gaW5zdGFsbGF0aW9uLCB5b3VyIGNvZGUgd2lsbCBydW4sIGJ1dCB0aGUgY291cnNlIHRvb2xzIHdpbGwgbm90IGJlIGluc3RhbGxlZCBpbiBpdCwgYW5kIGV2ZXJ5IGBpbXBvcnRgIG9mIGEgY291cnNlIHBhY2thZ2Ugd2lsbCBmYWlsIHdpdGggYSBgTW9kdWxlTm90Rm91bmRFcnJvcmAgdGhhdCBoYXMgbm90aGluZyB0byBkbyB3aXRoIHlvdXIgY29kZS4gQSBsYXJnZSBmcmFjdGlvbiBvZiB0aGUgY29uZnVzaW5nIGZhaWx1cmVzIGluIHRoZSBmaXJzdCB3ZWVrcyBhcmUgYSB3cm9uZyBrZXJuZWwuXG4iLAogICAgIlxuIiwKICAgICJZb3UgY2FuIGFzayB0aGUga2VybmVsIHdoYXQgaXQgaXMgZnJvbSBpbnNpZGUgdGhlIG5vdGVib29rLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjc5ZjZlMzYzIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiaW1wb3J0IHN5c1xuIiwKICAgICJzeXMudmVyc2lvbi5zcGxpdCgpWzBdIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiNTdiMTI3YzAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJUaGF0IGlzIHRoZSB2ZXJzaW9uIG9mIFB5dGhvbiBhbnN3ZXJpbmcuIFRvIGZpbmQgb3V0IHdoaWNoIGluc3RhbGxhdGlvbiBpdCBjYW1lIGZyb20sIHJ1biBgc3lzLmV4ZWN1dGFibGVgIGluIGEgY2VsbCBvZiB5b3VyIG93bjsgdGhlIHBhdGggaXQgcmV0dXJucyBzaG91bGQgc2l0IGluc2lkZSB0aGUgY291cnNlIGVudmlyb25tZW50LiBDb21wYXJpbmcgdGhhdCBwYXRoIHdpdGggdGhlIG5hbWUgb24gdGhlIGtlcm5lbCBidXR0b24gaXMgaG93IHlvdSBzZXR0bGUgYW4gYXJndW1lbnQgYWJvdXQgd2hpY2ggUHl0aG9uIGlzIGFjdHVhbGx5IHJ1bm5pbmcgeW91ciBjb2RlLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZSB7I3NlYy1leGVyY2lzZS1jaGVjay1rZXJuZWx9XG4iLAogICAgIlxuIiwKICAgICJgU09MT2BcbiIsCiAgICAiXG4iLAogICAgIk1ha2UgYSBuZXcgY2VsbCBiZWxvdyB0aGlzIG9uZSwgcHV0IGBzeXMuZXhlY3V0YWJsZWAgaW4gaXQsIGFuZCBydW4gaXQuIFJlYWQgdGhlIHBhdGguIFRoZW4gY2xpY2sgdGhlIGtlcm5lbCBidXR0b24gYXQgdGhlIHRvcCByaWdodCBhbmQgcmVhZCB0aGUgbmFtZSBpdCBzaG93cy4gU2F0aXNmeSB5b3Vyc2VsZiB0aGF0IHRoZXkgZGVzY3JpYmUgdGhlIHNhbWUgaW5zdGFsbGF0aW9uLiBEZWxldGUgeW91ciBjZWxsIHdoZW4geW91IGFyZSBkb25lLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImU0NzQ0MjUwIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgUmVzdGFydGluZyB0aGUga2VybmVsIHsjc2VjLXJlc3RhcnQta2VybmVsfVxuIiwKICAgICJcbiIsCiAgICAiQmVjYXVzZSB0aGUga2VybmVsIGtlZXBzIGV2ZXJ5dGhpbmcgeW91IGhhdmUgcnVuLCBpdCB3aWxsIGhhcHBpbHkga2VlcCBhIHZhcmlhYmxlIHlvdSBoYXZlIHNpbmNlIGRlbGV0ZWQgZnJvbSB0aGUgcGFnZSwgYSBmdW5jdGlvbiB3aG9zZSBkZWZpbml0aW9uIHlvdSBoYXZlIGNoYW5nZWQsIGFuZCBhIHZhbHVlIGZyb20gYW4gZXhwZXJpbWVudCB5b3UgYWJhbmRvbmVkIHR3ZW50eSBtaW51dGVzIGFnby4gQ29kZSB0aGF0IGxlYW5zIG9uIGFueSBvZiB0aG9zZSBsb29rcyBsaWtlIGl0IHdvcmtzIGFuZCB3aWxsIG5vdCB3b3JrIGZvciBhbnlvbmUgZWxzZS5cbiIsCiAgICAiXG4iLAogICAgIlJlc3RhcnRpbmcgdGhlIGtlcm5lbCB0aHJvd3MgYWxsIG9mIGl0IGF3YXkgYW5kIGdpdmVzIHlvdSBhIGZyZXNoIGludGVycHJldGVyIHdpdGggbm90aGluZyBpbiBpdC4gWW91ciBjZWxscyBhbmQgdGhlaXIgdGV4dCBhcmUgdW50b3VjaGVkOyBvbmx5IHRoZSBtZW1vcnkgaXMgZW1wdGllZC4gVGhlIFJlc3RhcnQgYnV0dG9uIGlzIGluIHRoZSB0b29sYmFyIGFsb25nIHRoZSB0b3Agb2YgdGhlIG5vdGVib29rLCBuZXh0IHRvIGEgQ2xlYXIgT3V0cHV0cyBidXR0b24gdGhhdCB3aXBlcyB0aGUgZGlzcGxheWVkIHJlc3VsdHMgd2l0aG91dCByZXN0YXJ0aW5nIGFueXRoaW5nLCBhbmQgbmV4dCB0byBSZXN0YXJ0IGFuZCBSdW4gQWxsLCB3aGljaCByZXN0YXJ0cyBhbmQgdGhlbiBydW5zIGV2ZXJ5IGNlbGwgZG93biB0aGUgcGFnZSBpbiBvcmRlci5cbiIsCiAgICAiXG4iLAogICAgIlJlc3RhcnQgYW5kIFJ1biBBbGwgaXMgdGhlIG9uZSB0aGF0IG1hdHRlcnMuIEl0IGlzIHRoZSBvbmx5IHdheSB0byBmaW5kIG91dCB3aGV0aGVyIHlvdXIgbm90ZWJvb2sgZG9lcyB3aGF0IGl0IGFwcGVhcnMgdG8gZG8sIGJlY2F1c2UgaXQgaXMgdGhlIG9ubHkgd2F5IHRvIHJ1biBpdCB0aGUgd2F5IGEgc3RyYW5nZXIgd291bGQuIEFueXRoaW5nIHRoYXQgc3Vydml2ZXMgdGhhdCBoYXMgYmVlbiBwcm92ZWQgdG8gd29yayBpbiBwYWdlIG9yZGVyLiBBbnl0aGluZyB0aGF0IGZhaWxzIHdhcyBkZXBlbmRpbmcgb24gc29tZXRoaW5nIHRoYXQgaXMgbm90IHdyaXR0ZW4gZG93bi5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2UgeyNzZWMtZXhlcmNpc2UtcmVzdGFydH1cbiIsCiAgICAiXG4iLAogICAgImBTT0xPYFxuIiwKICAgICJcbiIsCiAgICAiUnVuIHRoZSBjZWxsIGJlbG93LCBzbyB0aGF0IGB2aXJ1c2AgZXhpc3RzIGluIHRoZSBrZXJuZWwuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiN2NkYWM0NDUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJ2aXJ1cyA9IFwiSElWXCJcbiIsCiAgICAidmlydXMiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIzZTM1NjFkZSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIk5vdyBwcmVzcyBSZXN0YXJ0LiBUaGVuIHJ1biB0aGUgY2VsbCBiZWxvdywgYW5kIG9ubHkgdGhhdCBjZWxsLiBQcmVkaWN0IGZpcnN0IHdoYXQgd2lsbCBoYXBwZW4sIGFuZCBiZSBzcGVjaWZpYyBhYm91dCB0aGUgZXJyb3IgeW91IGV4cGVjdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICIwZDAwZjZhYiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgInZpcnVzLmxvd2VyKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI1OWM0NmZmMyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBzaG91bGQgZ2V0IGEgYE5hbWVFcnJvcmAgc2F5aW5nIHRoYXQgYHZpcnVzYCBpcyBub3QgZGVmaW5lZCwgYmVjYXVzZSB0aGUgcmVzdGFydCBlbXB0aWVkIHRoZSBrZXJuZWwgYW5kIHRoZSBjZWxsIHRoYXQgY3JlYXRlcyBgdmlydXNgIGhhcyBub3QgYmVlbiBydW4gc2luY2UuIE5vdyB1c2UgUmVzdGFydCBhbmQgUnVuIEFsbCwgYW5kIHdhdGNoIHRoZSB3aG9sZSBwYWdlIHJ1biBmcm9tIHRoZSB0b3Agd2l0aCB0aGUgY291bnRzIG51bWJlcmluZyB0aGVtc2VsdmVzIG5lYXRseSBkb3dud2FyZC4gQm90aCBjZWxscyB3b3JrIGFnYWluLCBiZWNhdXNlIHRoaXMgdGltZSB0aGV5IHJhbiBpbiB0aGUgb3JkZXIgdGhleSBhcmUgd3JpdHRlbi5cbiIsCiAgICAiXG4iLAogICAgIklmIGEgbm90ZWJvb2sgb2YgeW91cnMgaXMgYmVoYXZpbmcgc3RyYW5nZWx5IGFuZCB5b3UgY2Fubm90IHNlZSB3aHksIHJlc3RhcnQgYW5kIHJ1biBhbGwgYmVmb3JlIHlvdSBkbyBhbnl0aGluZyBlbHNlLiBNb3N0IG9mIHRoZSB0aW1lIHRoZSBzdHJhbmdlbmVzcyBpcyBzdGFsZSBtZW1vcnksIGFuZCBtb3N0IG9mIHRoZSByZXN0IG9mIHRoZSB0aW1lIHRoZSByZXN0YXJ0IHR1cm5zIGEgbXlzdGVyeSBpbnRvIGFuIGVycm9yIG1lc3NhZ2UgeW91IGNhbiByZWFkLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjU4ZGI0NTdiIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgV2hhdCBhIG5vdGVib29rIGlzIG9uIGRpc2sgeyNzZWMtb24tZGlza31cbiIsCiAgICAiXG4iLAogICAgIlRoZSBgLmlweW5iYCBmaWxlIGhvbGRzIHlvdXIgY2VsbHMsIGluIHBhZ2Ugb3JkZXIsIGFsb25nIHdpdGggd2hhdGV2ZXIgb3V0cHV0IGVhY2ggY2VsbCBwcm9kdWNlZCB0aGUgbGFzdCB0aW1lIGl0IHJhbi4gVGhhdCBpcyB3aHkgeW91IGNhbiBzZW5kIHNvbWVvbmUgYSBub3RlYm9vayBhbmQgdGhleSBzZWUgeW91ciByZXN1bHRzIGJlZm9yZSBydW5uaW5nIGFueXRoaW5nLCBhbmQgaXQgaXMgYWxzbyB3aHkgdGhlIGZpbGUgY2hhbmdlcyBldmVyeSB0aW1lIHlvdSBydW4gYSBjZWxsIGV2ZW4gaWYgeW91IHR5cGVkIG5vdGhpbmcuIEl0IGlzIHdvcnRoIGtub3dpbmcgd2hlbiB5b3Ugc3RhcnQgcHV0dGluZyBub3RlYm9va3MgaW50byBhIHJlcG9zaXRvcnkgYW5kIHdvbmRlciB3aHkgYSBmaWxlIHlvdSBvbmx5IGxvb2tlZCBhdCBpcyBzaG93aW5nIHVwIGFzIG1vZGlmaWVkLlxuIiwKICAgICJcbiIsCiAgICAiQSBub3RlYm9vayBpcyBhIGdvb2QgcGxhY2UgdG8gd29yayBzb21ldGhpbmcgb3V0LCB3aXRoIHByb3NlIGFuZCBjb2RlIGFuZCByZXN1bHRzIGludGVybGVhdmVkIG9uIG9uZSBwYWdlLiBBIGAucHlgIGZpbGUgaXMgYSBiZXR0ZXIgcGxhY2UgZm9yIGNvZGUgdGhhdCBvdGhlciBjb2RlIGRlcGVuZHMgb24sIGJlY2F1c2UgaXQgc3RhcnRzIGZyb20gbm90aGluZyBldmVyeSB0aW1lIGFuZCB0aGVyZWZvcmUgc2F5cyBleGFjdGx5IHdoYXQgaXQgbmVlZHMuIEBzZWMtc2NyaXB0LXZzLW5vdGVib29rIGdvZXMgaW50byB0aGF0IGRpZmZlcmVuY2UgcHJvcGVybHksIGluY2x1ZGluZyB0aGUgdG9vbCB0aGlzIGNvdXJzZSBnaXZlcyB5b3UgZm9yIHJ1bm5pbmcgb25lIGNlbGwgYXMgdGhvdWdoIGl0IHdlcmUgYSBzY3JpcHQuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlIHsjc2VjLWV4ZXJjaXNlLW93bi1ub3RlYm9va31cbiIsCiAgICAiXG4iLAogICAgImBTT0xPYFxuIiwKICAgICJcbiIsCiAgICAiTWFrZSBhIG5ldyBub3RlYm9vayBvZiB5b3VyIG93biwgZnJvbSB0aGUgQ29tbWFuZCBQYWxldHRlIG9yIGZyb20gRmlsZSBhbmQgTmV3IEZpbGUuIEF0dGFjaCB0aGUgY291cnNlIGtlcm5lbCB0byBpdC4gR2l2ZSBpdCBhIHRleHQgY2VsbCB3aXRoIGEgaGVhZGluZyBhbmQgYSBzZW50ZW5jZSBzYXlpbmcgd2hhdCBpdCBpcyBmb3IsIHRoZW4gYSBjb2RlIGNlbGwgdGhhdCBzdG9yZXMgYSBETkEgc3RyaW5nIGluIGEgdmFyaWFibGUsIHRoZW4gYW5vdGhlciB0aGF0IHByaW50cyBpdHMgbGVuZ3RoLiBSZXN0YXJ0IGFuZCBydW4gYWxsLCBhbmQgY29uZmlybSB0aGF0IHRoZSBjb3VudHMgcmVhZCAxIGFuZCAyIGRvd24gdGhlIHBhZ2UuIFNhdmUgaXQgc29tZXdoZXJlIHlvdSB3aWxsIGZpbmQgaXQgYWdhaW4uIFRoYXQgbm90ZWJvb2sgaXMgd2hlcmUgeW91IHNob3VsZCB0cnkgdGhpbmdzIG91dCB0aGlzIHdlZWssIGFuZCBnZXR0aW5nIGl0IHNldCB1cCBub3cgbWVhbnMgdGhlIG5leHQgdGltZSB5b3UgaGF2ZSBhIHF1ZXN0aW9uIHlvdSBjYW4gYW5zd2VyIGl0IGluIHRoaXJ0eSBzZWNvbmRzIGluc3RlYWQgb2YgdGVuIG1pbnV0ZXMuIgogICBdCiAgfQogXSwKICJtZXRhZGF0YSI6IHsKICAia2VybmVsc3BlYyI6IHsKICAgImRpc3BsYXlfbmFtZSI6ICJQeXRob24gMyAoaXB5a2VybmVsKSIsCiAgICJsYW5ndWFnZSI6ICJweXRob24iLAogICAibmFtZSI6ICJweXRob24zIgogIH0sCiAgImxhbmd1YWdlX2luZm8iOiB7CiAgICJjb2RlbWlycm9yX21vZGUiOiB7CiAgICAibmFtZSI6ICJpcHl0aG9uIiwKICAgICJ2ZXJzaW9uIjogMwogICB9LAogICAiZmlsZV9leHRlbnNpb24iOiAiLnB5IiwKICAgIm1pbWV0eXBlIjogInRleHQveC1weXRob24iLAogICAibmFtZSI6ICJweXRob24iLAogICAibmJjb252ZXJ0X2V4cG9ydGVyIjogInB5dGhvbiIsCiAgICJweWdtZW50c19sZXhlciI6ICJpcHl0aG9uMyIsCiAgICJ2ZXJzaW9uIjogIjMuMTMuMCIKICB9CiB9LAogIm5iZm9ybWF0IjogNCwKICJuYmZvcm1hdF9taW5vciI6IDUKfQo=').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'notebooks-in-vscode.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts45298"><i class="bi bi-download"></i> Download notebook </button></a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#where-the-assistant-lives" id="toc-where-the-assistant-lives" class="nav-link active" data-scroll-target="#where-the-assistant-lives">Where the assistant lives</a></li>
-  <li><a href="#badges-what-you-are-allowed-to-ask-of-it-and-when" id="toc-badges-what-you-are-allowed-to-ask-of-it-and-when" class="nav-link" data-scroll-target="#badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</a></li>
-  <li><a href="#the-logbook" id="toc-the-logbook" class="nav-link" data-scroll-target="#the-logbook">The logbook</a></li>
+  <li><a href="#sec-cell-types" id="toc-sec-cell-types" class="nav-link active" data-scroll-target="#sec-cell-types">Two kinds of cell</a></li>
+  <li><a href="#sec-running-cells" id="toc-sec-running-cells" class="nav-link" data-scroll-target="#sec-running-cells">Running a code cell</a></li>
+  <li><a href="#sec-order" id="toc-sec-order" class="nav-link" data-scroll-target="#sec-order">Order on the page and order in time</a></li>
+  <li><a href="#sec-editing-cells" id="toc-sec-editing-cells" class="nav-link" data-scroll-target="#sec-editing-cells">Adding, moving, copying and deleting cells</a></li>
+  <li><a href="#sec-kernel" id="toc-sec-kernel" class="nav-link" data-scroll-target="#sec-kernel">Choosing the kernel</a></li>
+  <li><a href="#sec-restart-kernel" id="toc-sec-restart-kernel" class="nav-link" data-scroll-target="#sec-restart-kernel">Restarting the kernel</a></li>
+  <li><a href="#sec-on-disk" id="toc-sec-on-disk" class="nav-link" data-scroll-target="#sec-on-disk">What a notebook is on disk</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../ai/meet-ai.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../intro/notebooks-in-vscode.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-meet-ai" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></h1>
+<h1 class="title"><span id="sec-notebooks-in-vscode" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></span></h1>
 </div>
 
 
@@ -743,42 +791,109 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>The week-one introduction to working with an AI assistant in this course.</em></p>
-<p>You have just read how an assistant produces its answers: it guesses a plausible next word, over and over, with no separate sense of whether the sentence it is building is true. That is the last thing you needed to know about the machine before you actually start talking to it. This note is about the practical arrangement: where the assistant lives, what you are and are not allowed to ask of it at each point in the term, and the one habit that everything else in this course is built to protect.</p>
-<section id="where-the-assistant-lives" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="where-the-assistant-lives">Where the assistant lives</h3>
-<p>For this course, the assistant lives in your browser, as Microsoft 365 Copilot, which you already have free access to through your university account. Inside it sits a second mode worth knowing about from day one, the <strong>Study and Learn agent</strong>, which behaves less like a machine that answers and more like a patient teaching assistant that asks you questions back. You will meet it properly in a later week; for now, know that it exists and that “the assistant” from this point on can mean either mode depending on what a given exercise asks for.</p>
-<p>VS Code, by contrast, stays an AI-free space for the whole course. No Copilot extension, no inline suggestions, nothing typing over your shoulder while you write. This is not nostalgia for a harder way of working. You cannot learn to judge code you did not write until you have spent real time writing code yourself, one substitution and one reduction at a time, and an assistant humming along inside your editor is exactly the thing that would let you skip that part. Keep the two spaces separate: the browser is where you consult the assistant, the editor is where you think.</p>
+<p>Reading this page in a browser will teach you nothing, because this chapter is about clicking things. Download it using the link in the margin, open the downloaded file in VScode, and work through it there. Everything below assumes you are looking at the real notebook with a cursor in it.</p>
+<p>VScode is where you will do all of your programming for this course, and it is the one place the assistant does not follow you. It opens <code>.py</code> files, which you already know, and it opens <code>.ipynb</code> files, which are notebooks. A notebook looks different enough from a script that it deserves half an hour of deliberate practice before you start relying on it, and that is what this chapter is.</p>
+<section id="sec-cell-types" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-cell-types">Two kinds of cell</h2>
+<p>A notebook is a stack of cells, and there are two kinds.</p>
+<p>Text cells hold prose, written in a simple formatting language called Markdown. The paragraph you are reading is one of them. When a text cell is finished it is rendered, meaning you see the formatted result rather than the raw text you typed. Double-click one and it turns back into editable text; press Shift and Enter together and it renders again.</p>
+<p>Code cells hold Python. They have a run button on the left and a slot on the left of that where a number appears after they have been run. Everything in a code cell is Python, which means a line of prose typed into a code cell by mistake will produce a <code>SyntaxError</code>, and a line of Python typed into a text cell by mistake will simply sit there looking like a sentence and never run. Both mistakes are common and both are worth recognizing on sight.</p>
+<section id="sec-exercise-edit-markdown" class="level4" data-number="9.0.0.1">
+<h4 data-number="9.0.0.1" class="anchored" data-anchor-id="sec-exercise-edit-markdown"><strong>Exercise 9-1</strong></h4>
+<p><code>SOLO</code></p>
+<p>Double-click this paragraph. You should see the raw Markdown, with the exercise heading above it starting with four hash marks. Add a sentence of your own at the end. Press Shift and Enter to render it back. Now double-click it again and remove your sentence. You have just done the two things you will do to every text cell for the rest of the term.</p>
 </section>
-<section id="badges-what-you-are-allowed-to-ask-of-it-and-when" class="level3 unnumbered page-columns page-full">
-<h3 class="unnumbered anchored" data-anchor-id="badges-what-you-are-allowed-to-ask-of-it-and-when">Badges: what you are allowed to ask of it, and when</h3>
-<p>Not every exercise permits the same amount of help, and the course marks this explicitly rather than leaving it to guesswork. Exercises that involve the assistant carry a small badge naming the <strong>role</strong> it is allowed to play, and the roles form a ladder that gets more permissive as the term goes on and your judgment gets sharper:</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>The role ladder</strong></p>
-<p>Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · Worker · Collaborator · Delegate</p>
-</div></div><p>Early on, a badge such as <code>AI: Explainer</code> means the assistant may explain something to you, an error message, a line of code, but you still do the deciding and the running yourself. Much later, a badge such as <code>AI: Delegate</code> means you may hand it a real piece of work, provided you have already learned to specify it exactly and verify what comes back. You never get a badge you have not earned the skills for yet; the ladder is cumulative, and each step assumes everything below it. Some exercises carry no AI badge at all but instead a lock, 🔒 <code>SOLO</code>, which means exactly what it says: no assistant, do it yourself first. SOLO exercises are not a punishment. They are where you build the very judgment the badges later ask you to spend.</p>
 </section>
-<section id="the-logbook" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-logbook">The logbook</h3>
-<p>Once a week, you will write one entry in your <strong>logbook</strong>: a short, candid note about something the assistant got right, something it got wrong, and how you knew which was which. You already wrote the first one, in the exercise at the end of last note. Keep the habit going. By the end of the term the logbook will be a record of your own growing skill at telling a plausible answer from a correct one, which is a more useful thing to have at the end of a course than almost anything else you will produce.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="sec-running-cells" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-running-cells">Running a code cell</h2>
+<p>There are three ways to run the cell your cursor is in, and the difference between them is only where you end up afterward.</p>
+<p>Shift and Enter together runs the cell and moves the cursor to the next one, which is what you want when you are working down a page. Control and Enter together, or Command and Enter on a Mac, runs the cell and leaves the cursor where it is, which is what you want when you are editing one cell repeatedly until it works. Alt and Enter together, or Option and Enter on a Mac, runs the cell and makes a new empty one below it, which is what you want when you are building something up a piece at a time.</p>
+<p>Run the cell below with Shift and Enter.</p>
+<div id="02cbbe91" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">"ATGGTGCATCTGACTCCTGAGGAGAAG"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(dna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>The rule the whole course turns on
+<p>Two things happened. A number appeared in the brackets to the left of the cell, and the value <code>27</code> appeared underneath it.</p>
+<p>The number is the execution count. It says which run this was, counting every code cell you have run since the kernel started. The first cell you run gets <code>1</code>, the next gets <code>2</code>, and so on. If you run the same cell three times its number changes three times, because the count records runs and not cells.</p>
+<p>The value underneath appeared because the last line of the cell was an expression sitting on its own. A notebook shows you the value of the final expression as a courtesy, without you asking. This is a notebook habit rather than a Python rule: put <code>len(dna)</code> on its own line in a script and nothing at all appears on your screen.</p>
+<section id="sec-exercise-execution-count" class="level4" data-number="9.0.0.2">
+<h4 data-number="9.0.0.2" class="anchored" data-anchor-id="sec-exercise-execution-count"><strong>Exercise 9-2</strong></h4>
+<p><code>SOLO</code></p>
+<p>Run the cell above two more times and watch the number in the brackets. Predict what it will say before each run. Then add a second line <code>dna.count("A")</code> below the <code>len(dna)</code> line, run it once more, and see which of the two values gets displayed. Work out the rule from what you observe.</p>
+</section>
+</section>
+<section id="sec-order" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-order">Order on the page and order in time</h2>
+<p>This is the part of notebooks that catches everyone, so it is worth meeting it deliberately rather than by accident at midnight.</p>
+<p>A script runs from top to bottom, always. A notebook runs in whatever order you clicked. The cells are laid out down the page, but the kernel remembers them in the order you ran them, and those two orders have nothing to do with each other. A notebook where you have been jumping around can show a page that reads perfectly and produces results that nobody could reproduce, including you, because the state that produced them came from a sequence of clicks that is not written down anywhere.</p>
+<p>The execution counts are the only record you have of that sequence. When you open somebody’s notebook and the counts down the page read 4, 1, 9, 2, you are looking at a page that has never once been run in the order it is written.</p>
+<div id="2911f195" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>codon_count <span class="op">=</span> <span class="dv">64</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>codon_count</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<section id="sec-exercise-run-out-of-order" class="level4" data-number="9.0.0.3">
+<h4 data-number="9.0.0.3" class="anchored" data-anchor-id="sec-exercise-run-out-of-order"><strong>Exercise 9-3</strong></h4>
+<p><code>SOLO</code></p>
+<p>Click into the <code>dna</code> cell further up the page and run it again. Then come back down here and run the <code>codon_count</code> cell. Look at the execution counts on the two cells and confirm that the higher number is now on the cell that appears earlier on the page. That is a notebook telling you the truth about itself, and it is the only warning you will get.</p>
+</section>
+</section>
+<section id="sec-editing-cells" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-editing-cells">Adding, moving, copying and deleting cells</h2>
+<p>Hover in the space between two cells and a small toolbar appears offering a new code cell or a new text cell at that spot. That is the easiest way to add one, and it is the way you will use most of the time.</p>
+<p>Everything else is faster from the keyboard, and to use the keyboard you need to know about the two modes a cell can be in. When your cursor is inside a cell, typing changes its contents, and that is edit mode. Press Escape and the cursor leaves the cell; the cell is still selected, shown by a bar down its left side, but now the keys are commands rather than text. That is command mode. Press Enter to go back into the cell.</p>
+<p>In command mode, <code>A</code> makes a new cell above the selected one and <code>B</code> makes one below. <code>M</code> turns the selected cell into a text cell and <code>Y</code> turns it back into a code cell. <code>C</code> copies the selected cell, <code>X</code> cuts it, and <code>V</code> pastes what you copied below the selection. Pressing <code>D</code> twice, quickly, deletes the selected cell, and <code>Z</code> undoes that, which is a good pair to know in that order.</p>
+<p>To move a cell up or down, use the two arrow buttons in the toolbar that appears at the top right of the selected cell, or pick the cell up by its left edge and drag it. Every one of these commands also lives in the Command Palette, which you open with Control and Shift and P together, or Command and Shift and P on a Mac. Typing part of a command name there shows you the command along with whatever keyboard shortcut your copy of VScode has assigned to it, which is the reliable way to answer any shortcut question rather than trusting a list in a book.</p>
+<section id="sec-exercise-cell-surgery" class="level4" data-number="9.0.0.4">
+<h4 data-number="9.0.0.4" class="anchored" data-anchor-id="sec-exercise-cell-surgery"><strong>Exercise 9-4</strong></h4>
+<p><code>SOLO</code></p>
+<p>Do all of this without touching the mouse after the first click. Click on this cell and press Escape to get into command mode. Press <code>B</code> to make a new cell below, press Enter to get into it, and type <code>print("first")</code>. Press Escape, then <code>B</code> again, then Enter, and type <code>print("second")</code>. Run both. Now select the <code>print("first")</code> cell and move it below the other one using the arrows in its toolbar, and run both again in page order to confirm the output changed. Finally select each of your two cells in turn and press <code>D</code> twice to remove them, leaving the page as you found it. If you delete one cell too many, press <code>Z</code>.</p>
+</section>
+</section>
+<section id="sec-kernel" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-kernel">Choosing the kernel</h2>
+<p>The cells are the notebook. The thing that actually runs your code is a separate program called the kernel, and it is a real Python interpreter living in the background with all your variables in it. The notebook sends a cell to the kernel, the kernel runs it and sends back whatever came out.</p>
+<p>Look at the top right of the notebook window. There is a button there naming the kernel this notebook is attached to. If it says something like Select Kernel, no interpreter is attached yet, and nothing will run until you attach one. Click it and choose the environment for this course. If you pick a different Python installation, your code will run, but the course tools will not be installed in it, and every <code>import</code> of a course package will fail with a <code>ModuleNotFoundError</code> that has nothing to do with your code. A large fraction of the confusing failures in the first weeks are a wrong kernel.</p>
+<p>You can ask the kernel what it is from inside the notebook.</p>
+<div id="79f6e363" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sys.version.split()[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong>The AI predicts; the machine, or a test, proves.</strong> Every badge, every SOLO marker, and every widget in this course exists to put that rule into practice. Whatever the assistant tells you, in whatever role, treat it as a claim to be checked, not a fact to be filed away. Nothing that follows makes sense without this.</p>
+<p>That is the version of Python answering. To find out which installation it came from, run <code>sys.executable</code> in a cell of your own; the path it returns should sit inside the course environment. Comparing that path with the name on the kernel button is how you settle an argument about which Python is actually running your code.</p>
+<section id="sec-exercise-check-kernel" class="level4" data-number="9.0.0.5">
+<h4 data-number="9.0.0.5" class="anchored" data-anchor-id="sec-exercise-check-kernel"><strong>Exercise 9-5</strong></h4>
+<p><code>SOLO</code></p>
+<p>Make a new cell below this one, put <code>sys.executable</code> in it, and run it. Read the path. Then click the kernel button at the top right and read the name it shows. Satisfy yourself that they describe the same installation. Delete your cell when you are done.</p>
+</section>
+</section>
+<section id="sec-restart-kernel" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-restart-kernel">Restarting the kernel</h2>
+<p>Because the kernel keeps everything you have run, it will happily keep a variable you have since deleted from the page, a function whose definition you have changed, and a value from an experiment you abandoned twenty minutes ago. Code that leans on any of those looks like it works and will not work for anyone else.</p>
+<p>Restarting the kernel throws all of it away and gives you a fresh interpreter with nothing in it. Your cells and their text are untouched; only the memory is emptied. The Restart button is in the toolbar along the top of the notebook, next to a Clear Outputs button that wipes the displayed results without restarting anything, and next to Restart and Run All, which restarts and then runs every cell down the page in order.</p>
+<p>Restart and Run All is the one that matters. It is the only way to find out whether your notebook does what it appears to do, because it is the only way to run it the way a stranger would. Anything that survives that has been proved to work in page order. Anything that fails was depending on something that is not written down.</p>
+<section id="sec-exercise-restart" class="level4" data-number="9.0.0.6">
+<h4 data-number="9.0.0.6" class="anchored" data-anchor-id="sec-exercise-restart"><strong>Exercise 9-6</strong></h4>
+<p><code>SOLO</code></p>
+<p>Run the cell below, so that <code>virus</code> exists in the kernel.</p>
+<div id="7cdac445" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>virus <span class="op">=</span> <span class="st">"HIV"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>virus</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Now press Restart. Then run the cell below, and only that cell. Predict first what will happen, and be specific about the error you expect.</p>
+<div id="0d00f6ab" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>virus.lower()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="exercise-ai-explainer" class="level4" data-number="10.0.0.1">
-<h4 data-number="10.0.0.1" class="anchored" data-anchor-id="exercise-ai-explainer"><strong>Exercise 10-1</strong></h4>
-<p>Ask the assistant, in the browser, what a <strong>license badge</strong> and a <strong>SOLO marker</strong> are for in a course, without telling it anything about this course specifically. Read its guess. Then compare it against what this note just told you. Where did it match, and where did it just produce something plausible-sounding that happened to be wrong for our purposes? This is the smallest possible version of the whole term: ask, read, check against the real thing.</p>
-<p>For your logbook this week, note which badge you are most looking forward to earning, and which one makes you the most nervous, and why.</p>
+<p>You should get a <code>NameError</code> saying that <code>virus</code> is not defined, because the restart emptied the kernel and the cell that creates <code>virus</code> has not been run since. Now use Restart and Run All, and watch the whole page run from the top with the counts numbering themselves neatly downward. Both cells work again, because this time they ran in the order they are written.</p>
+<p>If a notebook of yours is behaving strangely and you cannot see why, restart and run all before you do anything else. Most of the time the strangeness is stale memory, and most of the rest of the time the restart turns a mystery into an error message you can read.</p>
+</section>
+</section>
+<section id="sec-on-disk" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-on-disk">What a notebook is on disk</h2>
+<p>The <code>.ipynb</code> file holds your cells, in page order, along with whatever output each cell produced the last time it ran. That is why you can send someone a notebook and they see your results before running anything, and it is also why the file changes every time you run a cell even if you typed nothing. It is worth knowing when you start putting notebooks into a repository and wonder why a file you only looked at is showing up as modified.</p>
+<p>A notebook is a good place to work something out, with prose and code and results interleaved on one page. A <code>.py</code> file is a better place for code that other code depends on, because it starts from nothing every time and therefore says exactly what it needs. <a href="script-vs-notebook.html" class="quarto-xref"><span>Chapter 13</span></a> goes into that difference properly, including the tool this course gives you for running one cell as though it were a script.</p>
+<section id="sec-exercise-own-notebook" class="level4" data-number="9.0.0.7">
+<h4 data-number="9.0.0.7" class="anchored" data-anchor-id="sec-exercise-own-notebook"><strong>Exercise 9-7</strong></h4>
+<p><code>SOLO</code></p>
+<p>Make a new notebook of your own, from the Command Palette or from File and New File. Attach the course kernel to it. Give it a text cell with a heading and a sentence saying what it is for, then a code cell that stores a DNA string in a variable, then another that prints its length. Restart and run all, and confirm that the counts read 1 and 2 down the page. Save it somewhere you will find it again. That notebook is where you should try things out this week, and getting it set up now means the next time you have a question you can answer it in thirty seconds instead of ten minutes.</p>
 
 
 </section>
@@ -1192,13 +1307,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro/notebooks-in-vscode.html" class="pagination-link" aria-label="Working with notebooks in VScode">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></span>
+      <a href="../python/getting_started.html" class="pagination-link" aria-label="Getting started">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../ai/about-microsoft-copilot.html" class="pagination-link" aria-label="About Microsoft Copilot">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">About Microsoft Copilot</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ai/meet-ai.html" class="pagination-link" aria-label="Meet the assistant">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
