@@ -21,10 +21,6 @@ project:
 
 book:
   title: "Instructing Machines"
-  # title: "<br>"
-  # subtitle: "AU course: Bioinformatik - 2025"
-  # description: 'A course in bioinformatics and programming'
-  # author: "Kasper Munch"
   sidebar:
     title: "Home"
     collapse-level: 2
@@ -32,21 +28,28 @@ book:
     lightbox: true     
     downloads: [pdf]
   chapters:
-    - index.qmd
-    - planning/course-design.qmd
-    - planning/authorship-split.md
-    - planning/turtle-widget-and-the-ai-arc.md
-    # - planning/new_material.qmd
+    - part: "Planning"
+      chapters: 
+        - index.qmd
+        - planning/course-design.qmd
+        - planning/authorship-split.md
+        - planning/turtle-widget-and-the-ai-arc.md
+        - planning/widgets-in-the-python-notes.md
     - part: "Week 1"
       chapters: 
-        - python/getting_started.ipynb
+        - intro/course-introduction.qmd
+
         - ai/machine-insides.qmd
-        - ai/insides.md
         - ai/instruction.md
+        - ai/insides.md
+
+        - python/getting_started.ipynb
+        - intro/notebooks-in-vscode.ipynb
+        
         - ai/meet-ai.qmd
         - ai/about-microsoft-copilot.qmd
-        # - python/interfaces.ipynb
         - python/hello-world.ipynb
+        - intro/script-vs-notebook.ipynb
         - python/values-operators-logic.ipynb
         - python/precedence-steps.ipynb
         - python/course_tools.ipynb
@@ -101,12 +104,14 @@ book:
         - ai/directing-a-resource.qmd
         - projects/codonbias-project.qmd
         - python/modules.ipynb
+        # - new/packages.ipynb
         - ai/documentation-and-resources.qmd
+        # - new/biopython.ipynb
     - part: "Week 10"
       chapters: 
         - ai/plan-before-you-prompt.md
         - projects/hiv-project.qmd
-        - python/recursion.ipynb
+        # - python/recursion.ipynb
         - python/decomposition.qmd
     - part: "Week 11"
       chapters: 
@@ -127,23 +132,9 @@ book:
       chapters: 
         - ai/surviving-ai.md
         - ai/the-ai-off-test.qmd
-
-
-
-
-
-        # - new/packages.ipynb
-        # - new/biopython.ipynb
-
-        # - projects/curration-project.qmd
-
-
-
-
-       # - python/general_exercises.ipynb
-
-
-#    - python/references.ipynb
+    - part: "Cheatsheets"
+      chapters: 
+        - intro/widget-reference.ipynb
 
 # bibliography: references.bib
 

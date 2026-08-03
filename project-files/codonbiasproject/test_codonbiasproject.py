@@ -1,13 +1,5 @@
-"""Tests for the codon-bias project (ported to pytest).
-
-Every test receives ``sol`` — your solution module — and uses the ``requires``
-marker so an unwritten function is reported as "not defined" instead of crashing.
-
-Frequencies are floats, so nested dict/list structures are compared element-wise
-with ``pytest.approx(..., abs=1e-4)`` via the ``approx_equal`` helper below.
-"""
-import pytest
-
+from pytest import approx
+from im_pytest import requires
 
 def approx_equal(actual, expected):
     """Recursively compare structures, using approx for floats."""
@@ -45,40 +37,40 @@ CODON_MAP = {
 ZERO_COUNTS = {codon: 0 for codon in CODON_MAP}
 
 
-@pytest.mark.requires("codon_map")
-def test_codon_map_defined(sol):
-    assert hasattr(sol, "codon_map")
+@requires("codon_map")
+def test_codon_map_defined(module):
+    assert hasattr(module, "codon_map")
 
 
-@pytest.mark.requires("codon_map")
-def test_codon_map_unchanged(sol):
-    assert sol.codon_map == CODON_MAP
+@requires("codon_map")
+def test_codon_map_unchanged(module):
+    assert module.codon_map == CODON_MAP
 
 
-@pytest.mark.requires("split_codons")
-def test_split_codons(sol):
-    assert sol.split_codons("AAATTTCCCGGG") == ["AAA", "TTT", "CCC", "GGG"]
-    assert sol.split_codons("NNNNNNNNNNNN") == ["NNN", "NNN", "NNN", "NNN"]
-    assert sol.split_codons("ATG") == ["ATG"]
-    assert sol.split_codons("") == []
+@requires("split_codons")
+def test_split_codons(module):
+    assert module.split_codons("AAATTTCCCGGG") == ["AAA", "TTT", "CCC", "GGG"]
+    assert module.split_codons("NNNNNNNNNNNN") == ["NNN", "NNN", "NNN", "NNN"]
+    assert module.split_codons("ATG") == ["ATG"]
+    assert module.split_codons("") == []
 
 
-@pytest.mark.requires("count_codons")
-def test_count_codons(sol):
+@requires("count_codons")
+def test_count_codons(module):
     expected1 = dict(ZERO_COUNTS)
     expected1["ATG"] = 1
     expected1["TGA"] = 1
-    approx_equal(sol.count_codons("ATGTGA"), expected1)
+    approx_equal(module.count_codons("ATGTGA"), expected1)
 
     expected2 = dict(ZERO_COUNTS)
     expected2["ATG"] = 1
     expected2["TCC"] = 4
     expected2["TGA"] = 1
-    approx_equal(sol.count_codons("ATGTCCTCCTCCTCCTGA"), expected2)
+    approx_equal(module.count_codons("ATGTCCTCCTCCTCCTGA"), expected2)
 
 
-@pytest.mark.requires("group_counts_by_amino_acid")
-def test_group_counts_by_amino_acid(sol):
+@requires("group_counts_by_amino_acid")
+def test_group_counts_by_amino_acid(module):
     input1 = dict(ZERO_COUNTS)
     input1["ATG"] = 1
     input1["TGA"] = 1
@@ -105,7 +97,7 @@ def test_group_counts_by_amino_acid(sol):
         'V': {'GTA': 0, 'GTC': 0, 'GTT': 0, 'GTG': 0},
         'Y': {'TAT': 0, 'TAC': 0},
     }
-    approx_equal(sol.group_counts_by_amino_acid(input1), expected1)
+    approx_equal(module.group_counts_by_amino_acid(input1), expected1)
 
     input2 = dict(ZERO_COUNTS)
     input2["ATG"] = 1
@@ -134,20 +126,20 @@ def test_group_counts_by_amino_acid(sol):
         'V': {'GTA': 0, 'GTC': 0, 'GTT': 0, 'GTG': 0},
         'Y': {'TAT': 0, 'TAC': 0},
     }
-    approx_equal(sol.group_counts_by_amino_acid(input2), expected2)
+    approx_equal(module.group_counts_by_amino_acid(input2), expected2)
 
 
-@pytest.mark.requires("normalize_counts")
-def test_normalize_counts(sol):
+@requires("normalize_counts")
+def test_normalize_counts(module):
     approx_equal(
-        sol.normalize_counts({'ATT': 8, 'ATC': 10, 'ATA': 2}),
+        module.normalize_counts({'ATT': 8, 'ATC': 10, 'ATA': 2}),
         {'ATC': 0.5, 'ATA': 0.1, 'ATT': 0.4},
     )
-    assert sol.normalize_counts({'ATT': 0, 'ATC': 0, 'ATA': 0}) is None
+    assert module.normalize_counts({'ATT': 0, 'ATC': 0, 'ATA': 0}) is None
 
 
-@pytest.mark.requires("normalize_grouped_counts")
-def test_normalize_grouped_counts(sol):
+@requires("normalize_grouped_counts")
+def test_normalize_grouped_counts(module):
     base = {
         'A': {'GCA': 0, 'GCC': 0, 'GCT': 0, 'GCG': 0},
         'C': {'TGC': 0, 'TGT': 0},
@@ -182,7 +174,7 @@ def test_normalize_grouped_counts(sol):
         '*': {'TAA': 0.0, 'TGA': 1.0, 'TAG': 0.0},
         'M': {'ATG': 1.0},
     }
-    approx_equal(sol.normalize_grouped_counts(input1), expected1)
+    approx_equal(module.normalize_grouped_counts(input1), expected1)
 
     input2 = with_serine({'TCT': 0, 'AGC': 0, 'TCG': 7, 'AGT': 0, 'TCC': 0, 'TCA': 0})
     expected2 = {
@@ -190,7 +182,7 @@ def test_normalize_grouped_counts(sol):
         '*': {'TAA': 0.0, 'TGA': 1.0, 'TAG': 0.0},
         'M': {'ATG': 1.0},
     }
-    approx_equal(sol.normalize_grouped_counts(input2), expected2)
+    approx_equal(module.normalize_grouped_counts(input2), expected2)
 
     input3 = with_serine({'TCT': 7, 'AGC': 0, 'TCG': 7, 'AGT': 0, 'TCC': 0, 'TCA': 0})
     expected3 = {
@@ -198,17 +190,17 @@ def test_normalize_grouped_counts(sol):
         '*': {'TAA': 0.0, 'TGA': 1.0, 'TAG': 0.0},
         'M': {'ATG': 1.0},
     }
-    approx_equal(sol.normalize_grouped_counts(input3), expected3)
+    approx_equal(module.normalize_grouped_counts(input3), expected3)
 
 
-@pytest.mark.requires("codon_usage")
-def test_codon_usage(sol):
+@requires("codon_usage")
+def test_codon_usage(module):
     approx_equal(
-        sol.codon_usage("ATGTGA"),
+        module.codon_usage("ATGTGA"),
         {'M': {'ATG': 1.0}, '*': {'TAA': 0.0, 'TAG': 0.0, 'TGA': 1.0}},
     )
     approx_equal(
-        sol.codon_usage("ATGTGCGATCCAAAATTACCGCTTTTATTACTCTGA"),
+        module.codon_usage("ATGTGCGATCCAAAATTACCGCTTTTATTACTCTGA"),
         {'P': {'CCG': 0.5, 'CCT': 0.0, 'CCA': 0.5, 'CCC': 0.0},
          'D': {'GAT': 1.0, 'GAC': 0.0},
          'L': {'CTC': 0.2, 'TTG': 0.0, 'CTT': 0.2, 'CTG': 0.0, 'TTA': 0.6, 'CTA': 0.0},

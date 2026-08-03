@@ -3,6 +3,9 @@ title: "Phase-type distribution graphs for population genetics"
 data: today
 author: "Kasper Munch"
 institute: BiRC, Department of Molecular Biology and Genetics, Aarhus University
+execute:
+  echo: true
+jupyter: python3
 format:
   revealjs: 
     logo: images/au_segl.svg
@@ -26,47 +29,248 @@ format:
     # # height: 590 # "wide"
     # width: 1244 # "wide"
     # height:	700 # "wide"
+syntax-highlighting: ../numpy.theme
 ---
 
 ```{=html}
 <!--
 # ARROWS: 
-↑ ↓ ← → ↔ ↕
-← → ↔ ↑ ↓ • ↕ • ↖ ↗ ↘ ↙ • ⤡ ⤢
-⬅ ( ⮕ ➡ ) ⬆ ⬇ • ⬌ ⬍ • ⬉ ⬈ ⬊ ⬋
-⇦ ⇨ ⇧ ⇩ • ⬁ ⬀ ⬂ ⬃ • ⬄ ⇳
-➛ ➜ ➔ ➝ ➞ ➟ ➠ ➧ ➨
-⭠ ⭢ ⭤ ⭡ ⭣ ⭥ 
+↑ ↓ ← → ↔ ↕ ← → ↔ ↑ ↓ • ↕ • ↖ ↗ ↘ ↙ • ⤡ ⤢ ⬅ ( ⮕ ➡ ) ⬆ ⬇ • ⬌ ⬍ • ⬉ ⬈ ⬊ ⬋ 
+⇦ ⇨ ⇧ ⇩ • ⬁ ⬀ ⬂ ⬃ • ⬄ ⇳ ➛ ➜ ➔ ➝ ➞ ➟ ➠ ➧ ➨ ⭠ ⭢ ⭤ ⭡ ⭣ ⭥ 
 -->
 ```
-
-<!-- =============================================================================== -->
-<!-- =============================================================================== -->
-# Week 1
-<!-- =============================================================================== -->
-<!-- =============================================================================== -->
-
 
 <!-- Red text: -->
 <!-- [important note]{.alert} -->
 
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+# DEMO
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+
+
+## Normal font
+
+:::  {.code}
+```{.python}
+def chorus():
+    line1 = "La la dim du da da di"
+    line2 = "Skubi dubi dumdi di"
+    return line1 + '\n' + line2 
+
+print("Functions are super, Functions are cool")
+print("When writing a program they are a great tool")
+print( chorus() )
+
+print("Functions are useful to wrap up some code")
+print("They are not so strange that your head will explode")
+print( chorus() )
+```
+:::
 
 <!-- =============================================================================== -->
+
+## Big font
+
+:::  {.code-big}
+```{.python}
+def chorus():
+    line1 = "La la dim du da da di"
+    line2 = "Skubi dubi dumdi di"
+    return line1 + '\n' + line2 
+```
+:::
+
 <!-- =============================================================================== -->
-# Week 2
+
+## Small font
+
+:::  {.code-small}
+```{.python}
+def chorus():
+    line1 = "La la dim du da da di"
+    line2 = "Skubi dubi dumdi di"
+    return line1 + '\n' + line2 
+
+print("Functions are super, Functions are cool")
+print("When writing a program they are a great tool")
+print( chorus() )
+
+print("Functions are useful to wrap up some code")
+print("They are not so strange that your head will explode")
+print( chorus() )
+
+print("Functions are useful to wrap up some code")
+print("They are not so strange that your head will explode")
+print( chorus() )
+```
+:::
+
 <!-- =============================================================================== -->
+
+## Hide line numbers
+:::  {.code}
+```{.python code-line-numbers=false}
+def chorus():
+    line1 = "La la dim du da da di"
+    line2 = "Skubi dubi dumdi di"
+    return line1 + '\n' + line2 
+```
+:::    
+
+<!-- =============================================================================== -->
+
+
+## Animated {auto-animate="true"}
+
+:::  {.code}
+```{.python}
+def chorus():
+    line1 = "La la dim du da da di"
+
+    return line1 + '\n' + line2 
+
+print("Functions are super, Functions are cool")
+print("When writing a program they are a great tool")
+print( chorus() )
+```
+:::
+
+## Animated {auto-animate="true"}
+
+:::  {.code}
+```{.python}
+def chorus():
+    line1 = "La la dim du da da di"
+    line2 = "Skubi dubi dumdi di"
+    return line1 + '\n' + line2 
+
+print("Functions are super, Functions are cool")
+print("When writing a program they are a great tool")
+print( chorus() )
+
+print("Functions are useful to wrap up some code")
+print("They are not so strange that your head will explode")
+print( chorus() )
+```
+:::
+
+
+<!-- =============================================================================== -->
+
+## Slide 2
+
+
+```{.python}
+#| code-line-numbers: "1|2|3|4|8|9"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+
 <!-- =============================================================================== -->
 
 ## Slide
 
+## {auto-animate="true"}
 
-<!-- =============================================================================== -->
-<!-- =============================================================================== -->
-# Other Research...
-<!-- =============================================================================== -->
-<!-- =============================================================================== -->
+```r
+# Fill in the spot we created for a plot
+output$phonePlot <- renderPlot({
+  # Render a barplot
+})
+```
 
-## Three connected topics
+## {auto-animate=true}
+
+```r
+# Fill in the spot we created for a plot
+output$phonePlot <- renderPlot({
+  # Render a barplot
+  barplot(WorldPhones[,input$region]*1000, 
+          main=input$region,
+          ylab="Number of Telephones",
+          xlab="Year")
+})
+```
+
+## Executed code
+
+```{python}
+import script_widget
+```
+
+## Script widget
+
+```{python}
+#| echo: false
+import script_widget
+```
+
+```{python}
+%%sandbox
+print('hello world')
+```
+
+## Puzzle widget
+
+```{python}
+#| echo: false
+import puzzle_widget
+```
+
+```{python}
+%%puzzle 'hello world'
+s = 'hello'
+s = s + 'world' 
+s = s + ' '
+s
+```
+
+
+## Codelens widget
+
+```{python}
+#| echo: false
+import codelens_widget
+```
+
+```{python}
+%%codelens 
+s = 'hello'
+s = s + ' '
+s = s + 'world' 
+s
+```
+
+
+## Steps widget
+
+```{python}
+#| echo: false
+import steps_widget
+```
+
+```{python}
+%%steps 
+s = 'hello'
+s = s + ' '
+s = s + 'world' # PRINT STEPS
+s
+```
+
+
+## Absolute positions
 
 ::: {.absolute top="15%" left="10%" width="50%"}
 ![](images/x-y-auto-armsrace.png)
@@ -78,67 +282,14 @@ format:
 ![](images/drive-and-autism.png)
 :::
 
-## Baboons 
 
-<!-- ::: {.absolute top="10%" left="10%" width="40%"}
-![](images/cell-genomics-graphical-abstract.png)
-::: -->
-<!-- ::: {.absolute top="10%" left="30%" width="40%"}
-![](images/science-online-figure.png)
-::: -->
-::: {.absolute top="10%" left="15%" width="80%"}
-![](images/fig1-eriks-paper.png)
-:::
-
-## chrX and genomic "swampings"
-
-::: {.absolute top="10%" left="15%" width="80%"}
-![](images/baboon-lai-chrX-chr8.png)
-:::
-
-## Spermatogenesis scRNA
-
-::: {.absolute top="25%" left="10%" width="40%"}
-![](images/scRNA-spermatogenesis.png)
-Mikkel Schierup
-:::
-::: {.absolute top="20%" left="50%" width="40%"}
-![](images/CFAP47-trajectory.png)
-Meritxell Riera Belles
-:::
-
-## Sperm chromatin compartments
-
-::: {.absolute top="10%" left="10%" width="80%"}
-![](images/sperm-a-b-compartments.png)
-:::
-::: {.absolute top="45%" left="15%" width="70%"}
-![](images/sperm-A-B-cDEG-ideogram.png)
-:::
-
-## Large Danish Autism cohorts
-
+## Stretch to fit
 
 ![](images/ipsych.png){.r-stretch}
 
-## Three way overlap
-
-::: {.absolute top="10%" left="30%" width="40%"}
-![](images/three-way-venn.png)
-(CDKL5, CLCN4, HUWE1, IL1RAPL1, PTCHD1)
-:::
-
-
 
 <!-- =============================================================================== -->
-<!-- =============================================================================== -->
-# Menu
-<!-- =============================================================================== -->
-<!-- =============================================================================== -->
-
-
-<!-- =============================================================================== -->
-## Why?
+## Items
 
 - Motivations:
   - Exploration of statistical properties.
@@ -148,7 +299,7 @@ Meritxell Riera Belles
   - Bayesian inference with true posterior.
 
 <!-- =============================================================================== -->
-## What?
+## Columns and spacers
 
 ::::: {layout="[0.55,-0.05,0.4]"}
 
@@ -162,11 +313,8 @@ Meritxell Riera Belles
 - **Exact**:
   - Takes phase-type distributions from theory to practice.
   - Continuous and discrete
-  - Moments and PMFs
-  - Sojourn times.
-  - Joint probability distribution over discrete events
 
-::: spacer-1
+::: spacer-2
 :::
 
 - **Arb. approx.**:
@@ -179,45 +327,19 @@ Meritxell Riera Belles
 - **Time inhomogeneous models**:
   - Joint probabilities at time t.
   - Moment matched distributions
-  - (full PDF)
 
-::: spacer-1
+::: spacer-3
 :::
 
 - **Inference**:
   - SVGD
   - Method of moments
-  - MCMC
 
 :::
 :::::
 
 <!-- =============================================================================== -->
-## Code
-
-```{.python code-line-numbers="1-3|4,6|7"}
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-<!-- =============================================================================== -->
-## Docs
-
-::: {.absolute top="10%" left=0 width="100%"}
-![](images/phasic-docs.png)
-
-:::
-
-<!-- =============================================================================== -->
-## The coalescent is a **Markov jump process**
+## Stacking images
 
 :::: {.absolute top="25%"}
 ::: r-stack
@@ -234,61 +356,15 @@ plt.show()
 
 
 <!-- =============================================================================== -->
-## Phase-type distribution with **rewards**
-
-::::::: {layout="[[-0.1,0.45,-0.05,0.4], [-0.1,0.45,-0.05,0.4]]"}
-::: column
-![](./images/coalescent-unit-rewards.svg)
-:::
-
-::: {.column }
-**TMRCA (tree height):**
-
-${\color{red} \boldsymbol{r}} = (1,\ 1,\ 1,\ 1)$
-
-$\mathbb{E}[\tau] = \boldsymbol{\alpha} \boldsymbol{U}\!\, \triangle \! \,({\color{red}\boldsymbol{r}})\, \mathbf{e}$
-:::
-
-::: {.column }
-![](./images/coalescent-tot-brlen-rewards.svg)
-:::
-
-::: {.column }
-**Total branch length:**
-
-${\color{red} \boldsymbol{r}} = (4,\ 3,\ 2,\ 2)$
-
-$\mathbb{E}[\tau] = \boldsymbol{\alpha} \boldsymbol{U}\!\, \triangle \! \,({\color{red}\boldsymbol{r}})\, \mathbf{e}$
-:::
-:::::::
-
 <!-- =============================================================================== -->
-## **Graph** formulation
+# Week 1
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
 
-::: {.absolute top="15%" left="50%" width="60%"}
-![](./images/sparse-matrix-as-graph.png){.nostretch width="100%"}
-:::
+## Hello world
 
-::: spacer-1
-:::
+```{.python}
+print('hello world')
+```
 
-:::: {layout="[[0.45,-0.05,0.45], [0.45,-0.05,0.45]]"}
-:::: column
-**Analytically tractable** 😀 
 
-::: spacer-1
-:::
-
-- As graph algorithms:
-  - Elimination
-  - Exponentiation
-
-- Allows:
-  - Decomposition
-  - Parallelization
-  - Parametrization
-  - Caching
-  - Sharing
-  - Inference
-
-::::

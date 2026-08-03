@@ -1,10 +1,5 @@
-"""Tests for the ORF-finding project (ported to pytest).
-
-Every test receives ``sol`` — your solution module — and uses the ``requires``
-marker so an unwritten function is reported as "not defined" instead of crashing.
-Values are taken verbatim from the original unittest suite.
-"""
-import pytest
+from pytest import approx
+from im_pytest import requires
 
 CODON_MAP = {
     'TTT': 'F', 'TTC': 'F', 'TTA': 'L', 'TTG': 'L', 'TCT': 'S', 'TCC': 'S',
@@ -27,92 +22,92 @@ GENOME_FILE = "e_coli_O157_H157_str_Sakai.fasta"
 # Part 1: finding open reading frames
 # --------------------------------------------------------------------------- #
 
-@pytest.mark.requires("find_start_positions")
-def test_find_start_positions(sol):
-    assert isinstance(sol.find_start_positions("AATGA"), list)
-    assert isinstance(sol.find_start_positions(""), list)
-    assert sol.find_start_positions("AATGAATGTATG") == [1, 5, 9]
-    assert sol.find_start_positions("ATGATGATG") == [0, 3, 6]
+@requires("find_start_positions")
+def test_find_start_positions(module):
+    assert isinstance(module.find_start_positions("AATGA"), list)
+    assert isinstance(module.find_start_positions(""), list)
+    assert module.find_start_positions("AATGAATGTATG") == [1, 5, 9]
+    assert module.find_start_positions("ATGATGATG") == [0, 3, 6]
 
 
-@pytest.mark.requires("find_next_codon")
-def test_find_next_codon(sol):
-    assert sol.find_next_codon("AATTTATTT", 0, "TTT") == 6
-    assert sol.find_next_codon("AATTTATTT", 2, "TTT") == 2
-    assert sol.find_next_codon("AATTTATTT", 1, "TTT") is None
+@requires("find_next_codon")
+def test_find_next_codon(module):
+    assert module.find_next_codon("AATTTATTT", 0, "TTT") == 6
+    assert module.find_next_codon("AATTTATTT", 2, "TTT") == 2
+    assert module.find_next_codon("AATTTATTT", 1, "TTT") is None
 
 
-@pytest.mark.requires("find_next_stop_codon")
-def test_find_next_stop_codon(sol):
-    assert sol.find_next_stop_codon("AAATGAATG", 0) == 3
-    assert sol.find_next_stop_codon("TAGTGAATG", 0) == 0
-    assert sol.find_next_stop_codon("ATGAATAG", 2) == 5
-    assert sol.find_next_stop_codon("ATGAAATAG", 2) is None
+@requires("find_next_stop_codon")
+def test_find_next_stop_codon(module):
+    assert module.find_next_stop_codon("AAATGAATG", 0) == 3
+    assert module.find_next_stop_codon("TAGTGAATG", 0) == 0
+    assert module.find_next_stop_codon("ATGAATAG", 2) == 5
+    assert module.find_next_stop_codon("ATGAAATAG", 2) is None
 
 
-@pytest.mark.requires("find_orfs")
-def test_find_orfs(sol):
-    assert sol.find_orfs("ATGAAATAGAAATGAAATAGTAA") == [[0, 6], [11, 17]]
-    assert sol.find_orfs("ATGAATGAAATAGAATGAAA") == [[0, 15], [4, 10]]
-    assert sol.find_orfs("AAATGAAAAAAAAAA") == []
+@requires("find_orfs")
+def test_find_orfs(module):
+    assert module.find_orfs("ATGAAATAGAAATGAAATAGTAA") == [[0, 6], [11, 17]]
+    assert module.find_orfs("ATGAATGAAATAGAATGAAA") == [[0, 15], [4, 10]]
+    assert module.find_orfs("AAATGAAAAAAAAAA") == []
 
 
 # --------------------------------------------------------------------------- #
 # Part 2: translation (reused from the translation project)
 # --------------------------------------------------------------------------- #
 
-@pytest.mark.requires("codon_map")
-def test_codon_map(sol):
-    assert sol.codon_map == CODON_MAP
+@requires("codon_map")
+def test_codon_map(module):
+    assert module.codon_map == CODON_MAP
 
 
-@pytest.mark.requires("translate_codon")
-def test_translate_codon(sol):
-    assert sol.translate_codon("ATG") == "M"
-    assert sol.translate_codon("TAA") == "*"
-    assert sol.translate_codon("NNN") == "?"
-    assert sol.translate_codon("ACG") == "T"
+@requires("translate_codon")
+def test_translate_codon(module):
+    assert module.translate_codon("ATG") == "M"
+    assert module.translate_codon("TAA") == "*"
+    assert module.translate_codon("NNN") == "?"
+    assert module.translate_codon("ACG") == "T"
 
 
-@pytest.mark.requires("split_codons")
-def test_split_codons(sol):
-    assert sol.split_codons("AAATTTCCCGGG") == ["AAA", "TTT", "CCC", "GGG"]
-    assert sol.split_codons("NNNNNNNNNNNN") == ["NNN", "NNN", "NNN", "NNN"]
-    assert sol.split_codons("ATG") == ["ATG"]
-    assert sol.split_codons("") == []
+@requires("split_codons")
+def test_split_codons(module):
+    assert module.split_codons("AAATTTCCCGGG") == ["AAA", "TTT", "CCC", "GGG"]
+    assert module.split_codons("NNNNNNNNNNNN") == ["NNN", "NNN", "NNN", "NNN"]
+    assert module.split_codons("ATG") == ["ATG"]
+    assert module.split_codons("") == []
 
 
-@pytest.mark.requires("translate_orf")
-def test_translate_orf(sol):
-    assert sol.translate_orf("ATGCCCATGTGA") == "MPM*"
-    assert sol.translate_orf("ATGATNATGTGA") == "M?M*"
-    assert sol.translate_orf("ATGTGA") == "M*"
-    assert sol.translate_orf("") == ""
+@requires("translate_orf")
+def test_translate_orf(module):
+    assert module.translate_orf("ATGCCCATGTGA") == "MPM*"
+    assert module.translate_orf("ATGATNATGTGA") == "M?M*"
+    assert module.translate_orf("ATGTGA") == "M*"
+    assert module.translate_orf("") == ""
 
 
 # --------------------------------------------------------------------------- #
 # Part 3: putting everything together (uses the genome FASTA file)
 # --------------------------------------------------------------------------- #
 
-@pytest.mark.requires("read_genome")
-def test_read_genome(sol):
-    genome = sol.read_genome(GENOME_FILE)
+@requires("read_genome")
+def test_read_genome(module):
+    genome = module.read_genome(GENOME_FILE)
     assert genome.endswith("CGCCTTAGTAAGTATTTTTC")
 
 
-@pytest.mark.requires("find_candidate_proteins")
-def test_find_candidate_proteins_small(sol):
-    assert sol.find_candidate_proteins("AAAATGATGTAGAAAATGATGTAGAAA") == [
+@requires("find_candidate_proteins")
+def test_find_candidate_proteins_small(module):
+    assert module.find_candidate_proteins("AAAATGATGTAGAAAATGATGTAGAAA") == [
         "MM*", "M*", "MM*", "M*",
     ]
 
 
-@pytest.mark.requires("find_candidate_proteins", "read_genome")
-def test_find_candidate_proteins_genome(sol):
-    genome = sol.read_genome(GENOME_FILE)
+@requires("find_candidate_proteins", "read_genome")
+def test_find_candidate_proteins_genome(module):
+    genome = module.read_genome(GENOME_FILE)
     predicted_first_1k = [
         "MSLCGLKKESLTAASELVTCRE*", "MKRISTTITTTITTTITITITTGNGAG*",
         "MQNVFCGLPIFWKAMPGRGRWPPSSLPPPKSPTTWWR*", "MPGRGRWPPSSLPPPKSPTTWWR*",
         "MLYPISAMPNVFLPNF*", "MPNVFLPNF*", "MSCMALVC*", "MALVC*",
     ]
-    assert sol.find_candidate_proteins(genome[:1000]) == predicted_first_1k
+    assert module.find_candidate_proteins(genome[:1000]) == predicted_first_1k
