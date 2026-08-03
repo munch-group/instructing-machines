@@ -21,16 +21,14 @@ syntax-highlighting: ../numpy.theme
 
 ```{=html}
 <!--
-ARROWS: ← ↑ → ↓ ↔ ↕ ⇐ ⇑ ⇒ ⇓ ⇔ ⇕ ⟵ ⟶ ⟷
-Red text: [important note]{.alert}
+# ARROWS:
+↑ ↓ ← → ↔ ↕ ← → ↔ ↑ ↓ • ↕ • ↖ ↗ ↘ ↙ • ⤡ ⤢ ⬅ ( ⮕ ➡ ) ⬆ ⬇ • ⬌ ⬍ • ⬉ ⬈ ⬊ ⬋
+⇦ ⇨ ⇧ ⇩ • ⬁ ⬀ ⬂ ⬃ • ⬄ ⇳ ➛ ➜ ➔ ➝ ➞ ➟ ➠ ➧ ➨ ⭠ ⭢ ⭤ ⭡ ⭣ ⭥
 -->
 ```
 
-```{python}
-#| echo: false
-import script_widget
-import steps_widget
-```
+<!-- Red text: -->
+<!-- [important note]{.alert} -->
 
 <!-- =============================================================================== -->
 ## Workflow
@@ -44,8 +42,8 @@ import steps_widget
 VScode
 :::
 
-::: {.absolute top="45%" left="48%" width="6%"}
-[⟶]{.bigass}
+::: {.absolute top="44%" left="48%" width="6%"}
+[⭢]{.bigass}
 :::
 
 ::: {.absolute top="14%" left="55%" width="43%"}
@@ -65,10 +63,11 @@ Windows PowerShell / Terminal
 ## The smallest program
 <!-- =============================================================================== -->
 
-```{python}
-%%sandbox
+:::  {.code}
+```{.python}
 print("Hello world")
 ```
+:::
 
 
 <!-- =============================================================================== -->
@@ -102,12 +101,13 @@ print("Hello world")
 ## A program is a series of statements
 <!-- =============================================================================== -->
 
-```{python}
-%%sandbox
+:::  {.code}
+```{.python}
 print("Here we go")
 print("still at it")
 print("ok, that was it")
 ```
+:::
 
 
 <!-- =============================================================================== -->
@@ -115,8 +115,7 @@ print("ok, that was it")
 <!-- =============================================================================== -->
 
 :::  {.code}
-```{.python}
-#| code-line-numbers: "1|2|3"
+```{.python code-line-numbers="1|2|3"}
 print("Here we go")
 print("still at it")
 print("ok, that was it")
@@ -129,7 +128,7 @@ print("ok, that was it")
 <!-- =============================================================================== -->
 
 :::  {.code}
-```{.python}
+```{.python code-line-numbers="|2"}
 print("Here we go")
 # print("still at it")
 print("ok, that was it")
@@ -141,12 +140,13 @@ print("ok, that was it")
 ## `#` ignored code
 <!-- =============================================================================== -->
 
-```{python}
-%%sandbox
+:::  {.code}
+```{.python code-line-numbers="|1|2|3"}
 print("Here #we go")
 print("still at it") #
 pri#nt("ok, that was it")
 ```
+:::
 
 
 <!-- =============================================================================== -->
@@ -166,30 +166,13 @@ you think it does :-)]{.alert}
 ## Three errors
 <!-- =============================================================================== -->
 
-::::: {layout="[0.45,-0.05,0.5]"}
-
-::: column
-:::  {.code-small}
-```{.python}
+:::  {.code}
+```{.python code-line-numbers="|1|2|3"}
 print( , "Hello")
-```
-```{.python}
 prit("Hello")
-```
-```{.python}
 print "Hello"
 ```
 :::
-:::
-
-::: column
-```{python}
-%%sandbox
-print( , "Hello")
-```
-:::
-
-:::::
 
 
 <!-- =============================================================================== -->
@@ -213,8 +196,8 @@ print(3 + 2 * 4 + 9)
 ::::: {layout="[0.45,-0.05,0.5]"}
 
 ::: column
-|     |                |
-|-----|----------------|
+|      |               |
+|------|---------------|
 | `+`  | plus          |
 | `-`  | minus         |
 | `*`  | times         |
@@ -250,7 +233,7 @@ print(3 + 2 * 4 + 9)
 ### (a piece of code that reduces to a value)
 
 :::  {.code}
-```{.python}
+```{.python code-line-numbers=false}
 3 + 2 * 4 + 9
 ```
 :::
@@ -260,7 +243,7 @@ print(3 + 2 * 4 + 9)
 ### (a piece of code that reduces to a value)
 
 :::  {.code}
-```{.python}
+```{.python code-line-numbers=false}
 3 + 8 + 9
 ```
 :::
@@ -270,33 +253,39 @@ print(3 + 2 * 4 + 9)
 ### (a piece of code that reduces to a value)
 
 :::  {.code}
-```{.python}
+```{.python code-line-numbers=false}
 20
 ```
 :::
 
 
 <!-- =============================================================================== -->
-## Expressions
+## Expressions {auto-animate="true"}
 <!-- =============================================================================== -->
 
 :::  {.code}
-```{.python}
+```{.python code-line-numbers=false}
 print(3 + 2 * 4 + 9)
 ```
 :::
 
-What happens if we leave out the `print`?
+## Expressions {auto-animate="true"}
 
-
-<!-- =============================================================================== -->
-## Watch it reduce
-<!-- =============================================================================== -->
-
-```{python}
-%%steps
-print(3 + 2 * 4 + 9) # PRINT STEPS
+:::  {.code}
+```{.python code-line-numbers=false}
+print(3 + 8 + 9)
 ```
+:::
+
+## Expressions {auto-animate="true"}
+
+:::  {.code}
+```{.python code-line-numbers=false}
+print(20)
+```
+:::
+
+What happens if we leave out the `print`?
 
 
 <!-- =============================================================================== -->
@@ -308,7 +297,7 @@ print(3 + 2 * 4 + 9) # PRINT STEPS
 ## Variables are names
 
 :::  {.code}
-```{.python}
+```{.python code-line-numbers=false}
 n = 17
 pi = 3.1415
 message = "What's up doc?"
@@ -331,7 +320,7 @@ message = "What's up doc?"
 
 ::: column
 :::  {.code-small}
-```{.python}
+```{.python code-line-numbers="|1|2"}
 bruce = 5
 bruce = 7
 ```
@@ -350,7 +339,7 @@ bruce = 7
 <!-- =============================================================================== -->
 
 :::  {.code-small}
-```{.python}
+```{.python code-line-numbers=false}
 x = 2
 y = 9
 print(3 + x * 4 + y)
@@ -360,76 +349,73 @@ print(3 + x * 4 + y)
 ## Expressions with variables {auto-animate="true"}
 
 :::  {.code-small}
-```{.python}
-3 + 2 * 4 + y
-```
-:::
-
-[Substitution]{.fg style="--col: green"}
-
-## Expressions with variables {auto-animate="true"}
-
-:::  {.code-small}
-```{.python}
-3 + 8 + y
-```
-:::
-
-[Reduction]{.alert}
-
-## Expressions with variables {auto-animate="true"}
-
-:::  {.code-small}
-```{.python}
-3 + 8 + 9
-```
-:::
-
-[Substitution]{.fg style="--col: green"}
-
-## Expressions with variables {auto-animate="true"}
-
-:::  {.code-small}
-```{.python}
-20
-```
-:::
-
-[Reduction]{.alert}
-
-
-<!-- =============================================================================== -->
-## Now let the machine do it
-<!-- =============================================================================== -->
-
-```{python}
-%%steps
+```{.python code-line-numbers=false}
 x = 2
 y = 9
-print(3 + x * 4 + y) # PRINT STEPS
+print(3 + 2 * 4 + y)
 ```
+:::
+
+[Substitution]{.fg style="--col: #2e8b57"}
+
+## Expressions with variables {auto-animate="true"}
+
+:::  {.code-small}
+```{.python code-line-numbers=false}
+x = 2
+y = 9
+print(3 + 8 + y)
+```
+:::
+
+[Reduction]{.alert}
+
+## Expressions with variables {auto-animate="true"}
+
+:::  {.code-small}
+```{.python code-line-numbers=false}
+x = 2
+y = 9
+print(3 + 8 + 9)
+```
+:::
+
+[Substitution]{.fg style="--col: #2e8b57"}
+
+## Expressions with variables {auto-animate="true"}
+
+:::  {.code-small}
+```{.python code-line-numbers=false}
+x = 2
+y = 9
+print(20)
+```
+:::
+
+[Reduction]{.alert}
 
 
 <!-- =============================================================================== -->
 ## Mind check
 <!-- =============================================================================== -->
 
-```{python}
-%%sandbox
+:::  {.code}
+```{.python code-line-numbers="|1|2|3|4|5"}
 a = 1
 b = a + 2
 print(b)
 a = 8
 print(b)
 ```
+:::
 
 
 <!-- =============================================================================== -->
 ## Add one to a variable {auto-animate="true"}
 <!-- =============================================================================== -->
 
-:::  {.code-small}
-```{.python}
+:::  {.code}
+```{.python code-line-numbers=false}
 x = 1
 print(x)
 x = *expression*
@@ -439,27 +425,14 @@ print(x)
 
 ## Add one to a variable {auto-animate="true"}
 
-:::  {.code-small}
-```{.python}
+:::  {.code}
+```{.python code-line-numbers=false}
 x = 1
 print(x)
 x = x + 1
 print(x)
 ```
 :::
-
-
-<!-- =============================================================================== -->
-## Add one to a variable
-<!-- =============================================================================== -->
-
-```{python}
-%%steps
-x = 1
-print(x)
-x = x + 1 # PRINT STEPS
-print(x)
-```
 
 
 <!-- =============================================================================== -->
