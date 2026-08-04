@@ -1,6 +1,10 @@
 project:
   type: book
   output-dir: _book
+  post-render:
+    # Rebuild the downloadable student folder so the zip on the website
+    # can never drift from the book that describes it.
+    - python3 ../scripts/build_student_folder.py
   # post-render:
   #   - quarto render slides/
   #   - rm -rf _book/_build/slides
@@ -38,7 +42,7 @@ book:
     - part: "Week 1"
       chapters: 
         - intro/course-introduction.qmd
-        - ai/machine-insides.qmd
+        - ai/insides.md
         - ai/instruction.md
         - python/getting_started.ipynb
         - intro/notebooks-in-vscode.ipynb
@@ -99,15 +103,14 @@ book:
         - ai/the-docs-are-the-test.qmd
         - ai/directing-a-resource.qmd
         - projects/codonbias-project.qmd
-        - python/modules.ipynb
-        # - new/packages.ipynb
+        - python/packages-modules.ipynb
         - ai/documentation-and-resources.qmd
         # - new/biopython.ipynb
     - part: "Week 10"
       chapters: 
         - ai/plan-before-you-prompt.md
         - projects/hiv-project.qmd
-        # - python/recursion.ipynb
+        - python/recursion.ipynb
         - python/decomposition.qmd
     - part: "Week 11"
       chapters: 
@@ -117,7 +120,7 @@ book:
       chapters: 
         - ai/learning-with-an-ai.qmd
         - projects/orf-project.qmd
-        - python/dataframes.qmd
+        - python/dataframes.ipynb
     - part: "Week 13"
       chapters: 
         - ai/finale-kickoff.qmd
@@ -131,6 +134,7 @@ book:
     - part: "Cheatsheets"
       chapters: 
         - intro/widget-reference.ipynb
+        - python/widget-demo.ipynb
 
 # bibliography: references.bib
 
@@ -146,8 +150,8 @@ execute:
   error: false      # false = a runtime error stops the render; true = print the traceback and continue
   freeze: auto      # cache execution; only re-run a notebook when its source changes  
 
-comments:
-  hypothesis: true
+# comments:
+#   hypothesis: true
 
 link-external-newwindow: true
 
@@ -176,10 +180,12 @@ format:
     # number-sections: false
     number-sections: true      
     code-block-bg: "#f9f9f9"
-
+    code-annotations: hover
     df-print: paged     # pandas DataFrames render as a nice paged/sortable HTML table instead of a text repr
     # code-tools: true     # adds a "</> Code" menu in the top-right to show/hide all code and view page source
     code-fold: false     # project-wide default for folding (per-cell/per-notebook can still override)
+
+  ipynb: default
 
   # pdf:
   #   documentclass: scrbook

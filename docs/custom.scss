@@ -375,6 +375,18 @@ html { font-family: 'Inter', sans-serif; }
   }
 }
 
+/* panel-tabset: the inactive tab headers default to Bootstrap's link-blue
+   (they're plain <a> tags); dim them to gray instead so only the active
+   tab's near-black text draws the eye. Bootstrap's own active-tab color is
+   left untouched. */
+.panel-tabset .nav-tabs .nav-link:not(.active) {
+  color: $gray-600;
+}
+
+.panel-tabset .nav-tabs .nav-link:not(.active):hover {
+  color: $gray-800;
+}
+
 /* callouts */
 
 .callout.callout-titled .callout-header {
@@ -632,18 +644,6 @@ pre.numberSource code > span > a:first-child::before {
 [data-bs-theme="dark"] .sourceCode .ps {
   color: #ababab;
 }
-
-
-
-// slides
-.spacer-half { height: 0.5em; }
-.spacer-1 { height: 1em; }
-.spacer-2 { height: 2em; }
-.spacer-3 { height: 3em; }
-.spacer-4 { height: 4em; }
-.spacer-5 { height: 4em; }
-
-
 
 // div.cell-output pre {
 //   margin-top: 0px !important;

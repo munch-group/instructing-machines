@@ -206,14 +206,25 @@ code beside its diagram.
 
 ---
 
-## 6. Slide furniture
+## 6. Sections
+
+Separate slide decks for each lecture using level one headers and three comment lines:
+
+```
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+## Workflow
+<!-- =============================================================================== -->
+```
+
+## 7. Slide furniture
+
 
 Every top-level slide is bracketed by banner comments:
 
 ```
 <!-- =============================================================================== -->
 ## Slide title
-<!-- =============================================================================== -->
 ```
 
 The continuation states of an animated or repeated-heading sequence do **not**
@@ -238,7 +249,7 @@ Positioned images use `::: {.absolute top= left= width=}` with a separate
 
 ---
 
-## 7. Trimming
+## 8. Trimming
 
 The Keynote decks repeat a slide to fake a build. Where two consecutive slides
 differ only by one added line, that is an `auto-animate` pair, not two slides.

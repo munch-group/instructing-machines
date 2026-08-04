@@ -1,0 +1,68 @@
+name: Student environment check
+
+# Does the environment we hand to 100 students actually install on the machines
+# they own? This is the check that would have caught last year's Windows
+# trouble before the students did.
+#
+# It is deliberately cheap to run and safe to leave failing: it publishes
+# nothing. Until the widget conda recipes are rebuilt as `noarch: python`,
+# expect the Windows and Intel-Mac jobs to be the interesting ones.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "student-folder/**"
+      - "scripts/build_student_folder.py"
+      - ".github/workflows/student-env-check.yml"
+
+jobs:
+  install:
+    name: Install on ${{ matrix.label }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, label: Windows }
+          - { os: macos-13, label: Intel Mac }
+          - { os: macos-latest, label: Apple Silicon Mac }
+          - { os: ubuntu-latest, label: Linux }
+    steps:
+      - uses: actions/checkout@v4
+
+      # `locked: true` means the committed pixi.lock must already cover this
+      # platform. If it does not, the job fails here — which is exactly the
+      # signal we want, because a student on this platform would fail too.
+      - uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          manifest-path: student-folder/pixi.toml
+          locked: true
+
+      - name: Import every course package
+        run: pixi run --manifest-path student-folder/pixi.toml check
+
+  package:
+    name: Build the download
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Assemble the student folder
+        run: python3 scripts/build_student_folder.py --out _check
+
+      - name: Show what students will get
+        run: |
+          unzip -l _check/instructing-machines.zip
+          test -f _check/pixi.toml
+          test -f _check/pixi.lock
+
+      # Handy when something looks wrong: download the artifact and unzip it
+      # yourself instead of guessing.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: student-folder
+          path: _check/instructing-machines.zip

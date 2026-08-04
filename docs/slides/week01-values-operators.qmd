@@ -9,14 +9,18 @@ execute:
 jupyter: python3
 format:
   revealjs:
-    logo: images/au_segl.svg
+    # monofont: 'Fira Code'
+    # embed-resources: true
+    # logo: images/au_segl.svg
     # footer: "Kasper Munch"
     controls-layout: bottom-right
     slide-number: c
     classoption: fleqn
     fleqn: true
     mainfont: "Helvetica"
-syntax-highlighting: ../numpy.theme
+    syntax-highlighting: slides.theme
+    code-line-numbers: false
+    code-block-bg: false
 ---
 
 ```{=html}
@@ -26,6 +30,10 @@ syntax-highlighting: ../numpy.theme
 ⇦ ⇨ ⇧ ⇩ • ⬁ ⬀ ⬂ ⬃ • ⬄ ⇳ ➛ ➜ ➔ ➝ ➞ ➟ ➠ ➧ ➨ ⭠ ⭢ ⭤ ⭡ ⭣ ⭥
 -->
 ```
+
+# Week 1
+
+{{< include _pdf-howto.qmd >}}
 
 <!-- Red text: -->
 <!-- [important note]{.alert} -->
@@ -55,42 +63,35 @@ VScode
 :::
 
 ::: {.absolute top="82%" left="55%" width="43%"}
-Windows PowerShell / Terminal
+Windows PowerShell / Terminali
 :::
-
 
 <!-- =============================================================================== -->
 ## The smallest program
 <!-- =============================================================================== -->
 
-:::  {.code}
-```{.python}
-print("Hello world")
+```{.python .large}
+print("Hello world") # <1>
+
 ```
-:::
+1. It is alive!
 
 
 <!-- =============================================================================== -->
 ## Text
 <!-- =============================================================================== -->
 
-:::  {.code-big}
-```{.python}
+```{.python .large}
 "Hello world"
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## Why is it called "print"?
 <!-- =============================================================================== -->
 
-:::  {.code}
 ```{.python}
 print("Hello world")
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## {background-image="images/w01-computer-room.png" background-size="contain"}
@@ -101,64 +102,40 @@ print("Hello world")
 ## A program is a series of statements
 <!-- =============================================================================== -->
 
-:::  {.code}
 ```{.python}
 print("Here we go")
 print("still at it")
 print("ok, that was it")
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## The arrow of execution
 <!-- =============================================================================== -->
 
-:::  {.code}
-```{.python code-line-numbers="1|2|3"}
+```{.python code-line-numbers="|1|2|3"}
 print("Here we go")
 print("still at it")
 print("ok, that was it")
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## `#` ignored code
 <!-- =============================================================================== -->
 
-:::  {.code}
-```{.python code-line-numbers="|2"}
-print("Here we go")
-# print("still at it")
-print("ok, that was it")
-```
-:::
-
-
-<!-- =============================================================================== -->
-## `#` ignored code
-<!-- =============================================================================== -->
-
-:::  {.code}
-```{.python code-line-numbers="|1|2|3"}
+```{.python .large code-line-numbers="|1|2|3"}
 print("Here #we go")
 print("still at it") #
 pri#nt("ok, that was it")
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## Python errors
 <!-- =============================================================================== -->
 
-Syntax error: when Python cannot recognize your code as Python code, it is not
+- Syntax error: when Python cannot recognize your code as Python code, it is not
 run at all.
-
-Runtime error: a fault Python does not discover until your code runs.
-
-[Remember that even when your code runs fine, that is no guarantee it does what
+- Runtime error: a fault Python does not discover until your code runs.
+- [Remember that even when your code runs fine, that is no guarantee it does what
 you think it does :-)]{.alert}
 
 
@@ -166,124 +143,104 @@ you think it does :-)]{.alert}
 ## Three errors
 <!-- =============================================================================== -->
 
-:::  {.code}
 ```{.python code-line-numbers="|1|2|3"}
-print( , "Hello")
+print( , "Hello")quarto
 prit("Hello")
 print "Hello"
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## Numbers: integers and floats
 <!-- =============================================================================== -->
 
-:::  {.code}
 ```{.python}
 print(42)
 print(3.14159265)
 
 print(3 + 2 * 4 + 9)
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## Math operators
 <!-- =============================================================================== -->
 
-::::: {layout="[0.45,-0.05,0.5]"}
-
-::: column
+::: {.large .absolute top="15%" left="5%"}
 |      |               |
 |------|---------------|
 | `+`  | plus          |
 | `-`  | minus         |
 | `*`  | times         |
 | `/`  | divide        |
-:::
-
-::: column
-|      |                     |
-|------|---------------------|
 | `**` | exponent            |
 | `%`  | modulo (remainder)  |
 | `//` | integer division    |
 :::
 
-:::::
-
-
 <!-- =============================================================================== -->
 ## Operator precedence
 <!-- =============================================================================== -->
 
+::: {.large}
 | Level   | Category       | Operators     |
 |---------|----------------|---------------|
 | Highest | exponent       | `**`          |
 |         | multiplication | `*, /, //, %` |
 | Lowest  | addition       | `+, -`        |
-
-
-<!-- =============================================================================== -->
-## Expressions {auto-animate="true"}
-<!-- =============================================================================== -->
-
-### (a piece of code that reduces to a value)
-
-:::  {.code}
-```{.python code-line-numbers=false}
-3 + 2 * 4 + 9
-```
 :::
 
+<!-- =============================================================================== -->
+## Expressions {auto-animate="true"}
+<!-- =============================================================================== -->
+
+**(a piece of code that reduces to a value)**
+
+```{python}
+import steps_widget
+```
+
+```{python}
+%%steps
+3 + 2 * 4 + 9 # PRINT STEPS
+```
+
 ## Expressions {auto-animate="true"}
 
-### (a piece of code that reduces to a value)
-
-:::  {.code}
-```{.python code-line-numbers=false}
-3 + 8 + 9
+```{.python}
+3 * 8 + 6
 ```
-:::
 
 ## Expressions {auto-animate="true"}
 
-### (a piece of code that reduces to a value)
-
-:::  {.code}
-```{.python code-line-numbers=false}
-20
+```{.python}
+  24  + 6
 ```
-:::
+
+## Expressions {auto-animate="true"}
+
+```{.python}
+    30
+````
 
 
 <!-- =============================================================================== -->
 ## Expressions {auto-animate="true"}
 <!-- =============================================================================== -->
 
-:::  {.code}
-```{.python code-line-numbers=false}
+```{.python}
 print(3 + 2 * 4 + 9)
 ```
-:::
 
 ## Expressions {auto-animate="true"}
 
-:::  {.code}
-```{.python code-line-numbers=false}
+```{.python}
 print(3 + 8 + 9)
 ```
-:::
 
 ## Expressions {auto-animate="true"}
 
-:::  {.code}
-```{.python code-line-numbers=false}
+```{.python}
 print(20)
 ```
-:::
 
 What happens if we leave out the `print`?
 
@@ -296,14 +253,11 @@ What happens if we leave out the `print`?
 
 ## Variables are names
 
-:::  {.code}
-```{.python code-line-numbers=false}
+```{.python}
 n = 17
 pi = 3.1415
 message = "What's up doc?"
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## Variables are names
@@ -319,12 +273,10 @@ message = "What's up doc?"
 ::::: {layout="[0.5,-0.05,0.45]"}
 
 ::: column
-:::  {.code-small}
 ```{.python code-line-numbers="|1|2"}
 bruce = 5
 bruce = 7
 ```
-:::
 :::
 
 ::: column
@@ -338,59 +290,49 @@ bruce = 7
 ## Expressions with variables {auto-animate="true"}
 <!-- =============================================================================== -->
 
-:::  {.code-small}
-```{.python code-line-numbers=false}
+```{.python}
 x = 2
 y = 9
 print(3 + x * 4 + y)
 ```
-:::
 
 ## Expressions with variables {auto-animate="true"}
 
-:::  {.code-small}
-```{.python code-line-numbers=false}
+```{.python}
 x = 2
 y = 9
 print(3 + 2 * 4 + y)
 ```
-:::
 
 [Substitution]{.fg style="--col: #2e8b57"}
 
 ## Expressions with variables {auto-animate="true"}
 
-:::  {.code-small}
-```{.python code-line-numbers=false}
+```{.python}
 x = 2
 y = 9
 print(3 + 8 + y)
 ```
-:::
 
 [Reduction]{.alert}
 
 ## Expressions with variables {auto-animate="true"}
 
-:::  {.code-small}
-```{.python code-line-numbers=false}
+```{.python}
 x = 2
 y = 9
 print(3 + 8 + 9)
 ```
-:::
 
 [Substitution]{.fg style="--col: #2e8b57"}
 
 ## Expressions with variables {auto-animate="true"}
 
-:::  {.code-small}
-```{.python code-line-numbers=false}
+```{.python}
 x = 2
 y = 9
 print(20)
 ```
-:::
 
 [Reduction]{.alert}
 
@@ -399,41 +341,34 @@ print(20)
 ## Mind check
 <!-- =============================================================================== -->
 
-:::  {.code}
-```{.python code-line-numbers="|1|2|3|4|5"}
+```{.python-big code-line-numbers="|1|2|3|5|6"}
 a = 1
 b = a + 2
 print(b)
+
 a = 8
 print(b)
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## Add one to a variable {auto-animate="true"}
 <!-- =============================================================================== -->
 
-:::  {.code}
-```{.python code-line-numbers=false}
+```{.python}
 x = 1
 print(x)
 x = *expression*
 print(x)
 ```
-:::
 
 ## Add one to a variable {auto-animate="true"}
 
-:::  {.code}
-```{.python code-line-numbers=false}
+```{.python}
 x = 1
 print(x)
 x = x + 1
 print(x)
 ```
-:::
-
 
 <!-- =============================================================================== -->
 ## Take home

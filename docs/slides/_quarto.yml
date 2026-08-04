@@ -6,7 +6,12 @@ format:
     # theme: [default, ../custom.scss]     
     mainfont: "Helvetica"
     html-math-method: mathjax
+    # code-block-bg: "#f9f9f9"
+    code-block-bg: "#ffffff"
+    code-annotations: hover
     # section-divs: true
+    include-in-header:
+      - text: <link rel="stylesheet" href="libs/bootstrap-icons/bootstrap-icons.css">
     # include-in-header:
     # - text: |
     #     <script>
@@ -16,14 +21,17 @@ format:
 execute:
   freeze: auto
   echo: false
-  fig-format: svg  
+  fig-format: svg
 
 
 project:
   output-dir: _build
+  resources:
+    - libs/bootstrap-icons/**
   render:
     - index.qmd
     - week01-values-operators.qmd
+    - lectures.qmd
     # # - "**/*.qmd"  # render all qmd files
     # # - "**/*.ipynb"  # render all qmd files
     # # - "!draft-*.qmd"  # except those starting with draft-

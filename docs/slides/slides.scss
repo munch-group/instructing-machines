@@ -33,7 +33,7 @@ $presentation-heading-color: $jet !default;
 $presentation-heading-font-weight: lighter;
 //$presentation-heading-line-height: 2;
 $presentation-block-margin: 16px;
-$presentation-font-size-root: 35px;
+$presentation-font-size-root: 45px;
 $presentation-h2-font-size: 1.5em; 
 
 // colors
@@ -42,7 +42,21 @@ $body-color: $jet !default;
 $link-color: $accent !default;
 $selection-bg: #26351c !default;
 
+
 /*-- scss:rules --*/
+
+
+
+// slides
+.spacer-half { height: 0.5em; }
+.spacer-1 { height: 1em; }
+.spacer-2 { height: 2em; }
+.spacer-3 { height: 3em; }
+.spacer-4 { height: 4em; }
+.spacer-5 { height: 4em; }
+
+
+
 
 .reveal mjx-container[display="true"] {
   font-size: 1.4em !important;
@@ -105,12 +119,19 @@ $selection-bg: #26351c !default;
 
 }
 
+.cell-output .cell-output-display {
+  font-size: 1.0em !important;
+}
+
+.reveal pre {
+  font-size: 1.0em;
+}
 
 .reveal h2 {
 
   font-weight: 380;
   // font-weight: lighter;
-  font-size: 1.4em;
+  font-size: 1.0em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
@@ -119,6 +140,7 @@ $selection-bg: #26351c !default;
   // color: $accent;
   font-style: italic;
   // font-weight: 350;
+  // font-size: 1.2em !important;
   font-weight: lighter;
   // font-size: 0.85em;
 }
@@ -131,7 +153,7 @@ $selection-bg: #26351c !default;
 // }
 
 
-.reveal ul { list-style: none; padding-left: 0; }
+// .reveal ul { list-style: none; padding-left: 0; }
 
 // .reveal ul, .reveal ul ul, .reveal ul ul ul { list-style: none; padding-left: 0; }
 // .reveal li { padding-left: 0; text-indent: -0; }
@@ -173,6 +195,14 @@ $selection-bg: #26351c !default;
   display: inline-block;
 }
 
+.reveal .tiny {
+  font-size: 0.6em;
+}
+
+.reveal .small {
+  font-size: 0.8em;
+}
+
 .reveal .large {
   font-size: 1.2em;
 }
@@ -185,15 +215,17 @@ $selection-bg: #26351c !default;
 }
 
 .reveal .code {
-  font-size: 2.0em; 
+  font-size: 1.3em; 
 }
 .reveal .code-small {
-  font-size: 1.5em; 
+  font-size: 1.1em; 
 }
 .reveal .code-big {
-  font-size: 2.5em; 
+  font-size: 1.5em; 
 }
-
+.reveal .code-huge {
+  font-size: 1.7em; 
+}
 
 // lists
 
