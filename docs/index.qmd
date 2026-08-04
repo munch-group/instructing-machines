@@ -1,6 +1,6 @@
 ---
 # title-block-banner: images/banner3.png
-# title-block-banner: logo_alt/im-horizontal.svg
+# title-block-banner: logo/im-horizontal.svg
 # title-block-banner: "#003257"
 # title-block-banner-color: "#FFFFFF"
 hide-hidden: true
@@ -10,33 +10,6 @@ hide-exam: true
 title-block-banner: "#ffffffff"
 title-block-banner-color: "#ffffffff"
 
-listing:
-  - id: showcase
-    type: grid
-    fields: [image, title]
-    grid-columns: 4
-    image-height: 100px
-    contents:
-      - python/lists.ipynb
-      - python/classes.ipynb
-      - python/dictionaries.ipynb
-      - python/iteration.ipynb
-      - python/objects.ipynb
-      - python/recursion.ipynb
-      - python/testing.ipynb
-      - python/tuples.ipynb
-      - python/files.ipynb
-      - python/functions.ipynb
-
-    # sort: "date desc"
-    # categories: true
-    # sort-ui: true
-    # filter-ui: true
-    # fields: [image, title, description]
-
-# margin-footer: |
-#   ""
-  
 format:
   html:
     include-in-header:
@@ -52,135 +25,36 @@ format:
             overflow: hidden;
           }
           #title-block-header {
-            /* 
-            background-image: url(./logo/im-horizontal.svg); 
-            */
-            background-image: url(./logo_alt/im-horizontal2.svg);
+            background-image: url(./logo/im-horizontal.svg);
             # background-size: cover;
             # background-size: contain;
             /* im-horizontal.svg is 1647x198; cap the width so the 80%-scaled
                image never renders taller than the 200px header on wide screens */
-            /* background-size: min(60%, calc(200px * 1647 / 198)) auto; */
-            background-size: max(450px, min(60%, calc(200px * 5))) auto;
+            background-size: min(70%, calc(200px * 1647 / 198)) auto;
             background-color: #F0F2F4;
             background-repeat: no-repeat;
             background-position-x: center;
             background-position-y: center;
-            /* height: 200px; */
-            height: 180px;
+            height: 200px;
             opacity: 1; /* Adjust as needed */
             z-index: -1;
           </style>
 ---
 
-<!-- # Welcome {.unnumbered} -->
+# Overview
 
+**Instructing Machines** is a collection of lecture notes, slides, exercises, tutorials, and projects.
 
-### Brain <i class="bi bi-person"></i> {.unnumbered}
+**For teachers:** Instructing Machines was made for an introductory programming course at Aarhus University, taught to undergraduates in Molecular Biology and Molecular Medicine. If you teach a similar course, feel free to [fork it](https://github.com/munch-group/instructing-machines) and make your own.
 
-Your training is what lets you ask questions about molecular biology, lets you find answers yourself, and verify those provided to you. 
+## Getting started
 
-### CPU <i class="bi bi-arrow-left"></i> {.unnumbered}
+Everything you need to set up your machine — the course folder, Python, the text editor, and the terminal — is in @sec-getting_started. It takes about fifteen minutes, most of which is waiting, and you only do it once.
 
-In computing terms, your brain is about 200 times faster than a really good laptop. But unlike your brain, you can make your computers CPU use all of its compute power on a single problem you want to solve. All you need is the language to make your wish its command.
+::: {.callout-note appearance="simple"}
 
-### AI <i class="bi bi-claude"></i> {.unnumbered} 
+## <i class="bi bi-download"></i> [Download the course folder](instructing-machines.zip)
 
-AIs are really good at translating problems posed in human language into code that will run on a computer. Understanding the principles of programming helps you guide the AI toward the solutions you actually want. It also lets you to verify that the code it produces is both correct and what you asked for.
-
-### Programming <i class="bi bi-code-slash"></i> {.unnumbered}
-
-Fluency in a programming language takes lots of practice, but with the help of an AI, even basic skills and a good passive vocabulary will take you a long way.
-
-
-
-::: {.grid}
-::: {.g-col-6}
-### <i class="bi bi-person"></i> Brain <i class="bi bi-arrow-right"></i> {.unnumbered}
-
-Your training is what lets you ask questions about molecular biology, lets you find answers yourself, and verify those provided to you. 
-
-<!-- In computing terms, your brain is about 200 times faster than a really good laptop. But unlike your brain, you can make your computers CPU use all of its compute power on a single problem you want to solve. All you need is the language to make your wish its command. -->
-:::
-
-::: {.g-col-6}
-### <i class="bi bi-code-slash"></i> Code <i class="bi bi-arrow-down-right"></i> {.unnumbered}
-
-Machine code is what tells computers what to do, and programming languages, like Python, lets you specify such machine code using instructions close to the plain English that your brain is used to. Fluency in a programming language takes lots of practice, but with the help of an AI, even basic skills and a good passive vocabulary will take you a long way.
-
-<!-- The course teaches the Python programming language. It reads close to plain English, which lets us focus on the thinking part rather than annoying syntax. Python is also one of the most popular and widespread languages and the one that lets you squeeze the most value out of an AI. -->
-:::
-:::
-
-::: {.grid}
-::: {.g-col-6}
-### <i class="bi bi-claude"></i> AI <i class="bi bi-arrow-down-left"></i> {.unnumbered} 
-
-AIs are really good at translating problems posed in human language into code that will run on a computer. Knowing programming helps you guide the AI toward the solutions you actually want and allows you to read and verify that the code it produces is both correct and produces the solution you asked for.
-
-<!-- In this course we use [Microsoft 365 Copilot](https://copilot.microsoft.com/). As a student at Aarhus University, you can use this free of charge if you choose "Work" on the landing page and then use your student credentials to log in. That being said, the course material is not made for use with any particular model.  -->
+`instructing-machines.zip` — about two megabytes. Unzip it, then follow @sec-getting_started.
 
 :::
-
-::: {.g-col-6}
-### <i class="bi bi-cpu"></i> CPU <i class="bi bi-arrow-left"></i> {.unnumbered}
-
-In computing terms, your brain is about 200 times faster than a really good laptop. But unlike your brain, you can make your computers CPU use all of its compute power on a single problem you want to solve. All you need is the language to make your wish its command.
-
-:::
-:::
-
-
-
-
-<br>
-
-::: {.panel-tabset group="role"}
-
-## <i class="bi bi-mortarboard-fill"></i> Students {.unnumbered}
-
-**Instructing Machines** is a collection of lecture notes, slides, exercises, tutorials, and projects, which serve as course content for the {{< var year >}} version of the undergraduate course [Bioinformatics](https://kursuskatalog.au.dk/en/course/133215/Bioinformatics) at Aarhus University. The aim of this course is to learn how produce code that solves problems relevant to molecular biology. Having completed to course, you should be able to:
-
-- Read code the way the machine does.
-- Write Python code to solve small problems.
-- Decompose a problem into smaller sub-problems and implement these in Python as testable functions.
-- Verify the correctness of code written by an AI or someone else.
-- Determine an appropriate level of AI involvement for a given task.
-- Explain why the usefulness if AI is bounded by what you already knows and is able to verify.
-
-## <i class="bi bi-bank"></i> Educators {.unnumbered}
-
-This content was made for the [Bioinformatics course]() at [Aarhus University]() teaching undergraduates in [Molecular Biology and Molecular Medicine](). The whole thing is [MIT licensed](https://opensource.org/license/mit), so if you teach a similar course, feel free to [fork it]() and make your own.
-
-<p style="text-align: right;">/ <i>Kasper Munch</i></p>
-
-The material uses several jupyter notebook widgets for interactive content. You can see how they render on [this page](python/widget-demo.ipynb). For an impression of the interactive material, I set up [this demo](demo/lab/index.html) using JupyterLite.
-
-:::
-
-
-
-### Your computer {.unnumbered}
-
-Your computer is an immensely powerful tool that 
-
-Combine your knowledge of biology, with curiosity, and the with the ability to make your computer do exactly what you want. 
-
-### The programming language {.unnumbered}
-
-The course teaches the Python programming language. It reads close to plain English, which lets us focus on the thinking part rather than annoying syntax. Python is also one of the most popular and widespread languages and the one that lets you squeeze the most value out of an AI.
-
-### The AI model {.unnumbered}
-
-::: {.grid}
-::: {.g-col-9}
-In this course we use Microsoft 365 Copilot AI. As a student at Aarhus University, you can use this free of charge if you choose "Work" on the landing page and then use your student credentials to log in. That being said, the course material is not made for use with any particular AI. 
-:::
-::: {.g-col-3}
-[![](images/copilot_logo.png)](https://copilot.microsoft.com/)
-:::
-:::
-
-To learn something extra about AIs or follow some of the news and developments, have a look at the [AI-opening page](AI-opening.qmd).
-
-## Mind maps and resources {.unnumbered}
