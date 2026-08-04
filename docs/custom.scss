@@ -15,7 +15,8 @@ $black:    #000 !default;
 $blue:    #2780e3 !default;
 // $indigo:  #6610f2 !default;
 // $indigo:  #8045E5 !default;
-$indigo:  #8077DE !default;
+// $indigo:  #8077DE !default;
+$indigo:  #8864C0 !default;
 $purple:  #613d7c !default;
 $pink:    #e83e8c !default;
 $red:     #ff0039 !default;
@@ -729,3 +730,299 @@ pre.numberSource code > span > a:first-child::before {
   padding: 0.75rem;
   margin: 0;
 }
+
+
+
+
+
+$lp-mono: "Fira Code", "DejaVu Sans Mono", monospace;
+$lp-rule: #D1D5DB;
+
+/* --- hero ------------------------------------------------- */
+
+.lp-hero {
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid $lp-rule;
+  margin-bottom: 2.75rem;
+}
+
+.lp-eyebrow {
+  display: block;
+  font-family: $lp-mono;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $primary;
+  margin-bottom: 0.875rem;
+}
+
+.lp-title {
+  font-size: 2.5rem;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #151617;
+  margin-bottom: 1.125rem;
+  text-wrap: pretty;
+}
+
+.lp-lede {
+  font-size: 1.16rem;
+  line-height: 1.55;
+  color: $gray-700;
+  margin-bottom: 1.625rem;
+  max-width: 46em;
+  text-wrap: pretty;
+}
+
+.lp-counts {
+  display: block;
+  font-family: $lp-mono;
+  font-size: 0.78rem;
+  color: $gray-600;
+}
+
+/* --- buttons ---------------------------------------------- */
+
+.lp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.375rem;
+}
+
+.lp-btn,
+.lp-btn-outline,
+.lp-btn-quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.97rem;
+  font-weight: 500;
+  padding: 0.65rem 1.2rem;
+  border-radius: 4px;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.lp-btn {
+  background: $primary;
+  color: #fff !important;
+  border: 1px solid $primary;
+  &:hover { background: darken($primary, 6%); border-color: darken($primary, 6%); }
+}
+
+.lp-btn-outline {
+  background: #fff;
+  color: $primary !important;
+  border: 1px solid $primary;
+  &:hover { background: rgba(13, 125, 146, 0.06); }
+}
+
+.lp-btn-quiet {
+  background: #fff;
+  color: $primary !important;
+  border: 1px solid $lp-rule;
+  &:hover { border-color: $primary; }
+}
+
+/* --- section headings on the landing page ----------------- */
+
+main.content > section > h2,
+main.content > h2 {
+  font-weight: 600;
+  color: #151617;
+  margin-top: 2.75rem;
+}
+
+/* --- brain / code / AI / CPU panels ----------------------- */
+
+.lp-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: $lp-rule;
+  border: 1px solid $lp-rule;
+  margin: 1.625rem 0 0;
+
+  @media (max-width: 575.98px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-panel {
+  background: #fff;
+  padding: 1.375rem 1.5rem 1.5rem;
+
+  p {
+    margin: 0;
+    font-size: 0.97rem;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+}
+
+.lp-panel-label {
+  display: block;
+  font-family: $lp-mono;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $indigo;
+  margin-bottom: 0.625rem;
+
+  i { margin-right: 0.4em; }
+}
+
+.lp-thesis {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: #151617;
+  border-left: 5px solid $primary;
+  padding-left: 1.125rem;
+  margin: 1.625rem 0 0;
+  text-wrap: pretty;
+}
+
+/* --- the fourteen-week arc table -------------------------- */
+
+.lp-arc {
+  margin-top: 1.5rem;
+
+  table {
+    width: 100%;
+    margin: 0;
+    border: 1px solid $lp-rule;
+    font-size: 0.9rem;
+  }
+
+  thead th {
+    background: $gray-100;
+    border-bottom: 1px solid $lp-rule;
+    font-family: $lp-mono;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $gray-600;
+    padding: 0.625rem 1rem;
+  }
+
+  tbody td {
+    border-bottom: 1px solid $gray-200;
+    padding: 0.7rem 1rem;
+    line-height: 1.4;
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* week number in the code face; overrides the global
+     td:first-child nowrap only for width, not wrapping */
+  tbody td:first-child {
+    width: 3.5rem;
+    font-family: $lp-mono;
+    font-size: 0.82rem;
+    color: $gray-600;
+  }
+
+  /* 2nd column: Python. 3rd: AI practice, given a little more room. */
+  th:nth-child(3), td:nth-child(3) { width: 34%; color: $gray-700; }
+}
+
+/* --- screenshot placeholder ------------------------------- */
+
+.lp-shot {
+  height: 300px;
+  border: 1px solid $lp-rule;
+  background: repeating-linear-gradient(135deg, #F4F5F7 0 10px, #EDEFF2 10px 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.375rem 0 0.625rem;
+}
+
+.lp-shot-label {
+  font-family: $lp-mono;
+  font-size: 0.78rem;
+  color: $gray-600;
+  background: #fff;
+  border: 1px solid $lp-rule;
+  padding: 0.5rem 0.875rem;
+}
+
+.lp-caption {
+  display: block;
+  font-size: 0.84rem;
+  color: $gray-600;
+  margin-bottom: 1.75rem;
+}
+
+/* --- students / teachers ---------------------------------- */
+
+.lp-audiences {
+  padding-top: 2.5rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid $lp-rule;
+  row-gap: 2.5rem;
+
+  h3 {
+    font-weight: 600;
+    color: #151617;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.lp-audience-label {
+  display: block;
+  font-family: $lp-mono;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $primary;
+  margin-bottom: 0.25rem;
+
+  i { margin-right: 0.4em; }
+}
+
+/* second column reads as the teacher track */
+.lp-audiences > div:nth-child(2) .lp-audience-label { color: $indigo; }
+
+/* flat bordered list, no bullets */
+.lp-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: $lp-rule;
+  border: 1px solid $lp-rule;
+
+  li {
+    background: #fff;
+    padding: 0.75rem 0.875rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* --- footer ----------------------------------------------- */
+
+.lp-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid $lp-rule;
+  padding-top: 1.75rem;
+  margin-top: 2.75rem;
+  font-size: 0.875rem;
+  color: $gray-600;
+
+  p { margin: 0; }
+}
+
+.lp-footer-links a { margin-left: 0.75rem; }

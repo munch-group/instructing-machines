@@ -12,6 +12,7 @@ title-block-banner-color: "#ffffffff"
 
 format:
   html:
+    toc: false
     include-in-header:
       - text: |
           <style>
@@ -25,36 +26,207 @@ format:
             overflow: hidden;
           }
           #title-block-header {
-            background-image: url(./logo/im-horizontal.svg);
-            # background-size: cover;
-            # background-size: contain;
+            background-image: url(./logo_alt/im-horizontal2.svg);
             /* im-horizontal.svg is 1647x198; cap the width so the 80%-scaled
                image never renders taller than the 200px header on wide screens */
             background-size: min(70%, calc(200px * 1647 / 198)) auto;
-            background-color: #F0F2F4;
+            background-color: #ffffff;
             background-repeat: no-repeat;
             background-position-x: center;
             background-position-y: center;
             height: 200px;
             opacity: 1; /* Adjust as needed */
             z-index: -1;
+            border-bottom: 1px solid #D1D5DB;
+          }
+          
           </style>
 ---
 
-# Overview
+::: {.lp-hero}
 
-**Instructing Machines** is a collection of lecture notes, slides, exercises, tutorials, and projects.
+[Bioinformatics &middot; Aarhus University &middot; 2026]{.lp-eyebrow}
 
-**For teachers:** Instructing Machines was made for an introductory programming course at Aarhus University, taught to undergraduates in Molecular Biology and Molecular Medicine. If you teach a similar course, feel free to [fork it](https://github.com/munch-group/instructing-machines) and make your own.
+<!-- 
+::: {.lp-title}
+The AI can write the code.\
+The course is knowing whether it is right.
+:::
+-->
 
-## Getting started
+::: {.lp-lede}
+Instructing Machines is a fourteen-week introduction to programming for
+molecular biology, written for students who will have a model at their side
+from the first line they type. Every week pairs a piece of Python with a way
+of working alongside an AI — and a way of checking what it hands back.
+:::
 
-Everything you need to set up your machine — the course folder, Python, the text editor, and the terminal — is in @sec-getting_started. It takes about fifteen minutes, most of which is waiting, and you only do it once.
+::: {.lp-actions}
+[Start here <i class="bi bi-arrow-right"></i>](python/getting_started.qmd){.lp-btn}
+[<i class="bi bi-download"></i> Download the course folder](instructing-machines.zip){.lp-btn-outline}
+:::
 
-::: {.callout-note appearance="simple"}
+[14 weeks &middot; 65 chapters &middot; 8 projects on real data &middot; 7 interactive
+widgets &middot; MIT licensed]{.lp-counts}
 
-## <i class="bi bi-download"></i> [Download the course folder](instructing-machines.zip)
+:::
 
-`instructing-machines.zip` — about two megabytes. Unzip it, then follow @sec-getting_started.
+<!-- ## Brain <i class="bi bi-arrow-right-short"></i> AI <i class="bi bi-arrow-right-short"></i> Code <i class="bi bi-arrow-right-short"></i> Comupte {.unnumbered} 
 
+Your brain knows the biology. A CPU has the power. Python is the language
+between them, and an AI can now speak it on your behalf. Each part is only
+worth what the next one can check. -->
+
+### Instructing machines: Brain <i class="bi bi-arrow-right-short"></i> AI <i class="bi bi-arrow-right-short"></i> Code <i class="bi bi-arrow-right-short"></i> Compute {.unnumbered} 
+
+<!-- ::: {.lp-thesis}
+Which is the argument of the whole course: an AI is useful to you up to the
+limit of what you can specify and verify. Fourteen weeks of raising that limit.
+::: -->
+
+
+::: {.lp-panels}
+
+::: {.lp-panel}
+[<i class="bi bi-person"></i> Brain]{.lp-panel-label}
+
+Your training is what lets you ask a real question about molecular biology,
+find the answer yourself, and judge the answers you are handed.
+:::
+
+::: {.lp-panel}
+[<i class="bi bi-code-slash"></i> Code]{.lp-panel-label}
+
+Machine code is what tells a computer what to do. Python lets you write it in
+something close to the plain English your brain already thinks in.
+:::
+
+::: {.lp-panel}
+[<i class="bi bi-stars"></i> AI]{.lp-panel-label}
+
+A model is good at turning a problem posed in human language into code that
+runs. Knowing programming is what lets you steer it, and read what comes back.
+:::
+
+::: {.lp-panel}
+[<i class="bi bi-cpu"></i> CPU]{.lp-panel-label}
+
+Your brain is roughly two hundred times faster than a good laptop. But a CPU
+will spend all of itself on one problem, if you can say what the problem is.
+:::
+
+:::
+
+::: {.lp-thesis}
+An AI is useful to you up to the limit of what you can specify and verify. The course spends fourteen weeks raising that limit.
+:::
+
+
+## Every week, two threads {.unnumbered}
+
+A Python topic and an AI practice, taught together, applied to a project from
+molecular biology.
+
+::: {.lp-arc}
+
+| Wk | Python | Working with an AI | Project |
+|:---|:-------|:-------------------|:--------|
+| 01 | Values, operators, logic | Meet the assistant | — |
+| 02 | If-else, functions | The AI predicts, the widget proves | — |
+| 03 | Objects, lists, dictionaries, tuples | How a model produces code, and why it can be wrong | Turtle |
+| 04 | Iteration, testing | Ask it to explain, then confirm by running | Turtle |
+| 05 | Data structures, files | Practical AI use | Turtle |
+| 06 | Composition | Ask for another way | Translating ORFs |
+| 07 | Classes, debugging | Let it draft a piece you can read and test | Primer analysis |
+| 08 | Reading unfamiliar code | Tests are the contract | Pairwise alignment |
+| 09 | Modules and packages | The AI invents functions; the docs are the test | Codon usage |
+| 10 | Recursion, decomposition | Plan before you prompt | HIV sub-groups |
+| 11 | Putting the pieces together | Delegate the full problem | Sequence trees |
+| 12 | Dataframes | Learning with an AI; how you know a fact is true | Finding genes |
+| 13 | Your own tool, start to finish | Finale: formulating, building, finishing | Genome assembly |
+| 14 | Where you stand | Surviving AI &middot; the AI-off test | — |
+
+:::
+
+## What the material looks like {.unnumbered}
+
+The notes are executable notebooks. Exercises come with widgets that step
+through code line by line, so a claim about what the machine does can be
+settled on the spot.
+
+<!-- Replace with a real screenshot: notebook + step-through widget. -->
+::: {.lp-shot}
+[screenshot: notebook with the step-through widget]{.lp-shot-label}
+:::
+
+[A live demo of the same material runs in the browser through
+[JupyterLite](demo/lab/index.html) — no install.]{.lp-caption}
+
+```python
+def gc_content(seq):
+    """Fraction of G and C in a DNA sequence."""
+    gc = seq.count("G") + seq.count("C")
+    return gc / len(seq)
+
+# The test is the contract. Ask the AI for the body, keep this.
+assert gc_content("GCGC") == 1.0
+assert gc_content("ATAT") == 0.0
+```
+
+::: {.grid .lp-audiences}
+
+::: {.g-col-12 .g-col-md-6}
+
+[<i class="bi bi-mortarboard-fill"></i> For students]{.lp-audience-label}
+
+### Fifteen minutes to your first line {.unnumbered}
+
+The course folder, Python, the editor and the terminal are all set up in one
+pass, most of which is waiting. You only do it once — see
+@sec-getting_started.
+
+By the end you can:
+
+- Read code the way the machine does.
+- Write Python to solve small problems.
+- Break a problem into sub-problems and write them as testable functions.
+- Verify code written by an AI, or by someone else.
+- Judge how much of a task to hand over, and how much to keep.
+- Explain why an AI is only as useful to you as your ability to check it.
+
+[Getting started <i class="bi bi-arrow-right"></i>](python/getting_started.qmd){.lp-btn}
+
+:::
+
+::: {.g-col-12 .g-col-md-6}
+
+[<i class="bi bi-bank"></i> For teachers]{.lp-audience-label}
+
+### Take it and make it yours {.unnumbered}
+
+Built for undergraduates in Molecular Biology and Molecular Medicine at
+[Aarhus University](https://kursuskatalog.au.dk/en/course/133215/Bioinformatics),
+and [MIT licensed](https://opensource.org/license/mit). If you teach a similar
+course, fork it.
+
+::: {.lp-list}
+- Notes, slides, exercises and projects, all in the repository
+- Seven notebook widgets, installable as packages
+- A JupyterLite demo, so students can try before installing
+- A written account of the course design and the AI arc
+:::
+
+[<i class="bi bi-github"></i> Fork on GitHub](https://github.com/munch-group/instructing-machines){.lp-btn-outline}
+[Widget demo](python/widget-demo.ipynb){.lp-btn-quiet}
+
+:::
+
+:::
+
+::: {.lp-footer}
+Kasper Munch &middot; Bioinformatics Research Centre, Aarhus University
+
+[[Course catalogue](https://kursuskatalog.au.dk/en/course/133215/Bioinformatics) &nbsp;
+[GitHub](https://github.com/munch-group/instructing-machines) &nbsp;
+[MIT license](https://opensource.org/license/mit)]{.lp-footer-links}
 :::
