@@ -1,0 +1,50 @@
+# The Python environment for "Instructing Machines".
+#
+# You should not need to edit this file. Running `pixi install` in this folder
+# reads it (together with pixi.lock) and builds a private Python environment in
+# a hidden .pixi folder right here. Nothing is installed anywhere else on your
+# machine, and deleting this folder removes every trace of it.
+
+[workspace]
+name = "instructing-machines"
+version = "2026.0.0"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "win-64", "linux-64"]
+
+[dependencies]
+python = "3.13.*"
+ipykernel = ">=7,<8"
+ipywidgets = ">=8,<9"
+anywidget = ">=0.11,<0.12"
+jupyterlab = ">=4,<5"
+pandas = ">=2,<3"
+seaborn = ">=0.13,<0.14"
+matplotlib = ">=3.8"
+pytest = ">=8"
+
+# The course widgets. These come from PyPI for now because the conda packages
+# on the munch-group channel are still built per-platform (linux-64 and
+# osx-arm64 only), which leaves Windows and Intel-Mac students with nothing to
+# install. Once those recipes are rebuilt as `noarch: python`, delete this
+# whole section, add "munch-group" to `channels` above, and move the seven
+# entries into [dependencies] instead.
+[pypi-dependencies]
+steps-widget = ">=0.2.7,<0.3"
+puzzle-widget = ">=0.1.14,<0.2"
+codelens-widget = ">=0.1.40,<0.2"
+turtle-widget = ">=1.0.3,<2"
+sandbox-widget = ">=1.0.5,<2"
+iplot-widget = ">=0.1.14,<0.2"
+im-pytest = ">=0.1.25,<0.2"
+
+[tasks]
+# `pixi run check` — a one-command answer to "did my installation work?".
+check = "python -c \"import sys, steps_widget, puzzle_widget, codelens_widget, turtle_widget, sandbox_widget, iplot_widget, im_pytest, pandas, seaborn; print('Everything is installed. Python', sys.version.split()[0])\""
+
+# `pixi run get iteration` — download the notebook for a chapter straight into
+# this folder. `pixi run get` on its own lists the chapters.
+get = "python get.py"
+
+# `pixi run update-env` — fetch a newer pixi.toml/pixi.lock from the course
+# website and reinstall. Only needed if you are told to run it.
+update-env = "python update.py"

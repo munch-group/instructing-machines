@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>55&nbsp; Sequence trees – Instructing Machines</title>
+<title>57&nbsp; Sequence trees – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e89ea000c0c84f0741974ac7ad73179c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-31a9a9319d45bda93fa30624f61ef95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e6547899087f078a829884e0e68508dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -111,12 +111,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://hypothes.is/embed.js"></script>
-<script>
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    document.body.classList.add('hypothesis-enabled');
-  });
-</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -159,7 +153,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/delegate-the-full-problem.html">Week 11</a></li><li class="breadcrumb-item"><a href="../projects/seqdist-project.html"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Sequence trees</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/delegate-the-full-problem.html">Week 11</a></li><li class="breadcrumb-item"><a href="../projects/seqdist-project.html"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Sequence trees</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -196,7 +190,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Brain <i class="bi bi-person"></i></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -208,19 +202,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../planning/authorship-split.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Who does what: decomposition, tests, and bodies across weeks 6 to 14</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Who does what: decomposition, tests, and bodies across weeks 6 to 14</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../planning/turtle-widget-and-the-ai-arc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The turtle widget and the AI arc</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The turtle widget and the AI arc</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../planning/widgets-in-the-python-notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Widgets in the Python notes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Widgets in the Python notes</span></span></a>
   </div>
 </li>
       </ul>
@@ -237,73 +231,73 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How this course works</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">How this course works</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/machine-insides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Machine insides</span></span></a>
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">From machine code to Python to AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro/notebooks-in-vscode.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Working with notebooks in VScode</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Notebooks in VScode</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/about-microsoft-copilot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">About Microsoft Copilot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">About Microsoft Copilot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro/script-vs-notebook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Scripts and notebooks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Scripts and notebooks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/course_tools.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
   </div>
 </li>
       </ul>
@@ -320,19 +314,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/if-else.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">If-else</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">If-else</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The AI predicts, the widget proves</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">The AI predicts, the widget proves</span></span></a>
   </div>
 </li>
       </ul>
@@ -349,37 +343,37 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">How a model produces code, and why it can be wrong</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">How a model produces code, and why it can be wrong</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Turtle, week 3: an object that keeps its own state</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Turtle, week 3: an object that keeps its own state</span></span></a>
   </div>
 </li>
       </ul>
@@ -396,25 +390,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Turtle, week 4: loops, and the first tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Turtle, week 4: loops, and the first tests</span></span></a>
   </div>
 </li>
       </ul>
@@ -431,25 +425,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Practical AI use</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Practical AI use</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/files.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Turtle, week 5: drawings described by data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Turtle, week 5: drawings described by data</span></span></a>
   </div>
 </li>
       </ul>
@@ -466,25 +460,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Ask for another way</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Ask for another way</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Turtle, week 6: building a drawing out of pieces</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Turtle, week 6: building a drawing out of pieces</span></span></a>
   </div>
 </li>
       </ul>
@@ -501,31 +495,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/debugging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Turtle, week 7: your own kind of object, and finding the bug</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Turtle, week 7: your own kind of object, and finding the bug</span></span></a>
   </div>
 </li>
       </ul>
@@ -542,25 +536,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/reading-and-judging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Reading and judging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Reading and judging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Turtle, week 8: retiring the turtle</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Turtle, week 8: retiring the turtle</span></span></a>
   </div>
 </li>
       </ul>
@@ -577,31 +571,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/the-docs-are-the-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/modules.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
+  <a href="../python/packages-modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/documentation-and-resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span></a>
   </div>
 </li>
       </ul>
@@ -618,19 +612,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
   </div>
 </li>
       </ul>
@@ -647,13 +647,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/seqdist-project.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
   </div>
 </li>
       </ul>
@@ -670,19 +670,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/dataframes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
   </div>
 </li>
       </ul>
@@ -699,25 +699,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/finale-kickoff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/finale-build.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Finale build clinic</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Finale build clinic</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/finale-finishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Finale finishing and interface testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Finale finishing and interface testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
   </div>
 </li>
       </ul>
@@ -734,13 +734,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span></a>
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span></a>
   </div>
 </li>
       </ul>
@@ -757,7 +757,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -799,9 +805,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/delegate-the-full-problem.html">Week 11</a></li><li class="breadcrumb-item"><a href="../projects/seqdist-project.html"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Sequence trees</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/delegate-the-full-problem.html">Week 11</a></li><li class="breadcrumb-item"><a href="../projects/seqdist-project.html"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Sequence trees</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-seqdist-project" class="quarto-section-identifier"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></h1>
+<h1 class="title"><span id="sec-seqdist-project" class="quarto-section-identifier"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></h1>
 </div>
 
 
@@ -820,7 +826,7 @@ window.Quarto = {
 
 <p><em>This chapter is about clustering sequence based on the evolutionary distance between them.</em></p>
 <p>Download the files you need for this project:</p>
-<p><a href="#dnldts56755" onclick="fetch('data:application/x-python;base64,CiMgVGhpcyBzZXJ2ZSB0byBtYWtlIHRoZSBsb2cgZnVuY3Rpb24gYXZhaWxhYmxlOgpmcm9tIG1hdGggaW1wb3J0IGxvZwoKIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwojIFdyaXRlIHlvdXIgZnVuY3Rpb25zIGRlZmluaXRpb25zIGJlbG93LgojIERvIG5vdCB3cml0ZSBhbnkgb3RoZXIgY29kZSBoZXJlLgojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCgojIG9ubHkgeW91ciBmdW5jdGlvbiBkZWZpbml0aW9ucy4uLgoKCgoKCgoKCgojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCiMgQ29kZSBmb3IgY2FsbGluZyBhbmQgdGVzdGluZyB5b3VyIGZ1bmN0aW9ucyBzaG91bGQgYmUgYmVsb3cKIyBoZXJlLiBJZiB5b3Ugc2VwYXJhdGUgZnVuY3Rpb24gZGVmaW5pdGlvbnMgZnJvbSB0aGUgcmVzdCBvZgojIHlvdXIgc2NyaXB0IGluIHRoaXMgd2F5LCB5b3UgYXJlIGxlc3MgbGlrZWx5IHRvIG1ha2UgbWlzdGFrZXMuCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKCiMgYW55IG90aGVyIGNvZGUgLi4uCgoKCgoK').then(res => res.blob()).then(blob => {
+<p><a href="#dnldts40114" onclick="fetch('data:application/x-python;base64,CiMgVGhpcyBzZXJ2ZSB0byBtYWtlIHRoZSBsb2cgZnVuY3Rpb24gYXZhaWxhYmxlOgpmcm9tIG1hdGggaW1wb3J0IGxvZwoKIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwojIFdyaXRlIHlvdXIgZnVuY3Rpb25zIGRlZmluaXRpb25zIGJlbG93LgojIERvIG5vdCB3cml0ZSBhbnkgb3RoZXIgY29kZSBoZXJlLgojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCgojIG9ubHkgeW91ciBmdW5jdGlvbiBkZWZpbml0aW9ucy4uLgoKCgoKCgoKCgojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCiMgQ29kZSBmb3IgY2FsbGluZyBhbmQgdGVzdGluZyB5b3VyIGZ1bmN0aW9ucyBzaG91bGQgYmUgYmVsb3cKIyBoZXJlLiBJZiB5b3Ugc2VwYXJhdGUgZnVuY3Rpb24gZGVmaW5pdGlvbnMgZnJvbSB0aGUgcmVzdCBvZgojIHlvdXIgc2NyaXB0IGluIHRoaXMgd2F5LCB5b3UgYXJlIGxlc3MgbGlrZWx5IHRvIG1ha2UgbWlzdGFrZXMuCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKCiMgYW55IG90aGVyIGNvZGUgLi4uCgoKCgoK').then(res => res.blob()).then(blob => {
       const downloadURL = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       document.body.appendChild(a);
@@ -828,7 +834,7 @@ window.Quarto = {
       a.download = 'seqdistproject.py'; a.click();
       window.URL.revokeObjectURL(downloadURL);
       document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts56755"><i class="bi bi-download"></i> seqdistproject.py </button></a> <a href="#dnldts16912" onclick="fetch('data:application/x-python;base64,ZnJvbSBweXRlc3QgaW1wb3J0IGFwcHJveApmcm9tIGltX3B5dGVzdCBpbXBvcnQgcmVxdWlyZXMKCgpkZWYgX2FwcHJveF9uZXN0ZWQoYWN0dWFsLCBleHBlY3RlZCwgYWJzPTFlLTQpOgogICAgIiIiQ29tcGFyZSAocG9zc2libHkgbmVzdGVkKSBsaXN0cyBvZiBudW1iZXJzIGVsZW1lbnQtd2lzZSB3aXRoIGFwcHJveC4iIiIKICAgIGlmIGlzaW5zdGFuY2UoZXhwZWN0ZWQsIChsaXN0LCB0dXBsZSkpOgogICAgICAgIGFzc2VydCBpc2luc3RhbmNlKGFjdHVhbCwgKGxpc3QsIHR1cGxlKSksIFwKICAgICAgICAgICAgImV4cGVjdGVkIGEgc2VxdWVuY2UgYnV0IGdvdCB7IXJ9Ii5mb3JtYXQoYWN0dWFsKQogICAgICAgIGFzc2VydCBsZW4oYWN0dWFsKSA9PSBsZW4oZXhwZWN0ZWQpLCBcCiAgICAgICAgICAgICJsZW5ndGgge30gIT0gZXhwZWN0ZWQge30iLmZvcm1hdChsZW4oYWN0dWFsKSwgbGVuKGV4cGVjdGVkKSkKICAgICAgICBmb3IgYSwgZSBpbiB6aXAoYWN0dWFsLCBleHBlY3RlZCk6CiAgICAgICAgICAgIF9hcHByb3hfbmVzdGVkKGEsIGUsIGFicz1hYnMpCiAgICBlbGlmIGlzaW5zdGFuY2UoZXhwZWN0ZWQsIGZsb2F0KToKICAgICAgICBhc3NlcnQgYWN0dWFsID09IHB5dGVzdC5hcHByb3goZXhwZWN0ZWQsIGFicz1hYnMpCiAgICBlbHNlOgogICAgICAgIGFzc2VydCBhY3R1YWwgPT0gZXhwZWN0ZWQKCgpAcmVxdWlyZXMoInNlcXVlbmNlX2RpZmZlcmVuY2UiKQpkZWYgdGVzdF9zZXF1ZW5jZV9kaWZmZXJlbmNlKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLnNlcXVlbmNlX2RpZmZlcmVuY2UoJ0FBVFQnLCAnQUFBQScpID09IHB5dGVzdC5hcHByb3goMC41LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuc2VxdWVuY2VfZGlmZmVyZW5jZSgnQVRBQScsICdBQUFBJykgPT0gcHl0ZXN0LmFwcHJveCgwLjI1LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuc2VxdWVuY2VfZGlmZmVyZW5jZSgnQUFBQScsICdBQUFBJykgPT0gcHl0ZXN0LmFwcHJveCgwLjAsIGFicz0xZS00KQogICAgYXNzZXJ0IG1vZHVsZS5zZXF1ZW5jZV9kaWZmZXJlbmNlKCdBQUFBJywgJ1RUVFQnKSA9PSBweXRlc3QuYXBwcm94KDEuMCwgYWJzPTFlLTQpCgoKQHJlcXVpcmVzKCJqdWtlc19jYW50b3IiKQpkZWYgdGVzdF9qdWtlc19jYW50b3IobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUuanVrZXNfY2FudG9yKDAuMSkgPT0gcHl0ZXN0LmFwcHJveCgwLjEwNzMyNTYzMjczMDUwNDk3LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuanVrZXNfY2FudG9yKDAuMikgPT0gcHl0ZXN0LmFwcHJveCgwLjIzMjYxNjE5NjIyNzg3OTYsIGFicz0xZS00KQogICAgYXNzZXJ0IG1vZHVsZS5qdWtlc19jYW50b3IoMC4wKSA9PSBweXRlc3QuYXBwcm94KDAuMCwgYWJzPTFlLTQpCgoKQHJlcXVpcmVzKCJsb3dlcl90cmlhbl9tYXRyaXgiLCAic2VxdWVuY2VfZGlmZmVyZW5jZSIsICJqdWtlc19jYW50b3IiKQpkZWYgdGVzdF9sb3dlcl90cmlhbl9tYXRyaXgobW9kdWxlKToKICAgIF9hcHByb3hfbmVzdGVkKAogICAgICAgIG1vZHVsZS5sb3dlcl90cmlhbl9tYXRyaXgoCiAgICAgICAgICAgIFsnVEFBQUFBQUFBQUFBJywgJ1RUQUFBQUFBQUFBQScsICdBQUFBQUFBQUFBR0cnLCAnQUFBQUFBQUFHR0dHJ10pLAogICAgICAgIFtbXSwKICAgICAgICAgWzAuMDg4MzM3Mjc2NzQyMjg3NjRdLAogICAgICAgICBbMC4zMDQwOTg4MzEwODExMjMyMywgMC40NDA4Mzk5OTg2NzY1ODkyXSwKICAgICAgICAgWzAuNjA4MTk3NjYyMTYyMjQ2NiwgMC44MjM5NTkyMTY1MDEwODIyLCAwLjE4ODQ4NTgyMTIxMDY3OTUzXV0pCgoKQHJlcXVpcmVzKCJsb3dlcl90cmlhbl9tYXRyaXgiLCAic2VxdWVuY2VfZGlmZmVyZW5jZSIsICJqdWtlc19jYW50b3IiKQpkZWYgdGVzdF9sb3dlcl90cmlhbl9tYXRyaXhfcGFpcihtb2R1bGUpOgogICAgX2FwcHJveF9uZXN0ZWQoCiAgICAgICAgbW9kdWxlLmxvd2VyX3RyaWFuX21hdHJpeChbJ1RBQUFBQUFBQUFBQScsICdBQUFBQUFBQUdHR0cnXSksCiAgICAgICAgW1tdLCBbMC42MDgxOTc2NjIxNjIyNDY2XV0pCgoKQHJlcXVpcmVzKCJmaW5kX2xvd2VzdF9jZWxsIikKZGVmIHRlc3RfZmluZF9sb3dlc3RfY2VsbF9mbG9hdHMobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUuZmluZF9sb3dlc3RfY2VsbCgKICAgICAgICBbW10sIFswLjJdLCBbMC40LCAwLjNdLCBbMC4zLCAwLjEsIDAuNF0sIFswLjUsIDAuMiwgMC41LCAwLjZdXSkgPT0gWzMsIDFdCgoKQHJlcXVpcmVzKCJmaW5kX2xvd2VzdF9jZWxsIikKZGVmIHRlc3RfZmluZF9sb3dlc3RfY2VsbF9pbnRzKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmZpbmRfbG93ZXN0X2NlbGwoCiAgICAgICAgW1tdLCBbMl0sIFs0LCAzXSwgWzMsIDEsIDRdLCBbNSwgMiwgNSwgNl1dKSA9PSBbMywgMV0KCgpAcmVxdWlyZXMoImZpbmRfbG93ZXN0X2NlbGwiKQpkZWYgdGVzdF9maW5kX2xvd2VzdF9jZWxsX3NtYWxsKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmZpbmRfbG93ZXN0X2NlbGwoW1tdLCBbMC4xXV0pID09IFsxLCAwXQoKCkByZXF1aXJlcygibGluayIpCmRlZiB0ZXN0X2xpbmtfaW50cyhtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5saW5rKDQsIDYpID09IHB5dGVzdC5hcHByb3goNSwgYWJzPTFlLTQpCgoKIyBQcmV2aW91c2x5IHNoYWRvd2VkIGluIHRoZSBvcmlnaW5hbCB1bml0dGVzdCBmaWxlOiBhIHNlY29uZCBgYHRlc3RfbGlua18yYGAKIyBtZXRob2QgcmVkZWZpbmVkIHRoZSBmaXJzdCwgc28gdGhlIGBgbGluayg1LCA1KSA9PSA1YGAgY2FzZSBuZXZlciByYW4uIFBvcnRlZAojIGhlcmUgdW5kZXIgYSBkaXN0aW5jdCBuYW1lIHNvIGl0IGFjdHVhbGx5IGV4ZWN1dGVzLgpAcmVxdWlyZXMoImxpbmsiKQpkZWYgdGVzdF9saW5rX2VxdWFsKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmxpbmsoNSwgNSkgPT0gcHl0ZXN0LmFwcHJveCg1LCBhYnM9MWUtNCkKCgpAcmVxdWlyZXMoImxpbmsiKQpkZWYgdGVzdF9saW5rX2Zsb2F0cyhtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5saW5rKDAuNCwgMC42KSA9PSBweXRlc3QuYXBwcm94KDAuNSwgYWJzPTFlLTQpCgoKQHJlcXVpcmVzKCJ1cGRhdGVfdGFibGUiLCAibGluayIpCmRlZiB0ZXN0X3VwZGF0ZV90YWJsZShtb2R1bGUpOgogICAgYmVmb3JlID0gW1tdLCBbMC4xXSwgWzAuMywgMC40XSwgWzAuNiwgMC44LCAwLjJdXQogICAgYWZ0ZXIgPSBbW10sIFswLjM1XSwgWzAuNywgMC4yXV0KICAgIG1vZHVsZS51cGRhdGVfdGFibGUoYmVmb3JlLCAxLCAwKQogICAgX2FwcHJveF9uZXN0ZWQoYmVmb3JlLCBhZnRlcikKCgpAcmVxdWlyZXMoInVwZGF0ZV9sYWJlbHMiKQpkZWYgdGVzdF91cGRhdGVfbGFiZWxzKG1vZHVsZSk6CiAgICBiZWZvcmUgPSBbJ0EnLCAnQicsICdDJywgJ0QnXQogICAgYWZ0ZXIgPSBbJyhBLEIpJywgJ0MnLCAnRCddCiAgICBtb2R1bGUudXBkYXRlX2xhYmVscyhiZWZvcmUsIDEsIDApCiAgICBhc3NlcnQgYmVmb3JlID09IGFmdGVyCgoKQHJlcXVpcmVzKCJjbHVzdGVyIiwgImxvd2VyX3RyaWFuX21hdHJpeCIsICJmaW5kX2xvd2VzdF9jZWxsIiwKICAgICAgICAgICAgICAgICAgICAgICAidXBkYXRlX3RhYmxlIiwgInVwZGF0ZV9sYWJlbHMiLCAibGluayIsCiAgICAgICAgICAgICAgICAgICAgICAgInNlcXVlbmNlX2RpZmZlcmVuY2UiLCAianVrZXNfY2FudG9yIikKZGVmIHRlc3RfY2x1c3Rlcihtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5jbHVzdGVyKAogICAgICAgIFsnVEFBQUFBQUFBQUFBJywgJ1RUQUFBQUFBQUFBQScsICdBQUFBQUFBQUFBR0cnLCAnQUFBQUFBQUFHR0dHJ10sCiAgICAgICAgWydIZW5uaW5nJywgJ1ByZWJlbicsICdNb2dlbnMnLCAnS3VydCddKSA9PSAnKChIZW5uaW5nLFByZWJlbiksKE1vZ2VucyxLdXJ0KSknCg==').then(res => res.blob()).then(blob => {
+        });"><button class="btn btn-light downloadthis  " id="dnldts40114"><i class="bi bi-download"></i> seqdistproject.py </button></a> <a href="#dnldts11235" onclick="fetch('data:application/x-python;base64,ZnJvbSBweXRlc3QgaW1wb3J0IGFwcHJveApmcm9tIGltX3B5dGVzdCBpbXBvcnQgcmVxdWlyZXMKCgpkZWYgX2FwcHJveF9uZXN0ZWQoYWN0dWFsLCBleHBlY3RlZCwgYWJzPTFlLTQpOgogICAgIiIiQ29tcGFyZSAocG9zc2libHkgbmVzdGVkKSBsaXN0cyBvZiBudW1iZXJzIGVsZW1lbnQtd2lzZSB3aXRoIGFwcHJveC4iIiIKICAgIGlmIGlzaW5zdGFuY2UoZXhwZWN0ZWQsIChsaXN0LCB0dXBsZSkpOgogICAgICAgIGFzc2VydCBpc2luc3RhbmNlKGFjdHVhbCwgKGxpc3QsIHR1cGxlKSksIFwKICAgICAgICAgICAgImV4cGVjdGVkIGEgc2VxdWVuY2UgYnV0IGdvdCB7IXJ9Ii5mb3JtYXQoYWN0dWFsKQogICAgICAgIGFzc2VydCBsZW4oYWN0dWFsKSA9PSBsZW4oZXhwZWN0ZWQpLCBcCiAgICAgICAgICAgICJsZW5ndGgge30gIT0gZXhwZWN0ZWQge30iLmZvcm1hdChsZW4oYWN0dWFsKSwgbGVuKGV4cGVjdGVkKSkKICAgICAgICBmb3IgYSwgZSBpbiB6aXAoYWN0dWFsLCBleHBlY3RlZCk6CiAgICAgICAgICAgIF9hcHByb3hfbmVzdGVkKGEsIGUsIGFicz1hYnMpCiAgICBlbGlmIGlzaW5zdGFuY2UoZXhwZWN0ZWQsIGZsb2F0KToKICAgICAgICBhc3NlcnQgYWN0dWFsID09IHB5dGVzdC5hcHByb3goZXhwZWN0ZWQsIGFicz1hYnMpCiAgICBlbHNlOgogICAgICAgIGFzc2VydCBhY3R1YWwgPT0gZXhwZWN0ZWQKCgpAcmVxdWlyZXMoInNlcXVlbmNlX2RpZmZlcmVuY2UiKQpkZWYgdGVzdF9zZXF1ZW5jZV9kaWZmZXJlbmNlKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLnNlcXVlbmNlX2RpZmZlcmVuY2UoJ0FBVFQnLCAnQUFBQScpID09IHB5dGVzdC5hcHByb3goMC41LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuc2VxdWVuY2VfZGlmZmVyZW5jZSgnQVRBQScsICdBQUFBJykgPT0gcHl0ZXN0LmFwcHJveCgwLjI1LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuc2VxdWVuY2VfZGlmZmVyZW5jZSgnQUFBQScsICdBQUFBJykgPT0gcHl0ZXN0LmFwcHJveCgwLjAsIGFicz0xZS00KQogICAgYXNzZXJ0IG1vZHVsZS5zZXF1ZW5jZV9kaWZmZXJlbmNlKCdBQUFBJywgJ1RUVFQnKSA9PSBweXRlc3QuYXBwcm94KDEuMCwgYWJzPTFlLTQpCgoKQHJlcXVpcmVzKCJqdWtlc19jYW50b3IiKQpkZWYgdGVzdF9qdWtlc19jYW50b3IobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUuanVrZXNfY2FudG9yKDAuMSkgPT0gcHl0ZXN0LmFwcHJveCgwLjEwNzMyNTYzMjczMDUwNDk3LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuanVrZXNfY2FudG9yKDAuMikgPT0gcHl0ZXN0LmFwcHJveCgwLjIzMjYxNjE5NjIyNzg3OTYsIGFicz0xZS00KQogICAgYXNzZXJ0IG1vZHVsZS5qdWtlc19jYW50b3IoMC4wKSA9PSBweXRlc3QuYXBwcm94KDAuMCwgYWJzPTFlLTQpCgoKQHJlcXVpcmVzKCJsb3dlcl90cmlhbl9tYXRyaXgiLCAic2VxdWVuY2VfZGlmZmVyZW5jZSIsICJqdWtlc19jYW50b3IiKQpkZWYgdGVzdF9sb3dlcl90cmlhbl9tYXRyaXgobW9kdWxlKToKICAgIF9hcHByb3hfbmVzdGVkKAogICAgICAgIG1vZHVsZS5sb3dlcl90cmlhbl9tYXRyaXgoCiAgICAgICAgICAgIFsnVEFBQUFBQUFBQUFBJywgJ1RUQUFBQUFBQUFBQScsICdBQUFBQUFBQUFBR0cnLCAnQUFBQUFBQUFHR0dHJ10pLAogICAgICAgIFtbXSwKICAgICAgICAgWzAuMDg4MzM3Mjc2NzQyMjg3NjRdLAogICAgICAgICBbMC4zMDQwOTg4MzEwODExMjMyMywgMC40NDA4Mzk5OTg2NzY1ODkyXSwKICAgICAgICAgWzAuNjA4MTk3NjYyMTYyMjQ2NiwgMC44MjM5NTkyMTY1MDEwODIyLCAwLjE4ODQ4NTgyMTIxMDY3OTUzXV0pCgoKQHJlcXVpcmVzKCJsb3dlcl90cmlhbl9tYXRyaXgiLCAic2VxdWVuY2VfZGlmZmVyZW5jZSIsICJqdWtlc19jYW50b3IiKQpkZWYgdGVzdF9sb3dlcl90cmlhbl9tYXRyaXhfcGFpcihtb2R1bGUpOgogICAgX2FwcHJveF9uZXN0ZWQoCiAgICAgICAgbW9kdWxlLmxvd2VyX3RyaWFuX21hdHJpeChbJ1RBQUFBQUFBQUFBQScsICdBQUFBQUFBQUdHR0cnXSksCiAgICAgICAgW1tdLCBbMC42MDgxOTc2NjIxNjIyNDY2XV0pCgoKQHJlcXVpcmVzKCJmaW5kX2xvd2VzdF9jZWxsIikKZGVmIHRlc3RfZmluZF9sb3dlc3RfY2VsbF9mbG9hdHMobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUuZmluZF9sb3dlc3RfY2VsbCgKICAgICAgICBbW10sIFswLjJdLCBbMC40LCAwLjNdLCBbMC4zLCAwLjEsIDAuNF0sIFswLjUsIDAuMiwgMC41LCAwLjZdXSkgPT0gWzMsIDFdCgoKQHJlcXVpcmVzKCJmaW5kX2xvd2VzdF9jZWxsIikKZGVmIHRlc3RfZmluZF9sb3dlc3RfY2VsbF9pbnRzKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmZpbmRfbG93ZXN0X2NlbGwoCiAgICAgICAgW1tdLCBbMl0sIFs0LCAzXSwgWzMsIDEsIDRdLCBbNSwgMiwgNSwgNl1dKSA9PSBbMywgMV0KCgpAcmVxdWlyZXMoImZpbmRfbG93ZXN0X2NlbGwiKQpkZWYgdGVzdF9maW5kX2xvd2VzdF9jZWxsX3NtYWxsKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmZpbmRfbG93ZXN0X2NlbGwoW1tdLCBbMC4xXV0pID09IFsxLCAwXQoKCkByZXF1aXJlcygibGluayIpCmRlZiB0ZXN0X2xpbmtfaW50cyhtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5saW5rKDQsIDYpID09IHB5dGVzdC5hcHByb3goNSwgYWJzPTFlLTQpCgoKIyBQcmV2aW91c2x5IHNoYWRvd2VkIGluIHRoZSBvcmlnaW5hbCB1bml0dGVzdCBmaWxlOiBhIHNlY29uZCBgYHRlc3RfbGlua18yYGAKIyBtZXRob2QgcmVkZWZpbmVkIHRoZSBmaXJzdCwgc28gdGhlIGBgbGluayg1LCA1KSA9PSA1YGAgY2FzZSBuZXZlciByYW4uIFBvcnRlZAojIGhlcmUgdW5kZXIgYSBkaXN0aW5jdCBuYW1lIHNvIGl0IGFjdHVhbGx5IGV4ZWN1dGVzLgpAcmVxdWlyZXMoImxpbmsiKQpkZWYgdGVzdF9saW5rX2VxdWFsKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmxpbmsoNSwgNSkgPT0gcHl0ZXN0LmFwcHJveCg1LCBhYnM9MWUtNCkKCgpAcmVxdWlyZXMoImxpbmsiKQpkZWYgdGVzdF9saW5rX2Zsb2F0cyhtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5saW5rKDAuNCwgMC42KSA9PSBweXRlc3QuYXBwcm94KDAuNSwgYWJzPTFlLTQpCgoKQHJlcXVpcmVzKCJ1cGRhdGVfdGFibGUiLCAibGluayIpCmRlZiB0ZXN0X3VwZGF0ZV90YWJsZShtb2R1bGUpOgogICAgYmVmb3JlID0gW1tdLCBbMC4xXSwgWzAuMywgMC40XSwgWzAuNiwgMC44LCAwLjJdXQogICAgYWZ0ZXIgPSBbW10sIFswLjM1XSwgWzAuNywgMC4yXV0KICAgIG1vZHVsZS51cGRhdGVfdGFibGUoYmVmb3JlLCAxLCAwKQogICAgX2FwcHJveF9uZXN0ZWQoYmVmb3JlLCBhZnRlcikKCgpAcmVxdWlyZXMoInVwZGF0ZV9sYWJlbHMiKQpkZWYgdGVzdF91cGRhdGVfbGFiZWxzKG1vZHVsZSk6CiAgICBiZWZvcmUgPSBbJ0EnLCAnQicsICdDJywgJ0QnXQogICAgYWZ0ZXIgPSBbJyhBLEIpJywgJ0MnLCAnRCddCiAgICBtb2R1bGUudXBkYXRlX2xhYmVscyhiZWZvcmUsIDEsIDApCiAgICBhc3NlcnQgYmVmb3JlID09IGFmdGVyCgoKQHJlcXVpcmVzKCJjbHVzdGVyIiwgImxvd2VyX3RyaWFuX21hdHJpeCIsICJmaW5kX2xvd2VzdF9jZWxsIiwKICAgICAgICAgICAgICAgICAgICAgICAidXBkYXRlX3RhYmxlIiwgInVwZGF0ZV9sYWJlbHMiLCAibGluayIsCiAgICAgICAgICAgICAgICAgICAgICAgInNlcXVlbmNlX2RpZmZlcmVuY2UiLCAianVrZXNfY2FudG9yIikKZGVmIHRlc3RfY2x1c3Rlcihtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5jbHVzdGVyKAogICAgICAgIFsnVEFBQUFBQUFBQUFBJywgJ1RUQUFBQUFBQUFBQScsICdBQUFBQUFBQUFBR0cnLCAnQUFBQUFBQUFHR0dHJ10sCiAgICAgICAgWydIZW5uaW5nJywgJ1ByZWJlbicsICdNb2dlbnMnLCAnS3VydCddKSA9PSAnKChIZW5uaW5nLFByZWJlbiksKE1vZ2VucyxLdXJ0KSknCg==').then(res => res.blob()).then(blob => {
       const downloadURL = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       document.body.appendChild(a);
@@ -836,7 +842,7 @@ window.Quarto = {
       a.download = 'test_seqdistproject.py'; a.click();
       window.URL.revokeObjectURL(downloadURL);
       document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts16912"><i class="bi bi-download"></i> test_seqdistproject.py </button></a></p>
+        });"><button class="btn btn-light downloadthis  " id="dnldts11235"><i class="bi bi-download"></i> test_seqdistproject.py </button></a></p>
 <p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
 <ul>
 <li><code>seqdistproject.py</code> is an empty file where you must write your code.</li>
@@ -1471,25 +1477,64 @@ F 0.2 0.1 0.3 0.1 0.1
           }
         };
       }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
+        const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+        for (let i=0; i<annoteTargets.length; i++) {
+          const annoteTarget = annoteTargets[i];
+          const targetCell = annoteTarget.getAttribute("data-target-cell");
+          const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+          const contentFn = () => {
+            const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+            if (content) {
+              const tipContent = content.cloneNode(true);
+              tipContent.classList.add("code-annotation-tip-content");
+              return tipContent.outerHTML;
             }
-          });
+          }
+          const config = {
+            allowHTML: true,
+            content: contentFn,
+            onShow: (instance) => {
+              selectCodeLines(instance.reference);
+              instance.reference.classList.add('code-annotation-active');
+              window.tippy.hideAll();
+            },
+            onHide: (instance) => {
+              unselectCodeLines();
+              instance.reference.classList.remove('code-annotation-active');
+            },
+            maxWidth: 300,
+            delay: [50, 0],
+            duration: [200, 0],
+            offset: [5, 10],
+            arrow: true,
+            appendTo: function(el) {
+              return el.parentElement.parentElement.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'quarto',
+            placement: 'right',
+            popperOptions: {
+              modifiers: [
+              {
+                name: 'flip',
+                options: {
+                  flipVariations: false, // true by default
+                  allowedAutoPlacements: ['right'],
+                  fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                },
+              },
+              {
+                name: 'preventOverflow',
+                options: {
+                  mainAxis: false,
+                  altAxis: false
+                }
+              }
+              ]        
+            }      
+          };
+          window.tippy(annoteTarget, config); 
         }
     const findCites = (el) => {
       const parentEl = el.parentElement;
@@ -1533,12 +1578,12 @@ F 0.2 0.1 0.3 0.1 0.1
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../ai/delegate-the-full-problem.html" class="pagination-link" aria-label="Delegate the full problem">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../ai/learning-with-an-ai.html" class="pagination-link" aria-label="Learning with an AI; how you know a fact is true">
-        <span class="nav-page-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

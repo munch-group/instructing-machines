@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>50&nbsp; Code in other files – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ai/documentation-and-resources.html" rel="next">
+<link href="../projects/codonbias-project.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e89ea000c0c84f0741974ac7ad73179c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e6547899087f078a829884e0e68508dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/the-docs-are-the-test.html">Week 9</a></li><li class="breadcrumb-item"><a href="../python/packages-modules.html"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Code in other files</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Planning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../planning/course-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../planning/authorship-split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Who does what: decomposition, tests, and bodies across weeks 6 to 14</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../planning/turtle-widget-and-the-ai-arc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The turtle widget and the AI arc</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../planning/widgets-in-the-python-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Widgets in the Python notes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">How this course works</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/notebooks-in-vscode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Notebooks in VScode</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Meet the assistant</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/about-microsoft-copilot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">About Microsoft Copilot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/script-vs-notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Scripts and notebooks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/course_tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Course tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/if-else.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">If-else</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">The AI predicts, the widget proves</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">How a model produces code, and why it can be wrong</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Turtle, week 3: an object that keeps its own state</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Ask it to explain, then confirm by running</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Turtle, week 4: loops, and the first tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Practical AI use</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Turtle, week 5: drawings described by data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Ask for another way</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Worked example: solving a problem by composition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/week6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Turtle, week 6: building a drawing out of pieces</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Let it draft a small piece you can read and test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/week7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Turtle, week 7: your own kind of object, and finding the bug</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/reading-and-judging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Reading and judging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Tests are the contract</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/week8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Turtle, week 8: retiring the turtle</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/the-docs-are-the-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">The AI invents functions; the docs are the test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Directing to resources: clinic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/packages-modules.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/documentation-and-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Plan before you prompt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 11</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Delegate the full problem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/seqdist-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 12</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Learning with an AI; how you know a fact is true</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dataframes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 13</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/finale-kickoff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Finale: formulating and planning your own tool</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/finale-build.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Finale build clinic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/finale-finishing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Finale finishing and interface testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 14</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">Surviving AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">The AI-off test: how you know you have learned it</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cheatsheets</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="#dnldts20924" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgQ29kZSBpbiBvdGhlciBmaWxlcyB7I3NlYy1tb2R1bGVzfVxuIiwKICAgICJcbiIsCiAgICAiKkV2ZXJ5IHVzZWZ1bCBwcm9ncmFtIGlzIHNwcmVhZCBhY3Jvc3MgbWFueSBmaWxlcywgYW5kIGBpbXBvcnRgIGlzIHRoZSBvbmUgc3RhdGVtZW50IHRoYXQgcHV0cyB0aGVtIGJhY2sgdG9nZXRoZXIuKlxuIiwKICAgICJcbiIsCiAgICAiRXZlcnl0aGluZyB5b3UgaGF2ZSB3cml0dGVuIHNvIGZhciBoYXMgbGl2ZWQgaW4gYSBzaW5nbGUgZmlsZS4gVGhhdCB3YXMgZmluZSB3aGlsZSBhIHByb2dyYW0gd2FzIGZvcnR5IGxpbmVzIGxvbmcsIGFuZCBpdCBzdG9wcyBiZWluZyBmaW5lIHNvbWV3aGVyZSBhcm91bmQgdHdvIGh1bmRyZWQuIEJ1dCB0aGVyZSBpcyBhIGJpZ2dlciBwb2ludCBoaWRpbmcgYmVoaW5kIHRoZSBwcmFjdGljYWwgb25lLiBZb3UgaGF2ZSBiZWVuIGNhbGxpbmcgYHByaW50YCBhbmQgYGxlbmAgc2luY2Ugd2VlayBvbmUgd2l0aG91dCBldmVyIGFza2luZyB3aGVyZSB0aGV5IGxpdmUuIFlvdSBoYXZlIGJlZW4gcnVubmluZyB0ZXN0cyB3cml0dGVuIGJ5IHNvbWVib2R5IGVsc2UgYWdhaW5zdCBjb2RlIHdyaXR0ZW4gYnkgeW91LCBpbiB0d28gZGlmZmVyZW50IGZpbGVzLCBhbmQgc29tZWhvdyB0aGUgdGVzdHMgY291bGQgc2VlIHlvdXIgZnVuY3Rpb25zLiBFdmVyeSBvbmUgb2YgdGhvc2UgdGhpbmdzIGhhcHBlbmVkIGJlY2F1c2Ugb2YgYSBzaW5nbGUgc3RhdGVtZW50LCB3aGljaCB5b3UgaGF2ZSB0eXBlZCBhIGZldyB0aW1lcyBhbHJlYWR5IHdpdGhvdXQgYmVpbmcgdG9sZCB3aGF0IGl0IGRvZXMuXG4iLAogICAgIlxuIiwKICAgICJUaGlzIGNoYXB0ZXIgaXMgYWJvdXQgd2hhdCBgaW1wb3J0YCBhY3R1YWxseSBkb2VzLiBJdCBpcyBhIHNob3J0IGNoYXB0ZXIsIGJlY2F1c2UgdGhlIGFuc3dlciBpcyBzaG9ydC4gSXQgaXMgYWxzbyB0aGUgY2hhcHRlciB0aGF0IHF1aWV0bHkgdW5sb2NrcyB0aGUgc2Vjb25kIGhhbGYgb2YgdGhlIGNvdXJzZSwgYmVjYXVzZSBmcm9tIGhlcmUgb24geW91IHdpbGwgYmUgdXNpbmcgY29kZSB0aGF0IG90aGVyIHBlb3BsZSB3cm90ZSwgYW5kIHlvdSBzaG91bGQga25vdyB3aGF0IGlzIGhhcHBlbmluZyB3aGVuIHlvdSBkby5cbiIsCiAgICAiXG4iLAogICAgIiMjIEEgbW9kdWxlIGlzIGEgZmlsZSB7I3NlYy1hLW1vZHVsZS1pcy1hLWZpbGV9XG4iLAogICAgIlxuIiwKICAgICJNYWtlIGEgZm9sZGVyLiBQdXQgdHdvIGZpbGVzIGluIGl0LiBUeXBlIHRoZW0gYm90aDsgZG8gbm90IGNvcHkgdGhlbS5cbiIsCiAgICAiXG4iLAogICAgImBgYHsucHl0aG9uIGZpbGVuYW1lPVwic2VxdG9vbHMucHlcIn1cbiIsCiAgICAiZGVmIGdjX2NvbnRlbnQoZG5hKTpcbiIsCiAgICAiICAgIFwiRnJhY3Rpb24gb2YgdGhlIGJhc2VzIHRoYXQgYXJlIEcgb3IgQy5cIlxuIiwKICAgICIgICAgZ2MgPSBkbmEuY291bnQoJ0cnKSArIGRuYS5jb3VudCgnQycpXG4iLAogICAgIiAgICByZXR1cm4gZ2MgLyBsZW4oZG5hKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgImBgYHsucHl0aG9uIGZpbGVuYW1lPVwiYW5hbHlzZS5weVwifVxuIiwKICAgICJpbXBvcnQgc2VxdG9vbHNcbiIsCiAgICAiXG4iLAogICAgInByaW50KHNlcXRvb2xzLmdjX2NvbnRlbnQoJ0FUR0MnKSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJOb3cgcnVuIHRoZSAqc2Vjb25kKiBvbmUgZnJvbSB0aGUgdGVybWluYWwsIHRoZSB3YXkgeW91IGhhdmUgYmVlbiBydW5uaW5nIHByb2dyYW1zIGFsbCB0ZXJtOlxuIiwKICAgICJcbiIsCiAgICAiYGBgey50eHQgZmlsZW5hbWU9XCJUZXJtaW5hbFwifVxuIiwKICAgICIkIHB5dGhvbiBhbmFseXNlLnB5XG4iLAogICAgIjAuNVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkEgZnVuY3Rpb24gZGVmaW5lZCBpbiBvbmUgZmlsZSB3YXMgY2FsbGVkIGZyb20gYW5vdGhlciBvbmUuIFRoYXQgaXMgdGhlIHdob2xlIGZlYXR1cmUsIGFuZCB5b3UgaGF2ZSBqdXN0IHVzZWQgaXQuXG4iLAogICAgIlxuIiwKICAgICJXaGF0IHlvdSB3cm90ZSBpcyBjYWxsZWQgYSAqKm1vZHVsZSoqLiBBIG1vZHVsZSBpcyBhIGZpbGUgd2l0aCBQeXRob24gaW4gaXQuIFRoYXQgaXMgdGhlIGVudGlyZSBkZWZpbml0aW9uLCBhbmQgdGhlcmUgaXMgbm90aGluZyBlbHNlIHRvIGl0LiBgc2VxdG9vbHMucHlgIGlzIGEgbW9kdWxlIHdob3NlIG5hbWUgaXMgYHNlcXRvb2xzYCDigJQgdGhlIGZpbGUgbmFtZSB3aXRob3V0IHRoZSBgLnB5YC4gQmVjYXVzZSB0aGF0IG5hbWUgYmVjb21lcyBhIHZhcmlhYmxlIGluIHRoZSBwcm9ncmFtIHRoYXQgaW1wb3J0cyBpdCwgaXQgaGFzIHRvIGJlIGEgbmFtZSB5b3UgY291bGQgbGVnYWxseSBnaXZlIGEgdmFyaWFibGU6IG5vIGRhc2hlcywgbm8gc3BhY2VzLCBhbmQgaXQgY2Fubm90IHN0YXJ0IHdpdGggYSBkaWdpdC4gYHNlcV90b29scy5weWAgaXMgZmluZS4gYHNlcS10b29scy5weWAgd2lsbCBub3QgaW1wb3J0LCBldmVyLCBhbmQgdGhlIGVycm9yIHdpbGwgbm90IGJlIGhlbHBmdWwgYWJvdXQgd2h5LlxuIiwKICAgICJcbiIsCiAgICAiIyMgV2hhdCBgaW1wb3J0YCBhY3R1YWxseSBkb2VzIHsjc2VjLXdoYXQtaW1wb3J0LWRvZXN9XG4iLAogICAgIlxuIiwKICAgICJUaHJlZSB0aGluZ3MsIGluIHRoaXMgb3JkZXIuXG4iLAogICAgIlxuIiwKICAgICJGaXJzdCBpdCAqKmZpbmRzKiogdGhlIGZpbGUuIEl0IGxvb2tzIGluIHRoZSBmb2xkZXIgeW91IGFyZSBydW5uaW5nIGZyb20sIGFuZCB0aGVuIGluIHRoZSBwbGFjZXMgd2hlcmUgaW5zdGFsbGVkIGxpYnJhcmllcyBsaXZlLCBhbmQgaXQgdGFrZXMgdGhlIGZpcnN0IGBzZXF0b29sc2AgaXQgZmluZHMuXG4iLAogICAgIlxuIiwKICAgICJTZWNvbmQgaXQgKipydW5zKiogdGhlIGZpbGUuIFRvcCB0byBib3R0b20sIGV2ZXJ5IGxpbmUsIGV4YWN0bHkgYXMgaWYgeW91IGhhZCB0eXBlZCBgcHl0aG9uIHNlcXRvb2xzLnB5YCB5b3Vyc2VsZi4gRWFjaCBgZGVmYCBydW5zIGFuZCBjcmVhdGVzIGEgZnVuY3Rpb24gb2JqZWN0OyBlYWNoIGFzc2lnbm1lbnQgYXQgdGhlIGxlZnQgbWFyZ2luIHJ1bnMgYW5kIGNyZWF0ZXMgYSB2YXJpYWJsZS5cbiIsCiAgICAiXG4iLAogICAgIlRoaXJkIGl0ICoqYmluZHMgYSBuYW1lKiouIFdoZW4gdGhlIGZpbGUgaGFzIGZpbmlzaGVkIHJ1bm5pbmcsIGV2ZXJ5dGhpbmcgaXQgY3JlYXRlZCBpcyBwYWNrZWQgaW50byBhIHNpbmdsZSBvYmplY3QsIGFuZCB0aGF0IG9iamVjdCBpcyBhc3NpZ25lZCB0byB0aGUgdmFyaWFibGUgYHNlcXRvb2xzYCBpbiB5b3VyIHByb2dyYW0uXG4iLAogICAgIlxuIiwKICAgICJUaGUgdGhpcmQgb25lIGlzIHRoZSBvbmUgdGhhdCBtYWtlcyB0aGUgcmVzdCBtYWtlIHNlbnNlOiBgaW1wb3J0IHNlcXRvb2xzYCBpcyBhbiBhc3NpZ25tZW50IHN0YXRlbWVudC4gQWZ0ZXJ3YXJkcywgYHNlcXRvb2xzYCBpcyBhbiBvcmRpbmFyeSB2YXJpYWJsZSBob2xkaW5nIGFuIG9yZGluYXJ5IG9iamVjdCwgYW5kIHlvdSBjYW4gbG9vayBhdCBpdDpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJpbXBvcnQgc2VxdG9vbHNcbiIsCiAgICAiXG4iLAogICAgInByaW50KHR5cGUoc2VxdG9vbHMpKVxuIiwKICAgICJwcmludChzZXF0b29scylcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJJdCByZXBvcnRzIGA8Y2xhc3MgJ21vZHVsZSc+YCBhbmQgdGhlbiB0ZWxscyB5b3Ugd2hpY2ggZmlsZSBpdCBjYW1lIGZyb20uIFNvIGBzZXF0b29scy5nY19jb250ZW50YCBpcyBub3QgbmV3IHN5bnRheC4gSXQgaXMgdGhlIGRvdCBmcm9tIEBzZWMtb2JqZWN0cywgZG9pbmcgd2hhdCBpdCBhbHdheXMgZG9lczogKlwiSGV5IG1vZHVsZSwgZ2l2ZSBtZSB5b3VyIGdjX2NvbnRlbnQhXCIqIEEgbW9kdWxlIGlzIGFuIG9iamVjdCB3aG9zZSBhdHRyaWJ1dGVzIGFyZSB0aGUgdGhpbmdzIGRlZmluZWQgaW4gaXRzIGZpbGUuXG4iLAogICAgIlxuIiwKICAgICI6Ojogey5jb2x1bW4tbWFyZ2lufVxuIiwKICAgICJ8IHdoYXQgeW91IHdyaXRlIHwgd2hhdCB5b3UgZ2V0IHxcbiIsCiAgICAifC0tLXwtLS18XG4iLAogICAgInwgYGltcG9ydCBzZXF0b29sc2AgfCB0aGUgbmFtZSBgc2VxdG9vbHNgIHxcbiIsCiAgICAifCBgaW1wb3J0IHNlcXRvb2xzIGFzIHN0YCB8IHRoZSBuYW1lIGBzdGAgfFxuIiwKICAgICJ8IGBmcm9tIHNlcXRvb2xzIGltcG9ydCBnY19jb250ZW50YCB8IHRoZSBuYW1lIGBnY19jb250ZW50YCB8XG4iLAogICAgIlxuIiwKICAgICJFdmVyeSBvbmUgb2YgdGhlbSBydW5zIHRoZSB3aG9sZSBmaWxlLiBUaGV5IGRpZmZlciBvbmx5IGluIHdoYXQgbmFtZSBpcyBsZWZ0IGJlaGluZC5cbiIsCiAgICAiOjo6XG4iLAogICAgIlxuIiwKICAgICJUaGUgbWlkZGxlIHN0ZXAsIHRoZSBvbmUgd2hlcmUgdGhlIGZpbGUgKnJ1bnMqLCBpcyB0aGUgb25lIHRoYXQgc3VycHJpc2VzIHBlb3BsZS4gVHJ5IGl0LiBQdXQgYSBsaW5lIGF0IHRoZSBsZWZ0IG1hcmdpbiBvZiB0aGUgbW9kdWxlLCBhYm92ZSB0aGUgYGRlZmA6XG4iLAogICAgIlxuIiwKICAgICJgYGB7LnB5dGhvbiBmaWxlbmFtZT1cInNlcXRvb2xzLnB5XCJ9XG4iLAogICAgInByaW50KFwic2VxdG9vbHMgaXMgYmVpbmcgaW1wb3J0ZWRcIilcbiIsCiAgICAiXG4iLAogICAgImRlZiBnY19jb250ZW50KGRuYSk6XG4iLAogICAgIiAgICBcIkZyYWN0aW9uIG9mIHRoZSBiYXNlcyB0aGF0IGFyZSBHIG9yIEMuXCJcbiIsCiAgICAiICAgIGdjID0gZG5hLmNvdW50KCdHJykgKyBkbmEuY291bnQoJ0MnKVxuIiwKICAgICIgICAgcmV0dXJuIGdjIC8gbGVuKGRuYSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJSdW4gYGFuYWx5c2UucHlgIGFnYWluIGFuZCB0aGF0IHNlbnRlbmNlIGFwcGVhcnMsIHdpdGhvdXQgYW55dGhpbmcgaW4gYGFuYWx5c2UucHlgIGFza2luZyBmb3IgaXQuIEl0IGhhcHBlbmVkIGJlY2F1c2UgaW1wb3J0aW5nIGEgbW9kdWxlIGV4ZWN1dGVzIGl0LiBBbnl0aGluZyBzaXR0aW5nIGF0IHRoZSBsZWZ0IG1hcmdpbiBvZiBhIG1vZHVsZSBydW5zIHRoZSBtb21lbnQgc29tZWJvZHkgaW1wb3J0cyBpdCwgd2hldGhlciB0aGV5IHdhbnRlZCBpdCB0byBvciBub3QuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJgU09MT2BcbiIsCiAgICAiXG4iLAogICAgIlB1dCBgcHJpbnQoXCJhbmFseXNlIGlzIHN0YXJ0aW5nXCIpYCBhcyB0aGUgdmVyeSBmaXJzdCBsaW5lIG9mIGBhbmFseXNlLnB5YCwgYW5kIHRoZW4gd3JpdGUgYGltcG9ydCBzZXF0b29sc2AgdHdpY2UsIG9uIHR3byBsaW5lcyBpbiBhIHJvdy4gRGVjaWRlIHdoYXQgeW91IHRoaW5rIHRoZSBwcm9ncmFtIHByaW50cywgYW5kIGluIHdoYXQgb3JkZXIsIGFuZCBob3cgbWFueSB0aW1lcywgYmVmb3JlIHlvdSBydW4gaXQuIFRoZW4gcnVuIGl0LiBPbmUgcGFydCBvZiB0aGUgcmVzdWx0IGlzIGdvaW5nIHRvIGJlIGRpZmZlcmVudCBmcm9tIHdoYXQgeW91IHByZWRpY3RlZCwgYW5kIHRoZSBleHBsYW5hdGlvbiBpcyB0aGF0IFB5dGhvbiBrZWVwcyBhIG5vdGUgb2YgZXZlcnkgbW9kdWxlIGl0IGhhcyBhbHJlYWR5IGltcG9ydGVkIGFuZCByZWZ1c2VzIHRvIHJ1biB0aGUgc2FtZSBmaWxlIHR3aWNlLlxuIiwKICAgICJcbiIsCiAgICAiOjo6IHsuY2FsbG91dC1pbXBvcnRhbnR9XG4iLAogICAgIkJlY2F1c2UgaW1wb3J0aW5nIGEgbW9kdWxlIHJ1bnMgaXQsIGEgbW9kdWxlIHNob3VsZCBjb250YWluICpkZWZpbml0aW9ucyosIG5vdCAqYWN0aW9ucyouIEZ1bmN0aW9ucywgY2xhc3NlcywgYW5kIGNvbnN0YW50czogeWVzLiBBIGxvb3Agb3ZlciB5b3VyIHdob2xlIGdlbm9tZSB0aGF0IHRha2VzIGZpdmUgbWludXRlczogbm8sIG5vdCBhdCB0aGUgbGVmdCBtYXJnaW4sIGJlY2F1c2UgaXQgd2lsbCBoYXBwZW4gdG8gYW55Ym9keSB3aG8gaW1wb3J0cyB5b3VyIGZpbGUgZm9yIGFueSByZWFzb24gYXQgYWxsLlxuIiwKICAgICJcbiIsCiAgICAiV2hlbiBhIGZpbGUgbmVlZHMgdG8gYmUgYm90aCDigJQgYSBtb2R1bGUgb3RoZXIgZmlsZXMgY2FuIGltcG9ydCAqYW5kKiBhIHByb2dyYW0geW91IGNhbiBydW4gZGlyZWN0bHkg4oCUIHRoZSBmaXggaXMgb25lIGluY2FudGF0aW9uIHlvdSBtYXkgYXMgd2VsbCBsZWFybiBhcyBhIHJlY2lwZTpcbiIsCiAgICAiXG4iLAogICAgImBgYHsucHl0aG9uIGZpbGVuYW1lPVwiYW5hbHlzZS5weVwifVxuIiwKICAgICJpbXBvcnQgc2VxdG9vbHNcbiIsCiAgICAiXG4iLAogICAgImRlZiBtYWluKCk6XG4iLAogICAgIiAgICBwcmludChzZXF0b29scy5nY19jb250ZW50KCdBVEdDJykpXG4iLAogICAgIlxuIiwKICAgICJpZiBfX25hbWVfXyA9PSAnX19tYWluX18nOlxuIiwKICAgICIgICAgbWFpbigpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiUHl0aG9uIHNldHMgdGhlIHZhcmlhYmxlIGBfX25hbWVfX2AgaW5zaWRlIGV2ZXJ5IGZpbGUgaXQgcnVucy4gSWYgeW91IHJhbiB0aGUgZmlsZSB5b3Vyc2VsZiwgaXQgaXMgc2V0IHRvIGAnX19tYWluX18nYDsgaWYgc29tZWJvZHkgaW1wb3J0ZWQgdGhlIGZpbGUsIGl0IGlzIHNldCB0byB0aGUgbW9kdWxlJ3MgbmFtZSBpbnN0ZWFkLiBTbyB0aGUgYm9keSBvZiB0aGF0IGBpZmAgcnVucyB3aGVuIHlvdSBydW4gdGhlIGZpbGUgYW5kIHN0YXlzIHF1aWV0IHdoZW4gc29tZWJvZHkgaW1wb3J0cyBpdC4gVGhhdCBpcyBhbGwgaXQgaXM6IGEgbm9ybWFsIGlmLXN0YXRlbWVudCwgYXNraW5nIGEgbm9ybWFsIHF1ZXN0aW9uIGFib3V0IGEgdmFyaWFibGUgc29tZWJvZHkgZWxzZSBzZXQgZm9yIHlvdS5cbiIsCiAgICAiOjo6XG4iLAogICAgIlxuIiwKICAgICIjIyBUaGUgdGhyZWUgd2F5cyB0byB3cml0ZSBpdCB7I3NlYy1pbXBvcnQtZm9ybXN9XG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiaW1wb3J0IHNlcXRvb2xzXG4iLAogICAgInByaW50KHNlcXRvb2xzLmdjX2NvbnRlbnQoJ0FUR0MnKSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiaW1wb3J0IHNlcXRvb2xzIGFzIHN0XG4iLAogICAgInByaW50KHN0LmdjX2NvbnRlbnQoJ0FUR0MnKSlcbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiZnJvbSBzZXF0b29scyBpbXBvcnQgZ2NfY29udGVudFxuIiwKICAgICJwcmludChnY19jb250ZW50KCdBVEdDJykpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiQWxsIHRocmVlIHJ1biB0aGUgd2hvbGUgZmlsZS4gVGhleSBkaWZmZXIgb25seSBpbiB0aGUgbmFtZSB5b3UgYXJlIGxlZnQgaG9sZGluZy5cbiIsCiAgICAiXG4iLAogICAgIlRoZSBmaXJzdCBpcyB0aGUgaG9uZXN0IG9uZSwgYW5kIGl0IHNob3VsZCBiZSB5b3VyIGRlZmF1bHQuIFNpeCBtb250aHMgZnJvbSBub3csIGBzZXF0b29scy5nY19jb250ZW50KGRuYSlgIHN0aWxsIHRlbGxzIHRoZSByZWFkZXIgd2hlcmUgdGhhdCBmdW5jdGlvbiBjYW1lIGZyb20sIGFuZCB0aGUgcmVhZGVyIG1pZ2h0IGJlIHlvdS5cbiIsCiAgICAiXG4iLAogICAgIlRoZSBzZWNvbmQgaXMgdGhlIHNhbWUgdGhpbmcgd2l0aCBhIHNob3J0ZXIgbmFtZSwgYW5kIHlvdSB1c2UgaXQgd2hlbiB0aGUgY29tbXVuaXR5IGhhcyBhZ3JlZWQgb24gYW4gYWJicmV2aWF0aW9uLCB0aGUgd2F5IGV2ZXJ5b25lIHdyaXRlcyBgaW1wb3J0IHBhbmRhcyBhcyBwZGAuIERvIG5vdCBpbnZlbnQgeW91ciBvd24gYWJicmV2aWF0aW9ucyBmb3Igd2VsbC1rbm93biBsaWJyYXJpZXM7IHlvdSB3aWxsIG9ubHkgY29uZnVzZSBwZW9wbGUgd2hvIGFscmVhZHkga25vdyB0aGUgY29udmVudGlvbmFsIG9uZS5cbiIsCiAgICAiXG4iLAogICAgIlRoZSB0aGlyZCByZWFjaGVzIGludG8gdGhlIG1vZHVsZSBhbmQgY29waWVzIG9uZSBuYW1lIG91dCBvZiBpdCwgc28geW91IGNhbiB1c2UgaXQgd2l0aG91dCBzYXlpbmcgd2hlcmUgaXQgY2FtZSBmcm9tLiBUaGF0IGlzIGNvbnZlbmllbnQsIGFuZCB0aGUgY29udmVuaWVuY2UgaXMgZXhhY3RseSB0aGUgY29zdDogYSBmaWxlIGZ1bGwgb2YgYmFyZSBmdW5jdGlvbiBuYW1lcyBnaXZlcyBhIHJlYWRlciBubyB3YXkgdG8gdGVsbCB3aGljaCBvbmVzIHlvdSB3cm90ZSBhbmQgd2hpY2ggb25lcyBhcnJpdmVkIGZyb20gc29tZXdoZXJlIGVsc2UuIFVzZSBpdCBzcGFyaW5nbHksIGZvciBhIGhhbmRmdWwgb2YgbmFtZXMgeW91IHVzZSBjb25zdGFudGx5LCB0aGUgd2F5IGBmcm9tIEJpby5TZXEgaW1wb3J0IFNlcWAgaXMgd3JpdHRlbiBieSBldmVyeWJvZHkuXG4iLAogICAgIlxuIiwKICAgICJUaGVyZSBpcyBhIGZvdXJ0aCBmb3JtLCBgZnJvbSBzZXF0b29scyBpbXBvcnQgKmAsIHdoaWNoIGVtcHRpZXMgdGhlIGVudGlyZSBtb2R1bGUgaW50byB5b3VyIHByb2dyYW0uIEl0IGxvb2tzIGxpa2UgYSBzaG9ydGN1dCBhbmQgaXMgYSB0cmFwOiBhbnkgbmFtZSBpbiB0aGUgbW9kdWxlIHRoYXQgaGFwcGVucyB0byBtYXRjaCBhIG5hbWUgb2YgeW91cnMgc2lsZW50bHkgcmVwbGFjZXMgaXQsIGFuZCB5b3UgZmluZCBvdXQgbXVjaCBsYXRlciwgaW4gdGhlIGZvcm0gb2YgYSBmdW5jdGlvbiB0aGF0IGRvZXMgc29tZXRoaW5nIHlvdSBkaWQgbm90IHdyaXRlLiBEbyBub3QgdXNlIGl0LlxuIiwKICAgICJcbiIsCiAgICAiIyMgWW91IGhhdmUgYmVlbiBpbXBvcnRpbmcgeW91ciBvd24gY29kZSBhbGwgdGVybSB7I3NlYy10ZXN0cy1pbXBvcnQteW91fVxuIiwKICAgICJcbiIsCiAgICAiT3BlbiB0aGUgdGVzdCBmaWxlIGZyb20gYW55IG9mIHRoZSBwcm9qZWN0cy4gWW91IHdpbGwgZmluZCBmdW5jdGlvbnMgdGhhdCBsb29rIGxpa2UgdGhpczpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJAcmVxdWlyZXMoXCJmaW5kX29yZnNcIilcbiIsCiAgICAiZGVmIHRlc3RfZmluZF9vcmZzKG1vZHVsZSk6XG4iLAogICAgIiAgICBhc3NlcnQgbW9kdWxlLmZpbmRfb3JmcyhcIkFUR0FBQVRBR0FBQVRHQUFBVEFHVEFBXCIpID09IFtbMCwgNl0sIFsxMSwgMTddXVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIlRoZXJlIGlzIHRoYXQgZG90IGFnYWluLCBhbmQgbm93IHlvdSBjYW4gcmVhZCB0aGUgbGluZSBwcm9wZXJseS4gVGhlIHRlc3Qgc3VpdGUgKippbXBvcnRzIHlvdXIgcHJvamVjdCBmaWxlIGFzIGEgbW9kdWxlKiosIGFuZCBoYW5kcyB0aGUgcmVzdWx0aW5nIG1vZHVsZSBvYmplY3QgdG8gZWFjaCB0ZXN0IGFzIHRoZSBhcmd1bWVudCBgbW9kdWxlYC4gVGhlbiBgbW9kdWxlLmZpbmRfb3Jmc2AgaXMgdGhlIHRlc3QgYXNraW5nIHlvdXIgbW9kdWxlIGZvciB0aGUgZnVuY3Rpb24gb2YgdGhhdCBuYW1lLCBleGFjdGx5IHRoZSB3YXkgYGFuYWx5c2UucHlgIGFza2VkIGBzZXF0b29sc2AgZm9yIGBnY19jb250ZW50YC5cbiIsCiAgICAiXG4iLAogICAgIlRoYXQgYWxzbyBleHBsYWlucyBhIG1lc3NhZ2UgeW91IGhhdmUgc2Vlbi4gV2hlbiB0aGUgdGVzdCByZXBvcnQgc2F5cyBhIGZ1bmN0aW9uIGlzIG5vdCB3cml0dGVuIHlldCwgbm90aGluZyBjbGV2ZXIgaXMgZ29pbmcgb246IHRoZSB0ZXN0cyBsb29rZWQgdXAgYSBuYW1lIGluIHlvdXIgbW9kdWxlLCB0aGUgbmFtZSB3YXMgbm90IHRoZXJlLCBhbmQgdGhlIHJlcG9ydCBzYXlzIHNvLiBZb3VyIGZpbGUgaGFzIGJlZW4gYSBtb2R1bGUgYWxsIGFsb25nLiBOb2JvZHkgbWVudGlvbmVkIGl0LCBiZWNhdXNlIHVudGlsIG5vdyB5b3UgZGlkIG5vdCBuZWVkIHRvIGtub3cuXG4iLAogICAgIlxuIiwKICAgICIjIyBNb2R1bGVzIHRoYXQgY2FtZSB3aXRoIFB5dGhvbiB7I3NlYy1zdGFuZGFyZC1saWJyYXJ5fVxuIiwKICAgICJcbiIsCiAgICAiQSBsYXJnZSBwaWxlIG9mIG1vZHVsZXMgYXJyaXZlZCBvbiB5b3VyIGNvbXB1dGVyIGFsb25nIHdpdGggUHl0aG9uIGl0c2VsZiwgYW5kIHlvdSBjYW4gaW1wb3J0IGFueSBvZiB0aGVtIHdpdGhvdXQgaW5zdGFsbGluZyBhbnl0aGluZy4gVGhpcyBpcyBjYWxsZWQgdGhlICpzdGFuZGFyZCBsaWJyYXJ5KiwgYW5kIGl0IGlzIG9uZSBvZiB0aGUgcmVhc29ucyBwZW9wbGUgbGlrZSBQeXRob24uXG4iLAogICAgIlxuIiwKICAgICJgYGBweXRob25cbiIsCiAgICAiaW1wb3J0IG1hdGhcbiIsCiAgICAiXG4iLAogICAgInByaW50KG1hdGguc3FydCgxNikpXG4iLAogICAgInByaW50KG1hdGgubG9nKDEwMCwgMTApKVxuIiwKICAgICJwcmludChtYXRoLmZsb29yKDMuNykpXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiYHJhbmRvbWAgZ2l2ZXMgeW91IHJhbmRvbSBjaG9pY2VzIGFuZCBzaHVmZmxlcywgYHN0YXRpc3RpY3NgIGdpdmVzIHlvdSBtZWFucyBhbmQgbWVkaWFucywgYG9zYCBhbmQgYHBhdGhsaWJgIGRlYWwgd2l0aCBmaWxlcyBhbmQgZm9sZGVycywgYW5kIGBjc3ZgIHJlYWRzIHRoZSBjb21tYS1zZXBhcmF0ZWQgdGFibGVzIGZyb20gQHNlYy1kYXRhZnJhbWVzIHdpdGhvdXQgcGFuZGFzIGJlaW5nIGludm9sdmVkIGF0IGFsbC4gWW91IGRvIG5vdCBuZWVkIHRvIGxlYXJuIHRoZW07IHlvdSBuZWVkIHRvIGtub3cgdGhleSBleGlzdCwgc28gdGhhdCB5b3UgY2hlY2sgYmVmb3JlIHdyaXRpbmcgc29tZXRoaW5nIHRoYXQgYWxyZWFkeSBleGlzdHMuXG4iLAogICAgIlxuIiwKICAgICI6Ojogey5jYWxsb3V0LWltcG9ydGFudH1cbiIsCiAgICAiRG8gbm90IGNhbGwgb25lIG9mIHlvdXIgb3duIGZpbGVzIGBtYXRoLnB5YC4gT3IgYHJhbmRvbS5weWAsIG9yIGBjc3YucHlgLCBvciBgc3RyaW5nLnB5YC5cbiIsCiAgICAiXG4iLAogICAgIllvdSBub3cga25vdyBleGFjdGx5IHdoeSwgd2hpY2ggaXMgdGhlIHBvaW50IG9mIHB1dHRpbmcgdGhpcyB3YXJuaW5nIGhlcmUgcmF0aGVyIHRoYW4gZWFybGllci4gSW1wb3J0IGxvb2tzIGluICp5b3VyIGZvbGRlciBmaXJzdCouIElmIHRoZXJlIGlzIGEgYG1hdGgucHlgIHNpdHRpbmcgbmV4dCB0byB5b3VyIHByb2dyYW0sIHRoYXQgaXMgdGhlIGBtYXRoYCB0aGF0IGdldHMgaW1wb3J0ZWQsIHlvdXJzLCBhbmQgdGhlIHJlYWwgb25lIGJlY29tZXMgdW5yZWFjaGFibGUg4oCUIGFuZCB0aGUgZXJyb3IgeW91IGdldCB3aWxsIGJlIGFib3V0IGBzcXJ0YCBub3QgZXhpc3RpbmcsIHdoaWNoIHBvaW50cyBhdCB0aGUgd3JvbmcgZmlsZSBlbnRpcmVseS4gSXQgaXMgYSBnZW51aW5lbHkgbmFzdHkgYWZ0ZXJub29uLiBHaXZlIHlvdXIgZmlsZXMgbmFtZXMgdGhhdCBhcmUgYWJvdXQgeW91ciBwcm9ibGVtOiBgc2VxdG9vbHMucHlgLCBgb3JmZmluZGVyLnB5YCwgYHRyYW5zbGF0aW9uLnB5YC5cbiIsCiAgICAiOjo6XG4iLAogICAgIlxuIiwKICAgICIjIyBBIHBhY2thZ2UgaXMgYSBmb2xkZXIgb2YgbW9kdWxlcyB7I3NlYy1wYWNrYWdlcy1hcmUtZm9sZGVyc31cbiIsCiAgICAiXG4iLAogICAgIk9uY2UgYSBsaWJyYXJ5IGdyb3dzIHBhc3Qgd2hhdCBmaXRzIGNvbWZvcnRhYmx5IGluIG9uZSBmaWxlLCBpdCBiZWNvbWVzIGEgZm9sZGVyIG9mIGZpbGVzLiBBIGZvbGRlciBvZiBtb2R1bGVzIGlzIGNhbGxlZCBhICoqcGFja2FnZSoqLCBhbmQgdGhlIGRvdHMgaW4gYW4gaW1wb3J0IHN0YXRlbWVudCBhcmUgc3RlcHMgZG93biBpbnRvIGl0OlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgImZyb20gQmlvLlNlcSBpbXBvcnQgU2VxXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiUmVhZCBpdCBsZWZ0IHRvIHJpZ2h0LiBHbyBpbnRvIHRoZSBwYWNrYWdlIGBCaW9gLiBJbnNpZGUgaXQsIGZpbmQgdGhlIG1vZHVsZSBgU2VxYC4gT3V0IG9mIHRoYXQgbW9kdWxlLCB0YWtlIHRoZSBuYW1lIGBTZXFgLCB3aGljaCBoZXJlIGlzIGEgY2xhc3MuIFRoZSBmYWN0IHRoYXQgdGhlIG1vZHVsZSBhbmQgdGhlIGNsYXNzIGhhdmUgdGhlIHNhbWUgbmFtZSBpcyB1bmZvcnR1bmF0ZSBhbmQgdmVyeSBjb21tb247IHRoZSBkb3RzIHRlbGwgeW91IHdoaWNoIGlzIHdoaWNoLlxuIiwKICAgICJcbiIsCiAgICAiVGhhdCBpcyBhbGwgYSBwYWNrYWdlIGlzLiBgcGFuZGFzYCBpcyBhIHBhY2thZ2UuIGBCaW9gIGlzIGEgcGFja2FnZS4gQm90aCBhcmUgZm9sZGVycyBmdWxsIG9mIG9yZGluYXJ5IGAucHlgIGZpbGVzIHRoYXQgc29tZWJvZHkgZWxzZSB3cm90ZSwgc2l0dGluZyBzb21ld2hlcmUgb24geW91ciBkaXNrLCBjb250YWluaW5nIGZ1bmN0aW9ucyBhbmQgY2xhc3NlcyBkZWZpbmVkIHdpdGggZXhhY3RseSB0aGUgYGRlZmAgYW5kIGBjbGFzc2Agc3RhdGVtZW50cyB5b3UgYWxyZWFkeSBrbm93LlxuIiwKICAgICJcbiIsCiAgICAiV2hpY2ggYWxzbyBkZW15c3RpZmllcyBpbnN0YWxsaW5nLiBXaGVuIGBwaXhpYCwgYGNvbmRhYCBvciBgcGlwYCBpbnN0YWxscyBhIHBhY2thZ2UsIGl0IGRvd25sb2FkcyB0aGF0IGZvbGRlciBhbmQgcHV0cyBpdCBzb21ld2hlcmUgYGltcG9ydGAgYWxyZWFkeSBrbm93cyB0byBsb29rLiBUaGVyZSBpcyBubyBvdGhlciBtYWdpYyBzdGVwLiBJdCBpcyBjb3B5aW5nIGZpbGVzIGludG8gYSBwbGFjZSBvbiBhIGxpc3QuXG4iLAogICAgIlxuIiwKICAgICI6Ojogey5jb2x1bW4tbWFyZ2lufVxuIiwKICAgICIqKlR3byBlcnJvcnMgd29ydGggdGVsbGluZyBhcGFydCoqXG4iLAogICAgIlxuIiwKICAgICJgTW9kdWxlTm90Rm91bmRFcnJvcjogTm8gbW9kdWxlIG5hbWVkICdCaW8nYFxuIiwKICAgICJcbiIsCiAgICAiSW1wb3J0IHdlbnQgbG9va2luZyBmb3IgYSBmaWxlIGFuZCBmb3VuZCBub3RoaW5nLiBOb3QgaW5zdGFsbGVkLCBvciBtaXNzcGVsbGVkLCBvciB5b3UgYXJlIHJ1bm5pbmcgZnJvbSB0aGUgd3JvbmcgZm9sZGVyLlxuIiwKICAgICJcbiIsCiAgICAiYEltcG9ydEVycm9yOiBjYW5ub3QgaW1wb3J0IG5hbWUgJ3JldmVyc2VfdHJhbnNsYXRlJyBmcm9tICdCaW8uU2VxJ2BcbiIsCiAgICAiXG4iLAogICAgIkltcG9ydCBmb3VuZCB0aGUgbW9kdWxlLiBUaGUgKm5hbWUqIHlvdSBhc2tlZCBmb3IgaXMgbm90IGluIGl0LlxuIiwKICAgICI6OjpcbiIsCiAgICAiXG4iLAogICAgIlRob3NlIHR3byBlcnJvcnMgYXJlIHdvcnRoIGJlaW5nIGFibGUgdG8gdGVsbCBhcGFydCBhdCBhIGdsYW5jZSwgYW5kIHRoZSBzZWNvbmQgb25lIGlzIGFib3V0IHRvIGJlY29tZSBpbXBvcnRhbnQuIEFuIGFzc2lzdGFudCB0aGF0IGhhcyByZWFkIGEgZ3JlYXQgZGVhbCBvZiBjb2RlIHdpbGwgaGFwcGlseSBvZmZlciB5b3UgYGZyb20gQmlvLlNlcSBpbXBvcnQgcmV2ZXJzZV90cmFuc2xhdGVgLCBiZWNhdXNlIHRoYXQgaXMgdGhlIGtpbmQgb2YgdGhpbmcgYSBzZXF1ZW5jZSBsaWJyYXJ5IHBsYXVzaWJseSBjb250YWlucywgYW5kIHBsYXVzaWJsZSBpcyB3aGF0IHRoZXNlIG1vZGVscyBhcmUgZ29vZCBhdC4gVGhlIG1vZHVsZSBleGlzdHMsIHNvIHRoZSBpbXBvcnQgZ2V0cyB0aGF0IGZhcjsgdGhlIG5hbWUgZG9lcyBub3QsIHNvIGl0IHN0b3BzIHRoZXJlLiBUaGF0IGBJbXBvcnRFcnJvcmAgaXMgdGhlIG1hY2hpbmUgdGVsbGluZyB5b3UgdGhlIGFzc2lzdGFudCBtYWRlIHNvbWV0aGluZyB1cC4gQHNlYy1kb2NzLWFuZC1yZXNvdXJjZXMgaXMgYWJvdXQgbGVhcm5pbmcgdG8gY2F0Y2ggaXQgYSBzdGVwIGVhcmxpZXIsIGJ5IHJlYWRpbmcgd2hhdCB0aGUgbGlicmFyeSBhY3R1YWxseSBwcm9taXNlcy5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgImBBSTogVW5yZWxpYWJsZSBOYXJyYXRvcmBcbiIsCiAgICAiXG4iLAogICAgIkFzayB0aGUgYXNzaXN0YW50IGZvciBhIGZ1bmN0aW9uIGZyb20gdGhlIGBtYXRoYCBtb2R1bGUgdGhhdCB5b3Ugc3VzcGVjdCBkb2VzIG5vdCBleGlzdCDigJQgc29tZXRoaW5nIHBsYXVzaWJsZSwgbGlrZSBhIGZ1bmN0aW9uIHRoYXQgcmV0dXJucyB0aGUgZ3JlYXRlc3QgY29tbW9uIGRpdmlzb3Igb2YgYSBsaXN0LCBvciBvbmUgdGhhdCByb3VuZHMgdG8gYSBnaXZlbiBudW1iZXIgb2Ygc2lnbmlmaWNhbnQgZmlndXJlcy4gQXNrIGl0IGZvciB0aGUgZXhhY3QgaW1wb3J0IHN0YXRlbWVudC5cbiIsCiAgICAiXG4iLAogICAgIlRoZW4gcnVuIHRoZSBpbXBvcnQuIFdoYXRldmVyIGhhcHBlbnMsIHlvdSBsZWFybiBzb21ldGhpbmc6IGVpdGhlciB0aGUgZnVuY3Rpb24gZXhpc3RzIGFuZCB5b3UgaGF2ZSBmb3VuZCBhIHVzZWZ1bCBvbmUsIG9yIHlvdSBnZXQgYW4gYEltcG9ydEVycm9yYCBuYW1pbmcgcHJlY2lzZWx5IHdoYXQgd2FzIGludmVudGVkLiBXcml0ZSBib3RoIHRoZSBjbGFpbSBhbmQgdGhlIG91dGNvbWUgaW4geW91ciBsb2dib29rLlxuIiwKICAgICJcbiIsCiAgICAiIyMgU3BsaXR0aW5nIGEgcHJvamVjdCBvZiB5b3VyIG93biB7I3NlYy1zcGxpdHRpbmctYS1wcm9qZWN0fVxuIiwKICAgICJcbiIsCiAgICAiVGhlIHNhbWUgZmVhdHVyZSB0aGF0IGxldHMgeW91IHVzZSBvdGhlciBwZW9wbGUncyBjb2RlIGxldHMgeW91IG9yZ2FuaXNlIHlvdXIgb3duLCBhbmQgaXQgaXMgdGhlIHNhbWUgcmVhc29uIHlvdSBzdGFydGVkIHdyaXRpbmcgZnVuY3Rpb25zIGluIHRoZSBmaXJzdCBwbGFjZS4gQSBmdW5jdGlvbiBnaXZlcyBhIG5hbWUgdG8gYSBwaWVjZSBvZiBhIHByb2dyYW0uIEEgbW9kdWxlIGdpdmVzIGEgbmFtZSB0byBhIGdyb3VwIG9mIGZ1bmN0aW9ucy5cbiIsCiAgICAiXG4iLAogICAgIlRha2UgdGhlIE9SRiBwcm9qZWN0LiBCeSB0aGUgZW5kIGl0IGhvbGRzIGEgY29kb24gdGFibGUsIGEgdHJhbnNsYXRpb24gZnVuY3Rpb24sIHNldmVyYWwgT1JGLWZpbmRpbmcgZnVuY3Rpb25zIGFuZCBzb21ldGhpbmcgdGhhdCBydW5zIHRoZSB3aG9sZSBhbmFseXNpcy4gVGhyZWUgZ3JvdXBzLCBzbyB0aHJlZSBmaWxlczpcbiIsCiAgICAiXG4iLAogICAgImBgYHsucHl0aG9uIGZpbGVuYW1lPVwidHJhbnNsYXRpb24ucHlcIn1cbiIsCiAgICAiQ09ET05fTUFQID0geydUVFQnOiAnRicsICdUVEMnOiAnRid9ICAgIyByZXN0IG9mIHRoZSB0YWJsZSBoZXJlLi4uXG4iLAogICAgIlxuIiwKICAgICJkZWYgdHJhbnNsYXRlX29yZihvcmYpOlxuIiwKICAgICIgICAgIyByZXN0IG9mIGNvZGUgaGVyZS4uLlxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgImBgYHsucHl0aG9uIGZpbGVuYW1lPVwib3JmZmluZGVyLnB5XCJ9XG4iLAogICAgImRlZiBmaW5kX3N0YXJ0X3Bvc2l0aW9ucyhzZXEpOlxuIiwKICAgICIgICAgIyByZXN0IG9mIGNvZGUgaGVyZS4uLlxuIiwKICAgICJcbiIsCiAgICAiZGVmIGZpbmRfb3JmcyhzZXEpOlxuIiwKICAgICIgICAgIyByZXN0IG9mIGNvZGUgaGVyZS4uLlxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgImBgYHsucHl0aG9uIGZpbGVuYW1lPVwibWFpbi5weVwifVxuIiwKICAgICJpbXBvcnQgdHJhbnNsYXRpb25cbiIsCiAgICAiaW1wb3J0IG9yZmZpbmRlclxuIiwKICAgICJcbiIsCiAgICAiZGVmIHJlcG9ydChnZW5vbWUpOlxuIiwKICAgICIgICAgZm9yIHN0YXJ0LCBlbmQgaW4gb3JmZmluZGVyLmZpbmRfb3JmcyhnZW5vbWUpOlxuIiwKICAgICIgICAgICAgIHByaW50KHRyYW5zbGF0aW9uLnRyYW5zbGF0ZV9vcmYoZ2Vub21lW3N0YXJ0OmVuZF0pKVxuIiwKICAgICJcbiIsCiAgICAiaWYgX19uYW1lX18gPT0gJ19fbWFpbl9fJzpcbiIsCiAgICAiICAgIHJlcG9ydCgnQVRHQUFBVEFHQUFBVEdBQUFUQUdUQUEnKVxuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIlRocmVlIHJ1bGVzIGFuZCB5b3UgaGF2ZSBldmVyeXRoaW5nIHlvdSBuZWVkLiBUaGUgZmlsZXMgZ28gaW4gdGhlIHNhbWUgZm9sZGVyLiBFYWNoIG1vZHVsZSBob2xkcyBkZWZpbml0aW9ucywgbm90IGFjdGlvbnMuIEFuZCB0aGUgYXJyb3dzIHBvaW50IG9uZSB3YXk6IGBtYWluYCBpbXBvcnRzIHRoZSBvdGhlciB0d28sIGFuZCBuZWl0aGVyIG9mIHRoZW0gaW1wb3J0cyBgbWFpbmAuIElmIHR3byBtb2R1bGVzIGltcG9ydCBlYWNoIG90aGVyLCBQeXRob24gaGFzIHRvIHN0YXJ0IHJ1bm5pbmcgb25lIG9mIHRoZW0gYmVmb3JlIHRoZSBvdGhlciBoYXMgZmluaXNoZWQsIGFuZCB0aGUgcmVzdWx0aW5nIGVycm9yIGlzIGFzIGNvbmZ1c2luZyBhcyBpdCBzb3VuZHMuIEtlZXAgdGhlIGFycm93cyBwb2ludGluZyBkb3duaGlsbCBhbmQgaXQgY2Fubm90IGhhcHBlbi5cbiIsCiAgICAiXG4iLAogICAgIldoYXQgeW91IGdldCBmb3IgdGhlIHRyb3VibGUgaXMgd2hhdCB5b3UgZ290IGZyb20gZnVuY3Rpb25zLCBvbmUgbGV2ZWwgdXAuIEEgbmFtZSBmb3IgZWFjaCBwYXJ0LiBBIGZpbGUgeW91IGNhbiByZWFkIHdpdGhvdXQgaG9sZGluZyB0aGUgb3RoZXIgdHdvIGluIHlvdXIgaGVhZC4gQW5kIGEgcGllY2UgeW91IGNhbiB0ZXN0IG9uIGl0cyBvd24sIHdoaWNoIGlzIGdvaW5nIHRvIG1hdHRlciBtb3JlIGFuZCBtb3JlIGZyb20gaGVyZS5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgImBBSTogRHJhZnRlcmBcbiIsCiAgICAiXG4iLAogICAgIlRha2UgYSBwcm9ncmFtIHlvdSBoYXZlIGFscmVhZHkgd3JpdHRlbiB0aGF0IGhhcyBhdCBsZWFzdCB0d28gZnVuY3Rpb25zIGluIGl0LiBEZWNpZGUgKnlvdXJzZWxmKiwgb24gcGFwZXIsIHdoaWNoIGZ1bmN0aW9ucyBiZWxvbmcgdG9nZXRoZXIgYW5kIHdoYXQgdGhlIHR3byBmaWxlcyBzaG91bGQgYmUgY2FsbGVkIOKAlCB0aGF0IGRlY2lzaW9uIGlzIHRoZSBwYXJ0IHdvcnRoIGRvaW5nLCBhbmQgaXQgaXMgdGhlIHBhcnQgdGhlIGFzc2lzdGFudCBjYW5ub3QgZG8gZm9yIHlvdSwgYmVjYXVzZSBpdCBkb2VzIG5vdCBrbm93IHdoYXQgeW91ciBwcm9ncmFtIGlzIGZvci5cbiIsCiAgICAiXG4iLAogICAgIlRoZW4gYXNrIHRoZSBhc3Npc3RhbnQgdG8gcGVyZm9ybSB0aGUgc3BsaXQgZm9yIHlvdSwgdGVsbGluZyBpdCBleGFjdGx5IHdoaWNoIGZ1bmN0aW9ucyBnbyB3aGVyZS4gUnVuIHRoZSByZXN1bHQuIElmIGl0IGRvZXMgbm90IHJ1biwgcmVhZCB0aGUgZXJyb3IgYmVmb3JlIGFza2luZyBmb3IgYSBmaXg6IG5pbmUgdGltZXMgb3V0IG9mIHRlbiBpdCBpcyBhIG1pc3NpbmcgaW1wb3J0LCBhbmQgYmVpbmcgYWJsZSB0byBzYXkgdGhhdCBvdXQgbG91ZCBiZWZvcmUgYW55b25lIHRlbGxzIHlvdSBpcyB0aGUgd2hvbGUgcG9pbnQgb2YgdGhpcyBjaGFwdGVyLlxuIiwKICAgICJcbiIsCiAgICAiIyMgV2hhdCBjb21lcyBuZXh0IHsjc2VjLW1vZHVsZXMtb3V0cm99XG4iLAogICAgIlxuIiwKICAgICJZb3Ugbm93IGtub3cgdGhhdCB0aGUgY29kZSB5b3UgaW1wb3J0IGlzIGNvZGUsIGluIGZpbGVzLCBvbiB5b3VyIGRpc2ssIG5vIGRpZmZlcmVudCBpbiBraW5kIGZyb20gdGhlIGZpbGVzIHlvdSB3cml0ZS4gSXQgd2FzIHdyaXR0ZW4gd2l0aCB0aGUgc2FtZSBgZGVmYCBzdGF0ZW1lbnRzLCBieSBwZW9wbGUgd2hvIHdlcmUgYWxzbyBvbmNlIGNvbmZ1c2VkIGFib3V0IGBpbXBvcnRgLlxuIiwKICAgICJcbiIsCiAgICAiVGhhdCBtYXR0ZXJzIGJlY2F1c2Ugb2Ygd2hhdCBoYXBwZW5zIG5leHQuIEluIEBzZWMtZG9jcy1hbmQtcmVzb3VyY2VzIHlvdSBtZWV0IEJpb1B5dGhvbiwgYSBwYWNrYWdlIGNvbnRhaW5pbmcgY2FyZWZ1bCwgdGVzdGVkIHZlcnNpb25zIG9mIHNldmVyYWwgZnVuY3Rpb25zIHlvdSBzcGVudCBhIHdlZWsgd3JpdGluZyBieSBoYW5kLiBIYW5kaW5nIHRoYXQgd29yayBvdmVyIGlzIG5vdCBhIGRlZmVhdDsgZG9pbmcgaXQgb25jZSB5b3Vyc2VsZiBpcyB3aGF0IG1ha2VzIHlvdSBhYmxlIHRvIGp1ZGdlIHNvbWVib2R5IGVsc2UncyB2ZXJzaW9uLiBBbmQgdGhlIHF1ZXN0aW9uIHRoYXQgY2hhcHRlciBhc2tzIOKAlCBob3cgZG8gSSBrbm93IHRoaXMgbGlicmFyeSBkb2VzIHdoYXQgaXQgY2xhaW1zPyDigJQgaXMgdGhlIHNhbWUgcXVlc3Rpb24geW91IHdpbGwgYmUgYXNraW5nIGFib3V0IGV2ZXJ5IHBpZWNlIG9mIGNvZGUgYW4gYXNzaXN0YW50IGhhbmRzIHlvdSBmb3IgdGhlIHJlc3Qgb2YgdGhlIHRlcm0uXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJgU09MT2BcbiIsCiAgICAiXG4iLAogICAgIkZvciB0aGlzIHdlZWsncyBsb2dib29rOiBuYW1lIG9uZSBmdW5jdGlvbiB5b3UgY2FsbGVkIHRoaXMgd2VlayB0aGF0IHlvdSBkaWQgbm90IHdyaXRlLCBzYXkgd2hpY2ggbW9kdWxlIG9yIHBhY2thZ2UgaXQgY2FtZSBmcm9tLCBhbmQgc2F5IGhvdyB5b3Ugd291bGQgZmluZCBvdXQgd2hhdCBpdCBwcm9taXNlcy4gSWYgeW91ciBhbnN3ZXIgdG8gdGhlIGxhc3QgcGFydCBpcyBcImFzayB0aGUgYXNzaXN0YW50XCIsIHdyaXRlIGRvd24gd2hhdCB5b3Ugd291bGQgZG8gdG8gY2hlY2sgdGhlIGFuc3dlci5cbiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbXQogIH0KIF0sCiAibWV0YWRhdGEiOiB7CiAgImtlcm5lbHNwZWMiOiB7CiAgICJkaXNwbGF5X25hbWUiOiAiUHl0aG9uIDMiLAogICAibGFuZ3VhZ2UiOiAicHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uMyIKICB9LAogICJsYW5ndWFnZV9pbmZvIjogewogICAiY29kZW1pcnJvcl9tb2RlIjogewogICAgIm5hbWUiOiAiaXB5dGhvbiIsCiAgICAidmVyc2lvbiI6IDMKICAgfSwKICAgImZpbGVfZXh0ZW5zaW9uIjogIi5weSIsCiAgICJtaW1ldHlwZSI6ICJ0ZXh0L3gtcHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uIiwKICAgIm5iY29udmVydF9leHBvcnRlciI6ICJweXRob24iLAogICAicHlnbWVudHNfbGV4ZXIiOiAiaXB5dGhvbjMiLAogICAidmVyc2lvbiI6ICIzLjEzLjE0IgogIH0KIH0sCiAibmJmb3JtYXQiOiA0LAogIm5iZm9ybWF0X21pbm9yIjogNAp9Cg==').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'packages-modules.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts20924"><i class="bi bi-download"></i> Download notebook </button></a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-a-module-is-a-file" id="toc-sec-a-module-is-a-file" class="nav-link active" data-scroll-target="#sec-a-module-is-a-file">A module is a file</a></li>
+  <li><a href="#sec-what-import-does" id="toc-sec-what-import-does" class="nav-link" data-scroll-target="#sec-what-import-does">What <code>import</code> actually does</a></li>
+  <li><a href="#sec-import-forms" id="toc-sec-import-forms" class="nav-link" data-scroll-target="#sec-import-forms">The three ways to write it</a></li>
+  <li><a href="#sec-tests-import-you" id="toc-sec-tests-import-you" class="nav-link" data-scroll-target="#sec-tests-import-you">You have been importing your own code all term</a></li>
+  <li><a href="#sec-standard-library" id="toc-sec-standard-library" class="nav-link" data-scroll-target="#sec-standard-library">Modules that came with Python</a></li>
+  <li><a href="#sec-packages-are-folders" id="toc-sec-packages-are-folders" class="nav-link" data-scroll-target="#sec-packages-are-folders">A package is a folder of modules</a></li>
+  <li><a href="#sec-splitting-a-project" id="toc-sec-splitting-a-project" class="nav-link" data-scroll-target="#sec-splitting-a-project">Splitting a project of your own</a></li>
+  <li><a href="#sec-modules-outro" id="toc-sec-modules-outro" class="nav-link" data-scroll-target="#sec-modules-outro">What comes next</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/the-docs-are-the-test.html">Week 9</a></li><li class="breadcrumb-item"><a href="../python/packages-modules.html"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Code in other files</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-modules" class="quarto-section-identifier"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Code in other files</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><em>Every useful program is spread across many files, and <code>import</code> is the one statement that puts them back together.</em></p>
+<p>Everything you have written so far has lived in a single file. That was fine while a program was forty lines long, and it stops being fine somewhere around two hundred. But there is a bigger point hiding behind the practical one. You have been calling <code>print</code> and <code>len</code> since week one without ever asking where they live. You have been running tests written by somebody else against code written by you, in two different files, and somehow the tests could see your functions. Every one of those things happened because of a single statement, which you have typed a few times already without being told what it does.</p>
+<p>This chapter is about what <code>import</code> actually does. It is a short chapter, because the answer is short. It is also the chapter that quietly unlocks the second half of the course, because from here on you will be using code that other people wrote, and you should know what is happening when you do.</p>
+<section id="sec-a-module-is-a-file" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-a-module-is-a-file">A module is a file</h2>
+<p>Make a folder. Put two files in it. Type them both; do not copy them.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>seqtools.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="seqtools.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gc_content(dna):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Fraction of the bases that are G or C."</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    gc <span class="op">=</span> dna.count(<span class="st">'G'</span>) <span class="op">+</span> dna.count(<span class="st">'C'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gc <span class="op">/</span> <span class="bu">len</span>(dna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>analyse.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="analyse.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seqtools</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seqtools.gc_content(<span class="st">'ATGC'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now run the <em>second</em> one from the terminal, the way you have been running programs all term:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>$ python analyse.py</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>0.5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A function defined in one file was called from another one. That is the whole feature, and you have just used it.</p>
+<p>What you wrote is called a <strong>module</strong>. A module is a file with Python in it. That is the entire definition, and there is nothing else to it. <code>seqtools.py</code> is a module whose name is <code>seqtools</code> — the file name without the <code>.py</code>. Because that name becomes a variable in the program that imports it, it has to be a name you could legally give a variable: no dashes, no spaces, and it cannot start with a digit. <code>seq_tools.py</code> is fine. <code>seq-tools.py</code> will not import, ever, and the error will not be helpful about why.</p>
+</section>
+<section id="sec-what-import-does" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-what-import-does">What <code>import</code> actually does</h2>
+<p>Three things, in this order.</p>
+<p>First it <strong>finds</strong> the file. It looks in the folder you are running from, and then in the places where installed libraries live, and it takes the first <code>seqtools</code> it finds.</p>
+<p>Second it <strong>runs</strong> the file. Top to bottom, every line, exactly as if you had typed <code>python seqtools.py</code> yourself. Each <code>def</code> runs and creates a function object; each assignment at the left margin runs and creates a variable.</p>
+<p>Third it <strong>binds a name</strong>. When the file has finished running, everything it created is packed into a single object, and that object is assigned to the variable <code>seqtools</code> in your program.</p>
+<p>The third one is the one that makes the rest make sense: <code>import seqtools</code> is an assignment statement. Afterwards, <code>seqtools</code> is an ordinary variable holding an ordinary object, and you can look at it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seqtools</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(seqtools))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seqtools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It reports <code>&lt;class 'module'&gt;</code> and then tells you which file it came from. So <code>seqtools.gc_content</code> is not new syntax. It is the dot from <a href="objects.html" class="quarto-xref"><span>Chapter 21</span></a>, doing what it always does: <em>“Hey module, give me your gc_content!”</em> A module is an object whose attributes are the things defined in its file.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>what you write</th>
+<th>what you get</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>import seqtools</code></td>
+<td>the name <code>seqtools</code></td>
+</tr>
+<tr class="even">
+<td><code>import seqtools as st</code></td>
+<td>the name <code>st</code></td>
+</tr>
+<tr class="odd">
+<td><code>from seqtools import gc_content</code></td>
+<td>the name <code>gc_content</code></td>
+</tr>
+</tbody>
+</table>
+<p>Every one of them runs the whole file. They differ only in what name is left behind.</p>
+</div></div><p>The middle step, the one where the file <em>runs</em>, is the one that surprises people. Try it. Put a line at the left margin of the module, above the <code>def</code>:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>seqtools.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="seqtools.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"seqtools is being imported"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gc_content(dna):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Fraction of the bases that are G or C."</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    gc <span class="op">=</span> dna.count(<span class="st">'G'</span>) <span class="op">+</span> dna.count(<span class="st">'C'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gc <span class="op">/</span> <span class="bu">len</span>(dna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run <code>analyse.py</code> again and that sentence appears, without anything in <code>analyse.py</code> asking for it. It happened because importing a module executes it. Anything sitting at the left margin of a module runs the moment somebody imports it, whether they wanted it to or not.</p>
+<section id="exercise" class="level4" data-number="50.0.0.1">
+<h4 data-number="50.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 50-1</strong></h4>
+<p><code>SOLO</code></p>
+<p>Put <code>print("analyse is starting")</code> as the very first line of <code>analyse.py</code>, and then write <code>import seqtools</code> twice, on two lines in a row. Decide what you think the program prints, and in what order, and how many times, before you run it. Then run it. One part of the result is going to be different from what you predicted, and the explanation is that Python keeps a note of every module it has already imported and refuses to run the same file twice.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Because importing a module runs it, a module should contain <em>definitions</em>, not <em>actions</em>. Functions, classes, and constants: yes. A loop over your whole genome that takes five minutes: no, not at the left margin, because it will happen to anybody who imports your file for any reason at all.</p>
+<p>When a file needs to be both — a module other files can import <em>and</em> a program you can run directly — the fix is one incantation you may as well learn as a recipe:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>analyse.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="analyse.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seqtools</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(seqtools.gc_content(<span class="st">'ATGC'</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Python sets the variable <code>__name__</code> inside every file it runs. If you ran the file yourself, it is set to <code>'__main__'</code>; if somebody imported the file, it is set to the module’s name instead. So the body of that <code>if</code> runs when you run the file and stays quiet when somebody imports it. That is all it is: a normal if-statement, asking a normal question about a variable somebody else set for you.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-import-forms" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-import-forms">The three ways to write it</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seqtools</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seqtools.gc_content(<span class="st">'ATGC'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seqtools <span class="im">as</span> st</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(st.gc_content(<span class="st">'ATGC'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> seqtools <span class="im">import</span> gc_content</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gc_content(<span class="st">'ATGC'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All three run the whole file. They differ only in the name you are left holding.</p>
+<p>The first is the honest one, and it should be your default. Six months from now, <code>seqtools.gc_content(dna)</code> still tells the reader where that function came from, and the reader might be you.</p>
+<p>The second is the same thing with a shorter name, and you use it when the community has agreed on an abbreviation, the way everyone writes <code>import pandas as pd</code>. Do not invent your own abbreviations for well-known libraries; you will only confuse people who already know the conventional one.</p>
+<p>The third reaches into the module and copies one name out of it, so you can use it without saying where it came from. That is convenient, and the convenience is exactly the cost: a file full of bare function names gives a reader no way to tell which ones you wrote and which ones arrived from somewhere else. Use it sparingly, for a handful of names you use constantly, the way <code>from Bio.Seq import Seq</code> is written by everybody.</p>
+<p>There is a fourth form, <code>from seqtools import *</code>, which empties the entire module into your program. It looks like a shortcut and is a trap: any name in the module that happens to match a name of yours silently replaces it, and you find out much later, in the form of a function that does something you did not write. Do not use it.</p>
+</section>
+<section id="sec-tests-import-you" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-tests-import-you">You have been importing your own code all term</h2>
+<p>Open the test file from any of the projects. You will find functions that look like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="at">@requires</span>(<span class="st">"find_orfs"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_find_orfs(module):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> module.find_orfs(<span class="st">"ATGAAATAGAAATGAAATAGTAA"</span>) <span class="op">==</span> [[<span class="dv">0</span>, <span class="dv">6</span>], [<span class="dv">11</span>, <span class="dv">17</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There is that dot again, and now you can read the line properly. The test suite <strong>imports your project file as a module</strong>, and hands the resulting module object to each test as the argument <code>module</code>. Then <code>module.find_orfs</code> is the test asking your module for the function of that name, exactly the way <code>analyse.py</code> asked <code>seqtools</code> for <code>gc_content</code>.</p>
+<p>That also explains a message you have seen. When the test report says a function is not written yet, nothing clever is going on: the tests looked up a name in your module, the name was not there, and the report says so. Your file has been a module all along. Nobody mentioned it, because until now you did not need to know.</p>
+</section>
+<section id="sec-standard-library" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-standard-library">Modules that came with Python</h2>
+<p>A large pile of modules arrived on your computer along with Python itself, and you can import any of them without installing anything. This is called the <em>standard library</em>, and it is one of the reasons people like Python.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.sqrt(<span class="dv">16</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.log(<span class="dv">100</span>, <span class="dv">10</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">3.7</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>random</code> gives you random choices and shuffles, <code>statistics</code> gives you means and medians, <code>os</code> and <code>pathlib</code> deal with files and folders, and <code>csv</code> reads the comma-separated tables from <a href="dataframes.html" class="quarto-xref"><span>Chapter 60</span></a> without pandas being involved at all. You do not need to learn them; you need to know they exist, so that you check before writing something that already exists.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not call one of your own files <code>math.py</code>. Or <code>random.py</code>, or <code>csv.py</code>, or <code>string.py</code>.</p>
+<p>You now know exactly why, which is the point of putting this warning here rather than earlier. Import looks in <em>your folder first</em>. If there is a <code>math.py</code> sitting next to your program, that is the <code>math</code> that gets imported, yours, and the real one becomes unreachable — and the error you get will be about <code>sqrt</code> not existing, which points at the wrong file entirely. It is a genuinely nasty afternoon. Give your files names that are about your problem: <code>seqtools.py</code>, <code>orffinder.py</code>, <code>translation.py</code>.</p>
+</div>
+</div>
+</section>
+<section id="sec-packages-are-folders" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-packages-are-folders">A package is a folder of modules</h2>
+<p>Once a library grows past what fits comfortably in one file, it becomes a folder of files. A folder of modules is called a <strong>package</strong>, and the dots in an import statement are steps down into it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Read it left to right. Go into the package <code>Bio</code>. Inside it, find the module <code>Seq</code>. Out of that module, take the name <code>Seq</code>, which here is a class. The fact that the module and the class have the same name is unfortunate and very common; the dots tell you which is which.</p>
+<p>That is all a package is. <code>pandas</code> is a package. <code>Bio</code> is a package. Both are folders full of ordinary <code>.py</code> files that somebody else wrote, sitting somewhere on your disk, containing functions and classes defined with exactly the <code>def</code> and <code>class</code> statements you already know.</p>
+<p>Which also demystifies installing. When <code>pixi</code>, <code>conda</code> or <code>pip</code> installs a package, it downloads that folder and puts it somewhere <code>import</code> already knows to look. There is no other magic step. It is copying files into a place on a list.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Two errors worth telling apart</strong></p>
+<p><code>ModuleNotFoundError: No module named 'Bio'</code></p>
+<p>Import went looking for a file and found nothing. Not installed, or misspelled, or you are running from the wrong folder.</p>
+<p><code>ImportError: cannot import name 'reverse_translate' from 'Bio.Seq'</code></p>
+<p>Import found the module. The <em>name</em> you asked for is not in it.</p>
+</div></div><p>Those two errors are worth being able to tell apart at a glance, and the second one is about to become important. An assistant that has read a great deal of code will happily offer you <code>from Bio.Seq import reverse_translate</code>, because that is the kind of thing a sequence library plausibly contains, and plausible is what these models are good at. The module exists, so the import gets that far; the name does not, so it stops there. That <code>ImportError</code> is the machine telling you the assistant made something up. <a href="../ai/documentation-and-resources.html" class="quarto-xref"><span>Chapter 51</span></a> is about learning to catch it a step earlier, by reading what the library actually promises.</p>
+<section id="exercise-1" class="level4" data-number="50.0.0.2">
+<h4 data-number="50.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 50-2</strong></h4>
+<p><code>AI: Unreliable Narrator</code></p>
+<p>Ask the assistant for a function from the <code>math</code> module that you suspect does not exist — something plausible, like a function that returns the greatest common divisor of a list, or one that rounds to a given number of significant figures. Ask it for the exact import statement.</p>
+<p>Then run the import. Whatever happens, you learn something: either the function exists and you have found a useful one, or you get an <code>ImportError</code> naming precisely what was invented. Write both the claim and the outcome in your logbook.</p>
+</section>
+</section>
+<section id="sec-splitting-a-project" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-splitting-a-project">Splitting a project of your own</h2>
+<p>The same feature that lets you use other people’s code lets you organise your own, and it is the same reason you started writing functions in the first place. A function gives a name to a piece of a program. A module gives a name to a group of functions.</p>
+<p>Take the ORF project. By the end it holds a codon table, a translation function, several ORF-finding functions and something that runs the whole analysis. Three groups, so three files:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>translation.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-filename="translation.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>CODON_MAP <span class="op">=</span> {<span class="st">'TTT'</span>: <span class="st">'F'</span>, <span class="st">'TTC'</span>: <span class="st">'F'</span>}   <span class="co"># rest of the table here...</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> translate_orf(orf):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rest of code here...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>orffinder.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-filename="orffinder.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_start_positions(seq):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rest of code here...</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_orfs(seq):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rest of code here...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>main.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-filename="main.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> translation</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> orffinder</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report(genome):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> start, end <span class="kw">in</span> orffinder.find_orfs(genome):</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(translation.translate_orf(genome[start:end]))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    report(<span class="st">'ATGAAATAGAAATGAAATAGTAA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Three rules and you have everything you need. The files go in the same folder. Each module holds definitions, not actions. And the arrows point one way: <code>main</code> imports the other two, and neither of them imports <code>main</code>. If two modules import each other, Python has to start running one of them before the other has finished, and the resulting error is as confusing as it sounds. Keep the arrows pointing downhill and it cannot happen.</p>
+<p>What you get for the trouble is what you got from functions, one level up. A name for each part. A file you can read without holding the other two in your head. And a piece you can test on its own, which is going to matter more and more from here.</p>
+<section id="exercise-2" class="level4" data-number="50.0.0.3">
+<h4 data-number="50.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 50-3</strong></h4>
+<p><code>AI: Drafter</code></p>
+<p>Take a program you have already written that has at least two functions in it. Decide <em>yourself</em>, on paper, which functions belong together and what the two files should be called — that decision is the part worth doing, and it is the part the assistant cannot do for you, because it does not know what your program is for.</p>
+<p>Then ask the assistant to perform the split for you, telling it exactly which functions go where. Run the result. If it does not run, read the error before asking for a fix: nine times out of ten it is a missing import, and being able to say that out loud before anyone tells you is the whole point of this chapter.</p>
+</section>
+</section>
+<section id="sec-modules-outro" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-modules-outro">What comes next</h2>
+<p>You now know that the code you import is code, in files, on your disk, no different in kind from the files you write. It was written with the same <code>def</code> statements, by people who were also once confused about <code>import</code>.</p>
+<p>That matters because of what happens next. In <a href="../ai/documentation-and-resources.html" class="quarto-xref"><span>Chapter 51</span></a> you meet BioPython, a package containing careful, tested versions of several functions you spent a week writing by hand. Handing that work over is not a defeat; doing it once yourself is what makes you able to judge somebody else’s version. And the question that chapter asks — how do I know this library does what it claims? — is the same question you will be asking about every piece of code an assistant hands you for the rest of the term.</p>
+<section id="exercise-3" class="level4" data-number="50.0.0.4">
+<h4 data-number="50.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 50-4</strong></h4>
+<p><code>SOLO</code></p>
+<p>For this week’s logbook: name one function you called this week that you did not write, say which module or package it came from, and say how you would find out what it promises. If your answer to the last part is “ask the assistant”, write down what you would do to check the answer.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+        for (let i=0; i<annoteTargets.length; i++) {
+          const annoteTarget = annoteTargets[i];
+          const targetCell = annoteTarget.getAttribute("data-target-cell");
+          const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+          const contentFn = () => {
+            const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+            if (content) {
+              const tipContent = content.cloneNode(true);
+              tipContent.classList.add("code-annotation-tip-content");
+              return tipContent.outerHTML;
+            }
+          }
+          const config = {
+            allowHTML: true,
+            content: contentFn,
+            onShow: (instance) => {
+              selectCodeLines(instance.reference);
+              instance.reference.classList.add('code-annotation-active');
+              window.tippy.hideAll();
+            },
+            onHide: (instance) => {
+              unselectCodeLines();
+              instance.reference.classList.remove('code-annotation-active');
+            },
+            maxWidth: 300,
+            delay: [50, 0],
+            duration: [200, 0],
+            offset: [5, 10],
+            arrow: true,
+            appendTo: function(el) {
+              return el.parentElement.parentElement.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'quarto',
+            placement: 'right',
+            popperOptions: {
+              modifiers: [
+              {
+                name: 'flip',
+                options: {
+                  flipVariations: false, // true by default
+                  allowedAutoPlacements: ['right'],
+                  fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                },
+              },
+              {
+                name: 'preventOverflow',
+                options: {
+                  mainAxis: false,
+                  altAxis: false
+                }
+              }
+              ]        
+            }      
+          };
+          window.tippy(annoteTarget, config); 
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../projects/codonbias-project.html" class="pagination-link" aria-label="Codon usage">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Codon usage</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ai/documentation-and-resources.html" class="pagination-link" aria-label="Documentation and resources">
+        <span class="nav-page-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Documentation and resources</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
