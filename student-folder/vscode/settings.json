@@ -1,0 +1,28 @@
+{
+    // Settings for the course folder. VS Code reads these automatically when
+    // you open this folder (File -> Open Folder), which is why opening the
+    // folder rather than a single file matters.
+
+    // Find the Python interpreter that `pixi install` created, in .pixi/envs
+    // here or in a subfolder. Without this, VS Code offers you some unrelated
+    // Python it found on your machine and the course widgets are missing.
+    "python-envs.workspaceSearchPaths": [
+        ".pixi",
+        "*/.pixi"
+    ],
+    "python-envs.defaultEnvManager": "renan-r-santos.pixi-code:pixi",
+    "python-envs.defaultPackageManager": "renan-r-santos.pixi-code:pixi",
+
+    // Run every notebook as if it started in this folder, so that a notebook
+    // opening 'data/orfs.csv' finds the data no matter which subfolder you
+    // saved the notebook in.
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+
+    // Trust this folder's notebooks so widgets render without a prompt.
+    "notebook.output.textLineLimit": 60,
+    "files.exclude": {
+        "**/.pixi": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true
+    }
+}

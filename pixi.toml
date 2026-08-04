@@ -6,6 +6,12 @@ platforms = ["osx-arm64"]
 version = "0.1.0"
 
 [tasks]
+# Re-solve the student environment for all four platforms. Run this after
+# editing student-folder/pixi.toml, then commit the lock file.
+student-lock = "pixi lock --manifest-path student-folder/pixi.toml"
+# Build the downloadable zip by hand (Quarto does it on every render).
+student-zip = "python3 scripts/build_student_folder.py"
+
 # Convenience wrapper: repairs the docs/jupyterlite pixi env if this repo
 # was moved/cloned to a new path and its baked-in interpreter paths went
 # stale. build-demo.sh's pixi tasks already run this automatically; this
@@ -21,7 +27,7 @@ ipython = ">=9.15.0,<10"
 ipykernel = ">=7.3.0,<8"
 nbdime = ">=4.0.4,<5"
 seaborn = ">=0.13.2,<0.14"
-steps-widget = ">=0.2.3,<0.3"
+steps-widget = ">=0.2.5,<0.3"
 puzzle-widget = ">=0.1.14,<0.2"
 turtle-widget = ">=1.0.3,<2"
 codelens-widget = ">=0.1.40,<0.2"
@@ -31,3 +37,6 @@ cryptography = ">=50.0.0,<51"
 anywidget = ">=0.11.0,<0.12"
 sandbox-widget = ">=1.0.5,<2"
 im-pytest = ">=0.1.25,<0.2"
+iplot-widget = ">=0.1.14,<0.2"
+vscodenb = ">=1.0.1,<2"
+deno = ">=2.4.5,<2.5"
