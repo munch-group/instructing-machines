@@ -17,14 +17,10 @@ import shutil
 import subprocess
 import sys
 import urllib.error
-import urllib.request
-from pathlib import Path
 
-# Where the course folder is published. Change this if the website moves.
-BASE_URL = "https://munch-group.org/instructing-machines"
+from course import HERE, fetch, url_for
 
 FILES = ("pixi.toml", "pixi.lock")
-HERE = Path(__file__).resolve().parent
 
 # A downloaded file must contain this to be believable as a pixi manifest or
 # lock file. Cheap insurance against silently saving a "404 not found" page
@@ -32,19 +28,12 @@ HERE = Path(__file__).resolve().parent
 SANITY = {"pixi.toml": "[workspace]", "pixi.lock": "version:"}
 
 
-def fetch(name: str) -> str:
-    url = f"{BASE_URL}/{name}"
-    print(f"Fetching {url}")
-    request = urllib.request.Request(url, headers={"User-Agent": "instructing-machines-update"})
-    with urllib.request.urlopen(request, timeout=60) as response:
-        return response.read().decode("utf-8")
-
-
 def main() -> int:
     downloaded: dict[str, str] = {}
 
     for name in FILES:
         try:
+            print(f"Fetching {url_for(name)}")
             text = fetch(name)
         except urllib.error.URLError as error:
             print(f"\nCould not download {name}: {error}")

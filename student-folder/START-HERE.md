@@ -4,10 +4,10 @@
 about fifteen minutes, most of which is waiting, and you only do it once.*
 
 You are reading this inside the course folder. Everything you need for the
-whole term is in here: the data files, the project files, and the recipe for
-the Python environment. What is *not* in here yet are the lecture notebooks —
-you download those one at a time from the website as we go, and drop them into
-this folder.
+whole term is in here: the data files, the project files, the recipe for the
+Python environment, and the two notebooks for week one. The rest of the lecture
+notebooks you fetch from the website one at a time as we get to them — there is
+a one-line command for it, and you will meet it in step 5.
 
 Work through the five steps below in order. If a step does not do what it says
 it will, look at **When something goes wrong** at the bottom before you panic.
@@ -104,20 +104,46 @@ pixi run check
 It should print a line saying everything is installed, followed by a Python
 version. If it does, you are finished with the hard part.
 
-## 5. Get a notebook and run it
+## 5. Run your first notebook
 
-Go to a chapter on the course website and use the **Download notebook** button
-in the margin. Save the `.ipynb` file into this folder — the top level of it,
-next to `data`.
+Week one's notebooks are already here. In the file list on the left, open the
+`week1` folder and double-click `notebooks-in-vscode.ipynb`.
 
-Open it in VS Code. In the top right of the notebook there is a **Select
-Kernel** button. Click it, choose **Python Environments**, and pick the one
-whose path contains `.pixi` — it will be the one named after this folder. VS
-Code remembers your choice for next time.
+In the top right of the notebook there is a **Select Kernel** button. Click it,
+choose **Python Environments**, and pick the one whose path contains `.pixi` —
+it will be the one named after this folder. VS Code remembers your choice for
+next time.
 
 Now click the ▶ next to the first code cell. If a number appears in the
 brackets beside it, your machine just did what you told it to, and the rest of
 the course is detail.
+
+## Getting the rest of the notebooks
+
+Only week one ships in this folder. Every other chapter you fetch when we reach
+it, so that the notebook you are working in is always the current version of
+the chapter you are reading. In the VS Code terminal, type:
+
+```
+pixi run get iteration
+```
+
+That downloads the notebook for the chapter called *iteration* and puts it
+straight into this folder, ready to open. To see what you can ask for, run it
+without a name:
+
+```
+pixi run get
+```
+
+If you already have a notebook of that name, yours is left exactly as it is and
+the fresh copy arrives beside it as `iteration-2.ipynb`. Nothing you have
+written is ever overwritten, so it is always safe to ask for a clean copy.
+
+There is also a **Download notebook** button in the margin of every chapter on
+the website. It gives you the identical file. The only difference is that it
+lands in your Downloads folder and you have to move it here yourself — which is
+worth knowing about for the day the terminal is being difficult.
 
 ---
 
@@ -128,16 +154,20 @@ instructing-machines/
 ├── START-HERE.md      this page
 ├── pixi.toml          the recipe for your Python environment
 ├── pixi.lock          the exact versions, so all 100 of us get the same ones
+├── get.py             what `pixi run get` runs
+├── update.py          what `pixi run update-env` runs
+├── week1/             the two notebooks for the first week
 ├── data/              data files the lecture notes read
 ├── projects/          the programming projects, one folder each
-└── (your notebooks go here, at this level)
+└── (fetched notebooks land here, at this level)
 ```
 
-Keep downloaded notebooks at the top level, next to `data`. The notes open data
-files with paths like `data/orfs.csv`, and that path is written relative to
-this folder. You can make subfolders of your own for scratch work — the
-settings in here are set up so that data paths keep working even then — but the
-simple thing works and the simple thing is fine.
+The notes open data files with paths like `data/orfs.csv`, written relative to
+this folder rather than to the notebook. So a notebook finds its data whether
+it sits at the top level or in a subfolder of your own — that is what the
+`week1` folder is quietly demonstrating, and it is why you may make a `week2`
+folder and so on if you like a tidy desk. If you would rather not think about
+it, leave everything at the top level; that works too.
 
 Your own files, your own notebooks, and anything you write in `projects/` are
 yours. Nothing in this folder ever gets overwritten by us unless you are
@@ -165,6 +195,11 @@ command palette (Ctrl+Shift+P, or Cmd+Shift+P on a Mac).
 
 **A widget shows as blank space, or as raw text.** You are running the notebook
 on the wrong Python. Click **Select Kernel** and choose the `.pixi` one.
+
+**`pixi run get` says it cannot reach the course website.** Either you are
+offline or the university network is having a moment. Use the **Download
+notebook** button on the chapter page instead and move the file into this
+folder by hand. Nothing is lost either way — it is the same notebook.
 
 **Nothing works and the lecture has already started.** Open the course website
 and use the in-browser notebooks. They run Python inside the browser with

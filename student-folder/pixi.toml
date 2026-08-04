@@ -41,6 +41,10 @@ im-pytest = ">=0.1.25,<0.2"
 # `pixi run check` — a one-command answer to "did my installation work?".
 check = "python -c \"import sys, steps_widget, puzzle_widget, codelens_widget, turtle_widget, sandbox_widget, iplot_widget, im_pytest, pandas, seaborn; print('Everything is installed. Python', sys.version.split()[0])\""
 
+# `pixi run get iteration` — download the notebook for a chapter straight into
+# this folder. `pixi run get` on its own lists the chapters.
+get = "python get.py"
+
 # `pixi run update-env` — fetch a newer pixi.toml/pixi.lock from the course
 # website and reinstall. Only needed if you are told to run it.
 update-env = "python update.py"
