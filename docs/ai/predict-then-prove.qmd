@@ -16,37 +16,39 @@ The routine for this whole session is the same three-way move, repeated on harde
 3. **Prove.** Run the expression through `%%steps`. Its trace is the verdict. Compare it against both of your answers and note any disagreement.
 :::
 
+Every round below carries the `AI: Explainer` badge, which is the rung of the ladder you were given in week one and the only one you have so far. You are putting something in front of the assistant that already exists and asking it to explain that thing; you are not asking it to write anything, and you are not asking it to choose between two versions. What makes this session demanding is not the permission, which is the smallest one there is, but how hard you are going to work it. Rung one, twenty-two times, until checking a claim against a machine is what your hands do without being told.
+
 ## Part 1 — Warm-up: arithmetic precedence (30 min)
 
 Straightforward operator precedence, to get the three-way move running smoothly before anything tricky shows up.
 
 #### Exercise 1
 
-`AI: Comparer`
+`AI: Explainer`
 
 `4 + 6 * 2 - 3`
 
 #### Exercise 2
 
-`AI: Comparer`
+`AI: Explainer`
 
 `2 ** 3 ** 2` (exponentiation groups right-to-left — decide what that means for this one before you predict)
 
 #### Exercise 3
 
-`AI: Comparer`
+`AI: Explainer`
 
 `10 - 2 - 3` (subtraction groups left-to-right — same caution as above)
 
 #### Exercise 4
 
-`AI: Comparer`
+`AI: Explainer`
 
 `(3 + 2) * (8 - 6) / 2`
 
 #### Exercise 5
 
-`AI: Comparer`
+`AI: Explainer`
 
 `7 % 3 + 2 * 5 // 2`
 
@@ -56,31 +58,31 @@ Chained comparisons and `not`/`and`/`or` precedence are a place fluent-sounding 
 
 #### Exercise 6
 
-`AI: Comparer`
+`AI: Explainer`
 
 `1 < 2 < 3` (this is a chained comparison, not two separate comparisons combined by magic — predict what Python actually does with it before asking)
 
 #### Exercise 7
 
-`AI: Comparer`
+`AI: Explainer`
 
 `1 < 2 > 3`
 
 #### Exercise 8
 
-`AI: Comparer`
+`AI: Explainer`
 
 `not 1 == 1 == 2`
 
 #### Exercise 9
 
-`AI: Comparer`
+`AI: Explainer`
 
 `True and False or True`
 
 #### Exercise 10
 
-`AI: Comparer`
+`AI: Explainer`
 
 `not True and not False`
 
@@ -90,31 +92,31 @@ Chained comparisons and `not`/`and`/`or` precedence are a place fluent-sounding 
 
 #### Exercise 11
 
-`AI: Comparer`
+`AI: Explainer`
 
 `'ATG' and 'GCC'` (predict the actual value returned, not just whether it is "truthy")
 
 #### Exercise 12
 
-`AI: Comparer`
+`AI: Explainer`
 
 `'' or 'GCC'`
 
 #### Exercise 13
 
-`AI: Comparer`
+`AI: Explainer`
 
 `0 or '' or 'default'`
 
 #### Exercise 14
 
-`AI: Comparer`
+`AI: Explainer`
 
 `'ATG' and '' and 'GCC'`
 
 #### Exercise 15
 
-`AI: Comparer`
+`AI: Explainer`
 
 Ask the assistant, before predicting or proving anything, to state in one sentence what `and` and `or` return in Python. Only after you have its claim in writing, run Exercises 11–14 through the widget and check its general claim against all four actual results. Does its one-sentence rule survive contact with all four?
 
@@ -124,31 +126,31 @@ Precedence and truthiness interact with strings, repetition, and coercion in way
 
 #### Exercise 16
 
-`AI: Comparer`
+`AI: Explainer`
 
 `'AT' * 3 + 'G'`
 
 #### Exercise 17
 
-`AI: Comparer`
+`AI: Explainer`
 
 `'AT' * 2 == 'ATAT'`
 
 #### Exercise 18
 
-`AI: Comparer`
+`AI: Explainer`
 
 `bool('False')` (a classic trap — predict carefully)
 
 #### Exercise 19
 
-`AI: Comparer`
+`AI: Explainer`
 
 `3 == 3.0 and 3 is 3.0` (if your Python raises a `SyntaxWarning` on `is` with a literal, that is itself worth reading and predicting around)
 
 #### Exercise 20
 
-`AI: Comparer`
+`AI: Explainer`
 
 `len('ATG') == 3 and 'G' in 'ATG'`
 
@@ -164,7 +166,7 @@ Before trading anything, write down in one sentence *why* each of your two expre
 
 #### Exercise 22
 
-`AI: Comparer`
+`AI: Explainer`
 
 Run the full three-way move on the two expressions you received from the other pair. Report back to them, in one sentence each, whether their trap actually caught the assistant, caught you, caught neither, or caught both.
 

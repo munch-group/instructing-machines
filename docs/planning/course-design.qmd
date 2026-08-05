@@ -1,6 +1,6 @@
 # Course Design {.unnumbered}
 
-This document locks the week-by-week design: the learning goals, the guiding principles, the sequence, the learning curve, the tool schedule, the workload shape, and the pitfalls with their mitigations. It is downstream of the pedagogy in `course-plan.md` (the AI-role ladder, the widgets, the "AI as a layer of compilation" thesis). Where the two differ on the week grid, this file wins. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): concepts are front-loaded into weeks 1 to 5, weeks 6 to 13 are eight weekly projects in the established order, and week 14 is wrap-up. The design layers the AI thread and the composition-practice principles onto that proven skeleton rather than re-timing it.
+This document locks the week-by-week design: the learning goals, the guiding principles, the sequence, the learning curve, the tool schedule, the workload shape, and the pitfalls with their mitigations. It is downstream of the pedagogy stated in the book itself: the AI-role ladder in `intro/course-introduction.qmd` (@sec-ai-arc) and `ai/meet-ai.qmd`, the widgets, and the "AI as a layer of compilation" thesis. **The week grid is the plan of record only in so far as it agrees with `docs/_quarto.yml`.** `_quarto.yml` is what renders, so it is what the students actually experience; when a week is moved, it is moved there first and this document is brought into line afterwards, never the other way round. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): concepts are front-loaded into weeks 1 to 5, weeks 6 to 13 are eight weekly projects in the established order, and week 14 is wrap-up. The design layers the AI thread and the composition-practice principles onto that proven skeleton rather than re-timing it.
 
 ## Learning goals {.unnumbered}
 
@@ -67,11 +67,11 @@ Links point to the draft curriculum for each session, with paths relative to thi
 |  |  |  |  |  |
 | 8 | @sec-reading-and-judging, @sec-tests-are-the-contract | @sec-alignment-project | TBA | @sec-folding-project, @sec-classes |
 |  |  |  |  |  |
-| 9 | @sec-the-docs-are-the-test, @sec-directing-to-resources | @sec-codonbias-project, @sec-modules | @sec-docs-and-resources | @sec-alignment-project |
+| 9 | @sec-the-docs-are-the-test | @sec-codonbias-project, @sec-modules | @sec-docs-and-resources | @sec-alignment-project |
 |  |  |  |  |  |
 | 10 | @sec-plan-before-you-prompt | @sec-hiv-project | @sec-recursion, @sec-decomposition | @sec-codonbias-project |
 |  |  |  |  |  |
-| 11 | @sec-delegate-the-full-problem | @sec-seqdist-project | TBA | @sec-recursion, @sec-hiv-project |
+| 11 | @sec-directing-to-resources, @sec-delegate-the-full-problem | @sec-seqdist-project | TBA | @sec-recursion, @sec-hiv-project |
 |  |  |  |  |  |
 | 12 | @sec-learning-with-an-ai | @sec-orf-project | @sec-dataframes | @sec-seqdist-project |
 |  |  |  |  |  |
@@ -79,40 +79,6 @@ Links point to the draft curriculum for each session, with paths relative to thi
 |  |  |  |  |  |
 | 14 | @sec-surviving-ai, @sec-the-ai-off-test | None | Evaluation, Exam info | @sec-assembly-project |
 :::
-
-```{=html}
-<!-- ::: column-page
-| Wk | Double AI | Double Python | Single | Exercises |
-|---------------|---------------|---------------|---------------|---------------|
-| 1 | @sec-insides, @sec-instruction, @sec-meet-ai | @sec-hello-world, @sec-values-operators-logic | @sec-precedence | @sec-getting_started |
-|  | (intro / machine / ai) |  |  |  |
-| 2 | @sec-predict-then-prove | @sec-if-else, @sec-functions | @sec-functions | @sec-hello-world, @sec-values-operators-logic, @sec-precedence, @sec-course_tools |
-|  |  |  |  |  |
-| 3 | @sec-explain-then-confirm | @sec-objects, @sec-lists | @sec-dictionaries, @sec-tuples | @sec-if-else, @sec-functions |
-|  |  |  |  |  |
-| 4 | @sec-practical-ai-use | @sec-iteration | @sec-testing | (lab-split) @sec-objects, @sec-lists, @sec-dictionaries, @sec-tuples |
-|  |  |  |  |  |
-| 5 | @sec-how-models-produce-code | @sec-data_structures | @sec-files | (repeated) |
-|  |  |  |  |  |
-| 6 | @sec-tests-are-the-contract | @sec-translation-project | @sec-composition | @sec-iteration, @sec-testing, @sec-data_structures, @sec-files |
-|  |  |  |  |  |
-| 7 | @sec-reading-and-judging | @sec-classes, @sec-folding-project | @sec-debugging | @sec-translation-project |
-|  |  |  |  |  |
-| 8 | @sec-plan-before-you-prompt | @sec-alignment-project | @sec-decomposition | @sec-folding-project, @sec-classes |
-|  |  |  |  |  |
-| 9 | @sec-the-docs-are-the-test | @sec-codonbias-project, @sec-modules | @sec-docs-and-resources | @sec-alignment-project |
-|  |  |  |  |  |
-| 10 | @sec-directing-to-resources, @sec-delegate-the-full-problem | @sec-hiv-project | @sec-recursion | @sec-codonbias-project |
-|  |  |  |  |  |
-| 11 | @sec-let-it-draft | @sec-seqdist-project |  | @sec-recursion, @sec-hiv-project |
-|  |  |  |  |  |
-| 12 | @sec-ask-for-another-way | @sec-orf-project | @sec-dataframes | @sec-seqdist-project |
-|  |  |  |  |  |
-| 13 | @sec-learning-with-an-ai | @sec-assembly-project | @sec-composition | @sec-orf-project |
-|  |  |  |  |  |
-| 14 | @sec-surviving-ai, @sec-the-ai-off-test |  | Evaluation, Exam info | @sec-assembly-project |
-::: -->
-```
 
 ::: column-page
 | AI Lecture | Draft | Header | Content |
@@ -153,7 +119,7 @@ Links point to the draft curriculum for each session, with paths relative to thi
 | @sec-ask-for-another-way | NO | The assistant as Comparer: judging between alternatives is the student's job. | The student asks for a second solution to the same problem and compares the two, deciding which is clearer or more correct and why. Teaches that there is rarely a single right answer, that choosing between alternatives is the human's work, and that the ability to choose depends on understanding both. |
 :::
 
-The concept sequence in weeks 1 to 5 (hello world and values, then control flow and functions, then objects and the containers, then iteration and files, then data structures, recursion, and testing) matches the reading order of the existing course exactly, as does the project order in weeks 6 to 13 (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly). Classes enter in week 7 alongside the folding project, and testing is taught in week 5 so the first project in week 6 can be verified against a suite. The existing course places its two mandatory hand-ins at the translation project (week 6) and the HIV project (week 10); the assessment question is still deferred (section 10), but those are the natural spotlight weeks if hand-ins are reinstated.
+The concept sequence in weeks 1 to 5 (hello world and values, then control flow and functions, then objects and the containers, then iteration and files, then data structures, recursion, and testing) matches the reading order of the existing course exactly, as does the project order in weeks 6 to 13 (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly). Classes enter in week 7 alongside the folding project, and testing is taught in week 4 so the first project in week 6 can be verified against a suite, with a fortnight of practice in between. The existing course places its two mandatory hand-ins at the translation project (week 6) and the HIV project (week 10); the assessment question is still deferred (section 10), but those are the natural spotlight weeks if hand-ins are reinstated.
 
 The scaffolding fades across the eight project weeks rather than being switched off at once: the earliest projects arrive fully decomposed with stubs and a complete test suite, exactly like the old course, and the later ones give less skeleton and leave more of the tests for the student to write, so that by the assembly project the student is doing much more of the decomposition and verification. The `iplot-widget` and matplotlib plotting appear inside the later projects (see the dataframes note, week 12) so students see graphics, text, and code blend on one notebook page. The student-formulated finale and the gene-CSV tool from the previous draft are deferred for now, since the existing pace fills weeks 6 to 13 with the eight projects and closes on wrap-up; the drafted finale notes (`finale-kickoff`, `finale-build-clinic`, `finale-finishing`) are parked for when that capstone is added back.
 
@@ -201,7 +167,7 @@ The five AI-arc notes already drafted (`docs/ai-arc/`) are repositioned by this.
 
 ## The AI thread and the one verification principle {.unnumbered}
 
-The AI thread runs in the short segment every week, escalating through the role ladder (Explainer, Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate; detail in `course-plan.md`), and every exercise it sets resolves at the check widget or at a test the student runs, so that "the AI predicts, you verify" is the literal structure of the work and not a slogan. In the later weeks the thread broadens from producing code to the general skill of working with an AI, held together by the single verification principle: verify code with tests and reading, verify facts with evidence and knowledge, verify your own learning by doing it with the AI switched off. This is where the course teaches learning with an AI rather than taking answers from it, using the Study and Learn agent as the tutoring mode, and where it confronts the "isn't this cheating" feeling with the verification-and-understanding line and the squaring argument. Every exercise carries a license badge (a role, or `SOLO` for do-it-yourself-first), the AI lives in the browser, and each week prompts one logbook entry. The dangers are taught throughout on curated examples we author, so that the lessons hold regardless of how capable the live assistant is that week.
+The AI thread runs in the short segment every week, escalating through the role ladder (Explainer, Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate; detail in @sec-course-introduction and @sec-meet-ai), and every exercise it sets resolves at the check widget or at a test the student runs, so that "the AI predicts, you verify" is the literal structure of the work and not a slogan. In the later weeks the thread broadens from producing code to the general skill of working with an AI, held together by the single verification principle: verify code with tests and reading, verify facts with evidence and knowledge, verify your own learning by doing it with the AI switched off. This is where the course teaches learning with an AI rather than taking answers from it, using the Study and Learn agent as the tutoring mode, and where it confronts the "isn't this cheating" feeling with the verification-and-understanding line and the squaring argument. Every exercise carries a license badge (a role, or `SOLO` for do-it-yourself-first), the AI lives in the browser, and each week prompts one logbook entry. The dangers are taught throughout on curated examples we author, so that the lessons hold regardless of how capable the live assistant is that week.
 
 ## Tool-introduction schedule {.unnumbered}
 
@@ -244,41 +210,50 @@ No mandatory graded hand-ins are part of the current design; the projects are fo
 
 ## Decisions {.unnumbered}
 
-Resolved: the Python content sequence and pace follow the existing course (`weekplan.qmd`), with concepts in weeks 1 to 5, the eight projects in weeks 6 to 13 in the established order (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly), and wrap-up in week 14; the `translationproject.py` stub is fixed; no mid-course auto-checked mini-project; classes are in the core (week 7, alongside the folding project, basic scaffolding plus add-a-method exercises); testing is taught in week 5, one week before the first project; students use Microsoft 365 Copilot with the Study and Learn agent; the AI concepts run in recurring fifteen-minute lecture segments. Dataframes and plotting are a light introduction only, a complex data type worth knowing exists, folded into the later projects (weeks 12 to 13) rather than given a lecture, with matplotlib and the `iplot-widget` used to show graphics, text, and code blending in a notebook; real data analysis is out of scope. The dataframe-project drift risk is handled by locating the authored, tested code in the domain function the library lacks (reached through `apply`) and verifying the library's output by sanity check, following the authorship split in the guiding principles.
+Resolved: the Python content sequence and pace follow the existing course (`weekplan.qmd`), with concepts in weeks 1 to 5, the eight projects in weeks 6 to 13 in the established order (translation, folding, alignment, codon bias, HIV, sequence distance, ORF finding, assembly), and wrap-up in week 14; the `translationproject.py` stub is fixed; no mid-course auto-checked mini-project; classes are in the core (week 7, alongside the folding project, basic scaffolding plus add-a-method exercises); testing is taught in week 4, two weeks before the first project; students use Microsoft 365 Copilot with the Study and Learn agent; the AI concepts run in recurring fifteen-minute lecture segments. Dataframes and plotting are a light introduction only, a complex data type worth knowing exists, folded into the later projects (weeks 12 to 13) rather than given a lecture, with matplotlib and the `iplot-widget` used to show graphics, text, and code blending in a notebook; real data analysis is out of scope. The dataframe-project drift risk is handled by locating the authored, tested code in the domain function the library lacks (reached through `apply`) and verifying the library's output by sanity check, following the authorship split in the guiding principles.
 
 Deferred for now: the student-formulated finale and the teacher-supplied gene CSV are set aside while the course matches the existing pace; the drafted finale notes and the `apply` bridge are parked for when that capstone is added back.
 
 Still open: whether the existing course's two mandatory hand-ins (translation in week 6, HIV in week 10) carry over or the projects stay formative; how much skeleton to give at each of the eight project weeks as the scaffold fades; validate the per-week required-hour budgets against a real cohort; and, if the finale returns, settle the precise columns and contents of the gene CSV.
 
-## The AI arc (weeks 9–14) {.unnumbered}
+## The AI arc (weeks 8-14) {.unnumbered}
 
-*A map of the notes and exercises that flesh out the AI arc, so we can judge what realistically fits a 45-minute slot and how the notes, the check widget, and the projects interface. The one fully-drafted note — `reading-and-judging.md` (week 10) — is the density/voice specimen; everything here is calibrated to that unit: roughly one worked example + a reusable rubric/template + 3–4 interspersed exercises + a logbook prompt per 45-minute demanding slot.*
+*A map of the notes and exercises that carry the back half of the role ladder, so we can judge what realistically fits a 45-minute slot and how the notes, the check widget, and the projects interface. Weeks and filenames below are read off `docs/_quarto.yml`; if they ever disagree, `_quarto.yml` is right and this section is stale. The density unit is one worked example, one reusable artifact (a rubric or a template), three to four interspersed exercises, and a logbook prompt per demanding slot.*
 
 ### The through-line {.unnumbered}
 
-The AI thread runs in the short "different" slot every week (Explainer → Delegate). From week 9 the *demanding* slots turn from new syntax to **applying it through verification**, and the escalating role is what each note trains:
+The AI thread runs in the short "different" slot every week, escalating through the ladder from Explainer to Delegate. From week 8 the *demanding* slots turn from new syntax to **applying it through verification**, and the escalating role is what each note trains:
 
-| Wk | New AI-arc note (demanding slot) | AI role | Core idea | Interfaces with |
+| Wk | AI note (shipped filename) | AI role | Core idea | Interfaces with |
 |---------------|---------------|---------------|---------------|---------------|
-| 9 | **Tests are the contract** *(drafted: `tests-are-the-contract.md`)* | Worker | A test is an *executable specification*: write the test first, let the AI fill the function, and the test tells truth from plausible. | im-pytest **mode 2** (raw `pytest`), **mode 3** (write your own `assert`s); the testing chapter |
-| 10 | **Reading & judging code you didn't write** *(drafted: `reading-and-judging.md`)* | Unreliable Narrator | The AI produces code that runs and is wrong, and wrong *biology*. Judge it with a rubric; the machine is the witness. | the judging rubric; the **check widget**; the HIV project |
-| 11 | **Plan before you prompt** *(drafted: `plan-before-you-prompt.md`)* | Collaborator | Break a problem into named, testable functions and write the plan *before* touching the assistant; drive it piece by piece. | the **plan template**; `%%test` per piece; the HIV build |
-| 12–13 | **Delegating a whole job** *(drafted: `delegating-a-whole-job.md`)* | Collaborator → Delegate | Assemble plan + specify + judge + iterate into one loop on a task beyond your unaided reach; the provided suite is a floor; keep the prompt journal. | the assembly capstone; im-pytest; the prompt journal |
-| 14 | **The limits of the machine** *(drafted: `limits-of-the-machine.md`)* | (reflection) | Automation bias, tests necessary not sufficient, hallucinated biology, when *not* to use AI, responsibility that does not transfer, honest attribution. | the logbook arc; a closing reflection |
+| 8 | **Reading and judging code you did not write** (`ai/reading-and-judging.md`) | Unreliable Narrator | The assistant produces code that runs and is wrong, and wrong *biology*. Judge it with a rubric; the machine is the witness. | the judging rubric; the **check widget**; the alignment project |
+| 8 | **Tests are the contract** (`ai/tests-are-the-contract.md`) | Worker | A test is an *executable specification*: write the test first, let the assistant fill the function, and the test tells truth from plausible. | im-pytest **mode 2** (raw `pytest`), **mode 3** (write your own `assert`s); the testing chapter (week 4) |
+| 9 | **The docs are the test** (`ai/the-docs-are-the-test.qmd`), with **Documentation and resources** (`ai/documentation-and-resources.qmd`) | Unreliable Narrator, applied to capability claims | The assistant invents library functions and API endpoints that do not exist. The real documentation is what the invented call fails against. | the codon-bias project; `packages-modules.ipynb` |
+| 10 | **Plan before you prompt** (`ai/plan-before-you-prompt.md`) | Collaborator | Break a problem into named, testable functions and write the plan *before* touching the assistant; then drive it piece by piece. | the **plan template**; `%%test` per piece; the HIV project; `decomposition` |
+| 11 | **Directing a resource** (`ai/directing-a-resource.qmd`) | Collaborator | Building on machinery you did not write: read the contract, instruct the assistant to use it, verify against the documentation and a test. | the sequence-distance project; the documentation notes from week 9 |
+| 11 | **Delegate the full problem** (`ai/delegate-the-full-problem.md`) | Delegate | Assemble plan, specify, judge, and iterate into one loop on a task beyond your unaided reach; the provided suite is a floor, not a ceiling. | im-pytest; the prompt journal; the sequence-distance project |
+| 12 | **Learning with an AI** (`ai/learning-with-an-ai.qmd`) | Collaborator | The Study and Learn agent as a tutor that guides reasoning. Verification turned on your own understanding, deliberately setting up week 14. | the ORF project; the logbook; @sec-the-ai-off-test |
+| 13 | **The finale notes** (`ai/finale-kickoff.qmd`, `ai/finale-build.qmd`, `ai/finale-finishing.qmd`) | Delegate | Supported build time on the assembly project: build against your own plan and tests, keeping the prompt journal. | the assembly project; im-pytest; the prompt journal |
+| 14 | **Surviving AI** (`ai/surviving-ai.md`) and **the AI-off test** (`ai/the-ai-off-test.qmd`) | (reflection) | Automation bias, tests necessary but not sufficient, hallucinated biology, when *not* to use the assistant, responsibility that does not transfer, honest attribution. Then: you have learned something when you can do it with the assistant switched off. | the logbook arc; the course evaluation |
+
+Weeks 1 to 7 carry the lower rungs in the same short slot: Explainer in week 1 (`meet-ai.qmd`), the same rung worked hard in week 2 (`predict-then-prove.qmd`), Translator and Illustrator in week 3 (`how-models-produce-code.qmd`), Explainer again in week 4 (`explain-then-confirm.qmd`), habits in week 5 (`practical-ai-use.qmd`), Comparer in week 6 (`ask-for-another-way.qmd`), and Drafter in week 7 (`let-it-draft.qmd`).
 
 ### Per-note detail (what each slot holds) {.unnumbered}
 
-**Week 9 — Tests are the contract.** Do-first: take a vague ask ("a function that finds the GC-richest window"), turn it into concrete input→output examples, turn those into `assert`s, *then* let the assistant write the function and run the tests. Refrain: a green test is the only reason to believe generated code. Exercises: (a) turn one vague ask into three examples then three `assert`s; (b) SOLO write one *failing* test and one *passing* test for a given function; (c) prompt the assistant for a function that "looks perfect," then catch it with your own nasty test. Interface: this is where students first run raw `pytest` (mode 2) and first author their own tests (mode 3).
+**Week 8 - Reading and judging.** Worked example: an assistant-written `reverse_complement` that complements but forgets to reverse, so it passes on `'A'` and `'AAAA'` and fails on `'ATGC'`; then the judging rubric; then a confidently-wrong-*biology* example with C mispaired; then precise change requests and judging with the check widget. This is the note that licenses Unreliable Narrator, and it feeds straight into the alignment project running in the same week.
 
-**Week 10 — Reading & judging *(drafted; see `reading-and-judging.md`)*.** Worked example: an AI `reverse_complement` that complements but forgets to reverse (passes on `'A'`/`'AAAA'`, fails on `'ATGC'`); the judging rubric; a confidently-wrong-*biology* example (C mispaired); precise change requests; judging with the check widget. Ties directly into next week's HIV project.
+**Week 8 - Tests are the contract.** Do-first: take a vague ask ("a function that finds the GC-richest window"), turn it into concrete input-to-output examples, turn those into `assert`s, and only then let the assistant write the function and run the tests. Refrain: a green test is the only reason to believe generated code. Exercises: turn one vague ask into three examples and then three `assert`s; `SOLO`, write one *failing* and one *passing* test for a given function; prompt for a function that "looks perfect" and then catch it with your own nasty test. This is where students first run raw `pytest` (mode 2) and first author their own tests (mode 3), building on the week-4 testing chapter.
 
-**Week 11 — Plan before you prompt.** Do-first: hand students a small multi-function task (e.g., "from a FASTA string, report each sequence's length and GC content") and have them fill a **plan template** — one row per function: name, inputs, outputs, one test idea — *before* prompting anything. Then prompt piece by piece, `%%test`-ing each. Exercises: (a) SOLO decompose a task into named functions on paper; (b) fill the plan template; (c) "submit the plan before you may prompt" — build one function from your own plan with the assistant and verify. Interface: the plan template becomes the scaffold students carry into the capstone; each planned function is a `%%test` unit.
+**Week 10 - Plan before you prompt.** Do-first: hand students a small multi-function task ("from a FASTA string, report each sequence's length and GC content") and have them fill a **plan template**, one row per function with name, inputs, outputs, and one test idea, *before* prompting anything. Then prompt piece by piece, `%%test`-ing each. Exercises: `SOLO`, decompose a task into named functions on paper; fill the plan template; then "submit the plan before you may prompt" and build one function from your own plan with the assistant. The plan template is the scaffold students carry forward into weeks 11 and 13.
 
-**Weeks 12–14 — the capstone (assembly).** These are clinics, not new-concept lectures. Week 12: choose/scope, decompose, write the plan and the first tests (reviewed before building). Week 13: build with the assistant against the suite, keeping the **prompt journal** (what the AI got wrong, how you caught it). Week 14: finish, then the **limits-of-the-machine** discussion and reflection. Interface: the ported `assemblyproject` suite is the adjudicator throughout; the prompt journal feeds assessment.
+**Week 11 - Directing a resource, then delegating.** The week pairs the last Collaborator practice with the first Delegate permission, in that order and in that week deliberately: `directing-a-resource.qmd` has the student build on a library or an API they did not write, which is the largest thing they can still fully verify, and `delegate-the-full-problem.md` then removes the piece-by-piece scaffold. Delegate is granted only after the plan template (week 10), the judging rubric (week 8) and the test-first habit (week 8) are all in hand; acceptance criteria are written before the prompt, not after the reply.
+
+**Weeks 13 and 14 - the assembly project and the close.** These are clinics, not new-concept lectures. Week 13 is supported build time against the ported `assemblyproject` suite, with the prompt journal recording what the assistant got wrong and how it was caught. Week 14 closes on `surviving-ai.md` and the AI-off test, ending on augmentation rather than caution: the student brought the biology and the judgment, the assistant wrote plumbing they could not, and the course gave them the ability to produce and validate it.
 
 ### Realism notes (what this exercise surfaced) {.unnumbered}
 
-- **One note ≈ one worked example + one reusable artifact (rubric/template) + 3–4 short exercises + a logbook prompt.** The week-10 draft is about the largest that fits a 45-minute slot with in-class exercises. Anything with two big new artifacts (e.g. a rubric *and* a template in one slot) should be split.
-- **Week 9 is the densest and the riskiest to overload:** it carries the testing chapter *and* the spec-as-contract framing *and* the first raw-pytest exposure. Consider letting the testing mechanics live in the week-9 *slot A* (the existing testing note, reworked) and keeping *slot B / the AI slot* purely for "the test is the contract you give the AI." Flagged for a decision.
-- **The projects carry the weight from week 11 on.** Weeks 12–14 need very little new *note* content — they are supported build time. So the writing effort concentrates in weeks 9–11 (three notes) plus the week-14 limits piece; the capstone weeks need briefs and clinic prompts, not chapters.
-- **Every exercise resolves to the check widget.** That keeps the arc honest: each new skill (spec, judge, plan, delegate) ends with the machine delivering a verdict, so "the AI predicts; the widget proves" is not a slogan but the literal structure of every exercise.
+- **One note is one worked example, one reusable artifact (rubric or template), three to four short exercises, and a logbook prompt.** `reading-and-judging.md` is about the largest that fits a 45-minute slot with in-class exercises. Anything carrying two big new artifacts, a rubric *and* a template in one slot, should be split.
+- **Week 8 is the densest and the riskiest to overload:** it carries two AI notes, the alignment project, and the first raw-`pytest` exposure. If it has to be thinned, the spec-as-contract framing is the part that could move to week 9 alongside the documentation pair; the judging rubric cannot, because the alignment project needs it.
+- **Week 9 was over-full and has been thinned.** It previously carried three AI notes; `directing-a-resource.qmd` now sits in week 11, which also fills what was an AI-free week and puts Collaborator practice a week *after* the note that licenses it rather than a week before.
+- **The projects carry the weight from week 11 on.** Weeks 12 to 14 need very little new *note* content; they are supported build time. The writing effort concentrates in weeks 8 to 11, plus the week-14 closing piece. The capstone weeks need briefs and clinic prompts, not chapters.
+- **The open item is exercise density in the `.md` notes**, tracked in `ai-arc-remedy.md`: the six longest AI notes are the six with no exercises, and they are precisely the ones that hold Worker, Collaborator and Delegate.
