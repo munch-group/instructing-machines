@@ -21,8 +21,7 @@ This is a working list, not a verdict. It was written by reading the book as it 
 - [ ] **`python/testing.ipynb` is the smallest chapter doing the largest job.** At around a thousand words and three code blocks it is the designated hub for the idea that a test is how you verify code you did not write. Weeks 8 through 13 all lean on it. It should be the chapter that grows most.
 - [ ] **`ai/about-microsoft-copilot.qmd`, `ai/the-docs-are-the-test.qmd` and `ai/practical-ai-use.qmd`** are all under 700 words and each carries a week's AI slot on its own.
 - [ ] **`python/tuples.ipynb` and `python/course_tools.ipynb`** are thin relative to their neighbours and both were flagged in the earlier audit for content, not just typos.
-- [ ] **Two empty notebooks are still on disk:** `python/introduction.ipynb` and `python/references.ipynb`, the latter a single heading cell with the bibliography line still commented out in `_quarto.yml`. Neither is in the book. Either write them or delete them, so that nobody has to work out again whether they are pending or abandoned.
-- [ ] **`python/general_exercises.ipynb` is a real chapter that is not in the book.** Its fourteen exercises duplicate material now living in `precedence-steps.ipynb`. Fold the non-duplicates in and retire the file, or add it as a revision chapter.
+- [ ] **`python/introduction.ipynb` is still on disk and is not a course chapter.** It is the Phasic/coalescent tutorial, unlisted in `_quarto.yml` and unreferenced by anything. Either move it out of `docs/python/` or delete it, so that nobody has to work out again whether it is pending or abandoned.
 - [ ] **`projects/curration-project.qmd` is written but unscheduled.** Week 12 currently has `orf-project.qmd` only. Decide whether the curation project joins it or is dropped.
 - [ ] **Weeks 11 and 14 carry two chapters each** while weeks 1 and 3 carry eleven and six. Check that the load actually matches the teaching hours before term, not during it.
 
