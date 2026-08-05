@@ -1,5 +1,11 @@
 # Surviving AI {#sec-surviving-ai}
 
+::: {.column-margin}
+**The ladder so far**
+
+Explainer · Translator · Illustrator · Comparer · Drafter · **Unreliable Narrator** · Worker · Collaborator · Delegate
+:::
+
 The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.
 
 Begin with a fact about people rather than about machines, because it is the one most likely to undo you. Humans tend to trust the output of an automated system more than they should, and the more fluent and confident that output looks, the stronger the pull. This is a well documented tendency, and it has a name, automation bias, and it does not spare people who know about it. The danger for you is not that you will fail to learn the checking discipline; it is that once you have it, it will quietly erode. The first weeks of using the assistant you will check everything, because it is new and you are wary. Then it will be right several times in a row, and you will relax, and you will start accepting a function because it looks like the ones that were fine before, which is exactly the plausible surface you were taught to distrust. The better the code looks and the longer the assistant's recent record, the more suspicious you should become, not less, because that is the situation in which your guard is lowest and its confident wrongness is most expensive. The checking is not a phase you pass through on the way to trusting the machine. It is the permanent condition of using it well.
@@ -14,6 +20,28 @@ Underneath all of these is a single principle that does not bend, which is that 
 
 It is worth ending where the course began. In the first week the idea was offered that instructing a machine has passed through a sequence of layers, from switches to machine code to compiled languages to interpreted languages like Python, and that an assistant is one more layer, a way of describing what you want in something close to ordinary language and having code come back. The difference, the one that has organized everything since, is that a compiler is a faithful translator and an assistant is not. A compiler always produces code that means exactly what you wrote; an assistant produces code that is merely plausible, and may mean something other than what you wanted, and cannot tell you which. That single difference is why this new layer, unlike the ones beneath it, cannot be trusted and must be verified, and it is why you had to learn what a program is, and what correct means, and how to specify and read and test, in order to use the newest layer safely. The syntax you learned this term may fade with disuse, and the assistants will keep improving, but the durable skill, the one that will still be yours when the tools have changed, is the judgment: knowing what correct means, being able to say it exactly, being able to read what you are given, and always, always checking. The machine is a powerful new way to instruct a computer. It is your job to instruct it well, and to never stop verifying what it does.
 
-For your final exercises, turn the term's habits back on themselves. Identify one task from the course where, looking back, you should not have used the assistant, either because you could not really check its answer, or because leaning on it cost you an understanding you later needed, and say what you would do differently. Then identify one task where the assistant let you produce something correct that you could not have written unaided, and be specific about which part of your checking made that safe. Finally, take one biological claim the assistant makes, in an explanation or a comment, and verify it against a source outside the assistant rather than against the assistant itself, and record whether it held.
+#### Exercise
+
+`SOLO`
+
+Audit your own guard. Look back through your logbook at the weeks since you were first allowed to let the assistant draft code, and count two things: how many pieces of its code you accepted after running a test you wrote yourself, and how many you accepted because they looked right. Do not adjust the second number to be flattering; the whole value of the count is that it is honest. Then say in one sentence what changed between the week you learned to distrust a draft and the week you stopped bothering, if it changed, and what you would need to put in place to stop it changing again. Automation bias does not announce itself. A count is the only way to see it.
+
+#### Exercise
+
+`SOLO`
+
+Identify one task from the course where, looking back, you should not have used the assistant, either because you could not really check its answer, or because leaning on it cost you an understanding you later needed. Say what you would do differently, and say which of the four cases in this note it falls under.
+
+#### Exercise
+
+`SOLO`
+
+Now the other direction. Identify one task where the assistant let you produce something correct that you could not have written unaided, and be specific about which part of your checking made that safe. Not "I tested it": name the test, and name the case it covered that you would otherwise have missed. If you cannot name it, then what made the task safe was luck, and it is worth knowing that now rather than later.
+
+#### Exercise
+
+`AI: Unreliable Narrator`
+
+Take one biological claim the assistant makes, in an explanation, in a comment, or inside a table it writes for you, and verify it against a source outside the assistant rather than against the assistant itself. Record whether it held. Then do the thing that makes this different from every other verification you have done this term: ask the assistant whether its own claim was correct, and watch it agree with you either way. A machine that will confirm both a true statement and a false one, with the same fluency, is not a witness. That is why the source had to come from outside, and it is the last time this course will say so.
 
 For your last logbook entry, look across the whole term. Describe how your use of the assistant changed as your understanding grew, from the first weeks when it could only explain things to you, through the point where you let it draft and learned to distrust the draft, to the capstone where you delegated real work and kept the responsibility. Name the single habit from this course you most want to still have in three years, and say why.

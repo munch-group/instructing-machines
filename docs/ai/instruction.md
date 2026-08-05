@@ -1,5 +1,13 @@
 # Instruction {#sec-instruction}
 
+::: {.column-margin}
+**The ladder so far**
+
+**Explainer**
+
+*Still to come:* Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate
+:::
+
 Everyone who has ever programmed has faced the same trade-off. The closer your instructions are to the machine's own language, the more direct control you have, and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write, and the more you are trusting something else to fill in the details. The history of programming is a ladder built out of exactly this trade-off, one rung at a time, and the diagram below sets out the rungs you are about to meet.
 
 ```mermaid
@@ -36,7 +44,23 @@ Now put the two pictures side by side, and the whole course snaps into focus. A 
 
 So the AI is not just one more rung on the ladder, even though it first looks like one. Every earlier rung, assembly, C, Python, is a faithful translator you can trust. The AI is an unreliable one. And that single difference is the entire justification for what you are about to do. Because this newest translation layer is unreliable, you have to be able to read the language it emits, Python, and check that it means what you wanted. You trust a compiler; you verify an AI. Understanding Python is exactly what puts you in a position to verify. That is why a course whose goal is to help you use AI well spends its first months teaching you to read and run code yourself. The machine is the only thing that can settle whether the AI was right, and you have to be able to ask the machine.
 
-Try this now. Open the assistant in your browser and ask it a small factual question you can check, for example, what are the three stop codons in the standard genetic code. Read its answer. Then find a way to verify it that does not involve asking another AI: a textbook, a trusted database, or later in this course a tiny program of your own. Was it right? How did you know it was right, independently of the AI telling you so?
+#### Exercise
+
+`SOLO`
+
+Before you touch the assistant, close the diagram and write the five rungs of the ladder out in order from memory, from the raw bits at the bottom to plain language at the top. Beside each one, write a single word: **faithful** if that rung is a translator that always means exactly what the rung above it said, and **plausible** if it is not. Four of the five get the same word and one does not. Being able to say which one, and why, is the entire argument of this course compressed into five lines, and you now have it before you have written a single line of Python.
+
+#### Exercise
+
+`AI: Explainer`
+
+Open the assistant in your browser and ask it a small factual question you can check, for example, what the three stop codons of the standard genetic code are. Read its answer. Then find a way to verify it that does not involve asking another AI: a textbook, a trusted database, or, later in this course, a tiny program of your own. Was it right? How did you know it was right, independently of the AI telling you so? Note what the badge on this exercise permits and what it does not. You asked it to explain something that already exists, and you settled the question somewhere else. That is the whole of rung one, and it is the only rung you have.
+
+#### Exercise
+
+`AI: Explainer`
+
+Now ask the assistant to explain the difference between a compiler and itself: *what does a compiler guarantee about the code it produces that you cannot guarantee about the code you produce?* Read the answer against what this note just told you. Two things are worth noticing, and they pull in opposite directions. The answer will probably be good, because this is a well-worn question and there is a great deal of text about it. And the answer was produced by exactly the process it is describing, one plausible next word after another, which means a fluent account of its own unreliability is not evidence of anything. It cannot check itself any more than it could check the stop codons.
 
 Write two or three sentences in your logbook: what you asked, what it said, and how you checked. This is your first entry, and by the end of the course you will have a running record of exactly where the machine helped you and where it quietly misled you, and, more importantly, of your own growing ability to tell the difference.
 

@@ -1,5 +1,11 @@
 # Delegate the full problem {#sec-delegate-the-full-problem}
 
+::: {.column-margin}
+**The ladder so far**
+
+Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · Worker · Collaborator · **Delegate**
+:::
+
 You now hold three separate skills. You can specify a function by writing its contract as tests before any code exists. You can read a function the assistant produced and judge it against a short list of questions, refusing to believe it until the machine agrees. And you can take a task larger than one function, break it into named and testable pieces, and write that plan down before you prompt for anything. The capstone is where these three stop being separate exercises and become one continuous way of working, applied to a task that is deliberately larger than anything you could sit down and write on your own. That last point is not an accident or a cruelty; it is the entire purpose of the exercise. The role you are stepping into this week is the one the whole course has been climbing toward, which is to delegate a real job to the assistant and remain completely responsible for the result.
 
 Be exact about what beyond your unaided reach actually means, because it is easy to misread it as a demand that you suddenly become a better programmer than you are. It is the opposite. You are not expected to be able to write the capstone from a blank page. You are expected to be able to produce it, correct and understood, by driving the assistant through a plan you designed and by verifying every piece it hands back. The gap between those two things, between writing a program yourself and producing a correct program you did not type, is the gap this course exists to close. A professional programmer would write the capstone unaided. You will instead decompose it, specify it, delegate the typing of each piece, and check everything, and if you do that well the finished program will be just as correct as the professional's, and you will understand it just as well, even though you could not have produced it keystroke by keystroke. That is a considerable and useful ability, and it is the one you are being asked to demonstrate.
@@ -14,6 +20,42 @@ That last point is really about responsibility, and responsibility is the part o
 
 To make your verification visible, both to yourself and for assessment, you keep a prompt journal alongside the capstone as you build it. Where the weekly logbook is a broad reflection, the prompt journal is narrow and practical: a running record, piece by piece, of what you asked the assistant for, where its answer was wrong, how you caught it, and what you did about it. Keeping it costs a little effort in the moment and pays back twice. It forces you to actually notice the failures rather than skimming past a bug you half saw, and by the end of the project it is a concrete record of your own judgment at work, which is exactly the thing the capstone is meant to demonstrate. A capstone that runs is worth less, in this course, than a capstone that runs and comes with a frank account of the half dozen places the assistant got it wrong and how you knew.
 
-You will do most of this on the real project, so the exercises here are small and meant to sharpen particular moves in the loop. For the first, take a single function from your plan, prompt the assistant for it, and when its first attempt fails one of your tests, write the change request you would send back, containing the failing input, the wrong output, the correct output, and the reason, and notice how much of that you already knew from having written the test first. For the second, take a function that has just passed the provided tests and write one more test of your own, a nasty case the provided suite did not include, and run it; if it also passes, you have strengthened the contract, and if it fails, you have just caught a bug that would otherwise have shipped. For the third, write one prompt journal entry for a piece you built, recording where the assistant was wrong and how the machine, or your reading, revealed it.
+You will do most of this on the real project, so the exercises here are small and meant to sharpen particular moves in the loop.
+
+#### Exercise
+
+`AI: Delegate`
+
+Run one full cycle on one piece, in the order that makes it safe. Before you prompt for anything, write the acceptance criteria for a single function from your plan: what it must return for which inputs, including the awkward cases, in a form the machine can check. Then prompt the assistant for that function, giving it the purpose, the signature, and nothing you have not decided. Read what comes back. Run the criteria. The thing to notice is that you wrote the criteria while you still had no code in front of you to anchor your idea of what correct meant, which is the only condition under which delegating a whole piece is anything other than hoping.
+
+#### Exercise
+
+`AI: Delegate`
+
+Take a single function from your plan, prompt the assistant for it, and when its first attempt fails one of your tests, write the change request you would send back, containing the failing input, the wrong output, the correct output, and the reason. Notice how much of that you already knew from having written the test first. Send it. If the second version passes, the loop converged; if the third does not, stop, and go to the next exercise.
+
+#### Exercise
+
+`SOLO`
+
+Take the keyboard back. Find a piece where the loop did not converge in two rounds, or where you can already see the answer, and write it yourself. Time both if you can. The skill this exercise trains is not programming, it is the judgment about when delegating has stopped paying, and it is a skill in exactly the same sense that specifying and judging are. An assistant argued with for twenty minutes over a function you could have typed in five is not saving you anything, and noticing that quickly is part of using it well.
+
+#### Exercise
+
+`SOLO`
+
+Take a function that has just passed the provided tests and write one more test of your own, a nasty case the provided suite did not include, and run it. If it also passes, you have strengthened the contract. If it fails, you have just caught a bug that would otherwise have shipped, and you have proved to yourself that the provided suite was a floor and not a ceiling.
+
+#### Exercise
+
+`AI: Delegate`
+
+Finally, the exercise that decides whether you may keep the badge. Pick the function in your capstone that you delegated most heavily, the one you are least sure you could have written yourself, and write one paragraph explaining how it works, in your own words, with the assistant closed. Not what it does, which you know from its tests, but *how* it does it, line by line. If you cannot, that function is not finished, whatever its tests say, because you cannot own a result you cannot explain. Do the reading now and write the paragraph again. This is what it means to say that delegation transfers the typing and not the responsibility.
+
+#### Exercise
+
+`SOLO`
+
+Write one prompt journal entry for a piece you built, recording where the assistant was wrong and how the machine, or your reading, revealed it.
 
 For your logbook this week, step back from the individual pieces and describe the experience of producing something you could not have written unaided: which part of the loop, the planning, the specifying, the judging, or the iterating, did the most work in making the task possible, and name one function in your capstone that you are confident you could now explain in full to someone else, and one that you are not yet sure you could, because the second kind is where your remaining work is.

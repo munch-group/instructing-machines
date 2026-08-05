@@ -1,5 +1,13 @@
 # Insides {#sec-insides}
 
+::: {.column-margin}
+**The ladder so far**
+
+Explainer
+
+*Still to come:* Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate
+:::
+
 Before you write a single line of Python, two pictures are worth having in your head: what a computer actually is, and what the AI you will be talking to actually is. This note draws the first of those pictures, and it ends by setting up the second.
 
 {{< video https://youtu.be/d86ws7mQYIg >}}

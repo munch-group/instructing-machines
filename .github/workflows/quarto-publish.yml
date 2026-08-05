@@ -50,6 +50,13 @@ jobs:
       #     # extra-packages: |
       #     #   any::downloadthis
 
+      - name: Check the AI role ladder
+        # The course licenses the assistant in nine escalating roles, and no
+        # exercise may license a role before the chapter that teaches it.
+        # This walks _quarto.yml in render order and fails on the first badge
+        # that arrives too early, so the ladder cannot silently bend again.
+        run: python3 tools/check-badge-order.py --census
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:

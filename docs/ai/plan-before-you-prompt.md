@@ -1,5 +1,13 @@
 # Plan before you prompt {#sec-plan-before-you-prompt}
 
+::: {.column-margin}
+**The ladder so far**
+
+Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · Worker · **Collaborator**
+
+*Still to come:* Delegate
+:::
+
 By now you can specify a single function by writing its contract as tests, and you can read a single function the assistant produced and judge whether it keeps that contract. Both of those skills are about one function at a time. Real problems are not one function. The tasks you will tackle for the rest of the course, and the kind of task you took this course in order to be able to attempt at all, are made of several functions that fit together, and the difficulty is no longer in any one piece but in the fitting together. This week is about how you get an assistant to help you build something of that size without losing control of it, and the whole answer is contained in the title: you plan before you prompt.
 
 Consider first what happens if you do not. The tempting way to use an assistant on a real task is to describe the whole thing in one prompt and ask for the complete program. You will get one. It will be a single block of code, often quite long, that appears to do what you asked. The trouble begins the moment you try to trust it. You cannot read all of it with the care you gave a four line function last week, so you skim, and skimming is how the plausible wrong code you studied slips past you. You cannot test it piece by piece, because it is not in pieces; it is one lump, and your only test is to run the whole thing and see whether the final answer looks right, which tells you nothing about the parts. And when the final answer is wrong, as it usually will be at first, you have no way to find out which part is at fault, because you never separated the parts. You are left staring at a wall of code that a machine wrote and that you do not understand, with a bug somewhere inside it and no way in. What has actually gone wrong here is subtle: by asking for everything at once, you did not merely delegate the typing to the assistant, you delegated the thinking, and the thinking is the part you cannot afford to give away.
@@ -34,10 +42,34 @@ Notice that the plan and the contract from last week are the same object seen at
 
 This is exactly the method by which you will build the capstone, which is deliberately larger than anything you could write unaided. That is not a threat; it is the point. The plan is what makes a task that is too big to hold in your head at once into a task you can actually do, because with a plan you never face the whole thing. You face one small, named, testable piece at a time, on top of pieces you have already proven, and the assistant does the fast typing for each piece while you do the deciding and the checking. A problem you could not have written alone becomes a sequence of problems each of which you can.
 
-For your first exercise, practice the deciding without any code at all. Take a task a little larger than one function, such as reading a file of DNA sequences and reporting which one has the highest GC content, and write only the plan for it, as a set of empty functions with docstrings, no bodies. Do not prompt the assistant, and do not write any working code. The whole exercise is the decomposition: deciding what the pieces are, naming them, and stating what goes in and out of each. When you think you are done, check your plan against the standard from earlier: is each piece small enough to read, to test, and to understand on its own.
+#### Exercise
 
-For the second exercise, strengthen the plan you just wrote by adding to each function one concrete example of an input and its correct output, worked out by hand. As you do this you will find that some functions are harder to give an example for than others, and that difficulty is information: a function you cannot easily give an example for is usually a function that is doing too much or that you have not thought through, and it should be split or reconsidered before any code is written for it.
+`AI: Collaborator`
 
-For the third exercise, take the discipline all the way through on a single piece. From your plan, choose one function, and only when its plan and its example are written do you allow yourself to prompt the assistant for that one function. Verify the result against your example, using the check widget or your own asserts. The rule to feel here is the one in the title of the week: the plan comes first, the prompt comes second, and the verification comes before you are allowed to believe any of it.
+Do the wrong thing once, deliberately, so that you know what it feels like. Take a task made of three or four pieces, such as reading a file of DNA sequences and reporting which one has the highest GC content, and ask the assistant for the whole thing in a single prompt. Do not plan it, do not break it up. Read what comes back and then attempt exactly one thing: test one piece of it in isolation, without running the rest. Write down what stopped you. Nine times out of ten what stopped you is that there was no piece to test, because the assistant returned one lump that only produces an answer at the very end. Keep this code. You will want to compare it with what you build over the next few exercises.
+
+#### Exercise
+
+`SOLO`
+
+Now practise the deciding, with no assistant and no working code at all. Take the same task and write only the plan for it, as a set of empty functions with docstrings and no bodies. The whole exercise is the decomposition: deciding what the pieces are, naming them, and stating what goes in and out of each. When you think you are done, check your plan against the standard from earlier: is each piece small enough to read, to test, and to understand on its own?
+
+#### Exercise
+
+`SOLO`
+
+Strengthen the plan you just wrote by adding to each function one concrete example of an input and its correct output, worked out by hand. As you do this you will find that some functions are harder to give an example for than others, and that difficulty is information: a function you cannot easily give an example for is usually a function that is doing too much, or that you have not thought through, and it should be split or reconsidered before any code is written for it.
+
+#### Exercise
+
+`AI: Collaborator`
+
+Only now let the assistant near the design, and note carefully what the badge does and does not license. Show it your stubs and your examples and ask it one narrow question: is there a case my examples do not cover, or a piece I have not named? You are not asking it to redesign anything, and you are not obliged to take anything it says. Go through its suggestions one at a time and, for each, write *accept* or *reject* and one line of reason. Rejecting a suggestion you understand is a better outcome than accepting one you do not, and the point of the exercise is to feel the difference between a collaborator, whose opinions you weigh, and a designer, whose decisions you inherit.
+
+#### Exercise
+
+`AI: Collaborator`
+
+Take the discipline all the way through on a single piece. From your plan, choose one function, and only when its plan and its example are written do you allow yourself to prompt the assistant for that one function. Verify the result against your example, using the check widget or your own `assert`s. The rule to feel here is the one in the title of the week: the plan comes first, the prompt comes second, and the verification comes before you are allowed to believe any of it. When it passes, put it beside the single lump from the first exercise and say which of the two you would be willing to defend.
 
 For your logbook this week, include the plan you wrote as stubs for one task, and note which function in it was hardest to write an example for and what that difficulty told you about your decomposition. If you built one of the pieces with the assistant, record whether having planned it first changed how you judged the code it gave you.

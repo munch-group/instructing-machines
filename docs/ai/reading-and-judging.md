@@ -1,5 +1,13 @@
 # Reading and judging {#sec-reading-and-judging}
 
+::: {.column-margin}
+**The ladder so far**
+
+Explainer · Translator · Illustrator · Comparer · Drafter · **Unreliable Narrator**
+
+*Still to come:* Worker, Collaborator, Delegate
+:::
+
 For most of this course you have been the one writing the code. You typed it, you traced the substitutions and reductions in your head, and you knew what every line did because you had put it there. Over the last few weeks that changed a little: you began letting the assistant draft small pieces for you. This week the situation changes completely. From here on, most of the code you work with will be code you did not write, produced by a machine that is very good at making it look correct. The skill you need now is reading rather than writing, and more than reading, judging: deciding whether a piece of code actually does what it claims, and proving that decision rather than trusting it.
 
 It helps to understand why code from a language model is untrustworthy in a particular way, because it is different from the way a beginner's own code is untrustworthy. When you make a mistake, the result usually looks like a mistake. You get an error, or the output is obviously wrong, or the code is clearly unfinished. A language model does not work this way. It has been trained on an enormous amount of human-written code, and what it produces is text that is statistically similar to correct code. It is a machine for generating plausible continuations. Plausible is not the same as correct. The model does not run the code, does not have a model of what the code will do when executed, and has no way of checking whether its own output is right. What it is excellent at is the surface: sensible function names, tidy structure, confident comments and docstrings that describe what the code is supposed to do. That surface is exactly the part a human reader skims over when they are hoping the code is right. So the failure mode is specific and dangerous: the assistant hands you code that reads beautifully, runs without error, and quietly returns the wrong answer.
@@ -14,6 +22,10 @@ def reverse_complement(dna):
 ```
 
 The function has a sensible name. Its docstring states exactly the right task. The four base pairs in the dictionary are correct. Nothing about it looks wrong, and if you are reading quickly, the way people read something they want to be right, you will accept it and move on.
+
+#### Exercise
+
+`SOLO`
 
 Before running it, decide for yourself what each of the following should produce, and then what this particular function will actually produce, which may be a different thing:
 
@@ -40,6 +52,12 @@ def complement(dna):
 
 The code here is flawless. It runs, it handles every base in its dictionary, and on a strand such as GC it returns a perfectly plausible looking CC. But C does not pair with C. It pairs with G. The bug is not in the code at all; it is in the biology encoded in the dictionary, and no error, no traceback, and no amount of testing that you did not write yourself will reveal it. Only you, holding the output up against what you know about base pairing, will catch it. This is what it means to treat the assistant as an unreliable narrator. It will state biological facts with exactly the same fluent confidence whether they are true or false, because it has no notion of which is which. In a course whose entire purpose is to let you produce scientific results with the help of a machine, the discipline of checking the domain facts, and not only the code, is the difference between a result you can stand behind and one you cannot.
 
+#### Exercise
+
+`AI: Unreliable Narrator`
+
+Go looking for a wrong fact rather than a wrong loop. Ask the assistant for a Python dictionary mapping all sixty-four codons to their amino acids, and then check the biology, not the code, against a real codon table from a textbook or a trusted database. Do not skim it; go through it. Two things usually happen. The dictionary is syntactically perfect and will never raise an error whatever is in it, and somewhere in sixty-four entries there is a good chance of at least one assignment you cannot confirm. Whether you find a mistake or not, write down the answer to this: if there had been one, which of your tests would have caught it? The honest answer is none of them, because a test checks that the code agrees with the table, and the table is the thing that was wrong.
+
 Here is a case to work through yourself. The assistant wrote a function that is supposed to return the fraction of bases in a strand that are G or C, a quantity called the GC content:
 
 ```python
@@ -51,11 +69,27 @@ def gc_content(dna):
     return gc / len(dna)
 ```
 
-Predict the value of gc_content('GGCC') and then the value of gc_content('ggcc'), and run both. Then decide which of the six questions this code fails, and, more importantly, why the failure is silent. It does not crash on lowercase input; it simply counts none of the lowercase bases as G or C and returns a confident, wrong answer of zero. A researcher who fed this function a file of lowercase sequence would get a column of zeros and no indication whatever that anything had gone wrong. That silence is the danger, and the only defense against it is the habit of trying the awkward input on purpose.
+#### Exercise
+
+`SOLO`
+
+Predict the value of `gc_content('GGCC')` and then the value of `gc_content('ggcc')`, and run both. Then decide which of the six questions this code fails, and, more importantly, why the failure is silent.
+
+It does not crash on lowercase input; it simply counts none of the lowercase bases as G or C and returns a confident, wrong answer of zero. A researcher who fed this function a file of lowercase sequence would get a column of zeros and no indication whatever that anything had gone wrong. That silence is the danger, and the only defense against it is the habit of trying the awkward input on purpose.
 
 Once you have found a fault, how you report it back to the assistant decides whether the next version is better or merely broken in a new place. A vague complaint gives the model nothing to work with, so it guesses, and a guess is as likely to introduce a fresh bug as to fix the old one. Telling the assistant that its code "doesn't work" or asking it to "fix this" is close to useless. A specific report is far better, and a specific report is really just you writing down the judging you have already done. It should contain the exact call you made, the output you actually got, the output you expected instead, and, where you can see it, the reason. Instead of saying the function is broken, you say that reverse_complement of ATGC returned TACG but should have returned GCAT, that the bases were complemented correctly but the strand was not reversed, and that it should be reversed as well. An assistant handed the failing case and the reason usually repairs the function in a single step. An assistant told only that something is wrong writes you a different bug. Notice that the specific report costs you nothing extra, because you had to do all of that judging anyway in order to know the code was wrong; the report is simply the record of it.
 
+#### Exercise
+
+`AI: Unreliable Narrator`
+
+Prove that to yourself rather than taking it on trust. Take the broken `reverse_complement` from the start of this note, hand it back to the assistant with nothing but "this doesn't work, fix it", and keep whatever it returns without running it. Then start a *fresh* conversation, hand it the same broken function, and this time give it the specific report: the exact call, the output you got, the output you expected, and the reason as far as you can see it. Now run both replies against `reverse_complement('ATGC')`. Compare not just whether each one is right, but whether each one changed anything you did not ask it to change. The vague complaint is the one that tends to rewrite parts that were never broken.
+
 You have been pinning these faults down by hand so that you can see the reasoning, but you already have a tool that does the pinning down without mercy and without hope, which is the project check widget you have been using. When you place a suspect function in a test cell, or run the checks against your file, every cross mark is a claim the assistant made that the machine has refused, and every tick is a claim that survived contact with a real input. That is the loop you will live inside for the rest of the course and especially during the projects: the assistant drafts a piece of code, you read it against the six questions, and the tests deliver the verdict that neither you nor the assistant is allowed to argue with. The habit to build now is that you never accept code you cannot read and cannot test. If you cannot read it, you cannot judge it, and if you cannot test it, you cannot prove your judgment, so in either case you are simply trusting the unreliable narrator, which is the one thing this week exists to stop you doing.
+
+#### Exercise
+
+`AI: Unreliable Narrator`
 
 To make that habit concrete, try the full loop once here, on a small problem, before you meet it for real on the HIV subtyping project next week. Ask the assistant to write a reverse_complement function. Before you believe a word of it, do three things. Read the function against the six questions and decide what you think. Write three checks of your own, and make sure at least one of them is a properly nasty input such as ATGC, where the order of the bases matters, rather than a gentle one that would pass no matter what. Then run your checks. Only when your own tests pass are you permitted to believe the function is correct, and even then only for the cases your tests covered. When you have done this, write down in a single sentence what your nasty input was and why you chose it, because that instinct, the reflex for the input that would break the code if the code were wrong, is the entire skill of this week compressed into one habit.
 

@@ -1,5 +1,13 @@
 # Tests are the contract {#sec-tests-are-the-contract}
 
+::: {.column-margin}
+**The ladder so far**
+
+Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · **Worker**
+
+*Still to come:* Collaborator, Delegate
+:::
+
 You already know how to write a test. In the previous part of the course you learned to make a claim about a function in a form the machine can check, by writing a statement like assert gc_content('GGCC') == 1.0 and letting Python confirm or deny it. This week that skill stops being a way to check your own code and becomes the single most important tool you have for working with an assistant. The idea to hold on to is short: a test is a specification you can execute, and a specification is a contract. Once you see tests that way, the whole business of getting code out of a machine you cannot fully trust becomes manageable, because the test, and not the assistant and not even you, becomes the thing that decides whether the code is right.
 
 Start with the word specification, because it is doing quiet work. Before you can judge whether a piece of code is correct, you have to have decided what correct would mean, and that decision is separate from, and comes before, any code. If you ask an assistant for a function that finds genes, the request has no truth value at all. There is nothing to be right or wrong about, because you have not said what output the function should produce for what input. A specification is exactly that missing thing: a statement of what the result must be for given inputs. When it is written in prose, as a comment or a docstring, it is a promise about what the code will do. When it is written as a test, it is a promise the machine will enforce. That difference is everything. A comment that says the function returns the reverse complement is a promise the code can quietly break, and you saw last week how casually generated code breaks exactly such promises. A test that says assert reverse_complement('ATGC') == 'GCAT' is a promise that cannot be quietly broken, because the moment the code fails to keep it the machine says so.
@@ -16,6 +24,12 @@ def most_common_base(dna):
 
 print(most_common_base('GC'))
 ```
+
+#### Exercise
+
+`SOLO`
+
+Before you run that, write down which base you expect to come back, and the reason you expect it. Then run it. Now the real question, which is not about the answer at all: could you have predicted it from the code alone, without knowing how `set` happens to order its elements and how `max` happens to break a tie? If the answer is no, then the behaviour of this function on a tie is not something you decided; it is something that fell out. Write the single `assert` you would have to add to take that decision back, and notice that writing it forces you to make the decision you had been avoiding.
 
 The answer you get back is essentially arbitrary, an accident of how max happens to break the tie over a set whose order is not something you should rely on. The point is not which base it returns. The point is that the tie is a real decision about what the function should mean, the assistant will make that decision for you and never mention it, and the only way to take the decision back is to write a test that states what you want to happen on a tie before any code exists. Writing tests first is, in this sense, not really about testing at all. It is about doing the thinking, in advance, about the cases where thinking is actually required.
 
@@ -34,10 +48,34 @@ assert gc_content('ggcc') == 1.0     # lowercase counts too: a deliberate decisi
 
 Only now do you ask the assistant for the function. If it hands you a version that walks through the strand counting bases equal to the capital letters G and C, that version will satisfy the first three clauses and fail the fourth, and the failure is not a nuisance; it is the contract doing its job, catching a decision the assistant made silently that does not match the decision you made deliberately. Without the fourth clause you would never have known the two of you disagreed.
 
-For your first exercise, take a vague request and turn it into a contract. Choose a small function you might ask an assistant to write, such as one that counts how many times a given codon appears in a longer strand, and before writing or requesting any code, write down three concrete examples with the answers worked out by hand, then turn each into an assert statement. Make sure at least one of your three examples is an awkward one, such as an overlapping occurrence or a codon that does not appear at all, and be ready to say what decision that awkward example forces.
+#### Exercise
 
-For the second exercise, do it yourself with no assistant at all, so that the mechanics are firmly yours. Take a function you have already written earlier in the course and write two tests for it: one that you are confident it passes, and one that you expect it to fail, perhaps because it exposes a case the function never handled. Run both. The point is to feel the difference between a test that confirms and a test that accuses, because a contract that only ever confirms is not protecting you from anything.
+`SOLO`
 
-For the third exercise, run the full discipline in order. Pick a small function, write its specification as three or four asserts including at least one awkward case, and only then ask the assistant to write the function. Run your tests against what it produces. If they all pass, you have earned a limited and specific belief in the code, limited to the cases you actually specified. If one fails, notice that you found the disagreement before the code ever ran in anger, which is the entire reason for writing the contract first.
+Take a vague request and turn it into a contract. Choose a small function you might ask an assistant to write, such as one that counts how many times a given codon appears in a longer strand, and before writing or requesting any code, write down three concrete examples with the answers worked out by hand, then turn each into an `assert` statement. Make sure at least one of your three examples is an awkward one, such as an overlapping occurrence or a codon that does not appear at all, and be ready to say what decision that awkward example forces. Keep this contract; the next three exercises all use it.
+
+#### Exercise
+
+`SOLO`
+
+Now with no assistant at all, so that the mechanics are firmly yours. Take a function you have already written earlier in the course and write two tests for it: one that you are confident it passes, and one that you expect it to fail, perhaps because it exposes a case the function never handled. Run both. The point is to feel the difference between a test that confirms and a test that accuses, because a contract that only ever confirms is not protecting you from anything.
+
+#### Exercise
+
+`AI: Worker`
+
+Run the full discipline in order, on the contract you wrote two exercises ago. You have the specification already, so now, and only now, ask the assistant to write the function. Give it the purpose and the signature. Do **not** give it your tests. Run your tests against what it produces. If they all pass, you have earned a limited and specific belief in the code, limited to the cases you actually specified. If one fails, notice that you found the disagreement before the code ever ran in anger, which is the entire reason for writing the contract first.
+
+#### Exercise
+
+`AI: Worker`
+
+Now aim the contract at a decision rather than at a bug. Write a contract for `is_gc_rich(dna)`, a function that says whether a strand is GC rich, and make it decide two things the request itself leaves open: what happens at exactly one half, as in `'GGAT'`, and what happens for the empty strand. Decide both deliberately and write an `assert` for each. Then ask the assistant for the function using only the prose description, saying nothing about either case. Run your contract. Whatever it guessed, it guessed silently, and the only reason you can now tell whether the two of you agree is that you decided first. Record which of your two decisions it got wrong, if either.
+
+#### Exercise
+
+`AI: Worker`
+
+Last, watch the contract outlive the code. Take the same specification and ask the assistant for a *second*, deliberately different implementation of the same function, perhaps by asking for one that avoids a loop, or one that a beginner would find easier to read. Run your unchanged tests against it. Two different pieces of code, one contract, the same verdict. That is what it means to say the implementation is replaceable and the specification is not, and it is why the tests are worth more than any particular function you will ever get out of a machine.
 
 For your logbook this week, record one specification you wrote as tests before requesting any code, note in particular which awkward case you had to make a deliberate decision about, and say whether the assistant's eventual code agreed with your decision or quietly disagreed with it. If it agreed on everything, add the one further awkward case you wish you had thought to specify.
