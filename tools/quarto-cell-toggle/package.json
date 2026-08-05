@@ -1,0 +1,100 @@
+{
+  "name": "quarto-cell-toggle",
+  "displayName": "Quarto Cell Toggle",
+  "description": "Toggle a notebook cell between an executable Python code cell and a markdown cell holding the same code in a ```{.python} fence.",
+  "version": "0.1.0",
+  "publisher": "instructing-machines",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Notebooks",
+    "Other"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "quartoCellToggle.toggle",
+        "title": "Quarto: Toggle Cell Between Code and Fenced Markdown",
+        "category": "Quarto"
+      },
+      {
+        "command": "quartoCellToggle.toCode",
+        "title": "Quarto: Convert Fenced Markdown Cell to Code Cell",
+        "category": "Quarto"
+      },
+      {
+        "command": "quartoCellToggle.toMarkdown",
+        "title": "Quarto: Convert Code Cell to Fenced Markdown Cell",
+        "category": "Quarto"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "quartoCellToggle.toggle",
+        "key": "alt+/",
+        "mac": "alt+/",
+        "when": "notebookEditorFocused && !inputFocused"
+      }
+    ],
+    "menus": {
+      "notebook/cell/title": [
+        {
+          "command": "quartoCellToggle.toggle",
+          "group": "inline/quarto@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Quarto Cell Toggle",
+      "properties": {
+        "quartoCellToggle.fenceStyle": {
+          "type": "string",
+          "enum": [
+            "braced-dot",
+            "braced",
+            "plain"
+          ],
+          "enumDescriptions": [
+            "```{.python} - Quarto class attribute, shown but not executed",
+            "```{python} - Quarto executable cell",
+            "```python - plain Markdown info string"
+          ],
+          "default": "braced-dot",
+          "description": "How to write the opening fence when converting a code cell to markdown."
+        },
+        "quartoCellToggle.runnableLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "python",
+            "py",
+            "r"
+          ],
+          "description": "Fence languages that may be turned into executable code cells. A fence in any other language (txt, bash, console, ...) is left alone so terminal transcripts are never converted by accident."
+        },
+        "quartoCellToggle.defaultLanguage": {
+          "type": "string",
+          "default": "python",
+          "description": "Language id given to a code cell created from a fence whose info string names no language."
+        },
+        "quartoCellToggle.confirmDiscardOutputs": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask before converting a code cell that has outputs to markdown, since the outputs are discarded."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node test/fence.test.js",
+    "lint": "node --check src/extension.js",
+    "package": "npx --yes @vscode/vsce package --allow-missing-repository --skip-license",
+    "install-local": "npm run package && code --install-extension quarto-cell-toggle-0.1.0.vsix --force"
+  }
+}
