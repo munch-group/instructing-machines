@@ -29,7 +29,7 @@ book:
     collapse-level: 2
     background: "white" 
     lightbox: true     
-    downloads: [pdf]
+    downloads: [pdf, epub]
   chapters:
     - part: "Planning"
       chapters: 
@@ -38,6 +38,7 @@ book:
         - planning/authorship-split.md
         - planning/turtle-widget-and-the-ai-arc.md
         - planning/widgets-in-the-python-notes.md
+        - planning/checklist.md
     - part: "Week 1"
       chapters: 
         - intro/course-introduction.qmd
@@ -131,7 +132,7 @@ book:
         - ai/surviving-ai.md
         - ai/the-ai-off-test.qmd
     - part: "Cheatsheets"
-      chapters: 
+      chapters:
         - intro/widget-reference.ipynb
         - python/widget-demo.ipynb
 
@@ -186,19 +187,38 @@ format:
 
   ipynb: default
 
-  # pdf:
-  #   documentclass: scrbook
-  #   papersize: a4
-  #   highlight-style: kate 
-  #   fig-width: 7
-  #   fig-height: 5
-  #   toc-depth: 2
-  #   secPrefix:
-  #     - "exercise"
-  #     - "exercises"
-  #   include-in-header:
-  #     - file: header_extra.tex
-  # epub:
-  #   cover-image: logo/im-mark.svg
-  #   highlight-style: kate 
-  #   # epub-fonts: DejaVuSans-*.ttf
+  pdf:
+    documentclass: scrbook
+    papersize: a4
+    classoption:
+      - oneside
+    geometry:
+      - left=2.75cm
+      - top=2.75cm
+      - bottom=2.75cm
+      - right=4.5cm
+      - marginparsep=0.5cm
+      - marginparwidth=3.5cm
+    mainfont: "TeX Gyre Pagella"
+    monofont: "Inconsolatazi4"
+    highlight-style: numpy.theme
+    fig-width: 6
+    fig-height: 4.3
+    toc-depth: 2
+    secPrefix:
+      - "exercise"
+      - "exercises"
+    filters:
+      - unnumber.lua
+      - pdf-badge-spacing.lua
+      - quarto
+      - pdf-inline-code.lua
+    include-in-header:
+      - file: header_extra.tex
+  epub:
+    cover-image: logo/im-mark.svg
+    highlight-style: kate
+    filters:
+      - unnumber.lua
+      - quarto
+    # epub-fonts: DejaVuSans-*.ttf

@@ -1,20 +1,35 @@
-%% Palatino font:
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{palatino}
+%% Main/mono fonts are set via the mainfont/monofont keys in _quarto.yml
+%% (fontspec, since the pdf engine is lualatex). Do not load the classic
+%% 8-bit `palatino`/`inconsolata` packages here: they reset the NFSS roman
+%% family to a Type1 PostScript font with only Latin-1 glyph coverage, which
+%% silently drops any Unicode character (arrows, box-drawing, etc.) that the
+%% fontspec-loaded OpenType fonts would otherwise render fine.
 
+% Headings use Inter (the HTML build's body/heading font, see
+% custom.scss) instead of the body serif, to bring the PDF headings
+% closer to the HTML look. Loaded from the bundled OTF files in
+% fonts/Inter/ (SIL OFL, same arrangement as au_fonts/) rather than
+% the `inter` CTAN package, so rendering does not depend on a tlmgr
+% package install succeeding at render time (e.g. in CI).
+\newfontfamily\interfamily{Inter}[
+  Path = fonts/Inter/,
+  Extension = .otf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-BoldItalic,
+  Ligatures = TeX,
+]
+\addtokomafont{disposition}{\interfamily}
 
 \usepackage{pifont}
 % \DeclareUnicodeCharacter{2730}{\ding{80}}
 % \DeclareUnicodeCharacter{2605}{\ding{72}}
-% \DeclareUnicodeCharacter{2055}{\ding{105}}  
+% \DeclareUnicodeCharacter{2055}{\ding{105}}
 
 % % \DeclareUnicodeCharacter{274D}{\ding{114}}
 % % \DeclareUnicodeCharacter{2730}{\ding{80}}
 % \DeclareUnicodeCharacter{274D}{\ding{96}}
-
-% for correct quotes in verbatim
-\usepackage{upquote}
 
 \pagestyle{plain} % no running header
 
@@ -24,6 +39,15 @@
 
 
 \usepackage[many]{tcolorbox}
+
+% Callouts (and code blocks) are breakable by default so a box that runs
+% longer than a page doesn't overflow. But a short callout landing near the
+% bottom of a page would otherwise split off just a line or two before the
+% page break, which reads badly. Requiring several lines of room before a
+% break is allowed pushes short boxes onto the next page as a whole instead;
+% only genuinely long callouts still split.
+\tcbset{lines before break=6}
+
 \definecolor{quotegray}{HTML}{505050}
 \newtcolorbox{myquote}{%
     enhanced jigsaw, 
@@ -54,11 +78,16 @@
 
 
 
-\usepackage{framed} % not sure i need this anymore
+% Inline code spans: pink text on a light grey chip, matching the HTML
+% build's `code:not(pre code)` rule in custom.scss. pdf-inline-code.lua
+% wraps every inline Code span in \iccolor{...} for PDF output only;
+% Pandoc's own \texttt{...} escaping of the code text is untouched, we
+% just add the color/background around it.
+\definecolor{inlinecodefg}{HTML}{d63384}
+\definecolor{inlinecodebg}{HTML}{f8f9fa}
+\newcommand{\iccolor}[1]{\colorbox{inlinecodebg}{\textcolor{inlinecodefg}{#1}}}
 
-\usepackage[T1]{fontenc}
-\usepackage{inconsolata}
-% \usepackage{ascii}
+\usepackage{framed} % not sure i need this anymore
 
 % \definecolor{myshade}{rgb}{1.0 1.0 1.0}
 % % \definecolor{myshade}{rgb}{0.655, 0.498, 0.161}
@@ -109,7 +138,71 @@
   % no code blocks with markup...
 \fi
 
+% Standalone code blocks (the `Shaded`/`snugshade` box above) get a
+% little more breathing room around the text, mirroring the 12px CSS
+% padding on `pre.sourceCode` in custom.scss. `\FrameSep` is framed's
+% own length (independent of `\fboxsep`, which \iccolor above uses for
+% inline code chips), so this only affects code-block padding. Set
+% inside \AtBeginDocument: Pandoc's own highlighting preamble also
+% does `\usepackage{framed}` (for the Shaded/snugshade definition
+% itself), landing after this file's header-includes, and framed.sty
+% resets \FrameSep to its own default the first time it is loaded --
+% clobbering a plain \setlength made here otherwise.
+\AtBeginDocument{\setlength{\FrameSep}{8pt}}
 
+% Code blocks with a `filename=` attribute (e.g. `{.txt filename="Terminal"}`):
+% Quarto wraps these in a numbered `codelisting` float styled
+% `\floatstyle{ruled}` (a rule, the caption, a rule, the code, a rule),
+% with no background of its own -- only the code's own Shaded box was
+% ever shaded, leaving the caption row and the leftover space around
+% it white. Hide the "Listing X.Y" numbering (to match the HTML
+% build's plain filename banner, see `.code-with-filename-file` in
+% custom.scss) and replace the float with a single shaded box running
+% from the caption straight through the code, so there is no white
+% left inside it.
+% Quarto injects its own `\newfloat{codelisting}...` (which *defines*
+% the environment we're overriding here) into header-includes later
+% than this file, so the redefinition has to wait until the preamble
+% is fully assembled -- hence \AtBeginDocument rather than a plain
+% \renewenvironment here.
+%
+% `\captionsetup[codelisting]{labelformat=empty}` alone does *not*
+% suppress the "Listing X.Y" prefix here: Quarto's template loads the
+% `caption` package before `float` (crossref.lua adds `\newfloat` to
+% header-includes, which land after this file's), and `caption` only
+% patches `float`-created environments to go through its own
+% (customizable) caption drawing if `float` was already loaded when
+% `caption` was -- otherwise, as here, `float`'s `\floatstyle{ruled}`
+% draws captions with its own native routine that \captionsetup can't
+% reach. So instead of configuring \caption, redefine it outright,
+% locally to this environment: no prefix, no number, just the text.
+\makeatletter
+\AtBeginDocument{%
+  \renewenvironment{codelisting}
+    {%
+      \renewcommand{\caption}[1]{%
+        \par\noindent{\bfseries ##1}\par
+        \vspace{4pt}\noindent\rule{\linewidth}{0.6pt}\vspace{4pt}%
+      }%
+      \begin{tcolorbox}[
+        enhanced, breakable,
+        colback=shadecolor, colframe=shadecolor,
+        boxrule=0pt, arc=0pt,
+        left=8pt, right=8pt, top=8pt, bottom=8pt,
+        before skip=\medskipamount, after skip=\medskipamount,
+        overlay unbroken={%
+          \draw[black, line width=0.6pt] (frame.north west) -- (frame.north east);
+          \draw[black, line width=0.6pt] (frame.south west) -- (frame.south east);
+        },
+        overlay first={\draw[black, line width=0.6pt] (frame.north west) -- (frame.north east);},
+        overlay last={\draw[black, line width=0.6pt] (frame.south west) -- (frame.south east);},
+      ]%
+    }
+    {%
+      \end{tcolorbox}%
+    }%
+}
+\makeatother
 
 \usepackage{etoolbox}
 \makeatletter
@@ -155,6 +248,37 @@
 \makeatother
 \renewcommand\sectionformat{\enskip\thesection\autodot}
 
+% The gap between an "Exercise" heading and the badge (`SOLO`/
+% `AI: <Role>`) right below it is tightened in pdf-badge-spacing.lua
+% (a \vspace inserted directly before the badge paragraph) rather than
+% here: a negative KOMA `afterskip` on subsubsection corrupted the
+% heading's own number/title layout, interacting badly with the
+% \sectionlinesformat override above.
+
+% Halve the space below chapter (h1) and section (h2) headings, before
+% the body text that follows them.
+%
+% Chapter headings don't go through the generic afterskip mechanism at
+% all (`\DeclareSectionCommand[style=chapter,...]{chapter}` has no
+% afterskip key) -- the gap comes from \scr@chapter@afterskip, a
+% macro consulted directly by KOMA's chapter-drawing code, confirmed
+% via `\meaning` (1.725\baselineskip plus/minus stretch by default).
+% Redefining it directly, in the preamble, is enough for a \chapter
+% call later in the body to pick it up.
+\makeatletter
+\renewcommand*{\scr@chapter@afterskip}{%
+  0.8625\baselineskip plus .0575\baselineskip minus .096\baselineskip%
+}
+\makeatother
+
+% Section headings do use the generic mechanism (default from
+% scrbook.cls: `afterskip=2.3ex plus.2ex`), but -- like the TOC
+% tocindent/tocnumwidth case above -- \RedeclareSectionCommand only
+% takes effect from \AtBeginDocument; called directly here it silently
+% no-ops (confirmed with an exaggerated 10cm test value).
+\AtBeginDocument{%
+  \RedeclareSectionCommand[afterskip={1.15ex plus .1ex}]{section}%
+}
 
 \renewcommand*{\chapterformat}{%
   \textcolor[rgb]{0.8, 0.8, 0.8}{\thechapter}\autodot\enskip%
@@ -167,6 +291,33 @@
 % }
 \renewcommand*{\subsubsectionformat}{%
   \textcolor[rgb]{0.8, 0.8, 0.8}{\thesubsubsection}\autodot\enskip%
+}
+
+% Part title pages and their TOC entries show only the title, matching the
+% HTML sidebar's plain "Week N" part labels, i.e. no "Part I"/"Part II" and
+% no leftover Roman numeral in the table of contents (a separate mechanism
+% from the part-page heading, so both need clearing).
+\makeatletter
+\renewcommand*{\partformat}{}
+\renewcommand{\thepart}{}
+\makeatother
+
+% Align "part" entries (e.g. "Week 1") in the table of contents with
+% chapter entries. KOMA's scrbook.cls reserves a 2em "number" column
+% for part entries by default (vs. chapter's 1.5em) even though
+% \thepart is now empty above, which pushed "Week N" in from the
+% margin -- to line up with the chapter *title* text rather than the
+% chapter *number*, one column further right than "N Chapter Name".
+% Zeroing that column instead puts "Week N" flush with the chapter
+% number, i.e. the same left margin as "N Chapter Name" as a whole.
+%
+% This has to be deferred to \AtBeginDocument: called directly in the
+% preamble it silently has no effect (confirmed by testing with
+% absurd values like 10cm), because scrbook.cls's own class-level
+% section-command setup finishes only at \begin{document}, and would
+% otherwise overwrite this after the fact.
+\AtBeginDocument{%
+  \RedeclareSectionCommand[tocindent=0pt, tocnumwidth=0pt]{part}%
 }
 
 

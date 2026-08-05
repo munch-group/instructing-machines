@@ -8,7 +8,7 @@
 [workspace]
 name = "instructing-machines"
 version = "2026.0.0"
-channels = ["conda-forge"]
+channels = ["conda-forge", "munch-group"]
 platforms = ["osx-arm64", "osx-64", "win-64", "linux-64"]
 
 [dependencies]
@@ -21,21 +21,29 @@ pandas = ">=2,<3"
 seaborn = ">=0.13,<0.14"
 matplotlib = ">=3.8"
 pytest = ">=8"
+steps-widget = "*"
+sandbox-widget = "*"
+snippet-cast = "*"
+iplot-widget = "*"
+turtle-widget = "*"
+puzzle-widget = "*"
+codelens-widget = "*"
+im-pytest = "*"
 
-# The course widgets. These come from PyPI for now because the conda packages
-# on the munch-group channel are still built per-platform (linux-64 and
-# osx-arm64 only), which leaves Windows and Intel-Mac students with nothing to
-# install. Once those recipes are rebuilt as `noarch: python`, delete this
-# whole section, add "munch-group" to `channels` above, and move the seven
-# entries into [dependencies] instead.
-[pypi-dependencies]
-steps-widget = ">=0.2.7,<0.3"
-puzzle-widget = ">=0.1.14,<0.2"
-codelens-widget = ">=0.1.40,<0.2"
-turtle-widget = ">=1.0.3,<2"
-sandbox-widget = ">=1.0.5,<2"
-iplot-widget = ">=0.1.14,<0.2"
-im-pytest = ">=0.1.25,<0.2"
+# # The course widgets. These come from PyPI for now because the conda packages
+# # on the munch-group channel are still built per-platform (linux-64 and
+# # osx-arm64 only), which leaves Windows and Intel-Mac students with nothing to
+# # install. Once those recipes are rebuilt as `noarch: python`, delete this
+# # whole section, add "munch-group" to `channels` above, and move the seven
+# # entries into [dependencies] instead.
+# [pypi-dependencies]
+# steps-widget = ">=0.2.7,<0.3"
+# puzzle-widget = ">=0.1.14,<0.2"
+# codelens-widget = ">=0.1.40,<0.2"
+# turtle-widget = ">=1.0.3,<2"
+# sandbox-widget = ">=1.0.5,<2"
+# iplot-widget = ">=0.1.14,<0.2"
+# im-pytest = ">=0.1.25,<0.2"
 
 [tasks]
 # `pixi run check` — a one-command answer to "did my installation work?".

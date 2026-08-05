@@ -44,7 +44,7 @@ The student's leverage is knowing what is possible. As the AI writes more of the
 
 ## The 14-week grid {.unnumbered}
 
-`⛰` marks a cliff week, `⚠️` a lab-split week. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): the concepts are delivered in weeks 1 to 5, weeks 6 to 13 are eight weekly programming projects, one per week, in the established order, and week 14 is wrap-up. The AI thread runs in a recurring fifteen-minute segment every week, and in the project weeks the single lecture becomes a supporting worked-example or debugging clinic rather than a new concept. The weekly project is the practice done at home and in the TA session.
+`cliff` marks a cliff week, `lab-split` a lab-split week. The Python content follows the sequence and pace of the existing course (`weekplan.qmd`): the concepts are delivered in weeks 1 to 5, weeks 6 to 13 are eight weekly programming projects, one per week, in the established order, and week 14 is wrap-up. The AI thread runs in a recurring fifteen-minute segment every week, and in the project weeks the single lecture becomes a supporting worked-example or debugging clinic rather than a new concept. The weekly project is the practice done at home and in the TA session.
 
 Links point to the draft curriculum for each session, with paths relative to this file (`docs/planning/`). Where no document exists yet, the link targets a titled `.qmd` stub in `docs/python/` that records what the document is meant to contain. @sec-translation-project
 
@@ -159,20 +159,20 @@ The scaffolding fades across the eight project weeks rather than being switched 
 
 ## Concept dependency graph {.unnumbered}
 
-```         
+```
 values/types/operators, math & logic (wk1)
-        └─ expressions & precedence → substitution/reduction (wk1)      ← the spine
-                └─ variables & assignment (wk1)
-                        └─ boolean logic & truthiness (wk1) → conditionals (wk2)
-                                └─ functions (wk2) ── scope (wk2)
+        \- expressions & precedence -> substitution/reduction (wk1)      <- the spine
+                \- variables & assignment (wk1)
+                        \- boolean logic & truthiness (wk1) -> conditionals (wk2)
+                                \- functions (wk2) -- scope (wk2)
         objects & string methods (wk3), lists / dictionaries / tuples (wk3)
-                └─ iteration: for/range (wk4) ── files (wk4)
-                        └─ building data structures, nested loops & aliasing (wk5)
-                                └─ recursion (wk5) ── testing (wk5)
+                \- iteration: for/range (wk4) -- files (wk4)
+                        \- building data structures, nested loops & aliasing (wk5)
+                                \- recursion (wk5) -- testing (wk5)
         classes: __init__/self/methods (wk7, with the folding project)
-                └─ reading library/API docs as contracts (wk9, with BioPython)
+                \- reading library/API docs as contracts (wk9, with BioPython)
         the eight weekly projects (wk6-13, fading scaffold)
-                └─ wrap-up, limits & the augmentation idea (wk14)
+                \- wrap-up, limits & the augmentation idea (wk14)
 ```
 
 The documentation skill is a direct descendant of classes: a class taught them that an object is a thing with methods you call by their contract, and reading a library is reading a catalog of such contracts. It arrives in week 9 alongside the codon-bias project and BioPython, where the projects first lean on machinery the student did not write.
