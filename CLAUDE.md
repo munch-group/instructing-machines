@@ -92,7 +92,18 @@ None of these is banned outright; the test is whether the word is doing work tha
 
 Full detail is in `docs/planning/course-design.qmd` (§7 there); the essentials for authoring:
 
-- **AI from week 1, in escalating roles, and the badges are now live in the notes.** Each exercise that uses the assistant states the sanctioned **role** via a license badge written inline in the heading, e.g. `#### Exercise \`AI: Drafter\``. The cumulative ladder is Explainer → Translator → Illustrator → Comparer → Drafter → Unreliable Narrator → Worker → Collaborator → Delegate; roles already used in the drafted notes include `AI: Explainer`, `AI: Comparer`, `AI: Drafter`, `AI: Unreliable Narrator`, `AI: Worker`, `AI: Collaborator`. Do-it-yourself-first exercises carry `🔒 SOLO`. The AI lives in the **browser** (Microsoft 365 Copilot, including its Study and Learn agent); VS Code stays the AI-free space.
+- **AI from week 1, in escalating roles, and the badges are live in every note.** Every `#### Exercise` in the book carries a licence badge: either the sanctioned **role** for that context or `SOLO` for do-it-yourself-first. The cumulative ladder is Explainer → Translator → Illustrator → Comparer → Drafter → Unreliable Narrator → Worker → Collaborator → Delegate; roles in use are `AI: Explainer`, `AI: Comparer`, `AI: Drafter`, `AI: Unreliable Narrator`, `AI: Worker`, `AI: Collaborator`, `AI: Delegate`. A badge only ever licenses a role the current week has unlocked. The AI lives in the **browser** (Microsoft 365 Copilot, including its Study and Learn agent); VS Code stays the AI-free space.
+- **Badge format — no icons.** Write the badge as a bare code span, `` `SOLO` `` or `` `AI: Drafter` ``, on its own line directly under the heading with a blank line either side:
+
+  ```markdown
+  #### Exercise
+
+  `SOLO`
+
+  Decide what you think will happen before you run it.
+  ```
+
+  **Do not prefix badges with 🔒, 🟢 or any other emoji, and do not bold them.** Earlier drafts used `🔒 **SOLO**` and `🟢 **AI: Comparer**`; those were normalised away and must not come back. The one sanctioned exception is a compact numbered drill list, where the badge stays inline in the heading (`#### Exercise 1 \`AI: Comparer\``) so that each item remains a single line — see `ai/predict-then-prove.qmd` and `ai/ask-for-another-way.qmd`. The default in every other file is the own-line form.
 - **The rule that ties AI to the widgets:** *"the AI predicts; the widget proves."* Whenever the assistant claims what code does, students check it with the machine (this is the whole point of `predict-then-prove.qmd`).
 - **One verification principle, several modes.** Code is verified by tests and reading; facts/biology by evidence and knowledge; your own learning by the "AI-off test" (can you do it with the assistant switched off). This thread runs through the AI-arc notes and closes in `surviving-ai.md` and `the-ai-off-test.qmd`.
 - **Logbook.** A term-long student artifact — one weekly entry: what the AI got right, what it got wrong, how they knew. Weekly notes should prompt an entry.
@@ -158,7 +169,7 @@ Status legend: **Solid** = reusable after a copyedit; **Needs work** = good bone
 
 ### `docs/python/` — worked-example & clinic notes (`.qmd`, drafted)
 
-- **composition.qmd** — *Drafted.* Week-6 worked example: a small biology problem solved live by composition, with a "Spot the bug" beat and a `🔒 SOLO` exercise. Companion to the lecture's snippet-cast.
+- **composition.qmd** — *Drafted.* Week-6 worked example: a small biology problem solved live by composition, with a "Spot the bug" beat and a `SOLO` exercise. Companion to the lecture's snippet-cast.
 - **decomposition.qmd** — *Drafted.* Week-10 worked example: naming the pieces and the shape of the data before writing code; pairs with `ai/plan-before-you-prompt.md`. `SOLO` exercise.
 - **debugging.qmd** — *Drafted.* Week-7 clinic: read a traceback, form a hypothesis, confirm with a print or `codelens`; uses curated authored bugs ("Spot the bug"). `SOLO` exercise. Reused across project weeks.
 - **dataframes.qmd** — *Drafted.* Week-12 light introduction: a dataframe as a complex data type worth knowing exists, met by doing (`read_csv`, pulling a column), the `apply` bridge from an authored/tested function to whole-column application, then a plot. Real data analysis is out of scope. `SOLO` exercise.
@@ -185,7 +196,7 @@ Weekly AI beats and in-class clinics (short `.qmd`, session-structured with badg
 - **directing-a-resource.qmd** — *Drafted (wk9).* Clinic on building on machinery you did not write; rehearses the codon-bias/BioPython move. `AI: Collaborator`.
 - **documentation-and-resources.qmd** — *Drafted (wk9).* Reading a library/API as a catalog of contracts; what you do and do not verify. `AI: Worker`.
 - **learning-with-an-ai.qmd** — *Drafted (wk12).* Using the assistant to learn, the Study-and-Learn tutor mode, and verifying facts against evidence. `AI: Explainer`.
-- **the-ai-off-test.qmd** — *Drafted (wk14).* Verification turned on your own learning; the line between augmenting and cheating. `🔒 SOLO`.
+- **the-ai-off-test.qmd** — *Drafted (wk14).* Verification turned on your own learning; the line between augmenting and cheating. `SOLO`.
 
 The five long conceptual notes (`.md`, pure plain-prose register):
 
@@ -235,6 +246,6 @@ Out of the book:
 2. Match the register of the folder: warm authorial voice in `docs/python/`, plain continuous prose in `docs/ai/`.
 3. Teach by doing → naming; intersperse small `%%exercise` cells; every exercise is predict-then-run.
 4. Reinforce substitution & reduction; reach for the matching widget (`steps`/`puzzle`/`codelens`/`turtle`/`iplot`).
-5. State the AI **role** for each exercise with an inline `AI: <Role>` or `🔒 SOLO` badge; keep the AI in the browser; prompt a logbook entry where appropriate.
+5. Badge every exercise — `` `SOLO` `` or `` `AI: <Role>` ``, on its own line under the heading, no emoji, no bold, and no role the week has not unlocked; keep the AI in the browser; prompt a logbook entry where appropriate.
 6. Make code runnable rather than hand-typed; label any deliberate-bug exercise with a "Spot the bug" callout.
 7. Place the file in the right folder and add it to the correct week in `docs/_quarto.yml`; run the §4 quality checklist before calling it done.
