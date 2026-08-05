@@ -125,6 +125,22 @@ def badges_in(path: Path):
             break
 
 
+def inline_badges_in(path: Path):
+    """Yield (line number, badge) for every badge still stuck in its heading.
+
+    The badge belongs on its own line below the heading.  Inline, it collides
+    with the subsubsection number Quarto generates for the PDF, so the form is
+    not merely untidy: it renders wrong.
+    """
+    for number, line in enumerate(markdown_of(path).split("\n"), start=1):
+        heading = HEADING.match(line)
+        if not heading:
+            continue
+        inline = BADGE.search(heading.group(1))
+        if inline:
+            yield number, canonical(inline.group(1))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--census", action="store_true",
@@ -141,6 +157,7 @@ def main() -> int:
     position = {path: index for index, path in enumerate(seen_order)}
 
     problems = []
+    inline = []
     missing = []
     per_role = Counter()
     per_week = defaultdict(Counter)
@@ -151,6 +168,10 @@ def main() -> int:
         if not path.exists():
             missing.append(chapter)
             continue
+        for line, badge in inline_badges_in(path):
+            inline.append(
+                f"{chapter}:{line}: `{badge}` is inline in the heading;"
+                " it belongs on its own line below it")
         for line, badge in badges_in(path):
             per_role[badge] += 1
             per_week[week][badge] += 1
@@ -188,6 +209,15 @@ def main() -> int:
         for chapter in missing:
             print(f"  {chapter}")
         print()
+
+    if inline:
+        print(f"{len(inline)} badge(s) are still inline in their heading:")
+        for one in inline:
+            print(f"  {one}")
+        print("The badge goes on its own line below the heading, with a blank"
+              " line either side, or the PDF renders it against the generated"
+              " subsubsection number.")
+        return 1
 
     total = sum(per_role.values())
     if problems:

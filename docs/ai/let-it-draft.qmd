@@ -33,27 +33,42 @@ As a class, specify `gc_content(dna)`: fraction of bases that are `G` or `C`, wi
 
 For each function below, follow the full order: specify with a worked example first, draft, read every line, write one gentle and one nasty test, run both. Do not move to the next function until the current one's tests pass.
 
-#### Exercise 1 [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+#### Exercise 1
+
+[[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+
 `is_palindrome(dna)`: `True` if the DNA string reads the same as its own reverse complement. Worked example: `is_palindrome('GAATTC') == True`. Nasty case to consider: an odd-length string, and a string containing a base outside `A`, `T`, `G`, `C`.
 
-#### Exercise 2 [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+#### Exercise 2
+
+[[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+
 `count_codon(dna, codon)`: how many times a given three-letter codon appears, including overlaps. Worked example: `count_codon('ATGATGC', 'ATG') == 2`. Nasty case to consider: a codon that does not appear at all, and a codon longer or shorter than three letters.
 
-#### Exercise 3 [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+#### Exercise 3
+
+[[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+
 `most_common_base(dna)`: the single most frequent base in a DNA string. Worked example: `most_common_base('GGGATC') == 'G'`. Nasty case to consider: a tie between two bases, so decide, in writing, before you draft, what you want to happen, since last term's cohort found the assistant will pick silently and inconsistently if you do not.
 
 ## Part 3 — Catch the silent bug (35 min)
 
 Not every draft that passes a gentle test deserves your belief, which is the entire reason the nasty test exists. This round is curated so the gentle test passes and the nasty one does not, on purpose.
 
-#### Exercise 4 [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+#### Exercise 4
+
+[[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+
 Specify `gc_content(dna)` again, but this time specify it to be **case-insensitive**: it should count lowercase `g`/`c` the same as uppercase. Worked example: `gc_content('ggcc') == 1.0`. Draft it, read it, and write two tests: `assert gc_content('GGCC') == 1.0` and `assert gc_content('ggcc') == 1.0`. Many drafts pass the first and silently fail the second because they only check the uppercase letters. If yours does, do not just accept a patched version — reread the fixed line until you can say in one sentence why the first draft missed lowercase input.
 
 ## Part 4 — Drafting a method, not just a function (35 min)
 
 Classes entered this week, and a method is drafted the same way a function is, specified first, read in full, tested before belief.
 
-#### Exercise 5 [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+#### Exercise 5
+
+[[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+
 Specify a small `Codon` class with an attribute `bases` and a method `translate(self)` that returns the corresponding amino acid letter for a short, fixed table of codons you provide (four or five entries is enough). Worked example: `Codon('ATG').translate() == 'M'`. Draft the class, read `__init__` and `translate` line by line, and write one gentle test plus one nasty test using a codon not in your table — decide, before drafting, what should happen then, and check the draft actually does what you decided rather than whatever it happened to do.
 
 ## Wrap-up (15 min)
