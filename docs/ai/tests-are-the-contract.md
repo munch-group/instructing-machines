@@ -27,7 +27,7 @@ print(most_common_base('GC'))
 
 #### Exercise
 
-[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Before you run that, write down which base you expect to come back, and the reason you expect it. Then run it. Now the real question, which is not about the answer at all: could you have predicted it from the code alone, without knowing how `set` happens to order its elements and how `max` happens to break a tie? If the answer is no, then the behaviour of this function on a tie is not something you decided; it is something that fell out. Write the single `assert` you would have to add to take that decision back, and notice that writing it forces you to make the decision you had been avoiding.
 
@@ -50,31 +50,31 @@ Only now do you ask the assistant for the function. If it hands you a version th
 
 #### Exercise
 
-[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Take a vague request and turn it into a contract. Choose a small function you might ask an assistant to write, such as one that counts how many times a given codon appears in a longer strand, and before writing or requesting any code, write down three concrete examples with the answers worked out by hand, then turn each into an `assert` statement. Make sure at least one of your three examples is an awkward one, such as an overlapping occurrence or a codon that does not appear at all, and be ready to say what decision that awkward example forces. Keep this contract; the next three exercises all use it.
 
 #### Exercise
 
-[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Now with no assistant at all, so that the mechanics are firmly yours. Take a function you have already written earlier in the course and write two tests for it: one that you are confident it passes, and one that you expect it to fail, perhaps because it exposes a case the function never handled. Run both. The point is to feel the difference between a test that confirms and a test that accuses, because a contract that only ever confirms is not protecting you from anything.
 
 #### Exercise
 
-[[AI: Worker]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-worker)
+[[ai: worker]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-worker)
 
 Run the full discipline in order, on the contract you wrote two exercises ago. You have the specification already, so now, and only now, ask the assistant to write the function. Give it the purpose and the signature. Do **not** give it your tests. Run your tests against what it produces. If they all pass, you have earned a limited and specific belief in the code, limited to the cases you actually specified. If one fails, notice that you found the disagreement before the code ever ran in anger, which is the entire reason for writing the contract first.
 
 #### Exercise
 
-[[AI: Worker]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-worker)
+[[ai: worker]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-worker)
 
 Now aim the contract at a decision rather than at a bug. Write a contract for `is_gc_rich(dna)`, a function that says whether a strand is GC rich, and make it decide two things the request itself leaves open: what happens at exactly one half, as in `'GGAT'`, and what happens for the empty strand. Decide both deliberately and write an `assert` for each. Then ask the assistant for the function using only the prose description, saying nothing about either case. Run your contract. Whatever it guessed, it guessed silently, and the only reason you can now tell whether the two of you agree is that you decided first. Record which of your two decisions it got wrong, if either.
 
 #### Exercise
 
-[[AI: Worker]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-worker)
+[[ai: worker]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-worker)
 
 Last, watch the contract outlive the code. Take the same specification and ask the assistant for a *second*, deliberately different implementation of the same function, perhaps by asking for one that avoids a loop, or one that a beginner would find easier to read. Run your unchanged tests against it. Two different pieces of code, one contract, the same verdict. That is what it means to say the implementation is replaceable and the specification is not, and it is why the tests are worth more than any particular function you will ever get out of a machine.
 

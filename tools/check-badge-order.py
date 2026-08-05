@@ -12,7 +12,10 @@ A badge is a small-caps link to the rung's own section in
 permits is one click from the answer::
 
     #### Exercise
-    [[AI: Drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+    [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+
+Badges are written in lower case; this script matches them case-insensitively
+and reports them in the ladder's own capitalisation.
 
 Run it with no arguments from anywhere in the repository::
 
@@ -52,10 +55,20 @@ INTRODUCED_BY = dict(LADDER)
 HEADING = re.compile(r"^#{2,6}\s+Exercise\b(.*)$")
 # A badge is a small-caps link to the rung's section in the course
 # introduction, e.g.
-#   [[AI: Drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
-# The bare code span is the older form and is still recognised, so that a
-# half-converted note is reported rather than silently skipped.
-BADGE = re.compile(r"(?:`|\[\[)(SOLO|AI: [A-Za-z ]+?)(?:`|\]\{\.smallcaps\})")
+#   [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+# The bare code span is the older form, and the older Title Case spelling is
+# also still recognised, so that a half-converted note is reported rather than
+# silently skipped.
+BADGE = re.compile(r"(?:`|\[\[)(SOLO|AI: [A-Za-z ]+?)(?:`|\]\{\.smallcaps\})",
+                   re.IGNORECASE)
+
+
+def canonical(badge: str) -> str:
+    """The badge as the ladder spells it, whatever case the note used."""
+    if badge.strip().lower() == "solo":
+        return "SOLO"
+    role = badge.split(":", 1)[1].strip()
+    return "AI: " + " ".join(word.capitalize() for word in role.split())
 # A chapter line in _quarto.yml: "        - ai/meet-ai.qmd" (comments skipped).
 CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.(?:qmd|md|ipynb))\s*$")
 PART = re.compile(r'^\s*-\s+part:\s*"?([^"\n]+?)"?\s*$')
@@ -100,7 +113,7 @@ def badges_in(path: Path):
             continue
         inline = BADGE.search(heading.group(1))
         if inline:
-            yield number, inline.group(1)
+            yield number, canonical(inline.group(1))
             continue
         # Otherwise the badge sits on its own line just below the heading.
         for below in lines[number : number + 3]:
@@ -108,7 +121,7 @@ def badges_in(path: Path):
                 continue
             found = BADGE.search(below)
             if found:
-                yield number, found.group(1)
+                yield number, canonical(found.group(1))
             break
 
 
@@ -181,6 +194,13 @@ def main() -> int:
         print(f"The ladder is out of order in {len(problems)} place(s):")
         for problem in problems:
             print(f"  {problem}")
+        return 1
+
+    if not total:
+        # A green tick on nothing checked is worse than a red one: it means
+        # the badge format moved and BADGE stopped matching it.
+        print("No badges found at all.  The badge format has probably changed"
+              " and this check has gone blind — update BADGE in this script.")
         return 1
 
     print(f"The ladder runs straight: {total} badged exercises,"

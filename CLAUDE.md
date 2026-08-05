@@ -93,12 +93,12 @@ None of these is banned outright; the test is whether the word is doing work tha
 Full detail is in `docs/planning/course-design.qmd` (§7 there); the essentials for authoring:
 
 - **AI from week 1, in escalating roles, and the badges are live in every note.** Every `#### Exercise` in the book carries a licence badge: either the sanctioned **role** for that context or `SOLO` for do-it-yourself-first. The cumulative ladder is Explainer → Translator → Illustrator → Comparer → Drafter → Unreliable Narrator → Worker → Collaborator → Delegate; roles in use are `AI: Explainer`, `AI: Comparer`, `AI: Drafter`, `AI: Unreliable Narrator`, `AI: Worker`, `AI: Collaborator`, `AI: Delegate`. A badge only ever licenses a role the current week has unlocked. The AI lives in the **browser** (Microsoft 365 Copilot, including its Study and Learn agent); VS Code stays the AI-free space.
-- **Badge format — a small-caps link, no icons.** Write the badge as a small-caps span wrapped in a link to that rung's own section in `intro/course-introduction.qmd`, on its own line directly under the heading with a blank line either side:
+- **Badge format — a lower-case small-caps link, no icons.** Write the badge as a small-caps span wrapped in a link to that rung's own section in `intro/course-introduction.qmd`, on its own line directly under the heading with a blank line either side. **The badge text is always lower case** — `[[solo]{.smallcaps}]`, `[[ai: drafter]{.smallcaps}]`, `[[ai: unreliable narrator]{.smallcaps}]` — because small caps carry the emphasis and capital letters inside them read as shouting. The `### AI: Drafter` section headings in the course introduction and the ladder-progress strips in `docs/ai/` are ordinary prose, not badges, and keep their Title Case:
 
   ```markdown
   #### Exercise
 
-  [[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+  [[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
   Decide what you think will happen before you run it.
   ```
@@ -250,6 +250,6 @@ Out of the book:
 2. Match the register of the folder: warm authorial voice in `docs/python/`, plain continuous prose in `docs/ai/`.
 3. Teach by doing → naming; intersperse small `%%exercise` cells; every exercise is predict-then-run.
 4. Reinforce substitution & reduction; reach for the matching widget (`steps`/`puzzle`/`codelens`/`turtle`/`iplot`).
-5. Badge every exercise — `[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)` or the same form for `AI: <Role>`, on its own line under the heading, no emoji, no bold, and no role the week has not unlocked; run `tools/check-badge-order.py` afterwards; keep the AI in the browser; prompt a logbook entry where appropriate.
+5. Badge every exercise — `[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)` or the same form for `AI: <Role>`, on its own line under the heading, no emoji, no bold, and no role the week has not unlocked; run `tools/check-badge-order.py` afterwards; keep the AI in the browser; prompt a logbook entry where appropriate.
 6. Make code runnable rather than hand-typed; label any deliberate-bug exercise with a "Spot the bug" callout.
 7. Place the file in the right folder and add it to the correct week in `docs/_quarto.yml`; run the §4 quality checklist before calling it done.

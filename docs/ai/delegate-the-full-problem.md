@@ -24,37 +24,37 @@ You will do most of this on the real project, so the exercises here are small an
 
 #### Exercise
 
-[[AI: Delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
+[[ai: delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
 
 Run one full cycle on one piece, in the order that makes it safe. Before you prompt for anything, write the acceptance criteria for a single function from your plan: what it must return for which inputs, including the awkward cases, in a form the machine can check. Then prompt the assistant for that function, giving it the purpose, the signature, and nothing you have not decided. Read what comes back. Run the criteria. The thing to notice is that you wrote the criteria while you still had no code in front of you to anchor your idea of what correct meant, which is the only condition under which delegating a whole piece is anything other than hoping.
 
 #### Exercise
 
-[[AI: Delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
+[[ai: delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
 
 Take a single function from your plan, prompt the assistant for it, and when its first attempt fails one of your tests, write the change request you would send back, containing the failing input, the wrong output, the correct output, and the reason. Notice how much of that you already knew from having written the test first. Send it. If the second version passes, the loop converged; if the third does not, stop, and go to the next exercise.
 
 #### Exercise
 
-[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Take the keyboard back. Find a piece where the loop did not converge in two rounds, or where you can already see the answer, and write it yourself. Time both if you can. The skill this exercise trains is not programming, it is the judgment about when delegating has stopped paying, and it is a skill in exactly the same sense that specifying and judging are. An assistant argued with for twenty minutes over a function you could have typed in five is not saving you anything, and noticing that quickly is part of using it well.
 
 #### Exercise
 
-[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Take a function that has just passed the provided tests and write one more test of your own, a nasty case the provided suite did not include, and run it. If it also passes, you have strengthened the contract. If it fails, you have just caught a bug that would otherwise have shipped, and you have proved to yourself that the provided suite was a floor and not a ceiling.
 
 #### Exercise
 
-[[AI: Delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
+[[ai: delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
 
 Finally, the exercise that decides whether you may keep the badge. Pick the function in your capstone that you delegated most heavily, the one you are least sure you could have written yourself, and write one paragraph explaining how it works, in your own words, with the assistant closed. Not what it does, which you know from its tests, but *how* it does it, line by line. If you cannot, that function is not finished, whatever its tests say, because you cannot own a result you cannot explain. Do the reading now and write the paragraph again. This is what it means to say that delegation transfers the typing and not the responsibility.
 
 #### Exercise
 
-[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Write one prompt journal entry for a piece you built, recording where the assistant was wrong and how the machine, or your reading, revealed it.
 
