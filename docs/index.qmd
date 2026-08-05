@@ -1,47 +1,27 @@
 ---
-# title-block-banner: images/banner3.png
-# title-block-banner: logo/im-horizontal.svg
-# title-block-banner: "#003257"
-# title-block-banner-color: "#FFFFFF"
 hide-hidden: true
 hide-exam: true
-# title: "&nbsp;"
-# subtitle: "&nbsp;"
-title-block-banner: "#ffffffff"
-title-block-banner-color: "#ffffffff"
 
 format:
   html:
     toc: false
     include-in-header:
       - text: |
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
           <style>
-          #title-block-header.quarto-title-block.default .quarto-title-meta {
-            color: #ffffff;
-          }
-          .quarto-title-block .quarto-title-banner {
-            height: 0;
-            min-height: 0;
-            padding: 0;
-            overflow: hidden;
-          }
-          #title-block-header {
-            background-image: url(./logo_alt/im-horizontal2.svg);
-            /* im-horizontal.svg is 1647x198; cap the width so the 80%-scaled
-               image never renders taller than the 200px header on wide screens */
-            background-size: min(70%, calc(200px * 1647 / 198)) auto;
-            background-color: #ffffff;
-            background-repeat: no-repeat;
-            background-position-x: center;
-            background-position-y: center;
-            height: 200px;
-            opacity: 1; /* Adjust as needed */
-            z-index: -1;
-            border-bottom: 1px solid #D1D5DB;
-          }
+          /* The header is now real text in the page body (.im-header, see
+             custom.scss), so Quarto's own title block is not needed. */
+          #title-block-header { display: none; }
           
           </style>
 ---
+
+::: {.im-header}
+![](logo/im-prompt.svg){.im-logo}
+:::
 
 ::: {.lp-hero}
 
@@ -58,7 +38,7 @@ The course is knowing whether it is right.
 Instructing Machines is a fourteen-week introduction to programming for
 molecular biology, written for students who will have a model at their side
 from the first line they type. Every week pairs a piece of Python with a way
-of working alongside an AI — and a way of checking what it hands back.
+of working alongside an AI and a way of checking what it hands back.
 :::
 
 ::: {.lp-actions}
@@ -77,7 +57,7 @@ Your brain knows the biology. A CPU has the power. Python is the language
 between them, and an AI can now speak it on your behalf. Each part is only
 worth what the next one can check. -->
 
-### From insight to compute {.unnumbered} 
+### How it works {.unnumbered} 
 
 <!-- ### Instructing machines: Brain <i class="bi bi-arrow-right-short"></i> AI <i class="bi bi-arrow-right-short"></i> Code <i class="bi bi-arrow-right-short"></i> Compute {.unnumbered}  -->
 
@@ -92,41 +72,41 @@ limit of what you can specify and verify. Fourteen weeks of raising that limit.
 ::: {.lp-panel}
 [<i class="bi bi-person"></i> Brain]{.lp-panel-label}
 
-Your training is what lets you ask a real question about molecular biology,
-find the answer yourself, and judge the answers you are handed.
+Your training is what lets you ask a questions about molecular biology and judge answers you are handed.
 :::
 
 ::: {.lp-panel}
 [<i class="bi bi-code-slash"></i> Code]{.lp-panel-label}
 
-Machine code is what tells a computer what to do. Python lets you write it in
-something close to the plain English your brain already thinks in.
+Python lets you write machine instructions in something close to the plain English you think in.
 :::
 
 ::: {.lp-panel}
 [<i class="bi bi-stars"></i> AI]{.lp-panel-label}
 
-A model is good at turning a problem posed in human language into code that
-runs. Knowing programming is what lets you steer it, and read what comes back.
+An AI can turn a problem posed in English into Python code that you can test and verify.
 :::
 
 ::: {.lp-panel}
 [<i class="bi bi-cpu"></i> CPU]{.lp-panel-label}
 
-Your brain is roughly two hundred times faster than a good laptop. But a CPU
-will spend all of itself on one problem, if you can say what the problem is.
+Once your question is expressed in as Python code, running it on you computer produces the answer.
 :::
 
 :::
+
+### AI and programming {.unnumbered}
+
+You an read the reasoning behind how AI integrates in the course on the [course design](course_design.qmd) page, but in a nutshell it goes like this:
 
 ::: {.lp-thesis}
 An AI is useful to you up to the limit of what you can specify and verify. The course spends fourteen weeks raising that limit.
 :::
 
 
-### Every week, two threads {.unnumbered}
+<!-- ### Week outline {.unnumbered} -->
 
-A Python topic and an AI practice, taught together, applied to a project from
+Across the fourteen weeks, Python topics and AI practice are taught together and applied in small projects from
 molecular biology.
 
 ::: {.lp-arc}

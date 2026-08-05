@@ -735,8 +735,39 @@ pre.numberSource code > span > a:first-child::before {
 
 
 
+
+
+
 $lp-mono: "Fira Code", "DejaVu Sans Mono", monospace;
 $lp-rule: #D1D5DB;
+
+/* --- header: prompt lockup (replaces the logo banner) ------ */
+
+$lp-ink: #1A1A18;
+$lp-caret: #7C5CB0;
+
+.im-header {
+  text-align: center;
+  padding: 2.5rem 0 1.875rem;
+  margin-bottom: 2.75rem;
+  border-bottom: 1px solid $lp-rule;
+
+  /* the fenced div wraps its contents in a <p>; strip its margins so the
+     padding above is the only spacing */
+  p { margin: 0; }
+
+  @media (min-resolution: 2dppx) {
+    border-bottom-width: 0.5px;
+  }
+}
+
+/* Height only — the lockup's own aspect ratio does the rest. The SVG carries
+   24px of padding at a 132px em, so the visible wordmark is ~72% of this. */
+.im-logo {
+  display: inline-block;
+  height: clamp(2.5rem, 6.4vw, 4.25rem);
+  width: auto;
+}
 
 /* --- hero ------------------------------------------------- */
 
@@ -744,6 +775,9 @@ $lp-rule: #D1D5DB;
   padding-bottom: 2.5rem;
   border-bottom: 1px solid $lp-rule;
   margin-bottom: 2.75rem;
+
+  /* the header rule sits directly above, so the hero starts flush */
+  .lp-eyebrow { margin-top: 0; }
 }
 
 .lp-eyebrow {

@@ -1,27 +1,65 @@
-import math, os
+import math, os, glob
 from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.misc.transform import Transform
 import cairosvg
 
-OUT = "/mnt/user-data/outputs/logo"
+# Written next to this script by default: docs/logo/
+OUT = os.environ.get("IM_LOGO_OUT", os.path.join(os.path.dirname(os.path.abspath(__file__))))
 os.makedirs(OUT, exist_ok=True)
 
-FONT = "/usr/share/fonts/truetype/google-fonts/Poppins-Medium.ttf"
-PURPLE = "#7F77DD"
+# ---------- fonts ----------
+# The wordmark is now set in JetBrains Mono Medium. fontTools draws the DEFAULT
+# instance of a variable font, so JetBrainsMono[wght].ttf would come out at
+# Regular 400 — you need the STATIC Medium. Grab it from
+# https://github.com/JetBrains/JetBrainsMono/releases and drop it next to this
+# script if none of the candidates below resolve.
+FONT_CANDIDATES = [
+    "./JetBrainsMono-Medium.ttf",
+    "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf",
+    "/usr/share/fonts/truetype/google-fonts/JetBrainsMono-Medium.ttf",
+    "/Library/Fonts/JetBrainsMono-Medium.ttf",
+    os.path.expanduser("~/Library/Fonts/JetBrainsMono-Medium.ttf"),
+]
+
+def resolve_font():
+    for p in FONT_CANDIDATES:
+        if os.path.exists(p):
+            return p
+    hits = glob.glob("/usr/share/fonts/**/JetBrainsMono-Medium.ttf", recursive=True)
+    if hits:
+        return hits[0]
+    raise SystemExit(
+        "JetBrainsMono-Medium.ttf not found. Download the static Medium from\n"
+        "  https://github.com/JetBrains/JetBrainsMono/releases\n"
+        "and put it beside this script, or add its path to FONT_CANDIDATES.\n"
+        "Do not substitute JetBrainsMono[wght].ttf — fontTools would draw it at 400."
+    )
+
+FONT = resolve_font()
+
+TEAL   = "#0D7D93"   # $primary — the prompt
+CARET  = "#7C5CB0"   # lightness-matched purple (was #7F77DD)
 INK    = "#1A1A18"
 AUBLUE = "#002546"
 PAPER  = "#FFFFFF"
 
+TEXT = "instructing machines"
+
 # ---------- wordmark outlines ----------
-def wordmark(text, size, tracking=0.0):
-    """Return (path_d, width) for text rendered as outlines at given cap size (px em)."""
-    font = TTFont(FONT)
-    upem = font["head"].unitsPerEm
-    gs = font.getGlyphSet()
-    cmap = font.getBestCmap()
-    hmtx = font["hmtx"]
+_FONTS = {}
+
+def _load(path):
+    if path not in _FONTS:
+        f = TTFont(path)
+        _FONTS[path] = (f, f["head"].unitsPerEm, f.getGlyphSet(),
+                        f.getBestCmap(), f["hmtx"])
+    return _FONTS[path]
+
+def wordmark(text, size, tracking=0.0, font_path=None):
+    """(path_d, advance_width) for text as outlines, em box = size px."""
+    font, upem, gs, cmap, hmtx = _load(font_path or FONT)
     scale = size / upem
     pen = SVGPathPen(gs)
     x = 0.0
@@ -29,39 +67,106 @@ def wordmark(text, size, tracking=0.0):
         gname = cmap.get(ord(ch))
         if gname is None:
             continue
-        tpen = TransformPen(pen, Transform(scale, 0, 0, -scale, x, 0))
-        gs[gname].draw(tpen)
+        gs[gname].draw(TransformPen(pen, Transform(scale, 0, 0, -scale, x, 0)))
         x += hmtx[gname][0] * scale + tracking
-    return pen.getCommands(), x - tracking
+    return pen.getCommands(), x - (tracking if text else 0.0)
 
-# ---------- gear + prompt mark ----------
-def mark(cx, cy, r, ring_col, ink_col):
-    """Gear ring with terminal prompt inside. r = ring radius."""
-    ring_w   = r * 0.0625
-    tooth_w  = r * 0.145
-    tooth_in = r * 1.0
-    tooth_out= r * 1.25
-    prompt_w = r * 0.166
-    e = [f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r:.2f}" fill="none" '
-         f'stroke="{ring_col}" stroke-width="{ring_w:.2f}"/>']
-    e.append(f'<g stroke="{ring_col}" stroke-width="{tooth_w:.2f}" stroke-linecap="round">')
-    for k in range(8):
-        a = math.radians(45 * k)
-        x1, y1 = cx + tooth_in * math.cos(a), cy + tooth_in * math.sin(a)
-        x2, y2 = cx + tooth_out * math.cos(a), cy + tooth_out * math.sin(a)
-        e.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}"/>')
-    e.append('</g>')
-    cx1, cy1 = cx - r * 0.458, cy - r * 0.458
-    cx2, cy2 = cx + r * 0.042, cy
-    cx3, cy3 = cx - r * 0.458, cy + r * 0.458
-    e.append(f'<path d="M{cx1:.2f} {cy1:.2f}L{cx2:.2f} {cy2:.2f}L{cx3:.2f} {cy3:.2f}" '
-             f'fill="none" stroke="{ink_col}" stroke-width="{prompt_w:.2f}" '
-             f'stroke-linecap="round" stroke-linejoin="round"/>')
-    ux1, uy = cx + r * 0.25, cy + r * 0.458
-    ux2 = cx + r * 0.625
-    e.append(f'<line x1="{ux1:.2f}" y1="{uy:.2f}" x2="{ux2:.2f}" y2="{uy:.2f}" '
-             f'stroke="{ink_col}" stroke-width="{prompt_w:.2f}" stroke-linecap="round"/>')
-    return "\n".join(e)
+def advance(ch, size, font_path=None):
+    font, upem, gs, cmap, hmtx = _load(font_path or FONT)
+    return hmtx[cmap[ord(ch)]][0] * size / upem
+
+def metrics(size, font_path=None):
+    """(cap_height, descender) in px at the given em size."""
+    font, upem, *_ = _load(font_path or FONT)
+    os2 = font["OS/2"]
+    cap = getattr(os2, "sCapHeight", None) or int(upem * 0.73)
+    desc = abs(font["hhea"].descender)
+    return cap * size / upem, desc * size / upem
+
+
+# ---------- the prompt lockup (header variant 2d) ----------
+def build_prompt(text=TEXT, fs=132.0, ink=INK, prompt_col=TEAL,
+                 caret_col=CARET, bg=None, caret_w=0.50, caret_h=0.86,
+                 caret_gap=0.28, caret_drop=0.16, pad=24.0):
+    """`> instructing machines ▌` — a teal prompt, the name, a block caret.
+
+    All four caret numbers are fractions of the em:
+      caret_w     width of the block
+      caret_h     height of the block
+      caret_gap   space between the last letter and the block
+      caret_drop  how far the block hangs BELOW the baseline
+
+    The gap between the prompt and the name is one real monospace cell, so that
+    part of the lockup is literally the string as it would be typed.
+    """
+    d_prompt, w_prompt = wordmark(">", fs)
+    d_name, w_name = wordmark(text, fs)
+    cell = advance(" ", fs)
+    cap, desc = metrics(fs)
+
+    cw, ch = caret_w * fs, caret_h * fs
+    gap, drop = caret_gap * fs, caret_drop * fs
+    x_name = w_prompt + cell
+    x_caret = x_name + w_name + gap
+    # place the baseline so the caret's top edge lands exactly on the padding
+    baseline = pad + ch - drop
+    h = baseline + max(desc, drop) + pad
+    w = x_caret + cw + pad
+
+    body = (
+        f'<g transform="translate({pad:.2f} {baseline:.2f})">\n'
+        f'  <path d="{d_prompt}" fill="{prompt_col}"/>\n'
+        f'</g>\n'
+        f'<g transform="translate({pad + x_name:.2f} {baseline:.2f})">\n'
+        f'  <path d="{d_name}" fill="{ink}"/>\n'
+        f'</g>\n'
+        f'<rect x="{pad + x_caret:.2f}" y="{baseline - ch + drop:.2f}" '
+        f'width="{cw:.2f}" height="{ch:.2f}" fill="{caret_col}"/>'
+    )
+    return svg(round(w), round(h), body, bg)
+
+
+# ---------- favicon / app mark: >_ in a rounded square ----------
+def _mark_body(s, bg_col=TEAL, fg=PAPER, radius=0.21, dx=0.0, dy=0.0):
+    """Geometric, not glyph-based: strokes stay crisp at 16px where outlines mush."""
+    sw = s * 0.08
+    x0, y0 = dx + s * 0.34, dy + s * 0.33
+    x1, y1 = dx + s * 0.54, dy + s * 0.50
+    y2 = dy + s * 0.67
+    ux1, ux2 = dx + s * 0.62, dx + s * 0.76
+    return (
+        f'<rect x="{dx:.2f}" y="{dy:.2f}" width="{s:.2f}" height="{s:.2f}" '
+        f'rx="{s * radius:.2f}" fill="{bg_col}"/>\n'
+        f'<path d="M{x0:.2f},{y0:.2f}L{x1:.2f},{y1:.2f}L{x0:.2f},{y2:.2f}" fill="none" '
+        f'stroke="{fg}" stroke-width="{sw:.2f}" stroke-linecap="round" stroke-linejoin="round"/>\n'
+        f'<path d="M{ux1:.2f},{y2:.2f}L{ux2:.2f},{y2:.2f}" fill="none" '
+        f'stroke="{fg}" stroke-width="{sw:.2f}" stroke-linecap="round"/>'
+    )
+
+def build_prompt_mark(size=512.0, bg_col=TEAL, fg=PAPER, radius=0.21):
+    return svg(round(size), round(size), _mark_body(size, bg_col, fg, radius))
+
+
+# ---------- stacked: mark over the name, for square crops ----------
+def build_prompt_stacked(text=TEXT, fs=92.0, mark=180.0, gap=44.0, pad=28.0,
+                         ink=INK, caret_col=CARET, bg=None):
+    d_name, w_name = wordmark(text, fs)
+    cap, desc = metrics(fs)
+    cw, ch = 0.50 * fs, 0.86 * fs
+    gap, drop = 0.28 * fs, 0.16 * fs
+    content_w = w_name + gap + cw
+    w = max(content_w, mark) + 2 * pad
+    cx = w / 2
+    baseline = pad + mark + gap + ch
+    h = baseline + desc + pad
+    x_name = cx - content_w / 2
+    body = (f'{_mark_body(mark, dx=cx - mark / 2, dy=pad)}\n'
+            f'<g transform="translate({x_name:.2f} {baseline:.2f})">'
+            f'<path d="{d_name}" fill="{ink}"/></g>\n'
+            f'<rect x="{x_name + w_name + gap:.2f}" y="{baseline - ch + drop:.2f}" '
+            f'width="{cw:.2f}" height="{ch:.2f}" fill="{caret_col}"/>')
+    return svg(round(w), round(h), body, bg)
+
 
 def svg(w, h, body, bg=None):
     b = f'<rect width="{w}" height="{h}" fill="{bg}"/>\n' if bg else ""
@@ -69,81 +174,44 @@ def svg(w, h, body, bg=None):
             f'viewBox="0 0 {w} {h}" role="img">\n'
             f'<title>Instructing Machines</title>\n{b}{body}\n</svg>\n')
 
-# ---------- layouts ----------
-TEXT = "Instructing Machines"
-
-def build_mark(ring, ink, bg=None):
-    r, pad = 100.0, 10.0
-    size = 2 * (r * 1.25) + 2 * pad
-    c = size / 2
-    return svg(round(size), round(size), mark(c, c, r, ring, ink), bg)
-
-def build_horizontal(ring, ink, bg=None):
-    r = 60.0
-    fs = 132.0
-    d, tw = wordmark(TEXT, fs)
-    gap = r * 0.95
-    pad = 24.0
-    cx = pad + r * 1.25
-    h = 2 * (r * 1.25) + 2 * pad
-    cy = h / 2
-    tx = cx + r * 1.25 + gap
-    ty = cy + fs * 0.355
-    w = tx + tw + pad
-    body = mark(cx, cy, r, ring, ink)
-    body += f'\n<g transform="translate({tx:.2f} {ty:.2f})" fill="{ink}"><path d="{d}"/></g>'
-    return svg(round(w), round(h), body, bg)
-
-def build_stacked(ring, ink, bg=None):
-    r = 84.0
-    fs = 92.0
-    d, tw = wordmark(TEXT, fs)
-    pad = 28.0
-    w = max(tw + 2 * pad, 2 * r * 1.25 + 2 * pad)
-    cx = w / 2
-    cy = pad + r * 1.25
-    ty = cy + r * 1.25 + pad * 1.5 + fs * 0.71
-    h = ty + fs * 0.24 + pad
-    body = mark(cx, cy, r, ring, ink)
-    body += (f'\n<g transform="translate({cx - tw / 2:.2f} {ty:.2f})" fill="{ink}">'
-             f'<path d="{d}"/></g>')
-    return svg(round(w), round(h), body, bg)
 
 VARIANTS = {
-    "im-mark":              build_mark(PURPLE, INK),
-    "im-mark-mono-black":   build_mark(INK, INK),
-    "im-mark-mono-white":   build_mark(PAPER, PAPER),
-    "im-mark-au-blue":      build_mark(AUBLUE, AUBLUE),
-    "im-horizontal":            build_horizontal(PURPLE, INK),
-    "im-horizontal-mono-black": build_horizontal(INK, INK),
-    "im-horizontal-mono-white": build_horizontal(PAPER, PAPER),
-    "im-horizontal-au-blue":    build_horizontal(AUBLUE, AUBLUE),
-    "im-stacked":            build_stacked(PURPLE, INK),
-    "im-stacked-mono-black": build_stacked(INK, INK),
-    "im-stacked-mono-white": build_stacked(PAPER, PAPER),
+    # header lockup
+    "im-prompt":              build_prompt(),
+    "im-prompt-mono-black":   build_prompt(ink=INK, prompt_col=INK, caret_col=INK),
+    "im-prompt-mono-white":   build_prompt(ink=PAPER, prompt_col=PAPER, caret_col=PAPER),
+    "im-prompt-au-blue":      build_prompt(ink=AUBLUE, prompt_col=AUBLUE, caret_col=AUBLUE),
+    # on the dark band, if you ever reinstate one
+    "im-prompt-on-dark":      build_prompt(ink=PAPER, prompt_col="#4FB3C4",
+                                           caret_col="#A88FD8", bg="#00303C"),
+    # square marks
+    "im-mark":                build_prompt_mark(),
+    "im-mark-ink":            build_prompt_mark(bg_col=INK),
+    "im-mark-au-blue":        build_prompt_mark(bg_col=AUBLUE),
+    # stacked
+    "im-stacked":             build_prompt_stacked(),
 }
 
 PNG_WIDTHS = {
-    "im-mark": [64, 256, 512, 1024],
-    "im-mark-mono-black": [512],
-    "im-mark-mono-white": [512],
+    "im-prompt": [1200, 2400],
+    "im-prompt-mono-black": [1200],
+    "im-prompt-mono-white": [1200],
+    "im-prompt-au-blue": [1200],
+    "im-prompt-on-dark": [1200],
+    "im-mark": [16, 32, 64, 180, 512],
+    "im-mark-ink": [512],
     "im-mark-au-blue": [512],
-    "im-horizontal": [1200, 2400],
-    "im-horizontal-mono-black": [1200],
-    "im-horizontal-mono-white": [1200],
-    "im-horizontal-au-blue": [1200],
     "im-stacked": [1200],
-    "im-stacked-mono-black": [1200],
-    "im-stacked-mono-white": [1200],
 }
 
 for name, src in VARIANTS.items():
-    p = os.path.join(OUT, name + ".svg")
-    with open(p, "w") as f:
+    with open(os.path.join(OUT, name + ".svg"), "w") as f:
         f.write(src)
     for wpx in PNG_WIDTHS[name]:
         suffix = f"-{wpx}px" if len(PNG_WIDTHS[name]) > 1 else ""
-        cairosvg.svg2png(bytestring=src.encode(), write_to=os.path.join(OUT, f"{name}{suffix}.png"),
+        cairosvg.svg2png(bytestring=src.encode(),
+                         write_to=os.path.join(OUT, f"{name}{suffix}.png"),
                          output_width=wpx)
 
+print(f"font: {FONT}")
 print("\n".join(sorted(os.listdir(OUT))))
