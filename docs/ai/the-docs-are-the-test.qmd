@@ -46,3 +46,36 @@ The habit that catches it is identical. Before you trust a call the assistant pr
 Ask the assistant for a one-line way to reverse-translate a protein string back into a possible DNA coding sequence using BioPython. Before running anything, search the real BioPython documentation for whatever function or method it names. Does it exist, under that name, taking those arguments? Record what you found either way, because a call that turns out to be real is as much a result as one that turns out to be invented.
 
 For your logbook this week, note whether you have caught the assistant inventing a function or parameter yet, in this course or elsewhere, and if not, say specifically what you now intend to check before you next call a library method you did not write yourself.
+
+<!-- AUTHORING NOTE, not rendered. Candidate additions for this chapter,
+against the thinness flagged in docs/planning/checklist.md section 2.
+Promote to prose as you write them; delete the bullet once it is done.
+
+- **The three other invention modes.** The chapter treats invention as exists
+  or does not exist. Add the right name with wrong arguments, the right call
+  with a wrongly assumed return type, and the right function from the wrong
+  version of the library.
+- **Deprecation, which is the commonest real case.** `Bio.SeqUtils.GC` was real
+  and is gone. The assistant is often quoting a version the student does not
+  have, which is a harder and more useful idea than invention: an answer can be
+  both true and useless.
+- **The chapter's own fix contains the third mode.** `gc_fraction` returns a
+  fraction and a student will expect a percentage. Use it as the worked
+  example: the call was right, the assumption about what came back was not.
+- **Check existence from the machine, not only from the browser.**
+  `dir(Seq)`, tab completion, `help(gc_fraction)`. At the moment the proving
+  half of the course slogan is a web search; give them something they can run.
+- **Turn the doc check into an `assert`.** Once the contract has been read,
+  write the line that pins it. This is the direct link to `python/testing.ipynb`.
+- **Read the traceback as evidence.** `AttributeError`, `TypeError` and
+  `ImportError` each tell you which failure mode you hit, and so what to check
+  next.
+- **How to read a signature.** Which arguments are required, what a default
+  means, what the return line promises. Half the value of documentation is
+  unavailable to a student who has never been shown how a doc page is laid out.
+- **Which version do you actually have.** `Bio.__version__` against the pin in
+  `student-folder/pixi.toml`, so the doc page and the installed library are
+  known to agree.
+- **More exercises.** One is thin for a chapter carrying a week's AI slot. Add
+  a `SOLO` documentation reading drill and an `AI: Comparer` pair.
+-->
