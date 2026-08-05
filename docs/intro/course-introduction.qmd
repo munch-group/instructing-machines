@@ -36,21 +36,123 @@ One rule holds at every level. The assistant predicts, and the machine proves. W
 
 ## Badges {#sec-badges}
 
-Every exercise in the course carries a badge naming what the assistant is licensed to do for that particular exercise. The badge sits on its own line just below the exercise heading, formatted as code, and it looks like this:
+Every exercise in the course carries a badge naming what the assistant is licensed to do for that particular exercise. The badge sits on its own line just below the exercise heading, in small capitals, and it is a link. Click it and you land on the description of that rung below, which tells you what you may ask for, what you may not, and what you have to do with whatever comes back. So an exercise that permits explaining opens like this:
 
-`AI: Explainer`
+[[AI: Explainer]{.smallcaps}](#sec-badge-explainer)
 
-That badge means you may ask the assistant to explain, and nothing further. An exercise that permits drafting says so:
+and one that permits drafting says:
 
-`AI: Drafter`
+[[AI: Drafter]{.smallcaps}](#sec-badge-drafter)
 
-And an exercise you must do with the assistant closed says:
+and one you must do with the assistant closed says:
 
-`SOLO`
+[[SOLO]{.smallcaps}](#sec-badge-solo)
 
-The `SOLO` badge is the one that carries the most weight, and it is there for your benefit rather than as a rule to be policed. Nobody can tell whether you kept it. What a `SOLO` exercise buys you is evidence about yourself: if you can do it alone, you have learned the thing, and if you cannot, you have found out now rather than in week twelve when everything depends on it. Doing a `SOLO` exercise with help does not get you in trouble. It just deletes the only measurement you had.
+The badges below are in the order the course grants them, and they are cumulative: once a rung is yours it stays yours, so an exercise badged [[AI: Worker]{.smallcaps}](#sec-badge-worker) in week eight also permits everything from the eight rungs before it. The badge names the *highest* thing you may do, not the only thing.
+
+[[SOLO]{.smallcaps}](#sec-badge-solo) · [[AI: Explainer]{.smallcaps}](#sec-badge-explainer) · [[AI: Translator]{.smallcaps}](#sec-badge-translator) · [[AI: Illustrator]{.smallcaps}](#sec-badge-illustrator) · [[AI: Comparer]{.smallcaps}](#sec-badge-comparer) · [[AI: Drafter]{.smallcaps}](#sec-badge-drafter) · [[AI: Unreliable Narrator]{.smallcaps}](#sec-badge-unreliable-narrator) · [[AI: Worker]{.smallcaps}](#sec-badge-worker) · [[AI: Collaborator]{.smallcaps}](#sec-badge-collaborator) · [[AI: Delegate]{.smallcaps}](#sec-badge-delegate)
 
 The assistant lives in your browser, in Microsoft 365 Copilot, and it includes a Study and Learn agent that guides your reasoning instead of handing over the answer. VS Code stays free of it. Keeping the two apart is a working arrangement rather than a moral position: when the help is one deliberate window away, using it becomes a decision you make rather than something that happens to your code while you are typing.
+
+### SOLO {#sec-badge-solo}
+
+*The assistant is closed. Not open and unconsulted. Closed.*
+
+This is the only badge that takes something away, and it is the one that carries the most weight. A [[SOLO]{.smallcaps}](#sec-badge-solo) exercise means the browser tab is shut, you are not rereading an answer from earlier, and you are not reaching for a hint you half remember from a chat this morning. You type, you predict, you run, you fix.
+
+It is there for your benefit rather than as a rule to be policed. Nobody can tell whether you kept it. What a [[SOLO]{.smallcaps}](#sec-badge-solo) exercise buys you is evidence about yourself: if you can do it alone, you have learned the thing, and if you cannot, you have found that out now rather than in week twelve when everything depends on it. Doing a [[SOLO]{.smallcaps}](#sec-badge-solo) exercise with help does not get you in trouble. It just deletes the only measurement you had.
+
+Roughly three quarters of the exercises in this book are [[SOLO]{.smallcaps}](#sec-badge-solo), and that proportion is the course working as designed rather than an oversight waiting to be corrected.
+
+### AI: Explainer {#sec-badge-explainer}
+
+*Ask it what something that already exists means. Then run the thing and see.*
+
+The first rung, and the safest, because you are not asking the assistant to produce anything. You put in front of it something that is already there — a traceback, a line of code you did not write, a word in the documentation you do not know — and you ask what it means.
+
+Ask it in the shape of a question about a specific object: *what does this error message mean?*, pasting the whole traceback, or *what does `'ATG' in dna` do here?* Do not ask *why doesn't my code work?*, which is a request for a fix wearing the costume of a question. If the answer is longer than the thing you asked about, ask again more narrowly.
+
+Then prove it. An explanation is a prediction about what the code does, and you have a machine that settles predictions: run the line, or put it through `%%steps` and watch it reduce. When the explanation and the machine agree, you have learned something. When they disagree, you have learned something considerably more interesting, and you should write it in your logbook.
+
+### AI: Translator {#sec-badge-translator}
+
+*Code into English, English into code, and you check the journey both ways.*
+
+Here you ask the assistant to say the same thing in the other language. Point at a loop and ask for one plain English sentence describing what it does. Or describe a small operation in plain English — *go through the string and count how many of the characters are G or C* — and ask for the Python.
+
+The check is what makes this a rung rather than a shortcut, and it is symmetric. Going from code to English, translate the loop yourself first, in one sentence, before you read the assistant's sentence; then compare the two and decide which is more precise about what actually happens, including the part where the loop does something surprising on an empty string. Going from English to code, read every line of what comes back and run it on an input where you already know the answer.
+
+Translation is where a vague understanding gets caught, because a sentence you cannot write yourself is a piece of code you do not yet understand, however comfortable it looks on the page.
+
+### AI: Illustrator {#sec-badge-illustrator}
+
+*Ask for more examples of a pattern you half understand.*
+
+Sometimes the problem is not that an explanation was wrong but that one example was not enough. This rung licenses you to ask for more of them: *give me three more examples of slicing a string with a negative step*, or *show me the same dictionary lookup written for three different kinds of key*. Analogies count too, as long as you remember that an analogy is a teaching aid and not a fact about Python.
+
+The discipline is simple and it is not optional: run every example. Examples are exactly the kind of thing an assistant produces fluently and gets subtly wrong, because a plausible-looking example is cheap and a correct one requires knowing what the code actually does. Predict what each one prints before you run it, which turns three free examples into three exercises.
+
+Ask for illustrations of something you have already met and are unsure of, not of something you have not been taught yet. Used the second way, this rung is how you fall behind while feeling productive.
+
+### AI: Comparer {#sec-badge-comparer}
+
+*Two versions, one judgment, and the judgment is yours.*
+
+Now the assistant argues and you decide. You have a working function; you ask for a second way of writing it, or you show it two versions you already have and ask what the trade-offs are. What comes back is an argument, and arguments are useful. What does not come back is a decision.
+
+Ask it to be specific: *which of these two is easier to read, and point at the lines that make the difference*, rather than *which is better*. A general question gets a general answer, and a general answer about code is almost always flattering to whichever version was mentioned last.
+
+Then do the part that is actually yours. Make the choice, and write down one sentence saying why, naming the reason: this one is shorter but hides the empty-sequence case; that one repeats itself but I can see what it does without thinking. If you cannot write that sentence, you have not compared the two versions, you have only read about them. And run both, on the same inputs, including the awkward ones. Two functions that look equivalent frequently are not.
+
+### AI: Drafter {#sec-badge-drafter}
+
+*It writes a small piece. You read every line, and a test decides.*
+
+This is the first rung that produces code you intend to keep, and it is safe for exactly two reasons: the piece is small enough to read in full, and something stands behind it before you are allowed to believe it.
+
+The order matters more than anything else here, and it is: specify, draft, read, test. Specify first — say what the function is called, what it takes, what it returns, and what it should do on the awkward inputs — because a request with no specification has nothing to be right or wrong about. Draft second. Read third, every line, and if there is a line you cannot explain, you do not own it yet and the fix is to ask [[AI: Explainer]{.smallcaps}](#sec-badge-explainer) questions about that line until you do. Test fourth, and let the test decide rather than your impression of how the code looks.
+
+Keep the piece small. A function you can read in one screen is a function whose faults you can find; a hundred lines that look right is exactly the situation this course exists to keep you out of.
+
+### AI: Unreliable Narrator {#sec-badge-unreliable-narrator}
+
+*Assume there is a mistake. Find it.*
+
+This rung is not a new permission so much as a stance, and it exists to stop [[AI: Drafter]{.smallcaps}](#sec-badge-drafter) from quietly becoming a habit of trust. In these exercises you work with code and claims that carry a planted mistake — a bug in the logic, or an error in the biology — and your job is to find it and prove it.
+
+The mistakes are ours rather than harvested from a live assistant, and that is deliberate. On small beginner tasks a capable assistant is usually right, so a lesson about unreliability that depended on it misbehaving on cue would be theater. What we can do honestly is give you the failure in the flesh, so you recognise the shape of it the first time it happens to you for real.
+
+Two things to carry away from every exercise with this badge. First, wrong code and wrong biology fail differently: a bug makes a test go red, and a false claim about a codon or a base pairing produces a flawless implementation of a wrong idea and no red anywhere. Only the second kind requires you to check against something outside the conversation — a table, a textbook, a database. Second, the assistant will agree with you whichever way you push it. Tell it its answer was wrong and it will apologise; tell it the same answer was right and it will confirm. Its agreement is worth nothing, which is precisely why the machine has to be the one that decides.
+
+### AI: Worker {#sec-badge-worker}
+
+*You write the contract. It fills in the body. The test says whether it kept the contract.*
+
+At this rung the assistant writes code you have already specified in a form the machine can check. That is the whole of it, and the order is not negotiable: the tests exist before the code does.
+
+So you write the `assert` statements first, from your own understanding of what the function must do, including the decisions nobody else can make for you — what `is_gc_rich` should return on a strand that is exactly half GC, what it should do with an empty strand. Then you ask for the implementation, in prose, without showing it your tests. Then you run the tests you already had.
+
+Not showing it the tests is the part students most want to skip, and it is the part that does the work. Code written against a visible test suite can satisfy the suite and nothing else. Code written against a description and then measured by tests it never saw is being genuinely checked. And when you throw the implementation away and ask for a different one, and the unchanged tests still pass, you have discovered the thing this rung is really teaching: the implementation is replaceable and the specification is not.
+
+### AI: Collaborator {#sec-badge-collaborator}
+
+*You own the plan. It contributes pieces and opinions, one at a time.*
+
+Here the assistant works on something with you rather than for you, and the division of labour is exact: you set the decomposition, it fills pieces and offers opinions on the plan, and every one of those opinions is yours to accept or reject.
+
+Do the planning with the assistant closed. Break the task into named pieces, say what each one takes and returns, and write two or three worked examples for each — real inputs, real expected outputs. Only then open the browser, show it the plan, and ask a narrow question: *is there a case my examples do not cover, or a piece I have not named?* Not *write this for me*, which is a different rung and a later one.
+
+Whatever it suggests, write down *accept* or *reject* and one line of reason for each. That record is the difference between collaborating and being led, and you will want it later, because the failure mode at this rung is not bad code. It is a plan that drifted into being the assistant's plan while you were agreeing with things one at a time.
+
+### AI: Delegate {#sec-badge-delegate}
+
+*Hand over the whole job, against criteria you wrote before you asked.*
+
+The last rung, and the one that only works because of everything under it. You give a goal and a specification and get back something whole, which you then check.
+
+Write the acceptance criteria first, in a file, before you send a single prompt. What must the thing do, on what inputs, producing what, and what would count as it having failed? Criteria written afterwards are not criteria; they are a description of whatever you got. When the result does not meet them, do not send *this doesn't work, fix it* — say which criterion failed, on which input, with what output, and what you expected instead. Vague reports get vague repairs.
+
+Two rules keep this rung honest. If the loop has not converged in two rounds of that, take the keyboard back and write the piece yourself, because a third round is almost always slower than doing it. And before you keep anything, close the assistant and explain the most-delegated function in it, line by line, out loud or in writing. You cannot own a result you cannot explain, and by the end of this course owning the result is the entire job.
 
 ## The logbook {#sec-logbook}
 
@@ -80,6 +182,6 @@ That is also where the line about cheating falls, and it is a sharper line than 
 
 #### Exercise {#sec-exercise-start-the-logbook}
 
-`SOLO`
+[[SOLO]{.smallcaps}](#sec-badge-solo)
 
 Make a file called `logbook.md` somewhere you will find it again, and write the first entry today, before you have used the assistant for anything in this course. Write down what you currently expect it to be good at, what you expect it to be bad at, and how you imagine you would tell the difference. You will read this again in week fourteen. Nobody else will, so make it truthful rather than impressive.

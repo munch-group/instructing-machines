@@ -3,9 +3,9 @@
 ::: {.column-margin}
 **The ladder so far**
 
-Explainer · Translator · Illustrator · Comparer · Drafter · Unreliable Narrator · Worker · **Collaborator**
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Unreliable Narrator](../intro/course-introduction.qmd#sec-badge-unreliable-narrator) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [**Collaborator**](../intro/course-introduction.qmd#sec-badge-collaborator)
 
-*Still to come:* Delegate
+*Still to come:* [Delegate](../intro/course-introduction.qmd#sec-badge-delegate)
 :::
 
 By now you can specify a single function by writing its contract as tests, and you can read a single function the assistant produced and judge whether it keeps that contract. Both of those skills are about one function at a time. Real problems are not one function. The tasks you will tackle for the rest of the course, and the kind of task you took this course in order to be able to attempt at all, are made of several functions that fit together, and the difficulty is no longer in any one piece but in the fitting together. This week is about how you get an assistant to help you build something of that size without losing control of it, and the whole answer is contained in the title: you plan before you prompt.
@@ -44,31 +44,31 @@ This is exactly the method by which you will build the capstone, which is delibe
 
 #### Exercise
 
-`AI: Collaborator`
+[[AI: Collaborator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-collaborator)
 
 Do the wrong thing once, deliberately, so that you know what it feels like. Take a task made of three or four pieces, such as reading a file of DNA sequences and reporting which one has the highest GC content, and ask the assistant for the whole thing in a single prompt. Do not plan it, do not break it up. Read what comes back and then attempt exactly one thing: test one piece of it in isolation, without running the rest. Write down what stopped you. Nine times out of ten what stopped you is that there was no piece to test, because the assistant returned one lump that only produces an answer at the very end. Keep this code. You will want to compare it with what you build over the next few exercises.
 
 #### Exercise
 
-`SOLO`
+[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Now practise the deciding, with no assistant and no working code at all. Take the same task and write only the plan for it, as a set of empty functions with docstrings and no bodies. The whole exercise is the decomposition: deciding what the pieces are, naming them, and stating what goes in and out of each. When you think you are done, check your plan against the standard from earlier: is each piece small enough to read, to test, and to understand on its own?
 
 #### Exercise
 
-`SOLO`
+[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Strengthen the plan you just wrote by adding to each function one concrete example of an input and its correct output, worked out by hand. As you do this you will find that some functions are harder to give an example for than others, and that difficulty is information: a function you cannot easily give an example for is usually a function that is doing too much, or that you have not thought through, and it should be split or reconsidered before any code is written for it.
 
 #### Exercise
 
-`AI: Collaborator`
+[[AI: Collaborator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-collaborator)
 
 Only now let the assistant near the design, and note carefully what the badge does and does not license. Show it your stubs and your examples and ask it one narrow question: is there a case my examples do not cover, or a piece I have not named? You are not asking it to redesign anything, and you are not obliged to take anything it says. Go through its suggestions one at a time and, for each, write *accept* or *reject* and one line of reason. Rejecting a suggestion you understand is a better outcome than accepting one you do not, and the point of the exercise is to feel the difference between a collaborator, whose opinions you weigh, and a designer, whose decisions you inherit.
 
 #### Exercise
 
-`AI: Collaborator`
+[[AI: Collaborator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-collaborator)
 
 Take the discipline all the way through on a single piece. From your plan, choose one function, and only when its plan and its example are written do you allow yourself to prompt the assistant for that one function. Verify the result against your example, using the check widget or your own `assert`s. The rule to feel here is the one in the title of the week: the plan comes first, the prompt comes second, and the verification comes before you are allowed to believe any of it. When it passes, put it beside the single lump from the first exercise and say which of the two you would be willing to defend.
 

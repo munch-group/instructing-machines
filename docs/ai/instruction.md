@@ -3,9 +3,9 @@
 ::: {.column-margin}
 **The ladder so far**
 
-**Explainer**
+[**Explainer**](../intro/course-introduction.qmd#sec-badge-explainer)
 
-*Still to come:* Translator, Illustrator, Comparer, Drafter, Unreliable Narrator, Worker, Collaborator, Delegate
+*Still to come:* [Translator](../intro/course-introduction.qmd#sec-badge-translator), [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator), [Comparer](../intro/course-introduction.qmd#sec-badge-comparer), [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Unreliable Narrator](../intro/course-introduction.qmd#sec-badge-unreliable-narrator), [Worker](../intro/course-introduction.qmd#sec-badge-worker), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Delegate](../intro/course-introduction.qmd#sec-badge-delegate)
 :::
 
 Everyone who has ever programmed has faced the same trade-off. The closer your instructions are to the machine's own language, the more direct control you have, and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write, and the more you are trusting something else to fill in the details. The history of programming is a ladder built out of exactly this trade-off, one rung at a time, and the diagram below sets out the rungs you are about to meet.
@@ -46,19 +46,19 @@ So the AI is not just one more rung on the ladder, even though it first looks li
 
 #### Exercise
 
-`SOLO`
+[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Before you touch the assistant, close the diagram and write the five rungs of the ladder out in order from memory, from the raw bits at the bottom to plain language at the top. Beside each one, write a single word: **faithful** if that rung is a translator that always means exactly what the rung above it said, and **plausible** if it is not. Four of the five get the same word and one does not. Being able to say which one, and why, is the entire argument of this course compressed into five lines, and you now have it before you have written a single line of Python.
 
 #### Exercise
 
-`AI: Explainer`
+[[AI: Explainer]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-explainer)
 
 Open the assistant in your browser and ask it a small factual question you can check, for example, what the three stop codons of the standard genetic code are. Read its answer. Then find a way to verify it that does not involve asking another AI: a textbook, a trusted database, or, later in this course, a tiny program of your own. Was it right? How did you know it was right, independently of the AI telling you so? Note what the badge on this exercise permits and what it does not. You asked it to explain something that already exists, and you settled the question somewhere else. That is the whole of rung one, and it is the only rung you have.
 
 #### Exercise
 
-`AI: Explainer`
+[[AI: Explainer]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-explainer)
 
 Now ask the assistant to explain the difference between a compiler and itself: *what does a compiler guarantee about the code it produces that you cannot guarantee about the code you produce?* Read the answer against what this note just told you. Two things are worth noticing, and they pull in opposite directions. The answer will probably be good, because this is a well-worn question and there is a great deal of text about it. And the answer was produced by exactly the process it is describing, one plausible next word after another, which means a fluent account of its own unreliability is not evidence of anything. It cannot check itself any more than it could check the stop codons.
 

@@ -93,17 +93,21 @@ None of these is banned outright; the test is whether the word is doing work tha
 Full detail is in `docs/planning/course-design.qmd` (§7 there); the essentials for authoring:
 
 - **AI from week 1, in escalating roles, and the badges are live in every note.** Every `#### Exercise` in the book carries a licence badge: either the sanctioned **role** for that context or `SOLO` for do-it-yourself-first. The cumulative ladder is Explainer → Translator → Illustrator → Comparer → Drafter → Unreliable Narrator → Worker → Collaborator → Delegate; roles in use are `AI: Explainer`, `AI: Comparer`, `AI: Drafter`, `AI: Unreliable Narrator`, `AI: Worker`, `AI: Collaborator`, `AI: Delegate`. A badge only ever licenses a role the current week has unlocked. The AI lives in the **browser** (Microsoft 365 Copilot, including its Study and Learn agent); VS Code stays the AI-free space.
-- **Badge format — no icons.** Write the badge as a bare code span, `` `SOLO` `` or `` `AI: Drafter` ``, on its own line directly under the heading with a blank line either side:
+- **Badge format — a small-caps link, no icons.** Write the badge as a small-caps span wrapped in a link to that rung's own section in `intro/course-introduction.qmd`, on its own line directly under the heading with a blank line either side:
 
   ```markdown
   #### Exercise
 
-  `SOLO`
+  [[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
   Decide what you think will happen before you run it.
   ```
 
-  **Do not prefix badges with 🔒, 🟢 or any other emoji, and do not bold them.** Earlier drafts used `🔒 **SOLO**` and `🟢 **AI: Comparer**`; those were normalised away and must not come back. An earlier draft also let compact numbered drill lists (`ai/predict-then-prove.qmd`, `ai/ask-for-another-way.qmd`) keep the badge inline in the heading (`#### Exercise 1 \`AI: Comparer\``) to save a line; that broke PDF rendering (the inline badge collided with the auto-generated chapter-subsubsection number) and was reverted — the own-line form above is now the only form, everywhere, no exception.
+  The link target is `../intro/course-introduction.qmd#sec-badge-<role>` from any chapter one directory deep (`ai/`, `python/`, `turtle/`, `projects/`), `course-introduction.qmd#sec-badge-<role>` from within `intro/`, and a bare `#sec-badge-<role>` inside `course-introduction.qmd` itself. The anchors are `sec-badge-solo`, `-explainer`, `-translator`, `-illustrator`, `-comparer`, `-drafter`, `-unreliable-narrator`, `-worker`, `-collaborator`, `-delegate`; each is a short section under `## Badges {#sec-badges}` saying what that rung permits, what it forbids, and how the student proves the answer. A student who has forgotten what a role licenses is one click from finding out, which is the point of the link.
+
+  **Do not prefix badges with 🔒, 🟢 or any other emoji, and do not bold them.** Earlier drafts used `🔒 **SOLO**` and `🟢 **AI: Comparer**`; those were normalised away and must not come back. The plain code span (`` `SOLO` ``) is the previous form and is also gone — `tools/check-badge-order.py` still recognises it so that a half-converted note is reported rather than skipped, but new material must use the link form. An earlier draft also let compact numbered drill lists (`ai/predict-then-prove.qmd`, `ai/ask-for-another-way.qmd`) keep the badge inline in the heading to save a line; that broke PDF rendering (the inline badge collided with the auto-generated chapter-subsubsection number) and was reverted — the own-line form above is now the only form, everywhere, no exception.
+- **The ladder is checked by machine.** `tools/check-badge-order.py` walks `docs/_quarto.yml` in render order, reads the badge under every `#### Exercise` heading (JSON-loading notebook cells, which a plain grep cannot see), and fails if any exercise licenses a role before the chapter that introduces it. It runs in `.github/workflows/quarto-publish.yml` before the render. Run `python3 tools/check-badge-order.py --census` to print the per-role and per-week counts. When you move a note between weeks, update the `LADDER` map at the top of that script in the same commit.
+- **Ladder-progress strip.** Every note in `docs/ai/` opens with a `::: {.column-margin}` block headed **The ladder so far**, listing the rungs earned up to that note with the one the note works in bold and the rest under *Still to come*. Add one when you add an AI note, and keep it consistent with the checker's `LADDER` map.
 - **The rule that ties AI to the widgets:** *"the AI predicts; the widget proves."* Whenever the assistant claims what code does, students check it with the machine (this is the whole point of `predict-then-prove.qmd`).
 - **One verification principle, several modes.** Code is verified by tests and reading; facts/biology by evidence and knowledge; your own learning by the "AI-off test" (can you do it with the assistant switched off). This thread runs through the AI-arc notes and closes in `surviving-ai.md` and `the-ai-off-test.qmd`.
 - **Logbook.** A term-long student artifact — one weekly entry: what the AI got right, what it got wrong, how they knew. Weekly notes should prompt an entry.
@@ -246,6 +250,6 @@ Out of the book:
 2. Match the register of the folder: warm authorial voice in `docs/python/`, plain continuous prose in `docs/ai/`.
 3. Teach by doing → naming; intersperse small `%%exercise` cells; every exercise is predict-then-run.
 4. Reinforce substitution & reduction; reach for the matching widget (`steps`/`puzzle`/`codelens`/`turtle`/`iplot`).
-5. Badge every exercise — `` `SOLO` `` or `` `AI: <Role>` ``, on its own line under the heading, no emoji, no bold, and no role the week has not unlocked; keep the AI in the browser; prompt a logbook entry where appropriate.
+5. Badge every exercise — `[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)` or the same form for `AI: <Role>`, on its own line under the heading, no emoji, no bold, and no role the week has not unlocked; run `tools/check-badge-order.py` afterwards; keep the AI in the browser; prompt a logbook entry where appropriate.
 6. Make code runnable rather than hand-typed; label any deliberate-bug exercise with a "Spot the bug" callout.
 7. Place the file in the right folder and add it to the correct week in `docs/_quarto.yml`; run the §4 quality checklist before calling it done.

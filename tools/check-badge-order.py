@@ -7,6 +7,13 @@ the chapter that introduces it.  This script walks ``docs/_quarto.yml`` in
 render order, reads the badge under every ``#### Exercise`` heading, and fails
 if a badge appears too early.
 
+A badge is a small-caps link to the rung's own section in
+``intro/course-introduction.qmd``, so a student who has forgotten what a role
+permits is one click from the answer::
+
+    #### Exercise
+    [[AI: Drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+
 Run it with no arguments from anywhere in the repository::
 
     python3 tools/check-badge-order.py
@@ -43,7 +50,12 @@ LADDER = [
 INTRODUCED_BY = dict(LADDER)
 
 HEADING = re.compile(r"^#{2,6}\s+Exercise\b(.*)$")
-BADGE = re.compile(r"`(SOLO|AI: [A-Za-z ]+?)`")
+# A badge is a small-caps link to the rung's section in the course
+# introduction, e.g.
+#   [[AI: Drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+# The bare code span is the older form and is still recognised, so that a
+# half-converted note is reported rather than silently skipped.
+BADGE = re.compile(r"(?:`|\[\[)(SOLO|AI: [A-Za-z ]+?)(?:`|\]\{\.smallcaps\})")
 # A chapter line in _quarto.yml: "        - ai/meet-ai.qmd" (comments skipped).
 CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.(?:qmd|md|ipynb))\s*$")
 PART = re.compile(r'^\s*-\s+part:\s*"?([^"\n]+?)"?\s*$')

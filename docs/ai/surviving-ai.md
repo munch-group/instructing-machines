@@ -3,7 +3,7 @@
 ::: {.column-margin}
 **The ladder so far**
 
-Explainer · Translator · Illustrator · Comparer · Drafter · **Unreliable Narrator** · Worker · Collaborator · Delegate
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [**Unreliable Narrator**](../intro/course-introduction.qmd#sec-badge-unreliable-narrator) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [Delegate](../intro/course-introduction.qmd#sec-badge-delegate)
 :::
 
 The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.
@@ -22,25 +22,25 @@ It is worth ending where the course began. In the first week the idea was offere
 
 #### Exercise
 
-`SOLO`
+[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Audit your own guard. Look back through your logbook at the weeks since you were first allowed to let the assistant draft code, and count two things: how many pieces of its code you accepted after running a test you wrote yourself, and how many you accepted because they looked right. Do not adjust the second number to be flattering; the whole value of the count is that it is honest. Then say in one sentence what changed between the week you learned to distrust a draft and the week you stopped bothering, if it changed, and what you would need to put in place to stop it changing again. Automation bias does not announce itself. A count is the only way to see it.
 
 #### Exercise
 
-`SOLO`
+[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Identify one task from the course where, looking back, you should not have used the assistant, either because you could not really check its answer, or because leaning on it cost you an understanding you later needed. Say what you would do differently, and say which of the four cases in this note it falls under.
 
 #### Exercise
 
-`SOLO`
+[[SOLO]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
 
 Now the other direction. Identify one task where the assistant let you produce something correct that you could not have written unaided, and be specific about which part of your checking made that safe. Not "I tested it": name the test, and name the case it covered that you would otherwise have missed. If you cannot name it, then what made the task safe was luck, and it is worth knowing that now rather than later.
 
 #### Exercise
 
-`AI: Unreliable Narrator`
+[[AI: Unreliable Narrator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-unreliable-narrator)
 
 Take one biological claim the assistant makes, in an explanation, in a comment, or inside a table it writes for you, and verify it against a source outside the assistant rather than against the assistant itself. Record whether it held. Then do the thing that makes this different from every other verification you have done this term: ask the assistant whether its own claim was correct, and watch it agree with you either way. A machine that will confirm both a true statement and a false one, with the same fluency, is not a witness. That is why the source had to come from outside, and it is the last time this course will say so.
 
