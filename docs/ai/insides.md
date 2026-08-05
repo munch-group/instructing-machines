@@ -36,6 +36,8 @@ This gives you a habit worth forming now. Whenever something surprising happens,
 
 #### Exercise {#sec-exercise-kept}
 
+🔒 `SOLO`
+
 Before reading on, decide what you think and write it down. You run a program that calculates the number of `A` bases in a DNA sequence and prints the answer to the screen. You then close the program. Is that count still anywhere on the computer? Where was it while the program ran, kept or temporary? Where would it need to go for you to still have it tomorrow?
 
 Predict first. We will build the tools to actually save such a result in the chapter on files. For now the point is only to feel the line between kept and temporary.
@@ -57,6 +59,8 @@ And that is all it does, as @fig-turing-machine shows. It reads the square under
 If that sounds too feeble to matter, hold that thought, and first try running it yourself, because the whole spirit of this course is to do all the little steps in your head before trusting anything to do them for you.
 
 #### Exercise {#sec-exercise-turing}
+
+🔒 `SOLO`
 
 Grab a scrap of paper. Draw three squares holding `0 1 1`, put the head on the leftmost square, and set the state to A. Now follow exactly three rules, one step at a time. In state A reading a `0`, write `1`, move right, and stay in state A. In state A reading a `1`, write `0`, move right, and switch to state B. In state B reading a `1`, write `1`, move left, and then stop.
 
