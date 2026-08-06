@@ -28,6 +28,12 @@ exercise it is about, rather than at the top of the chapter: "the paragraph
 below" is unambiguous, "the third paragraph" stops being true on the next
 edit.
 
+Instructions also live in ``docs/_quarto.yml`` itself, in the ``#`` form,
+where they carry the work that belongs to a chapter as a whole rather than to
+a paragraph inside it -- and the work that belongs to no chapter at all, which
+has nowhere else to sit.  Those are read first and reported against the
+chapter line they are written under.
+
 Run it from anywhere in the repository::
 
     python3 tools/prompts.py                # everything, in render order
@@ -78,6 +84,16 @@ MALFORMED = re.compile(r"(<!--[^>]{0,20}CLAUDE(?!\s*:)[^>]{0,60}-->"
                        r"|^\s*#\s*CLAUDE(?!\s*:).{0,60}$)", re.M | re.I)
 
 HEADING = re.compile(r"^#{1,6}\s")
+
+# Reading _quarto.yml as prose rather than as YAML, because a YAML parser
+# throws comments away and the comments are the entire point here.
+PART = re.compile(r"^\s*-\s*part:\s*[\"']?(.+?)[\"']?\s*$")
+CHAPTER = re.compile(r"^\s{4,}-\s+([\w./-]+\.(?:qmd|md|ipynb))\s*$")
+QSTART = re.compile(r"^\s*#\s*CLAUDE\s*:\s*(.*)$", re.I)
+# A continuation is a comment line indented past the token; ordinary
+# commentary in this file is written with a single space after the "#", so the
+# two cannot be confused and a blank "#" ends an instruction.
+QCONT = re.compile(r"^\s*#\s{2,}(\S.*)$")
 
 
 def cells_of(path: Path):
@@ -140,6 +156,37 @@ def malformed_in(path: Path):
             yield line, " ".join(found.group(0).split())[:100]
 
 
+def instructions_in_quarto(path: Path):
+    """Yield every instruction written into _quarto.yml itself.
+
+    An instruction is reported against the chapter line it sits under, or as
+    week-wide or book-wide when it sits under a part or above the first one.
+    """
+    found, current = [], None
+    week, chapter = "None", "(book-wide)"
+    for number, raw in enumerate(path.read_text(encoding="utf-8").split("\n"), 1):
+        part = PART.match(raw)
+        if part:
+            week, chapter, current = part.group(1), "(week-wide)", None
+        seen = CHAPTER.match(raw)
+        if seen:
+            chapter, current = seen.group(1), None
+        start = QSTART.match(raw)
+        if start:
+            current = {"week": week, "chapter": chapter, "line": number,
+                       "cell": "yaml", "text": start.group(1).strip(),
+                       "target": chapter}
+            found.append(current)
+            continue
+        if current is not None:
+            more = QCONT.match(raw)
+            if more:
+                current["text"] += " " + more.group(1).strip()
+            else:
+                current = None
+    return found
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("match", nargs="?", default="",
@@ -154,6 +201,10 @@ def main() -> int:
     docs = root / "docs"
 
     collected, broken = [], []
+    for one in instructions_in_quarto(docs / "_quarto.yml"):
+        if args.match and args.match not in one["chapter"]:
+            continue
+        collected.append(one)
     for week, relative in ORDER.chapters_in_order(docs / "_quarto.yml"):
         if args.match and args.match not in relative:
             continue
@@ -169,7 +220,7 @@ def main() -> int:
         print(json.dumps({"instructions": collected, "malformed": broken},
                          indent=2, ensure_ascii=False))
     else:
-        chapter = None
+        chapter = object()
         for one in collected:
             if one["chapter"] != chapter:
                 chapter = one["chapter"]
@@ -177,8 +228,11 @@ def main() -> int:
             where = f"line {one['line']}"
             if one["cell"] == "code":
                 where += ", code cell"
+            elif one["cell"] == "yaml":
+                where += ", in _quarto.yml"
             print(f"  {where}: {one['text']}")
-            print(f"      points at: {one['target']}")
+            if one["cell"] != "yaml":
+                print(f"      points at: {one['target']}")
         if collected:
             print(f"\n{len(collected)} instruction(s) outstanding.")
         else:

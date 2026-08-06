@@ -4,7 +4,7 @@ Guidance for Claude (and collaborators) when writing or editing content in this 
 
 **What this is.** *Instructing Machines* is a Quarto book of lecture notes, exercises, projects, and tutorials for a 14-week introductory programming course for undergraduates in Molecular Biology and Molecular Medicine at Aarhus University. The audience has **no prior programming experience** and little sense of how a computer works. The goal is not to make programmers, but to build abstract/computational thinking and the vocabulary to direct and verify AI-generated code. The course introduces an AI assistant **from week 1** in escalating "roles," and leans on a family of custom notebook widgets.
 
-**Read first.** The authoritative course design now lives in `docs/planning/course-design.qmd` — it is both the plan and the second chapter of the book, and it holds the guiding principles, the week-by-week grid, the learning curve and cliffs, the AI-role ladder, the tool schedule, the workload shape, and the open decisions. The one-page student mental-model visual is `docs/planning/machine-map-poster.html`. The `weekplan.qmd` of the existing bioinformatics course, whose Python sequence and pace this course matches, is archived at `docs/planning/old_weekplan.md`. (The old `course-plan.md` has been folded into `course-design.qmd` and no longer exists.) Anything below is downstream of the design doc.
+**Read first.** The authoritative course design now lives in `docs/planning/course-design.qmd` — it is both the plan and the second chapter of the book, and it holds the guiding principles, the week-by-week grid, the learning curve and cliffs, the AI-role ladder, the tool schedule, the workload shape, and the open decisions. The one-page student mental-model visual is `docs/planning/machine-map-poster.html`. The `weekplan.qmd` of the existing bioinformatics course, whose Python sequence and pace this course matches, is archived at `docs/planning/old_weekplan.md`. (The old `course-plan.md` has been folded into `course-design.qmd` and no longer exists.) Anything below is downstream of the design doc, with one exception: **`docs/_quarto.yml` is the authoritative week plan.** It is what the book actually renders, so where it and any prose document disagree about which chapter falls in which week, it wins. Each `- part: "Week N"` carries three annotations — `Python:` for what the week teaches, `AI:` for the ladder rung it licenses, `Workload:` for what it costs a student — and the outstanding work on each chapter sits as a `CLAUDE:` comment under the chapter's own line.
 
 ---
 
@@ -278,6 +278,25 @@ The prose form belongs in a markdown cell, a `.qmd` or a `.md`; the code form
 in a code cell or a `.py`. Both are invisible to the student — pandoc drops
 the comment for PDF and EPUB and leaves it unrendered in HTML.
 
+The code form also works in `docs/_quarto.yml`, and that is where work about a
+chapter *as a whole* belongs — "this chapter is thin", "this chapter needs a
+widget" — rather than at the top of the chapter itself, where it would sit
+above a paragraph it is not about. Write it under the chapter's own line,
+indented past the `-`, and wrap continuation lines with two spaces after the
+`#` so the collector can tell a continuation from ordinary commentary:
+
+```yaml
+        - python/tuples.ipynb
+          # CLAUDE: at 643 words the thinnest chapter in the book that is not
+          #   a stub. Its hand-typed traceback is stale too.
+```
+
+Work that belongs to no chapter at all — a policy to decide, a workflow that
+has never run, housekeeping — goes in the block at the top of `chapters:`,
+where it is reported as book-wide. This is where the old
+`docs/planning/checklist.md` went, on the principle that a task sitting next
+to the week it lands in gets done and a task in a separate document does not.
+
 The `CLAUDE:` token, with the colon, is what makes an instruction findable. A
 bare `<!-- ... -->` is not: the book already contains over a thousand HTML
 comments — commented-out figures, slide scratch, notes to self — and an
@@ -290,10 +309,10 @@ own text says otherwise. Put it immediately above the paragraph, cell or
 exercise it concerns: "the paragraph below" stays true across edits, "the
 third paragraph" does not.
 
-`tools/prompts.py` is the pickup side. It walks `_quarto.yml` in render order
-and prints every instruction with its week, chapter, line and the first line
-of whatever it points at, so a term's worth of notes can be collected in one
-pass:
+`tools/prompts.py` is the pickup side. It reads `_quarto.yml` itself and then
+walks the chapters it lists in render order, printing every instruction with
+its week, chapter, line and the first line of whatever it points at, so a
+term's worth of notes can be collected in one pass:
 
 ```
 python3 tools/prompts.py                # everything, in render order

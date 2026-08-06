@@ -31,108 +31,419 @@ book:
     lightbox: true     
     downloads: [pdf, epub]
   chapters:
-    - part: "Planning"
-      chapters: 
-        - index.qmd
-        - planning/course-design.qmd
-        - planning/authorship-split.md
-        - planning/turtle-widget-and-the-ai-arc.md
-        - planning/widgets-in-the-python-notes.md
-        - planning/checklist.md
-        - planning/ai-arc-remedy.md
+    # ------------------------------------------------------------------
+    # Outstanding work, moved here from docs/planning/checklist.md so that
+    # each task sits next to the week and the chapter it lands in.  Collect
+    # it all with `python3 tools/prompts.py`, which reads this file as well
+    # as the chapters it lists.  Delete an instruction in the same commit
+    # that carries it out.
+    #
+    # These first ones belong to no single chapter.
+    #
+    # CLAUDE: nothing in the Python chapters runs. Nineteen of the twenty-one
+    #   notebooks under docs/python/ contain zero code cells; every example is
+    #   a markdown ```python fence, so every printed value, every traceback and
+    #   every "you should see something like this" is hand-typed prose that no
+    #   machine has checked. Only dataframes.ipynb and widget-demo.ipynb
+    #   execute, along with the three notebooks in docs/intro/. This is the
+    #   single largest risk in the repository, because it makes three things
+    #   impossible at once: the execute: settings further down this file are
+    #   inert, CI cannot tell you when an example has drifted, and the rule in
+    #   CLAUDE.md 4.1 against hand-typed output cannot be enforced. Done is one
+    #   of two decisions, taken deliberately and written down: either the
+    #   fences go back to being code cells and Quarto renders authoritative
+    #   output, or the fences stay and a separate harness extracts and runs
+    #   every fenced snippet in CI so that a broken example still turns the
+    #   build red. tools/quarto-cell-toggle does the mechanical half of the
+    #   first: a VS Code command that flips a cell between a code cell and the
+    #   same code in a fence, one keystroke per example.
+    # CLAUDE: run every fenced snippet once, in order, per chapter. Most of the
+    #   remaining identifier mismatches surface as a NameError within seconds
+    #   of actually executing them. This is the highest-yield hour available
+    #   anywhere in this list, and it stays true whichever way the question
+    #   above is decided.
+    # CLAUDE: no widget appears in any Python chapter. Counted as cells rather
+    #   than as mentions, the magics occur in three notebooks and all three are
+    #   demonstrations rather than teaching chapters: intro/widget-reference,
+    #   intro/script-vs-notebook and python/widget-demo. turtle/week3.qmd and
+    #   ai/predict-then-prove.qmd name them in prose but run none. %%exercise,
+    #   which CLAUDE.md 1 makes the form of every interspersed exercise,
+    #   appears nowhere in the book at all. This matters more than it looks:
+    #   "the AI predicts; the widget proves" is the organising principle of the
+    #   course, and the proving half currently has no machinery in the notes
+    #   where the predicting happens. docs/planning/widgets-in-the-python-notes.md
+    #   already maps which widget belongs where; that mapping is unimplemented.
+    #   The per-chapter notes below say where each one goes.
+    # CLAUDE: the JupyterLite demo has nothing in it to run. Same defect as
+    #   above, but it lands harder here: index.qmd advertises the demo as "no
+    #   install", and 19 of the 21 chapters build-demo.sh ships contain no code
+    #   cell, so a reader who accepts that invitation gets a document they can
+    #   read and not one line they can execute. Decide the question above
+    #   knowing that this is where the consequence is most visible to someone
+    #   who has not yet enrolled.
+    # CLAUDE: decide the solutions policy. Solutions appear in some chapters
+    #   and not others, in no consistent form. Students will notice by week two.
+    # CLAUDE: .github/workflows/student-env-check.yml has never run. It is
+    #   committed but untriggered, and a workflow that has not run is a
+    #   workflow that does not work.
+    # CLAUDE: confirm that `pixi run get <chapter>` reaches every chapter a
+    #   student is asked to download, and that docs/_book/notebooks/index.txt
+    #   lists them all after a full render.
+    # CLAUDE: verify the Windows install path end to end on a clean Windows
+    #   machine — install pixi from the .msi, unpack the course folder, open
+    #   VS Code, run a widget. The .msi route is the documented one and nobody
+    #   has confirmed the full sequence.
+    # CLAUDE: housekeeping, six small things. (1) Three .DS_Store files — in
+    #   docs/ai/images/, docs/python/ and sandbox/drafts/ — and
+    #   .vscode/settings.json are tracked in git; untrack them, and fix the two
+    #   .DS_Store lines in .gitignore, which are written with a trailing slash
+    #   and so have never matched a file. (2) _to_delete/ at the repository
+    #   root needs deleting by hand; the device mount cannot unlink, so it
+    #   accumulates stale git lock directories. Nothing in it is needed.
+    #   (3) planning/authorship-split.md and planning/authorship-progression.md
+    #   cover the same ground and should be one document. (4) The word
+    #   "capstone" survives where the book now says "finale": ai/the-ai-off-test.qmd,
+    #   ai/plan-before-you-prompt.md, ai/delegate-the-full-problem.md,
+    #   ai/surviving-ai.md, planning/course-design.qmd and
+    #   planning/authorship-split.md. (5) docs/slides/.gitignore misses libs/,
+    #   index_files/ and the *.quarto_ipynb_* scratch files, so they sit in git
+    #   status as untracked noise after every render. (6) The docs/jupyterlite
+    #   submodule's own .gitignore ignores content/course/ where build-demo.sh
+    #   writes content/*.ipynb; silenced from this side with ignore = untracked
+    #   in .gitmodules, but the path should be corrected to content/ the next
+    #   time munch-group-jupyterlite is touched.
+    #
+    # Forks in the road, for Kasper. Nothing here should be settled by an
+    # assistant guessing:
+    #   - executable cells or markdown fences in the Python chapters (above).
+    #     Everything about output fidelity, CI and the execute: settings
+    #     follows from this one answer.
+    #   - whether the widget mapping in widgets-in-the-python-notes.md is a
+    #     commitment for this run of the course or an aspiration for the next.
+    #   - whether classes.ipynb stays in week 7 at its current scope, or the
+    #     over-scoped half moves to an appendix as CLAUDE.md 4.9 recommends.
+    #   - what the logbook is worth, and whether it is assessed at all.
+    # ------------------------------------------------------------------
+    - index.qmd
+    - intro/course-introduction.qmd
+      # CLAUDE: the logbook is named in ten chapters and defined in none. There
+      #   is no template, no statement of where it lives, and no description of
+      #   how it is assessed. Students will ask in week one, and this is the
+      #   chapter they will look in. Done looks like a section here with a
+      #   one-week worked example entry, alongside the Badges sections.
     - part: "Week 1"
+      # Python: the terminal and the install; the first program and how to read
+      #   an error; strings, quotes and comments; values, operators, comparison
+      #   and logic, truthiness and short-circuit, types and conversion;
+      #   precedence; statements versus expressions; and the substitution-and-
+      #   reduction model the rest of the book runs on. All three Oaths land
+      #   here.
+      # AI: Explainer — introduced by intro/course-introduction.qmd and put to
+      #   work in ai/meet-ai.qmd and ai/about-microsoft-copilot.qmd. 8 Explainer
+      #   exercises against 105 SOLO.
+      # Workload: by a wide margin the heaviest week in the book — 11 chapters,
+      #   ~24,400 words, 113 exercises, taught in the week the students know
+      #   least. Roughly 11,500 of those words are orientation rather than
+      #   Python (insides, instruction, meet-ai, about-microsoft-copilot,
+      #   notebooks-in-vscode, script-vs-notebook), so the reading load is what
+      #   is extreme, not the practice; much of it could be pre-term or spread
+      #   across weeks 1 and 2. Check this against the actual teaching hours
+      #   before term, not during it.
       chapters: 
-        - intro/course-introduction.qmd
         - ai/insides.md
         - ai/instruction.md
         - python/getting_started.ipynb
         - intro/notebooks-in-vscode.ipynb
         - ai/meet-ai.qmd
         - ai/about-microsoft-copilot.qmd
+          # CLAUDE: this chapter carries a week's AI slot on its own. It was
+          #   under 700 words and now sits near a thousand, ending with an
+          #   explicit list of the content it still needs. That list is the
+          #   plan, not the chapter. Write it out and delete the list.
         - python/hello-world.ipynb
+          # CLAUDE: the hand-typed error transcripts here predate the message
+          #   rewrites of Python 3.8-3.12, so a student who reads the note and
+          #   then reads their own screen sees two different errors on the
+          #   first day — in the chapter whose whole subject is reading an
+          #   error. Regenerate every static transcript against the interpreter
+          #   pinned in student-folder/pixi.toml.
         - intro/script-vs-notebook.ipynb
         - python/values-operators-logic.ipynb
+          # CLAUDE: this is where %%steps belongs — the precedence and
+          #   short-circuit examples are exactly the substitution-and-reduction
+          #   traces the widget was built for, and they are currently prose.
         - python/precedence-steps.ipynb
+          # CLAUDE: the keystone chapter for the widgets, and it has none. The
+          #   traces map 1:1 onto %%steps and the shuffled-statement exercises
+          #   are already written out as plain text where %%puzzle would check
+          #   them. 45 exercises, none of them machine-checked.
         - python/course_tools.ipynb
+          # CLAUDE: two defects and a gap. The worked substitution example is
+          #   arithmetically wrong — 4 * 8 is rendered as 24, and the
+          #   surrounding "deduce y and x" prose depends on the wrong number.
+          #   The pysteps transcript names test_studentfile.py line 4 where the
+          #   file is myfile.py line 3. And at 958 words with no exercises it
+          #   is thin relative to its neighbours; it was flagged in the earlier
+          #   audit for content, not just typos.
     - part: "Week 2"
+      # Python: conditionals — truthiness, nesting, blocks and indentation,
+      #   elif — and then functions: def, return, None, arguments versus
+      #   parameters, local scope as a "temporary little world", and the
+      #   refrain that a call is substituted by its return value.
+      # AI: no new rung. Explainer is consolidated by ai/predict-then-prove.qmd,
+      #   which is where "the AI predicts; the machine proves" is stated as a
+      #   working rule rather than a slogan. 26 Explainer against 43 SOLO — the
+      #   densest Explainer week of the term.
+      # Workload: 3 chapters, ~7,200 words, 69 exercises. Light in reading and
+      #   heavy in practice, which is the right shape: this is the functions
+      #   and scope cliff, and functions.ipynb alone carries 32 exercises.
       chapters: 
         - python/if-else.ipynb
         - python/functions.ipynb
+          # CLAUDE: the Celsius exercise opens correctly — "converts from
+          #   celsius to Fahrenheit" — and then closes by telling the student
+          #   to "calculate the conversion to Celcius", so the direction error
+          #   survives in the last sentence, where it does the most damage. The
+          #   misspelling is in the identifier too: celcius2fahrenheit. The
+          #   hand-typed tracebacks here are also older than the Python the
+          #   students will run.
+          # CLAUDE: %%codelens belongs here, on the call frames and the local
+          #   scope. "A temporary little world" is a claim the widget can show.
         - ai/predict-then-prove.qmd
     - part: "Week 3"
+      # Python: everything is an object — string methods, navigating the docs,
+      #   .format(), and the first dunder reveal (__add__) — then the three
+      #   containers: lists (mutable, indexed, sliced, aliased), dictionaries
+      #   (key-value, nesting, in) and tuples (immutable, packing, the swap).
+      #   Turtle starts.
+      # AI: Translator and Illustrator, both introduced by
+      #   ai/how-models-produce-code.qmd, 2 exercises each, plus 10 Explainer,
+      #   against 64 SOLO.
+      # Workload: 6 chapters, ~9,400 words, 78 exercises — the second-heaviest
+      #   week. The chapters are badly uneven inside it: objects.ipynb is 2,564
+      #   words and tuples.ipynb is 643.
       chapters: 
         - ai/how-models-produce-code.qmd
         - python/objects.ipynb
         - python/lists.ipynb
+          # CLAUDE: 'ATG...'.split('') raises, which kills the three examples
+          #   after it. Decide whether the empty separator is the lesson or an
+          #   accident, and either mark it as a deliberate bug with the
+          #   spot-the-bug callout CLAUDE.md 2 asks for, or fix it.
+          # CLAUDE: the prime %%codelens chapter, and it has no widget. Add the
+          #   aliasing exercise the notes stop just short of —
+          #   a = [1, 2, 3]; b = a; b.append(4); print(a) — have the student
+          #   predict, then let codelens adjudicate with the reference diagram.
         - python/dictionaries.ipynb
+          # CLAUDE: a note explains replacing age 70 with 71, but the code
+          #   overwrites job. Orphaned from whatever the example used to be.
         - python/tuples.ipynb
+          # CLAUDE: at 643 words the thinnest chapter in the book that is not a
+          #   stub, and flagged in the earlier audit for content rather than
+          #   typos. Its hand-typed traceback is also stale — regenerate it
+          #   against the pinned interpreter.
         - turtle/week3.qmd
     - part: "Week 4"
+      # Python: for-loops from first principles — iterables, range, nested
+      #   loops — and then testing, deliberately placed two weeks before the
+      #   first project so that a test is already a habit when there is
+      #   something to test.
+      # AI: no new rung. Explainer is sharpened by ai/explain-then-confirm.qmd,
+      #   which supplies all 15 of the week's Explainer exercises, against 17
+      #   SOLO.
+      # Workload: 4 chapters, ~5,300 words, 32 exercises — below the median,
+      #   and deliberately so, because week 4 coincides with the iteration
+      #   cliff and the lab split. The shape is wrong in one place: see the
+      #   note on testing.ipynb.
       chapters: 
         - ai/explain-then-confirm.qmd
         - python/iteration.ipynb
+          # CLAUDE: %%codelens on the nested-loop and range-step examples; the
+          #   two-counter trace is the thing students get wrong and the thing
+          #   the widget shows best.
         - python/testing.ipynb
+          # CLAUDE: the smallest chapter doing the largest job. At 1392 words
+          #   across eight cells — and a good part of that length is now the
+          #   list of missing content appended to its end, so the chapter
+          #   proper is shorter than the number suggests — it is the designated
+          #   hub for the idea that a test is how you verify code you did not
+          #   write. Weeks 8 through 13 all lean on it, and it carries zero
+          #   badged exercises. It should be the chapter that grows most: frame
+          #   tests explicitly as how you verify AI-generated code, and add
+          #   exercises that write one failing test and then one passing one.
         - turtle/week4.qmd
+          # CLAUDE: the turtle chapters for weeks 4 through 8 use no widget at
+          #   all, which is odd given that turtle output is the most visually
+          #   checkable thing in the book and therefore the safest place to let
+          #   the AI draft. Decide whether that is intentional.
     - part: "Week 5"
+      # Python: lists and dictionaries put to work — counting, bucketing,
+      #   nested loops, matrices, a guided is_palindrome — and then file I/O.
+      #   list-comprehensions.ipynb is commented out below and would go here.
+      # AI: no new rung. ai/practical-ai-use.qmd. Only 3 Explainer against 38
+      #   SOLO, the thinnest AI presence of any week before the projects begin.
+      # Workload: 4 chapters, ~6,700 words, 41 exercises — close to the median
+      #   week. data_structures.ipynb is the exemplar for exercise density and
+      #   authentic voice; files.ipynb is the lightest thing in the week.
       chapters: 
         - ai/practical-ai-use.qmd        
+          # CLAUDE: carries a week's AI slot on its own. Was under 700 words,
+          #   now near a thousand, and ends with an explicit list of the
+          #   content it still needs. Write the list out and delete it.
         # - python/list-comprehensions.ipynb
         - python/data_structures.ipynb
         - python/files.ipynb
+          # CLAUDE: the hand-typed tracebacks here are older than the Python
+          #   the students will run; regenerate them against the pinned
+          #   interpreter. While in the chapter, introduce
+          #   `with open(...) as f:` — the note teaches only the close-heavy
+          #   form, as CLAUDE.md 4.8 flags.
         - turtle/week5.qmd
     - part: "Week 6"
+      # Python: composition — putting small tested functions together into
+      #   something larger — alongside the first of the eight projects.
+      # AI: Comparer, introduced by ai/ask-for-another-way.qmd. 11 Comparer
+      #   against 7 SOLO: the only week in which AI-licensed exercises
+      #   outnumber the solo ones, which is the point of the rung — asking for
+      #   a second solution is worthless unless you write several.
+      # Workload: 4 chapters, ~5,200 words, 18 exercises. Light on paper, but
+      #   the project is the work and its size does not show up in a count of
+      #   exercise headings.
       chapters: 
         - ai/ask-for-another-way.qmd
         - projects/translation-project.qmd
         - python/composition.qmd
         - turtle/week6.qmd
     - part: "Week 7"
+      # Python: classes — Point, __init__ and self, instance methods, a light
+      #   __str__/__len__/__getitem__ — plus a debugging chapter, alongside the
+      #   folding project.
+      # AI: Drafter, introduced by ai/let-it-draft.qmd. 7 Drafter, 1 Comparer
+      #   and 4 Explainer against 28 SOLO. This is the first rung where the
+      #   student lets the assistant write code they will keep.
+      # Workload: 5 chapters, ~9,300 words and 40 exercises on top of a
+      #   project — heavy. classes.ipynb alone is 4,464 words, the longest
+      #   chapter in the book, and whether it stays at that scope is one of the
+      #   open decisions at the top of this file.
       chapters: 
         - ai/let-it-draft.qmd
         - python/classes.ipynb
+          # CLAUDE: the defects flagged in the earlier audit are gone — no
+          #   truncated codon_table, no undefined TreeNode, no wrong palindrome
+          #   example, and there is now an explicit `## Not a "constructor"`
+          #   section. What is still open is scope: CLAUDE.md 4.9 recommends
+          #   moving the over-scoped half to an appendix. That is a decision,
+          #   not a defect.
         - projects/folding-project.qmd
         - python/debugging.qmd
         - turtle/week7.qmd
     - part: "Week 8"
+      # Python: no new Python. The alignment project and the turtle chapter
+      #   carry the practice while the AI thread does the teaching.
+      # AI: two rungs at once, and the pivot of the whole arc — Unreliable
+      #   Narrator (ai/reading-and-judging.md) and Worker
+      #   (ai/tests-are-the-contract.md). The assistant stops being a source of
+      #   explanations and becomes something you check. 4 Unreliable Narrator,
+      #   3 Worker and 1 Drafter against 13 SOLO.
+      # Workload: 4 chapters, ~9,900 words, 21 exercises. Reading-heavy — the
+      #   two AI notes are 4,857 words between them — but there is no new
+      #   Python to absorb, so the total is manageable.
       chapters: 
         - ai/reading-and-judging.md
         - ai/tests-are-the-contract.md
         - projects/alignment-project.qmd
         - turtle/week8.qmd
     - part: "Week 9"
+      # Python: packages and modules — using code from other files, the modern
+      #   "giant's shoulders". new/biopython.ipynb is commented out below.
+      # AI: no new rung. ai/the-docs-are-the-test.qmd extends Worker from "a
+      #   test settles it" to "the real documentation settles it", which is the
+      #   answer to invented library functions.
+      # Workload: 4 chapters, ~7,100 words, plus the codon-bias project — but
+      #   only 6 badged exercises in the entire week, the sparsest of the term,
+      #   and packages-modules.ipynb has 4 of them across 2,689 words. That is
+      #   a real gap in practice, not a light week.
       chapters: 
         - ai/the-docs-are-the-test.qmd
+          # CLAUDE: carries a week's AI slot on its own. Was under 700 words,
+          #   now near a thousand, and ends with an explicit list of the
+          #   content it still needs. Write the list out and delete it.
         - projects/codonbias-project.qmd
         - python/packages-modules.ipynb
         - ai/documentation-and-resources.qmd
         # - new/biopython.ipynb
     - part: "Week 10"
+      # Python: recursion and decomposition — breaking a problem into parts,
+      #   which is the same skill in code that the Collaborator rung asks for
+      #   in prose. The pairing is deliberate.
+      # AI: Collaborator, introduced by ai/plan-before-you-prompt.md. 3
+      #   Collaborator and 1 Unreliable Narrator against 16 SOLO.
+      # Workload: 4 chapters, ~8,000 words, 20 exercises, plus the HIV project.
+      #   recursion.ipynb is 2,771 words and 14 exercises on its own and sits
+      #   in a project week — check that against the teaching hours.
       chapters: 
         - ai/plan-before-you-prompt.md
         - projects/hiv-project.qmd
         - python/recursion.ipynb
         - python/decomposition.qmd
     - part: "Week 11"
+      # Python: no new Python; the sequence-distance project is the practice.
+      # AI: Delegate, the top of the ladder, introduced by
+      #   ai/delegate-the-full-problem.md with ai/directing-a-resource.qmd
+      #   ahead of it. 3 Delegate and 1 Collaborator against 3 SOLO.
+      # Workload: 3 chapters, ~5,300 words, 7 exercises, plus a project. Light
+      #   in the notes and deliberately so: by week 11 the project is the whole
+      #   test of whether the ladder took.
       chapters: 
         - ai/directing-a-resource.qmd
         - ai/delegate-the-full-problem.md
         - projects/seqdist-project.qmd
     - part: "Week 12"
+      # Python: dataframes, introduced as a container worth knowing exists
+      #   rather than as a data-analysis unit. One of only two Python chapters
+      #   in the book that actually executes.
+      # AI: no new rung. ai/learning-with-an-ai.qmd turns the ladder back on
+      #   the student's own learning. 1 Collaborator, 2 Comparer and 1 Drafter
+      #   against 5 SOLO.
+      # Workload: 3 chapters, ~6,100 words, 9 exercises, plus the ORF project.
       chapters: 
         - ai/learning-with-an-ai.qmd
         - projects/orf-project.qmd
+          # CLAUDE: projects/curration-project.qmd is written but scheduled
+          #   nowhere. This is the week it would join, if it joins. Decide
+          #   whether it is a second project here or is dropped, and either add
+          #   the line or delete the file.
         - python/dataframes.ipynb
     - part: "Week 13"
+      # Python: no new Python; the assembly project.
+      # AI: no new rung. The finale exercises the whole ladder at once, which
+      #   is what it is for. 1 Delegate against 5 SOLO.
+      # Workload: 4 chapters, ~6,000 words, 6 exercises, plus the finale and a
+      #   project. The word count is misleading — see finale-kickoff.qmd.
       chapters: 
         - ai/finale-kickoff.qmd
+          # CLAUDE: 135 words. The finale is the assessment the whole role
+          #   ladder builds toward, and its opening chapter is a placeholder.
+          #   Done looks like a kickoff that states the task, the deliverable,
+          #   the rules about AI involvement, and how the work is judged.
         - ai/finale-build.qmd
         - ai/finale-finishing.qmd
         - projects/assembly-project.qmd
     - part: "Week 14"
+      # Python: none. The term closes on the AI-off test.
+      # AI: no new rung; the ladder is put down. ai/surviving-ai.md is the
+      #   argument for why any of it mattered. 1 Unreliable Narrator against 4
+      #   SOLO.
+      # Workload: 2 chapters, ~2,800 words, 5 exercises — the lightest week,
+      #   which is right for a wrap-up.
       chapters: 
         - ai/surviving-ai.md
         - ai/the-ai-off-test.qmd
     - part: "Cheatsheets"
+      # Python: reference only, not taught. These two are also the only place
+      #   in the book where every widget magic is shown actually running.
+      # AI: not part of the ladder. 1 Drafter and 1 Explainer against 2 SOLO.
+      # Workload: reference material; no teaching time attached.
       chapters:
         - intro/widget-reference.ipynb
         - python/widget-demo.ipynb
