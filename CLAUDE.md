@@ -256,3 +256,58 @@ Out of the book:
 5. Badge every exercise — `[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)` or the same form for `AI: <Role>`, on its own line under the heading, no emoji, no bold, and no role the week has not unlocked; run `tools/check-badge-order.py` afterwards; keep the AI in the browser; prompt a logbook entry where appropriate.
 6. Make code runnable rather than hand-typed; label any deliberate-bug exercise with a "Spot the bug" callout.
 7. Place the file in the right folder and add it to the correct week in `docs/_quarto.yml`; run the §4 quality checklist before calling it done.
+
+---
+
+## 7. Instructions left in the book for the assistant
+
+While authoring, Kasper leaves instructions inline, next to the thing they are
+about, rather than describing them afterwards in a chat message. The notation
+is a token inside an ordinary comment, in whichever form the surrounding cell
+already uses:
+
+```
+<!-- CLAUDE: expand the paragraph below to cover the empty string -->
+```
+
+```python
+# CLAUDE: add four exercises about lists here, predict-then-run
+```
+
+The prose form belongs in a markdown cell, a `.qmd` or a `.md`; the code form
+in a code cell or a `.py`. Both are invisible to the student — pandoc drops
+the comment for PDF and EPUB and leaves it unrendered in HTML.
+
+The `CLAUDE:` token, with the colon, is what makes an instruction findable. A
+bare `<!-- ... -->` is not: the book already contains over a thousand HTML
+comments — commented-out figures, slide scratch, notes to self — and an
+instruction lost in that crowd never gets done. `TODO:` stays what it has
+always been, a note Kasper is writing to himself; `CLAUDE:` is work handed
+over.
+
+An instruction applies to what follows it, up to the next heading, unless its
+own text says otherwise. Put it immediately above the paragraph, cell or
+exercise it concerns: "the paragraph below" stays true across edits, "the
+third paragraph" does not.
+
+`tools/prompts.py` is the pickup side. It walks `_quarto.yml` in render order
+and prints every instruction with its week, chapter, line and the first line
+of whatever it points at, so a term's worth of notes can be collected in one
+pass:
+
+```
+python3 tools/prompts.py                # everything, in render order
+python3 tools/prompts.py python/lists   # only chapters matching a string
+python3 tools/prompts.py --json         # the same, for a machine
+python3 tools/prompts.py --strict       # exit 1 if any instruction remains
+```
+
+It exits 1 on a *malformed* instruction — `<!-- CLAUDE add a figure -->`, with
+the token but no colon — because that is worse than an unfinished one: it is
+invisible to the collector and so would never be picked up at all. Outstanding
+instructions are not themselves a failure; that is the normal state of a
+chapter being written, and only `--strict` treats it as one.
+
+When an instruction has been carried out, delete the comment in the same
+commit that does the work, and say in the commit message which chapter it came
+from. An instruction that survives the work it asked for will be done twice.
