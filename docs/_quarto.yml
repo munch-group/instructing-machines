@@ -40,6 +40,8 @@ book:
     #
     # These first ones belong to no single chapter.
     #
+    # CLAUDE: Please remove "Unreliable Narrator" the AI ladder. It is a distraction and not a useful concept for students. Assign the orphaned exercises to Drafter and Worker if appropriate and leave them without badge otherwise. Please also rename the "Delegate" step to "Developer". The ladder should be: Explainer, Translator, Illustrator, Comparer, Drafter, Worker, Collaborator, Developer.
+    #
     # CLAUDE: nothing in the Python chapters runs. Nineteen of the twenty-one
     #   notebooks under docs/python/ contain zero code cells; every example is
     #   a markdown ```python fence, so every printed value, every traceback and
@@ -132,14 +134,9 @@ book:
       #   chapter they will look in. Done looks like a section here with a
       #   one-week worked example entry, alongside the Badges sections.
     - part: "Week 1"
-      # Python: the terminal and the install; the first program and how to read
-      #   an error; strings, quotes and comments; values, operators, comparison
-      #   and logic, truthiness and short-circuit, types and conversion;
-      #   precedence; statements versus expressions; and the substitution-and-
-      #   reduction model the rest of the book runs on. All three Oaths land
-      #   here.
-      # AI: Explainer — introduced by intro/course-introduction.qmd and put to
-      #   work in ai/meet-ai.qmd and ai/about-microsoft-copilot.qmd. 8 Explainer
+      # Python: As always.
+      # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
+      #   work in ai/meet-ai.qmd and ai/about-microsoft-copilot.qmd. 8 EXPLAINER
       #   exercises against 105 SOLO.
       # Workload: by a wide margin the heaviest week in the book — 11 chapters,
       #   ~24,400 words, 113 exercises, taught in the week the students know
@@ -190,10 +187,10 @@ book:
       #   elif — and then functions: def, return, None, arguments versus
       #   parameters, local scope as a "temporary little world", and the
       #   refrain that a call is substituted by its return value.
-      # AI: no new rung. Explainer is consolidated by ai/predict-then-prove.qmd,
+      # AI: no new rung. EXPLAINER is consolidated by ai/predict-then-prove.qmd,
       #   which is where "the AI predicts; the machine proves" is stated as a
-      #   working rule rather than a slogan. 26 Explainer against 43 SOLO — the
-      #   densest Explainer week of the term.
+      #   working rule rather than a slogan. 26 EXPLAINER against 43 SOLO — the
+      #   densest EXPLAINER week of the term.
       # Workload: 3 chapters, ~7,200 words, 69 exercises. Light in reading and
       #   heavy in practice, which is the right shape: this is the functions
       #   and scope cliff, and functions.ipynb alone carries 32 exercises.
@@ -216,8 +213,8 @@ book:
       #   containers: lists (mutable, indexed, sliced, aliased), dictionaries
       #   (key-value, nesting, in) and tuples (immutable, packing, the swap).
       #   Turtle starts.
-      # AI: Translator and Illustrator, both introduced by
-      #   ai/how-models-produce-code.qmd, 2 exercises each, plus 10 Explainer,
+      # AI: TRANSLATOR and ILLUSTRATOR, both introduced by
+      #   ai/how-models-produce-code.qmd, 2 exercises each, plus 10 EXPLAINER,
       #   against 64 SOLO.
       # Workload: 6 chapters, ~9,400 words, 78 exercises — the second-heaviest
       #   week. The chapters are badly uneven inside it: objects.ipynb is 2,564
@@ -248,8 +245,8 @@ book:
       #   loops — and then testing, deliberately placed two weeks before the
       #   first project so that a test is already a habit when there is
       #   something to test.
-      # AI: no new rung. Explainer is sharpened by ai/explain-then-confirm.qmd,
-      #   which supplies all 15 of the week's Explainer exercises, against 17
+      # AI: no new rung. EXPLAINER is sharpened by ai/explain-then-confirm.qmd,
+      #   which supplies all 15 of the week's EXPLAINER exercises, against 17
       #   SOLO.
       # Workload: 4 chapters, ~5,300 words, 32 exercises — below the median,
       #   and deliberately so, because week 4 coincides with the iteration
@@ -280,7 +277,7 @@ book:
       # Python: lists and dictionaries put to work — counting, bucketing,
       #   nested loops, matrices, a guided is_palindrome — and then file I/O.
       #   list-comprehensions.ipynb is commented out below and would go here.
-      # AI: no new rung. ai/practical-ai-use.qmd. Only 3 Explainer against 38
+      # AI: no new rung. ai/practical-ai-use.qmd. Only 3 EXPLAINER against 38
       #   SOLO, the thinnest AI presence of any week before the projects begin.
       # Workload: 4 chapters, ~6,700 words, 41 exercises — close to the median
       #   week. data_structures.ipynb is the exemplar for exercise density and
@@ -302,7 +299,7 @@ book:
     - part: "Week 6"
       # Python: composition — putting small tested functions together into
       #   something larger — alongside the first of the eight projects.
-      # AI: Comparer, introduced by ai/ask-for-another-way.qmd. 11 Comparer
+      # AI: COMPARER, introduced by ai/ask-for-another-way.qmd. 11 COMPARER
       #   against 7 SOLO: the only week in which AI-licensed exercises
       #   outnumber the solo ones, which is the point of the rung — asking for
       #   a second solution is worthless unless you write several.
@@ -318,8 +315,8 @@ book:
       # Python: classes — Point, __init__ and self, instance methods, a light
       #   __str__/__len__/__getitem__ — plus a debugging chapter, alongside the
       #   folding project.
-      # AI: Drafter, introduced by ai/let-it-draft.qmd. 7 Drafter, 1 Comparer
-      #   and 4 Explainer against 28 SOLO. This is the first rung where the
+      # AI: DRAFTER, introduced by ai/let-it-draft.qmd. 7 DRAFTER, 1 COMPARER
+      #   and 4 EXPLAINER against 28 SOLO. This is the first rung where the
       #   student lets the assistant write code they will keep.
       # Workload: 5 chapters, ~9,300 words and 40 exercises on top of a
       #   project — heavy. classes.ipynb alone is 4,464 words, the longest
@@ -340,11 +337,9 @@ book:
     - part: "Week 8"
       # Python: no new Python. The alignment project and the turtle chapter
       #   carry the practice while the AI thread does the teaching.
-      # AI: two rungs at once, and the pivot of the whole arc — Unreliable
-      #   Narrator (ai/reading-and-judging.md) and Worker
-      #   (ai/tests-are-the-contract.md). The assistant stops being a source of
+      # AI: WORKER (ai/tests-are-the-contract.md). The assistant stops being a source of
       #   explanations and becomes something you check. 4 Unreliable Narrator,
-      #   3 Worker and 1 Drafter against 13 SOLO.
+      #   3 Worker and 1 DRAFTER against 13 SOLO.
       # Workload: 4 chapters, ~9,900 words, 21 exercises. Reading-heavy — the
       #   two AI notes are 4,857 words between them — but there is no new
       #   Python to absorb, so the total is manageable.
@@ -356,7 +351,7 @@ book:
     - part: "Week 9"
       # Python: packages and modules — using code from other files, the modern
       #   "giant's shoulders". new/biopython.ipynb is commented out below.
-      # AI: no new rung. ai/the-docs-are-the-test.qmd extends Worker from "a
+      # AI: no new rung. ai/the-docs-are-the-test.qmd extends WORKER from "a
       #   test settles it" to "the real documentation settles it", which is the
       #   answer to invented library functions.
       # Workload: 4 chapters, ~7,100 words, plus the codon-bias project — but
@@ -376,8 +371,8 @@ book:
       # Python: recursion and decomposition — breaking a problem into parts,
       #   which is the same skill in code that the Collaborator rung asks for
       #   in prose. The pairing is deliberate.
-      # AI: Collaborator, introduced by ai/plan-before-you-prompt.md. 3
-      #   Collaborator and 1 Unreliable Narrator against 16 SOLO.
+      # AI: COLLABORATOR, introduced by ai/plan-before-you-prompt.md. 3
+      #   COLLABORATOR and 16 SOLO.
       # Workload: 4 chapters, ~8,000 words, 20 exercises, plus the HIV project.
       #   recursion.ipynb is 2,771 words and 14 exercises on its own and sits
       #   in a project week — check that against the teaching hours.
@@ -388,9 +383,9 @@ book:
         - python/decomposition.qmd
     - part: "Week 11"
       # Python: no new Python; the sequence-distance project is the practice.
-      # AI: Delegate, the top of the ladder, introduced by
+      # AI: DELEGATE, the top of the ladder, introduced by
       #   ai/delegate-the-full-problem.md with ai/directing-a-resource.qmd
-      #   ahead of it. 3 Delegate and 1 Collaborator against 3 SOLO.
+      #   ahead of it. 3 DELEGATE and 1 COLLABORATOR against 3 SOLO.
       # Workload: 3 chapters, ~5,300 words, 7 exercises, plus a project. Light
       #   in the notes and deliberately so: by week 11 the project is the whole
       #   test of whether the ladder took.
@@ -403,7 +398,7 @@ book:
       #   rather than as a data-analysis unit. One of only two Python chapters
       #   in the book that actually executes.
       # AI: no new rung. ai/learning-with-an-ai.qmd turns the ladder back on
-      #   the student's own learning. 1 Collaborator, 2 Comparer and 1 Drafter
+      #   the student's own learning. 1 COLLABORATOR, 2 COMPARER and 1 DRAFTER
       #   against 5 SOLO.
       # Workload: 3 chapters, ~6,100 words, 9 exercises, plus the ORF project.
       chapters: 
@@ -417,7 +412,7 @@ book:
     - part: "Week 13"
       # Python: no new Python; the assembly project.
       # AI: no new rung. The finale exercises the whole ladder at once, which
-      #   is what it is for. 1 Delegate against 5 SOLO.
+      #   is what it is for. 1 DEVELOPER against 5 SOLO.
       # Workload: 4 chapters, ~6,000 words, 6 exercises, plus the finale and a
       #   project. The word count is misleading — see finale-kickoff.qmd.
       chapters: 
@@ -432,8 +427,7 @@ book:
     - part: "Week 14"
       # Python: none. The term closes on the AI-off test.
       # AI: no new rung; the ladder is put down. ai/surviving-ai.md is the
-      #   argument for why any of it mattered. 1 Unreliable Narrator against 4
-      #   SOLO.
+      #   argument for why any of it mattered. 4 SOLO.
       # Workload: 2 chapters, ~2,800 words, 5 exercises — the lightest week,
       #   which is right for a wrap-up.
       chapters: 
@@ -442,7 +436,7 @@ book:
     - part: "Cheatsheets"
       # Python: reference only, not taught. These two are also the only place
       #   in the book where every widget magic is shown actually running.
-      # AI: not part of the ladder. 1 Drafter and 1 Explainer against 2 SOLO.
+      # AI: not part of the ladder. 1 DRAFTER and 1 EXPLAINER against 2 SOLO.
       # Workload: reference material; no teaching time attached.
       chapters:
         - intro/widget-reference.ipynb
