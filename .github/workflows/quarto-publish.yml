@@ -57,11 +57,20 @@ jobs:
         # that arrives too early, so the ladder cannot silently bend again.
         run: python3 tools/check-badge-order.py --census
 
+      - name: Install rsvg-convert
+        # The book's figures include SVGs (docs/ai/images/fig-*.svg), and the
+        # PDF book embeds them by rasterizing through rsvg-convert. TinyTeX
+        # manages TeX packages, not general system binaries, so it does not
+        # provide this; without it the PDF build fails with "Could not
+        # convert a SVG to a PDF for output" during `quarto publish` below,
+        # which renders every format in docs/_quarto.yml, not just HTML.
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          # To install LaTeX to build PDF book 
-          tinytex: true 
+          # To install LaTeX to build PDF book
+          tinytex: true
           # uncomment below and fill to pin a version
           # version: SPECIFIC-QUARTO-VERSION-HERE
 
