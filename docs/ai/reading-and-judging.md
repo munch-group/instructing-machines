@@ -25,7 +25,7 @@ The function has a sensible name. Its docstring states exactly the right task. T
 
 #### Exercise
 
-[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
 Before running it, decide for yourself what each of the following should produce, and then what this particular function will actually produce, which may be a different thing:
 
@@ -69,7 +69,7 @@ def gc_content(dna):
 
 #### Exercise
 
-[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
 Predict the value of `gc_content('GGCC')` and then the value of `gc_content('ggcc')`, and run both. Then decide which of the six questions this code fails, and, more importantly, why the failure is silent.
 
@@ -79,7 +79,7 @@ Once you have found a fault, how you report it back to the assistant decides whe
 
 #### Exercise
 
-[[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+[AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
 Prove that to yourself rather than taking it on trust. Take the broken `reverse_complement` from the start of this note, hand it back to the assistant with nothing but "this doesn't work, fix it", and keep whatever it returns without running it. Then start a *fresh* conversation, hand it the same broken function, and this time give it the specific report: the exact call, the output you got, the output you expected, and the reason as far as you can see it. Now run both replies against `reverse_complement('ATGC')`. Compare not just whether each one is right, but whether each one changed anything you did not ask it to change. The vague complaint is the one that tends to rewrite parts that were never broken.
 
@@ -87,7 +87,7 @@ You have been pinning these faults down by hand so that you can see the reasonin
 
 #### Exercise
 
-[[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+[AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
 To make that habit concrete, try the full loop once here, on a small problem, before you meet it for real on the HIV subtyping project next week. Ask the assistant to write a reverse_complement function. Before you believe a word of it, do three things. Read the function against the six questions and decide what you think. Write three checks of your own, and make sure at least one of them is a properly nasty input such as ATGC, where the order of the bases matters, rather than a gentle one that would pass no matter what. Then run your checks. Only when your own tests pass are you permitted to believe the function is correct, and even then only for the cases your tests covered. When you have done this, write down in a single sentence what your nasty input was and why you chose it, because that instinct, the reflex for the input that would break the code if the code were wrong, is the entire skill of this week compressed into one habit.
 

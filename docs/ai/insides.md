@@ -30,7 +30,7 @@ This gives you a habit worth forming now. Whenever something surprising happens,
 
 #### Exercise {#sec-exercise-kept}
 
-[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
 You run a program that calculates the number of `A` bases in a DNA sequence and prints the answer to the screen. You then close the program. Is that count still anywhere on the computer? Where was it while the program ran, kept or temporary? Where would it need to go for you to still have it tomorrow? Before you read on, decide what you think and write it down.
 
@@ -44,7 +44,7 @@ Here is the Turing machine: There is a long paper tape divided into squares, and
 
 #### Exercise {#sec-exercise-turing}
 
-[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
 Grab a scrap of paper and draw three squares holding `0 1 1`, put the head on the leftmost square, and set the state to `A`. Now follow three rules, one step at a time until a rule tells you to stop: 
 

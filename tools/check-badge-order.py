@@ -7,14 +7,14 @@ the chapter that introduces it.  This script walks ``docs/_quarto.yml`` in
 render order, reads the badge under every ``#### Exercise`` heading, and fails
 if a badge appears too early.
 
-A badge is a small-caps link to the rung's own section in
-``intro/course-introduction.qmd``, so a student who has forgotten what a role
-permits is one click from the answer::
+A badge is a plain link, set smaller than the surrounding text, to the rung's
+own section in ``intro/course-introduction.qmd``, so a student who has
+forgotten what a role permits is one click from the answer::
 
     #### Exercise
-    [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
+    [AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
-Badges are written in lower case; this script matches them case-insensitively
+Badges are written in Title Case; this script matches them case-insensitively
 and reports them in the ladder's own capitalisation.
 
 Run it with no arguments from anywhere in the repository::
@@ -52,18 +52,23 @@ LADDER = [
 INTRODUCED_BY = dict(LADDER)
 
 HEADING = re.compile(r"^#{2,6}\s+Exercise\b(.*)$")
-# A badge is a small-caps link to the rung's section in the course
-# introduction, e.g.
-#   [[ai: drafter]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-drafter)
-# The bare code span is the older form, and the older Title Case spelling is
-# also still recognised, so that a half-converted note is reported rather than
-# silently skipped.
-BADGE = re.compile(r"(?:`|\[\[)(SOLO|AI: [A-Za-z ]+?)(?:`|\]\{\.smallcaps\})",
-                   re.IGNORECASE)
+# A badge is a plain link, set smaller than the surrounding text, to the
+# rung's section in the course introduction, e.g.
+#   [AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
+# The bare code span and the small-caps span are older forms, still
+# recognised so that a half-converted note is reported rather than silently
+# skipped.
+BADGE = re.compile(
+    r"`(SOLO|AI: [A-Za-z ]+?)`"
+    r"|\[\[(SOLO|AI: [A-Za-z ]+?)\]\{\.smallcaps\}\]"
+    r"|\[(SOLO|AI: [A-Za-z ]+?)\]\([^)]*\)\{\.small\}",
+    re.IGNORECASE,
+)
 
 
-def canonical(badge: str) -> str:
-    """The badge as the ladder spells it, whatever case the note used."""
+def canonical(match: "re.Match[str]") -> str:
+    """The badge as the ladder spells it, whatever case or form the note used."""
+    badge = next(g for g in match.groups() if g is not None)
     if badge.strip().lower() == "solo":
         return "SOLO"
     role = badge.split(":", 1)[1].strip()
@@ -112,7 +117,7 @@ def badges_in(path: Path):
             continue
         inline = BADGE.search(heading.group(1))
         if inline:
-            yield number, canonical(inline.group(1))
+            yield number, canonical(inline)
             continue
         # Otherwise the badge sits on its own line just below the heading.
         for below in lines[number : number + 3]:
@@ -120,7 +125,7 @@ def badges_in(path: Path):
                 continue
             found = BADGE.search(below)
             if found:
-                yield number, canonical(found.group(1))
+                yield number, canonical(found)
             break
 
 
@@ -137,7 +142,7 @@ def inline_badges_in(path: Path):
             continue
         inline = BADGE.search(heading.group(1))
         if inline:
-            yield number, canonical(inline.group(1))
+            yield number, canonical(inline)
 
 
 def main() -> int:

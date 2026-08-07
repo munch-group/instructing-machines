@@ -75,6 +75,6 @@ If only one change is made, the licence line is the cheapest and the test-suite 
 
 ## Terminology to reconcile
 
-The notes `delegate-the-full-problem.md` and `plan-before-you-prompt.md` still refer to the capstone, where the week 13 and 14 notes now say the finale. The word should be settled one way in all five.
+The notes `delegate-the-full-problem.md` and `plan-before-you-prompt.md` still refer to the finale, where the week 13 and 14 notes now say the finale. The word should be settled one way in all five.
 
 `course-design.qmd` still records the student-formulated finale as deferred and the three finale notes as parked for when it is added back. The current `_quarto.yml` places all three in week 13 alongside the assembly project, so that paragraph now describes a state the book has moved past, and should be rewritten to describe week 13 as it stands, with two things happening in it.

@@ -40,35 +40,35 @@ With the plan in hand, you build one piece at a time, and you verify each piece 
 
 Notice that the plan and the contract from last week are the same object seen at two scales. Each function's example in the plan is the seed of that function's test, so to plan a program is already to begin specifying it. Planning tells you what the pieces are; the tests tell you what each piece must satisfy; and building piece by piece with the tests as you go is simply the two ideas used together. When you give the assistant its instructions, you give it the context it needs and no license to wander: the plan, the signature of the one function you want now, and the example or test that function must satisfy. You ask for that one function, you verify it, and you move on. You do not let the assistant race ahead and write three functions you have not planned, because a function you did not plan is a function you did not decide you needed, and it will cost you more to understand and check than it would have cost you to write yourself.
 
-This is exactly the method by which you will build the capstone, which is deliberately larger than anything you could write unaided. That is not a threat; it is the point. The plan is what makes a task that is too big to hold in your head at once into a task you can actually do, because with a plan you never face the whole thing. You face one small, named, testable piece at a time, on top of pieces you have already proven, and the assistant does the fast typing for each piece while you do the deciding and the checking. A problem you could not have written alone becomes a sequence of problems each of which you can.
+This is exactly the method by which you will build the finale, which is deliberately larger than anything you could write unaided. That is not a threat; it is the point. The plan is what makes a task that is too big to hold in your head at once into a task you can actually do, because with a plan you never face the whole thing. You face one small, named, testable piece at a time, on top of pieces you have already proven, and the assistant does the fast typing for each piece while you do the deciding and the checking. A problem you could not have written alone becomes a sequence of problems each of which you can.
 
 #### Exercise
 
-[[ai: collaborator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-collaborator)
+[AI: Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator){.small}
 
 Do the wrong thing once, deliberately, so that you know what it feels like. Take a task made of three or four pieces, such as reading a file of DNA sequences and reporting which one has the highest GC content, and ask the assistant for the whole thing in a single prompt. Do not plan it, do not break it up. Read what comes back and then attempt exactly one thing: test one piece of it in isolation, without running the rest. Write down what stopped you. Nine times out of ten what stopped you is that there was no piece to test, because the assistant returned one lump that only produces an answer at the very end. Keep this code. You will want to compare it with what you build over the next few exercises.
 
 #### Exercise
 
-[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
 Now practise the deciding, with no assistant and no working code at all. Take the same task and write only the plan for it, as a set of empty functions with docstrings and no bodies. The whole exercise is the decomposition: deciding what the pieces are, naming them, and stating what goes in and out of each. When you think you are done, check your plan against the standard from earlier: is each piece small enough to read, to test, and to understand on its own?
 
 #### Exercise
 
-[[solo]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-solo)
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
 Strengthen the plan you just wrote by adding to each function one concrete example of an input and its correct output, worked out by hand. As you do this you will find that some functions are harder to give an example for than others, and that difficulty is information: a function you cannot easily give an example for is usually a function that is doing too much, or that you have not thought through, and it should be split or reconsidered before any code is written for it.
 
 #### Exercise
 
-[[ai: collaborator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-collaborator)
+[AI: Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator){.small}
 
 Only now let the assistant near the design, and note carefully what the badge does and does not license. Show it your stubs and your examples and ask it one narrow question: is there a case my examples do not cover, or a piece I have not named? You are not asking it to redesign anything, and you are not obliged to take anything it says. Go through its suggestions one at a time and, for each, write *accept* or *reject* and one line of reason. Rejecting a suggestion you understand is a better outcome than accepting one you do not, and the point of the exercise is to feel the difference between a collaborator, whose opinions you weigh, and a designer, whose decisions you inherit.
 
 #### Exercise
 
-[[ai: collaborator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-collaborator)
+[AI: Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator){.small}
 
 Take the discipline all the way through on a single piece. From your plan, choose one function, and only when its plan and its example are written do you allow yourself to prompt the assistant for that one function. Verify the result against your example, using the check widget or your own `assert`s. The rule to feel here is the one in the title of the week: the plan comes first, the prompt comes second, and the verification comes before you are allowed to believe any of it. When it passes, put it beside the single lump from the first exercise and say which of the two you would be willing to defend.
 

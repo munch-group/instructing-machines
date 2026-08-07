@@ -36,30 +36,6 @@ book:
     # as the chapters it lists.  Delete an instruction in the same commit
     # that carries it out.
     #
-    # These first ones belong to no single chapter.
-    #
-    # CLAUDE: nothing in the Python chapters runs. Nineteen of the twenty-one
-    #   notebooks under docs/python/ contain zero code cells; every example is
-    #   a markdown ```python fence, so every printed value, every traceback and
-    #   every "you should see something like this" is hand-typed prose that no
-    #   machine has checked. Only dataframes.ipynb and widget-demo.ipynb
-    #   execute, along with the three notebooks in docs/intro/. This is the
-    #   single largest risk in the repository, because it makes three things
-    #   impossible at once: the execute: settings further down this file are
-    #   inert, CI cannot tell you when an example has drifted, and the rule in
-    #   CLAUDE.md 4.1 against hand-typed output cannot be enforced. Done is one
-    #   of two decisions, taken deliberately and written down: either the
-    #   fences go back to being code cells and Quarto renders authoritative
-    #   output, or the fences stay and a separate harness extracts and runs
-    #   every fenced snippet in CI so that a broken example still turns the
-    #   build red. tools/quarto-cell-toggle does the mechanical half of the
-    #   first: a VS Code command that flips a cell between a code cell and the
-    #   same code in a fence, one keystroke per example.
-    # CLAUDE: run every fenced snippet once, in order, per chapter. Most of the
-    #   remaining identifier mismatches surface as a NameError within seconds
-    #   of actually executing them. This is the highest-yield hour available
-    #   anywhere in this list, and it stays true whichever way the question
-    #   above is decided.
     # CLAUDE: no widget appears in any Python chapter. Counted as cells rather
     #   than as mentions, the magics occur in three notebooks and all three are
     #   demonstrations rather than teaching chapters: intro/widget-reference,
@@ -72,18 +48,6 @@ book:
     #   where the predicting happens. docs/planning/widgets-in-the-python-notes.md
     #   already maps which widget belongs where; that mapping is unimplemented.
     #   The per-chapter notes below say where each one goes.
-    # CLAUDE: the JupyterLite demo has nothing in it to run. Same defect as
-    #   above, but it lands harder here: index.qmd advertises the demo as "no
-    #   install", and 19 of the 21 chapters build-demo.sh ships contain no code
-    #   cell, so a reader who accepts that invitation gets a document they can
-    #   read and not one line they can execute. Decide the question above
-    #   knowing that this is where the consequence is most visible to someone
-    #   who has not yet enrolled.
-    # CLAUDE: decide the solutions policy. Solutions appear in some chapters
-    #   and not others, in no consistent form. Students will notice by week two.
-    # CLAUDE: .github/workflows/student-env-check.yml has never run. It is
-    #   committed but untriggered, and a workflow that has not run is a
-    #   workflow that does not work.
     # CLAUDE: confirm that `pixi run get <chapter>` reaches every chapter a
     #   student is asked to download, and that docs/_book/notebooks/index.txt
     #   lists them all after a full render.
@@ -91,36 +55,14 @@ book:
     #   machine — install pixi from the .msi, unpack the course folder, open
     #   VS Code, run a widget. The .msi route is the documented one and nobody
     #   has confirmed the full sequence.
-    # CLAUDE: housekeeping, six small things. (1) Three .DS_Store files — in
-    #   docs/ai/images/, docs/python/ and sandbox/drafts/ — and
-    #   .vscode/settings.json are tracked in git; untrack them, and fix the two
-    #   .DS_Store lines in .gitignore, which are written with a trailing slash
-    #   and so have never matched a file. (2) _to_delete/ at the repository
-    #   root needs deleting by hand; the device mount cannot unlink, so it
-    #   accumulates stale git lock directories. Nothing in it is needed.
-    #   (3) planning/authorship-split.md and planning/authorship-progression.md
-    #   cover the same ground and should be one document. (4) The word
-    #   "capstone" survives where the book now says "finale": ai/the-ai-off-test.qmd,
-    #   ai/plan-before-you-prompt.md, ai/delegate-the-full-problem.md,
-    #   ai/surviving-ai.md, planning/course-design.qmd and
-    #   planning/authorship-split.md. (5) docs/slides/.gitignore misses libs/,
-    #   index_files/ and the *.quarto_ipynb_* scratch files, so they sit in git
-    #   status as untracked noise after every render. (6) The docs/jupyterlite
+
+    # CLAUDE: housekeeping, six small things. 
+    #  (6) The docs/jupyterlite
     #   submodule's own .gitignore ignores content/course/ where build-demo.sh
     #   writes content/*.ipynb; silenced from this side with ignore = untracked
     #   in .gitmodules, but the path should be corrected to content/ the next
     #   time munch-group-jupyterlite is touched.
-    #
-    # Forks in the road, for Kasper. Nothing here should be settled by an
-    # assistant guessing:
-    #   - executable cells or markdown fences in the Python chapters (above).
-    #     Everything about output fidelity, CI and the execute: settings
-    #     follows from this one answer.
-    #   - whether the widget mapping in widgets-in-the-python-notes.md is a
-    #     commitment for this run of the course or an aspiration for the next.
-    #   - whether classes.ipynb stays in week 7 at its current scope, or the
-    #     over-scoped half moves to an appendix as CLAUDE.md 4.9 recommends.
-    #   - what the logbook is worth, and whether it is assessed at all.
+
     # ------------------------------------------------------------------
     - index.qmd
     - part: "Week 1"
