@@ -61,14 +61,16 @@ EXTRA_TREES = [
 # Copied by EXTRA_TREES under a different name, so skip it in the plain pass.
 TEMPLATE_SKIP = {"vscode"}
 
-# The one exception to "download notebooks as you go". These two ship inside
+# The one exception to "download notebooks as you go". These ship inside
 # the folder so that day one tests one thing only — whether the environment
 # works. Students meet the downloading ritual in week two, when a failure can
-# only mean one thing.
+# only mean one thing. The log book is here for the same reason: course-
+# introduction.qmd has students write their first entry on day one, before
+# the download ritual exists for them yet.
 WEEK1_DESTINATION = "week1"
 WEEK1_NOTEBOOKS = [
-    REPO / "docs" / "intro" / "notebooks-in-vscode.ipynb",
-    REPO / "docs" / "intro" / "script-vs-notebook.ipynb",
+    REPO / "docs" / "intro" / "notebooks.ipynb",
+    REPO / "docs" / "ai" / "log-book.ipynb",
 ]
 
 # Every chapter notebook is published loose next to the zip so that

@@ -1,15 +1,13 @@
 project:
   type: book
   output-dir: _book
-  post-render:
-    # Rebuild the downloadable student folder so the zip on the website
-    # can never drift from the book that describes it.
-    - python3 ../scripts/build_student_folder.py
-    - quarto render slides/
-    - rm -rf _book/_build/slides
-    - mkdir -p _book/_build
-    - mv slides/_build _book/_build/slides
-    - scripts/build-demo.sh
+  # post-render:
+  #   - python3 ../scripts/build_student_folder.py
+  #   - quarto render slides/
+  #   - rm -rf _book/_build/slides
+  #   - mkdir -p _book/_build
+  #   - mv slides/_build _book/_build/slides
+  #   - scripts/build-demo.sh
   
   #   - quarto render --to html --profile ta
   #   - quarto render --to html --profile draft
@@ -125,11 +123,6 @@ book:
     #   - what the logbook is worth, and whether it is assessed at all.
     # ------------------------------------------------------------------
     - index.qmd
-      # CLAUDE: the logbook is named in ten chapters and defined in none. There
-      #   is no template, no statement of where it lives, and no description of
-      #   how it is assessed. Students will ask in week one, and this is the
-      #   chapter they will look in. Done looks like a section here with a
-      #   one-week worked example entry, alongside the Badges sections.
     - part: "Week 1"
       # Python: As always.
       # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
@@ -149,20 +142,8 @@ book:
         - python/hello-world.ipynb
         - intro/notebooks.ipynb
         - ai/meet-ai.qmd
-          # CLAUDE: this chapter carries a week's AI slot on its own. It was
-          #   under 700 words and now sits near a thousand, ending with an
-          #   explicit list of the content it still needs. That list is the
-          #   plan, not the chapter. Write it out and delete the list.
-        - ai/about-microsoft-copilot.qmd
         - python/values-operators-logic.ipynb
-          # CLAUDE: this is where %%steps belongs — the precedence and
-          #   short-circuit examples are exactly the substitution-and-reduction
-          #   traces the widget was built for, and they are currently prose.
         - python/precedence-steps.ipynb
-          # CLAUDE: the keystone chapter for the widgets, and it has none. The
-          #   traces map 1:1 onto %%steps and the shuffled-statement exercises
-          #   are already written out as plain text where %%puzzle would check
-          #   them. 45 exercises, none of them machine-checked.
         - ai/insides.md
         - ai/instruction.md
     - part: "Week 2"
@@ -467,6 +448,7 @@ format:
       - unnumber.lua
       - quarto
       - headers.lua
+    toc-expand: false
     notebook-links: global
     # number-sections: false
     number-sections: true      
@@ -478,38 +460,38 @@ format:
 
   ipynb: default
 
-  pdf:
-    documentclass: scrbook
-    papersize: a4
-    classoption:
-      - oneside
-    geometry:
-      - left=2.75cm
-      - top=2.75cm
-      - bottom=2.75cm
-      - right=4.5cm
-      - marginparsep=0.5cm
-      - marginparwidth=3.5cm
-    mainfont: "TeX Gyre Pagella"
-    monofont: "Inconsolatazi4"
-    highlight-style: numpy.theme
-    fig-width: 6
-    fig-height: 4.3
-    toc-depth: 2
-    secPrefix:
-      - "exercise"
-      - "exercises"
-    filters:
-      - unnumber.lua
-      - pdf-badge-spacing.lua
-      - quarto
-      - pdf-inline-code.lua
-    include-in-header:
-      - file: header_extra.tex
-  epub:
-    cover-image: logo/im-mark.svg
-    highlight-style: kate
-    filters:
-      - unnumber.lua
-      - quarto
-    # epub-fonts: DejaVuSans-*.ttf
+  # pdf:
+  #   documentclass: scrbook
+  #   papersize: a4
+  #   classoption:
+  #     - oneside
+  #   geometry:
+  #     - left=2.75cm
+  #     - top=2.75cm
+  #     - bottom=2.75cm
+  #     - right=4.5cm
+  #     - marginparsep=0.5cm
+  #     - marginparwidth=3.5cm
+  #   mainfont: "TeX Gyre Pagella"
+  #   monofont: "Inconsolatazi4"
+  #   highlight-style: numpy.theme
+  #   fig-width: 6
+  #   fig-height: 4.3
+  #   toc-depth: 2
+  #   secPrefix:
+  #     - "exercise"
+  #     - "exercises"
+  #   filters:
+  #     - unnumber.lua
+  #     - pdf-badge-spacing.lua
+  #     - quarto
+  #     - pdf-inline-code.lua
+  #   include-in-header:
+  #     - file: header_extra.tex
+  # epub:
+  #   cover-image: logo/im-mark.svg
+  #   highlight-style: kate
+  #   filters:
+  #     - unnumber.lua
+  #     - quarto
+  #   # epub-fonts: DejaVuSans-*.ttf

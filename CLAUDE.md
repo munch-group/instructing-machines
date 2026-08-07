@@ -47,13 +47,12 @@ There are now **two registers** in the book, and you should match the one belong
 
 **Introduce by doing, then name.** The reader *writes and runs* something first; only afterward does the text say what it was called and why it worked ("What you just wrote is called a *for-loop*"). Follow the preface's two principles: introduce each concept so it can be applied immediately on top of what the student already knows, and cover only the minimum needed before practice takes over.
 
-**Predict-then-run is the core exercise device.** Almost every exercise says some version of *"Decide what you think will happen before you run it, then run it to check."* Preserve this relentlessly. Pair it with the rule that students **type code, never copy-paste** it (Oath 1).
+**Predict-then-run is the core exercise device.** Almost every exercise says some version of *"Decide what you think will happen before you run it, then run it to check."* Preserve this relentlessly. Pair it with the rule that students **type code, never copy-paste** it.
 
 **The substitution & reduction mantra.** The spine of the whole book is the mental model of evaluation as step-by-step *substitution* (variables → values) and *reduction* (expressions → simpler expressions → a single value). The phrase "do all the substitution and reduction steps in your head" recurs by design. This is what the `myiagi`/`pysteps`/`steps-widget` tools drill. Keep it central.
 
 **Signature rituals and devices — reuse these:**
 
-- **Oaths.** Numbered, first-person vows in `::: {.callout-important}` blocks, staged physically ("Raise your right hand!… You can take your hand down now"). Three exist across the course (Oath 1: never copy-paste; Oath 2: lines run top to bottom; Oath 3: consciously trace every substitution/reduction). New rituals should match this register.
 - **Anthropomorphism.** Methods vs. functions framed as *"Hey string, capitalize yourself!"* vs. *"Hey function, capitalize this string!"*. Python is "nice like that"; a string "knows how to serve one character at a time."
 - **"Peek behind the curtain" dunder reveals.** A running thread: `__add__`, then `__len__`/`__contains__`, showing that operators and built-ins dispatch to special methods. Bookends the "everything is an object" arc — keep it.
 - **FAQ callouts and pop-culture hooks.** Mock-FAQ asides ("*Q: Isn't 'If' a poem by Rudyard Kipling? A: Yes.*"), Karate-Kid "wax on, wax off," "It's alive!" Frankenstein energy. Blunt trust-me asides ("Do not call your file `math.py`. It may bite you later. Just trust me on that one.").
@@ -148,10 +147,10 @@ Status legend: **Solid** = reusable after a copyedit; **Needs work** = good bone
 
 ### `docs/python/` — programming notes
 
-- **getting_started.ipynb** — *Needs work.* Terminal walkthrough (`pwd`/`ls`/`cd`) + install + Oath 1. Cut the orphaned "Installing Phasic" block and the large commented Conda legacy; restore a two-column Mac/Windows command table; add the first real `%%exercise`.
-- **hello-world.ipynb** — *Needs work.* First program, running from the terminal, reading errors, strings/quotes, comments; Oath 2. Fix quote/error-message inconsistencies and update transcripts to current Python. Ideal first `AI: Explainer` exercise ("ask the assistant to explain this error, then judge it").
+- **getting_started.ipynb** — *Needs work.* Terminal walkthrough (`pwd`/`ls`/`cd`) + install. Cut the orphaned "Installing Phasic" block and the large commented Conda legacy; restore a two-column Mac/Windows command table; add the first real `%%exercise`.
+- **hello-world.ipynb** — *Needs work.* First program, running from the terminal, reading errors, strings/quotes, comments;. Fix quote/error-message inconsistencies and update transcripts to current Python. Ideal first `AI: Explainer` exercise ("ask the assistant to explain this error, then judge it").
 - **values-operators-logic.ipynb** — *Solid-ish / Needs work.* Values, operators, comparison/logical operators, truthiness & short-circuit, types, conversion. Excellent assignment-vs-substitution framing. Fix the duplicated exercise line (`print("apple" and "")` twice) and punctuation inside code spans; `steps-widget` on precedence/short-circuit.
-- **precedence-steps.ipynb** — *Solid (keystone).* Precedence table, statements vs. expressions, the substitution/reduction model + Oath 3. Highest-value note. Fix "his"→"this", `result`/`results`, an unterminated inline-code target. Maps 1:1 onto `steps-widget` and `puzzle-widget`.
+- **precedence-steps.ipynb** — *Solid (keystone).* Precedence table, statements vs. expressions, the substitution/reduction model. Highest-value note. Fix "his"→"this", `result`/`results`, an unterminated inline-code target. Maps 1:1 onto `steps-widget` and `puzzle-widget`.
 - **course_tools.ipynb** — *Needs work.* Introduces `myiagi`/`pysteps` (the substitution/reduction drills) via the Karate-Kid metaphor. Verify the worked arithmetic example and the `pysteps` line/file references; unify the `myiagi`/`Myagi`/`Miyagi` spelling.
 - **if-else.ipynb** — *Needs work.* Conditionals, truthiness, nesting, blocks/indentation, `elif`, via bus/cookie/DNA-base examples + FAQ humor. Fix the missing closing quote in an `if x` demo and `7 = 7`→`y = 7`. No executed cells yet.
 - **functions.ipynb** — *Needs work.* Functions as reusable mini-programs via a song; `def`/`return`/`None`, args vs. params, local scope, built-ins. Strong "a call is substituted by its return value" refrain. Fix the `chrous_text`/`chrorus_text` NameError, the celsius↔Fahrenheit direction error, and assorted typos; `codelens` for call frames/scope.

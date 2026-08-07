@@ -43,11 +43,63 @@ of working alongside an AI and a way of checking what it hands back.
 
 ::: {.lp-actions}
 [Start here <i class="bi bi-arrow-right"></i>](python/getting_started.ipynb){.lp-btn}
-[<i class="bi bi-download"></i> Download the course folder](instructing-machines.zip){.lp-btn-outline}
 :::
 
-[14 weeks &middot; 65 chapters &middot; 8 projects on real data &middot; 7 interactive
-widgets &middot; MIT licensed]{.lp-counts}
+<!-- [14 weeks &middot; 65 chapters &middot; 8 projects on real data &middot; 7 interactive
+widgets &middot; MIT licensed]{.lp-counts} -->
+
+:::
+
+
+::: {.grid .lp-audiences}
+
+::: {.g-col-12 .g-col-md-6}
+
+[<i class="bi bi-mortarboard-fill"></i> For students]{.lp-audience-label}
+
+### 15 minutes to get started {.unnumbered}
+
+The course folder, Python, the editor and the terminal are all set up in one
+pass, most of which is waiting. By the end of the course you can:
+
+::: {.lp-list}
+- Read code the way the machine does.
+- Write Python to solve small problems.
+- Break a problem into sub-problems and write them as testable functions.
+- Verify code written by an AI, or by someone else.
+- Judge how much of a task to hand over, and how much to keep.
+- Explain why an AI is only as useful to you as your ability to check it.
+:::
+
+<!-- [Getting started <i class="bi bi-arrow-right"></i>](python/getting_started.ipynb){.lp-btn} -->
+
+:::
+
+::: {.g-col-12 .g-col-md-6}
+
+[<i class="bi bi-bank"></i> For teachers]{.lp-audience-label}
+
+### Take it and make it yours {.unnumbered}
+
+Built for undergraduates in Molecular Biology and Molecular Medicine at
+[Aarhus University](https://kursuskatalog.au.dk/en/course/133215/Bioinformatics),
+and [MIT licensed](https://opensource.org/license/mit). If you teach a similar
+course, fork it.
+
+::: {.lp-list}
+- Notes, slides, exercises and projects, all in the repository
+- Seven notebook widgets, installable as packages
+- A JupyterLite demo, so students can try before installing
+- A written account of the course design and the AI arc
+- [A live demo of the same material runs in the browser through
+[JupyterLite](demo/lab/index.html).]
+- Fork it on github <i class="bi bi-github"></i>
+:::
+
+<!-- [<i class="bi bi-github"></i> Fork on GitHub](https://github.com/munch-group/instructing-machines){.lp-btn-outline}
+[Widget demo](python/demo/lab/content/widget-demo.ipynb){.lp-btn-quiet} -->
+
+:::
 
 :::
 
@@ -57,7 +109,7 @@ Your brain knows the biology. A CPU has the power. Python is the language
 between them, and an AI can now speak it on your behalf. Each part is only
 worth what the next one can check. -->
 
-### How it works {.unnumbered} 
+<!-- ### How it works {.unnumbered}  -->
 
 <!-- ### Instructing machines: Brain <i class="bi bi-arrow-right-short"></i> AI <i class="bi bi-arrow-right-short"></i> Code <i class="bi bi-arrow-right-short"></i> Compute {.unnumbered}  -->
 
@@ -66,6 +118,13 @@ Which is the argument of the whole course: an AI is useful to you up to the
 limit of what you can specify and verify. Fourteen weeks of raising that limit.
 ::: -->
 
+### Teaching AI in programming {.unnumbered}
+
+The [course design](planning/course-design.qmd) describes the reasoning behind how AI is taught and integrated in different ways across the course but, in a nutshell, it is this simple:
+
+::: {.lp-thesis}
+An AI is useful to you up to the limit of what you can specify and verify. The course spends fourteen weeks raising that limit.
+:::
 
 ::: {.lp-panels}
 
@@ -95,13 +154,20 @@ Once your question is expressed in as Python code, running it on you computer pr
 
 :::
 
-### AI in programming {.unnumbered}
+Say computing the GC content of a DNA sequence was a very complex problem. You can only ask an AI to produce the code for you if you can **specify** that it is "the fraction of bases in a DNA sequence that are G or C":
 
-The [course design](planning/course-design.qmd) page describe the reasoning behind how AI is taught and integrated in different ways across the course but in a nutshell the philosophy goes like this:
+```python
+def gc_content(seq):
+    gc = seq.count("G") + seq.count("C")
+    return gc / len(seq)
+```
 
-::: {.lp-thesis}
-An AI is useful to you up to the limit of what you can specify and verify. The course spends fourteen weeks raising that limit.
-:::
+and you can only **verify** that you got what you asked for if you can define tests that only correct code will pass:
+
+```python
+assert gc_content("GCGC") == 1.0
+assert gc_content("ATAT") == 0.0
+```
 
 <!-- 
 ### Week outline {.unnumbered}
@@ -144,66 +210,6 @@ settled on the spot.
 [A live demo of the same material runs in the browser through
 [JupyterLite](demo/lab/index.html) — no install.]{.lp-caption}
 
-```python
-def gc_content(seq):
-    """Fraction of G and C in a DNA sequence."""
-    gc = seq.count("G") + seq.count("C")
-    return gc / len(seq)
-
-# The test is the contract. Ask the AI for the body, keep this.
-assert gc_content("GCGC") == 1.0
-assert gc_content("ATAT") == 0.0
-```
-
-::: {.grid .lp-audiences}
-
-::: {.g-col-12 .g-col-md-6}
-
-[<i class="bi bi-mortarboard-fill"></i> For students]{.lp-audience-label}
-
-### Fifteen minutes to your first line {.unnumbered}
-
-The course folder, Python, the editor and the terminal are all set up in one
-pass, most of which is waiting. You only do it once — see
-@sec-getting_started.
-
-By the end you can:
-
-- Read code the way the machine does.
-- Write Python to solve small problems.
-- Break a problem into sub-problems and write them as testable functions.
-- Verify code written by an AI, or by someone else.
-- Judge how much of a task to hand over, and how much to keep.
-- Explain why an AI is only as useful to you as your ability to check it.
-
-[Getting started <i class="bi bi-arrow-right"></i>](python/getting_started.ipynb){.lp-btn}
-
-:::
-
-::: {.g-col-12 .g-col-md-6}
-
-[<i class="bi bi-bank"></i> For teachers]{.lp-audience-label}
-
-### Take it and make it yours {.unnumbered}
-
-Built for undergraduates in Molecular Biology and Molecular Medicine at
-[Aarhus University](https://kursuskatalog.au.dk/en/course/133215/Bioinformatics),
-and [MIT licensed](https://opensource.org/license/mit). If you teach a similar
-course, fork it.
-
-::: {.lp-list}
-- Notes, slides, exercises and projects, all in the repository
-- Seven notebook widgets, installable as packages
-- A JupyterLite demo, so students can try before installing
-- A written account of the course design and the AI arc
-:::
-
-[<i class="bi bi-github"></i> Fork on GitHub](https://github.com/munch-group/instructing-machines){.lp-btn-outline}
-[Widget demo](python/widget-demo.ipynb){.lp-btn-quiet}
-
-:::
-
-:::
 
 ::: {.lp-footer}
 Kasper Munch &middot; Bioinformatics Research Centre, Aarhus University
