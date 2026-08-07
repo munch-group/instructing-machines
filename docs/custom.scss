@@ -218,45 +218,27 @@ html { font-family: 'Inter', sans-serif; }
   max-width: 100% !important;
 }
 
-// .column-margin img,
-// .column-margin svg,
-// .cell-output-display img,
-// .cell-output-display svg,
-// .cell-output-display figure img,
-// .cell-output-display .figure-img,
-// figure.figure .figure-img {
-//   width: auto !important;
-//   height: auto !important;
-//   max-width: 100% !important;
-// }
-
-// .column-margin img,
-// .column-margin svg,
-// .cell-output-display img,
-// .cell-output-display svg,
-// .cell-output-display figure img,
-// .cell-output-display .figure-img,
-// .cell-output-display img.figure-img,
-// .quarto-figure img.figure-img,
-// div.cell-output-display img.figure-img
-// figure.figure .figure-img {
-//   width: auto !important;
-//   height: auto !important;
-//   max-width: 100% !important;
-// }
-
-
-// /* make svg margin plots honor margin width */
-// .column-margin img,
-// .column-margin svg,
-// .cell-output-display img,
-// .cell-output-display svg {
-//   width: 100% !important;
-//   height: auto !important;
-//   max-width: 100% !important;
-// }
-
-
+/* Defensive: stop margin content from widening its own grid column beyond
+   the minmax() cap below. `.column-margin` is itself the grid item
+   (grid-column: body-end / page-end, set by Quarto's core CSS), and a grid
+   item's default min-width is `auto`, which measures its content's
+   *unshrunk* intrinsic size and can force the track wider than its cap --
+   an SVG's native viewBox size, an unbreakable long value in a table cell,
+   before anything downstream gets a chance to shrink it. Checked directly
+   (headless Chrome, both an oversized SVG and a table with a 20-digit
+   unbreakable cell): Quarto already adds `.img-fluid` to figure images and
+   this book's page grid already clips a table to its column regardless, so
+   neither actually reproduces a width change with or without this rule.
+   It costs nothing and closes the gap for margin content that doesn't go
+   through either of those paths, so it stays -- but it is not what caused
+   the sidebar/body narrowing bug; that is the missing selector fixed by
+   the slimcontent rule below. */
+.column-margin,
+.margin-caption,
+div.aside,
+aside:not(.footnotes):not(.sidebar) {
+  min-width: 0;
+}
 
 #quarto-sidebar {
   border-right: 1px solid #D1D5DB; 
@@ -370,6 +352,85 @@ html { font-family: 'Inter', sans-serif; }
       [body-end] minmax(25px, 50px)
       [body-end-outset] minmax(50px, 150px)
       [page-end-inset] minmax(25px, 50px)
+      [page-end] 5fr
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+}
+
+/* The 1410px rule below closes the gap only above 1410px, because that is
+   the one Kasper's own widened-sidebar rule above already opened. But the
+   same gap exists natively in Quarto's stock CSS too, starting at its own
+   "wide" breakpoint (992px, Bootstrap's lg): stock Quarto already ships
+   both "body.floating .page-columns" and the more specific
+   "body.floating.slimcontent .page-columns" at that breakpoint, with the
+   same narrower body column on the slimcontent side, for the same reason
+   -- reserving room it does not need to reserve, since the margin column
+   is already reserved either way (see below). This restates the *stock*
+   (non-widened) slimcontent grid with its body column widened to match
+   the plain grid's stock value (450-750px -> 500-800px), so the two track
+   together from 992px up, not just from 1410px up. Placed before the
+   1410px rule below so that rule, matching this one in selector and
+   specificity, overrides it once the viewport is wide enough to. */
+@media (min-width: 992px) {
+  body.floating.slimcontent .page-columns {
+    grid-template-columns:
+      [screen-start] 1.5em
+      [screen-start-inset] 5fr
+      [page-start] minmax(25px, 50px)
+      [page-start-inset] minmax(50px, 150px)
+      [body-start-outset] minmax(25px, 50px)
+      [body-start] 1.5em
+      [body-content-start] minmax(500px, calc(800px - 3em))
+      [body-content-end] 1.5em
+      [body-end] minmax(25px, 50px)
+      [body-end-outset] minmax(50px, 150px)
+      [page-end-inset] minmax(25px, 50px)
+      [page-end] 5fr
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+}
+
+/* The rule above only ever matches pages with zero margin content. Quarto
+   puts a *second* class, "slimcontent", on <body> whenever a page has any
+   -- a margin figure, a margin table, the AI notes' "ladder so far" strip,
+   anything in a `.column-margin` div -- and gives that combination its own
+   selector, "body.floating.slimcontent .page-columns", with its own stock
+   grid (sidebar still capped at 250px; body column narrowed on top of
+   that). Three classes on <body> beat the two the rule above matches, so
+   it never reaches a slimcontent page at all: the sidebar and body stayed
+   at their stock, narrower width there regardless of viewport, which is
+   the bug -- add a margin figure to a page and the sidebar and body both
+   visibly narrow, because the page silently switched grids rather than
+   because the figure needed the room.
+
+   That last part turns out not to need doing anyway: both grids already
+   reserve the same 250px margin column (body-end/body-end-outset/
+   page-end-inset below) whether or not the page actually has margin
+   content -- a margin-free page carries that space right now too, just
+   empty. So the slim body column was narrowing the reading width for
+   nothing a wider body would have collided with. This restates the
+   *slimcontent* stock grid (from _bootstrap-mixins.scss's
+   page-columns-float-slimcontent-wide) with the same sidebar widening
+   applied above (250px max -> 300px max, identical segments) and the
+   body column widened to match it too (450-750px -> 500-800px, the same
+   values the rule above uses), so a page's sidebar and body width no
+   longer depend on whether it happens to carry margin content. */
+@media (min-width: 1410px) {
+  body.floating.slimcontent .page-columns {
+    grid-template-columns:
+      [screen-start] 1.5em
+      [screen-start-inset] 5fr
+      [page-start] minmax(30px, 60px)
+      [page-start-inset] minmax(60px, 180px)
+      [body-start-outset] minmax(30px, 60px)
+      [body-start] 1.5em
+      [body-content-start] minmax(500px, calc(800px - 3em))
+      [body-content-end] 1.5em
+      [body-end] 50px
+      [body-end-outset] minmax(50px, 150px)
+      [page-end-inset] 50px
       [page-end] 5fr
       [screen-end-inset] 1.5em
       [screen-end];

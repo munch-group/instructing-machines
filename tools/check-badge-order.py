@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check that the AI role ladder in the book runs straight.
 
-The course licenses the assistant in nine escalating roles.  Each role is
+The course licenses the assistant in eight escalating roles.  Each role is
 introduced by exactly one chapter, and no exercise may license a role before
 the chapter that introduces it.  This script walks ``docs/_quarto.yml`` in
 render order, reads the badge under every ``#### Exercise`` heading, and fails
@@ -45,10 +45,9 @@ LADDER = [
     ("Illustrator",         "ai/how-models-produce-code.qmd"),
     ("Comparer",            "ai/ask-for-another-way.qmd"),
     ("Drafter",             "ai/let-it-draft.qmd"),
-    ("Unreliable Narrator", "ai/reading-and-judging.md"),
     ("Worker",              "ai/tests-are-the-contract.md"),
     ("Collaborator",        "ai/plan-before-you-prompt.md"),
-    ("Delegate",            "ai/delegate-the-full-problem.md"),
+    ("Developer",           "ai/delegate-the-full-problem.md"),
 ]
 INTRODUCED_BY = dict(LADDER)
 

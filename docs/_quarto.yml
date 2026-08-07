@@ -40,8 +40,6 @@ book:
     #
     # These first ones belong to no single chapter.
     #
-    # CLAUDE: Please remove "Unreliable Narrator" the AI ladder. It is a distraction and not a useful concept for students. Assign the orphaned exercises to Drafter and Worker if appropriate and leave them without badge otherwise. Please also rename the "Delegate" step to "Developer". The ladder should be: Explainer, Translator, Illustrator, Comparer, Drafter, Worker, Collaborator, Developer.
-    #
     # CLAUDE: nothing in the Python chapters runs. Nineteen of the twenty-one
     #   notebooks under docs/python/ contain zero code cells; every example is
     #   a markdown ```python fence, so every printed value, every traceback and
@@ -127,7 +125,6 @@ book:
     #   - what the logbook is worth, and whether it is assessed at all.
     # ------------------------------------------------------------------
     - index.qmd
-    - intro/course-introduction.qmd
       # CLAUDE: the logbook is named in ten chapters and defined in none. There
       #   is no template, no statement of where it lives, and no description of
       #   how it is assessed. Students will ask in week one, and this is the
@@ -147,24 +144,16 @@ book:
       #   across weeks 1 and 2. Check this against the actual teaching hours
       #   before term, not during it.
       chapters: 
-        - ai/insides.md
-        - ai/instruction.md
+        - intro/course-introduction.qmd
         - python/getting_started.ipynb
-        - intro/notebooks-in-vscode.ipynb
+        - python/hello-world.ipynb
+        - intro/notebooks.ipynb
         - ai/meet-ai.qmd
-        - ai/about-microsoft-copilot.qmd
           # CLAUDE: this chapter carries a week's AI slot on its own. It was
           #   under 700 words and now sits near a thousand, ending with an
           #   explicit list of the content it still needs. That list is the
           #   plan, not the chapter. Write it out and delete the list.
-        - python/hello-world.ipynb
-          # CLAUDE: the hand-typed error transcripts here predate the message
-          #   rewrites of Python 3.8-3.12, so a student who reads the note and
-          #   then reads their own screen sees two different errors on the
-          #   first day — in the chapter whose whole subject is reading an
-          #   error. Regenerate every static transcript against the interpreter
-          #   pinned in student-folder/pixi.toml.
-        - intro/script-vs-notebook.ipynb
+        - ai/about-microsoft-copilot.qmd
         - python/values-operators-logic.ipynb
           # CLAUDE: this is where %%steps belongs — the precedence and
           #   short-circuit examples are exactly the substitution-and-reduction
@@ -174,14 +163,8 @@ book:
           #   traces map 1:1 onto %%steps and the shuffled-statement exercises
           #   are already written out as plain text where %%puzzle would check
           #   them. 45 exercises, none of them machine-checked.
-        - python/course_tools.ipynb
-          # CLAUDE: two defects and a gap. The worked substitution example is
-          #   arithmetically wrong — 4 * 8 is rendered as 24, and the
-          #   surrounding "deduce y and x" prose depends on the wrong number.
-          #   The pysteps transcript names test_studentfile.py line 4 where the
-          #   file is myfile.py line 3. And at 958 words with no exercises it
-          #   is thin relative to its neighbours; it was flagged in the earlier
-          #   audit for content, not just typos.
+        - ai/insides.md
+        - ai/instruction.md
     - part: "Week 2"
       # Python: conditionals — truthiness, nesting, blocks and indentation,
       #   elif — and then functions: def, return, None, arguments versus
@@ -338,8 +321,10 @@ book:
       # Python: no new Python. The alignment project and the turtle chapter
       #   carry the practice while the AI thread does the teaching.
       # AI: WORKER (ai/tests-are-the-contract.md). The assistant stops being a source of
-      #   explanations and becomes something you check. 4 Unreliable Narrator,
-      #   3 Worker and 1 DRAFTER against 13 SOLO.
+      #   explanations and becomes something you check. ai/reading-and-judging.md
+      #   licenses no new rung and now sits at DRAFTER. 3 WORKER and 3 DRAFTER
+      #   against 13 SOLO; 2 exercises carry no badge, where the point is that no
+      #   test or draft would have caught the fault.
       # Workload: 4 chapters, ~9,900 words, 21 exercises. Reading-heavy — the
       #   two AI notes are 4,857 words between them — but there is no new
       #   Python to absorb, so the total is manageable.
@@ -383,9 +368,9 @@ book:
         - python/decomposition.qmd
     - part: "Week 11"
       # Python: no new Python; the sequence-distance project is the practice.
-      # AI: DELEGATE, the top of the ladder, introduced by
+      # AI: DEVELOPER, the top of the ladder, introduced by
       #   ai/delegate-the-full-problem.md with ai/directing-a-resource.qmd
-      #   ahead of it. 3 DELEGATE and 1 COLLABORATOR against 3 SOLO.
+      #   ahead of it. 3 DEVELOPER and 1 COLLABORATOR against 3 SOLO.
       # Workload: 3 chapters, ~5,300 words, 7 exercises, plus a project. Light
       #   in the notes and deliberately so: by week 11 the project is the whole
       #   test of whether the ladder took.

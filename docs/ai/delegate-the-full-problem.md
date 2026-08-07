@@ -3,7 +3,7 @@
 ::: {.column-margin}
 **The ladder so far**
 
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Unreliable Narrator](../intro/course-introduction.qmd#sec-badge-unreliable-narrator) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [**Delegate**](../intro/course-introduction.qmd#sec-badge-delegate)
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [**Developer**](../intro/course-introduction.qmd#sec-badge-developer)
 :::
 
 You now hold three separate skills. You can specify a function by writing its contract as tests before any code exists. You can read a function the assistant produced and judge it against a short list of questions, refusing to believe it until the machine agrees. And you can take a task larger than one function, break it into named and testable pieces, and write that plan down before you prompt for anything. The capstone is where these three stop being separate exercises and become one continuous way of working, applied to a task that is deliberately larger than anything you could sit down and write on your own. That last point is not an accident or a cruelty; it is the entire purpose of the exercise. The role you are stepping into this week is the one the whole course has been climbing toward, which is to delegate a real job to the assistant and remain completely responsible for the result.
@@ -24,13 +24,13 @@ You will do most of this on the real project, so the exercises here are small an
 
 #### Exercise
 
-[[ai: delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
+[[ai: developer]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-developer)
 
 Run one full cycle on one piece, in the order that makes it safe. Before you prompt for anything, write the acceptance criteria for a single function from your plan: what it must return for which inputs, including the awkward cases, in a form the machine can check. Then prompt the assistant for that function, giving it the purpose, the signature, and nothing you have not decided. Read what comes back. Run the criteria. The thing to notice is that you wrote the criteria while you still had no code in front of you to anchor your idea of what correct meant, which is the only condition under which delegating a whole piece is anything other than hoping.
 
 #### Exercise
 
-[[ai: delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
+[[ai: developer]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-developer)
 
 Take a single function from your plan, prompt the assistant for it, and when its first attempt fails one of your tests, write the change request you would send back, containing the failing input, the wrong output, the correct output, and the reason. Notice how much of that you already knew from having written the test first. Send it. If the second version passes, the loop converged; if the third does not, stop, and go to the next exercise.
 
@@ -48,7 +48,7 @@ Take a function that has just passed the provided tests and write one more test 
 
 #### Exercise
 
-[[ai: delegate]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-delegate)
+[[ai: developer]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-developer)
 
 Finally, the exercise that decides whether you may keep the badge. Pick the function in your capstone that you delegated most heavily, the one you are least sure you could have written yourself, and write one paragraph explaining how it works, in your own words, with the assistant closed. Not what it does, which you know from its tests, but *how* it does it, line by line. If you cannot, that function is not finished, whatever its tests say, because you cannot own a result you cannot explain. Do the reading now and write the paragraph again. This is what it means to say that delegation transfers the typing and not the responsibility.
 

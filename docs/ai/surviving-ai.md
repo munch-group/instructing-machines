@@ -3,7 +3,7 @@
 ::: {.column-margin}
 **The ladder so far**
 
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [**Unreliable Narrator**](../intro/course-introduction.qmd#sec-badge-unreliable-narrator) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [Delegate](../intro/course-introduction.qmd#sec-badge-delegate)
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
 
 The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.
@@ -39,8 +39,6 @@ Identify one task from the course where, looking back, you should not have used 
 Now the other direction. Identify one task where the assistant let you produce something correct that you could not have written unaided, and be specific about which part of your checking made that safe. Not "I tested it": name the test, and name the case it covered that you would otherwise have missed. If you cannot name it, then what made the task safe was luck, and it is worth knowing that now rather than later.
 
 #### Exercise
-
-[[ai: unreliable narrator]{.smallcaps}](../intro/course-introduction.qmd#sec-badge-unreliable-narrator)
 
 Take one biological claim the assistant makes, in an explanation, in a comment, or inside a table it writes for you, and verify it against a source outside the assistant rather than against the assistant itself. Record whether it held. Then do the thing that makes this different from every other verification you have done this term: ask the assistant whether its own claim was correct, and watch it agree with you either way. A machine that will confirm both a true statement and a false one, with the same fluency, is not a witness. That is why the source had to come from outside, and it is the last time this course will say so.
 

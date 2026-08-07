@@ -78,7 +78,7 @@ The rule the course already states, that the assistant predicts and the machine 
 
 The `puzzle` widget belongs to the solo side. Its answer is a single literal and its space of wrong orderings is large, so it is a good place to require that a student commit before any assistant is consulted.
 
-The `steps` widget is the natural instrument for the unreliable narrator role. Ask the assistant to explain what an expression reduces to and why, then run the trace and compare the two accounts step by step. Disagreements are visible at the level of an individual substitution rather than only at the final answer, which is what makes the comparison instructive rather than a bare right or wrong.
+The `steps` widget is the natural instrument for the Explainer role. Ask the assistant to explain what an expression reduces to and why, then run the trace and compare the two accounts step by step. Disagreements are visible at the level of an individual substitution rather than only at the final answer, which is what makes the comparison instructive rather than a bare right or wrong.
 
 The `codelens` widget is the adjudicator for questions about identity and sharing, which is where assistants are least reliable and where students have the weakest intuitions. Asking whether modifying one name changes another, getting an answer, and then looking at the arrows is a complete cycle of the course's central rule in about ninety seconds.
 

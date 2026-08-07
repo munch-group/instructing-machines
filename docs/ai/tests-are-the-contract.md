@@ -3,9 +3,9 @@
 ::: {.column-margin}
 **The ladder so far**
 
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Unreliable Narrator](../intro/course-introduction.qmd#sec-badge-unreliable-narrator) · [**Worker**](../intro/course-introduction.qmd#sec-badge-worker)
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [**Worker**](../intro/course-introduction.qmd#sec-badge-worker)
 
-*Still to come:* [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Delegate](../intro/course-introduction.qmd#sec-badge-delegate)
+*Still to come:* [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
 
 You already know how to write a test. In the previous part of the course you learned to make a claim about a function in a form the machine can check, by writing a statement like assert gc_content('GGCC') == 1.0 and letting Python confirm or deny it. This week that skill stops being a way to check your own code and becomes the single most important tool you have for working with an assistant. The idea to hold on to is short: a test is a specification you can execute, and a specification is a contract. Once you see tests that way, the whole business of getting code out of a machine you cannot fully trust becomes manageable, because the test, and not the assistant and not even you, becomes the thing that decides whether the code is right.
