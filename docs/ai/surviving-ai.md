@@ -3,7 +3,7 @@
 ::: {.column-margin}
 **The ladder so far**
 
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [Developer](../intro/course-introduction.qmd#sec-badge-developer)
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
 
 The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.

@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
 """Check that the AI role ladder in the book runs straight.
 
-The course licenses the assistant in eight escalating roles.  Each role is
+The course licenses the assistant in five escalating roles.  Each role is
 introduced by exactly one chapter, and no exercise may license a role before
 the chapter that introduces it.  This script walks ``docs/_quarto.yml`` in
 render order, reads the badge under every ``#### Exercise`` heading, and fails
 if a badge appears too early.
+
+Translator, Illustrator and Worker were retired: the first two were folded
+into Explainer (translating code to English and back, and asking for more
+examples, are now moves within that rung) and Worker was folded into Drafter
+(writing tests before any code, and hiding them from the assistant, is now a
+stricter form of that rung). A badge using one of the three old names is not
+a stale reference to update quietly; it is a ladder violation this script
+should catch, which is why they stay out of LADDER below rather than being
+mapped onto their replacements.
 
 A badge is a plain link, set smaller than the surrounding text, to the rung's
 own section in ``intro/course-introduction.qmd``, so a student who has
@@ -41,11 +50,8 @@ from pathlib import Path
 # the build will tell you which exercises now sit on the wrong side of it.
 LADDER = [
     ("Explainer",           "intro/course-introduction.qmd"),
-    ("Translator",          "ai/how-models-produce-code.qmd"),
-    ("Illustrator",         "ai/how-models-produce-code.qmd"),
     ("Comparer",            "ai/ask-for-another-way.qmd"),
     ("Drafter",             "ai/let-it-draft.qmd"),
-    ("Worker",              "ai/tests-are-the-contract.md"),
     ("Collaborator",        "ai/plan-before-you-prompt.md"),
     ("Developer",           "ai/delegate-the-full-problem.md"),
 ]

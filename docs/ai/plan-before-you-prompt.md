@@ -3,7 +3,7 @@
 ::: {.column-margin}
 **The ladder so far**
 
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Worker](../intro/course-introduction.qmd#sec-badge-worker) · [**Collaborator**](../intro/course-introduction.qmd#sec-badge-collaborator)
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [**Collaborator**](../intro/course-introduction.qmd#sec-badge-collaborator)
 
 *Still to come:* [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::

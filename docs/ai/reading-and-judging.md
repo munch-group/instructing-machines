@@ -3,9 +3,9 @@
 ::: {.column-margin}
 **The ladder so far**
 
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [**Drafter**](../intro/course-introduction.qmd#sec-badge-drafter)
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [**Drafter**](../intro/course-introduction.qmd#sec-badge-drafter)
 
-*Still to come:* [Worker](../intro/course-introduction.qmd#sec-badge-worker), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
+*Still to come:* [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
 
 For most of this course you have been the one writing the code. You typed it, you traced the substitutions and reductions in your head, and you knew what every line did because you had put it there. Over the last few weeks that changed a little: you began letting the assistant draft small pieces for you. This week the situation changes completely. From here on, most of the code you work with will be code you did not write, produced by a machine that is very good at making it look correct. The skill you need now is reading rather than writing, and more than reading, judging: deciding whether a piece of code actually does what it claims, and proving that decision rather than trusting it.

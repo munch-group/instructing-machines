@@ -29,6 +29,8 @@ book:
     lightbox: true     
     downloads: [pdf, epub]
   chapters:
+
+
     # ------------------------------------------------------------------
     # Outstanding work, moved here from docs/planning/checklist.md so that
     # each task sits next to the week and the chapter it lands in.  Collect
@@ -36,16 +38,7 @@ book:
     # as the chapters it lists.  Delete an instruction in the same commit
     # that carries it out.
     #
-    # CLAUDE: no widget appears in any Python chapter. Counted as cells rather
-    #   than as mentions, the magics occur in three notebooks and all three are
-    #   demonstrations rather than teaching chapters: intro/widget-reference,
-    #   intro/script-vs-notebook and python/widget-demo. turtle/week3.qmd and
-    #   ai/predict-then-prove.qmd name them in prose but run none. %%exercise,
-    #   which CLAUDE.md 1 makes the form of every interspersed exercise,
-    #   appears nowhere in the book at all. This matters more than it looks:
-    #   "the AI predicts; the widget proves" is the organising principle of the
-    #   course, and the proving half currently has no machinery in the notes
-    #   where the predicting happens. docs/planning/widgets-in-the-python-notes.md
+    # CLAUDE:  docs/planning/widgets-in-the-python-notes.md
     #   already maps which widget belongs where; that mapping is unimplemented.
     #   The per-chapter notes below say where each one goes.
     # CLAUDE: confirm that `pixi run get <chapter>` reaches every chapter a
@@ -55,20 +48,12 @@ book:
     #   machine — install pixi from the .msi, unpack the course folder, open
     #   VS Code, run a widget. The .msi route is the documented one and nobody
     #   has confirmed the full sequence.
-
-    # CLAUDE: housekeeping, six small things. 
-    #  (6) The docs/jupyterlite
-    #   submodule's own .gitignore ignores content/course/ where build-demo.sh
-    #   writes content/*.ipynb; silenced from this side with ignore = untracked
-    #   in .gitmodules, but the path should be corrected to content/ the next
-    #   time munch-group-jupyterlite is touched.
-
     # ------------------------------------------------------------------
     - index.qmd
     - part: "Week 1"
       # Python: As always.
       # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
-      #   work in ai/meet-ai.qmd and ai/about-microsoft-copilot.qmd. 8 EXPLAINER
+      #   work in ai/meet-ai.qmd and ai/about-microsoft-copilot.qmd. 11 EXPLAINER
       #   exercises against 105 SOLO.
       # Workload: by a wide margin the heaviest week in the book — 11 chapters,
       #   ~24,400 words, 113 exercises, taught in the week the students know
@@ -103,15 +88,6 @@ book:
       chapters: 
         - python/if-else.ipynb
         - python/functions.ipynb
-          # CLAUDE: the Celsius exercise opens correctly — "converts from
-          #   celsius to Fahrenheit" — and then closes by telling the student
-          #   to "calculate the conversion to Celcius", so the direction error
-          #   survives in the last sentence, where it does the most damage. The
-          #   misspelling is in the identifier too: celcius2fahrenheit. The
-          #   hand-typed tracebacks here are also older than the Python the
-          #   students will run.
-          # CLAUDE: %%codelens belongs here, on the call frames and the local
-          #   scope. "A temporary little world" is a claim the widget can show.
         - ai/predict-then-prove.qmd
     - part: "Week 3"
       # Python: everything is an object — string methods, navigating the docs,
@@ -119,9 +95,10 @@ book:
       #   containers: lists (mutable, indexed, sliced, aliased), dictionaries
       #   (key-value, nesting, in) and tuples (immutable, packing, the swap).
       #   Turtle starts.
-      # AI: TRANSLATOR and ILLUSTRATOR, both introduced by
-      #   ai/how-models-produce-code.qmd, 2 exercises each, plus 10 EXPLAINER,
-      #   against 64 SOLO.
+      # AI: no new rung. ai/how-models-produce-code.qmd adds two more
+      #   EXPLAINER moves (translating code to English and back, asking for
+      #   more examples of a pattern) on top of the 10 already earned. 14
+      #   EXPLAINER against 65 SOLO.
       # Workload: 6 chapters, ~9,400 words, 78 exercises — the second-heaviest
       #   week. The chapters are badly uneven inside it: objects.ipynb is 2,564
       #   words and tuples.ipynb is 643.
@@ -129,17 +106,7 @@ book:
         - ai/how-models-produce-code.qmd
         - python/objects.ipynb
         - python/lists.ipynb
-          # CLAUDE: 'ATG...'.split('') raises, which kills the three examples
-          #   after it. Decide whether the empty separator is the lesson or an
-          #   accident, and either mark it as a deliberate bug with the
-          #   spot-the-bug callout CLAUDE.md 2 asks for, or fix it.
-          # CLAUDE: the prime %%codelens chapter, and it has no widget. Add the
-          #   aliasing exercise the notes stop just short of —
-          #   a = [1, 2, 3]; b = a; b.append(4); print(a) — have the student
-          #   predict, then let codelens adjudicate with the reference diagram.
         - python/dictionaries.ipynb
-          # CLAUDE: a note explains replacing age 70 with 71, but the code
-          #   overwrites job. Orphaned from whatever the example used to be.
         - python/tuples.ipynb
           # CLAUDE: at 643 words the thinnest chapter in the book that is not a
           #   stub, and flagged in the earlier audit for content rather than
@@ -161,9 +128,6 @@ book:
       chapters: 
         - ai/explain-then-confirm.qmd
         - python/iteration.ipynb
-          # CLAUDE: %%codelens on the nested-loop and range-step examples; the
-          #   two-counter trace is the thing students get wrong and the thing
-          #   the widget shows best.
         - python/testing.ipynb
           # CLAUDE: the smallest chapter doing the largest job. At 1392 words
           #   across eight cells — and a good part of that length is now the
@@ -196,11 +160,6 @@ book:
         # - python/list-comprehensions.ipynb
         - python/data_structures.ipynb
         - python/files.ipynb
-          # CLAUDE: the hand-typed tracebacks here are older than the Python
-          #   the students will run; regenerate them against the pinned
-          #   interpreter. While in the chapter, introduce
-          #   `with open(...) as f:` — the note teaches only the close-heavy
-          #   form, as CLAUDE.md 4.8 flags.
         - turtle/week5.qmd
     - part: "Week 6"
       # Python: composition — putting small tested functions together into
@@ -243,11 +202,12 @@ book:
     - part: "Week 8"
       # Python: no new Python. The alignment project and the turtle chapter
       #   carry the practice while the AI thread does the teaching.
-      # AI: WORKER (ai/tests-are-the-contract.md). The assistant stops being a source of
+      # AI: no new rung. ai/tests-are-the-contract.md deepens DRAFTER into its
+      #   stricter, contract-first form — the assistant stops being a source of
       #   explanations and becomes something you check. ai/reading-and-judging.md
-      #   licenses no new rung and now sits at DRAFTER. 3 WORKER and 3 DRAFTER
-      #   against 13 SOLO; 2 exercises carry no badge, where the point is that no
-      #   test or draft would have caught the fault.
+      #   also sits at DRAFTER. 6 DRAFTER against 13 SOLO; 2 exercises carry no
+      #   badge, where the point is that no test or draft would have caught the
+      #   fault.
       # Workload: 4 chapters, ~9,900 words, 21 exercises. Reading-heavy — the
       #   two AI notes are 4,857 words between them — but there is no new
       #   Python to absorb, so the total is manageable.
@@ -259,7 +219,7 @@ book:
     - part: "Week 9"
       # Python: packages and modules — using code from other files, the modern
       #   "giant's shoulders". new/biopython.ipynb is commented out below.
-      # AI: no new rung. ai/the-docs-are-the-test.qmd extends WORKER from "a
+      # AI: no new rung. ai/the-docs-are-the-test.qmd extends DRAFTER from "a
       #   test settles it" to "the real documentation settles it", which is the
       #   answer to invented library functions.
       # Workload: 4 chapters, ~7,100 words, plus the codon-bias project — but

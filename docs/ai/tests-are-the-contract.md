@@ -3,7 +3,7 @@
 ::: {.column-margin}
 **The ladder so far**
 
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Translator](../intro/course-introduction.qmd#sec-badge-translator) · [Illustrator](../intro/course-introduction.qmd#sec-badge-illustrator) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [**Worker**](../intro/course-introduction.qmd#sec-badge-worker)
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [**Drafter**](../intro/course-introduction.qmd#sec-badge-drafter)
 
 *Still to come:* [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
@@ -62,19 +62,19 @@ Now with no assistant at all, so that the mechanics are firmly yours. Take a fun
 
 #### Exercise
 
-[AI: Worker](../intro/course-introduction.qmd#sec-badge-worker){.small}
+[AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
 Run the full discipline in order, on the contract you wrote two exercises ago. You have the specification already, so now, and only now, ask the assistant to write the function. Give it the purpose and the signature. Do **not** give it your tests. Run your tests against what it produces. If they all pass, you have earned a limited and specific belief in the code, limited to the cases you actually specified. If one fails, notice that you found the disagreement before the code ever ran in anger, which is the entire reason for writing the contract first.
 
 #### Exercise
 
-[AI: Worker](../intro/course-introduction.qmd#sec-badge-worker){.small}
+[AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
 Now aim the contract at a decision rather than at a bug. Write a contract for `is_gc_rich(dna)`, a function that says whether a strand is GC rich, and make it decide two things the request itself leaves open: what happens at exactly one half, as in `'GGAT'`, and what happens for the empty strand. Decide both deliberately and write an `assert` for each. Then ask the assistant for the function using only the prose description, saying nothing about either case. Run your contract. Whatever it guessed, it guessed silently, and the only reason you can now tell whether the two of you agree is that you decided first. Record which of your two decisions it got wrong, if either.
 
 #### Exercise
 
-[AI: Worker](../intro/course-introduction.qmd#sec-badge-worker){.small}
+[AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
 Last, watch the contract outlive the code. Take the same specification and ask the assistant for a *second*, deliberately different implementation of the same function, perhaps by asking for one that avoids a loop, or one that a beginner would find easier to read. Run your unchanged tests against it. Two different pieces of code, one contract, the same verdict. That is what it means to say the implementation is replaceable and the specification is not, and it is why the tests are worth more than any particular function you will ever get out of a machine.
 
