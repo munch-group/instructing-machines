@@ -693,9 +693,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-invented-method" id="toc-sec-invented-method" class="nav-link active" data-scroll-target="#sec-invented-method">A method that does not exist</a></li>
   <li><a href="#sec-docs-as-test" id="toc-sec-docs-as-test" class="nav-link" data-scroll-target="#sec-docs-as-test">What actually caught it</a></li>
+  <li><a href="#sec-check-from-machine" id="toc-sec-check-from-machine" class="nav-link" data-scroll-target="#sec-check-from-machine">Checking from the machine, not just the browser</a></li>
+  <li><a href="#sec-wrong-assumption" id="toc-sec-wrong-assumption" class="nav-link" data-scroll-target="#sec-wrong-assumption">The call can be right and the assumption still wrong</a></li>
+  <li><a href="#sec-invention-modes" id="toc-sec-invention-modes" class="nav-link" data-scroll-target="#sec-invention-modes">Four ways to be wrong, and the traceback each one leaves</a></li>
   <li><a href="#sec-apis" id="toc-sec-apis" class="nav-link" data-scroll-target="#sec-apis">The same failure outside libraries</a></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-file-code"></i>Test</a></li><li><a href="slides/index.html"><i class="bi bi-file-easel"></i>Testing</a></li><li><a href="slides/index.html"><i class="bi bi-filetype-pdf"></i>Tester</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -719,7 +722,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>You have just met BioPython, and the note on reading it as a catalogue of contracts mentioned, in passing, the assistant’s weakest habit around libraries, which is that it sometimes invents a method that sounds exactly right and does not exist. Here is that failure in the flesh, so that you recognize it the first time it happens to you for real, and so that you know what to reach for when it does.</p>
+<p>You have just met BioPython, and the note on reading it as a catalog of contracts mentioned, in passing, the assistant’s weakest habit around libraries, which is that it sometimes invents a method that sounds exactly right and does not exist. Here is that failure in the flesh, so that you recognize it the first time it happens to you for real, and so that you know what to reach for when it does.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
@@ -741,8 +744,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sec-docs-as-test" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-docs-as-test">What actually caught it</h2>
-<p>Notice exactly what caught this, because it generalises to every library and every interface you will ever touch. It was not that the code looked wrong, because it looked fine right up until it ran. It was not a hunch either. It was the documentation, checked, which had no entry for <code>Seq.gc_content</code> and did have an entry for <code>SeqUtils.gc_fraction</code>, with a stated contract that matched what you actually wanted.</p>
+<p>Notice exactly what caught this, because it generalizes to every library and every interface you will ever touch. It was not that the code looked wrong, because it looked fine right up until it ran. It was not a hunch either. It was the documentation, checked, which had no entry for <code>Seq.gc_content</code> and did have an entry for <code>SeqUtils.gc_fraction</code>, with a stated contract that matched what you actually wanted.</p>
 <p>The real documentation is the test an invented call fails, exactly the way a hand-written <code>assert</code> is a test a wrong function fails. It is the only thing that reliably catches this particular failure, because reading the call a second time, more carefully, will not help. It was written to look right.</p>
+</section>
+<section id="sec-check-from-machine" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-check-from-machine">Checking from the machine, not just the browser</h2>
+<p>Checking the documentation so far has meant opening a browser tab and reading a page, and that works. It is not the only way, and the other way puts the proving half of “the assistant predicts, the machine proves” back in your own hands instead of a search engine’s. From inside the interpreter itself, <code>dir(dna)</code> lists every attribute and method the object actually has, so <code>'gc_content' in dir(dna)</code> would have told you, before you ever ran anything, that the method the assistant offered simply is not there. In an interactive session or a notebook, typing <code>dna.</code> and pressing tab does the same job, showing you the real list rather than a remembered or guessed one. And <code>help(gc_fraction)</code>, once you have imported it, prints the same contract the web page would have shown you: what it takes, what it returns, and any assumptions stated in its description, without leaving the file you are already working in.</p>
+<p>Reading what either of those shows you is its own small skill. A signature such as <code>gc_fraction(seq, ambiguous="remove")</code> is telling you two things in one line: <code>seq</code> is required, since it has no default and the call fails without it, and <code>ambiguous</code> is optional, since <code>="remove"</code> is exactly what happens if you say nothing about it. An assistant’s call that quietly drops a required argument, or supplies an optional one you never asked it to set, becomes visible the moment you hold it up against this line, which is the actual reason to read a signature yourself rather than trust that a call must be fine because it runs. The last line of what <code>help()</code> shows you, usually a short description of the return value, is the one students skip first and need most. It is exactly what would have told you, before a single test, that <code>gc_fraction</code> hands back a fraction rather than a percentage.</p>
+</section>
+<section id="sec-wrong-assumption" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-wrong-assumption">The call can be right and the assumption still wrong</h2>
+<p>Fix the call from earlier and you are not quite finished. Once you know to reach for <code>gc_fraction</code> instead of the invented <code>.gc_content()</code>, the natural next step is to call it and believe whatever number comes back, because the call itself is now correct: real function, real object, no <code>AttributeError</code> anywhere in sight.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.SeqUtils <span class="im">import</span> gc_fraction</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> Seq(<span class="st">'ATGGCCTGA'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gc_fraction(dna))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run that and you get <code>0.5555555555555556</code>. If you have spent any time at all around sequence data, GC content is a number people say out loud as a percentage, “fifty-six percent GC,” and it would be entirely natural to read <code>0.556</code> and assume the function rounded strangely, or to multiply it by 100 out of habit and get a number that looks right without ever checking whether doing so was necessary. Nothing about this crashes. Nothing about it looks wrong. It is the quietest of the ways an assistant, or you, can be mistaken about a real function: the call is exactly right, and the assumption about what the returned value means is not. The signature’s return line from <span class="quarto-unresolved-ref">?sec-check-from-machine</span> would have settled this immediately: it names a fraction, not a percentage.</p>
+<p>This is exactly where a documentation check earns its keep by becoming a test rather than staying a fact you read once and might misremember under pressure two weeks from now. You already know how to do this from <a href="tests-are-the-contract.html" class="quarto-xref"><span>Chapter 37</span></a>: work out the answer to a small case by hand, and pin the contract down with <code>assert</code> before you build anything else on top of it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> gc_fraction(Seq(<span class="st">'GGCC'</span>)) <span class="op">==</span> <span class="fl">1.0</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> gc_fraction(Seq(<span class="st">'ATAT'</span>)) <span class="op">==</span> <span class="fl">0.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Written this way, the fact that the function returns a fraction is no longer something to remember correctly under pressure. It is enforced, the same way every contract in this course eventually becomes an <code>assert</code> instead of a memory, and the next person to read your code, including you in a month, inherits the corrected assumption for free.</p>
+</section>
+<section id="sec-invention-modes" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-invention-modes">Four ways to be wrong, and the traceback each one leaves</h2>
+<p>Step back from the two examples so far and name the whole shape of the problem, because “an invented function” is actually four different failures wearing the same fluent surface, and each one leaves a different piece of evidence behind.</p>
+<p>The first is the one that opened this note: a method that does not exist at all, on this object or on any other. Python’s answer is an <code>AttributeError</code>, naming the object and the missing attribute exactly, <code>'Seq' object has no attribute 'gc_content'</code>. Take that message at face value: it is Python telling you, correctly, that no such thing has ever existed on this object.</p>
+<p>The second is a real function called with an argument that does not exist. Ask for the second-frame translation of a coding sequence and you might get back a call like this, which reads perfectly, because plenty of other bioinformatics tools do take a frame argument:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> Seq(<span class="st">'ATGGCCTGA'</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dna.translate(frame<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>Seq.translate()</code> is not one of those tools. Its signature holds <code>table</code>, <code>stop_symbol</code>, <code>to_stop</code>, <code>cds</code>, and <code>gap</code>, nothing named <code>frame</code> anywhere in it, so Python raises a different exception this time:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>TypeError: translate() got an unexpected keyword argument 'frame'</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The fix is a different approach rather than a different argument: slice the sequence to the frame you want before translating it, <code>dna[1:].translate()</code> for frame two. A <code>TypeError</code> on a call that otherwise looks entirely right is almost always this mode, the right idea aimed at an argument the real function was never given.</p>
+<p>The third is the one the last section just walked through: a real function, called correctly, whose return value means something other than what you assumed. This is the quietest of the four, because it raises no exception at all. Nothing crashes, so nothing prompts you to go looking, which is exactly why the read-the-signature habit from <span class="quarto-unresolved-ref">?sec-check-from-machine</span> has to run every time, not only when something visibly breaks.</p>
+<p>The fourth is a real function that used to exist and does not anymore. <code>Bio.SeqUtils.GC</code> is the example with an exact paper trail: for years it was the standard way to get GC content, deprecated in BioPython’s 1.80 release in favor of <code>gc_fraction</code>, and removed outright in release 1.82. Try this on a current install:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.SeqUtils <span class="im">import</span> GC</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ImportError: cannot import name 'GC' from 'Bio.SeqUtils'</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is the most unsettling of the four to meet as a beginner, because the assistant was not guessing and was not wrong about syntax. It was reporting something that used to be true, about a version of the library that no longer matches the one sitting in your own environment. An <code>AttributeError</code> means the thing was never real. An <code>ImportError</code> on a name that clearly used to mean something means it was real once, and calls for a different next step than the other three: search the documentation for your installed version specifically, since the page a search engine hands you first may still be describing the <code>GC</code> that used to exist rather than the <code>gc_fraction</code> that replaced it. A search engine has no way of knowing which version sits in your own environment, so before you trust what any page says a function does, check your own copy from inside the interpreter itself, <code>import Bio; print(Bio.__version__)</code>, and read the documentation for that exact version rather than whichever one happened to load first.</p>
 </section>
 <section id="sec-apis" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-apis">The same failure outside libraries</h2>
@@ -752,39 +791,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 data-number="40.0.0.1" class="anchored" data-anchor-id="sec-ex-invented-function"><strong>Exercise 40-1</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-drafter" class="small">AI: Drafter</a></p>
 <p>Ask the assistant for a one-line way to reverse-translate a protein string back into a possible DNA coding sequence using BioPython. Before running anything, search the real BioPython documentation for whatever function or method it names. Does it exist, under that name, taking those arguments? Record what you found either way, because a call that turns out to be real is as much a result as one that turns out to be invented.</p>
+</section>
+<section id="sec-ex-molecular-weight" class="level4" data-number="40.0.0.2">
+<h4 data-number="40.0.0.2" class="anchored" data-anchor-id="sec-ex-molecular-weight"><strong>Exercise 40-2</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Before opening the assistant at all, find <code>Bio.SeqUtils.molecular_weight</code> in the real BioPython documentation and answer the three questions from <a href="documentation-and-resources.html" class="quarto-xref"><span>Chapter 43</span></a>: what it takes, what it returns, and what it assumes. Pay particular attention to any argument that has a default value. Then decide, from the documentation alone, what <code>molecular_weight('AGC')</code> should return, and what would change if the same three letters were meant as a protein sequence rather than a DNA one. Only after you have written your answer down, run it both ways and check yourself against it.</p>
+</section>
+<section id="sec-ex-codon-lookup-compare" class="level4" data-number="40.0.0.3">
+<h4 data-number="40.0.0.3" class="anchored" data-anchor-id="sec-ex-codon-lookup-compare"><strong>Exercise 40-3</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-comparer" class="small">AI: Comparer</a></p>
+<p>Open two separate, fresh conversations. In each, ask for a one-line way to get the amino acid a single codon codes for using BioPython, without writing a codon table by hand yourself. Compare the two answers before you run either one. Do they name the same object and the same call, or did the assistant reach into two different corners of the library, such as <code>Seq(codon).translate()</code> in one answer and something from <code>Bio.Data.CodonTable</code> in the other? Check whatever each one named against the real documentation, the way this note has been doing throughout, and only then run both on a codon whose amino acid you already know by heart. If the two conversations disagreed, at least one of them was a guess dressed as an answer, and checking is how you find out which.</p>
 <p>For your logbook this week, note whether you have caught the assistant inventing a function or parameter yet, in this course or elsewhere, and if not, say specifically what you now intend to check before you next call a library method you did not write yourself.</p>
-<!-- AUTHORING NOTE, not rendered. Candidate additions for this chapter,
-against the thinness flagged in docs/planning/checklist.md section 2.
-Promote to prose as you write them; delete the bullet once it is done.
-
-- **The three other invention modes.** The chapter treats invention as exists
-  or does not exist. Add the right name with wrong arguments, the right call
-  with a wrongly assumed return type, and the right function from the wrong
-  version of the library.
-- **Deprecation, which is the commonest real case.** `Bio.SeqUtils.GC` was real
-  and is gone. The assistant is often quoting a version the student does not
-  have, which is a harder and more useful idea than invention: an answer can be
-  both true and useless.
-- **The chapter's own fix contains the third mode.** `gc_fraction` returns a
-  fraction and a student will expect a percentage. Use it as the worked
-  example: the call was right, the assumption about what came back was not.
-- **Check existence from the machine, not only from the browser.**
-  `dir(Seq)`, tab completion, `help(gc_fraction)`. At the moment the proving
-  half of the course slogan is a web search; give them something they can run.
-- **Turn the doc check into an `assert`.** Once the contract has been read,
-  write the line that pins it. This is the direct link to `python/testing.ipynb`.
-- **Read the traceback as evidence.** `AttributeError`, `TypeError` and
-  `ImportError` each tell you which failure mode you hit, and so what to check
-  next.
-- **How to read a signature.** Which arguments are required, what a default
-  means, what the return line promises. Half the value of documentation is
-  unavailable to a student who has never been shown how a doc page is laid out.
-- **Which version do you actually have.** `Bio.__version__` against the pin in
-  `student-folder/pixi.toml`, so the doc page and the installed library are
-  known to agree.
-- **More exercises.** One is thin for a chapter carrying a week's AI slot. Add
-  a `SOLO` documentation reading drill and an `AI: Comparer` pair.
--->
 
 
 </section>
