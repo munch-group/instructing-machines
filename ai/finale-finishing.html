@@ -630,7 +630,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
- <span class="menu-text">Cheatsheets</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -640,12 +640,6 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -667,7 +661,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#sec-augmentation" id="toc-sec-augmentation" class="nav-link" data-scroll-target="#sec-augmentation">What you actually built</a></li>
   <li><a href="#sec-remaining-limits" id="toc-sec-remaining-limits" class="nav-link" data-scroll-target="#sec-remaining-limits">The limits that do not go away</a></li>
   </ul>
-</nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -691,12 +685,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>At this point the pieces of your tool exist, each of them tested, each of them built on pieces that were tested before it. What remains is the part that most projects skimp on, which is the finishing: making the whole thing work end to end, testing the one function you have been quietly avoiding, and then stepping back far enough to see what you have actually demonstrated. That last step is not decoration. The point of the finale was never the tool. It was to find out whether you can produce something correct, understood, and defensible in a domain you know, using a machine you do not fully trust, and the finishing is where you find out.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer">Explainer</a> · <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a> · <a href="../intro/course-introduction.html#sec-badge-drafter">Drafter</a> · <a href="../intro/course-introduction.html#sec-badge-collaborator">Collaborator</a> · <a href="../intro/course-introduction.html#sec-badge-developer">Developer</a></p>
-</div></div><p>At this point the pieces of your tool exist, each of them tested, each of them built on pieces that were tested before it. What remains is the part that most projects skimp on, which is the finishing: making the whole thing work end to end, testing the one function you have been quietly avoiding, and then stepping back far enough to see what you have actually demonstrated. That last step is not decoration. The point of the finale was never the tool. It was to find out whether you can produce something correct, understood, and defensible in a domain you know, using a machine you do not fully trust, and the finishing is where you find out.</p>
-<section id="sec-interface-function" class="level2 unnumbered">
+</div></div><section id="sec-interface-function" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-interface-function">The function that faces you</h2>
 <p>Every tool has a piece at the top that faces the person using it, the one that prints the report, draws the plot, writes the output file, or answers the question the tool was built to answer. It is almost always the last one built and almost always the least tested, for a reason that sounds convincing and is not: you can see it working. It ran, output appeared, the output looked like a report, and so it must be fine.</p>
 <p>Look at what that reasoning actually covers. It confirms that the function produced output without crashing. It says nothing about whether the numbers in that output are the right numbers, whether the labels are attached to the values they describe, whether a filter that was supposed to exclude something actually excluded it, or whether a count is off by one at the edges. Every one of those failures produces output that looks exactly like success, because looking right is a property of the formatting and not of the content.</p>

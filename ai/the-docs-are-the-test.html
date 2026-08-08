@@ -665,7 +665,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
- <span class="menu-text">Cheatsheets</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -675,12 +675,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -701,7 +695,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-docs-as-test" id="toc-sec-docs-as-test" class="nav-link" data-scroll-target="#sec-docs-as-test">What actually caught it</a></li>
   <li><a href="#sec-apis" id="toc-sec-apis" class="nav-link" data-scroll-target="#sec-apis">The same failure outside libraries</a></li>
   </ul>
-</nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -725,13 +719,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>You have just met BioPython, and the note on reading it as a catalogue of contracts mentioned, in passing, the assistant’s weakest habit around libraries, which is that it sometimes invents a method that sounds exactly right and does not exist. Here is that failure in the flesh, so that you recognize it the first time it happens to you for real, and so that you know what to reach for when it does.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer">Explainer</a> · <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a> · <a href="../intro/course-introduction.html#sec-badge-drafter"><strong>Drafter</strong></a></p>
 <p><em>Still to come:</em> <a href="../intro/course-introduction.html#sec-badge-collaborator">Collaborator</a>, <a href="../intro/course-introduction.html#sec-badge-developer">Developer</a></p>
-</div></div><p>You have just met BioPython, and the note on reading it as a catalogue of contracts mentioned, in passing, the assistant’s weakest habit around libraries, which is that it sometimes invents a method that sounds exactly right and does not exist. Here is that failure in the flesh, so that you recognize it the first time it happens to you for real, and so that you know what to reach for when it does.</p>
-<section id="sec-invented-method" class="level2 unnumbered">
+</div></div><section id="sec-invented-method" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-invented-method">A method that does not exist</h2>
 <p>Ask an assistant for the GC content of a BioPython <code>Seq</code> object and you may well get back something like this.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq</span>

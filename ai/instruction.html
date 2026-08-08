@@ -630,7 +630,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
- <span class="menu-text">Cheatsheets</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -640,12 +640,6 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -665,7 +659,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#layers-of-instruction" id="toc-layers-of-instruction" class="nav-link active" data-scroll-target="#layers-of-instruction">Layers of instruction</a></li>
   <li><a href="#ai" id="toc-ai" class="nav-link" data-scroll-target="#ai">AI</a></li>
   </ul>
-</nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -689,20 +683,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Programmers face a trade-off. The closer your instructions are to the machine’s own language, the more direct control you have, and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write, and the more you are trusting something else to bridge the communication with the CPU. The history of programming is basically a history of adding new layers to the stack of translations between you and the CPU.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer"><strong>Explainer</strong></a></p>
 <p><em>Still to come:</em> <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a>, <a href="../intro/course-introduction.html#sec-badge-drafter">Drafter</a>, <a href="../intro/course-introduction.html#sec-badge-collaborator">Collaborator</a>, <a href="../intro/course-introduction.html#sec-badge-developer">Developer</a></p>
-</div></div><p>Programmers face a trade-off. The closer your instructions are to the machine’s own language, the more direct control you have, and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write, and the more you are trusting something else to bridge the communication with the CPU. The history of programming is basically a history of adding new layers to the stack of translations between you and the CPU.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
+</div><div class="">
 <pre class="mermaid"><code>flowchart TD
     AI["An AI assistant: a request in plain language"] --&gt;|translates down to| PY["Python: an interpreted language"]
     PY --&gt;|translates down to| C["C and other compiled languages"]
     C --&gt;|translates down to| ASM["Assembly"]
     ASM --&gt;|translates down to| MC["Machine code: the raw bits the CPU runs"]</code></pre>
-</div></div><section id="layers-of-instruction" class="level2 unnumbered">
+</div></div>
+<section id="layers-of-instruction" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="layers-of-instruction">Layers of instruction</h2>
 <p>At the bottom is machine code, the raw bits the CPU runs. One step up is assembly, which swaps the bit patterns for short words like <code>MOV</code> and <code>ADD</code>, still one word per machine step. Higher up are compiled languages like C: now you write recognizable words and arithmetic, and a program translates the whole thing down to machine code before it runs. Higher still are interpreted languages, and this is where Python lives, the language you are about to learn.</p>
 <p>In the diagram, notice that every level is a translator down to the level below it. Assembly is translated to machine code; C is translated to assembly code; Python code is handled by a the Python <em>program</em>, which turns each instruction into machine steps as it goes. <!-- At each level, people worried that the level below would become a lost art, and every time, understanding the level below stayed valuable exactly for the moments when the translation went wrong or the stakes were high. Molecular biology is full of high-stakes moments. Keep that thought; it will matter again once the AI enters the picture. --> This makes Python an <em>interpreted</em> language. Unlike the C language where a compiler takes your entire code file and translates it all into machine code before it runs, Python it reads your file with code and runs its instructions, one line at a time and produce the machine code to make the CPU execute the instruction. This is also, quietly, why we make you run scripts from the terminal before we ever open a notebook. Typing <code>python hello.py</code> forces four things apart that a notebook glues together: the file on the disk, the interpreter that reads it, the CPU that does the work, and the terminal where you launch it and watch the output. Once you have felt those four as separate things, the rest of the course is much less mysterious.</p>

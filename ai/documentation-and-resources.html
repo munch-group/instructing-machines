@@ -665,7 +665,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
- <span class="menu-text">Cheatsheets</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -675,12 +675,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -703,7 +697,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#combining-capabilities-and-where-it-goes-wrong" id="toc-combining-capabilities-and-where-it-goes-wrong" class="nav-link" data-scroll-target="#combining-capabilities-and-where-it-goes-wrong">Combining capabilities, and where it goes wrong</a></li>
   <li><a href="#one-more-resource-mentioned-and-set-aside" id="toc-one-more-resource-mentioned-and-set-aside" class="nav-link" data-scroll-target="#one-more-resource-mentioned-and-set-aside">One more resource, mentioned and set aside</a></li>
   </ul>
-</nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -728,13 +722,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>Reading a library or a web service as a catalog of contracts.</em></p>
+<p>A few weeks ago you wrote your own <code>translate</code> function, codon by codon, and you hit a real bug doing it. That was worth doing by hand once, because now you understand exactly what translation involves. You are not going to keep doing it by hand. This week you meet BioPython, a library written and tested by people who work on exactly this kind of problem, and the skill this note actually teaches is not “how to use BioPython.” It is how to read <em>any</em> library, or any web API, well enough to use it correctly without ever reading how it works inside.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer">Explainer</a> · <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a> · <a href="../intro/course-introduction.html#sec-badge-drafter"><strong>Drafter</strong></a></p>
 <p><em>Still to come:</em> <a href="../intro/course-introduction.html#sec-badge-collaborator">Collaborator</a>, <a href="../intro/course-introduction.html#sec-badge-developer">Developer</a></p>
-</div></div><p>A few weeks ago you wrote your own <code>translate</code> function, codon by codon, and you hit a real bug doing it. That was worth doing by hand once, because now you understand exactly what translation involves. You are not going to keep doing it by hand. This week you meet BioPython, a library written and tested by people who work on exactly this kind of problem, and the skill this note actually teaches is not “how to use BioPython.” It is how to read <em>any</em> library, or any web API, well enough to use it correctly without ever reading how it works inside.</p>
-<section id="the-idea-you-already-have" class="level3 unnumbered">
+</div></div><section id="the-idea-you-already-have" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="the-idea-you-already-have">The idea you already have</h3>
 <p>You already learned this idea; it just had a different name. A class bundles data with the methods that act on it, and you call those methods without needing to know how they are implemented, because a method is a promise: given an object in a certain state, called with certain arguments, it returns or does a certain thing. That promise is a <strong>contract</strong>, and you trust it the same way you trust <code>len</code> or <code>.append()</code>, not because you have read their source, but because their contract is documented and you have seen it hold. A library is nothing more than a large collection of such contracts, written by someone else, that you are now allowed to call the same way.</p>
 </section>

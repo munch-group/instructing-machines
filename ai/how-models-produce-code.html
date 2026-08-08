@@ -665,7 +665,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
- <span class="menu-text">Cheatsheets</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -675,12 +675,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -699,7 +693,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#two-more-explainer-moves" id="toc-two-more-explainer-moves" class="nav-link active" data-scroll-target="#two-more-explainer-moves">Two more Explainer moves</a></li>
   </ul>
-</nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -724,13 +718,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>A plain, non-technical account of what a model is doing when it writes code.</em></p>
+<p>Back in week one you met the idea that an assistant guesses its next word rather than reasoning about truth, and you saw it guess a stop codon out of a sentence rather than out of an actual sequence. Two weeks of predicting expressions and confirming explanations later, it is worth asking the same question about the thing you will lean on most for the rest of the course: what is the assistant actually doing when it hands you a function?</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer"><strong>Explainer</strong></a></p>
 <p><em>Still to come:</em> <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a>, <a href="../intro/course-introduction.html#sec-badge-drafter">Drafter</a>, <a href="../intro/course-introduction.html#sec-badge-collaborator">Collaborator</a>, <a href="../intro/course-introduction.html#sec-badge-developer">Developer</a></p>
-</div></div><p>Back in week one you met the idea that an assistant guesses its next word rather than reasoning about truth, and you saw it guess a stop codon out of a sentence rather than out of an actual sequence. Two weeks of predicting expressions and confirming explanations later, it is worth asking the same question about the thing you will lean on most for the rest of the course: what is the assistant actually doing when it hands you a function?</p>
-<p>The answer is: exactly the same thing, token by token, except the tokens now spell Python instead of English. Ask for a function that translates a codon into an amino acid, and the model does not consult a codon table, does not run anything, and does not check its answer against biology. It produces the most statistically plausible next piece of code, given everything you have said and everything like it in its training, one token at a time, until the function looks finished. <code>def</code>, then a plausible name, then a plausible parameter, then a plausible body, each choice made the same way a plausible next word was chosen when it was writing you a sentence.</p>
+</div></div><p>The answer is: exactly the same thing, token by token, except the tokens now spell Python instead of English. Ask for a function that translates a codon into an amino acid, and the model does not consult a codon table, does not run anything, and does not check its answer against biology. It produces the most statistically plausible next piece of code, given everything you have said and everything like it in its training, one token at a time, until the function looks finished. <code>def</code>, then a plausible name, then a plausible parameter, then a plausible body, each choice made the same way a plausible next word was chosen when it was writing you a sentence.</p>
 <p>This is exactly why it is so good at looking right. Function names, docstrings, tidy indentation, a sensible-looking dictionary of base pairs, all of these are things that appear constantly in real, correct code, so the model reproduces that surface fluently and by default. What it has no access to at all is whether the specific logic inside that familiar-looking surface actually computes what the name promises. Nothing in the process of predicting the next plausible token includes running the function and checking the result, because the model is not running anything. It is guessing what correct code tends to look like, not verifying that this particular code is correct.</p>
 <p>That gap between looking right and being right is not a flaw that will be patched out of some future version. It is a direct consequence of how the model works, in the same way that a coin does not become less random with practice. A more capable model will guess better, more often, on harder problems, but “guessing better, more often” is still guessing. It can still be fluent, confident, and wrong on exactly the case you needed right, and it will hand you that wrong answer with the same tidy formatting it hands you a correct one. There is no warning light. Nothing about the way an assistant presents a wrong function is different from the way it presents a right one, because from the inside, generating one was no different from generating the other.</p>
 <p>This is also why an assistant is not simply the newest, friendliest compiler, even though the ladder in week one might have tempted you toward that reading. A compiler is a deterministic translator: the same source always produces the same machine code, and that machine code means exactly what the source said, because the translation follows fixed rules a person wrote down and proved correct. Ask the same model the same question twice and you can get two different functions back, and neither one comes with a guarantee that it means what you asked. That single difference, guaranteed meaning versus plausible meaning, is why every rung below the assistant on that ladder can be trusted the moment it compiles, and the assistant cannot be trusted until you have checked it yourself.</p>

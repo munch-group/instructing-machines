@@ -665,7 +665,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
- <span class="menu-text">Cheatsheets</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -675,12 +675,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -703,7 +697,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#verifying-the-result-twice" id="toc-verifying-the-result-twice" class="nav-link" data-scroll-target="#verifying-the-result-twice">Verifying the result, twice</a></li>
   <li><a href="#why-this-is-the-rehearsal-it-claims-to-be" id="toc-why-this-is-the-rehearsal-it-claims-to-be" class="nav-link" data-scroll-target="#why-this-is-the-rehearsal-it-claims-to-be">Why this is the rehearsal it claims to be</a></li>
   </ul>
-</nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -728,13 +722,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>A companion clinic on building on machinery you did not write, rehearsing the move the codon-bias project and the finale both ask of you.</em></p>
+<p>You now have the two halves separately: reading a library’s documentation as a set of contracts, and catching the assistant when it invents one that does not exist. This clinic puts both halves to work on an actual small task, live, the way you will need to on this week’s project and, eventually, on the finale. The task: given a DNA coding sequence, report whether its reverse complement, read as a coding sequence, translates cleanly to a protein with no internal stop codon.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer">Explainer</a> · <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a> · <a href="../intro/course-introduction.html#sec-badge-drafter">Drafter</a> · <a href="../intro/course-introduction.html#sec-badge-collaborator"><strong>Collaborator</strong></a></p>
 <p><em>Still to come:</em> <a href="../intro/course-introduction.html#sec-badge-developer">Developer</a></p>
-</div></div><p>You now have the two halves separately: reading a library’s documentation as a set of contracts, and catching the assistant when it invents one that does not exist. This clinic puts both halves to work on an actual small task, live, the way you will need to on this week’s project and, eventually, on the finale. The task: given a DNA coding sequence, report whether its reverse complement, read as a coding sequence, translates cleanly to a protein with no internal stop codon.</p>
-<section id="deciding-what-the-task-needs-before-asking-for-anything" class="level3 unnumbered">
+</div></div><section id="deciding-what-the-task-needs-before-asking-for-anything" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="deciding-what-the-task-needs-before-asking-for-anything">Deciding what the task needs before asking for anything</h3>
 <p>Before typing a single prompt, name the capabilities the task actually requires, the way you would decompose a task into functions. This one needs a reverse complement of a DNA sequence, a translation of a DNA sequence into a protein, and a check for whether a stop codon, shown by BioPython as <code>*</code>, appears anywhere before the final position of that protein. The first two are exactly the <code>Seq</code> methods you met two notes ago. The third is not a library operation at all, it is a small piece of logic over the result, which matters: you are about to direct the assistant to combine library calls, and knowing in advance which parts are the library’s job and which part is yours is what keeps you from asking it to reinvent <code>.translate()</code> badly, or from quietly accepting logic it wrote for the one part you should have written yourself.</p>
 </section>

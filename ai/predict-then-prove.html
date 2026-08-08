@@ -630,7 +630,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
- <span class="menu-text">Cheatsheets</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -640,12 +640,6 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../intro/widget-reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">The tools you check your work with</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/widget-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Widget demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -662,14 +656,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#part-1-warm-up-arithmetic-precedence-30-min" id="toc-part-1-warm-up-arithmetic-precedence-30-min" class="nav-link active" data-scroll-target="#part-1-warm-up-arithmetic-precedence-30-min">Part 1 — Warm-up: arithmetic precedence (30 min)</a></li>
-  <li><a href="#part-2-comparisons-and-boolean-logic-35-min" id="toc-part-2-comparisons-and-boolean-logic-35-min" class="nav-link" data-scroll-target="#part-2-comparisons-and-boolean-logic-35-min">Part 2 — Comparisons and boolean logic (35 min)</a></li>
-  <li><a href="#part-3-short-circuit-values-not-just-truefalse-35-min" id="toc-part-3-short-circuit-values-not-just-truefalse-35-min" class="nav-link" data-scroll-target="#part-3-short-circuit-values-not-just-truefalse-35-min">Part 3 — Short-circuit values, not just True/False (35 min)</a></li>
-  <li><a href="#part-4-mixed-types-and-strings-30-min" id="toc-part-4-mixed-types-and-strings-30-min" class="nav-link" data-scroll-target="#part-4-mixed-types-and-strings-30-min">Part 4 — Mixed types and strings (30 min)</a></li>
-  <li><a href="#part-5-break-the-ai-30-min" id="toc-part-5-break-the-ai-30-min" class="nav-link" data-scroll-target="#part-5-break-the-ai-30-min">Part 5 — Break the AI (30 min)</a></li>
-  <li><a href="#wrap-up-10-min" id="toc-wrap-up-10-min" class="nav-link" data-scroll-target="#wrap-up-10-min">Wrap-up (10 min)</a></li>
+  <li><a href="#warm-up-arithmetic-precedence-30-min" id="toc-warm-up-arithmetic-precedence-30-min" class="nav-link active" data-scroll-target="#warm-up-arithmetic-precedence-30-min">Warm-up: arithmetic precedence (30 min)</a></li>
+  <li><a href="#comparisons-and-boolean-logic-35-min" id="toc-comparisons-and-boolean-logic-35-min" class="nav-link" data-scroll-target="#comparisons-and-boolean-logic-35-min">Comparisons and boolean logic (35 min)</a></li>
+  <li><a href="#short-circuit-values-not-just-truefalse-35-min" id="toc-short-circuit-values-not-just-truefalse-35-min" class="nav-link" data-scroll-target="#short-circuit-values-not-just-truefalse-35-min">Short-circuit values, not just True/False (35 min)</a></li>
+  <li><a href="#mixed-types-and-strings-30-min" id="toc-mixed-types-and-strings-30-min" class="nav-link" data-scroll-target="#mixed-types-and-strings-30-min">Mixed types and strings (30 min)</a></li>
+  <li><a href="#break-the-ai-30-min" id="toc-break-the-ai-30-min" class="nav-link" data-scroll-target="#break-the-ai-30-min">Break the AI (30 min)</a></li>
+  <li><a href="#logbook-10-min" id="toc-logbook-10-min" class="nav-link" data-scroll-target="#logbook-10-min">Logbook (10 min)</a></li>
   </ul>
-</nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://munch-group.org/instructing-machines/slides/index.html"><i class="bi bi-link-45deg"></i>Slides</a></li><li><a href="slides/index.html"><i class="bi bi-link-45deg"></i>Test</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -694,26 +688,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><em>The week-two AI beat: a claim about what code does is a prediction to be checked.</em></p>
+<p>The routine for this whole session is the same three-way move, repeated on harder and harder expressions until it is automatic. You predict what an expression evaluates to, by hand, doing the substitution and reduction steps yourself. You ask the assistant what it evaluates to, and read its answer, including whatever reasoning it gives. Then you run it through the <code>%%steps</code> widget, which is the only one of the three that actually reduces the expression step by step and cannot be talked around. Three answers, one witness. When your prediction and the assistant’s answer agree, that is pleasant and proves nothing. When they disagree, or when either of you turns out to be wrong, that is the session working exactly as intended.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>The ladder so far</strong></p>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer"><strong>Explainer</strong></a></p>
 <p><em>Still to come:</em> <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a>, <a href="../intro/course-introduction.html#sec-badge-drafter">Drafter</a>, <a href="../intro/course-introduction.html#sec-badge-collaborator">Collaborator</a>, <a href="../intro/course-introduction.html#sec-badge-developer">Developer</a></p>
-</div></div><div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session length
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Estimated 3 hours, run as this week’s TA session. Bring last week’s precedence and substitution/reduction notes; every round below runs on that material.</p>
-</div>
-</div>
-<p>The routine for this whole session is the same three-way move, repeated on harder and harder expressions until it is automatic. You predict what an expression evaluates to, by hand, doing the substitution and reduction steps yourself. You ask the assistant what it evaluates to, and read its answer, including whatever reasoning it gives. Then you run it through the <code>%%steps</code> widget, which is the only one of the three that actually reduces the expression step by step and cannot be talked around. Three answers, one witness. When your prediction and the assistant’s answer agree, that is pleasant and proves nothing. When they disagree, or when either of you turns out to be wrong, that is the session working exactly as intended.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
+</div></div><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -731,8 +712,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p>Every round below carries the <code>AI: Explainer</code> badge, which is the rung of the ladder you were given in week one and the only one you have so far. You are putting something in front of the assistant that already exists and asking it to explain that thing; you are not asking it to write anything, and you are not asking it to choose between two versions. What makes this session demanding is not the permission, which is the smallest one there is, but how hard you are going to work it. Rung one, twenty-two times, until checking a claim against a machine is what your hands do without being told.</p>
-<section id="part-1-warm-up-arithmetic-precedence-30-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="part-1-warm-up-arithmetic-precedence-30-min">Part 1 — Warm-up: arithmetic precedence (30 min)</h2>
+<section id="warm-up-arithmetic-precedence-30-min" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="warm-up-arithmetic-precedence-30-min">Warm-up: arithmetic precedence (30 min)</h2>
 <p>Straightforward operator precedence, to get the three-way move running smoothly before anything tricky shows up.</p>
 <section id="exercise-1" class="level4" data-number="12.0.0.1">
 <h4 data-number="12.0.0.1" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 12-1</strong></h4>
@@ -760,8 +741,8 @@ ul.task-list li input[type="checkbox"] {
 <p><code>7 % 3 + 2 * 5 // 2</code></p>
 </section>
 </section>
-<section id="part-2-comparisons-and-boolean-logic-35-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="part-2-comparisons-and-boolean-logic-35-min">Part 2 — Comparisons and boolean logic (35 min)</h2>
+<section id="comparisons-and-boolean-logic-35-min" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="comparisons-and-boolean-logic-35-min">Comparisons and boolean logic (35 min)</h2>
 <p>Chained comparisons and <code>not</code>/<code>and</code>/<code>or</code> precedence are a place fluent-sounding wrong answers are common, because the rules read as obvious right up until you meet a case that breaks the obvious reading.</p>
 <section id="exercise-6" class="level4" data-number="12.0.0.6">
 <h4 data-number="12.0.0.6" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 12-6</strong></h4>
@@ -789,8 +770,8 @@ ul.task-list li input[type="checkbox"] {
 <p><code>not True and not False</code></p>
 </section>
 </section>
-<section id="part-3-short-circuit-values-not-just-truefalse-35-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="part-3-short-circuit-values-not-just-truefalse-35-min">Part 3 — Short-circuit values, not just True/False (35 min)</h2>
+<section id="short-circuit-values-not-just-truefalse-35-min" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="short-circuit-values-not-just-truefalse-35-min">Short-circuit values, not just True/False (35 min)</h2>
 <p><code>and</code> and <code>or</code> do not return <code>True</code> or <code>False</code>; they return whichever operand decided the outcome. This is the single richest source of a plausible-but-wrong AI answer in this whole session, because “and/or return booleans” is a very natural, very common, very wrong simplification.</p>
 <section id="exercise-11" class="level4" data-number="12.0.0.11">
 <h4 data-number="12.0.0.11" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 12-11</strong></h4>
@@ -818,8 +799,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Ask the assistant, before predicting or proving anything, to state in one sentence what <code>and</code> and <code>or</code> return in Python. Only after you have its claim in writing, run Exercises 11–14 through the widget and check its general claim against all four actual results. Does its one-sentence rule survive contact with all four?</p>
 </section>
 </section>
-<section id="part-4-mixed-types-and-strings-30-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="part-4-mixed-types-and-strings-30-min">Part 4 — Mixed types and strings (30 min)</h2>
+<section id="mixed-types-and-strings-30-min" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="mixed-types-and-strings-30-min">Mixed types and strings (30 min)</h2>
 <p>Precedence and truthiness interact with strings, repetition, and coercion in ways worth a dedicated round.</p>
 <section id="exercise-16" class="level4" data-number="12.0.0.16">
 <h4 data-number="12.0.0.16" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 12-16</strong></h4>
@@ -847,8 +828,8 @@ ul.task-list li input[type="checkbox"] {
 <p><code>len('ATG') == 3 and 'G' in 'ATG'</code></p>
 </section>
 </section>
-<section id="part-5-break-the-ai-30-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="part-5-break-the-ai-30-min">Part 5 — Break the AI (30 min)</h2>
+<section id="break-the-ai-30-min" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="break-the-ai-30-min">Break the AI (30 min)</h2>
 <p>Now you write the expressions. Working alone or with a partner, construct <strong>two</strong> expressions of your own, each combining precedence, comparison, and short-circuit logic, specifically designed to be the kind of case a fluent guesser would get wrong: something where the obvious-looking simplification (like “and/or return booleans”) fails. Trade your two expressions with another pair. For each expression you receive, do the full three-way move: predict, ask, prove.</p>
 <section id="exercise-21" class="level4" data-number="12.0.0.21">
 <h4 data-number="12.0.0.21" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 12-21</strong></h4>
@@ -861,8 +842,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Run the full three-way move on the two expressions you received from the other pair. Report back to them, in one sentence each, whether their trap actually caught the assistant, caught you, caught neither, or caught both.</p>
 </section>
 </section>
-<section id="wrap-up-10-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="wrap-up-10-min">Wrap-up (10 min)</h2>
+<section id="logbook-10-min" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="logbook-10-min">Logbook (10 min)</h2>
 <p>For your logbook this week, report your personal tally across the whole session: how many of the roughly twenty expressions the assistant got wrong, how many you got wrong, and whether the two of you tended to get the <em>same</em> ones wrong or <em>different</em> ones. That last question matters more than the raw count — it tells you whether your instincts and the assistant’s failure modes overlap, which is exactly the thing you need to know to check it well.</p>
 
 
