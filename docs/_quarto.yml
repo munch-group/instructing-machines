@@ -1,13 +1,13 @@
 project:
   type: book
   output-dir: _book
-  # post-render:
-  #   - python3 ../scripts/build_student_folder.py
-  #   - quarto render slides/
-  #   - rm -rf _book/_build/slides
-  #   - mkdir -p _book/_build
-  #   - mv slides/_build _book/_build/slides
-  #   - scripts/build-demo.sh
+  post-render:
+    - python3 ../scripts/build_student_folder.py
+    - quarto render slides/
+    - rm -rf _book/_build/slides
+    - mkdir -p _book/_build
+    - mv slides/_build _book/_build/slides
+    - scripts/build-demo.sh
   
   #   - quarto render --to html --profile ta
   #   - quarto render --to html --profile draft
@@ -38,9 +38,6 @@ book:
     # as the chapters it lists.  Delete an instruction in the same commit
     # that carries it out.
     #
-    # CLAUDE:  docs/planning/widgets-in-the-python-notes.md
-    #   already maps which widget belongs where; that mapping is unimplemented.
-    #   The per-chapter notes below say where each one goes.
     # CLAUDE: confirm that `pixi run get <chapter>` reaches every chapter a
     #   student is asked to download, and that docs/_book/notebooks/index.txt
     #   lists them all after a full render.
@@ -48,7 +45,6 @@ book:
     #   machine — install pixi from the .msi, unpack the course folder, open
     #   VS Code, run a widget. The .msi route is the documented one and nobody
     #   has confirmed the full sequence.
-    #
     # CLAUDE: term-readiness review (2026-08-08). Below are the findings that
     #   are book-wide rather than one chapter's; the per-chapter ones sit
     #   under their own lines further down.
@@ -60,12 +56,6 @@ book:
     #   to students is to download that zip. Wire the build step into the
     #   real publish workflow before term, and confirm a real publish
     #   produces it.
-    # CLAUDE: course-design.qmd's Workload section calls week 1 a "breather
-    #   week." The Week 1 note below says the opposite — by a wide margin the
-    #   heaviest week in the book — and per the rule at the top of this file
-    #   this note is the one that's authoritative where they disagree. Fix
-    #   course-design.qmd to agree, and do the hour-budget check the Week 1
-    #   note already asks for; nothing in the repo shows it has happened yet.
     # ------------------------------------------------------------------
     - index.qmd
     - part: "Week 1"
@@ -84,15 +74,6 @@ book:
       chapters: 
         - intro/course-introduction.qmd
         - python/getting_started.ipynb
-          # CLAUDE: four crossrefs don't resolve — two to
-          #   @sec-if-something-goes-wrong, one each to @sec-installing-pixi
-          #   and @sec-opening-the-folder (confirmed in a full render: four
-          #   "Unable to resolve crossref" warnings, all in this chapter and
-          #   nowhere else in the book). This book only numbers
-          #   #### Exercise headings (see crossref: sec-prefix below);
-          #   ordinary ## sections stay unnumbered on purpose, so @sec-x can
-          #   never resolve to one here. Change all four to plain links, e.g.
-          #   [If something goes wrong](#sec-if-something-goes-wrong).
         - python/hello-world.ipynb
         - intro/notebooks.ipynb
         - ai/meet-ai.qmd

@@ -16,12 +16,18 @@ student-zip = "python3 scripts/build_student_folder.py"
 # committing. Quarto itself never executes (execute: enabled: false in
 # docs/_quarto.yml), so this is the only place a broken cell gets caught.
 clean-notebooks = "python3 tools/clean_notebooks.py"
-
 # Convenience wrapper: repairs the docs/jupyterlite pixi env if this repo
 # was moved/cloned to a new path and its baked-in interpreter paths went
 # stale. build-demo.sh's pixi tasks already run this automatically; this
 # is for running it by hand.
 jupyterlite-doctor = "pixi run --manifest-path docs/jupyterlite/pixi.toml doctor"
+
+[tasks.prompts]
+args = [
+  { "arg" = "strict", "default" = "--strict" },
+  { "arg" = "match", "default" = "" },
+]
+cmd = "python tools/prompts.py {{ strict }} {{ match }}"
 
 [dependencies]
 jupyter = ">=1.1.1,<2"
