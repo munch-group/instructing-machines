@@ -15,19 +15,23 @@ student-zip = "python3 scripts/build_student_folder.py"
 # strip their output — run this after editing any notebook, before
 # committing. Quarto itself never executes (execute: enabled: false in
 # docs/_quarto.yml), so this is the only place a broken cell gets caught.
-clean-notebooks = "python3 tools/clean_notebooks.py"
+clean-notebooks = "python3 scripts/clean_notebooks.py"
 # Convenience wrapper: repairs the docs/jupyterlite pixi env if this repo
 # was moved/cloned to a new path and its baked-in interpreter paths went
 # stale. build-demo.sh's pixi tasks already run this automatically; this
 # is for running it by hand.
 jupyterlite-doctor = "pixi run --manifest-path docs/jupyterlite/pixi.toml doctor"
 
-[tasks.prompts]
+[tasks.todo]
+# Defaults match the old `prompts` task's behaviour (CLAUDE: only, strict):
+# `pixi run todo` alone is unchanged. Pass `--todo "--todo"` to also collect
+# TODO:/FIXME:, or `--claude ""` to turn CLAUDE: off and get TODO:/FIXME: only.
 args = [
-  { "arg" = "strict", "default" = "--strict" },
+  { "arg" = "claude", "default" = "" },
+  { "arg" = "todo", "default" = "" },
   { "arg" = "match", "default" = "" },
 ]
-cmd = "python tools/prompts.py {{ strict }} {{ match }}"
+cmd = "python scripts/todo.py --strict {{ claude }} {{ todo }} {{ match }}"
 
 [dependencies]
 jupyter = ">=1.1.1,<2"

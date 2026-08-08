@@ -6,7 +6,7 @@ project:
     - quarto render slides/
     - rm -rf _book/_build/slides
     - mkdir -p _book/_build
-    - mv slides/_build _book/_build/slides
+    - mv slides/_build _book/slides
     - scripts/build-demo.sh
   
   #   - quarto render --to html --profile ta
@@ -297,7 +297,7 @@ book:
       chapters: 
         - ai/surviving-ai.md
         - ai/the-ai-off-test.qmd
-    - part: "Cheatsheets"
+    - part: "Resources"
       # AI: not part of the ladder. 1 DRAFTER and 1 EXPLAINER against 2 SOLO.
       # Workload: reference material; no teaching time attached.
       chapters:
@@ -309,7 +309,13 @@ book:
           #   "Check the course environment" import list in
           #   .github/workflows/quarto-publish.yml) or the command fails for
           #   every student who tries it.
-        - python/widget-demo.ipynb
+        # - python/widget-demo.ipynb
+        # - href: "./demo/index.html"
+        #   text: "Widget demo"
+    # - href: "https://github.com/munch-group/instructing-machines/slides/index.html"
+    #   text: "Slides"
+    # - href: "https://github.com/munch-group/instructing-machines/demo/index.html"
+    #   text: "Widget demo"
 
 # bibliography: references.bib
 
@@ -321,7 +327,7 @@ crossref:
 execute:
   echo: true        # show the source code (default: true)
   enabled: false    # never execute at render time. Notebooks are executed and verified
-                     #   separately (`pixi run clean-notebooks`, tools/clean_notebooks.py),
+                     #   separately (`pixi run clean-notebooks`, scripts/clean_notebooks.py),
                      #   then stripped of output before commit, so the website and the
                      #   download are always the same notebook — the one a student would
                      #   open and run, not one with the answer already sitting in it.
@@ -366,6 +372,13 @@ format:
     df-print: paged     # pandas DataFrames render as a nice paged/sortable HTML table instead of a text repr
     # code-tools: true     # adds a "</> Code" menu in the top-right to show/hide all code and view page source
     code-fold: false     # project-wide default for folding (per-cell/per-notebook can still override)
+
+    other-links:
+      - text: Slides
+        href: https://munch-group.org/instructing-machines/slides/index.html
+      - text: Test
+        href: slides/index.html
+
 
   ipynb: default
 

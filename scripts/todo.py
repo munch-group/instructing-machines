@@ -1,18 +1,31 @@
 #!/usr/bin/env python3
-"""Collect the inline instructions left in the book for the assistant.
+"""Collect the inline annotations left in the book.
 
 While authoring, it is much cheaper to write "expand this" next to the
 paragraph than to remember it and describe it afterwards in a chat message.
 This script is the other half of that: it walks ``docs/_quarto.yml`` in render
-order and prints every instruction, where it sits, and what it points at, so
-the assistant can pick up a term's worth of notes-to-self in one go.
+order and prints every annotation, where it sits, and what it points at, so
+a term's worth of notes can be collected in one pass.
 
-The notation is a token inside an ordinary comment, in the form the
-surrounding cell already uses::
+Two kinds of annotation share the same shape but mean different things, and
+this script reads either or both, chosen with a flag:
+
+``--claude`` reads the ``CLAUDE:`` token -- work handed to the assistant::
 
     <!-- CLAUDE: expand the paragraph below to cover the empty string -->
 
     # CLAUDE: add four exercises about lists here, predict-then-run
+
+``--todo`` reads ``TODO:`` and ``FIXME:`` instead -- notes Kasper is writing
+to himself, not a handoff::
+
+    <!-- TODO: find another example than Donald Trump -->
+
+    # FIXME: this direction is backwards, check against the walkthrough
+
+Both flags can be given together, in which case every annotation found is
+labelled with which token it was, so the two kinds stay distinguishable in
+one combined pass.
 
 The prose form works in a markdown cell, a ``.qmd`` and a ``.md``; the code
 form works in a code cell and a ``.py``.  Both are invisible to the student:
@@ -20,15 +33,15 @@ pandoc drops the comment for PDF and EPUB, and leaves it unrendered in HTML.
 The token matters more than the comment does.  A bare ``<!-- ... -->`` is not
 enough to search for, because the book already contains over a thousand of
 them -- commented-out figures, slide scratch, notes to self -- and an
-instruction lost in that crowd is an instruction that never gets done.
+annotation lost in that crowd is one that never gets picked up.
 
-An instruction applies to what follows it, up to the next heading, unless its
+An annotation applies to what follows it, up to the next heading, unless its
 own text says otherwise.  Put it immediately above the paragraph, cell or
 exercise it is about, rather than at the top of the chapter: "the paragraph
 below" is unambiguous, "the third paragraph" stops being true on the next
 edit.
 
-Instructions also live in ``docs/_quarto.yml`` itself, in the ``#`` form,
+Annotations also live in ``docs/_quarto.yml`` itself, in the ``#`` form,
 where they carry the work that belongs to a chapter as a whole rather than to
 a paragraph inside it -- and the work that belongs to no chapter at all, which
 has nowhere else to sit.  Those are read first and reported against the
@@ -36,15 +49,19 @@ chapter line they are written under.
 
 Run it from anywhere in the repository::
 
-    python3 tools/prompts.py                # everything, in render order
-    python3 tools/prompts.py --json         # the same, for a machine
-    python3 tools/prompts.py python/lists   # only chapters matching a string
-    python3 tools/prompts.py --strict       # exit 1 if any instruction remains
+    python3 scripts/todo.py --claude                # CLAUDE: only, in render order
+    python3 scripts/todo.py --todo                  # TODO:/FIXME: only
+    python3 scripts/todo.py --claude --todo         # both, each labelled
+    python3 scripts/todo.py --claude --json         # the same, for a machine
+    python3 scripts/todo.py --claude python/lists   # only chapters matching a string
+    python3 scripts/todo.py --claude --strict       # exit 1 if any annotation remains
 
-Exit status is 1 when an instruction is malformed -- ``<!-- CLAUDE add a
-figure -->`` with no colon, say -- because a malformed instruction is worse
+At least one of ``--claude``/``--todo`` is required.
+
+Exit status is 1 when an annotation is malformed -- ``<!-- CLAUDE add a
+figure -->`` with no colon, say -- because a malformed annotation is worse
 than an unfinished one: it is silently invisible to this script and so will
-never be picked up at all.  Otherwise it is 0, since leaving instructions
+never be picked up at all.  Otherwise it is 0, since leaving annotations
 lying around is the normal state of a chapter being written, and only
 ``--strict`` treats that as a failure.
 """
@@ -72,16 +89,13 @@ def _sibling(name: str):
 
 ORDER = _sibling("check-badge-order.py")
 
-# The instruction itself.  Case-insensitive on the token so that a shouted or
-# a quiet CLAUDE both count, and tolerant of whitespace around the colon.
-PROSE = re.compile(r"<!--\s*CLAUDE\s*:\s*(.*?)-->", re.S | re.I)
-CODE = re.compile(r"#\s*CLAUDE\s*:\s*(.*)$", re.I | re.M)  # re.M: a code
-# cell is many lines, and without it "$" would only match the last of them.
-
-# Near misses: the token is there but the shape is wrong, so neither pattern
-# above will ever see it.  Reported loudly rather than skipped.
-MALFORMED = re.compile(r"(<!--[^>]{0,20}CLAUDE(?!\s*:)[^>]{0,60}-->"
-                       r"|^\s*#\s*CLAUDE(?!\s*:).{0,60}$)", re.M | re.I)
+# Which tokens each flag turns on. --todo covers both TODO and FIXME because
+# both are notes Kasper is writing to himself, not a handoff to the
+# assistant -- CLAUDE.md draws that line explicitly.
+TOKEN_GROUPS = {
+    "claude": ["CLAUDE"],
+    "todo": ["TODO", "FIXME"],
+}
 
 HEADING = re.compile(r"^#{1,6}\s")
 
@@ -89,11 +103,32 @@ HEADING = re.compile(r"^#{1,6}\s")
 # throws comments away and the comments are the entire point here.
 PART = re.compile(r"^\s*-\s*part:\s*[\"']?(.+?)[\"']?\s*$")
 CHAPTER = re.compile(r"^\s{4,}-\s+([\w./-]+\.(?:qmd|md|ipynb))\s*$")
-QSTART = re.compile(r"^\s*#\s*CLAUDE\s*:\s*(.*)$", re.I)
-# A continuation is a comment line indented past the token; ordinary
-# commentary in this file is written with a single space after the "#", so the
-# two cannot be confused and a blank "#" ends an instruction.
-QCONT = re.compile(r"^\s*#\s{2,}(\S.*)$")
+
+
+class Patterns:
+    """The regexes for one run, built from whichever tokens are active.
+
+    Case-insensitive on the token so that a shouted or a quiet CLAUDE (or
+    todo, or fixme) both count, and tolerant of whitespace around the colon.
+    Each pattern captures the token itself as well as the text, so a
+    combined --claude --todo run can still say which one it found.
+    """
+
+    def __init__(self, tokens: list[str]):
+        alt = "|".join(re.escape(t) for t in tokens)
+        self.prose = re.compile(rf"<!--\s*({alt})\s*:\s*(.*?)-->", re.S | re.I)
+        self.code = re.compile(rf"#\s*({alt})\s*:\s*(.*)$", re.I | re.M)
+        # Near misses: the token is there but the shape is wrong, so neither
+        # pattern above will ever see it. Reported loudly rather than skipped.
+        self.malformed = re.compile(
+            rf"(<!--[^>]{{0,20}}(?:{alt})(?!\s*:)[^>]{{0,60}}-->"
+            rf"|^\s*#\s*(?:{alt})(?!\s*:).{{0,60}}$)", re.M | re.I)
+        self.qstart = re.compile(rf"^\s*#\s*({alt})\s*:\s*(.*)$", re.I)
+        # A continuation is a comment line indented past the token; ordinary
+        # commentary in _quarto.yml is written with a single space after the
+        # "#", so the two cannot be confused and a blank "#" ends one.
+        self.qcont = re.compile(r"^\s*#\s{2,}(\S.*)$")
+        self.tokens = tokens
 
 
 def cells_of(path: Path):
@@ -116,10 +151,10 @@ def cells_of(path: Path):
 
 
 def target_of(body: str, offset: int) -> str:
-    """The first line of what an instruction points at, for the report.
+    """The first line of what an annotation points at, for the report.
 
-    Blank lines and the tail of the instruction's own line are skipped; the
-    search stops at the next heading, because an instruction does not reach
+    Blank lines and the tail of the annotation's own line are skipped; the
+    search stops at the next heading, because an annotation does not reach
     past one.
     """
     for line in body[offset:].split("\n")[1:]:
@@ -132,34 +167,35 @@ def target_of(body: str, offset: int) -> str:
     return "(end of chapter)"
 
 
-def instructions_in(path: Path):
-    """Yield every instruction in a chapter, in the order it is read."""
+def instructions_in(path: Path, patterns: Patterns):
+    """Yield every annotation in a chapter, in the order it is read."""
     for kind, first, body in cells_of(path):
-        pattern = CODE if kind == "code" else PROSE
+        pattern = patterns.code if kind == "code" else patterns.prose
         for found in pattern.finditer(body):
             line = first + body[:found.start()].count("\n")
             yield {
                 "line": line,
                 "cell": kind,
-                "text": " ".join(found.group(1).split()),
+                "kind_tag": found.group(1).upper(),
+                "text": " ".join(found.group(2).split()),
                 "target": target_of(body, found.end()),
             }
 
 
-def malformed_in(path: Path):
-    """Yield (line, text) for every instruction the patterns cannot read."""
+def malformed_in(path: Path, patterns: Patterns):
+    """Yield (line, text) for every annotation the patterns cannot read."""
     for _, first, body in cells_of(path):
-        for found in MALFORMED.finditer(body):
-            # A well-formed instruction never reaches here, but a code cell
+        for found in patterns.malformed.finditer(body):
+            # A well-formed annotation never reaches here, but a code cell
             # discussing the convention might; the colon is the whole test.
             line = first + body[:found.start()].count("\n")
             yield line, " ".join(found.group(0).split())[:100]
 
 
-def instructions_in_quarto(path: Path):
-    """Yield every instruction written into _quarto.yml itself.
+def instructions_in_quarto(path: Path, patterns: Patterns):
+    """Yield every annotation written into _quarto.yml itself.
 
-    An instruction is reported against the chapter line it sits under, or as
+    An annotation is reported against the chapter line it sits under, or as
     week-wide or book-wide when it sits under a part or above the first one.
     """
     found, current = [], None
@@ -171,15 +207,15 @@ def instructions_in_quarto(path: Path):
         seen = CHAPTER.match(raw)
         if seen:
             chapter, current = seen.group(1), None
-        start = QSTART.match(raw)
+        start = patterns.qstart.match(raw)
         if start:
             current = {"week": week, "chapter": chapter, "line": number,
-                       "cell": "yaml", "text": start.group(1).strip(),
-                       "target": chapter}
+                       "cell": "yaml", "kind_tag": start.group(1).upper(),
+                       "text": start.group(2).strip(), "target": chapter}
             found.append(current)
             continue
         if current is not None:
-            more = QCONT.match(raw)
+            more = patterns.qcont.match(raw)
             if more:
                 current["text"] += " " + more.group(1).strip()
             else:
@@ -191,17 +227,30 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("match", nargs="?", default="",
                         help="only chapters whose path contains this string")
+    parser.add_argument("--claude", action="store_true",
+                        help="collect CLAUDE: annotations (work handed to the assistant)")
+    parser.add_argument("--todo", action="store_true",
+                        help="collect TODO:/FIXME: annotations (notes to self)")
     parser.add_argument("--json", action="store_true",
                         help="machine-readable output")
     parser.add_argument("--strict", action="store_true",
-                        help="exit 1 if any instruction is still outstanding")
+                        help="exit 1 if any annotation is still outstanding")
     args = parser.parse_args()
+
+    if not args.claude and not args.todo:
+        parser.error("specify at least one of --claude or --todo")
+
+    tokens = []
+    for flag, group in (("claude", args.claude), ("todo", args.todo)):
+        if group:
+            tokens += TOKEN_GROUPS[flag]
+    patterns = Patterns(tokens)
 
     root = Path(__file__).resolve().parent.parent
     docs = root / "docs"
 
     collected, broken = [], []
-    for one in instructions_in_quarto(docs / "_quarto.yml"):
+    for one in instructions_in_quarto(docs / "_quarto.yml", patterns):
         if args.match and args.match not in one["chapter"]:
             continue
         collected.append(one)
@@ -211,9 +260,9 @@ def main() -> int:
         path = docs / relative
         if not path.exists():
             continue
-        for one in instructions_in(path):
+        for one in instructions_in(path, patterns):
             collected.append({"week": week, "chapter": relative, **one})
-        for line, text in malformed_in(path):
+        for line, text in malformed_in(path, patterns):
             broken.append({"chapter": relative, "line": line, "text": text})
 
     if args.json:
@@ -230,21 +279,22 @@ def main() -> int:
                 where += ", code cell"
             elif one["cell"] == "yaml":
                 where += ", in _quarto.yml"
-            print(f"  {where}: {one['text']}")
+            print(f"  {where} ({one['kind_tag']}): {one['text']}")
             if one["cell"] != "yaml":
                 print(f"      points at: {one['target']}")
         if collected:
-            print(f"\n{len(collected)} instruction(s) outstanding.")
+            print(f"\n{len(collected)} annotation(s) outstanding.")
         else:
-            print("No instructions outstanding.")
+            print("No annotations outstanding.")
 
     if broken:
-        print(f"\n{len(broken)} instruction(s) are malformed and would never "
+        forms = "/".join(f"'{t}:'" for t in tokens)
+        print(f"\n{len(broken)} annotation(s) are malformed and would never "
               f"be picked up:", file=sys.stderr)
         for one in broken:
             print(f"  {one['chapter']}:{one['line']}: {one['text']}",
                   file=sys.stderr)
-        print("The form is 'CLAUDE:' with a colon, inside an HTML comment in "
+        print(f"The form is {forms} with a colon, inside an HTML comment in "
               "prose or after a # in a code cell.", file=sys.stderr)
         return 1
 

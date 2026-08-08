@@ -299,25 +299,31 @@ to the week it lands in gets done and a task in a separate document does not.
 The `CLAUDE:` token, with the colon, is what makes an instruction findable. A
 bare `<!-- ... -->` is not: the book already contains over a thousand HTML
 comments — commented-out figures, slide scratch, notes to self — and an
-instruction lost in that crowd never gets done. `TODO:` stays what it has
-always been, a note Kasper is writing to himself; `CLAUDE:` is work handed
-over.
+instruction lost in that crowd never gets done. `TODO:` and `FIXME:` stay what
+they have always been, a note Kasper is writing to himself; `CLAUDE:` is work
+handed over. All three share the same shape (an HTML comment in prose, a `#`
+comment in code) and the same collector, but are picked up separately so a
+personal note is never mistaken for a handoff.
 
 An instruction applies to what follows it, up to the next heading, unless its
 own text says otherwise. Put it immediately above the paragraph, cell or
 exercise it concerns: "the paragraph below" stays true across edits, "the
 third paragraph" does not.
 
-`tools/prompts.py` is the pickup side. It reads `_quarto.yml` itself and then
+`scripts/todo.py` is the pickup side. It reads `_quarto.yml` itself and then
 walks the chapters it lists in render order, printing every instruction with
 its week, chapter, line and the first line of whatever it points at, so a
-term's worth of notes can be collected in one pass:
+term's worth of notes can be collected in one pass. `--claude` collects the
+handoff notes, `--todo` collects `TODO:`/`FIXME:`, and both can be given
+together, each labelled with which token it was:
 
 ```
-python3 tools/prompts.py                # everything, in render order
-python3 tools/prompts.py python/lists   # only chapters matching a string
-python3 tools/prompts.py --json         # the same, for a machine
-python3 tools/prompts.py --strict       # exit 1 if any instruction remains
+python3 scripts/todo.py --claude                # CLAUDE:, in render order
+python3 scripts/todo.py --todo                  # TODO:/FIXME: only
+python3 scripts/todo.py --claude --todo         # both, each labelled
+python3 scripts/todo.py --claude python/lists   # only chapters matching a string
+python3 scripts/todo.py --claude --json         # the same, for a machine
+python3 scripts/todo.py --claude --strict       # exit 1 if any instruction remains
 ```
 
 It exits 1 on a *malformed* instruction — `<!-- CLAUDE add a figure -->`, with

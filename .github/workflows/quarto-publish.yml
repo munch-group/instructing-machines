@@ -67,7 +67,7 @@ jobs:
         # to run `pixi run clean-notebooks` locally doesn't publish a diff
         # with baked-in answers — though the fix belongs in their commit, not
         # in this CI run, since nothing here gets committed back.
-        run: python3 tools/clean_notebooks.py
+        run: python3 scripts/clean_notebooks.py
 
       - name: Install rsvg-convert
         # The book's figures include SVGs (docs/ai/images/fig-*.svg), and the

@@ -15,8 +15,8 @@ rather than as one paragraph of counts.
 To read the whole list at once, as this document used to be read:
 
 ```
-python3 tools/prompts.py            # in render order, with week and chapter
-python3 tools/prompts.py --json     # the same, for a machine
+python3 scripts/todo.py --claude            # in render order, with week and chapter
+python3 scripts/todo.py --claude --json     # the same, for a machine
 ```
 
 Items that were already done are not carried over; they are in the git history
