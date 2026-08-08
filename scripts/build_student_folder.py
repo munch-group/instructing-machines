@@ -70,7 +70,7 @@ TEMPLATE_SKIP = {"vscode"}
 WEEK1_DESTINATION = "week1"
 WEEK1_NOTEBOOKS = [
     REPO / "docs" / "intro" / "notebooks.ipynb",
-    REPO / "docs" / "ai" / "log-book.ipynb",
+    REPO / "docs" / "ai" / "logbook.ipynb",
 ]
 
 # Every chapter notebook is published loose next to the zip so that

@@ -1,5 +1,7 @@
 # Instruction {#sec-instruction}
 
+Programmers face a trade-off. The closer your instructions are to the machine's own language, the more direct control you have, and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write, and the more you are trusting something else to bridge the communication with the CPU. The history of programming is basically a history of adding new layers to the stack of translations between you and the CPU.
+
 ::: {.column-margin}
 **The ladder so far**
 
@@ -7,8 +9,6 @@
 
 *Still to come:* [Comparer](../intro/course-introduction.qmd#sec-badge-comparer), [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
-
-Programmers face a trade-off. The closer your instructions are to the machine's own language, the more direct control you have, and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write, and the more you are trusting something else to bridge the communication with the CPU. The history of programming is basically a history of adding new layers to the stack of translations between you and the CPU.
 
 ::: {.column-margin}
 ::: {.content-visible when-format="html"}

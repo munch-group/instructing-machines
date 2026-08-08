@@ -2,6 +2,8 @@
 
 *The assistant as Comparer: judging between alternatives is the student's job.*
 
+There is rarely one correct way to write a function, and an assistant asked for a second solution will usually produce one, cheerfully, whether or not it is actually better. The skill this session builds is not getting a second opinion; it is judging between two things that both run, both look plausible, and may both even pass your tests. That judgment is yours to make, and it depends on understanding both versions well enough to say, specifically, why one is better than the other for a stated reason, not a feeling.
+
 ::: {.column-margin}
 **The ladder so far**
 
@@ -9,13 +11,6 @@
 
 *Still to come:* [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
-
-::: {.callout-note}
-## Session length
-Estimated 3 hours, run as this week's TA session, alongside this week's translation project.
-:::
-
-There is rarely one correct way to write a function, and an assistant asked for a second solution will usually produce one, cheerfully, whether or not it is actually better. The skill this session builds is not getting a second opinion; it is judging between two things that both run, both look plausible, and may both even pass your tests. That judgment is yours to make, and it depends on understanding both versions well enough to say, specifically, why one is better than the other for a stated reason, not a feeling.
 
 ::: {.callout-tip}
 ## A rubric for judging two solutions
@@ -25,11 +20,11 @@ There is rarely one correct way to write a function, and an assistant asked for 
 - **Idiom.** Does one use Python the way this course has taught you to read it, or does it lean on a trick you cannot yet explain?
 :::
 
-## Part 1 — Warm-up, done together (20 min)
+## Warm-up, done together (20 min)
 
 As a group, ask the assistant for two ways to reverse a DNA string: one using slicing, one using a loop. Read both aloud. Run both on `'ATGGCC'` and on `''`. Apply the rubric above out loud as a class before anyone works alone, so everyone has seen the process modeled once.
 
-## Part 2 — Two solutions, three problems (50 min)
+## Two solutions, three problems (50 min)
 
 Working alone or in pairs, for each problem below, ask the assistant for two different solutions in two separate requests (do not ask for "two ways" in one prompt, which tends to produce two trivial variations of the same idea rather than two properly different approaches). Test both against at least one gentle and one nasty input. Apply the rubric and write one sentence naming your winner and the specific rubric point that decided it.
 
@@ -51,7 +46,7 @@ A function that checks whether a DNA string is a palindrome, meaning it reads th
 
 A function that takes a list of DNA strings and returns the one with the highest GC content.
 
-## Part 3 — Clever versus readable (30 min)
+## Clever versus readable (30 min)
 
 Some second solutions are not just different, they are compressed: a one-liner using a comprehension or a chained method call, offered in place of a plainer loop.
 
@@ -67,7 +62,7 @@ Take your solution to Exercise 1 or 2. Explicitly ask the assistant for "a more 
 
 Decide, honestly, whether you would have understood the compact version if you had been handed it cold, with no plainer version alongside it to compare against. Write down the specific feature, a comprehension, a chained call, a slice trick, that made it harder, if anything did.
 
-## Part 4 — Defend your choice, in writing (30 min)
+## Defend your choice, in writing (30 min)
 
 #### Exercise 6
 
@@ -75,7 +70,7 @@ Decide, honestly, whether you would have understood the compact version if you h
 
 Pick whichever of Exercises 1 through 3 produced the closest call between its two solutions. Write a short paragraph, three to five sentences, defending your choice of winner to someone who has not seen either solution: name the specific rubric point that decided it, and name one weakness you can actually point to in the version you did **not** pick, so your defense acknowledges the trade-off rather than presenting one side of it.
 
-## Part 5 — Ask for a third way (25 min)
+## Ask for a third way (25 min)
 
 A comparer's job does not stop at picking a winner between two options; sometimes the right move is to ask for better.
 
@@ -85,6 +80,6 @@ A comparer's job does not stop at picking a winner between two options; sometime
 
 Take the losing solution from any one of Exercises 1 through 3. Without showing the assistant the winner, tell it specifically what was weak about the loser, using your own rubric-based reasoning from earlier, and ask for a third version that fixes exactly that weakness. Test the third version the same way you tested the first two. Did naming the specific weakness produce a real improvement, or did the assistant just rephrase the same approach?
 
-## Wrap-up (10 min)
+## Logbook (10 min)
 
 For your logbook this week, report which rubric point, correctness, readability, efficiency, or idiom, did the most work deciding your choices today, and describe one moment where your first instinct about which solution was "better" changed after you actually tested both on a nasty input.

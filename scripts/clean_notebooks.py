@@ -16,7 +16,7 @@ cell's output and execution count, and finally strips the two things plain
 timestamps — so a clean run produces a clean diff.
 
 The file list is read from ``docs/_quarto.yml`` itself (the same chapters
-``tools/check-badge-order.py`` walks), not a hardcoded list or a blind glob,
+``scripts/check-badge-order.py`` walks), not a hardcoded list or a blind glob,
 so a notebook added to or dropped from the book is picked up automatically
 and a notebook that isn't part of the book (a demo, a draft) is left alone.
 

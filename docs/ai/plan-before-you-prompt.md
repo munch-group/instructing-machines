@@ -1,5 +1,7 @@
 # Plan before you prompt {#sec-plan-before-you-prompt}
 
+By now you can specify a single function by writing its contract as tests, and you can read a single function the assistant produced and judge whether it keeps that contract. Both of those skills are about one function at a time. Real problems are not one function. The tasks you will tackle for the rest of the course, and the kind of task you took this course in order to be able to attempt at all, are made of several functions that fit together, and the difficulty is no longer in any one piece but in the fitting together. This week is about how you get an assistant to help you build something of that size without losing control of it, and the whole answer is contained in the title: you plan before you prompt.
+
 ::: {.column-margin}
 **The ladder so far**
 
@@ -7,8 +9,6 @@
 
 *Still to come:* [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
-
-By now you can specify a single function by writing its contract as tests, and you can read a single function the assistant produced and judge whether it keeps that contract. Both of those skills are about one function at a time. Real problems are not one function. The tasks you will tackle for the rest of the course, and the kind of task you took this course in order to be able to attempt at all, are made of several functions that fit together, and the difficulty is no longer in any one piece but in the fitting together. This week is about how you get an assistant to help you build something of that size without losing control of it, and the whole answer is contained in the title: you plan before you prompt.
 
 Consider first what happens if you do not. The tempting way to use an assistant on a real task is to describe the whole thing in one prompt and ask for the complete program. You will get one. It will be a single block of code, often quite long, that appears to do what you asked. The trouble begins the moment you try to trust it. You cannot read all of it with the care you gave a four line function last week, so you skim, and skimming is how the plausible wrong code you studied slips past you. You cannot test it piece by piece, because it is not in pieces; it is one lump, and your only test is to run the whole thing and see whether the final answer looks right, which tells you nothing about the parts. And when the final answer is wrong, as it usually will be at first, you have no way to find out which part is at fault, because you never separated the parts. You are left staring at a wall of code that a machine wrote and that you do not understand, with a bug somewhere inside it and no way in. What has actually gone wrong here is subtle: by asking for everything at once, you did not merely delegate the typing to the assistant, you delegated the thinking, and the thinking is the part you cannot afford to give away.
 

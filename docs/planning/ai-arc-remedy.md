@@ -67,11 +67,11 @@ Seven moves, in the order I would do them. The first three cost almost nothing a
 
 - [x] **6. Turn the week-12 Explainer badge into a deliberate return, not a regression.** `learning-with-an-ai.qmd` is about using the Study and Learn agent to teach yourself something, which by week 12 is Collaborator work, not Explainer work. Re-badge it and frame the exercise as the setup for the week-14 AI-off test: use the assistant to learn something, then demonstrate it with the assistant closed. That also gives week 14 something to point back at.
 
-- [x] **7. Make the drift impossible to reintroduce.** Two small pieces of machinery. First, a `.column-margin` strip at the top of each AI note showing the ladder with the roles earned so far in normal weight and the new one emphasised — the students then *see* the arc, which they currently cannot, and an author who adds a badge out of order will notice while writing. Second, `tools/check-badge-order.py`: walk `_quarto.yml` in order, carry a canonical map of role to introducing chapter, and fail the build if any badge appears before its introducing chapter. It is about forty lines and it is the same script that produced the census at the top of this document. Add it to the render workflow and the ladder stays straight without anyone having to re-audit it.
+- [x] **7. Make the drift impossible to reintroduce.** Two small pieces of machinery. First, a `.column-margin` strip at the top of each AI note showing the ladder with the roles earned so far in normal weight and the new one emphasised — the students then *see* the arc, which they currently cannot, and an author who adds a badge out of order will notice while writing. Second, `scripts/check-badge-order.py`: walk `_quarto.yml` in order, carry a canonical map of role to introducing chapter, and fail the build if any badge appears before its introducing chapter. It is about forty lines and it is the same script that produced the census at the top of this document. Add it to the render workflow and the ladder stays straight without anyone having to re-audit it.
 
 ## After
 
-*Added when the seven moves were carried out. The numbers below come from `tools/check-badge-order.py --census`, which is the same script that produced the census at the top.*
+*Added when the seven moves were carried out. The numbers below come from `scripts/check-badge-order.py --census`, which is the same script that produced the census at the top.*
 
 | Role | Badges before | Badges after | First week a badge appears | Introduced in week |
 |---|---|---|---|---|

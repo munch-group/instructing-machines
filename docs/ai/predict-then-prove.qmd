@@ -2,6 +2,8 @@
 
 *The week-two AI beat: a claim about what code does is a prediction to be checked.*
 
+The routine for this whole session is the same three-way move, repeated on harder and harder expressions until it is automatic. You predict what an expression evaluates to, by hand, doing the substitution and reduction steps yourself. You ask the assistant what it evaluates to, and read its answer, including whatever reasoning it gives. Then you run it through the `%%steps` widget, which is the only one of the three that actually reduces the expression step by step and cannot be talked around. Three answers, one witness. When your prediction and the assistant's answer agree, that is pleasant and proves nothing. When they disagree, or when either of you turns out to be wrong, that is the session working exactly as intended.
+
 ::: {.column-margin}
 **The ladder so far**
 
@@ -9,13 +11,6 @@
 
 *Still to come:* [Comparer](../intro/course-introduction.qmd#sec-badge-comparer), [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
-
-::: {.callout-note}
-## Session length
-Estimated 3 hours, run as this week's TA session. Bring last week's precedence and substitution/reduction notes; every round below runs on that material.
-:::
-
-The routine for this whole session is the same three-way move, repeated on harder and harder expressions until it is automatic. You predict what an expression evaluates to, by hand, doing the substitution and reduction steps yourself. You ask the assistant what it evaluates to, and read its answer, including whatever reasoning it gives. Then you run it through the `%%steps` widget, which is the only one of the three that actually reduces the expression step by step and cannot be talked around. Three answers, one witness. When your prediction and the assistant's answer agree, that is pleasant and proves nothing. When they disagree, or when either of you turns out to be wrong, that is the session working exactly as intended.
 
 ::: {.callout-tip}
 ## The three-way move, every time
@@ -26,7 +21,7 @@ The routine for this whole session is the same three-way move, repeated on harde
 
 Every round below carries the `AI: Explainer` badge, which is the rung of the ladder you were given in week one and the only one you have so far. You are putting something in front of the assistant that already exists and asking it to explain that thing; you are not asking it to write anything, and you are not asking it to choose between two versions. What makes this session demanding is not the permission, which is the smallest one there is, but how hard you are going to work it. Rung one, twenty-two times, until checking a claim against a machine is what your hands do without being told.
 
-## Part 1 — Warm-up: arithmetic precedence (30 min)
+## Warm-up: arithmetic precedence (30 min)
 
 Straightforward operator precedence, to get the three-way move running smoothly before anything tricky shows up.
 
@@ -60,7 +55,7 @@ Straightforward operator precedence, to get the three-way move running smoothly 
 
 `7 % 3 + 2 * 5 // 2`
 
-## Part 2 — Comparisons and boolean logic (35 min)
+## Comparisons and boolean logic (35 min)
 
 Chained comparisons and `not`/`and`/`or` precedence are a place fluent-sounding wrong answers are common, because the rules read as obvious right up until you meet a case that breaks the obvious reading.
 
@@ -94,7 +89,7 @@ Chained comparisons and `not`/`and`/`or` precedence are a place fluent-sounding 
 
 `not True and not False`
 
-## Part 3 — Short-circuit values, not just True/False (35 min)
+## Short-circuit values, not just True/False (35 min)
 
 `and` and `or` do not return `True` or `False`; they return whichever operand decided the outcome. This is the single richest source of a plausible-but-wrong AI answer in this whole session, because "and/or return booleans" is a very natural, very common, very wrong simplification.
 
@@ -128,7 +123,7 @@ Chained comparisons and `not`/`and`/`or` precedence are a place fluent-sounding 
 
 Ask the assistant, before predicting or proving anything, to state in one sentence what `and` and `or` return in Python. Only after you have its claim in writing, run Exercises 11–14 through the widget and check its general claim against all four actual results. Does its one-sentence rule survive contact with all four?
 
-## Part 4 — Mixed types and strings (30 min)
+## Mixed types and strings (30 min)
 
 Precedence and truthiness interact with strings, repetition, and coercion in ways worth a dedicated round.
 
@@ -162,7 +157,7 @@ Precedence and truthiness interact with strings, repetition, and coercion in way
 
 `len('ATG') == 3 and 'G' in 'ATG'`
 
-## Part 5 — Break the AI (30 min)
+## Break the AI (30 min)
 
 Now you write the expressions. Working alone or with a partner, construct **two** expressions of your own, each combining precedence, comparison, and short-circuit logic, specifically designed to be the kind of case a fluent guesser would get wrong: something where the obvious-looking simplification (like "and/or return booleans") fails. Trade your two expressions with another pair. For each expression you receive, do the full three-way move: predict, ask, prove.
 
@@ -178,6 +173,6 @@ Before trading anything, write down in one sentence *why* each of your two expre
 
 Run the full three-way move on the two expressions you received from the other pair. Report back to them, in one sentence each, whether their trap actually caught the assistant, caught you, caught neither, or caught both.
 
-## Wrap-up (10 min)
+## Logbook (10 min)
 
 For your logbook this week, report your personal tally across the whole session: how many of the roughly twenty expressions the assistant got wrong, how many you got wrong, and whether the two of you tended to get the *same* ones wrong or *different* ones. That last question matters more than the raw count — it tells you whether your instincts and the assistant's failure modes overlap, which is exactly the thing you need to know to check it well.

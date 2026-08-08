@@ -55,7 +55,7 @@ jobs:
         # exercise may license a role before the chapter that teaches it.
         # This walks _quarto.yml in render order and fails on the first badge
         # that arrives too early, so the ladder cannot silently bend again.
-        run: python3 tools/check-badge-order.py --census
+        run: python3 scripts/check-badge-order.py --census
 
       - name: Execute and verify every notebook
         # Quarto never executes at render time (execute: enabled: false in

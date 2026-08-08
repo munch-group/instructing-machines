@@ -1,12 +1,12 @@
 # Surviving AI {#sec-surviving-ai}
 
+The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.
+
 ::: {.column-margin}
 **The ladder so far**
 
 [Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator) · [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
-
-The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.
 
 Begin with a fact about people rather than about machines, because it is the one most likely to undo you. Humans tend to trust the output of an automated system more than they should, and the more fluent and confident that output looks, the stronger the pull. This is a well documented tendency, and it has a name, automation bias, and it does not spare people who know about it. The danger for you is not that you will fail to learn the checking discipline; it is that once you have it, it will quietly erode. The first weeks of using the assistant you will check everything, because it is new and you are wary. Then it will be right several times in a row, and you will relax, and you will start accepting a function because it looks like the ones that were fine before, which is exactly the plausible surface you were taught to distrust. The better the code looks and the longer the assistant's recent record, the more suspicious you should become, not less, because that is the situation in which your guard is lowest and its confident wrongness is most expensive. The checking is not a phase you pass through on the way to trusting the machine. It is the permanent condition of using it well.
 

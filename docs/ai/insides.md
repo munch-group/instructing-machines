@@ -1,13 +1,5 @@
 # Insides {#sec-insides}
 
-::: {.column-margin}
-**The ladder so far**
-
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer)
-
-*Still to come:* [Comparer](../intro/course-introduction.qmd#sec-badge-comparer), [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
-:::
-
 Since this course is all about instructing machines, some idea about what a computer is will be helpful.
 
 {{< video https://youtu.be/d86ws7mQYIg >}}
@@ -15,6 +7,14 @@ Since this course is all about instructing machines, some idea about what a comp
 <!-- While you read, keep the machine map poster next to you. It uses the same visual language as this note: amber for things kept on the disk, blue for things held temporarily in memory, slate for the CPU, teal for the tools you drive yourself, and purple for the AI, which sits elsewhere on purpose. -->
 
 You are about to spend fourteen weeks giving instructions to a machine, and part of that time telling an AI to give instructions to the same machine on your behalf. It helps enormously to know, in broad strokes, what is actually sitting under your fingers. You do not need to become an electrical engineer. What you need is a mental model, a small and sturdy picture you can return to whenever the words pile up. 
+
+::: {.column-margin}
+**The ladder so far**
+
+[Explainer](../intro/course-introduction.qmd#sec-badge-explainer)
+
+*Still to come:* [Comparer](../intro/course-introduction.qmd#sec-badge-comparer), [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
+:::
 
 ## It's switches all the way down {#sec-switches}
 

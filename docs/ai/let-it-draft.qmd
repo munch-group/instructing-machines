@@ -2,6 +2,8 @@
 
 *The assistant as Drafter, kept safe by the smallness of the piece and a test.*
 
+This is the first time this course lets the assistant write code you did not type yourself, and it is safe for exactly two reasons: the piece is small enough to read in full, and a test stands behind it before you are allowed to believe it. Every round below follows the same order, and the order is the whole point: specify first, draft second, read every line third, test fourth. Never let the assistant race ahead of a step you have not done yet.
+
 ::: {.column-margin}
 **The ladder so far**
 
@@ -9,13 +11,6 @@
 
 *Still to come:* [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
 :::
-
-::: {.callout-note}
-## Session length
-Estimated 3 hours, run as this week's TA session, alongside this week's folding project and the introduction of classes.
-:::
-
-This is the first time this course lets the assistant write code you did not type yourself, and it is safe for exactly two reasons: the piece is small enough to read in full, and a test stands behind it before you are allowed to believe it. Every round below follows the same order, and the order is the whole point: specify first, draft second, read every line third, test fourth. Never let the assistant race ahead of a step you have not done yet.
 
 ::: {.callout-tip}
 ## The order, every time
@@ -25,11 +20,11 @@ This is the first time this course lets the assistant write code you did not typ
 4. **Test.** Write one gentle test and one nasty test, seeded from your own worked example and from a case designed to break it. Only a passing nasty test earns your belief.
 :::
 
-## Part 1 — Warm-up, done together (25 min)
+## Warm-up, done together (25 min)
 
 As a class, specify `gc_content(dna)`: fraction of bases that are `G` or `C`, with the worked example `gc_content('GGCC') == 1.0`. Draft it with the assistant. Read it aloud, line by line. Write `assert gc_content('GGCC') == 1.0` as the gentle test and `assert gc_content('') == 0` or a documented decision not to allow it as the nasty one. Run both. This models the full order once before anyone works alone.
 
-## Part 2 — Three small functions (60 min)
+## Three small functions (60 min)
 
 For each function below, follow the full order: specify with a worked example first, draft, read every line, write one gentle and one nasty test, run both. Do not move to the next function until the current one's tests pass.
 
@@ -61,7 +56,7 @@ Not every draft that passes a gentle test deserves your belief, which is the ent
 
 Specify `gc_content(dna)` again, but this time specify it to be **case-insensitive**: it should count lowercase `g`/`c` the same as uppercase. Worked example: `gc_content('ggcc') == 1.0`. Draft it, read it, and write two tests: `assert gc_content('GGCC') == 1.0` and `assert gc_content('ggcc') == 1.0`. Many drafts pass the first and silently fail the second because they only check the uppercase letters. If yours does, do not just accept a patched version — reread the fixed line until you can say in one sentence why the first draft missed lowercase input.
 
-## Part 4 — Drafting a method, not just a function (35 min)
+## Drafting a method, not just a function (35 min)
 
 Classes entered this week, and a method is drafted the same way a function is, specified first, read in full, tested before belief.
 
@@ -71,6 +66,6 @@ Classes entered this week, and a method is drafted the same way a function is, s
 
 Specify a small `Codon` class with an attribute `bases` and a method `translate(self)` that returns the corresponding amino acid letter for a short, fixed table of codons you provide (four or five entries is enough). Worked example: `Codon('ATG').translate() == 'M'`. Draft the class, read `__init__` and `translate` line by line, and write one gentle test plus one nasty test using a codon not in your table — decide, before drafting, what should happen then, and check the draft actually does what you decided rather than whatever it happened to do.
 
-## Wrap-up (15 min)
+## Logbook (15 min)
 
 For your logbook this week, name the one function or method from today where reading it line by line, before testing, made you suspicious enough to write a nastier test than you otherwise would have. Say what specifically in the code raised your suspicion, and whether the nasty test confirmed it or turned out to be unfounded.

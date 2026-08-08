@@ -28,7 +28,7 @@ and reports them in the ladder's own capitalisation.
 
 Run it with no arguments from anywhere in the repository::
 
-    python3 tools/check-badge-order.py
+    python3 scripts/check-badge-order.py
 
 Add ``--census`` to print the per-role and per-week tables instead of just the
 verdict.  Exit status is 0 when the ladder is straight and 1 when it is not,
