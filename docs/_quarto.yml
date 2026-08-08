@@ -6,7 +6,7 @@ project:
     - quarto render slides/
     - rm -rf _book/_build/slides
     - mkdir -p _book/_build
-    - mv slides/_build _book/slides
+    - mv slides/_build _book/_build/slides
     - scripts/build-demo.sh
   
   #   - quarto render --to html --profile ta
@@ -145,10 +145,7 @@ book:
       #   week. data_structures.ipynb is the exemplar for exercise density and
       #   authentic voice; files.ipynb is the lightest thing in the week.
       chapters: 
-        - ai/practical-ai-use.qmd        
-          # CLAUDE: carries a week's AI slot on its own. Was under 700 words,
-          #   now near a thousand, and ends with an explicit list of the
-          #   content it still needs. Write the list out and delete it.
+        - ai/practical-ai-use.qmd
         # - python/list-comprehensions.ipynb
         - python/data_structures.ipynb
         - python/files.ipynb
@@ -222,9 +219,6 @@ book:
       #   a real gap in practice, not a light week.
       chapters: 
         - ai/the-docs-are-the-test.qmd
-          # CLAUDE: carries a week's AI slot on its own. Was under 700 words,
-          #   now near a thousand, and ends with an explicit list of the
-          #   content it still needs. Write the list out and delete it.
         - projects/codonbias-project.qmd
         - python/packages-modules.ipynb
         - ai/documentation-and-resources.qmd
@@ -377,8 +371,14 @@ format:
       - text: Slides
         href: https://munch-group.org/instructing-machines/slides/index.html
       - text: Test
+        icon: file-code
         href: slides/index.html
-
+      - text: Testing
+        icon: file-easel
+        href: slides/index.html               
+      - text: Tester
+        icon: filetype-pdf
+        href: slides/index.html          
 
   ipynb: default
 
