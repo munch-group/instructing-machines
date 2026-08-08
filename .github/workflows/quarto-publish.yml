@@ -51,11 +51,23 @@ jobs:
       #     #   any::downloadthis
 
       - name: Check the AI role ladder
-        # The course licenses the assistant in nine escalating roles, and no
+        # The course licenses the assistant in five escalating roles, and no
         # exercise may license a role before the chapter that teaches it.
         # This walks _quarto.yml in render order and fails on the first badge
         # that arrives too early, so the ladder cannot silently bend again.
         run: python3 tools/check-badge-order.py --census
+
+      - name: Execute and verify every notebook
+        # Quarto never executes at render time (execute: enabled: false in
+        # docs/_quarto.yml) — the website and the download are meant to show
+        # the same unexecuted notebook a student opens, not one with the
+        # answer already sitting in an output cell. This is therefore the
+        # only place a broken cell gets caught before publish. It also
+        # re-strips output/widget-state metadata, so a contributor who forgot
+        # to run `pixi run clean-notebooks` locally doesn't publish a diff
+        # with baked-in answers — though the fix belongs in their commit, not
+        # in this CI run, since nothing here gets committed back.
+        run: python3 tools/clean_notebooks.py
 
       - name: Install rsvg-convert
         # The book's figures include SVGs (docs/ai/images/fig-*.svg), and the

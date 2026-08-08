@@ -9,8 +9,13 @@ version = "0.1.0"
 # Re-solve the student environment for all four platforms. Run this after
 # editing student-folder/pixi.toml, then commit the lock file.
 student-lock = "pixi lock --manifest-path student-folder/pixi.toml"
-# Build the downloadable zip by hand (Quarto does it on every render).
+# Build the downloadable zip by hand.
 student-zip = "python3 scripts/build_student_folder.py"
+# Execute every notebook the book renders, verify none of them raise, then
+# strip their output — run this after editing any notebook, before
+# committing. Quarto itself never executes (execute: enabled: false in
+# docs/_quarto.yml), so this is the only place a broken cell gets caught.
+clean-notebooks = "python3 tools/clean_notebooks.py"
 
 # Convenience wrapper: repairs the docs/jupyterlite pixi env if this repo
 # was moved/cloned to a new path and its baked-in interpreter paths went

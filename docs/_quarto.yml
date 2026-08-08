@@ -48,6 +48,24 @@ book:
     #   machine — install pixi from the .msi, unpack the course folder, open
     #   VS Code, run a widget. The .msi route is the documented one and nobody
     #   has confirmed the full sequence.
+    #
+    # CLAUDE: term-readiness review (2026-08-08). Below are the findings that
+    #   are book-wide rather than one chapter's; the per-chapter ones sit
+    #   under their own lines further down.
+    # CLAUDE: the downloadable student zip has no path to the live site. The
+    #   post-render hook above that would call scripts/build_student_folder.py
+    #   is commented out, and .github/workflows/quarto-publish.yml never calls
+    #   it either — only student-env-check.yml does, and only as a CI
+    #   artifact, not a site deploy. getting_started.ipynb's first instruction
+    #   to students is to download that zip. Wire the build step into the
+    #   real publish workflow before term, and confirm a real publish
+    #   produces it.
+    # CLAUDE: course-design.qmd's Workload section calls week 1 a "breather
+    #   week." The Week 1 note below says the opposite — by a wide margin the
+    #   heaviest week in the book — and per the rule at the top of this file
+    #   this note is the one that's authoritative where they disagree. Fix
+    #   course-design.qmd to agree, and do the hour-budget check the Week 1
+    #   note already asks for; nothing in the repo shows it has happened yet.
     # ------------------------------------------------------------------
     - index.qmd
     - part: "Week 1"
@@ -66,6 +84,15 @@ book:
       chapters: 
         - intro/course-introduction.qmd
         - python/getting_started.ipynb
+          # CLAUDE: four crossrefs don't resolve — two to
+          #   @sec-if-something-goes-wrong, one each to @sec-installing-pixi
+          #   and @sec-opening-the-folder (confirmed in a full render: four
+          #   "Unable to resolve crossref" warnings, all in this chapter and
+          #   nowhere else in the book). This book only numbers
+          #   #### Exercise headings (see crossref: sec-prefix below);
+          #   ordinary ## sections stay unnumbered on purpose, so @sec-x can
+          #   never resolve to one here. Change all four to plain links, e.g.
+          #   [If something goes wrong](#sec-if-something-goes-wrong).
         - python/hello-world.ipynb
         - intro/notebooks.ipynb
         - ai/meet-ai.qmd
@@ -74,10 +101,6 @@ book:
         - ai/insides.md
         - ai/instruction.md
     - part: "Week 2"
-      # Python: conditionals — truthiness, nesting, blocks and indentation,
-      #   elif — and then functions: def, return, None, arguments versus
-      #   parameters, local scope as a "temporary little world", and the
-      #   refrain that a call is substituted by its return value.
       # AI: no new rung. EXPLAINER is consolidated by ai/predict-then-prove.qmd,
       #   which is where "the AI predicts; the machine proves" is stated as a
       #   working rule rather than a slogan. 26 EXPLAINER against 43 SOLO — the
@@ -90,11 +113,6 @@ book:
         - python/functions.ipynb
         - ai/predict-then-prove.qmd
     - part: "Week 3"
-      # Python: everything is an object — string methods, navigating the docs,
-      #   .format(), and the first dunder reveal (__add__) — then the three
-      #   containers: lists (mutable, indexed, sliced, aliased), dictionaries
-      #   (key-value, nesting, in) and tuples (immutable, packing, the swap).
-      #   Turtle starts.
       # AI: no new rung. ai/how-models-produce-code.qmd adds two more
       #   EXPLAINER moves (translating code to English and back, asking for
       #   more examples of a pattern) on top of the 10 already earned. 14
@@ -114,10 +132,6 @@ book:
           #   against the pinned interpreter.
         - turtle/week3.qmd
     - part: "Week 4"
-      # Python: for-loops from first principles — iterables, range, nested
-      #   loops — and then testing, deliberately placed two weeks before the
-      #   first project so that a test is already a habit when there is
-      #   something to test.
       # AI: no new rung. EXPLAINER is sharpened by ai/explain-then-confirm.qmd,
       #   which supplies all 15 of the week's EXPLAINER exercises, against 17
       #   SOLO.
@@ -144,9 +158,6 @@ book:
           #   checkable thing in the book and therefore the safest place to let
           #   the AI draft. Decide whether that is intentional.
     - part: "Week 5"
-      # Python: lists and dictionaries put to work — counting, bucketing,
-      #   nested loops, matrices, a guided is_palindrome — and then file I/O.
-      #   list-comprehensions.ipynb is commented out below and would go here.
       # AI: no new rung. ai/practical-ai-use.qmd. Only 3 EXPLAINER against 38
       #   SOLO, the thinnest AI presence of any week before the projects begin.
       # Workload: 4 chapters, ~6,700 words, 41 exercises — close to the median
@@ -162,8 +173,6 @@ book:
         - python/files.ipynb
         - turtle/week5.qmd
     - part: "Week 6"
-      # Python: composition — putting small tested functions together into
-      #   something larger — alongside the first of the eight projects.
       # AI: COMPARER, introduced by ai/ask-for-another-way.qmd. 11 COMPARER
       #   against 7 SOLO: the only week in which AI-licensed exercises
       #   outnumber the solo ones, which is the point of the rung — asking for
@@ -174,12 +183,16 @@ book:
       chapters: 
         - ai/ask-for-another-way.qmd
         - projects/translation-project.qmd
+          # CLAUDE: this project and hiv-project.qmd (week 10) are the two
+          #   "mandatory hand-in" projects in the old course this one is
+          #   paced against, but nothing in this repo operationalizes that —
+          #   no grading, deadline, or hand-in mechanism exists for either,
+          #   here or in project-files/. course-design.qmd already lists this
+          #   as "Still open." Decide before week 6, since that's the week it
+          #   first matters.
         - python/composition.qmd
         - turtle/week6.qmd
     - part: "Week 7"
-      # Python: classes — Point, __init__ and self, instance methods, a light
-      #   __str__/__len__/__getitem__ — plus a debugging chapter, alongside the
-      #   folding project.
       # AI: DRAFTER, introduced by ai/let-it-draft.qmd. 7 DRAFTER, 1 COMPARER
       #   and 4 EXPLAINER against 28 SOLO. This is the first rung where the
       #   student lets the assistant write code they will keep.
@@ -247,10 +260,16 @@ book:
       chapters: 
         - ai/plan-before-you-prompt.md
         - projects/hiv-project.qmd
+          # CLAUDE: test_hivproject.py reads its five subtype .txt files by
+          #   bare relative filename at import time, so pytest (or the
+          #   im-pytest widget) must be run with cwd = project-files/hivproject/
+          #   or collection crashes outright with FileNotFoundError — every
+          #   other project's suite degrades to a clean skip regardless of
+          #   invocation directory. Resolve the paths relative to __file__,
+          #   or confirm the widget always sets cwd correctly.
         - python/recursion.ipynb
         - python/decomposition.qmd
     - part: "Week 11"
-      # Python: no new Python; the sequence-distance project is the practice.
       # AI: DEVELOPER, the top of the ladder, introduced by
       #   ai/delegate-the-full-problem.md with ai/directing-a-resource.qmd
       #   ahead of it. 3 DEVELOPER and 1 COLLABORATOR against 3 SOLO.
@@ -262,9 +281,6 @@ book:
         - ai/delegate-the-full-problem.md
         - projects/seqdist-project.qmd
     - part: "Week 12"
-      # Python: dataframes, introduced as a container worth knowing exists
-      #   rather than as a data-analysis unit. One of only two Python chapters
-      #   in the book that actually executes.
       # AI: no new rung. ai/learning-with-an-ai.qmd turns the ladder back on
       #   the student's own learning. 1 COLLABORATOR, 2 COMPARER and 1 DRAFTER
       #   against 5 SOLO.
@@ -293,7 +309,6 @@ book:
         - ai/finale-finishing.qmd
         - projects/assembly-project.qmd
     - part: "Week 14"
-      # Python: none. The term closes on the AI-off test.
       # AI: no new rung; the ladder is put down. ai/surviving-ai.md is the
       #   argument for why any of it mattered. 4 SOLO.
       # Workload: 2 chapters, ~2,800 words, 5 exercises — the lightest week,
@@ -302,12 +317,17 @@ book:
         - ai/surviving-ai.md
         - ai/the-ai-off-test.qmd
     - part: "Cheatsheets"
-      # Python: reference only, not taught. These two are also the only place
-      #   in the book where every widget magic is shown actually running.
       # AI: not part of the ladder. 1 DRAFTER and 1 EXPLAINER against 2 SOLO.
       # Workload: reference material; no teaching time attached.
       chapters:
         - intro/widget-reference.ipynb
+          # CLAUDE: this chapter tells students to run the print-steps
+          #   command, but the script-widget package that provides it is only
+          #   in the root pixi.toml, not in student-folder/pixi.toml — the
+          #   environment students actually install. Add it there (and to the
+          #   "Check the course environment" import list in
+          #   .github/workflows/quarto-publish.yml) or the command fails for
+          #   every student who tries it.
         - python/widget-demo.ipynb
 
 # bibliography: references.bib
@@ -318,11 +338,17 @@ crossref:
 # embed-resources: true
 
 execute:
-  echo: true       # show the source code (default: true)
-  output: true      # show the cell's output (default: true)
+  echo: true        # show the source code (default: true)
+  enabled: false    # never execute at render time. Notebooks are executed and verified
+                     #   separately (`pixi run clean-notebooks`, tools/clean_notebooks.py),
+                     #   then stripped of output before commit, so the website and the
+                     #   download are always the same notebook — the one a student would
+                     #   open and run, not one with the answer already sitting in it.
+  output: true      # moot while enabled is false; kept so flipping enabled back on for a
+                     #   local preview does the right thing without editing this block
   warning: false    # hide Python warnings (default: true)
   error: false      # false = a runtime error stops the render; true = print the traceback and continue
-  freeze: auto      # cache execution; only re-run a notebook when its source changes  
+  freeze: auto      # also moot while enabled is false; same reasoning as output above
 
 # comments:
 #   hypothesis: true
