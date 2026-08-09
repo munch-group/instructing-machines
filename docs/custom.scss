@@ -681,6 +681,40 @@ div.sourceCode:hover .code-copy-button {
   border-top-right-radius: 0;
 }
 
+/* Terminal transcripts ({.txt filename="Terminal"}) styled to match the
+   %%sandbox widget's terminal box (sandbox_widget/widget.py's
+   .sw-root/.sw-header/.sw-body), so a hand-typed transcript and a live
+   sandbox run read as the same kind of box. */
+.code-with-filename:has([data-filename="Terminal"]) .code-with-filename-file {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  border-radius: 6px 6px 0 0;
+  padding: 10px 12px 6px;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.code-with-filename:has([data-filename="Terminal"]) [data-filename="Terminal"] {
+  background-color: #ffffff;
+  border-color: #9ca3af;
+  border-radius: 0 0 6px 6px;
+}
+
+.quarto-dark .code-with-filename:has([data-filename="Terminal"]) .code-with-filename-file,
+[data-bs-theme="dark"] .code-with-filename:has([data-filename="Terminal"]) .code-with-filename-file {
+  background-color: #2b2b2b;
+  border-color: #3d3d3d;
+  color: #b8b8b8;
+}
+
+.quarto-dark .code-with-filename:has([data-filename="Terminal"]) [data-filename="Terminal"],
+[data-bs-theme="dark"] .code-with-filename:has([data-filename="Terminal"]) [data-filename="Terminal"] {
+  border-color: #3d3d3d;
+}
+
 /* Line numbers (if enabled) - NumPy doesn't typically use them */
 pre.numberSource code > span > a:first-child::before {
   color: #7f7f7f;

@@ -6,10 +6,7 @@ project:
     - quarto render slides/
     - rm -rf _book/slides
     - mv slides/_build _book/slides
-    - scripts/build-demo.sh
-  
-  #   - quarto render --to html --profile ta
-  #   - quarto render --to html --profile draft
+    # - scripts/build-demo.sh
 
   render:
     - "!python/snippet-cast.ipynb"
@@ -27,9 +24,8 @@ book:
     background: "white" 
     lightbox: true     
     downloads: [pdf, epub]
+  repo-actions: [edit, issue]    
   chapters:
-
-
     # ------------------------------------------------------------------
     # Outstanding work, moved here from docs/planning/checklist.md so that
     # each task sits next to the week and the chapter it lands in.  Collect
@@ -57,6 +53,27 @@ book:
     #   produces it.
     # ------------------------------------------------------------------
     - index.qmd
+    # - intro/pyodide.qmd
+    - part: "Resources"
+      # AI: not part of the ladder. 1 DRAFTER and 1 EXPLAINER against 2 SOLO.
+      # Workload: reference material; no teaching time attached.
+      chapters:
+        - intro/widget-reference.ipynb
+          # CLAUDE: this chapter tells students to run the print-steps
+          #   command, but the script-widget package that provides it is only
+          #   in the root pixi.toml, not in student-folder/pixi.toml — the
+          #   environment students actually install. Add it there (and to the
+          #   "Check the course environment" import list in
+          #   .github/workflows/quarto-publish.yml) or the command fails for
+          #   every student who tries it.
+        - slides/index.qmd
+        - slides/flashcards.qmd
+        - python/widget-demo.ipynb
+        # - href: "./demo/index.html"
+        #   text: "Widget demo"
+        # - href: "https://github.com/munch-group/instructing-machines/slides/index.html"
+        #   text: "Slides"
+
     - part: "Week 1"
       # Python: As always.
       # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
@@ -290,25 +307,7 @@ book:
       chapters: 
         - ai/surviving-ai.md
         - ai/the-ai-off-test.qmd
-    - part: "Resources"
-      # AI: not part of the ladder. 1 DRAFTER and 1 EXPLAINER against 2 SOLO.
-      # Workload: reference material; no teaching time attached.
-      chapters:
-        - intro/widget-reference.ipynb
-          # CLAUDE: this chapter tells students to run the print-steps
-          #   command, but the script-widget package that provides it is only
-          #   in the root pixi.toml, not in student-folder/pixi.toml — the
-          #   environment students actually install. Add it there (and to the
-          #   "Check the course environment" import list in
-          #   .github/workflows/quarto-publish.yml) or the command fails for
-          #   every student who tries it.
-        # - python/widget-demo.ipynb
-        # - href: "./demo/index.html"
-        #   text: "Widget demo"
-    # - href: "https://github.com/munch-group/instructing-machines/slides/index.html"
-    #   text: "Slides"
-    # - href: "https://github.com/munch-group/instructing-machines/demo/index.html"
-    #   text: "Widget demo"
+
 
 # bibliography: references.bib
 
@@ -344,11 +343,10 @@ margin-header: |
 
 format:
   html:
-    # mainfont: "Passata"
+  # live-html: enables pyodide
     theme: 
       - default
       - custom.scss
-    # highlight-style: kate 
     highlight-style: numpy.theme
     fig-width: 5
     fig-height: 3
@@ -358,7 +356,6 @@ format:
       - headers.lua
     toc-expand: false
     notebook-links: global
-    # number-sections: false
     number-sections: true      
     code-block-bg: "#f9f9f9"
     code-annotations: hover
@@ -366,18 +363,20 @@ format:
     # code-tools: true     # adds a "</> Code" menu in the top-right to show/hide all code and view page source
     code-fold: false     # project-wide default for folding (per-cell/per-notebook can still override)
 
-    other-links:
-      - text: Slides
-        href: https://munch-group.org/instructing-machines/slides/index.html
-      - text: Test
-        icon: file-code
-        href: slides/index.html
-      - text: Testing
-        icon: file-easel
-        href: slides/index.html               
-      - text: Tester
-        icon: filetype-pdf
-        href: slides/index.html          
+    repo-url: https://github.com/munch-group/instructing-machines
+  
+    # other-links:
+    #   - text: Slides
+    #     href: https://munch-group.org/instructing-machines/slides/index.html
+    #   - text: Test
+    #     icon: file-code
+    #     href: slides/index.html
+    #   - text: Testing
+    #     icon: file-easel
+    #     href: slides/index.html               
+    #   - text: Tester
+    #     icon: filetype-pdf
+    #     href: slides/index.html          
 
   ipynb: default
 
