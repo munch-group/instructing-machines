@@ -26,19 +26,19 @@ typed_data = {
 
 @requires("sequence_similarity")
 def test_sequence_similarity(module):
-    assert module.sequence_similarity('AGTC', 'AGTT') == pytest.approx(0.75, abs=1e-4)
-    assert module.sequence_similarity('AAAA', 'AAAA') == pytest.approx(1.0, abs=1e-4)
-    assert module.sequence_similarity('ACGT', 'TGCA') == pytest.approx(0.0, abs=1e-4)
-    assert module.sequence_similarity('ACGTACGTACGT', 'ACGTACGTACGT') == pytest.approx(1.0, abs=1e-4)
-    assert module.sequence_similarity('AAAAAAAAAAAA', 'AAAAAAAAAAAT') == pytest.approx(11 / 12, abs=1e-4)
+    assert module.sequence_similarity('AGTC', 'AGTT') == approx(0.75, abs=1e-4)
+    assert module.sequence_similarity('AAAA', 'AAAA') == approx(1.0, abs=1e-4)
+    assert module.sequence_similarity('ACGT', 'TGCA') == approx(0.0, abs=1e-4)
+    assert module.sequence_similarity('ACGTACGTACGT', 'ACGTACGTACGT') == approx(1.0, abs=1e-4)
+    assert module.sequence_similarity('AAAAAAAAAAAA', 'AAAAAAAAAAAT') == approx(11 / 12, abs=1e-4)
 
 
 @requires("alignment_similarity")
 def test_alignment_similarity(module):
     # gap-in-both columns are ignored: 'A-CT-A' vs 'A-CTTA' -> 4 matches / 5 cols
-    assert module.alignment_similarity('A-CT-A', 'A-CTTA') == pytest.approx(0.8, abs=1e-4)
-    assert module.alignment_similarity('A-A-A-A', 'AA-A-AA') == pytest.approx(2 / 7, abs=1e-4)
-    assert module.alignment_similarity('A-----A', 'AA-A-AA') == pytest.approx(2 / 5, abs=1e-4)
+    assert module.alignment_similarity('A-CT-A', 'A-CTTA') == approx(0.8, abs=1e-4)
+    assert module.alignment_similarity('A-A-A-A', 'AA-A-AA') == approx(2 / 7, abs=1e-4)
+    assert module.alignment_similarity('A-----A', 'AA-A-AA') == approx(2 / 5, abs=1e-4)
 
 
 # --------------------------------------------------------------------------- #
@@ -82,7 +82,7 @@ def test_get_similarities_lengths(module):
 @requires("get_similarities")
 def test_get_similarities_values(module):
     assert module.get_similarities('ACGT', ['ACGT', 'ACCT', 'TGCA']) == \
-        pytest.approx([1.0, 0.75, 0.0], abs=1e-4)
+        approx([1.0, 0.75, 0.0], abs=1e-4)
 
 
 # --------------------------------------------------------------------------- #
@@ -101,10 +101,10 @@ def test_get_max_similarities_shape(module):
 @requires("get_max_similarities")
 def test_get_max_similarities_values(module):
     s = module.get_max_similarities(unknown_list[0], typed_data)
-    assert s['A'] == pytest.approx(0.8721742704480066, abs=1e-4)
-    assert s['B'] == pytest.approx(0.8286861234675057, abs=1e-4)
-    assert s['C'] == pytest.approx(0.8232432432432433, abs=1e-4)
-    assert s['D'] == pytest.approx(0.8365436349940816, abs=1e-4)
+    assert s['A'] == approx(0.8721742704480066, abs=1e-4)
+    assert s['B'] == approx(0.8286861234675057, abs=1e-4)
+    assert s['C'] == approx(0.8232432432432433, abs=1e-4)
+    assert s['D'] == approx(0.8365436349940816, abs=1e-4)
 
 
 # --------------------------------------------------------------------------- #

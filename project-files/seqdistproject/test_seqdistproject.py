@@ -12,24 +12,24 @@ def _approx_nested(actual, expected, abs=1e-4):
         for a, e in zip(actual, expected):
             _approx_nested(a, e, abs=abs)
     elif isinstance(expected, float):
-        assert actual == pytest.approx(expected, abs=abs)
+        assert actual == approx(expected, abs=abs)
     else:
         assert actual == expected
 
 
 @requires("sequence_difference")
 def test_sequence_difference(module):
-    assert module.sequence_difference('AATT', 'AAAA') == pytest.approx(0.5, abs=1e-4)
-    assert module.sequence_difference('ATAA', 'AAAA') == pytest.approx(0.25, abs=1e-4)
-    assert module.sequence_difference('AAAA', 'AAAA') == pytest.approx(0.0, abs=1e-4)
-    assert module.sequence_difference('AAAA', 'TTTT') == pytest.approx(1.0, abs=1e-4)
+    assert module.sequence_difference('AATT', 'AAAA') == approx(0.5, abs=1e-4)
+    assert module.sequence_difference('ATAA', 'AAAA') == approx(0.25, abs=1e-4)
+    assert module.sequence_difference('AAAA', 'AAAA') == approx(0.0, abs=1e-4)
+    assert module.sequence_difference('AAAA', 'TTTT') == approx(1.0, abs=1e-4)
 
 
 @requires("jukes_cantor")
 def test_jukes_cantor(module):
-    assert module.jukes_cantor(0.1) == pytest.approx(0.10732563273050497, abs=1e-4)
-    assert module.jukes_cantor(0.2) == pytest.approx(0.2326161962278796, abs=1e-4)
-    assert module.jukes_cantor(0.0) == pytest.approx(0.0, abs=1e-4)
+    assert module.jukes_cantor(0.1) == approx(0.10732563273050497, abs=1e-4)
+    assert module.jukes_cantor(0.2) == approx(0.2326161962278796, abs=1e-4)
+    assert module.jukes_cantor(0.0) == approx(0.0, abs=1e-4)
 
 
 @requires("lower_trian_matrix", "sequence_difference", "jukes_cantor")
@@ -69,7 +69,7 @@ def test_find_lowest_cell_small(module):
 
 @requires("link")
 def test_link_ints(module):
-    assert module.link(4, 6) == pytest.approx(5, abs=1e-4)
+    assert module.link(4, 6) == approx(5, abs=1e-4)
 
 
 # Previously shadowed in the original unittest file: a second ``test_link_2``
@@ -77,12 +77,12 @@ def test_link_ints(module):
 # here under a distinct name so it actually executes.
 @requires("link")
 def test_link_equal(module):
-    assert module.link(5, 5) == pytest.approx(5, abs=1e-4)
+    assert module.link(5, 5) == approx(5, abs=1e-4)
 
 
 @requires("link")
 def test_link_floats(module):
-    assert module.link(0.4, 0.6) == pytest.approx(0.5, abs=1e-4)
+    assert module.link(0.4, 0.6) == approx(0.5, abs=1e-4)
 
 
 @requires("update_table", "link")

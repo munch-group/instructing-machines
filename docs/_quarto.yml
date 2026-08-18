@@ -58,7 +58,7 @@ book:
       # AI: not part of the ladder. 1 DRAFTER and 1 EXPLAINER against 2 SOLO.
       # Workload: reference material; no teaching time attached.
       chapters:
-        - intro/widget-reference.ipynb
+
           # CLAUDE: this chapter tells students to run the print-steps
           #   command, but the script-widget package that provides it is only
           #   in the root pixi.toml, not in student-folder/pixi.toml — the
@@ -66,9 +66,13 @@ book:
           #   "Check the course environment" import list in
           #   .github/workflows/quarto-publish.yml) or the command fails for
           #   every student who tries it.
-        - slides/index.qmd
-        - slides/flashcards.qmd
-        - python/widget-demo.ipynb
+        - href: slides/index.qmd
+          text: "Slides"
+        - href: slides/flashcards.qmd
+          text: "Flashcards"
+        - href: python/course-tools.ipynb
+          text: "Course Tools"
+
         # - href: "./demo/index.html"
         #   text: "Widget demo"
         # - href: "https://github.com/munch-group/instructing-machines/slides/index.html"
@@ -358,7 +362,8 @@ format:
     notebook-links: global
     number-sections: true      
     code-block-bg: "#f9f9f9"
-    code-annotations: hover
+#    code-annotations: hover
+    code-annotations: below
     df-print: paged     # pandas DataFrames render as a nice paged/sortable HTML table instead of a text repr
     # code-tools: true     # adds a "</> Code" menu in the top-right to show/hide all code and view page source
     code-fold: false     # project-wide default for folding (per-cell/per-notebook can still override)

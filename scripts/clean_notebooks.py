@@ -20,7 +20,7 @@ The file list is read from ``docs/_quarto.yml`` itself (the same chapters
 so a notebook added to or dropped from the book is picked up automatically
 and a notebook that isn't part of the book (a demo, a draft) is left alone.
 
-One exception: KEEP_OUTPUT below. python/widget-demo.ipynb exists to show
+One exception: KEEP_OUTPUT below. python/course-tools.ipynb exists to show
 what each widget actually looks like when it runs; with Quarto never
 executing at render time, that page only has anything to show if its output
 is baked into the file. It's still executed on every run — a broken demo
@@ -53,7 +53,7 @@ EXECUTE_TIMEOUT = 180  # seconds per cell; sandbox_widget spawns a subprocess pe
 # Chapters whose baked-in output survives the strip — see the module
 # docstring. Paths are relative to docs/, matching how they appear in
 # _quarto.yml.
-KEEP_OUTPUT = {"python/widget-demo.ipynb"}
+KEEP_OUTPUT = {"python/course-tools.ipynb"}
 
 
 def chapters_in_order(quarto_yml: Path):

@@ -58,7 +58,7 @@ dna = Seq('ATGGCCTGA')
 print(gc_fraction(dna))
 ```
 
-Run that and you get `0.5555555555555556`. If you have spent any time at all around sequence data, GC content is a number people say out loud as a percentage, "fifty-six percent GC," and it would be entirely natural to read `0.556` and assume the function rounded strangely, or to multiply it by 100 out of habit and get a number that looks right without ever checking whether doing so was necessary. Nothing about this crashes. Nothing about it looks wrong. It is the quietest of the ways an assistant, or you, can be mistaken about a real function: the call is exactly right, and the assumption about what the returned value means is not. The signature's return line from @sec-check-from-machine would have settled this immediately: it names a fraction, not a percentage.
+Run that and you get `0.5555555555555556`. If you have spent any time at all around sequence data, GC content is a number people say out loud as a percentage, "fifty-six percent GC," and it would be entirely natural to read `0.556` and assume the function rounded strangely, or to multiply it by 100 out of habit and get a number that looks right without ever checking whether doing so was necessary. Nothing about this crashes. Nothing about it looks wrong. It is the quietest of the ways an assistant, or you, can be mistaken about a real function: the call is exactly right, and the assumption about what the returned value means is not. The signature's return line would have settled this immediately: it names a fraction, not a percentage.
 
 This is exactly where a documentation check earns its keep by becoming a test rather than staying a fact you read once and might misremember under pressure two weeks from now. You already know how to do this from @sec-tests-are-the-contract: work out the answer to a small case by hand, and pin the contract down with `assert` before you build anything else on top of it.
 
@@ -92,7 +92,7 @@ TypeError: translate() got an unexpected keyword argument 'frame'
 
 The fix is a different approach rather than a different argument: slice the sequence to the frame you want before translating it, `dna[1:].translate()` for frame two. A `TypeError` on a call that otherwise looks entirely right is almost always this mode, the right idea aimed at an argument the real function was never given.
 
-The third is the one the last section just walked through: a real function, called correctly, whose return value means something other than what you assumed. This is the quietest of the four, because it raises no exception at all. Nothing crashes, so nothing prompts you to go looking, which is exactly why the read-the-signature habit from @sec-check-from-machine has to run every time, not only when something visibly breaks.
+The third is the one the last section just walked through: a real function, called correctly, whose return value means something other than what you assumed. This is the quietest of the four, because it raises no exception at all. Nothing crashes, so nothing prompts you to go looking, which is exactly why the read-the-signature habit has to run every time, not only when something visibly breaks.
 
 The fourth is a real function that used to exist and does not anymore. `Bio.SeqUtils.GC` is the example with an exact paper trail: for years it was the standard way to get GC content, deprecated in BioPython's 1.80 release in favor of `gc_fraction`, and removed outright in release 1.82. Try this on a current install:
 

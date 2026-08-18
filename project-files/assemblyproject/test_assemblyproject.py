@@ -65,11 +65,11 @@ def test_read_data(module):
 
 @requires("mean_length")
 def test_mean_length(module):
-    assert module.mean_length({'Read1': 'ACGT', 'Read2': 'ACGTACGT'}) == pytest.approx(6, abs=1e-4)
-    assert module.mean_length({'Read1': 'ACGTTGCA', 'Read2': 'ACGTACGT'}) == pytest.approx(8, abs=1e-4)
+    assert module.mean_length({'Read1': 'ACGT', 'Read2': 'ACGTACGT'}) == approx(6, abs=1e-4)
+    assert module.mean_length({'Read1': 'ACGTTGCA', 'Read2': 'ACGTACGT'}) == approx(8, abs=1e-4)
     assert module.mean_length(
         {'Read1': 'atttaatgtgata', 'Read2': 'agtgtatgatagtacgcgcgc'}
-    ) == pytest.approx(17, abs=1e-4)
+    ) == approx(17, abs=1e-4)
 
 
 # --------------------------------------------------------------------------- #

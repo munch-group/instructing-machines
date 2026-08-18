@@ -4,7 +4,7 @@ Suggestions for how `turtle-widget` could be used in the course, and in particul
 
 ## Where the widget currently stands
 
-The turtle widget appears in exactly one file in the book, `docs/python/widget-demo.ipynb`, which is a widget showcase and not a course chapter, and which is not in the `_quarto.yml` chapter list. Line 54 installs it, line 252 imports `Turtle` from `turtle_widget`, line 277 instantiates it. `docs/jupyterlite/content/widget-demo.ipynb` mirrors the same cells.
+The turtle widget appears in exactly one file in the book, `docs/python/course-tools.ipynb`, which is a widget showcase and not a course chapter, and which is not in the `_quarto.yml` chapter list. Line 54 installs it, line 252 imports `Turtle` from `turtle_widget`, line 277 instantiates it. `docs/jupyterlite/content/course-tools.ipynb` mirrors the same cells.
 
 In the planning material it appears once, at line 212 of `course-design.qmd`, as a row reading "Wk 2-3, `turtle-widget` (optional), Visual functions/loops; safe first place to let the AI draft". That is the whole of its presence. It is pencilled in before the AI arc begins, marked optional, and no note uses it.
 

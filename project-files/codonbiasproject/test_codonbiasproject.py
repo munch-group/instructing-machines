@@ -14,7 +14,7 @@ def approx_equal(actual, expected):
         for a, e in zip(actual, expected):
             approx_equal(a, e)
     elif isinstance(expected, float) or isinstance(actual, float):
-        assert actual == pytest.approx(expected, abs=1e-4)
+        assert actual == approx(expected, abs=1e-4)
     else:
         assert actual == expected
 

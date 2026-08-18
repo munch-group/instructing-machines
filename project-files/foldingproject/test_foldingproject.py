@@ -28,8 +28,8 @@ def test_reverse_complement_homopolymer(module):
 
 @requires("melting_temp")
 def test_melting_temp(module):
-    assert module.melting_temp('ATG') == pytest.approx(8, abs=1e-4)
-    assert module.melting_temp('AAAAATTTTTCCCCCGGGGG') == pytest.approx(
+    assert module.melting_temp('ATG') == approx(8, abs=1e-4)
+    assert module.melting_temp('AAAAATTTTTCCCCCGGGGG') == approx(
         51.78000000000001, abs=1e-4)
 
 

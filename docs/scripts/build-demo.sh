@@ -23,7 +23,7 @@ done
 cp -r python/images "$CONTENT_DIR/images"
 
 # Strip baked-in outputs/execution counts/widget state from the copies.
-# The book intentionally ships some notebooks pre-executed (e.g. widget-demo.ipynb
+# The book intentionally ships some notebooks pre-executed (e.g. course-tools.ipynb
 # has `execute: enabled: false` and relies on outputs captured elsewhere), but
 # that frozen state means nothing to a live kernel: JupyterLab would try to
 # statically render the old widget snapshot instead of instantiating a real one,

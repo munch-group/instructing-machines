@@ -654,6 +654,34 @@ div.sourceCode:hover .code-copy-button {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Code annotation: line-highlight alignment.
+   Quarto's annotation JS measures line positions with offsetTop, whose frame
+   is the positioned `code` element (Pandoc sets `pre > code.sourceCode
+   { position: relative }`), but it draws the highlight bar as an absolute div
+   inside `pre`, resolved against the nearest positioned ancestor. Quarto
+   assumes an annotated `pre` has no vertical padding or border; the 12px
+   padding and 1px borders above shift the bar ~16px off the lines. Making the
+   annotated `pre` itself the positioned frame and moving its vertical padding
+   onto `code` puts the measuring and drawing frames in the same place. */
+pre.sourceCode.code-annotation-code {
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+pre.sourceCode.code-annotation-code > code.sourceCode {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* Quarto bleeds the bar 4em into the left margin, which suits its full-bleed
+   code blocks; inside the bordered box it juts out of the frame and forces a
+   horizontal scrollbar (the pre has overflow-x: auto). Keep it inside. */
+#code-annotation-line-highlight {
+  margin-left: 0;
+  width: 100%;
+}
+
 /* Code with filename/caption (NumPy style) */
 .code-with-filename .code-with-filename-file {
   background-color: #f1f3f5;

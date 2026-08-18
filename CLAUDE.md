@@ -171,7 +171,7 @@ Status legend: **Solid** = reusable after a copyedit; **Needs work** = good bone
 - **preface.ipynb** — *Solid (out of the book).* States the two pedagogical principles and the inviting tone. If reinstated, add a paragraph planting the "AI as a new layer of instruction" thesis (now fully developed in `ai/instruction.md`).
 - **references.ipynb** — *Infra (stub).* Bibliography stub.
 - **appendix_bsf.ipynb** — *Infra.* Install appendix for students also taking BSF (Pixi + PyMOL). Standardize "PyMOL"; add an Apple-Silicon note.
-- **snippet-cast.ipynb / widget-demo.ipynb / introduction.ipynb** — *Infra / non-chapter.* Widget demos and a leftover Coalescent tutorial; not student chapters.
+- **snippet-cast.ipynb / course-tools.ipynb / introduction.ipynb** — *Infra / non-chapter.* Widget demos and a leftover Coalescent tutorial; not student chapters.
 
 ### `docs/python/` — worked-example & clinic notes (`.qmd`, drafted)
 
