@@ -1,4 +1,4 @@
-# Tests are the contract {#sec-tests-are-the-contract}
+# AI: Tests are the contract {#sec-tests-are-the-contract}
 
 You already know how to write a test. In the previous part of the course you learned to make a claim about a function in a form the machine can check, by writing a statement like assert gc_content('GGCC') == 1.0 and letting Python confirm or deny it. This week that skill stops being a way to check your own code and becomes the single most important tool you have for working with an assistant. The idea to hold on to is short: a test is a specification you can execute, and a specification is a contract. Once you see tests that way, the whole business of getting code out of a machine you cannot fully trust becomes manageable, because the test, and not the assistant and not even you, becomes the thing that decides whether the code is right.
 

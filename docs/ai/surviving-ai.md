@@ -1,4 +1,4 @@
-# Surviving AI {#sec-surviving-ai}
+# AI: Surviving AI {#sec-surviving-ai}
 
 The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.
 
