@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-4858866aa4e24e669f61a70961177eac.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/project-download-1.0.0/project-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -727,7 +727,7 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-
+<p> <a href="../project-files/seqdistproject.zip" download="seqdistproject.zip"><button class="btn btn-light downloadthis  "><i class="bi bi-download"></i> Download project </button></a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
     <h2 id="toc-title">Table of contents</h2>
@@ -778,30 +778,21 @@ window.Quarto = {
 
 
 <p><em>This chapter is about clustering sequence based on the evolutionary distance between them.</em></p>
-<p>Download the files you need for this project:</p>
-<p><a href="#dnldts50158" onclick="fetch('data:application/x-python;base64,CiMgVGhpcyBzZXJ2ZSB0byBtYWtlIHRoZSBsb2cgZnVuY3Rpb24gYXZhaWxhYmxlOgpmcm9tIG1hdGggaW1wb3J0IGxvZwoKIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwojIFdyaXRlIHlvdXIgZnVuY3Rpb25zIGRlZmluaXRpb25zIGJlbG93LgojIERvIG5vdCB3cml0ZSBhbnkgb3RoZXIgY29kZSBoZXJlLgojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCgojIG9ubHkgeW91ciBmdW5jdGlvbiBkZWZpbml0aW9ucy4uLgoKCgoKCgoKCgojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCiMgQ29kZSBmb3IgY2FsbGluZyBhbmQgdGVzdGluZyB5b3VyIGZ1bmN0aW9ucyBzaG91bGQgYmUgYmVsb3cKIyBoZXJlLiBJZiB5b3Ugc2VwYXJhdGUgZnVuY3Rpb24gZGVmaW5pdGlvbnMgZnJvbSB0aGUgcmVzdCBvZgojIHlvdXIgc2NyaXB0IGluIHRoaXMgd2F5LCB5b3UgYXJlIGxlc3MgbGlrZWx5IHRvIG1ha2UgbWlzdGFrZXMuCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKCiMgYW55IG90aGVyIGNvZGUgLi4uCgoKCgoK').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'seqdistproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts50158"><i class="bi bi-download"></i> seqdistproject.py </button></a> <a href="#dnldts64868" onclick="fetch('data:application/x-python;base64,ZnJvbSBweXRlc3QgaW1wb3J0IGFwcHJveApmcm9tIGltX3B5dGVzdCBpbXBvcnQgcmVxdWlyZXMKCgpkZWYgX2FwcHJveF9uZXN0ZWQoYWN0dWFsLCBleHBlY3RlZCwgYWJzPTFlLTQpOgogICAgIiIiQ29tcGFyZSAocG9zc2libHkgbmVzdGVkKSBsaXN0cyBvZiBudW1iZXJzIGVsZW1lbnQtd2lzZSB3aXRoIGFwcHJveC4iIiIKICAgIGlmIGlzaW5zdGFuY2UoZXhwZWN0ZWQsIChsaXN0LCB0dXBsZSkpOgogICAgICAgIGFzc2VydCBpc2luc3RhbmNlKGFjdHVhbCwgKGxpc3QsIHR1cGxlKSksIFwKICAgICAgICAgICAgImV4cGVjdGVkIGEgc2VxdWVuY2UgYnV0IGdvdCB7IXJ9Ii5mb3JtYXQoYWN0dWFsKQogICAgICAgIGFzc2VydCBsZW4oYWN0dWFsKSA9PSBsZW4oZXhwZWN0ZWQpLCBcCiAgICAgICAgICAgICJsZW5ndGgge30gIT0gZXhwZWN0ZWQge30iLmZvcm1hdChsZW4oYWN0dWFsKSwgbGVuKGV4cGVjdGVkKSkKICAgICAgICBmb3IgYSwgZSBpbiB6aXAoYWN0dWFsLCBleHBlY3RlZCk6CiAgICAgICAgICAgIF9hcHByb3hfbmVzdGVkKGEsIGUsIGFicz1hYnMpCiAgICBlbGlmIGlzaW5zdGFuY2UoZXhwZWN0ZWQsIGZsb2F0KToKICAgICAgICBhc3NlcnQgYWN0dWFsID09IGFwcHJveChleHBlY3RlZCwgYWJzPWFicykKICAgIGVsc2U6CiAgICAgICAgYXNzZXJ0IGFjdHVhbCA9PSBleHBlY3RlZAoKCkByZXF1aXJlcygic2VxdWVuY2VfZGlmZmVyZW5jZSIpCmRlZiB0ZXN0X3NlcXVlbmNlX2RpZmZlcmVuY2UobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUuc2VxdWVuY2VfZGlmZmVyZW5jZSgnQUFUVCcsICdBQUFBJykgPT0gYXBwcm94KDAuNSwgYWJzPTFlLTQpCiAgICBhc3NlcnQgbW9kdWxlLnNlcXVlbmNlX2RpZmZlcmVuY2UoJ0FUQUEnLCAnQUFBQScpID09IGFwcHJveCgwLjI1LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuc2VxdWVuY2VfZGlmZmVyZW5jZSgnQUFBQScsICdBQUFBJykgPT0gYXBwcm94KDAuMCwgYWJzPTFlLTQpCiAgICBhc3NlcnQgbW9kdWxlLnNlcXVlbmNlX2RpZmZlcmVuY2UoJ0FBQUEnLCAnVFRUVCcpID09IGFwcHJveCgxLjAsIGFicz0xZS00KQoKCkByZXF1aXJlcygianVrZXNfY2FudG9yIikKZGVmIHRlc3RfanVrZXNfY2FudG9yKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmp1a2VzX2NhbnRvcigwLjEpID09IGFwcHJveCgwLjEwNzMyNTYzMjczMDUwNDk3LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUuanVrZXNfY2FudG9yKDAuMikgPT0gYXBwcm94KDAuMjMyNjE2MTk2MjI3ODc5NiwgYWJzPTFlLTQpCiAgICBhc3NlcnQgbW9kdWxlLmp1a2VzX2NhbnRvcigwLjApID09IGFwcHJveCgwLjAsIGFicz0xZS00KQoKCkByZXF1aXJlcygibG93ZXJfdHJpYW5fbWF0cml4IiwgInNlcXVlbmNlX2RpZmZlcmVuY2UiLCAianVrZXNfY2FudG9yIikKZGVmIHRlc3RfbG93ZXJfdHJpYW5fbWF0cml4KG1vZHVsZSk6CiAgICBfYXBwcm94X25lc3RlZCgKICAgICAgICBtb2R1bGUubG93ZXJfdHJpYW5fbWF0cml4KAogICAgICAgICAgICBbJ1RBQUFBQUFBQUFBQScsICdUVEFBQUFBQUFBQUEnLCAnQUFBQUFBQUFBQUdHJywgJ0FBQUFBQUFBR0dHRyddKSwKICAgICAgICBbW10sCiAgICAgICAgIFswLjA4ODMzNzI3Njc0MjI4NzY0XSwKICAgICAgICAgWzAuMzA0MDk4ODMxMDgxMTIzMjMsIDAuNDQwODM5OTk4Njc2NTg5Ml0sCiAgICAgICAgIFswLjYwODE5NzY2MjE2MjI0NjYsIDAuODIzOTU5MjE2NTAxMDgyMiwgMC4xODg0ODU4MjEyMTA2Nzk1M11dKQoKCkByZXF1aXJlcygibG93ZXJfdHJpYW5fbWF0cml4IiwgInNlcXVlbmNlX2RpZmZlcmVuY2UiLCAianVrZXNfY2FudG9yIikKZGVmIHRlc3RfbG93ZXJfdHJpYW5fbWF0cml4X3BhaXIobW9kdWxlKToKICAgIF9hcHByb3hfbmVzdGVkKAogICAgICAgIG1vZHVsZS5sb3dlcl90cmlhbl9tYXRyaXgoWydUQUFBQUFBQUFBQUEnLCAnQUFBQUFBQUFHR0dHJ10pLAogICAgICAgIFtbXSwgWzAuNjA4MTk3NjYyMTYyMjQ2Nl1dKQoKCkByZXF1aXJlcygiZmluZF9sb3dlc3RfY2VsbCIpCmRlZiB0ZXN0X2ZpbmRfbG93ZXN0X2NlbGxfZmxvYXRzKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmZpbmRfbG93ZXN0X2NlbGwoCiAgICAgICAgW1tdLCBbMC4yXSwgWzAuNCwgMC4zXSwgWzAuMywgMC4xLCAwLjRdLCBbMC41LCAwLjIsIDAuNSwgMC42XV0pID09IFszLCAxXQoKCkByZXF1aXJlcygiZmluZF9sb3dlc3RfY2VsbCIpCmRlZiB0ZXN0X2ZpbmRfbG93ZXN0X2NlbGxfaW50cyhtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5maW5kX2xvd2VzdF9jZWxsKAogICAgICAgIFtbXSwgWzJdLCBbNCwgM10sIFszLCAxLCA0XSwgWzUsIDIsIDUsIDZdXSkgPT0gWzMsIDFdCgoKQHJlcXVpcmVzKCJmaW5kX2xvd2VzdF9jZWxsIikKZGVmIHRlc3RfZmluZF9sb3dlc3RfY2VsbF9zbWFsbChtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5maW5kX2xvd2VzdF9jZWxsKFtbXSwgWzAuMV1dKSA9PSBbMSwgMF0KCgpAcmVxdWlyZXMoImxpbmsiKQpkZWYgdGVzdF9saW5rX2ludHMobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUubGluayg0LCA2KSA9PSBhcHByb3goNSwgYWJzPTFlLTQpCgoKIyBQcmV2aW91c2x5IHNoYWRvd2VkIGluIHRoZSBvcmlnaW5hbCB1bml0dGVzdCBmaWxlOiBhIHNlY29uZCBgYHRlc3RfbGlua18yYGAKIyBtZXRob2QgcmVkZWZpbmVkIHRoZSBmaXJzdCwgc28gdGhlIGBgbGluayg1LCA1KSA9PSA1YGAgY2FzZSBuZXZlciByYW4uIFBvcnRlZAojIGhlcmUgdW5kZXIgYSBkaXN0aW5jdCBuYW1lIHNvIGl0IGFjdHVhbGx5IGV4ZWN1dGVzLgpAcmVxdWlyZXMoImxpbmsiKQpkZWYgdGVzdF9saW5rX2VxdWFsKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmxpbmsoNSwgNSkgPT0gYXBwcm94KDUsIGFicz0xZS00KQoKCkByZXF1aXJlcygibGluayIpCmRlZiB0ZXN0X2xpbmtfZmxvYXRzKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmxpbmsoMC40LCAwLjYpID09IGFwcHJveCgwLjUsIGFicz0xZS00KQoKCkByZXF1aXJlcygidXBkYXRlX3RhYmxlIiwgImxpbmsiKQpkZWYgdGVzdF91cGRhdGVfdGFibGUobW9kdWxlKToKICAgIGJlZm9yZSA9IFtbXSwgWzAuMV0sIFswLjMsIDAuNF0sIFswLjYsIDAuOCwgMC4yXV0KICAgIGFmdGVyID0gW1tdLCBbMC4zNV0sIFswLjcsIDAuMl1dCiAgICBtb2R1bGUudXBkYXRlX3RhYmxlKGJlZm9yZSwgMSwgMCkKICAgIF9hcHByb3hfbmVzdGVkKGJlZm9yZSwgYWZ0ZXIpCgoKQHJlcXVpcmVzKCJ1cGRhdGVfbGFiZWxzIikKZGVmIHRlc3RfdXBkYXRlX2xhYmVscyhtb2R1bGUpOgogICAgYmVmb3JlID0gWydBJywgJ0InLCAnQycsICdEJ10KICAgIGFmdGVyID0gWycoQSxCKScsICdDJywgJ0QnXQogICAgbW9kdWxlLnVwZGF0ZV9sYWJlbHMoYmVmb3JlLCAxLCAwKQogICAgYXNzZXJ0IGJlZm9yZSA9PSBhZnRlcgoKCkByZXF1aXJlcygiY2x1c3RlciIsICJsb3dlcl90cmlhbl9tYXRyaXgiLCAiZmluZF9sb3dlc3RfY2VsbCIsCiAgICAgICAgICAgICAgICAgICAgICAgInVwZGF0ZV90YWJsZSIsICJ1cGRhdGVfbGFiZWxzIiwgImxpbmsiLAogICAgICAgICAgICAgICAgICAgICAgICJzZXF1ZW5jZV9kaWZmZXJlbmNlIiwgImp1a2VzX2NhbnRvciIpCmRlZiB0ZXN0X2NsdXN0ZXIobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUuY2x1c3RlcigKICAgICAgICBbJ1RBQUFBQUFBQUFBQScsICdUVEFBQUFBQUFBQUEnLCAnQUFBQUFBQUFBQUdHJywgJ0FBQUFBQUFBR0dHRyddLAogICAgICAgIFsnSGVubmluZycsICdQcmViZW4nLCAnTW9nZW5zJywgJ0t1cnQnXSkgPT0gJygoSGVubmluZyxQcmViZW4pLChNb2dlbnMsS3VydCkpJwo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'test_seqdistproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts64868"><i class="bi bi-download"></i> test_seqdistproject.py </button></a></p>
-<p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
+<p>Download the project. In the VS Code terminal, ask for it by name:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pixi run get seqdistproject</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>That puts the folder straight into your course folder, beside your notebooks.</p>
+<p>There is a button for it too, if you would rather click than type. It lands in your Downloads folder, so you have to carry it across yourself:</p>
+<p><a href="../project-files/seqdistproject.zip" download="seqdistproject.zip"><button class="btn btn-light downloadthis  "><i class="bi bi-download"></i> Download seqdistproject </button></a></p>
+<p>Either way you get a folder called <code>seqdistproject</code> with these files in it:</p>
 <ul>
 <li><code>seqdistproject.py</code> is an empty file where you must write your code.</li>
-<li><code>test_seqdistproject.py</code> is the test program that lets you test the code you write in translationproject.py.</li>
+<li><code>test_seqdistproject.py</code> is the test program that lets you test the code you write in <code>seqdistproject.py</code>.</li>
 </ul>
-<p>Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose “Save file as…” or “Download linked file”.</p>
 <section id="measuring-sequence-distance" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="measuring-sequence-distance">Measuring sequence distance</h2>
 <p>Clustering is based on the distances between all pairs of sequences. So before you can build your tree you must compute those distances and fill them into a table like that in the book. Here we break that task into three parts:</p>
@@ -823,16 +814,16 @@ window.Quarto = {
 <li>A float, which represents the proportion of different bases between the two sequences.</li>
 </ul>
 <p>Example usage:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sequence_difference(<span class="st">'AAATTAAA'</span>, <span class="st">'AAAAAAAA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sequence_difference(<span class="st">'AAATTAAA'</span>, <span class="st">'AAAAAAAA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>should return</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="make-the-jukes-cantor-correction" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="make-the-jukes-cantor-correction">Make the Jukes-Cantor correction</h3>
 <p>To take into account that some substitutions may fall on top of others you must do the Jukes-Cantor correction you read about in the book. The formula is like this:</p>
 <p><span class="math display">\[ K = -\frac{3}{4} \ln(1 - \frac{4}{3}*D) \]</span></p>
 <p>Where <span class="math inline">\(D\)</span> is the proportion of differences as returned by <code>seqeunce_diff</code> and <span class="math inline">\(K\)</span> is the Jukes-Cantor corrected distance. In the top of <code>seqdistproject.py</code> it already says:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>That line makes the <code>log</code> (logarithm) builtin function from the <code>math</code> python library available to your program. Try to find its Python documentation to see how you use it.</p>
 <p><em>Write a function</em>, <code>jukes_cantor</code>, which takes one argument:</p>
 <ol type="1">
@@ -843,9 +834,9 @@ window.Quarto = {
 <li>A float, which represents the Jukes-Cantor corrected distance corresponding the proportion of differences given as argument.</li>
 </ul>
 <p>Example usage:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>jukes_cantor(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>jukes_cantor(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>should return</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.10732563273050497</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.10732563273050497</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="lower-triangular-distance-matrices" class="level2 unnumbered">
@@ -859,12 +850,12 @@ window.Quarto = {
 <b>0.2</b>  <b>0.1</b>   <b>0.3</b>  <b>0.1</b>  <b>0.1</b> 0.0
 </pre>
 <p>can be expressed as a list of lists like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>[[<span class="fl">0.0</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>],</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.1</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>],</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.0</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>],</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>],</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.0</span>, <span class="fl">0.1</span>],</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.0</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>[[<span class="fl">0.0</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>],</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.1</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>],</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.0</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>],</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>],</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.0</span>, <span class="fl">0.1</span>],</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.0</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Notice how the diagonal is all zeros because these distances represent the distance of a sequence to itself. Also, notice that the part above the diagonal is a mirror the part below the diagonal (in bold). This is all a bit redundant, especially in this project where you will have to reduce the matrix as you group (or cluster) sequences together. We want something nice and lean where we only have the numbers we need – and that is the <em>lower triangular matrix</em>:</p>
 <pre><code>0.1
 0.3 0.2
@@ -872,12 +863,12 @@ window.Quarto = {
 0.1 0.1 0.2 0.2
 0.2 0.1 0.3 0.1 0.1</code></pre>
 <p>In Python this is still just a list of lists, only, each sublist now has the same length as its index in the big list (E.g. <code>[0.3, 0.2]</code> has index <code>2</code> in the list and has length <code>2</code>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> [[],</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.1</span>],</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.3</span>, <span class="fl">0.2</span>],</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>],</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>],</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> [[],</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.1</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.3</span>, <span class="fl">0.2</span>],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>],</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here I am just writing it nicely. If you where to print that list of lists it would look like this:</p>
 <pre><code>[[], [0.1], [0.3, 0.2], [0.3, 0.4, 0.4], [0.1, 0.1, 0.2, 0.2], [0.2, 0.1, 0.3, 0.1, 0.1]]</code></pre>
 <p>Say your sequences had names: A, B, C, D, E, and F, then the above data structure represents distances between each pair like this:</p>
@@ -901,16 +892,16 @@ F 0.2 0.1 0.3 0.1 0.1
 <li>A list of lists of floats, which represent the lower triangular matrix of Jukes-Cantor distances between DNA sequences given as argument.</li>
 </ul>
 <p>Example usage:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sequences <span class="op">=</span> [<span class="st">'TAAAAAAAAAAA'</span>, </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">'TTAAAAAAAAAA'</span>, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAAAGG'</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAGGGG'</span>]</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>lower_trian_matrix(sequences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sequences <span class="op">=</span> [<span class="st">'TAAAAAAAAAAA'</span>, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">'TTAAAAAAAAAA'</span>, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAAAGG'</span>, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAGGGG'</span>]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>lower_trian_matrix(sequences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>here <code>lower_trian_matrix</code> should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>[[], </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.08833727674228764</span>], </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.30409883108112323</span>, <span class="fl">0.4408399986765892</span>], </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.6081976621622466</span>, <span class="fl">0.8239592165010822</span>, <span class="fl">0.18848582121067953</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>[[], </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.08833727674228764</span>], </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.30409883108112323</span>, <span class="fl">0.4408399986765892</span>], </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a> [<span class="fl">0.6081976621622466</span>, <span class="fl">0.8239592165010822</span>, <span class="fl">0.18848582121067953</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should use <code>sequence_difference</code> to compute the proportion of differences between each pair of sequences and <code>jukes_cantor</code> to produce the corrected distance to fill into the matrix.</p>
 <p>Start by figuring out what pairs of indexes you need and then figure out how you can make two nested for-loops generate them. Remember that the length of each sublist is equal to its index in the big list.</p>
 </section>
@@ -936,9 +927,9 @@ F 0.2 0.1 0.3 0.1 0.1
 </ul>
 <p>Remember that the row index is always smaller than the column index. The two indexes tell you which two elements to join next.</p>
 <p>Example usage: Assuming that <code>matrix</code> is the lower triangular matrix returned by <code>lower_trian_matrix</code> in the previous example, then</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>find_lowest_cell(matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>find_lowest_cell(matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Should return</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="decide-on-a-linkage-method" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="decide-on-a-linkage-method">Decide on a linkage method</h3>
@@ -953,9 +944,9 @@ F 0.2 0.1 0.3 0.1 0.1
 <li>A float, which is the average of the two arguments</li>
 </ul>
 <p>Example usage:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>link(<span class="fl">0.4</span>, <span class="fl">0.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>link(<span class="fl">0.4</span>, <span class="fl">0.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="perform-the-clustering" class="level2 unnumbered">
@@ -971,17 +962,17 @@ F 0.2 0.1 0.3 0.1 0.1
 <li>An integer representing the index of another sequence name.</li>
 </ol>
 <p>The function does not return anything, but it updates the list of names to reflect that you joined a pair. If your list looks like this <em>before</em> you call the function:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then <em>after</em> you call the function like this <code>update_labels(labels, 1, 0)</code>, the list will look like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">'(A,B)'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">'(A,B)'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here is the function:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_labels(labels, i, j):</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># turn the label at first index into a combination of both labels</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    labels[j] <span class="op">=</span> <span class="st">"(</span><span class="sc">{}</span><span class="st">,</span><span class="sc">{}</span><span class="st">)"</span>.<span class="bu">format</span>(labels[j], labels[i])</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove the (now redundant) label in the first index</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> labels[i]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_labels(labels, i, j):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># turn the label at first index into a combination of both labels</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    labels[j] <span class="op">=</span> <span class="st">"(</span><span class="sc">{}</span><span class="st">,</span><span class="sc">{}</span><span class="st">)"</span>.<span class="bu">format</span>(labels[j], labels[i])</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove the (now redundant) label in the first index</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> labels[i]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="updating-the-matrix" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="updating-the-matrix">Updating the matrix</h3>
@@ -993,30 +984,30 @@ F 0.2 0.1 0.3 0.1 0.1
 </ol>
 <p>The way this function is implemented, it is assumed that the second argument is always larger than the third argument. I.e. the second argument is a row index and the third argument is a column index.</p>
 <p>The function does not return anything, but it updates the matrix to reflect that a pair has been joined. If your matrix looks like this <em>before</em> you call the function:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> [[], [<span class="fl">0.1</span>], [<span class="fl">0.3</span>, <span class="fl">0.4</span>], [<span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> [[], [<span class="fl">0.1</span>], [<span class="fl">0.3</span>, <span class="fl">0.4</span>], [<span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then <em>after</em> you call the function like this <code>update_table(m, 1, 0)</code>, the matrix will look like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>[[], [<span class="fl">0.35</span>], [<span class="fl">0.7</span>, <span class="fl">0.2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>[[], [<span class="fl">0.35</span>], [<span class="fl">0.7</span>, <span class="fl">0.2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here is the function:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_table(table, a, b):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For the lower index, reconstruct the entire row (ORANGE)</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, b):</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        table[b][i] <span class="op">=</span> link(table[b][i], table[a][i])</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Link cells to update the column above the min cell (BLUE)</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(b<span class="op">+</span><span class="dv">1</span>, a):</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        table[i][b] <span class="op">=</span> link(table[i][b], table[a][i])</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Link cells to update the column below the min cell (RED)</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(a<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(table)):</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        table[i][b] <span class="op">=</span> link(table[i][b], table[i][a])</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Delete cells we no longer need (lighter colors)</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(a<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(table)):</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Remove the (now redundant) first index column entry</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">del</span> table[i][a]</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove the (now redundant) first index row</span></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> table[a] </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_table(table, a, b):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For the lower index, reconstruct the entire row (ORANGE)</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, b):</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        table[b][i] <span class="op">=</span> link(table[b][i], table[a][i])</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Link cells to update the column above the min cell (BLUE)</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(b<span class="op">+</span><span class="dv">1</span>, a):</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        table[i][b] <span class="op">=</span> link(table[i][b], table[a][i])</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Link cells to update the column below the min cell (RED)</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(a<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(table)):</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        table[i][b] <span class="op">=</span> link(table[i][b], table[i][a])</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Delete cells we no longer need (lighter colors)</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(a<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(table)):</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Remove the (now redundant) first index column entry</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">del</span> table[i][a]</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove the (now redundant) first index row</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> table[a] </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The colors refer to cell colors on the slide you I showed you at the lecture.</p>
 </section>
 <section id="do-the-clustering" class="level3 unnumbered">
@@ -1031,53 +1022,53 @@ F 0.2 0.1 0.3 0.1 0.1
 <li>A string representing the generated clustering.</li>
 </ul>
 <p>Here is the function:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cluster(sequences, names):</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> lower_trian_matrix(sequences)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> names[:]</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Until all labels have been joined...</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">len</span>(labels) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Locate lowest cell in the table</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        i, j <span class="op">=</span> find_lowest_cell(table)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Join the table on the cell co-ordinates</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        update_table(table, i, j)</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Update the labels accordingly</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        update_labels(labels, i, j)</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the final label</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> labels[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cluster(sequences, names):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> lower_trian_matrix(sequences)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> names[:]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Until all labels have been joined...</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">len</span>(labels) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Locate lowest cell in the table</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        i, j <span class="op">=</span> find_lowest_cell(table)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Join the table on the cell co-ordinates</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        update_table(table, i, j)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Update the labels accordingly</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        update_labels(labels, i, j)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the final label</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> labels[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here is a simple example of how you can use your new clustering code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>]</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sequences <span class="op">=</span> [<span class="st">'TAAAAAAAAAAA'</span>, </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">'TTAAAAAAAAAA'</span>, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAAAGG'</span>, </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAGGGG'</span>]</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> cluster(sequences, names)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sequences <span class="op">=</span> [<span class="st">'TAAAAAAAAAAA'</span>, </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">'TTAAAAAAAAAA'</span>, </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAAAGG'</span>, </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">'AAAAAAAAGGGG'</span>]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> cluster(sequences, names)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="on-your-own" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="on-your-own">On your own</h3>
 <p>From here on you are on your own. If you find a FASTA file with aligned (ungapped) homologous sequences, you can use the function below to read it into your program and try your code out on real-world sequences. I will leave it to you to figure out how it works.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_fasta(filename):</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    record_list <span class="op">=</span> []</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    header <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    sequence <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> f:</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> line.strip() <span class="co">## get rid of whitespace and newline</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> line.startswith(<span class="st">"&gt;"</span>):</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> header <span class="op">!=</span> <span class="st">""</span>: <span class="co">## if it is the first header</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                record_list.append([header, sequence])</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                sequence <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>            header <span class="op">=</span> line[<span class="dv">1</span>:]</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>            sequence <span class="op">+=</span> line</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    record_list.append([header, sequence])</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> record_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_fasta(filename):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    record_list <span class="op">=</span> []</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    header <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    sequence <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> line.strip() <span class="co">## get rid of whitespace and newline</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> line.startswith(<span class="st">"&gt;"</span>):</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> header <span class="op">!=</span> <span class="st">""</span>: <span class="co">## if it is the first header</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>                record_list.append([header, sequence])</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>                sequence <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>            header <span class="op">=</span> line[<span class="dv">1</span>:]</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>            sequence <span class="op">+=</span> line</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    record_list.append([header, sequence])</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> record_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

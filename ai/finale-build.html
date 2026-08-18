@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating slimcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -662,7 +662,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-
+<p> </p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
     <h2 id="toc-title">Table of contents</h2>
@@ -678,7 +678,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/ai/finale-build.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/finale-kickoff.html">Week 13</a></li><li class="breadcrumb-item"><a href="../ai/finale-build.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Finale build clinic</span></a></li></ol></nav>
 <div class="quarto-title">
@@ -700,11 +700,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>You arrive at this point holding a plan and a first set of tests for a problem you chose yourself. Nothing about the building that follows is new. It is the loop you have already run many times, applied now to your own decomposition rather than to one somebody handed you, and repeated once for every piece in your plan. What is different is that nobody will tell you which piece to build next, nobody will tell you when a piece is finished, and nobody will notice on your behalf when an answer is quietly wrong. Those three judgments are the whole of the work, and they are yours.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>The ladder so far</strong></p>
-<p><a href="../intro/course-introduction.html#sec-badge-explainer">Explainer</a> · <a href="../intro/course-introduction.html#sec-badge-comparer">Comparer</a> · <a href="../intro/course-introduction.html#sec-badge-drafter">Drafter</a> · <a href="../intro/course-introduction.html#sec-badge-collaborator">Collaborator</a> · <a href="../intro/course-introduction.html#sec-badge-developer"><strong>Developer</strong></a></p>
-</div></div><section id="sec-dependency-order" class="level2 unnumbered">
+<section id="sec-dependency-order" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-dependency-order">Take the pieces in dependency order</h2>
 <p>Start with a piece that depends on nothing else. In almost every plan there is at least one, usually a small computation over a value passed straight in, and it is the right place to begin because when it fails there is nowhere else for the fault to hide. Once it is proven you build the next piece on top of a foundation you already trust, and you keep doing that until the piece that faces you, the one that reports or plots or prints, is the last thing standing.</p>
 <p>Resist the temptation to build the interesting piece first. The interesting piece is usually the one furthest up the dependency chain, and building it early means testing it against pieces that are not yet proven, which means that when something goes wrong you cannot tell whose fault it is. Build boring first. The whole reason the loop stays comfortable is that at any moment exactly one thing in your program is unproven, and it is the thing you are looking at.</p>

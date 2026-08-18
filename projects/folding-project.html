@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-4858866aa4e24e669f61a70961177eac.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/project-download-1.0.0/project-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -727,7 +727,7 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-
+<p> <a href="../project-files/foldingproject.zip" download="foldingproject.zip"><button class="btn btn-light downloadthis  "><i class="bi bi-download"></i> Download project </button></a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
     <h2 id="toc-title">Table of contents</h2>
@@ -763,30 +763,21 @@ window.Quarto = {
 
 
 <p>Say you have a short sequence that you want to use as a PCR primer. To evaluate if it a suitable primer, you need to know the melting temperature of the sequence. You also need to make sure that it will not fold up on itself so that it cannot bind to the DNA sequence you want to amplify.</p>
-<p>Download the files you need for this project:</p>
-<p><a href="#dnldts23904" onclick="fetch('data:application/x-python;base64,CiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBXcml0ZSB5b3VyIGZ1bmN0aW9ucyBkZWZpbml0aW9ucyBiZWxvdy4KIyBEbyBub3Qgd3JpdGUgYW55IG90aGVyIGNvZGUgaGVyZS4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBvbmx5IHlvdXIgZnVuY3Rpb24gZGVmaW5pdGlvbnMuLi4KCgoKCgoKCgoKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKIyBDb2RlIGZvciBjYWxsaW5nIGFuZCB0ZXN0aW5nIHlvdXIgZnVuY3Rpb25zIHNob3VsZCBiZSBiZWxvdwojIGhlcmUuIElmIHlvdSBzZXBhcmF0ZSBmdW5jdGlvbiBkZWZpbml0aW9ucyBmcm9tIHRoZSByZXN0IG9mCiMgeW91ciBzY3JpcHQgaW4gdGhpcyB3YXksIHlvdSBhcmUgbGVzcyBsaWtlbHkgdG8gbWFrZSBtaXN0YWtlcy4KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKIyBhbnkgb3RoZXIgY29kZSAuLi4KCgoKCgo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts23904"><i class="bi bi-download"></i> foldingproject.py </button></a> <a href="#dnldts63274" onclick="fetch('data:application/x-python;base64,ZnJvbSBweXRlc3QgaW1wb3J0IGFwcHJveApmcm9tIGltX3B5dGVzdCBpbXBvcnQgcmVxdWlyZXMKCgpAcmVxdWlyZXMoImNvdW50X2Jhc2VzIikKZGVmIHRlc3RfY291bnRfYmFzZXMobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUuY291bnRfYmFzZXMoJ0FUR0cnKSA9PSB7J0EnOiAxLCAnQyc6IDAsICdHJzogMiwgJ1QnOiAxfQogICAgYXNzZXJ0IG1vZHVsZS5jb3VudF9iYXNlcygnQVRHR0NDJykgPT0geydBJzogMSwgJ1QnOiAxLCAnRyc6IDIsICdDJzogMn0KICAgIGFzc2VydCBtb2R1bGUuY291bnRfYmFzZXMoJycpID09IHsnQSc6IDAsICdUJzogMCwgJ0cnOiAwLCAnQyc6IDB9CgoKQHJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnQobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUucmV2ZXJzZV9jb21wbGVtZW50KCdBVEdDJykgPT0gJ0dDQVQnCgoKQHJlcXVpcmVzKCJyZXZlcnNlX2NvbXBsZW1lbnQiKQpkZWYgdGVzdF9yZXZlcnNlX2NvbXBsZW1lbnRfZW1wdHkobW9kdWxlKToKICAgIGFzc2VydCBtb2R1bGUucmV2ZXJzZV9jb21wbGVtZW50KCcnKSA9PSAnJwoKCkByZXF1aXJlcygicmV2ZXJzZV9jb21wbGVtZW50IikKZGVmIHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50X2hvbW9wb2x5bWVyKG1vZHVsZSk6CiAgICAjIFByZXZpb3VzbHkgc2hhZG93ZWQgYnkgYSBkdXBsaWNhdGUgYHRlc3RfcmV2ZXJzZV9jb21wbGVtZW50XzJgIG5hbWUgaW4gdGhlCiAgICAjIG9yaWdpbmFsIHVuaXR0ZXN0IGZpbGU7IHBvcnRlZCBoZXJlIHVuZGVyIGEgZGlzdGluY3QgbmFtZSBzbyBpdCBydW5zLgogICAgYXNzZXJ0IG1vZHVsZS5yZXZlcnNlX2NvbXBsZW1lbnQoJ0FBQUFBQUEnKSA9PSAnVFRUVFRUVCcKCgpAcmVxdWlyZXMoIm1lbHRpbmdfdGVtcCIpCmRlZiB0ZXN0X21lbHRpbmdfdGVtcChtb2R1bGUpOgogICAgYXNzZXJ0IG1vZHVsZS5tZWx0aW5nX3RlbXAoJ0FURycpID09IGFwcHJveCg4LCBhYnM9MWUtNCkKICAgIGFzc2VydCBtb2R1bGUubWVsdGluZ190ZW1wKCdBQUFBQVRUVFRUQ0NDQ0NHR0dHRycpID09IGFwcHJveCgKICAgICAgICA1MS43ODAwMDAwMDAwMDAwMSwgYWJzPTFlLTQpCgoKQHJlcXVpcmVzKCJoYXNfaGFpcnBpbiIpCmRlZiB0ZXN0X2hhc19oYWlycGluKG1vZHVsZSk6CiAgICBhc3NlcnQgbW9kdWxlLmhhc19oYWlycGluKCdBVEFUQ0NDQ0FUQVQnLCA0KSA9PSBUcnVlCiAgICBhc3NlcnQgbW9kdWxlLmhhc19oYWlycGluKCdBVEFUQ0NBVEFUJywgNCkgPT0gRmFsc2UKICAgIGFzc2VydCBtb2R1bGUuaGFzX2hhaXJwaW4oJ0FUQ0NDQ0FUJywgNCkgPT0gRmFsc2UKICAgIGFzc2VydCBtb2R1bGUuaGFzX2hhaXJwaW4oJ0FUQ0NDQ0FUJywgMikgPT0gVHJ1ZQogICAgYXNzZXJ0IG1vZHVsZS5oYXNfaGFpcnBpbignR0dHR0FUQVRDQ0NDQVRBVCcsIDQpID09IFRydWUKICAgIGFzc2VydCBtb2R1bGUuaGFzX2hhaXJwaW4oJ0dHR0dHR0FUQVRDQ0NDQ0NBVEFUJywgNikgPT0gVHJ1ZQo=').then(res => res.blob()).then(blob => {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'test_foldingproject.py'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-        });"><button class="btn btn-light downloadthis  " id="dnldts63274"><i class="bi bi-download"></i> test_foldingproject.py </button></a></p>
-<p><a href="https://munch-group.org/bioinformatics/supplementary/project_files">https://munch-group.org/bioinformatics/supplementary/project_files</a></p>
+<p>Download the project. In the VS Code terminal, ask for it by name:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pixi run get foldingproject</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>That puts the folder straight into your course folder, beside your notebooks.</p>
+<p>There is a button for it too, if you would rather click than type. It lands in your Downloads folder, so you have to carry it across yourself:</p>
+<p><a href="../project-files/foldingproject.zip" download="foldingproject.zip"><button class="btn btn-light downloadthis  "><i class="bi bi-download"></i> Download foldingproject </button></a></p>
+<p>Either way you get a folder called <code>foldingproject</code> with these files in it:</p>
 <ul>
 <li><code>foldingproject.py</code> is an empty file where you must write your code.</li>
-<li><code>test_foldingproject.py</code> is the test program that lets you test the code you write in translationproject.py.</li>
+<li><code>test_foldingproject.py</code> is the test program that lets you test the code you write in <code>foldingproject.py</code>.</li>
 </ul>
-<p>Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose “Save file as…” or “Download linked file”.</p>
 <section id="count-the-number-of-bases-in-your-candidate-primer" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="count-the-number-of-bases-in-your-candidate-primer">Count the number of bases in your candidate primer</h2>
 <p>Before you can compute the melting temperature, you need to determine how many times each base occurs in the sequence. You can assume that the only characters in the string are A, T, G, and C.</p>
@@ -799,9 +790,9 @@ window.Quarto = {
 <li>A dictionary, which in which keys are strings that represent bases and values are integers that represent the number of occurrences of each base. If a base is not found in the sequence, its count must be zero.</li>
 </ul>
 <p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count_bases(<span class="st">"ATGG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>count_bases(<span class="st">"ATGG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>then it should return (not necessarily with key-value pairs in the same order):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"A"</span>: <span class="dv">1</span>, <span class="st">"C"</span>: <span class="dv">0</span>, <span class="st">"G"</span>: <span class="dv">2</span>, <span class="st">"T"</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"A"</span>: <span class="dv">1</span>, <span class="st">"C"</span>: <span class="dv">0</span>, <span class="st">"G"</span>: <span class="dv">2</span>, <span class="st">"T"</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="compute-the-melting-temperature" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="compute-the-melting-temperature">Compute the melting temperature</h2>
@@ -820,9 +811,9 @@ window.Quarto = {
 <li>A number, which represents the melting temperature of the double-stranded DNA corresponding to the DNA string given as argument.</li>
 </ul>
 <p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>melting_temp(<span class="st">"ATG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>melting_temp(<span class="st">"ATG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="reverse-complement-the-sequence" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="reverse-complement-the-sequence">Reverse complement the sequence</h2>
@@ -836,9 +827,9 @@ window.Quarto = {
 <li>A string, which represents the reverse complement of the DNA string given as argument.</li>
 </ul>
 <p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reverse_complement(<span class="st">"AATTC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>reverse_complement(<span class="st">"AATTC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"GAATT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">"GAATT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- TODO: Add function to test if the primer can form a dimer (interacting with another sequence) -->
 </section>
 <section id="check-for-hairpins" class="level2 unnumbered">
@@ -862,19 +853,19 @@ window.Quarto = {
 <li><code>True</code> if the sequence contains a hairpin of at least the specified length and <code>False</code> otherwise.</li>
 </ul>
 <p>Example usage: If the function is called like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(has_hairpin(<span class="st">"ATATACCCCTATAT"</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(has_hairpin(<span class="st">"ATATACCCCTATAT"</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>then it should return:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This is a hard one, so I will give you a bit of help. Here is the function with some parts missing.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> has_hairpin(s, k):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    looplen <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        subs <span class="op">=</span> <span class="co"># Hint A</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        right <span class="op">=</span> <span class="co"># Hint B</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        revcl <span class="op">=</span> reverse_complement(subs)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> revcl <span class="kw">in</span> right[looplen:]:</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> has_hairpin(s, k):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    looplen <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        subs <span class="op">=</span> <span class="co"># Hint A</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        right <span class="op">=</span> <span class="co"># Hint B</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        revcl <span class="op">=</span> reverse_complement(subs)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> revcl <span class="kw">in</span> right[looplen:]:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Hint A: Here you need to extract a substring of length k starting at i. Hint B: Here you need to extract all the sequence to the right of <code>substr</code>.</p>
 
 
