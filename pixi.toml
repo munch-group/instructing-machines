@@ -21,6 +21,8 @@ clean-notebooks = "python3 scripts/clean_notebooks.py"
 # stale. build-demo.sh's pixi tasks already run this automatically; this
 # is for running it by hand.
 jupyterlite-doctor = "pixi run --manifest-path docs/jupyterlite/pixi.toml doctor"
+# Run project tests against the solutions for each project.
+test-projects = "pytest-check --sweep project-files/"
 
 [tasks.todo]
 # Defaults match the old `prompts` task's behaviour (CLAUDE: only, strict):
@@ -50,13 +52,12 @@ snippet-cast = ">=0.1.49,<0.2"
 pytest = ">=9.1.1,<10"
 cryptography = ">=50.0.0,<51"
 anywidget = ">=0.11.0,<0.12"
-sandbox-widget = ">=1.0.21,<2"
-im-pytest = ">=0.1.29,<0.2"
+im-pytest = ">=0.1.32,<0.2"
 iplot-widget = ">=0.1.18,<0.2"
 vscodenb = ">=1.0.5,<2"
 deno = ">=2.4.5,<2.5"
 cairosvg = ">=2.9.0,<3"
 fonttools = ">=4.63.0,<5"
 librsvg = ">=2.62.3,<3"
-script-widget = ">=1.0.3,<2"
+sandbox-widget = ">=1.0.3,<2"
 biopython = ">=1.88,<2"

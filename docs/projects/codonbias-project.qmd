@@ -29,13 +29,22 @@ Given an open reading frame (ORF), you must compute the codon usage. Your goal i
 
 That data structure is a dictionary with keys corresponding to amino acids (i.e. single letter strings designating an amino acid such as `'R'` for arginine). The value associated with *each* amino acid key is also a dictionary, and the keys of *this* dictionary should be the different codons that encode the amino acid. The value associated with each codon key should be a number, representing the frequency with which that codon is used to encode that amino acid. The final data structure should only include amino acids that are found in the ORF.
 
-Download the files you need for this project:
+Download the project. In the VS Code terminal, ask for it by name:
+
+```{.txt filename="Terminal"}
+pixi run get codonbiasproject
+```
+
+That puts the folder straight into your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-{{< downloadthis ../../project-files/codonbiasproject/codonbiasproject.py dname="codonbiasproject" label="codonbiasproject.py" type="light" >}} {{< downloadthis ../../project-files/codonbiasproject/test_codonbiasproject.py dname="test_codonbiasproject" label="test_codonbiasproject.py" type="light" >}} {{< downloadthis ../../project-files/codonbiasproject/sample_orfs.txt dname="sample_orfs" label="sample_orfs.txt" type="light" >}}
+There is a button for it too, if you would rather click than type. It lands in
+your Downloads folder, so you have to carry it across yourself:
+
+{{< project-download label="Download codonbiasproject" type="light" >}}
 :::
 
-[https://munch-group.org/bioinformatics/supplementary/project_files](https://munch-group.org/bioinformatics/supplementary/project_files)
+Either way you get a folder called `codonbiasproject` with these files in it:
 
 - `sample_orfs.txt` contains open reading frame sequences you can work on.
 - `codonbiasproject.py` is an empty file where you must write your code.

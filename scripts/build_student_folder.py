@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Assemble the downloadable student course folder and zip it into the book.
 
-The zip that students download is built from four places:
+The zip that students download is built from three places:
 
     student-folder/     the hand-maintained template (pixi.toml, .vscode, ...)
     docs/python/data/   data files the lecture notes read
-    project-files/      the programming projects
     docs/intro/         the two week-one notebooks, which ship pre-placed
+
+The projects are *not* in it. Like the chapter notebooks, each one is published
+as its own download and arrives in the week it is set — so a project can be
+edited up to the morning it is handed out, and a student cannot be working from
+a copy taken on day one.
 
 Run it by hand from anywhere:
 
@@ -23,6 +27,8 @@ are published as part of the site:
     docs/_book/pixi.lock
     docs/_book/notebooks/*.ipynb
     docs/_book/notebooks/index.txt
+    docs/_book/project-files/*.zip
+    docs/_book/project-files/index.txt
 """
 
 from __future__ import annotations
@@ -55,7 +61,6 @@ DEFAULT_OUT = REPO / "docs" / "_book"
 EXTRA_TREES = [
     (TEMPLATE / "vscode", ".vscode"),
     (REPO / "docs" / "python" / "data", "data"),
-    (REPO / "project-files", "projects"),
 ]
 
 # Copied by EXTRA_TREES under a different name, so skip it in the plain pass.
@@ -84,9 +89,7 @@ NOTEBOOK_DIR = "notebooks"
 CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
 
 # Never ship these. Directory names are matched exactly; file patterns are
-# globs. Solution walkthroughs are held back deliberately — the encrypted
-# solution files are meant to travel with the projects, the walkthroughs are
-# not.
+# globs.
 EXCLUDE_DIRS = {"__pycache__", ".pytest_cache", ".ipynb_checkpoints", ".pixi", ".git"}
 EXCLUDE_FILES = [
     "*.pyc",
@@ -94,6 +97,31 @@ EXCLUDE_FILES = [
     "*_solution.py",
     "solution_walkthrough.ipynb",
 ]
+
+# Held back from a project zip on top of the list above. The encrypted
+# solutions used to travel inside the projects, which was harmless while the
+# whole set shipped once on day one; now that each project is fetched in its
+# own week they would be a file students carry around with no way to open and
+# no reason to have. Publish them separately when a project is closed.
+PROJECT_EXCLUDE_FILES = ["*_solution.py.encrypted"]
+
+# Held back from one project's zip only, for a file that has no business in
+# that project rather than in projects generally.
+PROJECT_EXCLUDE = {
+    # recap.py opens with `from project1_solution import *`, a module that
+    # exists nowhere in this repository, so it raises the moment it is
+    # imported. It is scratch left over from the old course's project
+    # numbering: nothing in hivproject imports it, and the chapter never
+    # mentions it. Shipping it puts a broken file in front of a student who
+    # has been told the folder holds what the project needs.
+    "hivproject": ["recap.py"],
+}
+
+# Where the per-project zips are published, and the folder name they unpack
+# into on a student's machine. The published directory deliberately is not
+# "projects": that is where the rendered project *chapters* land.
+PROJECT_DIR = "project-files"
+PROJECTS = REPO / "project-files"
 
 # Files copied loose into the site root as well as into the zip, because
 # update.py downloads them individually.
@@ -104,8 +132,9 @@ PUBLISH_LOOSE = ["pixi.toml", "pixi.lock"]
 ZIP_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
 
 
-def excluded_file(name: str) -> bool:
-    return any(fnmatch(name, pattern) for pattern in EXCLUDE_FILES)
+def excluded_file(name: str, extra: list[str] | None = None) -> bool:
+    patterns = EXCLUDE_FILES + (extra or [])
+    return any(fnmatch(name, pattern) for pattern in patterns)
 
 
 def copy_tree(source: Path, destination: Path, prune: set[str] | None = None) -> int:
@@ -125,6 +154,83 @@ def copy_tree(source: Path, destination: Path, prune: set[str] | None = None) ->
             shutil.copy2(here / filename, target)
             copied += 1
     return copied
+
+
+def write_zip(archive: Path, source: Path, root: str,
+              extra_exclude: list[str] | None = None) -> int:
+    """Zip `source` so that it unpacks as a single folder named `root`.
+
+    Entries carry a fixed timestamp, so a rebuild with nothing changed produces
+    a byte-identical archive and republishing the site does not churn.
+    """
+    written = 0
+    archive.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
+        for dirpath, dirnames, filenames in os.walk(source):
+            dirnames[:] = sorted(d for d in dirnames if d not in EXCLUDE_DIRS)
+            here = Path(dirpath)
+            for filename in sorted(filenames):
+                if excluded_file(filename, extra_exclude):
+                    continue
+                item = here / filename
+                arcname = (Path(root) / item.relative_to(source)).as_posix()
+                info = zipfile.ZipInfo(arcname, date_time=ZIP_TIMESTAMP)
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.external_attr = 0o644 << 16
+                zf.writestr(info, item.read_bytes())
+                written += 1
+    return written
+
+
+def project_dirs() -> list[Path]:
+    """Every project folder, recognised by holding its own test file."""
+    if not PROJECTS.is_dir():
+        return []
+    return sorted(
+        d for d in PROJECTS.iterdir()
+        if d.is_dir()
+        and d.name not in EXCLUDE_DIRS
+        and (d / f"test_{d.name}.py").is_file()
+    )
+
+
+def publish_projects(out_dir: Path) -> int:
+    """Write out_dir/project-files/<project>.zip, one per project, with a manifest.
+
+    The manifest is what `pixi run get` reads to know what it may ask for,
+    so a project that is not listed here is one no student can fetch.
+    """
+    projects = project_dirs()
+    target = out_dir / PROJECT_DIR
+    if target.exists():
+        shutil.rmtree(target)
+    target.mkdir(parents=True)
+
+    if not projects:
+        print(
+            f"warning: no project folders found in {PROJECTS}, so\n"
+            "         `pixi run get` will have no projects to offer",
+            file=sys.stderr,
+        )
+
+    skipped = sorted(
+        d.name for d in (PROJECTS.iterdir() if PROJECTS.is_dir() else [])
+        if d.is_dir() and d not in projects and d.name not in EXCLUDE_DIRS
+    )
+    if skipped:
+        print(
+            f"warning: not published, no matching test_<name>.py: {', '.join(skipped)}",
+            file=sys.stderr,
+        )
+
+    for project in projects:
+        write_zip(target / f"{project.name}.zip", project, project.name,
+                  PROJECT_EXCLUDE_FILES + PROJECT_EXCLUDE.get(project.name, []))
+
+    (target / "index.txt").write_text(
+        "\n".join(p.name for p in projects) + "\n", encoding="utf-8"
+    )
+    return len(projects)
 
 
 def chapter_notebooks() -> list[Path]:
@@ -226,16 +332,7 @@ def assemble(staging: Path, out_dir: Path) -> int:
 
     out_dir.mkdir(parents=True, exist_ok=True)
     archive = out_dir / f"{FOLDER_NAME}.zip"
-
-    with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
-        for item in sorted(folder.rglob("*")):
-            if item.is_dir():
-                continue
-            arcname = item.relative_to(staging).as_posix()
-            info = zipfile.ZipInfo(arcname, date_time=ZIP_TIMESTAMP)
-            info.compress_type = zipfile.ZIP_DEFLATED
-            info.external_attr = 0o644 << 16
-            zf.writestr(info, item.read_bytes())
+    write_zip(archive, folder, FOLDER_NAME)
 
     for name in PUBLISH_LOOSE:
         source = folder / name
@@ -243,10 +340,12 @@ def assemble(staging: Path, out_dir: Path) -> int:
             shutil.copy2(source, out_dir / name)
 
     published = publish_notebooks(out_dir)
+    projects = publish_projects(out_dir)
 
     size = archive.stat().st_size / 1024
     print(f"Built {archive} ({total} files, {size:.0f} kB)")
     print(f"Published {published} chapter notebooks to {out_dir / NOTEBOOK_DIR}")
+    print(f"Published {projects} project zips to {out_dir / PROJECT_DIR}")
     return 0
 
 

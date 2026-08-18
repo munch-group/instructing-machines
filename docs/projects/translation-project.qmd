@@ -7,15 +7,24 @@ In this project you will write the code needed to translate an open reading fram
 
 ## Project files
 
-Begin by downloading the files you need for the project:
+Begin by downloading the project. In the VS Code terminal, ask for it by name:
+
+```{.txt filename="Terminal"}
+pixi run get translationproject
+```
+
+That puts the folder straight into your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-{{< downloadthis ../../project-files/translationproject/translationproject.py dname="translationproject" label="translationproject.py" type="light" >}} {{< downloadthis ../../project-files/translationproject/test_translationproject.py dname="test_translationproject" label="test_translationproject.py" type="light" >}}
+There is a button for it too, if you would rather click than type. It lands in
+your Downloads folder, so you have to carry it across yourself:
+
+{{< project-download label="Download translationproject" type="light" >}}
 :::
 
-[https://munch-group.org/bioinformatics/supplementary/project_files](https://munch-group.org/bioinformatics/supplementary/project_files)
+Either way you get a folder called `translationproject`.
 
-The file `translationproject.py` is for your code. The file `test_translationproject.py` is the script you use to test the functions you write for this project (see @sec-testing).
+The file `translationproject.py` in it is for your code. The file `test_translationproject.py` is the script you use to test the functions you write for this project (see @sec-testing).
 
 In this project you will need a data structure that pairs each codon to the amino acid it encodes. This is an obvious use of a dictionary and at the top of `translationproject.py` I have defined such a dictionary you can use. Defining it outside the functions means that it is visible inside all your functions (unless you define *another* variable called `codon_map` inside a function). Defining variables globally to your program sometimes make sense if some value can be considered a *constant* in your program and is *never* changed.
 

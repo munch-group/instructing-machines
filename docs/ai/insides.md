@@ -8,14 +8,6 @@ Since this course is all about instructing machines, some idea about what a comp
 
 You are about to spend fourteen weeks giving instructions to a machine, and part of that time telling an AI to give instructions to the same machine on your behalf. It helps enormously to know, in broad strokes, what is actually sitting under your fingers. You do not need to become an electrical engineer. What you need is a mental model, a small and sturdy picture you can return to whenever the words pile up. 
 
-::: {.column-margin}
-**The ladder so far**
-
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer)
-
-*Still to come:* [Comparer](../intro/course-introduction.qmd#sec-badge-comparer), [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
-:::
-
 ## It's switches all the way down {#sec-switches}
 
 Deep down, a computer is millions of tiny switches, and each switch is either off or on. That is it. There is no secret third thing. We write "off" as `0` and "on" as `1`, and one such off-or-on is called a bit, the smallest possible piece of information. One bit on its own cannot say much. But line eight of them up and you get a byte, and a byte can be in 256 different patterns, enough to stand for a number from 0 to 255, or a single letter, or one dot of color. Group bytes together and you can represent anything at all: this sentence, a photograph, a song, an entire genome, or the program that is reading them.
@@ -54,28 +46,77 @@ Grab a scrap of paper and draw three squares holding `0 1 1`, put the head on th
 
 Before you start, try to predict what the three squares will say when the machine stops, and where the head will end up. Then trace it slowly and check. 
 
-<!-- CLAUDE: the paragraph below should explain what the computation might represent if these were numbers -->
-
 If you got `1 0 1`, halted on the middle square, you traced it correctly. If not, find the step where your prediction and the rules parted ways, because that hunt is the real exercise.
+
+You may be wondering whether all that shuffling amounted to anything, and it did, once you agree on how to read the tape. Read the three squares as a binary number, with the leftmost square holding the ones, the middle one the twos, and the right one the fours. That is backwards from the way we write numbers on paper, and it is what puts the smallest digit where the head starts. The tape you began with, `0 1 1`, is then no ones, one two and one four, which is six. The tape you ended with, `1 0 1`, is one one, no twos and one four, which is five. The machine subtracted one. Look at the rules again and you can watch them doing the borrowing you learned at school: walking up from the small end, every `0` becomes a `1` and the walk continues, and the first `1` becomes a `0` and the walk stops. Try the rules on `1 1 0`, which is three, and you should land on `0 1 0`, which is two.
 
 ## What the imagined machine has to do with yours {#sec-turing-vs-modern}
 
 Now the astonishing part. This ridiculous little tape shuffler can compute anything that any computer can compute, your laptop included.
 
-<!-- CLAUDE: make a mermaid figure showing a tape with rules. -->
+::: {.content-visible when-format="html"}
+```mermaid
+flowchart TD
+    subgraph tape [" "]
+        direction LR
+        s1["0"] --- s2["1"] --- s3["1"] --- s4["blank"]
+    end
+    head["the head, now in state A"] --> s1
+    rules["the table of rules<br>in A reading 0: write 1, move right, stay in A<br>in A reading 1: write 0, move right, switch to B<br>in B reading 1: write 1, move left, stop"] --> head
+```
+:::
 
-Give it the right table of rules and this simple method will compute anything that any computer can compute, your laptop included. Turing went on to show that you can can make a set of rules that lets the machine read a description of any other machine written on its tape and then act it out. One machine that can become any machine, just by being fed the right instructions. That is the theoretical birth certificate of the thing on your desk, a general-purpose computer that runs any program you give it.
-<!-- CLAUDE: please make this more clear -->
+::: {.content-visible unless-format="html"}
+```txt
+   tape    | 0 | 1 | 1 |   |
+   head      ^ in state A
 
-So how does this paper fantasy line up with the chips of modern computers? Both grind through a set of instructions one tiny step at a time, and the head's cycle of reading, writing, and moving is mechanical version of the CPU doing one small operation after another. The Turing machine keeps storage (the tape) separate from the worker (head and its rules), just as your computer keeps memory separate from the CPU. Notice that on the tape the rules and the data sit together as plain symbols, which is exactly the modern truth that a program is just more data in memory. When Python reads your `hello.py` and acts it out, it is playing the role of a universal machine reading instructions off a tape. 
+   rules   in A reading 0: write 1, move right, stay in A
+           in A reading 1: write 0, move right, switch to B
+           in B reading 1: write 1, move left, stop
+```
+:::
+
+Turing then showed something stranger still. You can write one table of rules that lets the machine read a description of some *other* machine, written out as ordinary symbols on its own tape, and then act that machine out step by step. One machine that can become any machine, given the right instructions. That is the theoretical birth certificate of the thing on your desk, a general-purpose computer that runs whatever program you hand it.
+
+So how does this paper fantasy line up with the chips in a modern computer? Closer than it looks, in three ways. First, both work through their instructions one small step at a time, and the head's cycle of reading a square, writing a square and moving one place along is the same shape as the CPU carrying out one small operation and then the next. Second, both keep the store apart from the worker: the tape holds the symbols and the head holds the rules, just as memory holds your data and the CPU does the work on it. Third, and this is the one that matters most, the universal machine reads its instructions off the tape as ordinary symbols, which means instructions and data are made of the same stuff. That is why a program on your computer is a file like any other, sitting on the disk among your photographs, until the moment the operating system loads it into memory and lets the CPU carry it out. When Python reads your `hello.py` and acts it out line by line, it is doing the universal machine's job: reading a description of a computation and performing it. 
 
 ## The operating system, the manager in the middle {#sec-os}
 
 You never actually talk to the disk, memory, and CPU directly. Sitting between your programs and the hardware is the operating system. macOS, Windows, and Linux are all operating systems. The operating system sits between your programs and the hardware, handing out memory, finding files, and sharing the CPU so your programs do not have to fight over the electronics.
 
-<!-- CLAUDE: make a mermaid chart with label #fig-os-stack to replace ./images/fig-os-stack.svg -->
+:::: {.content-visible when-format="html"}
+::: {#fig-os-stack}
+```mermaid
+flowchart TD
+    programs["your programs<br>VS Code, a browser, Python running your code"]
+    os["the operating system<br>macOS, Windows or Linux"]
+    disk["the disk<br>kept"]
+    memory["the memory<br>temporary"]
+    cpu["the CPU<br>the worker"]
+    io["the keyboard and the screen"]
 
+    programs -->|"asks for a file, for memory, for a turn"| os
+    os --> disk
+    os --> memory
+    os --> cpu
+    os --> io
+
+    classDef kept fill:#fbf1e2,stroke:#e9cfa5,color:#b26a1f
+    classDef temporary fill:#e8f1fb,stroke:#bcd6f0,color:#2f6db3
+    classDef worker fill:#eceef1,stroke:#cfd4db,color:#3a4250
+    class disk kept
+    class memory temporary
+    class cpu worker
+```
+
+The operating system sits between your programs and the hardware: it hands out memory, finds files, shares the CPU between programs, and talks to the keyboard and screen.
+:::
+::::
+
+::: {.content-visible unless-format="html"}
 ![The operating system sits between your programs and the hardware: it hands out memory, finds files, shares the CPU between programs, and talks to the keyboard and screen.](images/fig-os-stack.svg){#fig-os-stack}
+:::
 
 As @fig-os-stack shows, when your program wants to open a file it does not go rummaging through the disk itself. It asks the operating system, and the operating system finds the file and hands it over. When a program needs free memory to work data, the operating system parcels some out. When you have a browser, an editor, and a music player all running at once, the operating system is the one sharing the single CPU between them, giving each one slices of time so quickly that they all seem to run at the same moment. It is also the operating system that listens to your keyboard and draws the windows on your screen.
 

@@ -33,24 +33,19 @@ book:
     # as the chapters it lists.  Delete an instruction in the same commit
     # that carries it out.
     #
-    # CLAUDE: confirm that `pixi run get <chapter>` reaches every chapter a
-    #   student is asked to download, and that docs/_book/notebooks/index.txt
-    #   lists them all after a full render.
     # CLAUDE: verify the Windows install path end to end on a clean Windows
     #   machine — install pixi from the .msi, unpack the course folder, open
     #   VS Code, run a widget. The .msi route is the documented one and nobody
     #   has confirmed the full sequence.
-    # CLAUDE: term-readiness review (2026-08-08). Below are the findings that
-    #   are book-wide rather than one chapter's; the per-chapter ones sit
-    #   under their own lines further down.
-    # CLAUDE: the downloadable student zip has no path to the live site. The
-    #   post-render hook above that would call scripts/build_student_folder.py
-    #   is commented out, and .github/workflows/quarto-publish.yml never calls
-    #   it either — only student-env-check.yml does, and only as a CI
-    #   artifact, not a site deploy. getting_started.ipynb's first instruction
-    #   to students is to download that zip. Wire the build step into the
-    #   real publish workflow before term, and confirm a real publish
-    #   produces it.
+    # CLAUDE: confirm that a real publish puts the student folder on the live
+    #   site. The post-render hook above does call
+    #   scripts/build_student_folder.py, so a render writes
+    #   _book/instructing-machines.zip, _book/notebooks/ and
+    #   _book/project-files/ — but nobody has checked that all three survive
+    #   `quarto publish gh-pages` and are reachable at the URLs
+    #   student-folder/course.py points get.py and project.py at.
+    #   getting_started.ipynb's first instruction to students is to download
+    #   that zip, and from week 6 every project arrives the same way.
     # ------------------------------------------------------------------
     - index.qmd
     # - intro/pyodide.qmd
@@ -59,13 +54,6 @@ book:
       # Workload: reference material; no teaching time attached.
       chapters:
 
-          # CLAUDE: this chapter tells students to run the print-steps
-          #   command, but the script-widget package that provides it is only
-          #   in the root pixi.toml, not in student-folder/pixi.toml — the
-          #   environment students actually install. Add it there (and to the
-          #   "Check the course environment" import list in
-          #   .github/workflows/quarto-publish.yml) or the command fails for
-          #   every student who tries it.
         - href: slides/index.qmd
           text: "Slides"
         - href: slides/flashcards.qmd
@@ -340,6 +328,7 @@ link-external-newwindow: true
 
 margin-header: |
   {{< notebook-download label="Download notebook" type="light" >}}
+  {{< project-download label="Download project" type="light" >}}
 # margin-footer: |
 #   - [FAQ]()
 #   - [Where am I]()

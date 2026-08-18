@@ -6,26 +6,30 @@ You have now been introduced to all the programming rules you will see in this c
 
 The programming project in this chapter deals with DNA sequences from HIV viruses. There are two types of HIV: HIV-1, which is by far the most common, and HIV-2, which is mostly found in West Africa. HIV-1 vira are divided into groups M, N, O, and P. The most important group M (for major) is one primarily responsible for the global epidemic. Group M is further divided into subtypes A, B, C, D, F, G, J, K, and CRFs. In this project we will look at sequences from the subtypes A, B, C, and D. You have multiple database sequences for each of these four subtypes and you have one *unknown* sequence from a patient that you need to assign to either subtype A, B, C or D. To do this you will have to write a program that *predicts* the subtype of the unknown sequence. How cool is that?
 
-Download the files you need for this project:
+Download the project. In the VS Code terminal, ask for it by name:
+
+```{.txt filename="Terminal"}
+pixi run get hivproject
+```
+
+That puts the folder straight into your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-{{< downloadthis ../../project-files/hivproject/hivproject.py dname="hivproject" label="hivproject.py" type="light" >}} {{< downloadthis ../../project-files/hivproject/test_hivproject.py dname="test_hivproject" label="test_hivproject.py" type="light" >}} {{< downloadthis ../../project-files/hivproject/subtypeA.txt dname="subtypeA" label="subtypeA.txt" type="light" >}} {{< downloadthis ../../project-files/hivproject/subtypeB.txt dname="subtypeB" label="subtypeB.txt" type="light" >}} {{< downloadthis ../../project-files/hivproject/subtypeC.txt dname="subtypeC" label="subtypeC.txt" type="light" >}} {{< downloadthis ../../project-files/hivproject/subtypeD.txt dname="subtypeD" label="subtypeD.txt" type="light" >}} {{< downloadthis ../../project-files/hivproject/unknown_type.txt dname="unknown_type" label="unknown_type.txt" type="light" >}}
+There is a button for it too, if you would rather click than type. It lands in
+your Downloads folder, so you have to carry it across yourself:
+
+{{< project-download label="Download hivproject" type="light" >}}
 :::
 
-[https://munch-group.org/bioinformatics/supplementary/project_files](https://munch-group.org/bioinformatics/supplementary/project_files)
+Either way you get a folder called `hivproject` with these files in it:
 
+- `hivproject.py` is an empty file where you must write your code.
+- `test_hivproject.py` is the test program that lets you test the code you write in `hivproject.py`.
 - `unknown_type.txt` contains an HIV sequence of unknown subtype
 - `subtypeA.txt` contains a database of HIV sequences of subtype A
 - `subtypeB.txt` contains a database of HIV sequences of subtype B
 - `subtypeC.txt` contains a database of HIV sequences of subtype C
 - `subtypeD.txt` contains a database of HIV sequences of subtype D
-
-You also need to download the two project files:
-
-- `hivproject.py` is an empty file where you must write your code.
-- `test_hivproject.py` is the test program that lets you test the code you write in `hivproject.py`.
-
-Put the files in a folder dedicated to this project. On most computers you can right-click on the link and choose "Save file as..." or "Download linked file".
 
 Now open each file in *VScode* and have a look at what is in the data files. (Do *not* change them in any way and do not save them after viewing. If VScode asks you if you want to save it before closing, say *no*.) How many sequences are there in each file?
 

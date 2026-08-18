@@ -4,14 +4,6 @@
 
 You now have the two halves separately: reading a library's documentation as a set of contracts, and catching the assistant when it invents one that does not exist. This clinic puts both halves to work on an actual small task, live, the way you will need to on this week's project and, eventually, on the finale. The task: given a DNA coding sequence, report whether its reverse complement, read as a coding sequence, translates cleanly to a protein with no internal stop codon.
 
-::: {.column-margin}
-**The ladder so far**
-
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [Drafter](../intro/course-introduction.qmd#sec-badge-drafter) · [**Collaborator**](../intro/course-introduction.qmd#sec-badge-collaborator)
-
-*Still to come:* [Developer](../intro/course-introduction.qmd#sec-badge-developer)
-:::
-
 ### Deciding what the task needs before asking for anything
 
 Before typing a single prompt, name the capabilities the task actually requires, the way you would decompose a task into functions. This one needs a reverse complement of a DNA sequence, a translation of a DNA sequence into a protein, and a check for whether a stop codon, shown by BioPython as `*`, appears anywhere before the final position of that protein. The first two are exactly the `Seq` methods you met two notes ago. The third is not a library operation at all, it is a small piece of logic over the result, which matters: you are about to direct the assistant to combine library calls, and knowing in advance which parts are the library's job and which part is yours is what keeps you from asking it to reinvent `.translate()` badly, or from quietly accepting logic it wrote for the one part you should have written yourself.

@@ -3,11 +3,11 @@
 *Welcome to Instructing Machines. This page gets your machine ready. It takes
 about fifteen minutes, most of which is waiting, and you only do it once.*
 
-You are reading this inside the course folder. Everything you need for the
-whole term is in here: the data files, the project files, the recipe for the
-Python environment, and the two notebooks for week one. The rest of the lecture
-notebooks you fetch from the website one at a time as we get to them — there is
-a one-line command for it, and you will meet it in step 5.
+You are reading this inside the course folder. What you need to start is in
+here: the data files, the recipe for the Python environment, and the two
+notebooks for week one. The lecture notebooks and the projects you fetch from
+the website one at a time as we get to them — there is a one-line command for
+each, and you will meet both in step 5.
 
 Work through the five steps below in order. If a step does not do what it says
 it will, look at **When something goes wrong** at the bottom before you panic.
@@ -120,9 +120,9 @@ the course is detail.
 
 ## Getting the rest of the notebooks
 
-Only week one ships in this folder. Every other chapter you fetch when we reach
-it, so that the notebook you are working in is always the current version of
-the chapter you are reading. In the VS Code terminal, type:
+Only week one ships in this folder. Every other chapter, and every project, you
+fetch when we reach it, so that what you are working in is always the current
+version of what you are reading. In the VS Code terminal, type:
 
 ```
 pixi run get iteration
@@ -140,9 +140,29 @@ If you already have a notebook of that name, yours is left exactly as it is and
 the fresh copy arrives beside it as `iteration-2.ipynb`. Nothing you have
 written is ever overwritten, so it is always safe to ask for a clean copy.
 
+## Getting a project
+
+The projects arrive the same way, one per week, from the same command:
+
+```
+pixi run get alignmentproject
+```
+
+That fetches the whole project at once — the file you write your code in, the
+test program that checks it, and any data the project reads — and puts it in
+`projects/alignmentproject` here. Running `pixi run get` with no name lists the
+projects along with the chapters, so there is only ever one command to remember.
+
+A project is a folder you live in for a week rather than a file you read once,
+so asking for one twice behaves a little differently: if you already have a
+project of that name, nothing happens at all. It will not put the empty starting
+file back on top of the code you have written. If you really do want to begin
+again, move your own folder aside first and then ask for it.
+
 There is also a **Download notebook** button in the margin of every chapter on
-the website. It gives you the identical file. The only difference is that it
-lands in your Downloads folder and you have to move it here yourself — which is
+the website, and a **Download project** button in the margin of every project
+chapter. They give you the identical files. The only difference is that they
+land in your Downloads folder and you have to move them here yourself — which is
 worth knowing about for the day the terminal is being difficult.
 
 ---
@@ -155,10 +175,11 @@ instructing-machines/
 ├── pixi.toml          the recipe for your Python environment
 ├── pixi.lock          the exact versions, so all 100 of us get the same ones
 ├── get.py             what `pixi run get` runs
+├── project.py         the project half of it
 ├── update.py          what `pixi run update-env` runs
 ├── week1/             the two notebooks for the first week
 ├── data/              data files the lecture notes read
-├── projects/          the programming projects, one folder each
+├── projects/          appears when you fetch your first project
 └── (fetched notebooks land here, at this level)
 ```
 

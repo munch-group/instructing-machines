@@ -4,13 +4,6 @@
 
 Back in week one you met the idea that an assistant guesses its next word rather than reasoning about truth, and you saw it guess a stop codon out of a sentence rather than out of an actual sequence. Two weeks of predicting expressions and confirming explanations later, it is worth asking the same question about the thing you will lean on most for the rest of the course: what is the assistant actually doing when it hands you a function?
 
-::: {.column-margin}
-**The ladder so far**
-
-[**Explainer**](../intro/course-introduction.qmd#sec-badge-explainer)
-
-*Still to come:* [Comparer](../intro/course-introduction.qmd#sec-badge-comparer), [Drafter](../intro/course-introduction.qmd#sec-badge-drafter), [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
-:::
 
 The answer is: exactly the same thing, token by token, except the tokens now spell Python instead of English. Ask for a function that translates a codon into an amino acid, and the model does not consult a codon table, does not run anything, and does not check its answer against biology. It produces the most statistically plausible next piece of code, given everything you have said and everything like it in its training, one token at a time, until the function looks finished. `def`, then a plausible name, then a plausible parameter, then a plausible body, each choice made the same way a plausible next word was chosen when it was writing you a sentence.
 

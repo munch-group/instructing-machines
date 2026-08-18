@@ -60,6 +60,21 @@ jobs:
           test -f _check/pixi.toml
           test -f _check/pixi.lock
 
+      # The projects are fetched one per week rather than shipped on day one,
+      # so the zips and the manifest `pixi run get` reads are part of what
+      # a publish has to produce.
+      - name: Show the projects students can fetch
+        run: |
+          ls -l _check/project-files/
+          cat _check/project-files/index.txt
+          test -s _check/project-files/index.txt
+          for zip in _check/project-files/*.zip; do
+            if unzip -l "$zip" | grep -q "_solution"; then
+              echo "A solution file leaked into $zip"
+              exit 1
+            fi
+          done
+
       # Handy when something looks wrong: download the artifact and unzip it
       # yourself instead of guessing.
       - uses: actions/upload-artifact@v4

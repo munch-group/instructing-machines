@@ -2,13 +2,6 @@
 
 You already know how to write a test. In the previous part of the course you learned to make a claim about a function in a form the machine can check, by writing a statement like assert gc_content('GGCC') == 1.0 and letting Python confirm or deny it. This week that skill stops being a way to check your own code and becomes the single most important tool you have for working with an assistant. The idea to hold on to is short: a test is a specification you can execute, and a specification is a contract. Once you see tests that way, the whole business of getting code out of a machine you cannot fully trust becomes manageable, because the test, and not the assistant and not even you, becomes the thing that decides whether the code is right.
 
-::: {.column-margin}
-**The ladder so far**
-
-[Explainer](../intro/course-introduction.qmd#sec-badge-explainer) · [Comparer](../intro/course-introduction.qmd#sec-badge-comparer) · [**Drafter**](../intro/course-introduction.qmd#sec-badge-drafter)
-
-*Still to come:* [Collaborator](../intro/course-introduction.qmd#sec-badge-collaborator), [Developer](../intro/course-introduction.qmd#sec-badge-developer)
-:::
 
 Start with the word specification, because it is doing quiet work. Before you can judge whether a piece of code is correct, you have to have decided what correct would mean, and that decision is separate from, and comes before, any code. If you ask an assistant for a function that finds genes, the request has no truth value at all. There is nothing to be right or wrong about, because you have not said what output the function should produce for what input. A specification is exactly that missing thing: a statement of what the result must be for given inputs. When it is written in prose, as a comment or a docstring, it is a promise about what the code will do. When it is written as a test, it is a promise the machine will enforce. That difference is everything. A comment that says the function returns the reverse complement is a promise the code can quietly break, and you saw last week how casually generated code breaks exactly such promises. A test that says assert reverse_complement('ATGC') == 'GCAT' is a promise that cannot be quietly broken, because the moment the code fails to keep it the machine says so.
 

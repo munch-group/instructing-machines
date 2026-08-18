@@ -5,22 +5,26 @@ _This chapter is a programming project where you will find open  reading frames 
 
 In this project, you will analyze DNA to identify the open reading frames (ORFs) and the proteins they encode. 
 
-Download the files you need for this project:
+Download the project. In the VS Code terminal, ask for it by name:
+
+```{.txt filename="Terminal"}
+pixi run get orfproject
+```
+
+That puts the folder straight into your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-{{< downloadthis ../../project-files/orfproject/orfproject.py dname="orfproject" label="orfproject.py" type="light" >}} {{< downloadthis ../../project-files/orfproject/test_orfproject.py dname="test_orfproject" label="test_orfproject.py" type="light" >}}
+There is a button for it too, if you would rather click than type. It lands in
+your Downloads folder, so you have to carry it across yourself:
+
+{{< project-download label="Download orfproject" type="light" >}}
 :::
 
-[https://munch-group.org/bioinformatics/supplementary/project_files](https://munch-group.org/bioinformatics/supplementary/project_files)
-
-- `e_coli_O157_H157_str_Sakai.fasta` contains the full genome of the *Escherichia coli* O157:H7 Sakai strain (yes the full genome).
-
-You also need to download the two project files:
+Either way you get a folder called `orfproject` with these files in it:
 
 - `orfproject.py` is an empty file where you must write your code.
 - `test_orfproject.py` is the test program that lets you test the code you write in `orfproject.py`.
-
-Put all three files in a folder dedicated to this project. On most computers you can right-click on the link and choose "Save file as..." or "Download linked file".
+- `e_coli_O157_H157_str_Sakai.fasta` contains the full genome of the *Escherichia coli* O157:H7 Sakai strain (yes the full genome).
 
 Four your convenience, the file `orfproject.py` already contains three global *constants* (variables that must never be changed by the code). One is a dictionary `codon_map`, which maps codons to letters that represent amino acids. The other two are a string, `start_codon`, and a list, `stop_codons`. You can refer to these three variables in your code, but obviously, never change them.
 
