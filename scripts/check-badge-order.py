@@ -3,9 +3,10 @@
 
 The course licenses the assistant in five escalating roles.  Each role is
 introduced by exactly one chapter, and no exercise may license a role before
-the chapter that introduces it.  This script walks ``docs/_quarto.yml`` in
-render order, reads the badge under every ``#### Exercise`` heading, and fails
-if a badge appears too early.
+the chapter that introduces it.  This script walks the book's chapter list in
+render order (``scripts/quarto_profile.py`` finds whichever config file holds
+it), reads the badge under every ``#### Exercise`` heading, and fails if a badge
+appears too early.
 
 Translator, Illustrator and Worker were retired: the first two were folded
 into Explainer (translating code to English and back, and asking for more
@@ -44,6 +45,13 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+# quarto_profile lives next to this script, so import it by the script's own
+# location rather than trusting the working directory: build_student_folder.py
+# runs from docs/ as Quarto's post-render hook, and todo.py loads
+# check-badge-order.py by path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from quarto_profile import quarto_config  # noqa: E402
+
 # The ladder, in the order the course grants it.  The second field is the
 # chapter that introduces the role: the first chapter, in render order, that
 # is allowed to carry the badge.  Change this map when you move a note, and
@@ -79,13 +87,15 @@ def canonical(match: "re.Match[str]") -> str:
         return "SOLO"
     role = badge.split(":", 1)[1].strip()
     return "AI: " + " ".join(word.capitalize() for word in role.split())
-# A chapter line in _quarto.yml: "        - ai/meet-ai.qmd" (comments skipped).
+# A chapter line in the config: "        - ai/meet-ai.qmd" (comments skipped).
 CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.(?:qmd|md|ipynb))\s*$")
+
+
 PART = re.compile(r'^\s*-\s+part:\s*"?([^"\n]+?)"?\s*$')
 
 
 def chapters_in_order(quarto_yml: Path):
-    """Yield (week, path) for every chapter _quarto.yml actually renders."""
+    """Yield (week, path) for every chapter the book actually renders."""
     week = None
     for line in quarto_yml.read_text(encoding="utf-8").splitlines():
         if line.lstrip().startswith("#"):
@@ -158,7 +168,7 @@ def main() -> int:
     args = parser.parse_args()
 
     docs = Path(__file__).resolve().parent.parent / "docs"
-    quarto_yml = docs / "_quarto.yml"
+    quarto_yml = quarto_config(docs)
     if not quarto_yml.exists():
         print(f"cannot find {quarto_yml}", file=sys.stderr)
         return 1
@@ -197,7 +207,7 @@ def main() -> int:
             if introducer not in position:
                 problems.append(
                     f"{chapter}:{line}: `{badge}` is introduced by {introducer},"
-                    " which _quarto.yml does not render")
+                    f" which {quarto_yml.name} does not render")
             elif position[chapter] < position[introducer]:
                 problems.append(
                     f"{chapter}:{line}: `{badge}` is licensed here, but"
@@ -215,7 +225,7 @@ def main() -> int:
         print()
 
     if missing:
-        print("Chapters listed in _quarto.yml but not on disk:")
+        print(f"Chapters listed in {quarto_yml.name} but not on disk:")
         for chapter in missing:
             print(f"  {chapter}")
         print()
@@ -234,6 +244,16 @@ def main() -> int:
         print(f"The ladder is out of order in {len(problems)} place(s):")
         for problem in problems:
             print(f"  {problem}")
+        return 1
+
+    if not seen_order:
+        # Nothing to check because nothing is listed. With profiles this is the
+        # likelier of the two blind spots: a profile whose file carries no
+        # chapters of its own renders no book, and a checker that shrugged at
+        # that would report a straight ladder for a book that does not exist.
+        print(f"{quarto_yml.name} lists no chapters, so there was nothing to"
+              " check.  Either that profile has no book of its own, or"
+              " QUARTO_PROFILE names the wrong one.")
         return 1
 
     if not total:

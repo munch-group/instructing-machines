@@ -1,12 +1,11 @@
+profile:
+  group: 
+    - [default, ta]
+  default: default
+
 project:
   type: book
   output-dir: _book
-  post-render:
-    - python3 ../scripts/build_student_folder.py
-    - quarto render slides/
-    - rm -rf _book/slides
-    - mv slides/_build _book/slides
-    # - scripts/build-demo.sh
 
   render:
     - "!python/snippet-cast.ipynb"
@@ -37,48 +36,28 @@ book:
     #   machine — install pixi from the .msi, unpack the course folder, open
     #   VS Code, run a widget. The .msi route is the documented one and nobody
     #   has confirmed the full sequence.
-    # CLAUDE: confirm that a real publish puts the student folder on the live
-    #   site. The post-render hook above does call
-    #   scripts/build_student_folder.py, so a render writes
-    #   _book/instructing-machines.zip, _book/notebooks/ and
-    #   _book/project-files/ — but nobody has checked that all three survive
-    #   `quarto publish gh-pages` and are reachable at the URLs
-    #   student-folder/course.py points get.py and project.py at.
-    #   getting_started.ipynb's first instruction to students is to download
-    #   that zip, and from week 6 every project arrives the same way.
+    # CLAUDE: edit the project chapters to fit the appropriate AI rung 
     # ------------------------------------------------------------------
     - index.qmd
+    # CLAUDE: Check that the week outline table matches sidebar division of chapters
     # - intro/pyodide.qmd
     - part: "Resources"
-      # AI: not part of the ladder. 1 DRAFTER and 1 EXPLAINER against 2 SOLO.
-      # Workload: reference material; no teaching time attached.
       chapters:
-
         - href: slides/index.qmd
           text: "Slides"
         - href: slides/flashcards.qmd
           text: "Flashcards"
         - href: python/course-tools.ipynb
           text: "Course Tools"
-
+        - recordings_2026.qmd
         # - href: "./demo/index.html"
         #   text: "Widget demo"
         # - href: "https://github.com/munch-group/instructing-machines/slides/index.html"
         #   text: "Slides"
-
     - part: "Week 1"
-      # Python: As always.
       # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
       #   work in ai/meet-ai.qmd and ai/about-microsoft-copilot.qmd. 11 EXPLAINER
       #   exercises against 105 SOLO.
-      # Workload: by a wide margin the heaviest week in the book — 11 chapters,
-      #   ~24,400 words, 113 exercises, taught in the week the students know
-      #   least. Roughly 11,500 of those words are orientation rather than
-      #   Python (insides, instruction, meet-ai, about-microsoft-copilot,
-      #   notebooks-in-vscode, script-vs-notebook), so the reading load is what
-      #   is extreme, not the practice; much of it could be pre-term or spread
-      #   across weeks 1 and 2. Check this against the actual teaching hours
-      #   before term, not during it.
       chapters: 
         - intro/course-introduction.qmd
         - python/getting_started.ipynb
@@ -94,9 +73,6 @@ book:
       #   which is where "the AI predicts; the machine proves" is stated as a
       #   working rule rather than a slogan. 26 EXPLAINER against 43 SOLO — the
       #   densest EXPLAINER week of the term.
-      # Workload: 3 chapters, ~7,200 words, 69 exercises. Light in reading and
-      #   heavy in practice, which is the right shape: this is the functions
-      #   and scope cliff, and functions.ipynb alone carries 32 exercises.
       chapters: 
         - python/if-else.ipynb
         - python/functions.ipynb
@@ -106,9 +82,6 @@ book:
       #   EXPLAINER moves (translating code to English and back, asking for
       #   more examples of a pattern) on top of the 10 already earned. 14
       #   EXPLAINER against 65 SOLO.
-      # Workload: 6 chapters, ~9,400 words, 78 exercises — the second-heaviest
-      #   week. The chapters are badly uneven inside it: objects.ipynb is 2,564
-      #   words and tuples.ipynb is 643.
       chapters: 
         - ai/how-models-produce-code.qmd
         - python/objects.ipynb
@@ -124,10 +97,6 @@ book:
       # AI: no new rung. EXPLAINER is sharpened by ai/explain-then-confirm.qmd,
       #   which supplies all 15 of the week's EXPLAINER exercises, against 17
       #   SOLO.
-      # Workload: 4 chapters, ~5,300 words, 32 exercises — below the median,
-      #   and deliberately so, because week 4 coincides with the iteration
-      #   cliff and the lab split. The shape is wrong in one place: see the
-      #   note on testing.ipynb.
       chapters: 
         - ai/explain-then-confirm.qmd
         - python/iteration.ipynb
@@ -149,9 +118,6 @@ book:
     - part: "Week 5"
       # AI: no new rung. ai/practical-ai-use.qmd. Only 3 EXPLAINER against 38
       #   SOLO, the thinnest AI presence of any week before the projects begin.
-      # Workload: 4 chapters, ~6,700 words, 41 exercises — close to the median
-      #   week. data_structures.ipynb is the exemplar for exercise density and
-      #   authentic voice; files.ipynb is the lightest thing in the week.
       chapters: 
         - ai/practical-ai-use.qmd
         # - python/list-comprehensions.ipynb
@@ -163,9 +129,6 @@ book:
       #   against 7 SOLO: the only week in which AI-licensed exercises
       #   outnumber the solo ones, which is the point of the rung — asking for
       #   a second solution is worthless unless you write several.
-      # Workload: 4 chapters, ~5,200 words, 18 exercises. Light on paper, but
-      #   the project is the work and its size does not show up in a count of
-      #   exercise headings.
       chapters: 
         - ai/ask-for-another-way.qmd
         - projects/translation-project.qmd
@@ -182,10 +145,6 @@ book:
       # AI: DRAFTER, introduced by ai/let-it-draft.qmd. 7 DRAFTER, 1 COMPARER
       #   and 4 EXPLAINER against 28 SOLO. This is the first rung where the
       #   student lets the assistant write code they will keep.
-      # Workload: 5 chapters, ~9,300 words and 40 exercises on top of a
-      #   project — heavy. classes.ipynb alone is 4,464 words, the longest
-      #   chapter in the book, and whether it stays at that scope is one of the
-      #   open decisions at the top of this file.
       chapters: 
         - ai/let-it-draft.qmd
         - python/classes.ipynb
@@ -207,9 +166,6 @@ book:
       #   also sits at DRAFTER. 6 DRAFTER against 13 SOLO; 2 exercises carry no
       #   badge, where the point is that no test or draft would have caught the
       #   fault.
-      # Workload: 4 chapters, ~9,900 words, 21 exercises. Reading-heavy — the
-      #   two AI notes are 4,857 words between them — but there is no new
-      #   Python to absorb, so the total is manageable.
       chapters: 
         - ai/reading-and-judging.md
         - ai/tests-are-the-contract.md
@@ -221,10 +177,6 @@ book:
       # AI: no new rung. ai/the-docs-are-the-test.qmd extends DRAFTER from "a
       #   test settles it" to "the real documentation settles it", which is the
       #   answer to invented library functions.
-      # Workload: 4 chapters, ~7,100 words, plus the codon-bias project — now
-      #   8 badged exercises in the week (documentation-and-resources.qmd x1,
-      #   the-docs-are-the-test.qmd x3, packages-modules.ipynb x4), no longer
-      #   the sparsest week of the term.
       chapters:
         - ai/documentation-and-resources.qmd
         - ai/the-docs-are-the-test.qmd
@@ -237,9 +189,6 @@ book:
       #   in prose. The pairing is deliberate.
       # AI: COLLABORATOR, introduced by ai/plan-before-you-prompt.md. 3
       #   COLLABORATOR and 16 SOLO.
-      # Workload: 4 chapters, ~8,000 words, 20 exercises, plus the HIV project.
-      #   recursion.ipynb is 2,771 words and 14 exercises on its own and sits
-      #   in a project week — check that against the teaching hours.
       chapters: 
         - ai/plan-before-you-prompt.md
         - projects/hiv-project.qmd
@@ -256,9 +205,6 @@ book:
       # AI: DEVELOPER, the top of the ladder, introduced by
       #   ai/delegate-the-full-problem.md with ai/directing-a-resource.qmd
       #   ahead of it. 3 DEVELOPER and 1 COLLABORATOR against 3 SOLO.
-      # Workload: 3 chapters, ~5,300 words, 7 exercises, plus a project. Light
-      #   in the notes and deliberately so: by week 11 the project is the whole
-      #   test of whether the ladder took.
       chapters: 
         - ai/directing-a-resource.qmd
         - ai/delegate-the-full-problem.md
@@ -280,8 +226,6 @@ book:
       # Python: no new Python; the assembly project.
       # AI: no new rung. The finale exercises the whole ladder at once, which
       #   is what it is for. 1 DEVELOPER against 5 SOLO.
-      # Workload: 4 chapters, ~6,000 words, 6 exercises, plus the finale and a
-      #   project. The word count is misleading — see finale-kickoff.qmd.
       chapters: 
         - ai/finale-kickoff.qmd
           # CLAUDE: 135 words. The finale is the assessment the whole role

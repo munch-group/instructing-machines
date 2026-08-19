@@ -1,0 +1,13 @@
+project:
+  type: book
+  output-dir: _book/ta
+  # pre-render:
+  #   # decrypt project solutions before rendering
+  #   - python ../scripts/encrypt.py --decrypt banana project_solutions
+  #   - python ../scripts/encrypt.py --decrypt banana chapters/project
+  post-render: 
+    # encrypt rendered web exercise html wth TA reveals
+    - python ../scripts/pagecrypt.py --passphrase redford _book/ta
+
+comments:
+  hypothesis: true

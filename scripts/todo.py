@@ -3,7 +3,7 @@
 
 While authoring, it is much cheaper to write "expand this" next to the
 paragraph than to remember it and describe it afterwards in a chat message.
-This script is the other half of that: it walks ``docs/_quarto.yml`` in render
+This script is the other half of that: it walks the book's chapter list in render
 order and prints every annotation, where it sits, and what it points at, so
 a term's worth of notes can be collected in one pass.
 
@@ -41,7 +41,7 @@ exercise it is about, rather than at the top of the chapter: "the paragraph
 below" is unambiguous, "the third paragraph" stops being true on the next
 edit.
 
-Annotations also live in ``docs/_quarto.yml`` itself, in the ``#`` form,
+Annotations also live in the book's own config, in the ``#`` form,
 where they carry the work that belongs to a chapter as a whole rather than to
 a paragraph inside it -- and the work that belongs to no chapter at all, which
 has nowhere else to sit.  Those are read first and reported against the
@@ -75,7 +75,7 @@ import re
 import sys
 from pathlib import Path
 
-# check-badge-order.py already knows how to read _quarto.yml in render order.
+# check-badge-order.py already knows how to read the chapter list in order.
 # Its name has a hyphen in it, so it cannot be imported by name; loading it by
 # path is uglier than "import" and still better than a second copy of the
 # parser that can drift from the first.
@@ -89,6 +89,12 @@ def _sibling(name: str):
 
 ORDER = _sibling("check-badge-order.py")
 
+# The chapter list itself comes from whichever profile is in force; the badge
+# checker, the notebook cleaner and the student-folder builder all resolve it
+# the same way, through this one module.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from quarto_profile import quarto_config  # noqa: E402
+
 # Which tokens each flag turns on. --todo covers both TODO and FIXME because
 # both are notes Kasper is writing to himself, not a handoff to the
 # assistant -- CLAUDE.md draws that line explicitly.
@@ -99,7 +105,7 @@ TOKEN_GROUPS = {
 
 HEADING = re.compile(r"^#{1,6}\s")
 
-# Reading _quarto.yml as prose rather than as YAML, because a YAML parser
+# Reading the config as prose rather than as YAML, because a YAML parser
 # throws comments away and the comments are the entire point here.
 PART = re.compile(r"^\s*-\s*part:\s*[\"']?(.+?)[\"']?\s*$")
 CHAPTER = re.compile(r"^\s{4,}-\s+([\w./-]+\.(?:qmd|md|ipynb))\s*$")
@@ -125,7 +131,7 @@ class Patterns:
             rf"|^\s*#\s*(?:{alt})(?!\s*:).{{0,60}}$)", re.M | re.I)
         self.qstart = re.compile(rf"^\s*#\s*({alt})\s*:\s*(.*)$", re.I)
         # A continuation is a comment line indented past the token; ordinary
-        # commentary in _quarto.yml is written with a single space after the
+        # commentary in the config is written with a single space after the
         # "#", so the two cannot be confused and a blank "#" ends one.
         self.qcont = re.compile(r"^\s*#\s{2,}(\S.*)$")
         self.tokens = tokens
@@ -193,7 +199,7 @@ def malformed_in(path: Path, patterns: Patterns):
 
 
 def instructions_in_quarto(path: Path, patterns: Patterns):
-    """Yield every annotation written into _quarto.yml itself.
+    """Yield every annotation written into the book's config itself.
 
     An annotation is reported against the chapter line it sits under, or as
     week-wide or book-wide when it sits under a part or above the first one.
@@ -250,11 +256,12 @@ def main() -> int:
     docs = root / "docs"
 
     collected, broken = [], []
-    for one in instructions_in_quarto(docs / "_quarto.yml", patterns):
+    config = quarto_config(docs)
+    for one in instructions_in_quarto(config, patterns):
         if args.match and args.match not in one["chapter"]:
             continue
         collected.append(one)
-    for week, relative in ORDER.chapters_in_order(docs / "_quarto.yml"):
+    for week, relative in ORDER.chapters_in_order(config):
         if args.match and args.match not in relative:
             continue
         path = docs / relative
@@ -278,7 +285,7 @@ def main() -> int:
             if one["cell"] == "code":
                 where += ", code cell"
             elif one["cell"] == "yaml":
-                where += ", in _quarto.yml"
+                where += f", in {config.name}"
             print(f"  {where} ({one['kind_tag']}): {one['text']}")
             if one["cell"] != "yaml":
                 print(f"      points at: {one['target']}")

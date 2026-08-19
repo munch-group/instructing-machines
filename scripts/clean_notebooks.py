@@ -15,7 +15,7 @@ cell's output and execution count, and finally strips the two things plain
 ``metadata.widgets`` blob and each code cell's ``metadata.execution``
 timestamps — so a clean run produces a clean diff.
 
-The file list is read from ``docs/_quarto.yml`` itself (the same chapters
+The file list is read from the book's own config (the same chapters
 ``scripts/check-badge-order.py`` walks), not a hardcoded list or a blind glob,
 so a notebook added to or dropped from the book is picked up automatically
 and a notebook that isn't part of the book (a demo, a draft) is left alone.
@@ -45,6 +45,13 @@ from pathlib import Path
 
 import nbformat
 
+# quarto_profile lives next to this script, so import it by the script's own
+# location rather than trusting the working directory: build_student_folder.py
+# runs from docs/ as Quarto's post-render hook, and todo.py loads
+# check-badge-order.py by path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from quarto_profile import quarto_config  # noqa: E402
+
 CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.ipynb)\s*$")
 
 DEFAULT_WORKERS = 4
@@ -52,12 +59,12 @@ EXECUTE_TIMEOUT = 180  # seconds per cell; sandbox_widget spawns a subprocess pe
 
 # Chapters whose baked-in output survives the strip — see the module
 # docstring. Paths are relative to docs/, matching how they appear in
-# _quarto.yml.
+# the book's config.
 KEEP_OUTPUT = {"python/course-tools.ipynb"}
 
 
 def chapters_in_order(quarto_yml: Path):
-    """Yield every .ipynb chapter path _quarto.yml actually renders, in order."""
+    """Yield every .ipynb chapter path the book actually renders, in order."""
     for line in quarto_yml.read_text(encoding="utf-8").splitlines():
         if line.lstrip().startswith("#"):
             continue
@@ -109,7 +116,7 @@ def main() -> int:
     args = parser.parse_args()
 
     docs = Path(__file__).resolve().parent.parent / "docs"
-    quarto_yml = docs / "_quarto.yml"
+    quarto_yml = quarto_config(docs)
     if not quarto_yml.exists():
         print(f"cannot find {quarto_yml}", file=sys.stderr)
         return 1
@@ -117,7 +124,8 @@ def main() -> int:
     paths = [docs / chapter for chapter in chapters_in_order(quarto_yml)]
     missing = [p for p in paths if not p.exists()]
     for p in missing:
-        print(f"WARNING: {p} is listed in _quarto.yml but not on disk — skipping", file=sys.stderr)
+        print(f"WARNING: {p} is listed in {quarto_yml.name} but not on disk — skipping",
+              file=sys.stderr)
     paths = [p for p in paths if p.exists()]
 
     failures = []

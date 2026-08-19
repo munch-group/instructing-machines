@@ -1,0 +1,10 @@
+project:
+  type: book
+  output-dir: _book
+  post-render:
+    - python3 ../scripts/build_student_folder.py
+    - quarto render slides/
+    - rm -rf _book/slides
+    - mv slides/_build _book/slides
+    # - scripts/build-demo.sh
+    - quarto render --to html --profile ta  

@@ -13,7 +13,15 @@ permissions:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    
+
+    # One profile for the whole job. Quarto merges docs/_quarto.yml with
+    # docs/_quarto-<profile>.yml, and the chapter list may sit in either; the
+    # scripts below find whichever holds it, from the same QUARTO_PROFILE Quarto
+    # reads (scripts/quarto_profile.py). So the badge check, the notebook clean,
+    # the render and the publish cannot disagree about which book is built.
+    env:
+      QUARTO_PROFILE: default
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -53,7 +61,7 @@ jobs:
       - name: Check the AI role ladder
         # The course licenses the assistant in five escalating roles, and no
         # exercise may license a role before the chapter that teaches it.
-        # This walks _quarto.yml in render order and fails on the first badge
+        # This walks the profile's chapter list in render order and fails on
         # that arrives too early, so the ladder cannot silently bend again.
         run: python3 scripts/check-badge-order.py --census
 
@@ -75,7 +83,7 @@ jobs:
         # manages TeX packages, not general system binaries, so it does not
         # provide this; without it the PDF build fails with "Could not
         # convert a SVG to a PDF for output" during `quarto publish` below,
-        # which renders every format in docs/_quarto.yml, not just HTML.
+        # which renders every format the active profile declares, not just HTML.
         run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
 
       - name: Set up Quarto
@@ -88,19 +96,9 @@ jobs:
 
       - name: Render Quarto Project - default profile
         uses: quarto-dev/quarto-actions/render@v2
-        env:
-          QUARTO_PROFILE: default
         with:
           path: docs
           to: html
-
-      # - name: Render Quarto Project - draft profile
-      #   uses: quarto-dev/quarto-actions/render@v2
-      #   env:
-      #     QUARTO_PROFILE: slides
-      #   with:
-      #     path: .
-      #     to: html
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2

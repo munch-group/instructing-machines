@@ -43,6 +43,13 @@ import zipfile
 from fnmatch import fnmatch
 from pathlib import Path
 
+# quarto_profile lives next to this script, so import it by the script's own
+# location rather than trusting the working directory: build_student_folder.py
+# runs from docs/ as Quarto's post-render hook, and todo.py loads
+# check-badge-order.py by path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from quarto_profile import quarto_config  # noqa: E402
+
 REPO = Path(__file__).resolve().parent.parent
 
 # The name students see once they unzip. Also the VS Code window title, so
@@ -78,10 +85,11 @@ WEEK1_NOTEBOOKS = [
     REPO / "docs" / "ai" / "logbook.ipynb",
 ]
 
+
 # Every chapter notebook is published loose next to the zip so that
 # `pixi run get <chapter>` has something to fetch. The list comes from the
 # book's own chapter list, so it cannot drift from what the website offers.
-QUARTO_CONFIG = REPO / "docs" / "_quarto.yml"
+QUARTO_CONFIG = quarto_config(REPO / "docs")
 NOTEBOOK_DIR = "notebooks"
 
 # Matches `    - python/iteration.ipynb` but not a commented-out chapter and

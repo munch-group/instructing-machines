@@ -743,6 +743,51 @@ pre.sourceCode.code-annotation-code > code.sourceCode {
   border-color: #3d3d3d;
 }
 
+/* The label bar wraps its text in a <pre>, which `pre:not(.sourceCode)` above
+   then paints white and Bootstrap gives a bottom margin to. The result is a
+   pale pill sitting inside the bar, wider than the bar itself, with a gap
+   underneath. The bar is a label, so strip its <pre> back to plain text. */
+.code-with-filename .code-with-filename-file pre {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  overflow: visible;
+}
+
+.code-with-filename .code-with-filename-file strong {
+  font-weight: inherit;
+}
+
+/* The visible box is drawn by pre.sourceCode, not by the div wrapping it, so
+   the <pre> is what has to give up its top edge and top corners. Without this
+   the block keeps a complete rounded border of its own and reads as a second
+   box floating below the bar rather than as one box with a label on it. */
+.code-with-filename pre.sourceCode {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Terminal blocks: the bar draws a heavier border and 6px corners to match the
+   %%sandbox widget, so the code half has to use the same two values or the
+   halves meet at a visible seam. */
+.code-with-filename:has([data-filename="Terminal"]) pre.sourceCode {
+  background-color: #ffffff;
+  border-color: #9ca3af;
+  border-radius: 0 0 6px 6px;
+}
+
+.quarto-dark .code-with-filename:has([data-filename="Terminal"]) pre.sourceCode,
+[data-bs-theme="dark"] .code-with-filename:has([data-filename="Terminal"]) pre.sourceCode {
+  background-color: #202020;
+  border-color: #3d3d3d;
+}
+
 /* Line numbers (if enabled) - NumPy doesn't typically use them */
 pre.numberSource code > span > a:first-child::before {
   color: #7f7f7f;
