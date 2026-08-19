@@ -302,13 +302,11 @@ templateHTML = """
 """
 
 
-try:
-    from cryptography.hazmat.primitives import hashes
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-except ImportError:
-    print("install cryptography: \"pip3 install cryptography\"")
-    exit(1)
+
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+
 import os, re
 from base64 import b64encode
 from getpass import getpass
