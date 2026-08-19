@@ -13,26 +13,28 @@ platforms = ["osx-arm64", "osx-64", "win-64", "linux-64"]
 
 [dependencies]
 python = "3.13.*"
-ipykernel = ">=7,<8"
-ipywidgets = ">=8,<9"
-anywidget = ">=0.11,<0.12"
-jupyterlab = ">=4,<5"
+ipykernel = "*"
+ipywidgets = "*"
+anywidget = "*"
+jupyterlab = "*"
 pandas = ">=2,<3"
-seaborn = ">=0.13,<0.14"
-matplotlib = ">=3.8"
-pytest = ">=8"
-steps-widget = ">=0.2.9,<0.3"
-sandbox-widget = ">=1.0.9,<2"
+seaborn = "*"
+matplotlib = "*"
+pytest = "*"
+steps-widget = "*"
+sandbox-widget = "*"
 snippet-cast = "*"
 iplot-widget = "*"
-turtle-widget = ">=1.0.9,<2"
-puzzle-widget = ">=0.1.18,<0.2"
-codelens-widget = ">=0.1.42,<0.2"
+turtle-widget = "*"
+puzzle-widget = "*"
+codelens-widget = "*"
 im-pytest = "*"
-biopython = ">=1.88,<2"
+im-course-tools = "*"
+biopython = "*"
+cryptography = "*"
 
 [pypi-dependencies]
-vscodenb = ">=1.0.5, <2"
+vscodenb = "*"
 
 # # The course widgets. These come from PyPI for now because the conda packages
 # # on the munch-group channel are still built per-platform (linux-64 and
@@ -50,15 +52,14 @@ vscodenb = ">=1.0.5, <2"
 # im-pytest = ">=0.1.25,<0.2"
 
 [tasks]
-# `pixi run check` — a one-command answer to "did my installation work?".
-check = "python -c \"import sys, steps_widget, puzzle_widget, codelens_widget, turtle_widget, sandbox_widget, iplot_widget, im_pytest, pandas, seaborn; print('Everything is installed. Python', sys.version.split()[0])\""
-
-# `pixi run get iteration` — download a chapter notebook straight into this
-# folder, or `pixi run get alignmentproject` for a whole project, which lands
-# in projects/. `pixi run get` on its own lists everything on offer.
-get = "python get.py"
-
-
-# `pixi run update-env` — fetch a newer pixi.toml/pixi.lock from the course
-# website and reinstall. Only needed if you are told to run it.
-update-env = "python update.py"
+# The three commands are `im check`, `im get <name>` and `im update`, and they
+# come from the im-course-tools package above rather than from files in this folder:
+# that way a fix reaches everyone through an update instead of asking a hundred
+# people to download a script again.
+#
+# These aliases exist so that `pixi run check` works from a terminal that has
+# not activated the environment; pixi passes any extra words straight through,
+# so `pixi run get iteration` runs `im get iteration`.
+check = "im check"
+get = "im get"
+update = "im update"
