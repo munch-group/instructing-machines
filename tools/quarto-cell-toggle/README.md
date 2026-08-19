@@ -6,7 +6,7 @@ holding the same code in a fence:
 
 ```
 #  code cell                     markdown cell
-x = 1                    <-->    ```{.python}
+x = 1                    <-->    ```python
 print(x)                         x = 1
                                  print(x)
                                  ```
@@ -68,23 +68,32 @@ never meant to run, so the guard rails matter more than the convenience:
 
 ## What it preserves
 
-The original info string is stashed in the cell's metadata as `quartoFence`, so the
-round trip is lossless: ```` ```{.python filename="demo.py"} ```` comes back with its
-attributes intact rather than flattened to ```` ```{.python} ````. Other cell metadata
-is carried across untouched.
+The original info string is stashed in the cell's metadata as `quartoFence`, so a fence
+that carries attributes survives the round trip: ```` ```{.python filename="demo.py"} ````
+comes back with `filename="demo.py"` intact rather than flattened away. Other cell
+metadata is carried across untouched.
+
+A remembered info string that says nothing the language name does not - ```` ```{.python} ````,
+```` ```{python} ```` - is *not* restored. Those come back as ```` ```python ````, because
+that spelling is the one being migrated to and restoring the old one would undo the work.
 
 ## Settings
 
 | Setting | Default | Meaning |
 | --- | --- | --- |
-| `quartoCellToggle.fenceStyle` | `braced-dot` | ```` ```{.python} ```` (shown, not executed), `braced` for ```` ```{python} ```` (Quarto executes it), or `plain` for ```` ```python ```` |
+| `quartoCellToggle.fenceStyle` | `plain` | ```` ```python ````, `braced-dot` for ```` ```{.python} ```` (shown, not executed), or `braced` for ```` ```{python} ```` (Quarto executes it) |
 | `quartoCellToggle.runnableLanguages` | `["python", "py", "r"]` | Fence languages allowed to become code cells |
 | `quartoCellToggle.defaultLanguage` | `python` | Language for a fence with no info string |
 | `quartoCellToggle.confirmDiscardOutputs` | `true` | Warn before throwing outputs away |
 
-`braced-dot` is the default because it matches what the notes use today. If the aim is
-a cell Quarto will *execute*, you want a real code cell, not ```` ```{python} ```` -
-that form is for `.qmd` files.
+`plain` is the default because it is the only spelling a notebook highlights. Jupyter
+reads the info string as a bare language name, so ```` ```{.python} ```` renders as grey
+unhighlighted text in exactly the cells this extension exists to author, while Quarto
+understands all three. Every style is still *read* correctly, so a chapter written with
+```` ```{.python} ```` converts to code cells as it always did.
+
+If the aim is a cell Quarto will *execute*, you want a real code cell, not
+```` ```{python} ```` - that form is for `.qmd` files.
 
 ## The no-extension alternative
 

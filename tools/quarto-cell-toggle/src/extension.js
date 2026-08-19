@@ -13,7 +13,7 @@ const OPEN_FENCE = /^(`{3,}|~{3,})[ \t]*(.*)$/;
 function config() {
   const c = vscode.workspace.getConfiguration('quartoCellToggle');
   return {
-    fenceStyle: c.get('fenceStyle', 'braced-dot'),
+    fenceStyle: c.get('fenceStyle', 'plain'),
     runnable: (c.get('runnableLanguages', ['python', 'py', 'r']) || []).map((s) =>
       String(s).toLowerCase()
     ),
@@ -39,12 +39,33 @@ function parseInfo(info) {
   return { raw, lang: first.replace(/^\./, '').toLowerCase() };
 }
 
-/** Build an info string for a language, in the configured style. */
+/**
+ * Build an info string for a language, in the configured style.
+ *
+ * The default is the plain one, ```python, because that is the only spelling
+ * a notebook highlights: Jupyter reads the info string as a bare language
+ * name, so ```{.python} renders as unhighlighted grey text in the very cells
+ * this extension exists to author. Quarto understands all three.
+ */
 function makeInfo(lang, cfg) {
   const l = lang || cfg.defaultLanguage;
-  if (cfg.fenceStyle === 'plain') return l;
   if (cfg.fenceStyle === 'braced') return `{${l}}`;
-  return `{.${l}}`;
+  if (cfg.fenceStyle === 'braced-dot') return `{.${l}}`;
+  return l;
+}
+
+/**
+ * True when an info string says nothing that the language name alone does not.
+ *   "python", "{python}", "{.python}" -> true
+ *   "{.python filename=\"demo.py\"}"  -> false, the attribute is worth keeping
+ */
+function infoIsJustLanguage(raw) {
+  const s = String(raw || '').trim();
+  if (!s) return true;
+  const lang = parseInfo(s).lang;
+  if (!lang) return false;
+  const plain = s.toLowerCase();
+  return plain === lang || plain === `{${lang}}` || plain === `{.${lang}}`;
 }
 
 /**
@@ -110,7 +131,12 @@ function cleanMeta(meta) {
 function codeToMarkup(cell, cfg) {
   const body = cell.document.getText().replace(/\s+$/, '');
   const stored = cell.metadata && cell.metadata.quartoFence;
-  const info = stored || makeInfo(cell.document.languageId, cfg);
+  // A remembered fence is honoured only when it carries something the language
+  // name does not, such as filename="demo.py". A bare {.python} remembered from
+  // before is deliberately not restored: it is exactly the spelling this
+  // extension is here to migrate away from.
+  const keepStored = stored && !infoIsJustLanguage(stored);
+  const info = keepStored ? stored : makeInfo(cell.document.languageId, cfg);
   const fence = pickFence(body);
 
   const data = new vscode.NotebookCellData(

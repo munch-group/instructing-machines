@@ -18,8 +18,8 @@ Run it by hand from anywhere:
 
 It also runs automatically from Quarto's `post-render`, so the zip on the
 website can never drift from the book that describes it. The zip, loose copies
-of pixi.toml and pixi.lock (which `update.py` fetches), and every chapter
-notebook (which `get.py` fetches) are written into the rendered book so they
+of pixi.toml and pixi.lock (which `im update` fetches), and every chapter
+notebook (which `im get` fetches) are written into the rendered book so they
 are published as part of the site:
 
     docs/_book/instructing-machines.zip
@@ -87,7 +87,7 @@ WEEK1_NOTEBOOKS = [
 
 
 # Every chapter notebook is published loose next to the zip so that
-# `pixi run get <chapter>` has something to fetch. The list comes from the
+# `im get <chapter>` has something to fetch. The list comes from the
 # book's own chapter list, so it cannot drift from what the website offers.
 QUARTO_CONFIG = quarto_config(REPO / "docs")
 NOTEBOOK_DIR = "notebooks"
@@ -132,7 +132,7 @@ PROJECT_DIR = "project-files"
 PROJECTS = REPO / "project-files"
 
 # Files copied loose into the site root as well as into the zip, because
-# update.py downloads them individually.
+# `im update` downloads them individually.
 PUBLISH_LOOSE = ["pixi.toml", "pixi.lock"]
 
 # A fixed timestamp keeps the zip byte-identical between runs when nothing has
@@ -205,7 +205,7 @@ def project_dirs() -> list[Path]:
 def publish_projects(out_dir: Path) -> int:
     """Write out_dir/project-files/<project>.zip, one per project, with a manifest.
 
-    The manifest is what `pixi run get` reads to know what it may ask for,
+    The manifest is what `im get` reads to know what it may ask for,
     so a project that is not listed here is one no student can fetch.
     """
     projects = project_dirs()
@@ -217,7 +217,7 @@ def publish_projects(out_dir: Path) -> int:
     if not projects:
         print(
             f"warning: no project folders found in {PROJECTS}, so\n"
-            "         `pixi run get` will have no projects to offer",
+            "         `im get` will have no projects to offer",
             file=sys.stderr,
         )
 
@@ -264,7 +264,7 @@ def publish_notebooks(out_dir: Path) -> int:
     if not notebooks:
         print(
             f"warning: found no chapter notebooks in {QUARTO_CONFIG}, so\n"
-            "         `pixi run get` will have nothing to fetch",
+            "         `im get` will have nothing to fetch",
             file=sys.stderr,
         )
         return 0
@@ -282,7 +282,7 @@ def publish_notebooks(out_dir: Path) -> int:
             print(
                 f"warning: two chapters are both called {notebook.stem}\n"
                 f"         ({by_stem[notebook.stem]} and {notebook});\n"
-                f"         `pixi run get {notebook.stem}` can only offer the first",
+                f"         `im get {notebook.stem}` can only offer the first",
                 file=sys.stderr,
             )
             continue

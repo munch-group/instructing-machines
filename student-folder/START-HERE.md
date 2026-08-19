@@ -104,6 +104,11 @@ pixi run check
 It should print a line saying everything is installed, followed by a Python
 version. If it does, you are finished with the hard part.
 
+That command, and the two below, come from a small tool called `im` that was
+installed along with everything else. `pixi run check` is the same as typing
+`im check` inside the environment, and it is the form that works from any
+terminal, so it is the one this page uses.
+
 ## 5. Run your first notebook
 
 Week one's notebooks are already here. In the file list on the left, open the
@@ -174,9 +179,6 @@ instructing-machines/
 ├── START-HERE.md      this page
 ├── pixi.toml          the recipe for your Python environment
 ├── pixi.lock          the exact versions, so all 100 of us get the same ones
-├── get.py             what `pixi run get` runs
-├── project.py         the project half of it
-├── update.py          what `pixi run update-env` runs
 ├── week1/             the two notebooks for the first week
 ├── data/              data files the lecture notes read
 ├── projects/          appears when you fetch your first project

@@ -55,7 +55,8 @@ const fn = new Function('require', 'module', 'exports', src + '\n;return {parseF
 const api = fn(require, sandbox.module, sandbox.exports);
 
 const { parseFencedBlock, parseInfo, makeInfo, pickFence, codeToMarkup, markupToCode } = api;
-const cfg = { fenceStyle: 'braced-dot', runnable: ['python', 'py', 'r'], defaultLanguage: 'python', confirmDiscardOutputs: true };
+const cfg = { fenceStyle: 'plain', runnable: ['python', 'py', 'r'], defaultLanguage: 'python', confirmDiscardOutputs: true };
+const bracedDot = Object.assign({}, cfg, { fenceStyle: 'braced-dot' });
 
 const cell = (text, meta, languageId) => ({
   document: { getText: () => text, languageId: languageId || 'markdown' },
@@ -105,10 +106,14 @@ ok('tilde fence', () => {
 });
 
 console.log('code -> markdown');
-ok('wraps in braced-dot fence', () => {
+ok('wraps in a plain fence, which is what a notebook highlights', () => {
   const d = codeToMarkup(cell('x = 1\nprint(x)\n', undefined, 'python'), cfg);
-  assert.strictEqual(d.value, '```{.python}\nx = 1\nprint(x)\n```');
+  assert.strictEqual(d.value, '```python\nx = 1\nprint(x)\n```');
   assert.strictEqual(d.languageId, 'markdown');
+});
+ok('the braced-dot style is still available', () => {
+  const d = codeToMarkup(cell('x = 1\n', undefined, 'python'), bracedDot);
+  assert.strictEqual(d.value, '```{.python}\nx = 1\n```');
 });
 ok('honours a remembered fence', () => {
   const d = codeToMarkup(
@@ -120,11 +125,11 @@ ok('honours a remembered fence', () => {
 });
 ok('backticks inside a string do not lengthen the fence', () => {
   const d = codeToMarkup(cell('print("```")', undefined, 'python'), cfg);
-  assert.strictEqual(d.value, '```{.python}\nprint("```")\n```');
+  assert.strictEqual(d.value, '```python\nprint("```")\n```');
 });
 ok('lengthens the fence when a line starts with one', () => {
   const d = codeToMarkup(cell('doc = """\n```\n"""', undefined, 'python'), cfg);
-  assert.ok(d.value.startsWith('````{.python}'));
+  assert.ok(d.value.startsWith('````python'));
   assert.ok(d.value.endsWith('\n````'));
 });
 
@@ -158,6 +163,18 @@ ok('markdown -> code -> markdown is identity', () => {
     cfg
   );
   assert.strictEqual(back.value, original);
+});
+ok('a remembered bare {.python} is not restored', () => {
+  // the spelling this extension exists to migrate away from: converting an old
+  // fence to a cell and back should leave the chapter better than it found it
+  const code = markupToCode(cell('```{.python}\nx = 1\n```'), cfg, { force: false }).data;
+  const back = codeToMarkup(cell(code.value, code.metadata, code.languageId), cfg);
+  assert.strictEqual(back.value, '```python\nx = 1\n```');
+});
+ok('a remembered bare {python} is not restored either', () => {
+  const code = markupToCode(cell('```{python}\nx = 1\n```'), cfg, { force: false }).data;
+  const back = codeToMarkup(cell(code.value, code.metadata, code.languageId), cfg);
+  assert.strictEqual(back.value, '```python\nx = 1\n```');
 });
 ok('code -> markdown -> code is identity', () => {
   const body = 'def f(x):\n    return x * 2\n\nprint(f(21))';

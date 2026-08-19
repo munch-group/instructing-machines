@@ -54,17 +54,17 @@
         "quartoCellToggle.fenceStyle": {
           "type": "string",
           "enum": [
+            "plain",
             "braced-dot",
-            "braced",
-            "plain"
+            "braced"
           ],
           "enumDescriptions": [
-            "```{.python} - Quarto class attribute, shown but not executed",
-            "```{python} - Quarto executable cell",
-            "```python - plain Markdown info string"
+            "```python - plain Markdown info string, the only one a notebook highlights",
+            "```{.python} - Quarto class attribute, shown but not executed and not highlighted in a notebook",
+            "```{python} - Quarto executable cell"
           ],
-          "default": "braced-dot",
-          "description": "How to write the opening fence when converting a code cell to markdown."
+          "default": "plain",
+          "description": "How to write the opening fence when converting a code cell to markdown. All three are read back correctly, so a chapter written with {.python} still converts to code cells."
         },
         "quartoCellToggle.runnableLanguages": {
           "type": "array",

@@ -75,7 +75,7 @@ are bare by default and line numbers appear only where a slide asks for them.
 **Never wrap code in a `::: {.code}` div.** Use a bare fenced block:
 
 ````
-```{.python}
+```python
 print("Hello world")
 ```
 ````
@@ -119,13 +119,13 @@ When a reduction shortens a line, pad with leading spaces to hold the remaining
 terms in their original columns:
 
 ````
-```{.python}
+```python
 3 * 8 + 6
 ```
-```{.python}
+```python
   24  + 6
 ```
-```{.python}
+```python
     30
 ```
 ````
