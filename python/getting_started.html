@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proof reading and comments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Curriculum</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -766,15 +766,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><i class="bi bi-apple"></i> Mac</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><i class="bi bi-windows"></i> Windows</a></li></ul>
 <div class="tab-content" data-group="platform">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>On Mac, you double-click to pack the zip file.</p>
+<p>On Mac, you double-click to unpack the zip file. Then move the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do <strong>not</strong> put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p>On Windows, you right-click and select “Extract all”.</p>
+<p>On Windows, you right-click and select “Extract all”. When asked to “Select a Destination”, click “Browse” and choose the folder you want to put the <code>instructing-machines</code> folder in - choose somewhere plain and short that belongs to you. Your user/home folder is the best place. Do <strong>not</strong> put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.</p>
 </div>
 </div>
 </div>
-<p>Put the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do <strong>not</strong> put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.</p>
+<p>Put the folder</p>
 </section>
 <section id="sec-the-terminal" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-the-terminal">The terminal</h2>
@@ -921,7 +921,7 @@ Figure&nbsp;7.2: The Windows PowerShell app on Windows
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>&gt; pixi install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="Terminal"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>&gt; pixi install &amp;&amp; pixi global install -c conda-forge -c munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
