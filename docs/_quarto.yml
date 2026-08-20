@@ -291,6 +291,10 @@ format:
       - unnumber.lua
       - quarto
       - headers.lua
+    # Repoints the "TA version" / "Student version" margin link declared in the
+    # two profile files at the counterpart of the page being read. Inert on a
+    # page that declares neither, so it is shared by both profiles.
+    include-after-body: _includes/ta-link.html
     toc-expand: false
     notebook-links: global
     number-sections: true      

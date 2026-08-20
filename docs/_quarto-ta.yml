@@ -6,8 +6,23 @@ project:
   #   - python ../scripts/encrypt.py --decrypt banana project_solutions
   #   - python ../scripts/encrypt.py --decrypt banana chapters/project
   post-render: 
-    # encrypt rendered web exercise html wth TA reveals
-    - python ../scripts/pagecrypt.py --passphrase redford _book/ta
+    # Encrypt the rendered TA pages. The passphrase is not written here: this
+    # repository is public, so pagecrypt.py takes it from PAGECRYPT_PASSPHRASE
+    # instead, which is a repository secret in CI and your own shell variable
+    # locally. Without it the script stops rather than leaving the pages open.
+    - python ../scripts/pagecrypt.py _book/ta
 
 comments:
   hypothesis: true
+
+format:
+  html:
+    # The way back to what the students see. target: _top matters because
+    # pagecrypt serves the decrypted page inside an iframe, so without it the
+    # student page would open inside the password gate.
+    other-links:
+      - text: "Student version of this page"
+        icon: mortarboard
+        rel: student-version
+        target: _top
+        href: https://munch-group.org/instructing-machines/

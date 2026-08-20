@@ -519,9 +519,23 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    if args.passphrase:
-        passphrase = args.passphrase
-    else:
+    # The passphrase is deliberately not written down anywhere in this
+    # repository, which is public. It comes from the PAGECRYPT_PASSPHRASE
+    # environment variable: a GitHub Actions secret when the site is published
+    # (see .github/workflows/quarto-publish.yml), and your own shell when you
+    # build the TA book by hand. --passphrase still wins if you pass it.
+    passphrase = args.passphrase or os.environ.get('PAGECRYPT_PASSPHRASE', '').strip()
+
+    if not passphrase:
+        if not os.isatty(0):
+            # Nothing to prompt with, so stop here. Exiting fails the render
+            # that called us, which is the point: the alternative is a TA book
+            # published with no lock on it at all.
+            raise SystemExit(
+                "pagecrypt: no passphrase given. Set PAGECRYPT_PASSPHRASE in "
+                "the environment (in CI it comes from the repository secret of "
+                "that name) or pass --passphrase."
+            )
         while True:
             passphrase = getpass(prompt='Password: ')
             if passphrase == getpass(prompt='Confirm: '):

@@ -8,3 +8,15 @@ project:
     - mv slides/_build _book/slides
     # - scripts/build-demo.sh
     - quarto render --to html --profile ta  
+
+format:
+  html:
+    # The counterpart of this page in the TA book. The href here is only the
+    # fallback for a reader without JavaScript, landing them on the TA front
+    # page; _includes/ta-link.html repoints it at the page actually being read,
+    # which other-links cannot express on its own. `rel` is its hook.
+    other-links:
+      - text: "TA version of this page"
+        icon: mortarboard
+        rel: ta-version
+        href: https://munch-group.org/instructing-machines/ta/

@@ -21,6 +21,13 @@ jobs:
     # the render and the publish cannot disagree about which book is built.
     env:
       QUARTO_PROFILE: default
+      # The passphrase pagecrypt.py locks the TA book with, read from the
+      # environment by scripts/pagecrypt.py so that it is not committed to a
+      # public repository. Set it once with
+      #     gh secret set PAGECRYPT_PASSPHRASE
+      # If the secret is missing the render fails at the post-render step
+      # rather than publishing the TA pages unlocked, which is the point.
+      PAGECRYPT_PASSPHRASE: ${{ secrets.PAGECRYPT_PASSPHRASE }}
 
     steps:
       - name: Check out repository
