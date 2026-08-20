@@ -31,7 +31,7 @@ Everything you need for the whole term lives in one folder. Download it now:
 
 ## <i class="bi bi-apple"></i> Mac
 
-On Mac, you double-click to pack the zip file. 
+On Mac, you double-click to unpack the zip file. Then move the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
 
 ```bash
 curl -fsSL https://pixi.sh/install.sh | sh
@@ -39,11 +39,11 @@ curl -fsSL https://pixi.sh/install.sh | sh
 
 ## <i class="bi bi-windows"></i> Windows
 
-On Windows, you  right-click and select "Extract all". 
+On Windows, you right-click and select "Extract all". When asked to "Select a Destination", click "Browse" and choose the folder you want to put the `instructing-machines` folder in - choose somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
 
 :::
 
-Put the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
+Put the folder 
 
 ## The terminal {#sec-the-terminal}
 
@@ -154,7 +154,7 @@ You will probably see a different version number, and that is fine. If you inste
 Now you can install Python and the packages we need for the course. Open the terminal and navigate to the `instructing-machines` folder (run `pwd` to make sure). Then run this command:
 
 ```{.txt filename="Terminal"}
-> pixi install
+> pixi install && pixi global install -c conda-forge -c munch-group im-course-tools
 ```
 
 ::: {.callout-note}
