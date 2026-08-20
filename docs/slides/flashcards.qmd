@@ -3,6 +3,7 @@ title: "Flashcards"
 subtitle: "Press `Q` to flip cards or click the flip icon<br>Press `T` to shuffle cards."
 format:
   revealjs:
+    code-line-numbers: false
     flashcards: 
       flipKey: 'q'
       shuffleKey: 't'
@@ -28,47 +29,1477 @@ By default, flashcards do not reset to the front when you navigate to a new slid
 :::
 
 :::{.flashcard-back}
-Nicely done! Let's go over some example flashcards to see how this looks.
+Nicely done!
 :::
 
+<!-- WEEK 1 ----------------------------------------------------- -->
 
-## Question 2
+<!-- Week 1 :: the machine ---------------------------------------- -->
+
+## Bits
 
 ::: {.flashcard-front}
-Plot a histogram of the `Sepal.Length` column in the `iris` dataset using `ggplot2`.
+What is a bit, and how many things can it be?
+:::
+::: {.flashcard-back}
+The smallest possible piece of information: one switch that is either off (`0`) or on (`1`).
+
+There is no secret third thing.
 :::
 
-::: {.flashcard-back}
+## Bytes
 
-```python
-for i in range(10):
-    print(i)
+::: {.flashcard-front}
+How many bits are in a byte, and how many patterns can a byte hold?
+:::
+::: {.flashcard-back}
+Eight bits make a byte, and a byte has 256 possible patterns.
+
+Enough for a number from 0 to 255, a single letter, or one dot of color.
+:::
+
+## What bits mean
+
+::: {.flashcard-front}
+Is `01100100` the number 100, the letter `'d'`, or a shade of gray?
+:::
+::: {.flashcard-back}
+The bits do not know. Their meaning comes entirely from the code that reads them.
+
+A *type* is nothing more than an agreement about how to read some bits.
+:::
+
+## Disk and memory
+
+::: {.flashcard-front}
+Which of the disk and the memory survives switching the computer off?
+:::
+::: {.flashcard-back}
+The disk. It is where your files are kept, roomy but slow.
+
+Memory (RAM) holds what is running right now and is emptied the moment a program stops.
+:::
+
+## The CPU
+
+::: {.flashcard-front}
+What is the CPU, and what can it work on?
+:::
+::: {.flashcard-back}
+The worker. It does the computing, one tiny step at a time, billions of steps a second.
+
+It only ever works on what is currently in memory. The rhythm is disk → memory → CPU.
+:::
+
+## After the program ends
+
+::: {.flashcard-front}
+Your program counts the `A` bases in a sequence, prints the answer, and ends. Is the count still on the computer?
+:::
+::: {.flashcard-back}
+No. It was in memory, and memory is emptied when the program ends.
+
+To still have it tomorrow, the program has to write it to the disk.
+:::
+
+## The manager in the middle
+
+::: {.flashcard-front}
+What sits between your programs and the hardware, and what does it do?
+:::
+::: {.flashcard-back}
+The operating system: macOS, Windows or Linux.
+
+It hands out memory, finds files, shares the CPU between programs, and talks to the keyboard and the screen. Your program asks it for a file rather than rummaging through the disk itself.
+:::
+
+## Software
+
+::: {.flashcard-front}
+What is a program, in the end?
+:::
+::: {.flashcard-back}
+A file on the disk full of instructions for the CPU, which the operating system loads into memory and lets the CPU carry out.
+
+A game, a browser, VS Code and Python itself are all this same thing.
+:::
+
+## The CPU's language
+
+::: {.flashcard-front}
+What is the only language the CPU understands?
+:::
+::: {.flashcard-back}
+Machine code: raw numbers standing for the simplest possible operations, such as move this number here, add these two, compare them, jump to that instruction.
+
+It is built for the CPU to run fast, not for you to read.
+:::
+
+## The Turing machine
+
+::: {.flashcard-front}
+What are the four parts of a Turing machine?
+:::
+::: {.flashcard-back}
+- A tape of squares, each holding one symbol
+- A head that can read, write, and move one square
+- A state, the sticky note saying where it is in the task
+- A fixed table of rules
+:::
+
+## The universal machine
+
+::: {.flashcard-front}
+What did Turing show one machine could do with a description of another machine written on its tape?
+:::
+::: {.flashcard-back}
+Act that other machine out, step by step. One machine that can become any machine, given the right instructions.
+
+That is the birth certificate of the general-purpose computer on your desk.
+:::
+
+## A program on the disk
+
+::: {.flashcard-front}
+Why is a program just a file like any other?
+:::
+::: {.flashcard-back}
+Because the universal machine reads its instructions off the tape as ordinary symbols: instructions and data are made of the same stuff.
+
+Your program sits on the disk among your photographs until it is loaded into memory and carried out.
+:::
+
+<!-- Week 1 :: the ladder of instruction and the AI ---------------- -->
+
+## The ladder
+
+::: {.flashcard-front}
+Name the five rungs of instruction, from the raw bits at the bottom to plain language at the top.
+:::
+::: {.flashcard-back}
+Machine code → assembly → compiled languages such as C → interpreted languages such as Python → an AI assistant.
+
+Every rung is a translator down to the one below it.
+:::
+
+## Faithful or plausible
+
+::: {.flashcard-front}
+Four rungs of the ladder are faithful translators and one is not. Which one, and why does it matter?
+:::
+::: {.flashcard-back}
+The AI. Assembly, C and Python always mean exactly what the level above them said. An AI gives you a very qualified guess.
+
+That break in the metaphor is the argument of the whole course.
+:::
+
+## C and Python
+
+::: {.flashcard-front}
+What is the difference between how C runs and how Python runs?
+:::
+::: {.flashcard-back}
+A compiler translates the entire C file to machine code before anything runs.
+
+Python is interpreted: the `python` program reads your file and carries out the instructions one line at a time as it goes.
+:::
+
+## Producing an answer
+
+::: {.flashcard-front}
+What does a language model actually do to produce an answer?
+:::
+::: {.flashcard-back}
+It reads the text so far, scores every possible next token by how likely it is to come next, picks one, adds it to the text, and does the whole thing again.
+
+A token is a word or a small piece of a word.
+:::
+
+## What a model knows
+
+::: {.flashcard-front}
+Where does everything a model "knows" live?
+:::
+::: {.flashcard-back}
+In its weights, the millions of internal values that training settled on.
+
+There is no library of facts inside it and no lookup table. Once trained, its behavior is fixed, and only your input changes the reply.
+:::
+
+## Hallucination
+
+::: {.flashcard-front}
+What is a hallucination, and why do they happen?
+:::
+::: {.flashcard-back}
+A fluent, confident answer that is false: a wrong gene function, an off-by-one in a loop, a codon table with a quiet mistake.
+
+The model has no separate sense of truth, only a sense of what most plausibly comes next.
+:::
+
+## The limit
+
+::: {.flashcard-front}
+Finish the sentence: an AI is useful to you up to the limit of …
+:::
+::: {.flashcard-back}
+… what you can specify and verify.
+
+Understanding Python is what lets you specify precisely and test that what came back does what you wanted.
+:::
+
+## The rule
+
+::: {.flashcard-front}
+What is the one rule that holds at every rung of the AI ladder?
+:::
+::: {.flashcard-back}
+The assistant predicts, and the machine proves.
+
+When it tells you what code does, run it. When it hands you a function, test it.
+:::
+
+## Verification
+
+::: {.flashcard-front}
+Three things get verified in this course, each in its own way. Name them.
+:::
+::: {.flashcard-back}
+- Code, by tests and by reading it
+- A claim about biology, by evidence and by what you already know
+- Your own learning, by doing the thing with the assistant switched off
+
+One idea, applied three times: plausible and correct are different states.
+:::
+
+<!-- Week 1 :: the assistant in practice --------------------------- -->
+
+## Which assistant
+
+::: {.flashcard-front}
+Which assistant does this course use, and where does it live?
+:::
+::: {.flashcard-back}
+Microsoft Copilot, in a browser tab, signed in with your university credentials.
+
+It is not GitHub Copilot, which suggests code inside the editor as you type and which this course deliberately does not use.
+:::
+
+## Signing in
+
+::: {.flashcard-front}
+On the Copilot landing page you can choose Work, Web or Personal. Which one, and why?
+:::
+::: {.flashcard-back}
+Work. That is what gives you access through the university's agreement, and what keeps whatever you type covered by that agreement.
+:::
+
+## An AI-free editor
+
+::: {.flashcard-front}
+Why does the assistant stay in the browser and out of VS Code?
+:::
+::: {.flashcard-back}
+So there is a visible boundary between code you wrote and code the assistant proposed, and crossing it is a decision you make.
+
+An assistant that completes your lines as you type erases the boundary, and with it the moment you would have read what you were accepting.
+:::
+
+## New chat
+
+::: {.flashcard-front}
+When should you start a new chat rather than carrying on in the old one?
+:::
+::: {.flashcard-back}
+Whenever you change topic. Copilot keeps the earlier turns in view and will happily carry an assumption from twenty minutes ago into an answer about a different problem.
+:::
+
+## Two answers
+
+::: {.flashcard-front}
+You ask the same question twice and get two different answers. Is that a fault?
+:::
+::: {.flashcard-back}
+No, it is something to use. Two answers that agree tell you a little.
+
+Two answers that disagree tell you a great deal, because at least one is wrong and you now know to find out which.
+:::
+
+## Study and Learn
+
+::: {.flashcard-front}
+What is the Study and Learn agent?
+:::
+::: {.flashcard-back}
+A mode inside Copilot that behaves like a patient teaching assistant: it asks you questions back instead of handing over the answer.
+:::
+
+## Badges
+
+::: {.flashcard-front}
+What does the badge under an exercise heading tell you?
+:::
+::: {.flashcard-back}
+The highest role the assistant is licensed to play for that exercise. It is a link to the description of that rung.
+
+The roles are cumulative: an exercise badged Collaborator also permits everything below it.
+:::
+
+## SOLO
+
+::: {.flashcard-front}
+What does a `SOLO` badge ask of you?
+:::
+::: {.flashcard-back}
+The assistant is closed. Not open and unconsulted. Closed.
+
+Nobody can tell whether you kept it. What it buys you is evidence about yourself: doing a SOLO exercise with help just deletes the only measurement you had.
+:::
+
+## The role ladder
+
+::: {.flashcard-front}
+Name the five AI roles in the order the course grants them.
+:::
+::: {.flashcard-back}
+Explainer → Comparer → Drafter → Collaborator → Developer.
+:::
+
+## Explainer
+
+::: {.flashcard-front}
+What may you ask of the assistant at the Explainer rung?
+:::
+::: {.flashcard-back}
+What something that already exists means: a traceback, a line of code you did not write, a word in the documentation.
+
+You are not asking it to produce anything, and you settle every answer by running the thing.
+:::
+
+## The logbook
+
+::: {.flashcard-front}
+What goes into a weekly logbook entry?
+:::
+::: {.flashcard-back}
+Something the assistant got right, something it got wrong, and how you knew which was which.
+
+One entry a week, all term.
+:::
+
+## Why learn this now
+
+::: {.flashcard-front}
+Why is what you know worth more, rather than less, now that a machine can write code?
+:::
+::: {.flashcard-back}
+What you can safely get out of an assistant is limited twice by what you know: once by your ability to ask for the right thing, and again by your ability to tell whether what came back is right.
+
+Every new thing you learn pays you twice.
+:::
+
+## Where the line falls
+
+::: {.flashcard-front}
+Where is the line between using the assistant and cheating?
+:::
+::: {.flashcard-back}
+Producing something you did not formulate, do not understand, and cannot check is cheating.
+
+Producing something you formulated, understand, and validated is tool use, no different in kind from using a microscope.
+:::
+
+## Predict, then run
+
+::: {.flashcard-front}
+Why does almost every exercise ask you to predict before you run?
+:::
+::: {.flashcard-back}
+The gap between your prediction and the result is the only reliable signal of what you do not yet understand, and it is free every time.
+
+Skipping the prediction turns an exercise into a demonstration.
+:::
+
+<!-- Week 1 :: the terminal --------------------------------------- -->
+
+## Where you type commands
+
+::: {.flashcard-front}
+What is "the terminal" called on a Mac, and on Windows?
+:::
+::: {.flashcard-back}
+*Terminal* on a Mac, found through Spotlight. *Windows PowerShell* on Windows, found from the Start menu.
+
+Both are terminal emulators: programs used to run other programs.
+:::
+
+## The > character
+
+::: {.flashcard-front}
+What is the `>` at the start of the terminal examples in the book?
+:::
+::: {.flashcard-back}
+The prompt, which is where you type. The command is the text to the right of it, and it runs when you press Enter.
+
+The first word of a command is always the name of a program.
+:::
+
+## Your location
+
+::: {.flashcard-front}
+Which command tells you which folder the terminal is in?
+:::
+::: {.flashcard-back}
+```txt
+> pwd
+/Users/kasper/instructing-machines
+```
+
+It prints the full path of the folder you are in.
+:::
+
+## Seeing the contents
+
+::: {.flashcard-front}
+Which command lists what is in the folder you are in?
+:::
+::: {.flashcard-back}
+`ls` (l as in Lima, s as in Sierra).
+:::
+
+## Walking into a folder
+
+::: {.flashcard-front}
+How do you walk into the `week1` folder, and how do you walk back out again?
+:::
+::: {.flashcard-back}
+```txt
+> cd week1
+> cd ..
+```
+
+`..` is the special name for the parent folder, so `cd ..` goes back where you came from.
+:::
+
+## Silence
+
+::: {.flashcard-front}
+You type `cd week1`, press Enter, and nothing is printed. Did it work?
+:::
+::: {.flashcard-back}
+Almost certainly. Many commands say nothing when they succeed.
+
+Run `pwd` to see where you actually are.
+:::
+
+## Where a folder sits
+
+::: {.flashcard-front}
+What does `/Users/kasper/instructing-machines` tell you?
+:::
+::: {.flashcard-back}
+The folder's full address. Slashes (backslashes on Windows) separate nested folders, so `instructing-machines` is inside `kasper`, which is inside `Users`.
+:::
+
+## Where you start
+
+::: {.flashcard-front}
+Which folder are you in when you open a fresh terminal?
+:::
+::: {.flashcard-back}
+Your user folder, also called your home folder. Everything else is reached from there with `cd`.
+:::
+
+## File suffixes
+
+::: {.flashcard-front}
+What do the suffixes `.py` and `.ipynb` tell you about a file?
+:::
+::: {.flashcard-back}
+`.py` is a Python script: a plain text file of Python code.
+
+`.ipynb` is a notebook: cells of code and text together, with the output of the last run stored in the file.
+:::
+
+<!-- Week 1 :: pixi and the course environment --------------------- -->
+
+## pixi
+
+::: {.flashcard-front}
+What does pixi do for you?
+:::
+::: {.flashcard-back}
+It installs Python for you along with every package the course needs, one self-contained Python per project folder.
+:::
+
+## Your own Python
+
+::: {.flashcard-front}
+Where does the Python you use in this course actually live?
+:::
+::: {.flashcard-back}
+In a hidden `.pixi` folder inside the course folder. Nothing is installed anywhere else.
+
+So it cannot collide with a Python you install next year, and if the installation ties itself in a knot, deleting the folder removes every trace of it.
+:::
+
+## Installing pixi on a Mac
+
+::: {.flashcard-front}
+How do you install pixi on a Mac?
+:::
+::: {.flashcard-back}
+Paste this into the Terminal and press Enter:
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
 ```
 :::
 
-
-## Question 3 {background-color="lightblue"}
-
-::: {.flashcard-front}
-What is the equation to calculate Mean Squared Error (MSE)?
-:::
-
-::: {.flashcard-back}
-$\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$
-
-where $y_i$ is the observed value and $\hat{y}_i$ is the predicted value.
-:::
-
-# Conclusion
+## Installing pixi on Windows
 
 ::: {.flashcard-front}
-The `flashcards` plugin is a great way to create flashcards for your RevealJS presentations in Quarto. 
-
-You can shuffle the order of the slides by pressing the `t` key.
+How do you install pixi on Windows?
 :::
-
 ::: {.flashcard-back}
-Thanks for reading!
+Download the `.msi` installer from the pixi releases page, double-click it, and click through.
 
-Why are you still here? Go make some flashcards! 
+If Windows complains that a script cannot be run, or mentions an execution policy, you have found a PowerShell install script somewhere. Use the `.msi` instead.
 :::
+
+## A new terminal
+
+::: {.flashcard-front}
+Why must you close the terminal and open a new one right after installing pixi?
+:::
+::: {.flashcard-back}
+A terminal reads the list of available programs once, when it starts, and never looks again. The terminal you installed from does not know pixi exists.
+
+This one detail causes more confusion than everything else on the install page combined.
+:::
+
+## Command not found
+
+::: {.flashcard-front}
+The terminal says `command not found: pixi`, or that pixi is not recognized. What is the fix?
+:::
+::: {.flashcard-back}
+Close that terminal and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
+:::
+
+## Checking pixi
+
+::: {.flashcard-front}
+How do you check that pixi itself installed correctly?
+:::
+::: {.flashcard-back}
+```txt
+> pixi --version
+pixi 0.60.0
+```
+
+A different version number is fine.
+:::
+
+## pixi install
+
+::: {.flashcard-front}
+What does `pixi install` do, and where must you run it?
+:::
+::: {.flashcard-back}
+In the course folder (check with `pwd` first). It reads the folder's `pixi.toml` and builds your own private Python and packages in a new hidden `.pixi` folder.
+:::
+
+## Is it ready?
+
+::: {.flashcard-front}
+Which command tells you the course environment is ready, and what does it print?
+:::
+::: {.flashcard-back}
+```txt
+> pixi run check
+Everything is installed. Python 3.13.5
+```
+
+`check` is not a built-in pixi command. It is an errand stored in the folder's `pixi.toml`.
+:::
+
+## Getting a notebook
+
+::: {.flashcard-front}
+How do you fetch the notebook for a chapter from the terminal?
+:::
+::: {.flashcard-back}
+```txt
+> pixi run get iteration
+```
+
+Run it without a name to see what you can ask for. If you already have a notebook of that name, yours is untouched and the fresh copy arrives beside it as `iteration-2.ipynb`.
+:::
+
+## Where the course folder goes
+
+::: {.flashcard-front}
+Where should the course folder live, and where must it not?
+:::
+::: {.flashcard-back}
+Somewhere plain and short that belongs to you, such as your home folder.
+
+Not in OneDrive or iCloud Drive: they sync files in and out from under Python and produce errors nobody can explain. On Windows, a folder too deep also breaks `pixi install`.
+:::
+
+## START-HERE.md
+
+::: {.flashcard-front}
+What is `START-HERE.md` in the course folder?
+:::
+::: {.flashcard-back}
+The short version of the getting-started chapter, kept in the folder so you have the instructions at hand when the book is not open.
+:::
+
+<!-- Week 1 :: VS Code -------------------------------------------- -->
+
+## The editor
+
+::: {.flashcard-front}
+Why write code in VS Code rather than in Word?
+:::
+::: {.flashcard-back}
+A text editor saves only the characters you type. Word silently saves margins, boldface, headers and the rest.
+
+With VS Code, what you type is exactly what is in the file.
+:::
+
+## Starting VS Code
+
+::: {.flashcard-front}
+In VS Code, do you open the course *folder* or a *file* inside it? Why does it matter?
+:::
+::: {.flashcard-back}
+The folder, with File → Open Folder.
+
+The course folder carries a settings file telling VS Code where the course Python lives, and VS Code only reads it when the folder is what you opened.
+:::
+
+## The three extensions
+
+::: {.flashcard-front}
+Which three VS Code extensions does the course folder need?
+:::
+::: {.flashcard-back}
+- `ms-python.python` for Python support
+- `ms-toolsai.jupyter` for notebook support
+- `renan-r-santos.pixi-code` for pixi support
+
+VS Code offers to install them when you open the folder. Say yes.
+:::
+
+## Missing the notification
+
+::: {.flashcard-front}
+You clicked away the "install recommended extensions" notification. Now what?
+:::
+::: {.flashcard-back}
+Open the Extensions panel on the left, search for each of the three names, and install them one at a time.
+:::
+
+## The command palette
+
+::: {.flashcard-front}
+How do you open the command palette, and what is it good for?
+:::
+::: {.flashcard-back}
+`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac.
+
+Typing part of a command name shows the command along with whatever keyboard shortcut your copy of VS Code has given it, which is the reliable way to answer any shortcut question.
+:::
+
+## No kernel offered
+
+::: {.flashcard-front}
+VS Code will not offer the right kernel for a notebook. What do you check?
+:::
+::: {.flashcard-back}
+That you opened the folder rather than a file, that `pixi install` has finished, and that the Python and Jupyter extensions are installed.
+
+Then run `Developer: Reload Window` from the command palette.
+:::
+
+## The right kernel
+
+::: {.flashcard-front}
+Which kernel should a course notebook be running, and how do you recognize it?
+:::
+::: {.flashcard-back}
+The one called `instructing-machines`, under "Python environments" in the Select Kernel dropdown. Its path contains `.pixi`.
+
+The kernel name is shown at the top right of the notebook window.
+:::
+
+## A blank widget
+
+::: {.flashcard-front}
+A widget shows as blank space, or as raw text. What has gone wrong?
+:::
+::: {.flashcard-back}
+The notebook is running on the wrong Python. Click `Select Kernel` at the top right and choose the one whose path contains `.pixi`.
+:::
+
+<!-- Week 1 :: scripts and hello world ---------------------------- -->
+
+## A script
+
+::: {.flashcard-front}
+What is a script?
+:::
+::: {.flashcard-back}
+A plain text file on the disk with Python code written in it, named with a `.py` suffix. Also called a program.
+:::
+
+## Running a script
+
+::: {.flashcard-front}
+How do you run `hello.py`, and from where?
+:::
+::: {.flashcard-back}
+From the terminal, in the folder where the file is stored:
+
+```txt
+> python hello.py
+```
+
+Not by typing `hello.py` alone, not by dragging the file into the terminal, and not with the play icon in VS Code. Any of those may run a different Python than you think.
+:::
+
+## The order of things
+
+::: {.flashcard-front}
+In what order does Python run the lines of your script?
+:::
+::: {.flashcard-back}
+The interpreter opens the file, reads the first line, does what it says, reads the next, and carries on to the end of the file. Then it stops.
+
+The order the lines appear in is the order they run in. Nothing jumps around.
+:::
+
+## When a script starts
+
+::: {.flashcard-front}
+What does a script have in memory when it starts?
+:::
+::: {.flashcard-back}
+Nothing. Every run starts from a blank slate, so a script has to carry everything it needs inside itself.
+
+That is what makes it work tomorrow, and on someone else's machine.
+:::
+
+## print
+
+::: {.flashcard-front}
+Why is it called `print` and not `write` or `show`?
+:::
+::: {.flashcard-back}
+Because computers once had no screens, and output was printed on an actual paper printer.
+
+The story is worth keeping: `print` pushes text *out of* your program.
+:::
+
+## The workflow
+
+::: {.flashcard-front}
+What are the four steps of the loop you repeat all term?
+:::
+::: {.flashcard-back}
+1. Change the code in the file
+2. Save the file
+3. Run the file from the terminal
+4. Start over
+:::
+
+## SyntaxError
+
+::: {.flashcard-front}
+What is Python telling you with a `SyntaxError`, and what does the `^` mark?
+:::
+::: {.flashcard-back}
+That you wrote something which is not legal Python, on the line it names.
+
+The `^` marks where your code stopped making sense to Python, which is sometimes a little after the place you made the mistake.
+:::
+
+## Reading two errors
+
+::: {.flashcard-front}
+Which error does each of these give?
+
+```python
+print("Hello world"))
+print("Hello world"
+```
+:::
+::: {.flashcard-back}
+`SyntaxError: unmatched ')'` for the first, because there is a closing parenthesis with nothing to close.
+
+`SyntaxError: '(' was never closed` for the second.
+:::
+
+## The # character
+
+::: {.flashcard-front}
+What does a `#` do, and what are the two things it is good for?
+:::
+::: {.flashcard-back}
+Everything after `#` on that line is invisible to Python.
+
+Use it to disable a line without deleting it ("comment out line two"), and to leave notes in your code.
+:::
+
+## A # in a string
+
+::: {.flashcard-front}
+Does `print("Hello # world")` print anything, and what does that tell you?
+:::
+::: {.flashcard-back}
+It prints `Hello # world`. Inside quotes, `#` is just a character like any other.
+
+A `#` only starts a comment when it is outside a string.
+:::
+
+<!-- Week 1 :: notebooks ------------------------------------------ -->
+
+## Script or notebook
+
+::: {.flashcard-front}
+State the difference between a script and a notebook in one sentence.
+:::
+::: {.flashcard-back}
+A script is a file the interpreter reads from top to bottom, starting from nothing.
+
+A notebook is a pile of small pieces of code that you hand, one at a time, to a session that remembers everything you have handed it so far.
+:::
+
+## The kernel
+
+::: {.flashcard-front}
+What is the kernel?
+:::
+::: {.flashcard-back}
+A real Python interpreter running in the background with all your variables in it.
+
+The notebook sends it a cell, it runs it, and it sends back whatever came out. Then it waits for the next one.
+:::
+
+## Behind the notebook
+
+::: {.flashcard-front}
+Which Python is behind a notebook, and where else can you meet it?
+:::
+::: {.flashcard-back}
+IPython, which you also get by typing `ipython` in the terminal.
+
+It is not a different language: it is Python with a friendlier shell, Tab completion, colors, nicer errors, and magic commands.
+:::
+
+## The number in brackets
+
+::: {.flashcard-front}
+What does the `[3]` beside a code cell mean?
+:::
+::: {.flashcard-back}
+The execution count: which run this was, counting every code cell run since the kernel started.
+
+It counts runs, not cells, so running the same cell three times changes its number three times.
+:::
+
+## Counts 4, 1, 9, 2
+
+::: {.flashcard-front}
+You open a notebook and the counts down the page read 4, 1, 9, 2. What do you now know?
+:::
+::: {.flashcard-back}
+That the page has never once been run in the order it is written.
+
+The execution counts are the only record of the order somebody actually clicked in.
+:::
+
+## Output without print
+
+::: {.flashcard-front}
+Why does `len(dna)` show a value in a notebook when you never wrote `print`?
+:::
+::: {.flashcard-back}
+When the last line of a cell is a bare expression, the notebook displays its value for you. Only the last line, and only if it is an expression.
+
+This is a courtesy of the notebook, not a rule of Python. The same line in a script prints nothing.
+:::
+
+## Two kinds of cells
+
+::: {.flashcard-front}
+What are the two kinds of cell in a notebook?
+:::
+::: {.flashcard-back}
+Text cells, written in Markdown and rendered when you finish them.
+
+Code cells, which hold Python, have a run button, and get a number when they have been run.
+:::
+
+## Cells and mistakes
+
+::: {.flashcard-front}
+What happens if prose lands in a code cell, or Python lands in a text cell?
+:::
+::: {.flashcard-back}
+Prose in a code cell gives you a `SyntaxError`.
+
+Python in a text cell simply sits there looking like a sentence and never runs. Both mistakes are common and both are worth recognizing on sight.
+:::
+
+## Editing a text cell
+
+::: {.flashcard-front}
+How do you edit a text cell and then put it back?
+:::
+::: {.flashcard-back}
+Double-click it and it turns back into raw Markdown. Press Shift and Enter and it renders again.
+:::
+
+## Restarting the kernel
+
+::: {.flashcard-front}
+What does restarting the kernel throw away, and what does it leave alone?
+:::
+::: {.flashcard-back}
+It throws away the memory: every variable, function and import the session was holding.
+
+Your cells and their text are untouched. You get a fresh interpreter with nothing in it.
+:::
+
+## Restart and Run All
+
+::: {.flashcard-front}
+Why is Restart and Run All the button that matters?
+:::
+::: {.flashcard-back}
+It is the only way to run the notebook the way a stranger would, from the top in page order, and so the only way to find out whether it does what it appears to do.
+
+Do it before you believe a notebook works, and before you hand one to anybody.
+:::
+
+## Strange behavior
+
+::: {.flashcard-front}
+A notebook is behaving strangely and you cannot see why. What do you do first?
+:::
+::: {.flashcard-back}
+Restart and run all.
+
+Most of the time the strangeness is stale memory, and most of the rest of the time the restart turns a mystery into an error message you can read.
+:::
+
+## Running a cell
+
+::: {.flashcard-front}
+What is the difference between Shift+Enter, Ctrl/Cmd+Enter and Alt/Option+Enter?
+:::
+::: {.flashcard-back}
+- Shift+Enter runs the cell and moves to the next one
+- Ctrl+Enter (Cmd+Enter on a Mac) runs it and stays put
+- Alt+Enter (Option+Enter on a Mac) runs it and makes a new empty cell below
+:::
+
+## Two modes
+
+::: {.flashcard-front}
+What are edit mode and command mode, and how do you move between them?
+:::
+::: {.flashcard-back}
+In edit mode your cursor is inside the cell and typing changes its contents.
+
+Press Escape to leave the cell: it stays selected, but now the keys are commands. Press Enter to go back in.
+:::
+
+## Command mode keys
+
+::: {.flashcard-front}
+In command mode: what do `A`, `B`, `M`, `Y`, `DD` and `Z` do?
+:::
+::: {.flashcard-back}
+- `A` new cell above, `B` new cell below
+- `M` turn the cell into a text cell, `Y` back into a code cell
+- `D` twice deletes the cell, `Z` undoes that
+
+`C`, `X` and `V` copy, cut and paste cells.
+:::
+
+## A notebook on disk
+
+::: {.flashcard-front}
+What is stored inside an `.ipynb` file?
+:::
+::: {.flashcard-back}
+Your cells in page order, together with whatever output each one produced the last time it ran.
+
+That is why somebody can see your results before running anything, and why the file counts as modified after you have only run a cell.
+:::
+
+## Which one to use
+
+::: {.flashcard-front}
+When is a notebook the right tool, and when is a script?
+:::
+::: {.flashcard-back}
+A notebook when you are exploring, when you want to see an answer before choosing the next step, and when text and code belong together.
+
+A script when it must run the same way every time, when you hand it to someone else, and when the point is the result rather than the journey.
+:::
+
+<!-- Week 1 :: magics and the sandbox ------------------------------ -->
+
+## Magic commands
+
+::: {.flashcard-front}
+What is a magic command, and whose command is it?
+:::
+::: {.flashcard-back}
+Not Python. Magics belong to IPython, so they only work where IPython is running: in a notebook, or at the `ipython` prompt.
+
+Copy `%whos` into `hello.py`, run `python hello.py`, and you get a `SyntaxError`.
+:::
+
+## Two shapes of magic
+
+::: {.flashcard-front}
+What is the difference between a line magic and a cell magic?
+:::
+::: {.flashcard-back}
+A line magic starts with one `%` and affects only its own line.
+
+A cell magic starts with `%%`, must be the very first line of the cell, and takes charge of everything below it in that cell.
+:::
+
+## %whos
+
+::: {.flashcard-front}
+What does `%whos` show you?
+:::
+::: {.flashcard-back}
+Every name the kernel is currently holding: the kernel's memory made visible.
+
+A good thing to run whenever a notebook starts behaving strangely.
+:::
+
+## The four cell magics
+
+::: {.flashcard-front}
+What do `%%steps`, `%%puzzle`, `%%codelens` and `%%sandbox` each do?
+:::
+::: {.flashcard-back}
+- `%%steps` shows the substitution and reduction steps inside a statement
+- `%%puzzle` gives you shuffled lines to put back in order
+- `%%codelens` walks through code a statement at a time and draws what is in memory
+- `%%sandbox` runs the cell as though it were a script
+:::
+
+## Magic not found
+
+::: {.flashcard-front}
+A magic reports that it does not exist. What is almost always wrong?
+:::
+::: {.flashcard-back}
+You have not run its import in this kernel, or you restarted the kernel since you did.
+
+Each widget is imported once near the top of the notebook, for example `import sandbox_widget`, and is then available for the rest of the session.
+:::
+
+## %%sandbox
+
+::: {.flashcard-front}
+What does `%%sandbox` actually do with the code below it?
+:::
+::: {.flashcard-back}
+It runs it in a brand new Python interpreter, a separate process started for that one cell and thrown away the moment it finishes.
+
+Output and tracebacks land in a shaded box below the cell.
+:::
+
+## Sandbox and kernel
+
+::: {.flashcard-front}
+The kernel has a variable `dna`. A `%%sandbox` cell prints `dna`. What happens?
+:::
+::: {.flashcard-back}
+A `NameError`. The sandbox is not the kernel and has never heard of `dna`.
+
+The barrier runs both ways: a name created inside a sandbox cell is gone when the cell ends.
+:::
+
+## Inside a sandbox cell
+
+::: {.flashcard-front}
+What must a `%%sandbox` cell contain to work?
+:::
+::: {.flashcard-back}
+Everything it needs, including its own `import` lines. It is a tiny script that happens to live inside a notebook: it runs from nothing, top to bottom, and dies at the end.
+:::
+
+## Why exercises use the sandbox
+
+::: {.flashcard-front}
+Why do so many exercises in this book run in a sandbox?
+:::
+::: {.flashcard-back}
+Because a cell that is supposed to break can then be relied on to break, every time, for everybody, no matter what you ran before it.
+
+It also proves that a piece of code stands on its own rather than leaning on something the kernel had lying around, which is exactly what you need once the assistant starts writing code for you.
+:::
+
+<!-- Week 1 :: values, types and operators ------------------------- -->
+
+## The types so far
+
+::: {.flashcard-front}
+Name the five types of value you know, with the Python name of each.
+:::
+::: {.flashcard-back}
+| Name | Python | Examples |
+|---|---|---|
+| String | `str` | `"hello"`, `'9'` |
+| Integer | `int` | `0`, `2721` |
+| Floating-point | `float` | `1.0`, `4.4322` |
+| Boolean | `bool` | `True`, `False` |
+| None | `NoneType` | `None` |
+:::
+
+## Comparison operators
+
+::: {.flashcard-front}
+Name the six comparison operators, and say what kind of value they produce.
+:::
+::: {.flashcard-back}
+`<`, `>`, `<=`, `>=`, `==`, `!=`
+
+Whatever you put on either side, they produce a boolean: `True` or `False`.
+:::
+
+## = or ==
+
+::: {.flashcard-front}
+What is the difference between `=` and `==`?
+:::
+::: {.flashcard-back}
+`=` assigns a value to a variable. `==` compares two values and reduces to `True` or `False`.
+:::
+
+## in
+
+::: {.flashcard-front}
+What does `in` test, and what does this print?
+
+```python
+print("lo wo" in "Hello world")
+```
+:::
+::: {.flashcard-back}
+It tests whether one thing is part of another, here whether one string occurs inside another. This prints `True`.
+
+There is also `not in`.
+:::
+
+## The three logical operators
+
+::: {.flashcard-front}
+Which three operators combine true and false values?
+:::
+::: {.flashcard-back}
+`and`, `or` and `not`.
+
+`and` asks whether both sides are true, `or` whether at least one is, and `not` flips a value.
+:::
+
+## Truthy and falsy
+
+::: {.flashcard-front}
+Which values does Python consider false?
+:::
+::: {.flashcard-back}
+`False`, `0`, `0.0`, the empty string `""`, and `None`.
+
+Everything else is considered true, including `-4`, `3.14` and `"apple"`.
+:::
+
+## Short-circuit
+
+::: {.flashcard-front}
+Python does no more work than it must. What does a logical expression reduce to?
+:::
+::: {.flashcard-back}
+The last value Python needed to look at to decide.
+
+`False and True` reduces to the left value; `True and False` reduces to the right one. Same rule for `or`.
+:::
+
+## and with numbers
+
+::: {.flashcard-front}
+What do these print?
+
+```python
+print(42 and 0)
+print("apple" or "")
+```
+:::
+::: {.flashcard-back}
+`0` and `apple`.
+
+`42` is true, so `and` had to look at the right value and the expression reduced to it. `"apple"` is true, so `or` was already settled and stopped there.
+:::
+
+## Quotes around the numbers
+
+::: {.flashcard-front}
+What are `'4' + '2'` and `'4' * 4`?
+:::
+::: {.flashcard-back}
+`'42'` and `'4444'`.
+
+Some math operators work on strings, so `+` joins them and `*` repeats them. Python assumes you know what you are doing.
+:::
+
+## Mixing a number and a string
+
+::: {.flashcard-front}
+What does `3 - '1.5'` do, and why?
+:::
+::: {.flashcard-back}
+It raises a `TypeError`. You are asking Python to combine an integer and a string in a way it has no meaning for.
+
+The message names the types, which is what makes it readable.
+:::
+
+## Dividing by zero
+
+::: {.flashcard-front}
+What does `1 / 0` give you?
+:::
+::: {.flashcard-back}
+A `ZeroDivisionError`. Python refuses rather than inventing an answer.
+:::
+
+## Converting types
+
+::: {.flashcard-front}
+How do you turn the string `"42"` into a number, and what will not convert?
+:::
+::: {.flashcard-back}
+```python
+int("42")
+float("42")
+str(42)
+```
+
+Only meaningful conversions work: `int('four')` fails.
+:::
+
+## Escape characters
+
+::: {.flashcard-front}
+What do `\n` and `\t` do inside a string?
+:::
+::: {.flashcard-back}
+`\n` is a newline and `\t` is a tab.
+
+An escape character is a backslash followed by one character. `print` also adds a newline at the end of everything it prints.
+:::
+
+## Printing several things
+
+::: {.flashcard-front}
+What does the comma do here?
+
+```python
+print("Four times two is", 4 * 2)
+```
+:::
+::: {.flashcard-back}
+It lets you print more than one thing at a time. Python prints the values in order with a space between them: `Four times two is 8`.
+:::
+
+## // and %
+
+::: {.flashcard-front}
+What do `17 // 5` and `17 % 5` give?
+:::
+::: {.flashcard-back}
+`3` and `2`.
+
+`//` is integer division, which throws away the fraction. `%` is modulo, the remainder left over.
+:::
+
+## Exponent
+
+::: {.flashcard-front}
+Which operator raises a number to a power, and how do you take a square root with it?
+:::
+::: {.flashcard-back}
+`**`. So `5**2` is 25, and the square root of `x` is `x**0.5`.
+:::
+
+## Comparing strings
+
+::: {.flashcard-front}
+What does `'aa' < 'ab'` give, and by what rule does Python decide?
+:::
+::: {.flashcard-back}
+`True`. Strings are compared character by character, the way words are ordered in an encyclopedia, using the character codes in the ASCII table.
+
+`'banana' < 'Banana'` is `False`, because uppercase letters come before lowercase ones.
+:::
+
+<!-- Week 1 :: variables, substitution, reduction, precedence ------ -->
+
+## Two things a name can do
+
+::: {.flashcard-front}
+A variable name appears in your code. What are the only two things that can be happening?
+:::
+::: {.flashcard-back}
+**Assignment**, when the name is to the left of an `=`: it is given a value.
+
+**Substitution**, in every other context: the name is replaced by the value it represents.
+:::
+
+## Reading x = x + 1
+
+::: {.flashcard-front}
+`x` is `4`. Walk through `x = x + 1` in order.
+:::
+::: {.flashcard-back}
+The right side is worked out first: `x` is substituted for `4`, so it reads `4 + 1`, which reduces to `5`.
+
+Only then is `x` assigned the value `5`. The assignment is always the last thing to happen.
+:::
+
+## Naming variables
+
+::: {.flashcard-front}
+What are the rules for a variable name?
+:::
+::: {.flashcard-back}
+It starts with a letter or an underscore, and the rest is letters, digits or underscores. No spaces.
+
+Names are case-sensitive, so `count` and `Count` are different variables. Stick to lowercase. `1value = 42` is a `SyntaxError`.
+:::
+
+## Why variables
+
+::: {.flashcard-front}
+Give the two reasons a variable is worth having.
+:::
+::: {.flashcard-back}
+It gives a value meaning: `1200000` could be anything until it is called `number_discovered`.
+
+And it can be given a new value later, which is why they are called variables.
+:::
+
+## Substitution and reduction
+
+::: {.flashcard-front}
+What are substitution and reduction?
+:::
+::: {.flashcard-back}
+Substitution replaces a variable by its value. Reduction replaces an expression by the simpler expression it evaluates to, again and again, until a single value is left.
+
+Doing those steps in your head, in order, is what reading code is.
+:::
+
+## A worked reduction
+
+::: {.flashcard-front}
+`x = 4` and `y = 3`. What are the steps in `z = x * y + 8`?
+:::
+::: {.flashcard-back}
+`4 * 3 + 8` → `12 + 8` → `20`, and last of all `z` is assigned `20`.
+:::
+
+## Statement or expression
+
+::: {.flashcard-front}
+What is a statement, and what is an expression?
+:::
+::: {.flashcard-back}
+A statement is a line of code that performs an action: `x = 14`, or `print(y * 7)`.
+
+An expression is any code that reduces to one value: `y * 7`, `4 > 5`, or just `x`. Statements are usually built out of expressions, and expressions out of smaller expressions.
+:::
+
+## Precedence
+
+::: {.flashcard-front}
+List the operator precedence levels from highest to lowest.
+:::
+::: {.flashcard-back}
+| Level | Operators |
+|---|---|
+| Highest | `**` |
+| | `+x`, `-x` |
+| | `*`, `/`, `//`, `%` |
+| | `+`, `-` |
+| | `!=`, `==`, `<=`, `>=`, `<`, `>`, `in`, `not in` |
+| | `not` |
+| | `and` |
+| Lowest | `or` |
+:::
+
+## 2 / 4 * 2
+
+::: {.flashcard-front}
+What does `2 / 4 * 2` reduce to, and what is the rule?
+:::
+::: {.flashcard-back}
+`1.0`. With adjacent operators of the same precedence, Python works from left to right: first `0.5 * 2`, then `1.0`.
+
+Use parentheses if you want any other order.
+:::
+
+## +=
+
+::: {.flashcard-front}
+What is `x += 1` shorthand for?
+:::
+::: {.flashcard-back}
+`x = x + 1`.
+:::
+
+## The second print
+
+::: {.flashcard-front}
+What does the second `print` show?
+
+```python
+foo = 30
+bar = 50
+baz = bar + foo
+print(baz)
+bar = 10
+print(baz)
+```
+:::
+::: {.flashcard-back}
+`80` both times.
+
+`baz` was assigned the value `80`, not a link to `bar`. Changing `bar` afterwards changes nothing that has already been worked out.
+:::
+
+<!-- WEEK 2 ----------------------------------------------------- -->
+
+## Header
+
+::: {.flashcard-front}
+Question text or code.
+:::
+::: {.flashcard-back}
+Answer text or code.
+:::
+
+<!-- and so on ... -->

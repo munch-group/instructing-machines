@@ -9,111 +9,231 @@ templateHTML = """
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>Password Protected Page</title>
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
+        /* The gate borrows the book's own tokens: teal primary, Inter body
+           text, thin grey rules, 4px corners.  Kept in sync by hand with
+           docs/custom.scss -- there is no build step that could share them. */
+        :root {
+            --im-primary:      #0D7D92;
+            --im-primary-dark: #0B6576;
+            --im-caret:        #7C5CB0;
+            --im-ink:          #151617;
+            --im-body:         #343a40;
+            --im-muted:        #495057;
+            --im-quiet:        #6c757d;
+            --im-rule:         #D1D5DB;
+            --im-danger:       #ff0039;
+            --im-success:      #3fb618;
+            --im-sans: "Inter var", "Inter", -apple-system, BlinkMacSystemFont,
+                       "Segoe UI", Helvetica, Arial, sans-serif;
+            --im-mono: "Fira Code", "DejaVu Sans Mono", ui-monospace,
+                       SFMono-Regular, Menlo, monospace;
+        }
+
         html, body {
             margin: 0;
             width: 100%;
             height: 100%;
-            font-family: Arial, Helvetica, sans-serif;
         }
-        #dialogText {
-            color: white;
-            background-color: #333333;
+        body {
+            font-family: var(--im-sans);
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--im-body);
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        #dialogWrap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: table;
-            background-color: #EEEEEE;
-        }
-        
-        #dialogWrapCell {
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-        }
-        
-        #mainDialog {
-            max-width: 400px;
-            margin: 5px;
-            border: solid #AAAAAA 1px;
-            border-radius: 10px;
-            box-shadow: 3px 3px 5px 3px #AAAAAA;
-            margin-left: auto;
-            margin-right: auto;
-            background-color: #FFFFFF;
-            overflow: hidden;
-            text-align: left;
-        }
-        #mainDialog > * {
-            padding: 10px 30px;
-        }
-        #passArea {
-            padding: 20px 30px;
-            background-color: white;
-        }
-        #passArea > * {
-            margin: 5px auto;
-        }
-        #pass {
-            width: 100%;
-            height: 40px;
-            font-size: 30px;
-        }
-        
-        #messageWrapper {
-            float: left;
-            vertical-align: middle;
-            line-height: 30px;
-        }
-        
-        .notifyText {
-            display: none;
-        }
-        
-        #invalidPass {
-            color: red;
-        }
-        
-        #success {
-            color: green;
-        }
-        
-        #submitPass {
-            font-size: 20px;
-            border-radius: 5px;
-            background-color: #E7E7E7;
-            border: solid gray 1px;
-            float: right;
-            cursor: pointer;
-        }
+
         #contentFrame {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            border: 0;
         }
-        #attribution {
+
+        #dialogWrap {
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            overflow-y: auto;
+            background-color: #ffffff;
+        }
+        #dialogWrapCell {
+            margin: auto;
+            width: 100%;
+            max-width: 34rem;
+            padding: 2.5rem 1.5rem 3rem;
+            box-sizing: border-box;
+        }
+
+        /* --- header: the prompt lockup, as on the landing page --- */
+
+        .im-header {
             text-align: center;
-            padding: 10px;
-            font-weight: bold;
-            font-size: 0.8em;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--im-rule);
         }
-        #attribution, #attribution a {
-            color: #999;
+        @media (min-resolution: 2dppx) {
+            .im-header { border-bottom-width: 0.5px; }
         }
-        .error {
-            display: none;
-            color: red;
+        .im-header svg {
+            display: inline-block;
+            width: 100%;
+            max-width: 22rem;
+            height: auto;
+        }
+        /* only rendered if the wordmark file has moved */
+        .im-logo-text {
+            display: inline-block;
+            font-family: var(--im-mono);
+            font-size: clamp(1.05rem, 4.5vw, 1.6rem);
+            font-weight: 500;
+            color: var(--im-ink);
+            white-space: nowrap;
+        }
+        .im-logo-chevron { color: var(--im-primary); }
+        .im-logo-caret   { color: var(--im-caret); }
+
+        /* --- the ask --- */
+
+        .im-eyebrow {
+            display: block;
+            font-family: var(--im-mono);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--im-primary);
+            margin-bottom: 0.625rem;
+        }
+        .im-title {
+            font-size: 1.6rem;
+            line-height: 1.2;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--im-ink);
+            margin: 0 0 0.75rem;
+        }
+        .im-lede {
+            font-size: 1rem;
+            line-height: 1.55;
+            color: var(--im-muted);
+            margin: 0 0 1.75rem;
+        }
+
+        /* --- the form --- */
+
+        .im-label {
+            display: block;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--im-ink);
+            margin-bottom: 0.4rem;
+        }
+        #pass {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--im-ink);
+            padding: 0.65rem 0.75rem;
+            background-color: #ffffff;
+            border: 1px solid var(--im-rule);
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        #pass:focus {
+            border-color: var(--im-primary);
+            box-shadow: 0 0 0 3px rgba(13, 125, 146, 0.15);
+        }
+        #pass:disabled {
+            background-color: #f8f9fa;
+            color: var(--im-quiet);
+        }
+
+        .im-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.875rem;
+            margin-top: 1rem;
+            min-height: 2.6rem;
+        }
+        #submitPass {
+            font-family: inherit;
+            font-size: 0.97rem;
+            font-weight: 500;
+            padding: 0.65rem 1.2rem;
+            border-radius: 4px;
+            color: #ffffff;
+            background-color: var(--im-primary);
+            border: 1px solid var(--im-primary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+        #submitPass:hover:enabled {
+            background-color: var(--im-primary-dark);
+            border-color: var(--im-primary-dark);
+        }
+        #submitPass:focus-visible {
+            outline: 2px solid var(--im-primary);
+            outline-offset: 2px;
+        }
+        #submitPass:disabled {
+            opacity: 0.55;
+            cursor: default;
+        }
+
+        #messageWrapper {
+            font-size: 0.9rem;
+        }
+        .notifyText { display: none; }
+        .error      { display: none; }
+        #invalidPass, #trycatcherror { color: var(--im-danger); }
+        #success                     { color: var(--im-success); }
+
+        /* The two browser-capability notices replace the form entirely, so the
+           line telling the reader to type a password would be left pointing at
+           nothing.  Browsers without :has() just keep it, as before. */
+        #mainDialog:has(#passArea[style*="none"]) .im-lede { display: none; }
+
+        #securecontext, #nocrypto {
+            border: 1px solid var(--im-rule);
+            border-left: 3px solid var(--im-danger);
+            border-radius: 4px;
+            padding: 0.25rem 1rem;
+        }
+        #securecontext p, #nocrypto p {
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+
+        /* --- footer --- */
+
+        .im-footer {
+            margin-top: 2.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--im-rule);
+            font-size: 0.8rem;
+            color: var(--im-quiet);
+        }
+        @media (min-resolution: 2dppx) {
+            .im-footer { border-top-width: 0.5px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #pass, #submitPass { transition: none; }
         }
     </style>
   </head>
@@ -121,20 +241,21 @@ templateHTML = """
     <iframe id="contentFrame" frameBorder="0" allowfullscreen></iframe>
     <div id="dialogWrap">
         <div id="dialogWrapCell">
-            <div id="mainDialog">
-                <div id="dialogText">Password protected</div>
+            <header class="im-header"><!--{{LOGO}}--></header>
+            <main id="mainDialog">
+                <span class="im-eyebrow">Protected page</span>
+                <h1 id="dialogText" class="im-title">Password required</h1>
+                <p class="im-lede">This page is not public. Enter the password to open it.</p>
                 <div id="passArea">
-                    <p id="passwordPrompt">Password</p>
-                    <input id="pass" type="password" name="pass" autofocus>
-                    <div>
-                        <span id="messageWrapper">
+                    <label id="passwordPrompt" class="im-label" for="pass">Password</label>
+                    <input id="pass" type="password" name="pass" autocomplete="current-password" autofocus>
+                    <div class="im-actions">
+                        <button id="submitPass" type="button">Submit</button>
+                        <span id="messageWrapper" aria-live="polite">
                             <span id="invalidPass" class="error">Sorry, please try again.</span>
                             <span id="trycatcherror" class="error">Sorry, something went wrong.</span>
                             <span id="success" class="notifyText">Success!</span>
-                            &nbsp;
                         </span>
-                        <button id="submitPass" type="button">Submit</button>
-                        <div style="clear: both;"></div>
                     </div>
                 </div>
                 <div id="securecontext" class="error">
@@ -147,7 +268,8 @@ templateHTML = """
                         Your web browser appears to be outdated. Please visit this page using a modern browser.
                     </p>
                 </div>
-            </div>
+            </main>
+            <footer class="im-footer">Kasper Munch &middot; Bioinformatics Research Centre, Aarhus University</footer>
         </div>
     </div>
     <script>
@@ -309,8 +431,31 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 import os, re
 from base64 import b64encode
+from functools import lru_cache
 from getpass import getpass
+from pathlib import Path
 import codecs
+
+
+WORDMARK = Path(__file__).resolve().parent.parent / 'docs' / 'logo' / 'im-prompt.svg'
+
+
+@lru_cache(maxsize=1)
+def wordmark_markup():
+    """The site's prompt lockup, inlined so the gate needs no separate asset.
+
+    The page can be served from any depth under the output directory, so a
+    relative <img src> would have to be recomputed per file; the SVG is small
+    next to the encrypted payload, so it goes in whole.  If the file has moved
+    (build_logo.py writes it), fall back to a text lockup in the same colors.
+    """
+    try:
+        svg = WORDMARK.read_text(encoding='utf-8')
+    except OSError:
+        return ('<span class="im-logo-text">'
+                '<span class="im-logo-chevron">&gt;</span>&nbsp;instructing machines'
+                '<span class="im-logo-caret">&#9612;</span></span>')
+    return re.sub(r'^\s*<\?xml.*?\?>\s*', '', svg, flags=re.S).strip()
 
 
 # def main():
@@ -348,7 +493,10 @@ def encrypt_file(inputfile, passphrase):
 
     encryptedPl = f'"{b64encode(salt+iv+encrypted).decode("utf-8")}"'
     # encryptedDocument = templateHTML.replace("/*{{ENCRYPTED_PAYLOAD}}*/\"\"", encryptedPl)
-    encryptedDocument = templateHTML.replace('Password Protected Page', title).replace("/*{{ENCRYPTED_PAYLOAD}}*/\"\"", encryptedPl)
+    encryptedDocument = (templateHTML
+                         .replace('Password Protected Page', title)
+                         .replace('<!--{{LOGO}}-->', wordmark_markup())
+                         .replace('/*{{ENCRYPTED_PAYLOAD}}*/""', encryptedPl))
 
     # filename, extension = os.path.splitext(inputfile)
     # outputfile = filename + "-protected" + extension
@@ -360,7 +508,6 @@ def encrypt_file(inputfile, passphrase):
 if __name__ == "__main__":
 
     import argparse
-    from pathlib import Path
 
     parser = argparse.ArgumentParser(
                         prog='ProgramName',

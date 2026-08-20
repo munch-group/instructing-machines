@@ -3,6 +3,22 @@
 
 This chapter will get your computer set up with what you need for the course. You need to carefully read the instructions and follow them to the letter. If a step does not do what it says it will, that is information rather than failure, read [If something goes wrong](#sec-if-something-goes-wrong) at the bottom, and bring the exact error message to class. Do **not** try to complete the steps by some alternative means. That will only sink you deeper into the quicksand.
 
+Some of the instructions differ between Mac and Windows. In those cases you will see two tabs like the ones below. Pick the right one now to make entire page reflect your choice:
+
+::: {.panel-tabset group="platform"}
+
+## <i class="bi bi-apple"></i> Mac
+
+Yes, My mine is a Mac computer!
+
+
+## <i class="bi bi-windows"></i> Windows
+
+Yes, My mine is a Windows computer!
+
+:::
+
+
 ## The course folder {#sec-course-folder}
 
 Everything you need for the whole term lives in one folder. Download it now:
@@ -11,9 +27,23 @@ Everything you need for the whole term lives in one folder. Download it now:
 [<i class="bi bi-download"></i> Download the course folder](../instructing-machines.zip){.lp-btn-outline}
 :::
 
-Unzip it, and put the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
+::: {.panel-tabset group="platform"}
 
-Inside the folder you will find a file called `START-HERE.md`. It says the same things this chapter says, only shorter, so you have them at hand when the book is not open.
+## <i class="bi bi-apple"></i> Mac
+
+On Mac, you double-click to pack the zip file. 
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
+```
+
+## <i class="bi bi-windows"></i> Windows
+
+On Windows, you  right-click and select "Extract all". 
+
+:::
+
+Put the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
 
 ## The terminal {#sec-the-terminal}
 
@@ -21,7 +51,7 @@ On **Mac**, the terminal is an application called *Terminal*. You can find it by
 
 ![The Terminal app on Mac](./images/terminal.png){#fig-terminal width=85%}
 
-![The Windows PowerShell app on Windows](./images/powershellprompt.png){#fig-powershell width=75%}
+![The Windows PowerShell app on Windows](./images/WindowsPowershell.png){#fig-powershell width=75%}
 
 What are *Windows PowerShell* and this *Terminal* thing? Both are what we call *terminal emulators*. They are used to run other programs, like the ones you will write yourself. I will informally refer to both as "the terminal". So if I write something like "open the terminal", you should open *Windows PowerShell* if you are running Windows and the *Terminal* application if you are on a Mac.
 
@@ -40,7 +70,7 @@ Let us see what is in this folder. You can use the `ls` command (l as in Lima an
 
 ```{.txt filename="Terminal"}
 > ls
-course.py     get.py        pixi.toml     START-HERE.md week1
+course.py     get.py        pixi.toml     week1
 data          pixi.lock     projects      update.py
 ```
 
@@ -86,7 +116,7 @@ Hopefully, you can now navigate your folders and see what is in them. You will n
 
 Pixi is the program that installs Python for you along with all the packages you need for the course. To avoid conflicts between multiple projects that use Python, Pixi installs one self-contained Python *per project folder* (in your case the `instructing-machines` folder). It lives in a hidden `.pixi` folder inside the course folder, nothing is installed anywhere else, and deleting the course folder removes every trace of it. So the Python we use cannot collide with a Python you install next year for something else, and if your installation ever ties itself in a knot, the cure is to delete the .pixi folder and start again.
 
-::: {.panel-tabset}
+::: {.panel-tabset group="platform"}
 
 ## <i class="bi bi-apple"></i> Mac
 
@@ -126,6 +156,12 @@ Now you can install Python and the packages we need for the course. Open the ter
 ```{.txt filename="Terminal"}
 > pixi install
 ```
+
+::: {.callout-note}
+If `pixi install` fails, it may be because you have antivirus software (other than Microsoft Defender) that blocks Pixi from downloading packages. Here are instructions for how do do this for: [BitDefender](https://www.bitdefender.com/consumer/support/answer/13425/), 
+
+:::
+
 
 When it is done there is a new hidden `.pixi` folder in the course folder containing your very own Python.
 
