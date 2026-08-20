@@ -216,39 +216,1409 @@
 <p>By default, flashcards do not reset to the front when you navigate to a new slide. You can enable this by setting <code>resetOnSlideChange: true</code> in the YAML header.</p>
 </div>
 <div class="flashcard-back">
-<p>Nicely done! Let’s go over some example flashcards to see how this looks.</p>
+<p>Nicely done!</p>
 </div>
+<!-- WEEK 1 ----------------------------------------------------- -->
+<!-- Week 1 :: the machine ---------------------------------------- -->
 </section>
-<section id="question-2" class="slide level2">
-<h2>Question 2</h2>
+<section id="bits" class="slide level2">
+<h2>Bits</h2>
 <div class="flashcard-front">
-<p>Plot a histogram of the <code>Sepal.Length</code> column in the <code>iris</code> dataset using <code>ggplot2</code>.</p>
+<p>What is a bit, and how many things can it be?</p>
 </div>
 <div class="flashcard-back">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
-<span id="cb1-2"><a href="" aria-label="2"></a>    <span class="bu">print</span>(i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The smallest possible piece of information: one switch that is either off (<code>0</code>) or on (<code>1</code>).</p>
+<p>There is no secret third thing.</p>
 </div>
 </section>
-<section id="question-3" class="slide level2" data-background-color="lightblue">
-<h2>Question 3</h2>
+<section id="bytes" class="slide level2">
+<h2>Bytes</h2>
 <div class="flashcard-front">
-<p>What is the equation to calculate Mean Squared Error (MSE)?</p>
+<p>How many bits are in a byte, and how many patterns can a byte hold?</p>
 </div>
 <div class="flashcard-back">
-<p><span class="math inline">\(\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2\)</span></p>
-<p>where <span class="math inline">\(y_i\)</span> is the observed value and <span class="math inline">\(\hat{y}_i\)</span> is the predicted value.</p>
+<p>Eight bits make a byte, and a byte has 256 possible patterns.</p>
+<p>Enough for a number from 0 to 255, a single letter, or one dot of color.</p>
 </div>
 </section>
-<section id="conclusion" class="title-slide slide level1 center">
-<h1>Conclusion</h1>
+<section id="what-bits-mean" class="slide level2">
+<h2>What bits mean</h2>
 <div class="flashcard-front">
-<p>The <code>flashcards</code> plugin is a great way to create flashcards for your RevealJS presentations in Quarto.</p>
-<p>You can shuffle the order of the slides by pressing the <code>t</code> key.</p>
+<p>Is <code>01100100</code> the number 100, the letter <code>'d'</code>, or a shade of gray?</p>
 </div>
 <div class="flashcard-back">
-<p>Thanks for reading!</p>
-<p>Why are you still here? Go make some flashcards!</p>
+<p>The bits do not know. Their meaning comes entirely from the code that reads them.</p>
+<p>A <em>type</em> is nothing more than an agreement about how to read some bits.</p>
 </div>
+</section>
+<section id="disk-and-memory" class="slide level2">
+<h2>Disk and memory</h2>
+<div class="flashcard-front">
+<p>Which of the disk and the memory survives switching the computer off?</p>
+</div>
+<div class="flashcard-back">
+<p>The disk. It is where your files are kept, roomy but slow.</p>
+<p>Memory (RAM) holds what is running right now and is emptied the moment a program stops.</p>
+</div>
+</section>
+<section id="the-cpu" class="slide level2">
+<h2>The CPU</h2>
+<div class="flashcard-front">
+<p>What is the CPU, and what can it work on?</p>
+</div>
+<div class="flashcard-back">
+<p>The worker. It does the computing, one tiny step at a time, billions of steps a second.</p>
+<p>It only ever works on what is currently in memory. The rhythm is disk → memory → CPU.</p>
+</div>
+</section>
+<section id="after-the-program-ends" class="slide level2">
+<h2>After the program ends</h2>
+<div class="flashcard-front">
+<p>Your program counts the <code>A</code> bases in a sequence, prints the answer, and ends. Is the count still on the computer?</p>
+</div>
+<div class="flashcard-back">
+<p>No.&nbsp;It was in memory, and memory is emptied when the program ends.</p>
+<p>To still have it tomorrow, the program has to write it to the disk.</p>
+</div>
+</section>
+<section id="the-manager-in-the-middle" class="slide level2">
+<h2>The manager in the middle</h2>
+<div class="flashcard-front">
+<p>What sits between your programs and the hardware, and what does it do?</p>
+</div>
+<div class="flashcard-back">
+<p>The operating system: macOS, Windows or Linux.</p>
+<p>It hands out memory, finds files, shares the CPU between programs, and talks to the keyboard and the screen. Your program asks it for a file rather than rummaging through the disk itself.</p>
+</div>
+</section>
+<section id="software" class="slide level2">
+<h2>Software</h2>
+<div class="flashcard-front">
+<p>What is a program, in the end?</p>
+</div>
+<div class="flashcard-back">
+<p>A file on the disk full of instructions for the CPU, which the operating system loads into memory and lets the CPU carry out.</p>
+<p>A game, a browser, VS Code and Python itself are all this same thing.</p>
+</div>
+</section>
+<section id="the-cpus-language" class="slide level2">
+<h2>The CPU’s language</h2>
+<div class="flashcard-front">
+<p>What is the only language the CPU understands?</p>
+</div>
+<div class="flashcard-back">
+<p>Machine code: raw numbers standing for the simplest possible operations, such as move this number here, add these two, compare them, jump to that instruction.</p>
+<p>It is built for the CPU to run fast, not for you to read.</p>
+</div>
+</section>
+<section id="the-turing-machine" class="slide level2">
+<h2>The Turing machine</h2>
+<div class="flashcard-front">
+<p>What are the four parts of a Turing machine?</p>
+</div>
+<div class="flashcard-back">
+<ul>
+<li>A tape of squares, each holding one symbol</li>
+<li>A head that can read, write, and move one square</li>
+<li>A state, the sticky note saying where it is in the task</li>
+<li>A fixed table of rules</li>
+</ul>
+</div>
+</section>
+<section id="the-universal-machine" class="slide level2">
+<h2>The universal machine</h2>
+<div class="flashcard-front">
+<p>What did Turing show one machine could do with a description of another machine written on its tape?</p>
+</div>
+<div class="flashcard-back">
+<p>Act that other machine out, step by step. One machine that can become any machine, given the right instructions.</p>
+<p>That is the birth certificate of the general-purpose computer on your desk.</p>
+</div>
+</section>
+<section id="a-program-on-the-disk" class="slide level2">
+<h2>A program on the disk</h2>
+<div class="flashcard-front">
+<p>Why is a program just a file like any other?</p>
+</div>
+<div class="flashcard-back">
+<p>Because the universal machine reads its instructions off the tape as ordinary symbols: instructions and data are made of the same stuff.</p>
+<p>Your program sits on the disk among your photographs until it is loaded into memory and carried out.</p>
+</div>
+<!-- Week 1 :: the ladder of instruction and the AI ---------------- -->
+</section>
+<section id="the-ladder" class="slide level2">
+<h2>The ladder</h2>
+<div class="flashcard-front">
+<p>Name the five rungs of instruction, from the raw bits at the bottom to plain language at the top.</p>
+</div>
+<div class="flashcard-back">
+<p>Machine code → assembly → compiled languages such as C → interpreted languages such as Python → an AI assistant.</p>
+<p>Every rung is a translator down to the one below it.</p>
+</div>
+</section>
+<section id="faithful-or-plausible" class="slide level2">
+<h2>Faithful or plausible</h2>
+<div class="flashcard-front">
+<p>Four rungs of the ladder are faithful translators and one is not. Which one, and why does it matter?</p>
+</div>
+<div class="flashcard-back">
+<p>The AI. Assembly, C and Python always mean exactly what the level above them said. An AI gives you a very qualified guess.</p>
+<p>That break in the metaphor is the argument of the whole course.</p>
+</div>
+</section>
+<section id="c-and-python" class="slide level2">
+<h2>C and Python</h2>
+<div class="flashcard-front">
+<p>What is the difference between how C runs and how Python runs?</p>
+</div>
+<div class="flashcard-back">
+<p>A compiler translates the entire C file to machine code before anything runs.</p>
+<p>Python is interpreted: the <code>python</code> program reads your file and carries out the instructions one line at a time as it goes.</p>
+</div>
+</section>
+<section id="producing-an-answer" class="slide level2">
+<h2>Producing an answer</h2>
+<div class="flashcard-front">
+<p>What does a language model actually do to produce an answer?</p>
+</div>
+<div class="flashcard-back">
+<p>It reads the text so far, scores every possible next token by how likely it is to come next, picks one, adds it to the text, and does the whole thing again.</p>
+<p>A token is a word or a small piece of a word.</p>
+</div>
+</section>
+<section id="what-a-model-knows" class="slide level2">
+<h2>What a model knows</h2>
+<div class="flashcard-front">
+<p>Where does everything a model “knows” live?</p>
+</div>
+<div class="flashcard-back">
+<p>In its weights, the millions of internal values that training settled on.</p>
+<p>There is no library of facts inside it and no lookup table. Once trained, its behavior is fixed, and only your input changes the reply.</p>
+</div>
+</section>
+<section id="hallucination" class="slide level2">
+<h2>Hallucination</h2>
+<div class="flashcard-front">
+<p>What is a hallucination, and why do they happen?</p>
+</div>
+<div class="flashcard-back">
+<p>A fluent, confident answer that is false: a wrong gene function, an off-by-one in a loop, a codon table with a quiet mistake.</p>
+<p>The model has no separate sense of truth, only a sense of what most plausibly comes next.</p>
+</div>
+</section>
+<section id="the-limit" class="slide level2">
+<h2>The limit</h2>
+<div class="flashcard-front">
+<p>Finish the sentence: an AI is useful to you up to the limit of …</p>
+</div>
+<div class="flashcard-back">
+<p>… what you can specify and verify.</p>
+<p>Understanding Python is what lets you specify precisely and test that what came back does what you wanted.</p>
+</div>
+</section>
+<section id="the-rule" class="slide level2">
+<h2>The rule</h2>
+<div class="flashcard-front">
+<p>What is the one rule that holds at every rung of the AI ladder?</p>
+</div>
+<div class="flashcard-back">
+<p>The assistant predicts, and the machine proves.</p>
+<p>When it tells you what code does, run it. When it hands you a function, test it.</p>
+</div>
+</section>
+<section id="verification" class="slide level2">
+<h2>Verification</h2>
+<div class="flashcard-front">
+<p>Three things get verified in this course, each in its own way. Name them.</p>
+</div>
+<div class="flashcard-back">
+<ul>
+<li>Code, by tests and by reading it</li>
+<li>A claim about biology, by evidence and by what you already know</li>
+<li>Your own learning, by doing the thing with the assistant switched off</li>
+</ul>
+<p>One idea, applied three times: plausible and correct are different states.</p>
+</div>
+<!-- Week 1 :: the assistant in practice --------------------------- -->
+</section>
+<section id="which-assistant" class="slide level2">
+<h2>Which assistant</h2>
+<div class="flashcard-front">
+<p>Which assistant does this course use, and where does it live?</p>
+</div>
+<div class="flashcard-back">
+<p>Microsoft Copilot, in a browser tab, signed in with your university credentials.</p>
+<p>It is not GitHub Copilot, which suggests code inside the editor as you type and which this course deliberately does not use.</p>
+</div>
+</section>
+<section id="signing-in" class="slide level2">
+<h2>Signing in</h2>
+<div class="flashcard-front">
+<p>On the Copilot landing page you can choose Work, Web or Personal. Which one, and why?</p>
+</div>
+<div class="flashcard-back">
+<p>Work. That is what gives you access through the university’s agreement, and what keeps whatever you type covered by that agreement.</p>
+</div>
+</section>
+<section id="an-ai-free-editor" class="slide level2">
+<h2>An AI-free editor</h2>
+<div class="flashcard-front">
+<p>Why does the assistant stay in the browser and out of VS Code?</p>
+</div>
+<div class="flashcard-back">
+<p>So there is a visible boundary between code you wrote and code the assistant proposed, and crossing it is a decision you make.</p>
+<p>An assistant that completes your lines as you type erases the boundary, and with it the moment you would have read what you were accepting.</p>
+</div>
+</section>
+<section id="new-chat" class="slide level2">
+<h2>New chat</h2>
+<div class="flashcard-front">
+<p>When should you start a new chat rather than carrying on in the old one?</p>
+</div>
+<div class="flashcard-back">
+<p>Whenever you change topic. Copilot keeps the earlier turns in view and will happily carry an assumption from twenty minutes ago into an answer about a different problem.</p>
+</div>
+</section>
+<section id="two-answers" class="slide level2">
+<h2>Two answers</h2>
+<div class="flashcard-front">
+<p>You ask the same question twice and get two different answers. Is that a fault?</p>
+</div>
+<div class="flashcard-back">
+<p>No, it is something to use. Two answers that agree tell you a little.</p>
+<p>Two answers that disagree tell you a great deal, because at least one is wrong and you now know to find out which.</p>
+</div>
+</section>
+<section id="study-and-learn" class="slide level2">
+<h2>Study and Learn</h2>
+<div class="flashcard-front">
+<p>What is the Study and Learn agent?</p>
+</div>
+<div class="flashcard-back">
+<p>A mode inside Copilot that behaves like a patient teaching assistant: it asks you questions back instead of handing over the answer.</p>
+</div>
+</section>
+<section id="badges" class="slide level2">
+<h2>Badges</h2>
+<div class="flashcard-front">
+<p>What does the badge under an exercise heading tell you?</p>
+</div>
+<div class="flashcard-back">
+<p>The highest role the assistant is licensed to play for that exercise. It is a link to the description of that rung.</p>
+<p>The roles are cumulative: an exercise badged Collaborator also permits everything below it.</p>
+</div>
+</section>
+<section id="solo" class="slide level2">
+<h2>SOLO</h2>
+<div class="flashcard-front">
+<p>What does a <code>SOLO</code> badge ask of you?</p>
+</div>
+<div class="flashcard-back">
+<p>The assistant is closed. Not open and unconsulted. Closed.</p>
+<p>Nobody can tell whether you kept it. What it buys you is evidence about yourself: doing a SOLO exercise with help just deletes the only measurement you had.</p>
+</div>
+</section>
+<section id="the-role-ladder" class="slide level2">
+<h2>The role ladder</h2>
+<div class="flashcard-front">
+<p>Name the five AI roles in the order the course grants them.</p>
+</div>
+<div class="flashcard-back">
+<p>Explainer → Comparer → Drafter → Collaborator → Developer.</p>
+</div>
+</section>
+<section id="explainer" class="slide level2">
+<h2>Explainer</h2>
+<div class="flashcard-front">
+<p>What may you ask of the assistant at the Explainer rung?</p>
+</div>
+<div class="flashcard-back">
+<p>What something that already exists means: a traceback, a line of code you did not write, a word in the documentation.</p>
+<p>You are not asking it to produce anything, and you settle every answer by running the thing.</p>
+</div>
+</section>
+<section id="the-logbook" class="slide level2">
+<h2>The logbook</h2>
+<div class="flashcard-front">
+<p>What goes into a weekly logbook entry?</p>
+</div>
+<div class="flashcard-back">
+<p>Something the assistant got right, something it got wrong, and how you knew which was which.</p>
+<p>One entry a week, all term.</p>
+</div>
+</section>
+<section id="why-learn-this-now" class="slide level2">
+<h2>Why learn this now</h2>
+<div class="flashcard-front">
+<p>Why is what you know worth more, rather than less, now that a machine can write code?</p>
+</div>
+<div class="flashcard-back">
+<p>What you can safely get out of an assistant is limited twice by what you know: once by your ability to ask for the right thing, and again by your ability to tell whether what came back is right.</p>
+<p>Every new thing you learn pays you twice.</p>
+</div>
+</section>
+<section id="where-the-line-falls" class="slide level2">
+<h2>Where the line falls</h2>
+<div class="flashcard-front">
+<p>Where is the line between using the assistant and cheating?</p>
+</div>
+<div class="flashcard-back">
+<p>Producing something you did not formulate, do not understand, and cannot check is cheating.</p>
+<p>Producing something you formulated, understand, and validated is tool use, no different in kind from using a microscope.</p>
+</div>
+</section>
+<section id="predict-then-run" class="slide level2">
+<h2>Predict, then run</h2>
+<div class="flashcard-front">
+<p>Why does almost every exercise ask you to predict before you run?</p>
+</div>
+<div class="flashcard-back">
+<p>The gap between your prediction and the result is the only reliable signal of what you do not yet understand, and it is free every time.</p>
+<p>Skipping the prediction turns an exercise into a demonstration.</p>
+</div>
+<!-- Week 1 :: the terminal --------------------------------------- -->
+</section>
+<section id="where-you-type-commands" class="slide level2">
+<h2>Where you type commands</h2>
+<div class="flashcard-front">
+<p>What is “the terminal” called on a Mac, and on Windows?</p>
+</div>
+<div class="flashcard-back">
+<p><em>Terminal</em> on a Mac, found through Spotlight. <em>Windows PowerShell</em> on Windows, found from the Start menu.</p>
+<p>Both are terminal emulators: programs used to run other programs.</p>
+</div>
+</section>
+<section id="the-character" class="slide level2">
+<h2>The &gt; character</h2>
+<div class="flashcard-front">
+<p>What is the <code>&gt;</code> at the start of the terminal examples in the book?</p>
+</div>
+<div class="flashcard-back">
+<p>The prompt, which is where you type. The command is the text to the right of it, and it runs when you press Enter.</p>
+<p>The first word of a command is always the name of a program.</p>
+</div>
+</section>
+<section id="your-location" class="slide level2">
+<h2>Your location</h2>
+<div class="flashcard-front">
+<p>Which command tells you which folder the terminal is in?</p>
+</div>
+<div class="flashcard-back">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>&gt; pwd</span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>/Users/kasper/instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It prints the full path of the folder you are in.</p>
+</div>
+</section>
+<section id="seeing-the-contents" class="slide level2">
+<h2>Seeing the contents</h2>
+<div class="flashcard-front">
+<p>Which command lists what is in the folder you are in?</p>
+</div>
+<div class="flashcard-back">
+<p><code>ls</code> (l as in Lima, s as in Sierra).</p>
+</div>
+</section>
+<section id="walking-into-a-folder" class="slide level2">
+<h2>Walking into a folder</h2>
+<div class="flashcard-front">
+<p>How do you walk into the <code>week1</code> folder, and how do you walk back out again?</p>
+</div>
+<div class="flashcard-back">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>&gt; cd week1</span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a>&gt; cd ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>..</code> is the special name for the parent folder, so <code>cd ..</code> goes back where you came from.</p>
+</div>
+</section>
+<section id="silence" class="slide level2">
+<h2>Silence</h2>
+<div class="flashcard-front">
+<p>You type <code>cd week1</code>, press Enter, and nothing is printed. Did it work?</p>
+</div>
+<div class="flashcard-back">
+<p>Almost certainly. Many commands say nothing when they succeed.</p>
+<p>Run <code>pwd</code> to see where you actually are.</p>
+</div>
+</section>
+<section id="where-a-folder-sits" class="slide level2">
+<h2>Where a folder sits</h2>
+<div class="flashcard-front">
+<p>What does <code>/Users/kasper/instructing-machines</code> tell you?</p>
+</div>
+<div class="flashcard-back">
+<p>The folder’s full address. Slashes (backslashes on Windows) separate nested folders, so <code>instructing-machines</code> is inside <code>kasper</code>, which is inside <code>Users</code>.</p>
+</div>
+</section>
+<section id="where-you-start" class="slide level2">
+<h2>Where you start</h2>
+<div class="flashcard-front">
+<p>Which folder are you in when you open a fresh terminal?</p>
+</div>
+<div class="flashcard-back">
+<p>Your user folder, also called your home folder. Everything else is reached from there with <code>cd</code>.</p>
+</div>
+</section>
+<section id="file-suffixes" class="slide level2">
+<h2>File suffixes</h2>
+<div class="flashcard-front">
+<p>What do the suffixes <code>.py</code> and <code>.ipynb</code> tell you about a file?</p>
+</div>
+<div class="flashcard-back">
+<p><code>.py</code> is a Python script: a plain text file of Python code.</p>
+<p><code>.ipynb</code> is a notebook: cells of code and text together, with the output of the last run stored in the file.</p>
+</div>
+<!-- Week 1 :: pixi and the course environment --------------------- -->
+</section>
+<section id="pixi" class="slide level2">
+<h2>pixi</h2>
+<div class="flashcard-front">
+<p>What does pixi do for you?</p>
+</div>
+<div class="flashcard-back">
+<p>It installs Python for you along with every package the course needs, one self-contained Python per project folder.</p>
+</div>
+</section>
+<section id="your-own-python" class="slide level2">
+<h2>Your own Python</h2>
+<div class="flashcard-front">
+<p>Where does the Python you use in this course actually live?</p>
+</div>
+<div class="flashcard-back">
+<p>In a hidden <code>.pixi</code> folder inside the course folder. Nothing is installed anywhere else.</p>
+<p>So it cannot collide with a Python you install next year, and if the installation ties itself in a knot, deleting the folder removes every trace of it.</p>
+</div>
+</section>
+<section id="installing-pixi-on-a-mac" class="slide level2">
+<h2>Installing pixi on a Mac</h2>
+<div class="flashcard-front">
+<p>How do you install pixi on a Mac?</p>
+</div>
+<div class="flashcard-back">
+<p>Paste this into the Terminal and press Enter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="installing-pixi-on-windows" class="slide level2">
+<h2>Installing pixi on Windows</h2>
+<div class="flashcard-front">
+<p>How do you install pixi on Windows?</p>
+</div>
+<div class="flashcard-back">
+<p>Download the <code>.msi</code> installer from the pixi releases page, double-click it, and click through.</p>
+<p>If Windows complains that a script cannot be run, or mentions an execution policy, you have found a PowerShell install script somewhere. Use the <code>.msi</code> instead.</p>
+</div>
+</section>
+<section id="a-new-terminal" class="slide level2">
+<h2>A new terminal</h2>
+<div class="flashcard-front">
+<p>Why must you close the terminal and open a new one right after installing pixi?</p>
+</div>
+<div class="flashcard-back">
+<p>A terminal reads the list of available programs once, when it starts, and never looks again. The terminal you installed from does not know pixi exists.</p>
+<p>This one detail causes more confusion than everything else on the install page combined.</p>
+</div>
+</section>
+<section id="command-not-found" class="slide level2">
+<h2>Command not found</h2>
+<div class="flashcard-front">
+<p>The terminal says <code>command not found: pixi</code>, or that pixi is not recognized. What is the fix?</p>
+</div>
+<div class="flashcard-back">
+<p>Close that terminal and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.</p>
+</div>
+</section>
+<section id="checking-pixi" class="slide level2">
+<h2>Checking pixi</h2>
+<div class="flashcard-front">
+<p>How do you check that pixi itself installed correctly?</p>
+</div>
+<div class="flashcard-back">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a>&gt; pixi --version</span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a>pixi 0.60.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A different version number is fine.</p>
+</div>
+</section>
+<section id="pixi-install" class="slide level2">
+<h2>pixi install</h2>
+<div class="flashcard-front">
+<p>What does <code>pixi install</code> do, and where must you run it?</p>
+</div>
+<div class="flashcard-back">
+<p>In the course folder (check with <code>pwd</code> first). It reads the folder’s <code>pixi.toml</code> and builds your own private Python and packages in a new hidden <code>.pixi</code> folder.</p>
+</div>
+</section>
+<section id="is-it-ready" class="slide level2">
+<h2>Is it ready?</h2>
+<div class="flashcard-front">
+<p>Which command tells you the course environment is ready, and what does it print?</p>
+</div>
+<div class="flashcard-back">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a>&gt; pixi run check</span>
+<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a>Everything is installed. Python 3.13.5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>check</code> is not a built-in pixi command. It is an errand stored in the folder’s <code>pixi.toml</code>.</p>
+</div>
+</section>
+<section id="getting-a-notebook" class="slide level2">
+<h2>Getting a notebook</h2>
+<div class="flashcard-front">
+<p>How do you fetch the notebook for a chapter from the terminal?</p>
+</div>
+<div class="flashcard-back">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a>&gt; pixi run get iteration</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run it without a name to see what you can ask for. If you already have a notebook of that name, yours is untouched and the fresh copy arrives beside it as <code>iteration-2.ipynb</code>.</p>
+</div>
+</section>
+<section id="where-the-course-folder-goes" class="slide level2">
+<h2>Where the course folder goes</h2>
+<div class="flashcard-front">
+<p>Where should the course folder live, and where must it not?</p>
+</div>
+<div class="flashcard-back">
+<p>Somewhere plain and short that belongs to you, such as your home folder.</p>
+<p>Not in OneDrive or iCloud Drive: they sync files in and out from under Python and produce errors nobody can explain. On Windows, a folder too deep also breaks <code>pixi install</code>.</p>
+</div>
+</section>
+<section id="start-here.md" class="slide level2">
+<h2>START-HERE.md</h2>
+<div class="flashcard-front">
+<p>What is <code>START-HERE.md</code> in the course folder?</p>
+</div>
+<div class="flashcard-back">
+<p>The short version of the getting-started chapter, kept in the folder so you have the instructions at hand when the book is not open.</p>
+</div>
+<!-- Week 1 :: VS Code -------------------------------------------- -->
+</section>
+<section id="the-editor" class="slide level2">
+<h2>The editor</h2>
+<div class="flashcard-front">
+<p>Why write code in VS Code rather than in Word?</p>
+</div>
+<div class="flashcard-back">
+<p>A text editor saves only the characters you type. Word silently saves margins, boldface, headers and the rest.</p>
+<p>With VS Code, what you type is exactly what is in the file.</p>
+</div>
+</section>
+<section id="starting-vs-code" class="slide level2">
+<h2>Starting VS Code</h2>
+<div class="flashcard-front">
+<p>In VS Code, do you open the course <em>folder</em> or a <em>file</em> inside it? Why does it matter?</p>
+</div>
+<div class="flashcard-back">
+<p>The folder, with File → Open Folder.</p>
+<p>The course folder carries a settings file telling VS Code where the course Python lives, and VS Code only reads it when the folder is what you opened.</p>
+</div>
+</section>
+<section id="the-three-extensions" class="slide level2">
+<h2>The three extensions</h2>
+<div class="flashcard-front">
+<p>Which three VS Code extensions does the course folder need?</p>
+</div>
+<div class="flashcard-back">
+<ul>
+<li><code>ms-python.python</code> for Python support</li>
+<li><code>ms-toolsai.jupyter</code> for notebook support</li>
+<li><code>renan-r-santos.pixi-code</code> for pixi support</li>
+</ul>
+<p>VS Code offers to install them when you open the folder. Say yes.</p>
+</div>
+</section>
+<section id="missing-the-notification" class="slide level2">
+<h2>Missing the notification</h2>
+<div class="flashcard-front">
+<p>You clicked away the “install recommended extensions” notification. Now what?</p>
+</div>
+<div class="flashcard-back">
+<p>Open the Extensions panel on the left, search for each of the three names, and install them one at a time.</p>
+</div>
+</section>
+<section id="the-command-palette" class="slide level2">
+<h2>The command palette</h2>
+<div class="flashcard-front">
+<p>How do you open the command palette, and what is it good for?</p>
+</div>
+<div class="flashcard-back">
+<p><code>Ctrl+Shift+P</code>, or <code>Cmd+Shift+P</code> on a Mac.</p>
+<p>Typing part of a command name shows the command along with whatever keyboard shortcut your copy of VS Code has given it, which is the reliable way to answer any shortcut question.</p>
+</div>
+</section>
+<section id="no-kernel-offered" class="slide level2">
+<h2>No kernel offered</h2>
+<div class="flashcard-front">
+<p>VS Code will not offer the right kernel for a notebook. What do you check?</p>
+</div>
+<div class="flashcard-back">
+<p>That you opened the folder rather than a file, that <code>pixi install</code> has finished, and that the Python and Jupyter extensions are installed.</p>
+<p>Then run <code>Developer: Reload Window</code> from the command palette.</p>
+</div>
+</section>
+<section id="the-right-kernel" class="slide level2">
+<h2>The right kernel</h2>
+<div class="flashcard-front">
+<p>Which kernel should a course notebook be running, and how do you recognize it?</p>
+</div>
+<div class="flashcard-back">
+<p>The one called <code>instructing-machines</code>, under “Python environments” in the Select Kernel dropdown. Its path contains <code>.pixi</code>.</p>
+<p>The kernel name is shown at the top right of the notebook window.</p>
+</div>
+</section>
+<section id="a-blank-widget" class="slide level2">
+<h2>A blank widget</h2>
+<div class="flashcard-front">
+<p>A widget shows as blank space, or as raw text. What has gone wrong?</p>
+</div>
+<div class="flashcard-back">
+<p>The notebook is running on the wrong Python. Click <code>Select Kernel</code> at the top right and choose the one whose path contains <code>.pixi</code>.</p>
+</div>
+<!-- Week 1 :: scripts and hello world ---------------------------- -->
+</section>
+<section id="a-script" class="slide level2">
+<h2>A script</h2>
+<div class="flashcard-front">
+<p>What is a script?</p>
+</div>
+<div class="flashcard-back">
+<p>A plain text file on the disk with Python code written in it, named with a <code>.py</code> suffix. Also called a program.</p>
+</div>
+</section>
+<section id="running-a-script" class="slide level2">
+<h2>Running a script</h2>
+<div class="flashcard-front">
+<p>How do you run <code>hello.py</code>, and from where?</p>
+</div>
+<div class="flashcard-back">
+<p>From the terminal, in the folder where the file is stored:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>&gt; python hello.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Not by typing <code>hello.py</code> alone, not by dragging the file into the terminal, and not with the play icon in VS Code. Any of those may run a different Python than you think.</p>
+</div>
+</section>
+<section id="the-order-of-things" class="slide level2">
+<h2>The order of things</h2>
+<div class="flashcard-front">
+<p>In what order does Python run the lines of your script?</p>
+</div>
+<div class="flashcard-back">
+<p>The interpreter opens the file, reads the first line, does what it says, reads the next, and carries on to the end of the file. Then it stops.</p>
+<p>The order the lines appear in is the order they run in. Nothing jumps around.</p>
+</div>
+</section>
+<section id="when-a-script-starts" class="slide level2">
+<h2>When a script starts</h2>
+<div class="flashcard-front">
+<p>What does a script have in memory when it starts?</p>
+</div>
+<div class="flashcard-back">
+<p>Nothing. Every run starts from a blank slate, so a script has to carry everything it needs inside itself.</p>
+<p>That is what makes it work tomorrow, and on someone else’s machine.</p>
+</div>
+</section>
+<section id="print" class="slide level2">
+<h2>print</h2>
+<div class="flashcard-front">
+<p>Why is it called <code>print</code> and not <code>write</code> or <code>show</code>?</p>
+</div>
+<div class="flashcard-back">
+<p>Because computers once had no screens, and output was printed on an actual paper printer.</p>
+<p>The story is worth keeping: <code>print</code> pushes text <em>out of</em> your program.</p>
+</div>
+</section>
+<section id="the-workflow" class="slide level2">
+<h2>The workflow</h2>
+<div class="flashcard-front">
+<p>What are the four steps of the loop you repeat all term?</p>
+</div>
+<div class="flashcard-back">
+<ol type="1">
+<li>Change the code in the file</li>
+<li>Save the file</li>
+<li>Run the file from the terminal</li>
+<li>Start over</li>
+</ol>
+</div>
+</section>
+<section id="syntaxerror" class="slide level2">
+<h2>SyntaxError</h2>
+<div class="flashcard-front">
+<p>What is Python telling you with a <code>SyntaxError</code>, and what does the <code>^</code> mark?</p>
+</div>
+<div class="flashcard-back">
+<p>That you wrote something which is not legal Python, on the line it names.</p>
+<p>The <code>^</code> marks where your code stopped making sense to Python, which is sometimes a little after the place you made the mistake.</p>
+</div>
+</section>
+<section id="reading-two-errors" class="slide level2">
+<h2>Reading two errors</h2>
+<div class="flashcard-front">
+<p>Which error does each of these give?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello world"</span>))</span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello world"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="flashcard-back">
+<p><code>SyntaxError: unmatched ')'</code> for the first, because there is a closing parenthesis with nothing to close.</p>
+<p><code>SyntaxError: '(' was never closed</code> for the second.</p>
+</div>
+</section>
+<section id="the-character-1" class="slide level2">
+<h2>The # character</h2>
+<div class="flashcard-front">
+<p>What does a <code>#</code> do, and what are the two things it is good for?</p>
+</div>
+<div class="flashcard-back">
+<p>Everything after <code>#</code> on that line is invisible to Python.</p>
+<p>Use it to disable a line without deleting it (“comment out line two”), and to leave notes in your code.</p>
+</div>
+</section>
+<section id="a-in-a-string" class="slide level2">
+<h2>A # in a string</h2>
+<div class="flashcard-front">
+<p>Does <code>print("Hello # world")</code> print anything, and what does that tell you?</p>
+</div>
+<div class="flashcard-back">
+<p>It prints <code>Hello # world</code>. Inside quotes, <code>#</code> is just a character like any other.</p>
+<p>A <code>#</code> only starts a comment when it is outside a string.</p>
+</div>
+<!-- Week 1 :: notebooks ------------------------------------------ -->
+</section>
+<section id="script-or-notebook" class="slide level2">
+<h2>Script or notebook</h2>
+<div class="flashcard-front">
+<p>State the difference between a script and a notebook in one sentence.</p>
+</div>
+<div class="flashcard-back">
+<p>A script is a file the interpreter reads from top to bottom, starting from nothing.</p>
+<p>A notebook is a pile of small pieces of code that you hand, one at a time, to a session that remembers everything you have handed it so far.</p>
+</div>
+</section>
+<section id="the-kernel" class="slide level2">
+<h2>The kernel</h2>
+<div class="flashcard-front">
+<p>What is the kernel?</p>
+</div>
+<div class="flashcard-back">
+<p>A real Python interpreter running in the background with all your variables in it.</p>
+<p>The notebook sends it a cell, it runs it, and it sends back whatever came out. Then it waits for the next one.</p>
+</div>
+</section>
+<section id="behind-the-notebook" class="slide level2">
+<h2>Behind the notebook</h2>
+<div class="flashcard-front">
+<p>Which Python is behind a notebook, and where else can you meet it?</p>
+</div>
+<div class="flashcard-back">
+<p>IPython, which you also get by typing <code>ipython</code> in the terminal.</p>
+<p>It is not a different language: it is Python with a friendlier shell, Tab completion, colors, nicer errors, and magic commands.</p>
+</div>
+</section>
+<section id="the-number-in-brackets" class="slide level2">
+<h2>The number in brackets</h2>
+<div class="flashcard-front">
+<p>What does the <code>[3]</code> beside a code cell mean?</p>
+</div>
+<div class="flashcard-back">
+<p>The execution count: which run this was, counting every code cell run since the kernel started.</p>
+<p>It counts runs, not cells, so running the same cell three times changes its number three times.</p>
+</div>
+</section>
+<section id="counts-4-1-9-2" class="slide level2">
+<h2>Counts 4, 1, 9, 2</h2>
+<div class="flashcard-front">
+<p>You open a notebook and the counts down the page read 4, 1, 9, 2. What do you now know?</p>
+</div>
+<div class="flashcard-back">
+<p>That the page has never once been run in the order it is written.</p>
+<p>The execution counts are the only record of the order somebody actually clicked in.</p>
+</div>
+</section>
+<section id="output-without-print" class="slide level2">
+<h2>Output without print</h2>
+<div class="flashcard-front">
+<p>Why does <code>len(dna)</code> show a value in a notebook when you never wrote <code>print</code>?</p>
+</div>
+<div class="flashcard-back">
+<p>When the last line of a cell is a bare expression, the notebook displays its value for you. Only the last line, and only if it is an expression.</p>
+<p>This is a courtesy of the notebook, not a rule of Python. The same line in a script prints nothing.</p>
+</div>
+</section>
+<section id="two-kinds-of-cells" class="slide level2">
+<h2>Two kinds of cells</h2>
+<div class="flashcard-front">
+<p>What are the two kinds of cell in a notebook?</p>
+</div>
+<div class="flashcard-back">
+<p>Text cells, written in Markdown and rendered when you finish them.</p>
+<p>Code cells, which hold Python, have a run button, and get a number when they have been run.</p>
+</div>
+</section>
+<section id="cells-and-mistakes" class="slide level2">
+<h2>Cells and mistakes</h2>
+<div class="flashcard-front">
+<p>What happens if prose lands in a code cell, or Python lands in a text cell?</p>
+</div>
+<div class="flashcard-back">
+<p>Prose in a code cell gives you a <code>SyntaxError</code>.</p>
+<p>Python in a text cell simply sits there looking like a sentence and never runs. Both mistakes are common and both are worth recognizing on sight.</p>
+</div>
+</section>
+<section id="editing-a-text-cell" class="slide level2">
+<h2>Editing a text cell</h2>
+<div class="flashcard-front">
+<p>How do you edit a text cell and then put it back?</p>
+</div>
+<div class="flashcard-back">
+<p>Double-click it and it turns back into raw Markdown. Press Shift and Enter and it renders again.</p>
+</div>
+</section>
+<section id="restarting-the-kernel" class="slide level2">
+<h2>Restarting the kernel</h2>
+<div class="flashcard-front">
+<p>What does restarting the kernel throw away, and what does it leave alone?</p>
+</div>
+<div class="flashcard-back">
+<p>It throws away the memory: every variable, function and import the session was holding.</p>
+<p>Your cells and their text are untouched. You get a fresh interpreter with nothing in it.</p>
+</div>
+</section>
+<section id="restart-and-run-all" class="slide level2">
+<h2>Restart and Run All</h2>
+<div class="flashcard-front">
+<p>Why is Restart and Run All the button that matters?</p>
+</div>
+<div class="flashcard-back">
+<p>It is the only way to run the notebook the way a stranger would, from the top in page order, and so the only way to find out whether it does what it appears to do.</p>
+<p>Do it before you believe a notebook works, and before you hand one to anybody.</p>
+</div>
+</section>
+<section id="strange-behavior" class="slide level2">
+<h2>Strange behavior</h2>
+<div class="flashcard-front">
+<p>A notebook is behaving strangely and you cannot see why. What do you do first?</p>
+</div>
+<div class="flashcard-back">
+<p>Restart and run all.</p>
+<p>Most of the time the strangeness is stale memory, and most of the rest of the time the restart turns a mystery into an error message you can read.</p>
+</div>
+</section>
+<section id="running-a-cell" class="slide level2">
+<h2>Running a cell</h2>
+<div class="flashcard-front">
+<p>What is the difference between Shift+Enter, Ctrl/Cmd+Enter and Alt/Option+Enter?</p>
+</div>
+<div class="flashcard-back">
+<ul>
+<li>Shift+Enter runs the cell and moves to the next one</li>
+<li>Ctrl+Enter (Cmd+Enter on a Mac) runs it and stays put</li>
+<li>Alt+Enter (Option+Enter on a Mac) runs it and makes a new empty cell below</li>
+</ul>
+</div>
+</section>
+<section id="two-modes" class="slide level2">
+<h2>Two modes</h2>
+<div class="flashcard-front">
+<p>What are edit mode and command mode, and how do you move between them?</p>
+</div>
+<div class="flashcard-back">
+<p>In edit mode your cursor is inside the cell and typing changes its contents.</p>
+<p>Press Escape to leave the cell: it stays selected, but now the keys are commands. Press Enter to go back in.</p>
+</div>
+</section>
+<section id="command-mode-keys" class="slide level2">
+<h2>Command mode keys</h2>
+<div class="flashcard-front">
+<p>In command mode: what do <code>A</code>, <code>B</code>, <code>M</code>, <code>Y</code>, <code>DD</code> and <code>Z</code> do?</p>
+</div>
+<div class="flashcard-back">
+<ul>
+<li><code>A</code> new cell above, <code>B</code> new cell below</li>
+<li><code>M</code> turn the cell into a text cell, <code>Y</code> back into a code cell</li>
+<li><code>D</code> twice deletes the cell, <code>Z</code> undoes that</li>
+</ul>
+<p><code>C</code>, <code>X</code> and <code>V</code> copy, cut and paste cells.</p>
+</div>
+</section>
+<section id="a-notebook-on-disk" class="slide level2">
+<h2>A notebook on disk</h2>
+<div class="flashcard-front">
+<p>What is stored inside an <code>.ipynb</code> file?</p>
+</div>
+<div class="flashcard-back">
+<p>Your cells in page order, together with whatever output each one produced the last time it ran.</p>
+<p>That is why somebody can see your results before running anything, and why the file counts as modified after you have only run a cell.</p>
+</div>
+</section>
+<section id="which-one-to-use" class="slide level2">
+<h2>Which one to use</h2>
+<div class="flashcard-front">
+<p>When is a notebook the right tool, and when is a script?</p>
+</div>
+<div class="flashcard-back">
+<p>A notebook when you are exploring, when you want to see an answer before choosing the next step, and when text and code belong together.</p>
+<p>A script when it must run the same way every time, when you hand it to someone else, and when the point is the result rather than the journey.</p>
+</div>
+<!-- Week 1 :: magics and the sandbox ------------------------------ -->
+</section>
+<section id="magic-commands" class="slide level2">
+<h2>Magic commands</h2>
+<div class="flashcard-front">
+<p>What is a magic command, and whose command is it?</p>
+</div>
+<div class="flashcard-back">
+<p>Not Python. Magics belong to IPython, so they only work where IPython is running: in a notebook, or at the <code>ipython</code> prompt.</p>
+<p>Copy <code>%whos</code> into <code>hello.py</code>, run <code>python hello.py</code>, and you get a <code>SyntaxError</code>.</p>
+</div>
+</section>
+<section id="two-shapes-of-magic" class="slide level2">
+<h2>Two shapes of magic</h2>
+<div class="flashcard-front">
+<p>What is the difference between a line magic and a cell magic?</p>
+</div>
+<div class="flashcard-back">
+<p>A line magic starts with one <code>%</code> and affects only its own line.</p>
+<p>A cell magic starts with <code>%%</code>, must be the very first line of the cell, and takes charge of everything below it in that cell.</p>
+</div>
+</section>
+<section id="whos" class="slide level2">
+<h2>%whos</h2>
+<div class="flashcard-front">
+<p>What does <code>%whos</code> show you?</p>
+</div>
+<div class="flashcard-back">
+<p>Every name the kernel is currently holding: the kernel’s memory made visible.</p>
+<p>A good thing to run whenever a notebook starts behaving strangely.</p>
+</div>
+</section>
+<section id="the-four-cell-magics" class="slide level2">
+<h2>The four cell magics</h2>
+<div class="flashcard-front">
+<p>What do <code>%%steps</code>, <code>%%puzzle</code>, <code>%%codelens</code> and <code>%%sandbox</code> each do?</p>
+</div>
+<div class="flashcard-back">
+<ul>
+<li><code>%%steps</code> shows the substitution and reduction steps inside a statement</li>
+<li><code>%%puzzle</code> gives you shuffled lines to put back in order</li>
+<li><code>%%codelens</code> walks through code a statement at a time and draws what is in memory</li>
+<li><code>%%sandbox</code> runs the cell as though it were a script</li>
+</ul>
+</div>
+</section>
+<section id="magic-not-found" class="slide level2">
+<h2>Magic not found</h2>
+<div class="flashcard-front">
+<p>A magic reports that it does not exist. What is almost always wrong?</p>
+</div>
+<div class="flashcard-back">
+<p>You have not run its import in this kernel, or you restarted the kernel since you did.</p>
+<p>Each widget is imported once near the top of the notebook, for example <code>import sandbox_widget</code>, and is then available for the rest of the session.</p>
+</div>
+</section>
+<section id="sandbox" class="slide level2">
+<h2>%%sandbox</h2>
+<div class="flashcard-front">
+<p>What does <code>%%sandbox</code> actually do with the code below it?</p>
+</div>
+<div class="flashcard-back">
+<p>It runs it in a brand new Python interpreter, a separate process started for that one cell and thrown away the moment it finishes.</p>
+<p>Output and tracebacks land in a shaded box below the cell.</p>
+</div>
+</section>
+<section id="sandbox-and-kernel" class="slide level2">
+<h2>Sandbox and kernel</h2>
+<div class="flashcard-front">
+<p>The kernel has a variable <code>dna</code>. A <code>%%sandbox</code> cell prints <code>dna</code>. What happens?</p>
+</div>
+<div class="flashcard-back">
+<p>A <code>NameError</code>. The sandbox is not the kernel and has never heard of <code>dna</code>.</p>
+<p>The barrier runs both ways: a name created inside a sandbox cell is gone when the cell ends.</p>
+</div>
+</section>
+<section id="inside-a-sandbox-cell" class="slide level2">
+<h2>Inside a sandbox cell</h2>
+<div class="flashcard-front">
+<p>What must a <code>%%sandbox</code> cell contain to work?</p>
+</div>
+<div class="flashcard-back">
+<p>Everything it needs, including its own <code>import</code> lines. It is a tiny script that happens to live inside a notebook: it runs from nothing, top to bottom, and dies at the end.</p>
+</div>
+</section>
+<section id="why-exercises-use-the-sandbox" class="slide level2">
+<h2>Why exercises use the sandbox</h2>
+<div class="flashcard-front">
+<p>Why do so many exercises in this book run in a sandbox?</p>
+</div>
+<div class="flashcard-back">
+<p>Because a cell that is supposed to break can then be relied on to break, every time, for everybody, no matter what you ran before it.</p>
+<p>It also proves that a piece of code stands on its own rather than leaning on something the kernel had lying around, which is exactly what you need once the assistant starts writing code for you.</p>
+</div>
+<!-- Week 1 :: values, types and operators ------------------------- -->
+</section>
+<section id="the-types-so-far" class="slide level2">
+<h2>The types so far</h2>
+<div class="flashcard-front">
+<p>Name the five types of value you know, with the Python name of each.</p>
+</div>
+<div class="flashcard-back">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Python</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>String</td>
+<td><code>str</code></td>
+<td><code>"hello"</code>, <code>'9'</code></td>
+</tr>
+<tr class="even">
+<td>Integer</td>
+<td><code>int</code></td>
+<td><code>0</code>, <code>2721</code></td>
+</tr>
+<tr class="odd">
+<td>Floating-point</td>
+<td><code>float</code></td>
+<td><code>1.0</code>, <code>4.4322</code></td>
+</tr>
+<tr class="even">
+<td>Boolean</td>
+<td><code>bool</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr class="odd">
+<td>None</td>
+<td><code>NoneType</code></td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="comparison-operators" class="slide level2">
+<h2>Comparison operators</h2>
+<div class="flashcard-front">
+<p>Name the six comparison operators, and say what kind of value they produce.</p>
+</div>
+<div class="flashcard-back">
+<p><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code>, <code>!=</code></p>
+<p>Whatever you put on either side, they produce a boolean: <code>True</code> or <code>False</code>.</p>
+</div>
+</section>
+<section id="or" class="slide level2">
+<h2>= or ==</h2>
+<div class="flashcard-front">
+<p>What is the difference between <code>=</code> and <code>==</code>?</p>
+</div>
+<div class="flashcard-back">
+<p><code>=</code> assigns a value to a variable. <code>==</code> compares two values and reduces to <code>True</code> or <code>False</code>.</p>
+</div>
+</section>
+<section id="in" class="slide level2">
+<h2>in</h2>
+<div class="flashcard-front">
+<p>What does <code>in</code> test, and what does this print?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"lo wo"</span> <span class="kw">in</span> <span class="st">"Hello world"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="flashcard-back">
+<p>It tests whether one thing is part of another, here whether one string occurs inside another. This prints <code>True</code>.</p>
+<p>There is also <code>not in</code>.</p>
+</div>
+</section>
+<section id="the-three-logical-operators" class="slide level2">
+<h2>The three logical operators</h2>
+<div class="flashcard-front">
+<p>Which three operators combine true and false values?</p>
+</div>
+<div class="flashcard-back">
+<p><code>and</code>, <code>or</code> and <code>not</code>.</p>
+<p><code>and</code> asks whether both sides are true, <code>or</code> whether at least one is, and <code>not</code> flips a value.</p>
+</div>
+</section>
+<section id="truthy-and-falsy" class="slide level2">
+<h2>Truthy and falsy</h2>
+<div class="flashcard-front">
+<p>Which values does Python consider false?</p>
+</div>
+<div class="flashcard-back">
+<p><code>False</code>, <code>0</code>, <code>0.0</code>, the empty string <code>""</code>, and <code>None</code>.</p>
+<p>Everything else is considered true, including <code>-4</code>, <code>3.14</code> and <code>"apple"</code>.</p>
+</div>
+</section>
+<section id="short-circuit" class="slide level2">
+<h2>Short-circuit</h2>
+<div class="flashcard-front">
+<p>Python does no more work than it must. What does a logical expression reduce to?</p>
+</div>
+<div class="flashcard-back">
+<p>The last value Python needed to look at to decide.</p>
+<p><code>False and True</code> reduces to the left value; <code>True and False</code> reduces to the right one. Same rule for <code>or</code>.</p>
+</div>
+</section>
+<section id="and-with-numbers" class="slide level2">
+<h2>and with numbers</h2>
+<div class="flashcard-front">
+<p>What do these print?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">42</span> <span class="kw">and</span> <span class="dv">0</span>)</span>
+<span id="cb10-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="kw">or</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="flashcard-back">
+<p><code>0</code> and <code>apple</code>.</p>
+<p><code>42</code> is true, so <code>and</code> had to look at the right value and the expression reduced to it. <code>"apple"</code> is true, so <code>or</code> was already settled and stopped there.</p>
+</div>
+</section>
+<section id="quotes-around-the-numbers" class="slide level2">
+<h2>Quotes around the numbers</h2>
+<div class="flashcard-front">
+<p>What are <code>'4' + '2'</code> and <code>'4' * 4</code>?</p>
+</div>
+<div class="flashcard-back">
+<p><code>'42'</code> and <code>'4444'</code>.</p>
+<p>Some math operators work on strings, so <code>+</code> joins them and <code>*</code> repeats them. Python assumes you know what you are doing.</p>
+</div>
+</section>
+<section id="mixing-a-number-and-a-string" class="slide level2">
+<h2>Mixing a number and a string</h2>
+<div class="flashcard-front">
+<p>What does <code>3 - '1.5'</code> do, and why?</p>
+</div>
+<div class="flashcard-back">
+<p>It raises a <code>TypeError</code>. You are asking Python to combine an integer and a string in a way it has no meaning for.</p>
+<p>The message names the types, which is what makes it readable.</p>
+</div>
+</section>
+<section id="dividing-by-zero" class="slide level2">
+<h2>Dividing by zero</h2>
+<div class="flashcard-front">
+<p>What does <code>1 / 0</code> give you?</p>
+</div>
+<div class="flashcard-back">
+<p>A <code>ZeroDivisionError</code>. Python refuses rather than inventing an answer.</p>
+</div>
+</section>
+<section id="converting-types" class="slide level2">
+<h2>Converting types</h2>
+<div class="flashcard-front">
+<p>How do you turn the string <code>"42"</code> into a number, and what will not convert?</p>
+</div>
+<div class="flashcard-back">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="st">"42"</span>)</span>
+<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">float</span>(<span class="st">"42"</span>)</span>
+<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Only meaningful conversions work: <code>int('four')</code> fails.</p>
+</div>
+</section>
+<section id="escape-characters" class="slide level2">
+<h2>Escape characters</h2>
+<div class="flashcard-front">
+<p>What do <code>\n</code> and <code>\t</code> do inside a string?</p>
+</div>
+<div class="flashcard-back">
+<p><code>\n</code> is a newline and <code>\t</code> is a tab.</p>
+<p>An escape character is a backslash followed by one character. <code>print</code> also adds a newline at the end of everything it prints.</p>
+</div>
+</section>
+<section id="printing-several-things" class="slide level2">
+<h2>Printing several things</h2>
+<div class="flashcard-front">
+<p>What does the comma do here?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Four times two is"</span>, <span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="flashcard-back">
+<p>It lets you print more than one thing at a time. Python prints the values in order with a space between them: <code>Four times two is 8</code>.</p>
+</div>
+</section>
+<section id="and" class="slide level2">
+<h2>// and %</h2>
+<div class="flashcard-front">
+<p>What do <code>17 // 5</code> and <code>17 % 5</code> give?</p>
+</div>
+<div class="flashcard-back">
+<p><code>3</code> and <code>2</code>.</p>
+<p><code>//</code> is integer division, which throws away the fraction. <code>%</code> is modulo, the remainder left over.</p>
+</div>
+</section>
+<section id="exponent" class="slide level2">
+<h2>Exponent</h2>
+<div class="flashcard-front">
+<p>Which operator raises a number to a power, and how do you take a square root with it?</p>
+</div>
+<div class="flashcard-back">
+<p><code>**</code>. So <code>5**2</code> is 25, and the square root of <code>x</code> is <code>x**0.5</code>.</p>
+</div>
+</section>
+<section id="comparing-strings" class="slide level2">
+<h2>Comparing strings</h2>
+<div class="flashcard-front">
+<p>What does <code>'aa' &lt; 'ab'</code> give, and by what rule does Python decide?</p>
+</div>
+<div class="flashcard-back">
+<p><code>True</code>. Strings are compared character by character, the way words are ordered in an encyclopedia, using the character codes in the ASCII table.</p>
+<p><code>'banana' &lt; 'Banana'</code> is <code>False</code>, because uppercase letters come before lowercase ones.</p>
+</div>
+<!-- Week 1 :: variables, substitution, reduction, precedence ------ -->
+</section>
+<section id="two-things-a-name-can-do" class="slide level2">
+<h2>Two things a name can do</h2>
+<div class="flashcard-front">
+<p>A variable name appears in your code. What are the only two things that can be happening?</p>
+</div>
+<div class="flashcard-back">
+<p><strong>Assignment</strong>, when the name is to the left of an <code>=</code>: it is given a value.</p>
+<p><strong>Substitution</strong>, in every other context: the name is replaced by the value it represents.</p>
+</div>
+</section>
+<section id="reading-x-x-1" class="slide level2">
+<h2>Reading x = x + 1</h2>
+<div class="flashcard-front">
+<p><code>x</code> is <code>4</code>. Walk through <code>x = x + 1</code> in order.</p>
+</div>
+<div class="flashcard-back">
+<p>The right side is worked out first: <code>x</code> is substituted for <code>4</code>, so it reads <code>4 + 1</code>, which reduces to <code>5</code>.</p>
+<p>Only then is <code>x</code> assigned the value <code>5</code>. The assignment is always the last thing to happen.</p>
+</div>
+</section>
+<section id="naming-variables" class="slide level2">
+<h2>Naming variables</h2>
+<div class="flashcard-front">
+<p>What are the rules for a variable name?</p>
+</div>
+<div class="flashcard-back">
+<p>It starts with a letter or an underscore, and the rest is letters, digits or underscores. No spaces.</p>
+<p>Names are case-sensitive, so <code>count</code> and <code>Count</code> are different variables. Stick to lowercase. <code>1value = 42</code> is a <code>SyntaxError</code>.</p>
+</div>
+</section>
+<section id="why-variables" class="slide level2">
+<h2>Why variables</h2>
+<div class="flashcard-front">
+<p>Give the two reasons a variable is worth having.</p>
+</div>
+<div class="flashcard-back">
+<p>It gives a value meaning: <code>1200000</code> could be anything until it is called <code>number_discovered</code>.</p>
+<p>And it can be given a new value later, which is why they are called variables.</p>
+</div>
+</section>
+<section id="substitution-and-reduction" class="slide level2">
+<h2>Substitution and reduction</h2>
+<div class="flashcard-front">
+<p>What are substitution and reduction?</p>
+</div>
+<div class="flashcard-back">
+<p>Substitution replaces a variable by its value. Reduction replaces an expression by the simpler expression it evaluates to, again and again, until a single value is left.</p>
+<p>Doing those steps in your head, in order, is what reading code is.</p>
+</div>
+</section>
+<section id="a-worked-reduction" class="slide level2">
+<h2>A worked reduction</h2>
+<div class="flashcard-front">
+<p><code>x = 4</code> and <code>y = 3</code>. What are the steps in <code>z = x * y + 8</code>?</p>
+</div>
+<div class="flashcard-back">
+<p><code>4 * 3 + 8</code> → <code>12 + 8</code> → <code>20</code>, and last of all <code>z</code> is assigned <code>20</code>.</p>
+</div>
+</section>
+<section id="statement-or-expression" class="slide level2">
+<h2>Statement or expression</h2>
+<div class="flashcard-front">
+<p>What is a statement, and what is an expression?</p>
+</div>
+<div class="flashcard-back">
+<p>A statement is a line of code that performs an action: <code>x = 14</code>, or <code>print(y * 7)</code>.</p>
+<p>An expression is any code that reduces to one value: <code>y * 7</code>, <code>4 &gt; 5</code>, or just <code>x</code>. Statements are usually built out of expressions, and expressions out of smaller expressions.</p>
+</div>
+</section>
+<section id="precedence" class="slide level2">
+<h2>Precedence</h2>
+<div class="flashcard-front">
+<p>List the operator precedence levels from highest to lowest.</p>
+</div>
+<div class="flashcard-back">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Operators</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Highest</td>
+<td><code>**</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>+x</code>, <code>-x</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>*</code>, <code>/</code>, <code>//</code>, <code>%</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>+</code>, <code>-</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>!=</code>, <code>==</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>in</code>, <code>not in</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>not</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>and</code></td>
+</tr>
+<tr class="even">
+<td>Lowest</td>
+<td><code>or</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="section" class="slide level2">
+<h2>2 / 4 * 2</h2>
+<div class="flashcard-front">
+<p>What does <code>2 / 4 * 2</code> reduce to, and what is the rule?</p>
+</div>
+<div class="flashcard-back">
+<p><code>1.0</code>. With adjacent operators of the same precedence, Python works from left to right: first <code>0.5 * 2</code>, then <code>1.0</code>.</p>
+<p>Use parentheses if you want any other order.</p>
+</div>
+</section>
+<section id="section-1" class="slide level2">
+<h2>+=</h2>
+<div class="flashcard-front">
+<p>What is <code>x += 1</code> shorthand for?</p>
+</div>
+<div class="flashcard-back">
+<p><code>x = x + 1</code>.</p>
+</div>
+</section>
+<section id="the-second-print" class="slide level2">
+<h2>The second print</h2>
+<div class="flashcard-front">
+<p>What does the second <code>print</code> show?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a>foo <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb13-2"><a href="" aria-hidden="true" tabindex="-1"></a>bar <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb13-3"><a href="" aria-hidden="true" tabindex="-1"></a>baz <span class="op">=</span> bar <span class="op">+</span> foo</span>
+<span id="cb13-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(baz)</span>
+<span id="cb13-5"><a href="" aria-hidden="true" tabindex="-1"></a>bar <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb13-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(baz)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="flashcard-back">
+<p><code>80</code> both times.</p>
+<p><code>baz</code> was assigned the value <code>80</code>, not a link to <code>bar</code>. Changing <code>bar</code> afterwards changes nothing that has already been worked out.</p>
+</div>
+<!-- WEEK 2 ----------------------------------------------------- -->
+</section>
+<section id="header" class="slide level2">
+<h2>Header</h2>
+<div class="flashcard-front">
+<p>Question text or code.</p>
+</div>
+<div class="flashcard-back">
+<p>Answer text or code.</p>
+</div>
+<!-- and so on ... -->
 
 </section>
     </div>
