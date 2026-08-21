@@ -503,7 +503,7 @@ def encrypt_file(inputfile, passphrase):
     outputfile = inputfile
     with codecs.open(outputfile, 'w','utf-8-sig') as f:
         f.write(encryptedDocument)
-    print("File saved to %s"%outputfile)
+    # print("File saved to %s"%outputfile)
 
 if __name__ == "__main__":
 
