@@ -110,6 +110,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -716,7 +719,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-os" id="toc-sec-os" class="nav-link" data-scroll-target="#sec-os">The operating system, the manager in the middle</a></li>
   <li><a href="#sec-software" id="toc-sec-software" class="nav-link" data-scroll-target="#sec-software">Software is just files full of instructions</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/ai/insides.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/ai/insides.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -780,13 +783,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-turing-vs-modern" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-turing-vs-modern">What the imagined machine has to do with yours</h2>
 <p>Now the astonishing part. This ridiculous little tape shuffler can compute anything that any computer can compute, your laptop included.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="cell" data-layout-align="default">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    subgraph tape [" "]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        direction LR</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        s1["0"] --- s2["1"] --- s3["1"] --- s4["blank"]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    head["the head, now in state A"] --&gt; s1</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    rules["the table of rules&lt;br&gt;in A reading 0: write 1, move right, stay in A&lt;br&gt;in A reading 1: write 0, move right, switch to B&lt;br&gt;in B reading 1: write 1, move left, stop"] --&gt; head</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
     subgraph tape [" "]
         direction LR
         s1["0"] --- s2["1"] --- s3["1"] --- s4["blank"]
     end
     head["the head, now in state A"] --&gt; s1
-    rules["the table of rules&lt;br&gt;in A reading 0: write 1, move right, stay in A&lt;br&gt;in A reading 1: write 0, move right, switch to B&lt;br&gt;in B reading 1: write 1, move left, stop"] --&gt; head</code></pre>
+    rules["the table of rules&lt;br&gt;in A reading 0: write 1, move right, stay in A&lt;br&gt;in A reading 1: write 0, move right, switch to B&lt;br&gt;in B reading 1: write 1, move left, stop"] --&gt; head
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Turing then showed something stranger still. You can write one table of rules that lets the machine read a description of some <em>other</em> machine, written out as ordinary symbols on its own tape, and then act that machine out step by step. One machine that can become any machine, given the right instructions. That is the theoretical birth certificate of the thing on your desk, a general-purpose computer that runs whatever program you hand it.</p>
 <p>So how does this paper fantasy line up with the chips in a modern computer? Closer than it looks, in three ways. First, both work through their instructions one small step at a time, and the head’s cycle of reading a square, writing a square and moving one place along is the same shape as the CPU carrying out one small operation and then the next. Second, both keep the store apart from the worker: the tape holds the symbols and the head holds the rules, just as memory holds your data and the CPU does the work on it. Third, and this is the one that matters most, the universal machine reads its instructions off the tape as ordinary symbols, which means instructions and data are made of the same stuff. That is why a program on your computer is a file like any other, sitting on the disk among your photographs, until the moment the operating system loads it into memory and lets the CPU carry it out. When Python reads your <code>hello.py</code> and acts it out line by line, it is doing the universal machine’s job: reading a description of a computation and performing it.</p>
 </section>
@@ -796,7 +817,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="fig-os-stack" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-os-stack-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<pre class="mermaid"><code>flowchart TD
+<div class="cell" data-layout-align="default">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    programs["your programs&lt;br&gt;VS Code, a browser, Python running your code"]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    os["the operating system&lt;br&gt;macOS, Windows or Linux"]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    disk["the disk&lt;br&gt;kept"]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    memory["the memory&lt;br&gt;temporary"]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    cpu["the CPU&lt;br&gt;the worker"]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    io["the keyboard and the screen"]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    programs --&gt;|"asks for a file, for memory, for a turn"| os</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    os --&gt; disk</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    os --&gt; memory</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    os --&gt; cpu</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    os --&gt; io</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    classDef kept fill:#fbf1e2,stroke:#e9cfa5,color:#b26a1f</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    classDef temporary fill:#e8f1fb,stroke:#bcd6f0,color:#2f6db3</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    classDef worker fill:#eceef1,stroke:#cfd4db,color:#3a4250</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    class disk kept</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    class memory temporary</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    class cpu worker</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
     programs["your programs&lt;br&gt;VS Code, a browser, Python running your code"]
     os["the operating system&lt;br&gt;macOS, Windows or Linux"]
     disk["the disk&lt;br&gt;kept"]
@@ -815,7 +861,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     classDef worker fill:#eceef1,stroke:#cfd4db,color:#3a4250
     class disk kept
     class memory temporary
-    class cpu worker</code></pre>
+    class cpu worker
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-os-stack-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.1: The operating system sits between your programs and the hardware: it hands out memory, finds files, shares the CPU between programs, and talks to the keyboard and screen.
@@ -1284,4 +1336,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/ai/insides.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/ai/insides.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
