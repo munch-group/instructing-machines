@@ -1232,3 +1232,18 @@ main.content > h2 {
 }
 
 .lp-footer-links a { margin-left: 0.75rem; }
+
+// Quarto 1.10 gives every <ul> inside the margin TOC nav the Bootstrap
+// `collapse` class, including the three tool lists that are not TOC entries.
+// Bootstrap's `.collapse:not(.show) { display: none }` then hides them, so
+// "Edit this page", "Report an issue" and every other-links entry disappear
+// and only their headings are left. 1.9 did not do this, which is why the
+// site looked right when built locally and wrong when built by the workflow.
+// Verified against the published 1.10.18 assets.
+#quarto-margin-sidebar {
+  .toc-actions > ul,
+  .quarto-other-links > ul,
+  .quarto-code-links > ul,
+  .quarto-alternate-formats > ul,
+  .quarto-alternate-notebooks > ul { display: block !important; }
+}
