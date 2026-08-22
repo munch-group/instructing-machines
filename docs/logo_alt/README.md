@@ -1,4 +1,4 @@
-# Instructing Machines — logo assets
+# Instructing Machines, logo assets
 
 ## Files
 
@@ -13,7 +13,7 @@
 | *(none)* | Two-color: purple `#7F77DD` ring, near-black `#1A1A18` prompt and wordmark. |
 | `-au-blue` | Same, in Aarhus blue `#002546`, for official university material. |
 | `-mono-black` | Single color. Print, photocopies, embroidery, laser cutting. |
-| `-mono-white` | Single color white. **Only visible on a dark background** — it will look blank in a light image viewer. |
+| `-mono-white` | Single color white. **Only visible on a dark background**, it will look blank in a light image viewer. |
 
 SVGs have transparent backgrounds and the wordmark converted to outlines, so no
 font installation is needed anywhere. Prefer the SVG for anything that will be
@@ -21,7 +21,7 @@ scaled; the PNGs exist for tools that refuse SVG (some LMS uploaders, Word).
 
 ## Minimum sizes
 
-The mark holds up to about 32px. Below that the gear teeth merge into the rim —
+The mark holds up to about 32px. Below that the gear teeth merge into the rim,
 use a plain circle or drop the mark entirely. The horizontal lockup should not
 go below roughly 200px wide, or the wordmark closes up.
 

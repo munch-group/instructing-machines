@@ -36,7 +36,7 @@ book:
     #   machine — install pixi from the .msi, unpack the course folder, open
     #   VS Code, run a widget. The .msi route is the documented one and nobody
     #   has confirmed the full sequence.
-    # CLAUDE: edit the project chapters to fit the appropriate AI rung 
+    # CLAUDE: edit the project chapters to fit the appropriate AI level 
     # ------------------------------------------------------------------
     - index.qmd
     # CLAUDE: Check that the week outline table matches sidebar division of chapters
@@ -44,8 +44,10 @@ book:
     - part: "Resources"
       chapters:
         - href: slides/index.qmd
+          target: "_blank"
           text: "Slides"
         - href: slides/flashcards.qmd
+          target: "_blank"
           text: "Flashcards"
         - href: python/course-tools.ipynb
           text: "Course Tools"
@@ -62,14 +64,14 @@ book:
         - intro/course-introduction.qmd
         - ai/insides.md
         - python/getting_started.qmd
-        - python/hello-world.ipynb
+        - python/hello-world.qmd
         - ai/meet-ai.qmd
         - ai/instruction.md
         - intro/notebooks.ipynb
         - python/values-operators-logic.ipynb
         - python/precedence-steps.ipynb
     - part: "Week 2"
-      # AI: no new rung. EXPLAINER is consolidated by ai/predict-then-prove.qmd,
+      # AI: no new level. EXPLAINER is consolidated by ai/predict-then-prove.qmd,
       #   which is where "the AI predicts; the machine proves" is stated as a
       #   working rule rather than a slogan. 26 EXPLAINER against 43 SOLO — the
       #   densest EXPLAINER week of the term.
@@ -78,7 +80,7 @@ book:
         - python/functions.ipynb
         - ai/predict-then-prove.qmd
     - part: "Week 3"
-      # AI: no new rung. ai/how-models-produce-code.qmd adds two more
+      # AI: no new level. ai/how-models-produce-code.qmd adds two more
       #   EXPLAINER moves (translating code to English and back, asking for
       #   more examples of a pattern) on top of the 10 already earned. 14
       #   EXPLAINER against 65 SOLO.
@@ -94,7 +96,7 @@ book:
           #   against the pinned interpreter.
         - turtle/week3.qmd
     - part: "Week 4"
-      # AI: no new rung. EXPLAINER is sharpened by ai/explain-then-confirm.qmd,
+      # AI: no new level. EXPLAINER is sharpened by ai/explain-then-confirm.qmd,
       #   which supplies all 15 of the week's EXPLAINER exercises, against 17
       #   SOLO.
       chapters: 
@@ -116,7 +118,7 @@ book:
           #   checkable thing in the book and therefore the safest place to let
           #   the AI draft. Decide whether that is intentional.
     - part: "Week 5"
-      # AI: no new rung. ai/practical-ai-use.qmd. Only 3 EXPLAINER against 38
+      # AI: no new level. ai/practical-ai-use.qmd. Only 3 EXPLAINER against 38
       #   SOLO, the thinnest AI presence of any week before the projects begin.
       chapters: 
         - ai/practical-ai-use.qmd
@@ -127,7 +129,7 @@ book:
     - part: "Week 6"
       # AI: COMPARER, introduced by ai/ask-for-another-way.qmd. 11 COMPARER
       #   against 7 SOLO: the only week in which AI-licensed exercises
-      #   outnumber the solo ones, which is the point of the rung — asking for
+      #   outnumber the solo ones, which is the point of the level — asking for
       #   a second solution is worthless unless you write several.
       chapters: 
         - ai/ask-for-another-way.qmd
@@ -143,7 +145,7 @@ book:
         - turtle/week6.qmd
     - part: "Week 7"
       # AI: DRAFTER, introduced by ai/let-it-draft.qmd. 7 DRAFTER, 1 COMPARER
-      #   and 4 EXPLAINER against 28 SOLO. This is the first rung where the
+      #   and 4 EXPLAINER against 28 SOLO. This is the first level where the
       #   student lets the assistant write code they will keep.
       chapters: 
         - ai/let-it-draft.qmd
@@ -160,7 +162,7 @@ book:
     - part: "Week 8"
       # Python: no new Python. The alignment project and the turtle chapter
       #   carry the practice while the AI thread does the teaching.
-      # AI: no new rung. ai/tests-are-the-contract.md deepens DRAFTER into its
+      # AI: no new level. ai/tests-are-the-contract.md deepens DRAFTER into its
       #   stricter, contract-first form — the assistant stops being a source of
       #   explanations and becomes something you check. ai/reading-and-judging.md
       #   also sits at DRAFTER. 6 DRAFTER against 13 SOLO; 2 exercises carry no
@@ -174,7 +176,7 @@ book:
     - part: "Week 9"
       # Python: packages and modules — using code from other files, the modern
       #   "giant's shoulders". new/biopython.ipynb is commented out below.
-      # AI: no new rung. ai/the-docs-are-the-test.qmd extends DRAFTER from "a
+      # AI: no new level. ai/the-docs-are-the-test.qmd extends DRAFTER from "a
       #   test settles it" to "the real documentation settles it", which is the
       #   answer to invented library functions.
       chapters:
@@ -185,7 +187,7 @@ book:
         # - new/biopython.ipynb
     - part: "Week 10"
       # Python: recursion and decomposition — breaking a problem into parts,
-      #   which is the same skill in code that the Collaborator rung asks for
+      #   which is the same skill in code that the Collaborator level asks for
       #   in prose. The pairing is deliberate.
       # AI: COLLABORATOR, introduced by ai/plan-before-you-prompt.md. 3
       #   COLLABORATOR and 16 SOLO.
@@ -210,7 +212,7 @@ book:
         - ai/delegate-the-full-problem.md
         - projects/seqdist-project.qmd
     - part: "Week 12"
-      # AI: no new rung. ai/learning-with-an-ai.qmd turns the ladder back on
+      # AI: no new level. ai/learning-with-an-ai.qmd turns the ladder back on
       #   the student's own learning. 1 COLLABORATOR, 2 COMPARER and 1 DRAFTER
       #   against 5 SOLO.
       # Workload: 3 chapters, ~6,100 words, 9 exercises, plus the ORF project.
@@ -224,7 +226,7 @@ book:
         - python/dataframes.ipynb
     - part: "Week 13"
       # Python: no new Python; the assembly project.
-      # AI: no new rung. The finale exercises the whole ladder at once, which
+      # AI: no new level. The finale exercises the whole ladder at once, which
       #   is what it is for. 1 DEVELOPER against 5 SOLO.
       chapters: 
         - ai/finale-kickoff.qmd
@@ -236,7 +238,7 @@ book:
         - ai/finale-finishing.qmd
         - projects/assembly-project.qmd
     - part: "Week 14"
-      # AI: no new rung; the ladder is put down. ai/surviving-ai.md is the
+      # AI: no new level; the ladder is put down. ai/surviving-ai.md is the
       #   argument for why any of it mattered. 4 SOLO.
       # Workload: 2 chapters, ~2,800 words, 5 exercises — the lightest week,
       #   which is right for a wrap-up.

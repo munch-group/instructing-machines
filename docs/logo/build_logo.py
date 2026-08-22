@@ -12,7 +12,7 @@ os.makedirs(OUT, exist_ok=True)
 # ---------- fonts ----------
 # The wordmark is now set in JetBrains Mono Medium. fontTools draws the DEFAULT
 # instance of a variable font, so JetBrainsMono[wght].ttf would come out at
-# Regular 400 — you need the STATIC Medium. Grab it from
+# Regular 400, you need the STATIC Medium. Grab it from
 # https://github.com/JetBrains/JetBrainsMono/releases and drop it next to this
 # script if none of the candidates below resolve.
 FONT_CANDIDATES = [
@@ -34,12 +34,12 @@ def resolve_font():
         "JetBrainsMono-Medium.ttf not found. Download the static Medium from\n"
         "  https://github.com/JetBrains/JetBrainsMono/releases\n"
         "and put it beside this script, or add its path to FONT_CANDIDATES.\n"
-        "Do not substitute JetBrainsMono[wght].ttf — fontTools would draw it at 400."
+        "Do not substitute JetBrainsMono[wght].ttf, fontTools would draw it at 400."
     )
 
 FONT = resolve_font()
 
-TEAL   = "#0D7D93"   # $primary — the prompt
+TEAL   = "#0D7D93"   # $primary, the prompt
 CARET  = "#7C5CB0"   # lightness-matched purple (was #7F77DD)
 INK    = "#1A1A18"
 AUBLUE = "#002546"
@@ -88,7 +88,7 @@ def metrics(size, font_path=None):
 def build_prompt(text=TEXT, fs=132.0, ink=INK, prompt_col=TEAL,
                  caret_col=CARET, bg=None, caret_w=0.50, caret_h=0.86,
                  caret_gap=0.28, caret_drop=0.16, pad=24.0):
-    """`> instructing machines ▌` — a teal prompt, the name, a block caret.
+    """`> instructing machines ▌`, a teal prompt, the name, a block caret.
 
     All four caret numbers are fractions of the em:
       caret_w     width of the block

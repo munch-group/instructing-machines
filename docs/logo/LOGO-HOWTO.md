@@ -2,7 +2,7 @@
 
 `build_logo.py` generates every logo file from one source of truth: the
 JetBrains Mono outlines plus four hex values. You run it when you change the
-name, a colour, or the caret proportions — never edit the SVGs by hand, because
+name, a colour, or the caret proportions, never edit the SVGs by hand, because
 the next run overwrites them.
 
 ## 1. One-time setup
@@ -28,7 +28,7 @@ pip install fonttools cairosvg
 
 `cairosvg` needs the Cairo C library. macOS: `brew install cairo pango`.
 Debian/Ubuntu: `apt install libcairo2 libpango-1.0-0`. If Cairo is more trouble
-than it's worth, see step 4 — you can skip the PNGs.
+than it's worth, see step 4, you can skip the PNGs.
 
 ## 2. Run it
 
@@ -45,7 +45,7 @@ IM_LOGO_OUT=/tmp/logo python build_logo.py
 ```
 
 It prints the font it resolved and the files it wrote. Check the font line on
-the first run — that is where a wrong-weight mistake shows up.
+the first run, that is where a wrong-weight mistake shows up.
 
 ## 3. What comes out
 
@@ -61,7 +61,7 @@ the first run — that is where a wrong-weight mistake shows up.
 | `im-mark-ink.svg` `im-mark-au-blue.svg` | alternate mark backgrounds |
 | `im-stacked.svg` | mark over name, for square crops |
 
-The header on the site does **not** use any of these — it is live text styled by
+The header on the site does **not** use any of these, it is live text styled by
 `.im-header` in `custom.scss`. These files are for everywhere you cannot ship
 CSS: GitHub, PDFs, slides, the favicon.
 
@@ -82,7 +82,7 @@ For the Apple touch icon, add to `include-in-header`:
 ```
 
 If you skipped `cairosvg`, delete the `for wpx in PNG_WIDTHS[name]` loop at the
-bottom of the script and point `favicon:` at `logo/im-mark.svg` instead — every
+bottom of the script and point `favicon:` at `logo/im-mark.svg` instead, every
 current browser accepts an SVG favicon.
 
 ## 5. Changing things
@@ -93,7 +93,7 @@ All the knobs are at the top of the file or in the function signatures.
 `TEAL` must stay equal to `$primary` in `custom.scss`, and `CARET` equal to
 `$lp-caret`, or the SVG and the live header drift apart.
 
-**The name.** `TEXT = "instructing machines"`. Lowercase is deliberate — it is a
+**The name.** `TEXT = "instructing machines"`. Lowercase is deliberate, it is a
 typed command. Capitalise it and the caret starts looking like a stray box.
 
 **Caret proportions.** `build_prompt(caret_w=0.50, caret_h=0.78)`, as fractions
@@ -106,7 +106,7 @@ font, so the lockup is literally the string as typed. To tighten it, change
 `x_name = w_prompt + cell` to `w_prompt + cell * 0.7` in `build_prompt`.
 
 **A new variant.** Add an entry to `VARIANTS` and a matching one to
-`PNG_WIDTHS` — both dicts are keyed by output filename. For example, a version
+`PNG_WIDTHS`, both dicts are keyed by output filename. For example, a version
 on the teal:
 
 ```python

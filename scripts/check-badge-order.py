@@ -10,7 +10,7 @@ appears too early.
 
 Translator, Illustrator and Worker were retired: the first two were folded
 into Explainer (translating code to English and back, and asking for more
-examples, are now moves within that rung) and Worker was folded into Drafter
+examples, are now moves within that level) and Worker was folded into Drafter
 (writing tests before any code, and hiding them from the assistant, is now a
 stricter form of that rung). A badge using one of the three old names is not
 a stale reference to update quietly; it is a ladder violation this script

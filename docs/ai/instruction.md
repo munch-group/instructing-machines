@@ -28,7 +28,7 @@ In the diagram, notice that every level is a translator down to the level below 
 <!-- At each level, people worried that the level below would become a lost art, and every time, understanding the level below stayed valuable exactly for the moments when the translation went wrong or the stakes were high. Molecular biology is full of high-stakes moments. Keep that thought; it will matter again once the AI enters the picture. -->
 This makes Python an *interpreted* language. Unlike the C language where a compiler takes your entire code file and translates it all into machine code before it runs, Python it reads your file with code and runs its instructions, one line at a time and produce the machine code to make the CPU execute the instruction. This is also, quietly, why we make you run scripts from the terminal before we ever open a notebook. Typing `python hello.py` forces four things apart that a notebook glues together: the file on the disk, the interpreter that reads it, the CPU that does the work, and the terminal where you launch it and watch the output. Once you have felt those four as separate things, the rest of the course is much less mysterious.
 
-An interpreter is a translator you can trust to mean exactly what your code says. Hold that thought right up against the AI, because the AI is about to look like just one more rung on the ladder, and the most important lesson in this course is the exact way in which it is not.
+An interpreter is a translator you can trust to mean exactly what your code says. Hold that thought right up against the AI, because the AI is about to look like just one more level on the ladder, and the most important lesson in this course is the exact way in which it is not.
 
 ## AI
 
@@ -50,13 +50,13 @@ Understanding Python lets you specify problems more precisely, and lets you test
 
 [SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
-Before you touch the assistant, close the diagram and write the five rungs of the ladder out in order from memory, from the raw bits at the bottom to plain language at the top. Beside each one, write a single word: **faithful** if that rung is a translator that always means exactly what the rung above it said, and **plausible** if it is not. Four of the five get the same word and one does not. Being able to say which one, and why, is the entire argument of this course compressed into five lines, and you now have it before you have written a single line of Python.
+Before you touch the assistant, close the diagram and write the five levels of the ladder out in order from memory, from the raw bits at the bottom to plain language at the top. Beside each one, write a single word: **faithful** if that level is a translator that always means exactly what the level above it said, and **plausible** if it is not. Four of the five get the same word and one does not. Being able to say which one, and why, is the entire argument of this course compressed into five lines, and you now have it before you have written a single line of Python.
 
 #### Exercise
 
 [AI: Explainer](../intro/course-introduction.qmd#sec-badge-explainer){.small}
 
-Open the assistant in your browser and ask it a small factual question you can check, for example, what the three stop codons of the standard genetic code are. Read its answer. Then find a way to verify it that does not involve asking another AI: a textbook, a trusted database, or, later in this course, a tiny program of your own. Was it right? How did you know it was right, independently of the AI telling you so? Note what the badge on this exercise permits and what it does not. You asked it to explain something that already exists, and you settled the question somewhere else. That is the whole of rung one, and it is the only rung you have.
+Open the assistant in your browser and ask it a small factual question you can check, for example, what the three stop codons of the standard genetic code are. Read its answer. Then find a way to verify it that does not involve asking another AI: a textbook, a trusted database, or, later in this course, a tiny program of your own. Was it right? How did you know it was right, independently of the AI telling you so? Note what the badge on this exercise permits and what it does not. You asked it to explain something that already exists, and you settled the question somewhere else. That is the whole of level one, and it is the only level you have.
 
 #### Exercise
 

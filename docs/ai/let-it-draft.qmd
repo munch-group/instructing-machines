@@ -38,7 +38,7 @@ For each function below, follow the full order: specify with a worked example fi
 
 `most_common_base(dna)`: the single most frequent base in a DNA string. Worked example: `most_common_base('GGGATC') == 'G'`. Nasty case to consider: a tie between two bases, so decide, in writing, before you draft, what you want to happen, since last term's cohort found the assistant will pick silently and inconsistently if you do not.
 
-## Part 3 — Catch the silent bug (35 min)
+## Part 3, Catch the silent bug (35 min)
 
 Not every draft that passes a gentle test deserves your belief, which is the entire reason the nasty test exists. This round is curated so the gentle test passes and the nasty one does not, on purpose.
 
@@ -46,7 +46,7 @@ Not every draft that passes a gentle test deserves your belief, which is the ent
 
 [AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
-Specify `gc_content(dna)` again, but this time specify it to be **case-insensitive**: it should count lowercase `g`/`c` the same as uppercase. Worked example: `gc_content('ggcc') == 1.0`. Draft it, read it, and write two tests: `assert gc_content('GGCC') == 1.0` and `assert gc_content('ggcc') == 1.0`. Many drafts pass the first and silently fail the second because they only check the uppercase letters. If yours does, do not just accept a patched version — reread the fixed line until you can say in one sentence why the first draft missed lowercase input.
+Specify `gc_content(dna)` again, but this time specify it to be **case-insensitive**: it should count lowercase `g`/`c` the same as uppercase. Worked example: `gc_content('ggcc') == 1.0`. Draft it, read it, and write two tests: `assert gc_content('GGCC') == 1.0` and `assert gc_content('ggcc') == 1.0`. Many drafts pass the first and silently fail the second because they only check the uppercase letters. If yours does, do not just accept a patched version, reread the fixed line until you can say in one sentence why the first draft missed lowercase input.
 
 ## Drafting a method, not just a function (35 min)
 
@@ -56,7 +56,7 @@ Classes entered this week, and a method is drafted the same way a function is, s
 
 [AI: Drafter](../intro/course-introduction.qmd#sec-badge-drafter){.small}
 
-Specify a small `Codon` class with an attribute `bases` and a method `translate(self)` that returns the corresponding amino acid letter for a short, fixed table of codons you provide (four or five entries is enough). Worked example: `Codon('ATG').translate() == 'M'`. Draft the class, read `__init__` and `translate` line by line, and write one gentle test plus one nasty test using a codon not in your table — decide, before drafting, what should happen then, and check the draft actually does what you decided rather than whatever it happened to do.
+Specify a small `Codon` class with an attribute `bases` and a method `translate(self)` that returns the corresponding amino acid letter for a short, fixed table of codons you provide (four or five entries is enough). Worked example: `Codon('ATG').translate() == 'M'`. Draft the class, read `__init__` and `translate` line by line, and write one gentle test plus one nasty test using a codon not in your table, decide, before drafting, what should happen then, and check the draft actually does what you decided rather than whatever it happened to do.
 
 ## Logbook (15 min)
 
