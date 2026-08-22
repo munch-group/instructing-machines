@@ -130,13 +130,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/index.html" class="sidebar-item-text sidebar-link" target="_blank">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Slides</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
   </div>
 </li>
@@ -676,7 +676,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#warm-up-done-together-25-min" id="toc-warm-up-done-together-25-min" class="nav-link active" data-scroll-target="#warm-up-done-together-25-min">Warm-up, done together (25 min)</a></li>
   <li><a href="#three-small-functions-60-min" id="toc-three-small-functions-60-min" class="nav-link" data-scroll-target="#three-small-functions-60-min">Three small functions (60 min)</a></li>
-  <li><a href="#part-3-catch-the-silent-bug-35-min" id="toc-part-3-catch-the-silent-bug-35-min" class="nav-link" data-scroll-target="#part-3-catch-the-silent-bug-35-min">Part 3 — Catch the silent bug (35 min)</a></li>
+  <li><a href="#part-3-catch-the-silent-bug-35-min" id="toc-part-3-catch-the-silent-bug-35-min" class="nav-link" data-scroll-target="#part-3-catch-the-silent-bug-35-min">Part 3, Catch the silent bug (35 min)</a></li>
   <li><a href="#drafting-a-method-not-just-a-function-35-min" id="toc-drafting-a-method-not-just-a-function-35-min" class="nav-link" data-scroll-target="#drafting-a-method-not-just-a-function-35-min">Drafting a method, not just a function (35 min)</a></li>
   <li><a href="#logbook-15-min" id="toc-logbook-15-min" class="nav-link" data-scroll-target="#logbook-15-min">Logbook (15 min)</a></li>
   </ul>
@@ -748,12 +748,12 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 <section id="part-3-catch-the-silent-bug-35-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="part-3-catch-the-silent-bug-35-min">Part 3 — Catch the silent bug (35 min)</h2>
+<h2 class="unnumbered anchored" data-anchor-id="part-3-catch-the-silent-bug-35-min">Part 3, Catch the silent bug (35 min)</h2>
 <p>Not every draft that passes a gentle test deserves your belief, which is the entire reason the nasty test exists. This round is curated so the gentle test passes and the nasty one does not, on purpose.</p>
 <section id="exercise-4" class="level4" data-number="35.0.0.4">
 <h4 data-number="35.0.0.4" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 35-4</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-drafter" class="small">AI: Drafter</a></p>
-<p>Specify <code>gc_content(dna)</code> again, but this time specify it to be <strong>case-insensitive</strong>: it should count lowercase <code>g</code>/<code>c</code> the same as uppercase. Worked example: <code>gc_content('ggcc') == 1.0</code>. Draft it, read it, and write two tests: <code>assert gc_content('GGCC') == 1.0</code> and <code>assert gc_content('ggcc') == 1.0</code>. Many drafts pass the first and silently fail the second because they only check the uppercase letters. If yours does, do not just accept a patched version — reread the fixed line until you can say in one sentence why the first draft missed lowercase input.</p>
+<p>Specify <code>gc_content(dna)</code> again, but this time specify it to be <strong>case-insensitive</strong>: it should count lowercase <code>g</code>/<code>c</code> the same as uppercase. Worked example: <code>gc_content('ggcc') == 1.0</code>. Draft it, read it, and write two tests: <code>assert gc_content('GGCC') == 1.0</code> and <code>assert gc_content('ggcc') == 1.0</code>. Many drafts pass the first and silently fail the second because they only check the uppercase letters. If yours does, do not just accept a patched version, reread the fixed line until you can say in one sentence why the first draft missed lowercase input.</p>
 </section>
 </section>
 <section id="drafting-a-method-not-just-a-function-35-min" class="level2 unnumbered">
@@ -762,7 +762,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="exercise-5" class="level4" data-number="35.0.0.5">
 <h4 data-number="35.0.0.5" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 35-5</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-drafter" class="small">AI: Drafter</a></p>
-<p>Specify a small <code>Codon</code> class with an attribute <code>bases</code> and a method <code>translate(self)</code> that returns the corresponding amino acid letter for a short, fixed table of codons you provide (four or five entries is enough). Worked example: <code>Codon('ATG').translate() == 'M'</code>. Draft the class, read <code>__init__</code> and <code>translate</code> line by line, and write one gentle test plus one nasty test using a codon not in your table — decide, before drafting, what should happen then, and check the draft actually does what you decided rather than whatever it happened to do.</p>
+<p>Specify a small <code>Codon</code> class with an attribute <code>bases</code> and a method <code>translate(self)</code> that returns the corresponding amino acid letter for a short, fixed table of codons you provide (four or five entries is enough). Worked example: <code>Codon('ATG').translate() == 'M'</code>. Draft the class, read <code>__init__</code> and <code>translate</code> line by line, and write one gentle test plus one nasty test using a codon not in your table, decide, before drafting, what should happen then, and check the draft actually does what you decided rather than whatever it happened to do.</p>
 </section>
 </section>
 <section id="logbook-15-min" class="level2 unnumbered">

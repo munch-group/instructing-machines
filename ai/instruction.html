@@ -130,13 +130,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/index.html" class="sidebar-item-text sidebar-link" target="_blank">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Slides</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
   </div>
 </li>
@@ -713,7 +713,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="unnumbered anchored" data-anchor-id="layers-of-instruction">Layers of instruction</h2>
 <p>At the bottom is machine code, the raw bits the CPU runs. One step up is assembly, which swaps the bit patterns for short words like <code>MOV</code> and <code>ADD</code>, still one word per machine step. Higher up are compiled languages like C: now you write recognizable words and arithmetic, and a program translates the whole thing down to machine code before it runs. Higher still are interpreted languages, and this is where Python lives, the language you are about to learn.</p>
 <p>In the diagram, notice that every level is a translator down to the level below it. Assembly is translated to machine code; C is translated to assembly code; Python code is handled by a the Python <em>program</em>, which turns each instruction into machine steps as it goes. <!-- At each level, people worried that the level below would become a lost art, and every time, understanding the level below stayed valuable exactly for the moments when the translation went wrong or the stakes were high. Molecular biology is full of high-stakes moments. Keep that thought; it will matter again once the AI enters the picture. --> This makes Python an <em>interpreted</em> language. Unlike the C language where a compiler takes your entire code file and translates it all into machine code before it runs, Python it reads your file with code and runs its instructions, one line at a time and produce the machine code to make the CPU execute the instruction. This is also, quietly, why we make you run scripts from the terminal before we ever open a notebook. Typing <code>python hello.py</code> forces four things apart that a notebook glues together: the file on the disk, the interpreter that reads it, the CPU that does the work, and the terminal where you launch it and watch the output. Once you have felt those four as separate things, the rest of the course is much less mysterious.</p>
-<p>An interpreter is a translator you can trust to mean exactly what your code says. Hold that thought right up against the AI, because the AI is about to look like just one more rung on the ladder, and the most important lesson in this course is the exact way in which it is not.</p>
+<p>An interpreter is a translator you can trust to mean exactly what your code says. Hold that thought right up against the AI, because the AI is about to look like just one more level on the ladder, and the most important lesson in this course is the exact way in which it is not.</p>
 </section>
 <section id="ai" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="ai">AI</h2>
@@ -727,12 +727,12 @@ ul.task-list li input[type="checkbox"] {
 <section id="exercise" class="level4" data-number="10.0.0.1">
 <h4 data-number="10.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 10-1</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Before you touch the assistant, close the diagram and write the five rungs of the ladder out in order from memory, from the raw bits at the bottom to plain language at the top. Beside each one, write a single word: <strong>faithful</strong> if that rung is a translator that always means exactly what the rung above it said, and <strong>plausible</strong> if it is not. Four of the five get the same word and one does not. Being able to say which one, and why, is the entire argument of this course compressed into five lines, and you now have it before you have written a single line of Python.</p>
+<p>Before you touch the assistant, close the diagram and write the five levels of the ladder out in order from memory, from the raw bits at the bottom to plain language at the top. Beside each one, write a single word: <strong>faithful</strong> if that level is a translator that always means exactly what the level above it said, and <strong>plausible</strong> if it is not. Four of the five get the same word and one does not. Being able to say which one, and why, is the entire argument of this course compressed into five lines, and you now have it before you have written a single line of Python.</p>
 </section>
 <section id="exercise-1" class="level4" data-number="10.0.0.2">
 <h4 data-number="10.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 10-2</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
-<p>Open the assistant in your browser and ask it a small factual question you can check, for example, what the three stop codons of the standard genetic code are. Read its answer. Then find a way to verify it that does not involve asking another AI: a textbook, a trusted database, or, later in this course, a tiny program of your own. Was it right? How did you know it was right, independently of the AI telling you so? Note what the badge on this exercise permits and what it does not. You asked it to explain something that already exists, and you settled the question somewhere else. That is the whole of rung one, and it is the only rung you have.</p>
+<p>Open the assistant in your browser and ask it a small factual question you can check, for example, what the three stop codons of the standard genetic code are. Read its answer. Then find a way to verify it that does not involve asking another AI: a textbook, a trusted database, or, later in this course, a tiny program of your own. Was it right? How did you know it was right, independently of the AI telling you so? Note what the badge on this exercise permits and what it does not. You asked it to explain something that already exists, and you settled the question somewhere else. That is the whole of level one, and it is the only level you have.</p>
 </section>
 <section id="exercise-2" class="level4" data-number="10.0.0.3">
 <h4 data-number="10.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 10-3</strong></h4>
