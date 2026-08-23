@@ -1,41 +1,51 @@
 #!/usr/bin/env python3
-"""Check that every notebook we publish carries neutral kernel metadata.
+"""Check that every notebook we publish names the course kernel.
 
 VS Code picks a notebook's kernel in three steps: the kernel it remembers for
-that notebook, then an exact match against ``metadata.kernelspec``, and only
-then the Python environment the Python extension has active for the workspace.
-A student who has just unzipped the course folder misses all three — nothing is
-remembered for a path they have never opened, and no environment has been
-selected yet — so what is left in ``metadata.kernelspec`` is the only thing
-VS Code has to go on.
+that notebook, then a match against ``metadata.kernelspec``, and only then the
+Python environment the Python extension has active for the workspace. A student
+who has just unzipped the course folder misses the first and the third —
+nothing is remembered for a path they have never opened, and no environment has
+been selected there yet — which leaves the kernelspec written in the file as
+the only thing VS Code has to go on.
 
-That metadata is written by whichever machine last executed the notebook, which
-is how three different display names ended up in the book at once, two of them
+Left alone, that metadata says whatever the machine that last executed the
+notebook called its kernel. The book had three names in it at once, two of them
 naming a Python version the environment no longer installs::
 
-    "instructing-machines:default (3.13.14)"   # a name only Kasper's machine has
-    "Python 3 (ipykernel)"                     # whatever ipykernel called itself
-    "Python 3"                                 # what we actually want
+    "instructing-machines:default (3.13.14)"   # a name only one machine ever had
+    "Python 3 (ipykernel)"                     # what ipykernel calls itself
+    "Python 3"                                 # neutral, and matches nothing in particular
 
-A name that matches nothing is not merely useless. VS Code shows it in the
-picker as the kernel the notebook "wants", so a student goes looking for an
-entry that does not exist on their machine.
+None of the three helps. The first two name kernels a student does not have.
+The third is what every Python on the machine is called, so VS Code cannot tell
+the course environment from the system Python, and offers "+ Create Python
+Environment" as its recommendation while the environment the student installed
+half an hour ago sits further down the list.
 
-The course deliberately registers no kernel of its own — ``pixi.toml`` promises
-that nothing is installed outside the course folder, and a named kernelspec
-would have to live in the user's Jupyter directory to be found. So the aim here
-is not to make a notebook name the course environment. It is the opposite: keep
-the metadata neutral and honest, so VS Code offers its own recommendation
-instead of chasing a name that cannot resolve, and the student picks the
-``.pixi`` entry once. ``language_info.version`` goes for the same reason — a
-pinned patch version drifts the moment the environment is rebuilt, and it is a
-hint VS Code can weigh against a perfectly good environment.
+So the notebooks name the kernel the course registers for itself:
+``instructing-machines``, written into the environment prefix by the ``kernel``
+task in ``student-folder/pixi.toml``, which ``pixi run check`` runs on day one.
+That kernelspec lives inside ``.pixi``, so it goes away with the folder and
+breaks no promise about installing things elsewhere, and having a name of its
+own makes it both findable in the picker and matchable from the file.
+
+One consequence to know about: a student who never ran ``pixi run check`` has
+no kernel by that name, and VS Code says so rather than quietly picking
+something else. That is the trade worth making. A student in that state has no
+working environment either way, and a named miss is easier to diagnose than a
+notebook running silently on the wrong Python.
+
+``language_info.version`` is stripped for a related reason — nbconvert stamps
+the running interpreter's patch version into every notebook it executes, so it
+drifts the moment the environment is rebuilt, and it is one more hint VS Code
+can weigh against a perfectly good environment.
 
 Run it read-only, which is what CI does::
 
     python3 scripts/check_notebook_kernels.py
 
-Exit status is 0 when every notebook is already neutral, 1 when any of them
+Exit status is 0 when every notebook already names it, 1 when any of them
 drifted. To rewrite them in place::
 
     python3 scripts/check_notebook_kernels.py --fix
@@ -64,15 +74,14 @@ from quarto_profile import quarto_config  # noqa: E402
 REPO = Path(__file__).resolve().parent.parent
 DOCS = REPO / "docs"
 
-# What every published notebook should say. `python3` is the name ipykernel
-# gives its own kernelspec, so it is what the course environment exposes too —
-# but it is also what every other Python environment on the machine exposes,
-# which is the point: it is a neutral hint, not a claim to a specific
-# environment, and VS Code is left to recommend rather than mis-match.
+# What every published notebook should say. This has to match the --name and
+# --display-name of the `kernel` task in student-folder/pixi.toml exactly: that
+# task is what puts a kernelspec by this name inside the student's environment,
+# and this is what points a notebook at it.
 CANONICAL_KERNELSPEC = {
-    "display_name": "Python 3",
+    "display_name": "Instructing Machines",
     "language": "python",
-    "name": "python3",
+    "name": "instructing-machines",
 }
 
 # Dropped from language_info wherever it appears. nbconvert stamps the running
@@ -192,15 +201,15 @@ def main() -> int:
             print(f"{relative}: {'; '.join(problems)}", file=sys.stderr)
 
     if not drifted:
-        print(f"{len(paths)} notebook(s) checked, all with neutral kernel metadata.")
+        print(f"{len(paths)} notebook(s) checked, all naming the course kernel.")
         return 0
 
     if args.fix:
         print(f"\n{drifted} of {len(paths)} notebook(s) normalized.")
         return 0
 
-    print(f"\n{drifted} of {len(paths)} notebook(s) carry kernel metadata that names\n"
-          "a kernel a student's machine will not have. Fix them with:\n"
+    print(f"\n{drifted} of {len(paths)} notebook(s) do not name the course kernel,\n"
+          "so VS Code will not suggest it when a student opens them. Fix with:\n"
           "    python3 scripts/check_notebook_kernels.py --fix",
           file=sys.stderr)
     return 1

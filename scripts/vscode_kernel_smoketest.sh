@@ -19,10 +19,17 @@
 #   4. checks the environment exposes a kernel at all (scripts/check_env_kernel.py)
 #   5. opens it in a VS Code with a throwaway user-data-dir and extensions-dir
 #
-# By default step 5 starts with no extensions installed, so you also see what a
-# student sees: the "install the recommended extensions" prompt. Pass
-# --with-extensions to install them first and go straight to the kernel
-# question.
+# By default step 5 starts with no extensions installed, so you see what a
+# student sees. Pass --with-extensions to install them first and go straight to
+# the kernel question.
+#
+# Two things will look broken and are not. VS Code opens every new folder in
+# Restricted Mode without asking (the default of
+# security.workspace.trust.startupPrompt changed from "once" to "never" in
+# 1.126), and while a folder is untrusted its extensions do not run, so the
+# "install the recommended extensions" notification usually never appears
+# either. Both are what a student gets. The checklist below is the order that
+# works, and it is the same order the Getting Started chapter gives.
 #
 # Usage:
 #
@@ -43,7 +50,8 @@ for arg in "$@"; do
     case "$arg" in
         --with-extensions) WITH_EXTENSIONS=1 ;;
         --no-vscode)       LAUNCH_VSCODE=0 ;;
-        -h|--help)         sed -n '2,36p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        -h|--help)         awk 'NR>1 && /^#/ {sub(/^# ?/, ""); print; next} NR>1 {exit}' \
+                               "${BASH_SOURCE[0]}"; exit 0 ;;
         *)                 echo "unknown option: $arg" >&2; exit 2 ;;
     esac
 done
@@ -71,7 +79,11 @@ echo "    $FOLDER"
 echo "==> 3/5  pixi install (this is the slow one)"
 pixi install --manifest-path "$FOLDER/pixi.toml"
 
-echo "==> 4/5  is there a kernel to find?"
+echo "==> 4/5  registering the course kernel, and checking it took"
+# `pixi run check` is what a student runs, and it registers the kernel as a
+# dependency. Calling the `kernel` task directly does the same thing without
+# the pages of environment diagnostics that `im check` prints.
+pixi run --manifest-path "$FOLDER/pixi.toml" kernel 2>&1 | sed 's/^/    /'
 pixi run --manifest-path "$FOLDER/pixi.toml" \
     python "$REPO/scripts/check_env_kernel.py" | sed 's/^/    /'
 
@@ -100,7 +112,7 @@ if [ "$WITH_EXTENSIONS" -eq 1 ]; then
     # Same list as student-folder/vscode/extensions.json. pixi-code
     # pulls in ms-python.vscode-python-envs on its own, so installing it here
     # is belt and braces.
-    for extension in ms-python.python ms-toolsai.jupyter renan-r-santos.pixi-code; do
+    for extension in ms-python.python ms-toolsai.jupyter quarto.quarto renan-r-santos.pixi-code; do
         code --user-data-dir "$USER_DATA" --extensions-dir "$EXTENSIONS" \
              --install-extension "$extension" --force 2>&1 | sed 's/^/    /'
     done
@@ -109,17 +121,28 @@ else
 fi
 
 echo
-echo "Opening VS Code. What to look for, in order:"
+echo "Opening VS Code. Do exactly what the chapter tells a student to do:"
+echo
+echo "  1. TRUST. Bottom left, click the blue 'Restricted Mode' button, then"
+echo "     'Trust', then close the panel. Nothing asked you to. That is the"
+echo "     current VS Code default, not a fault of this test, and until you do"
+echo "     it every extension in this window is switched off."
 if [ "$WITH_EXTENSIONS" -eq 0 ]; then
-    echo "  1. a notification offering the recommended extensions. It should"
-    echo "     name Python, Jupyter and Pixi. Accept it and let it finish."
+    echo "  2. INSTALL. Extensions panel on the left, search '@recommended',"
+    echo "     install all four (Python, Jupyter, Quarto, Pixi). A notification"
+    echo "     may offer to do it for you. It usually does not. Do not wait."
+else
+    echo "  2. INSTALL. Already done — the four are in this throwaway profile."
 fi
-echo "  2. open week1/notebooks.ipynb"
-echo "  3. look at the top right. Does it already name a kernel with .pixi in"
-echo "     its path, or does it say 'Select Kernel'?"
-echo "  4. if you have to pick one, is the .pixi entry in the list at all, and"
-echo "     is it offered as the recommended one?"
-echo "  5. run the first cell and check a widget renders."
+echo "  3. RELOAD. Cmd/Ctrl+Shift+P, 'Developer: Reload Window'."
+echo
+echo "Then the things being tested:"
+echo "  4. open week1/notebooks.ipynb"
+echo "  5. top right: does it say 'Instructing Machines' already, or still"
+echo "     'Select Kernel'? If the latter, Select Kernel -> Python Environments"
+echo "     -> is 'Instructing Machines' there, and is it the suggested one?"
+echo "  6. run the first cell: does a widget render? And is a callout in a"
+echo "     markdown cell a coloured box rather than raw text with colons?"
 echo
 echo "Remove the sandbox when you are done:  rm -rf $SANDBOX"
 echo

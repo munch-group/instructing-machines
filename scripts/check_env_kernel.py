@@ -6,20 +6,19 @@ student's VS Code will see::
 
     pixi run --manifest-path student-folder/pixi.toml python scripts/check_env_kernel.py
 
-The course registers no kernel of its own — ``pixi.toml`` promises that nothing
-is installed outside the course folder, and a named kernelspec would have to go
-in the user's Jupyter directory to be found. So the only kernel a student has is
-the one ipykernel writes into the environment prefix when pixi installs it, at
-``.pixi/envs/default/share/jupyter/kernels/python3``. Everything downstream
-depends on that file existing and pointing somewhere real: VS Code offers it,
-`pixi run clean-notebooks` executes through it, and every widget in the book
-runs on it.
+The course registers a kernel named ``instructing-machines`` so that a student
+can recognise it in VS Code's picker among all the other Pythons on their
+machine, and so that a notebook can name it and have VS Code suggest it. The
+``kernel`` task in ``student-folder/pixi.toml`` writes it, ``pixi run check``
+runs that task on day one, and ``--sys-prefix`` keeps the kernelspec inside
+``.pixi`` so nothing lands outside the course folder. Everything downstream
+depends on that file existing and pointing somewhere real.
 
 Three things can go wrong, and all three have:
 
-- ipykernel installs but writes no kernelspec, which is a per-platform failure
-  and the reason this runs on all four in CI rather than on the machine that
-  happened to build the zip.
+- The registration never ran, or ran and wrote nothing, which is a
+  per-platform failure and the reason this runs on all four in CI rather than
+  on the machine that happened to build the zip.
 - The kernelspec resolves to a Python outside the environment, which means a
   student would be running the book on some other interpreter with none of the
   widgets.
@@ -38,10 +37,10 @@ import sys
 import sysconfig
 from pathlib import Path
 
-# The name ipykernel gives its own kernelspec. The book's notebooks name this
-# in their metadata too (see scripts/check_notebook_kernels.py), so the two
-# have to agree.
-KERNEL_NAME = "python3"
+# The kernel the course registers for itself, via the `kernel` task in
+# student-folder/pixi.toml. The book's notebooks name it in their metadata
+# too (see scripts/check_notebook_kernels.py), so all three have to agree.
+KERNEL_NAME = "instructing-machines"
 
 
 def fail(message: str, *details: str) -> int:
@@ -66,7 +65,9 @@ def main() -> int:
         return fail(
             f"the environment exposes no kernelspec named {KERNEL_NAME!r}",
             f"it has: {', '.join(sorted(specs)) or '(nothing)'}",
-            "ipykernel should have written one into",
+            "register it by running, in the course folder:",
+            "    pixi run kernel        (or `pixi run check`, which does it too)",
+            "it should land in",
             f"{prefix / 'share' / 'jupyter' / 'kernels' / KERNEL_NAME}",
         )
 

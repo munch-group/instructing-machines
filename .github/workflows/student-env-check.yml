@@ -41,7 +41,11 @@ jobs:
           manifest-path: student-folder/pixi.toml
           locked: true
 
-      - name: Import every course package
+      - name: Import every course package, and register the kernel
+        # `check` depends on the `kernel` task, so this is also the step
+        # that registers the course kernelspec — exactly as it is on a
+        # student's machine, where `pixi run check` is the day-one command.
+        # The check below then confirms it landed.
         run: pixi run --manifest-path student-folder/pixi.toml check
 
       # Installing the packages is not the same as being able to open a

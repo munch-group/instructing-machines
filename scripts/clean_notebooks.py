@@ -63,6 +63,11 @@ from check_notebook_kernels import normalize as normalize_kernel  # noqa: E402
 
 CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.ipynb)\s*$")
 
+# The kernelspec ipykernel installs into any environment it is part of.
+# Distinct from the course kernel the notebooks name — see the comment in
+# execute_and_clean, and scripts/check_notebook_kernels.py.
+BASE_KERNEL = "python3"
+
 DEFAULT_WORKERS = 4
 EXECUTE_TIMEOUT = 180  # seconds per cell; sandbox_widget spawns a subprocess per cell
 
@@ -100,6 +105,14 @@ def execute_and_clean(path: Path, docs: Path) -> tuple[Path, bool, str]:
         [
             "jupyter", "nbconvert", "--to", "notebook", "--execute", "--inplace",
             f"--ExecutePreprocessor.timeout={EXECUTE_TIMEOUT}",
+            # Execute on the kernelspec ipykernel writes into every
+            # environment, not the one named in the notebook. The notebooks
+            # name the course kernel so that VS Code suggests it to a
+            # student, and that kernel is registered by `pixi run check` on
+            # a student's machine — which CI never runs, having only
+            # installed the environment. Pinning it here keeps executing a
+            # notebook independent of what its metadata asks for.
+            f"--ExecutePreprocessor.kernel_name={BASE_KERNEL}",
             str(path),
         ],
         capture_output=True, text=True,

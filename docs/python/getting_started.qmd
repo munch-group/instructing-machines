@@ -146,9 +146,9 @@ pixi --version
 It should print something like: "pixi 0.60.0". You will probably see a different version number, and that is fine. If you instead see something about the command not being recognized, see [If something goes wrong](#sec-if-something-goes-wrong).
 
 
-## Instal the pixi environment in your course-folder {#sec-course-tool}
+## Install the pixi environment in your course-folder {#sec-course-tool}
 
-Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your `instructing-machines` folder. Open a new terminal, naavigate `instructing-machines` folder using `cd` and run this command:
+Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your `instructing-machines` folder. Open a new terminal, navigate to the `instructing-machines` folder using `cd` and run this command:
 
 ```bash
 pixi install && pixi global install -c conda-forge -c munch-group im-course-tools
@@ -182,25 +182,51 @@ You may wonder why we cannot use Word to create and edit files with programming 
 
 ## Opening the folder {#sec-opening-the-folder}
 
-Start VS Code, then choose **File → Open Folder…** and select the `instructing-machines` folder — the folder itself, not a file inside it.
+Start VS Code. What follows is four small steps, and they have to happen in this order. Each one only works if the one before it has happened already, which is why a step skipped here does not complain at the time. It shows up two minutes later as a kernel that is not in the list, and that looks like a broken installation when it is nothing of the sort.
 
-This matters more than it looks like it does, so it is worth one sentence of explanation. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads those settings when the folder is *what you opened*. Open a single file instead and VS Code has no idea any of this exists.
+### 1. Open the folder, not a file
 
-VS Code will show a small notification offering to install the *recommended extensions* for this folder. Say yes. It is installing Python support, notebook support, and pixi support. The notification only comes once, so if you miss it, open the Extensions panel on the left and type `@recommended` in its search box. That lists exactly the ones this folder asks for, and you can install each one from there.
+Choose **File → Open Folder…** and select the `instructing-machines` folder — the folder itself, not a file inside it.
 
-## Choosing the kernel {#sec-choosing-the-kernel}
+This matters more than it looks like it does. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads that file when the folder is *what you opened*. Open a single file instead and VS Code has no idea any of this exists.
 
-One step is left, and it is the one people skip. In the folder you just opened there is a `week1` directory. Open it and click on `notebooks.ipynb`.
+### 2. Trust the folder
 
-A notebook does not run by itself. It needs a Python to run *on*, and VS Code calls that Python the **kernel**. Look at the top right corner of the notebook. If it says `Select Kernel`, click it. VS Code first asks what *kind* of kernel you are after: choose **Python Environments**, and it then shows you every Python it can find on your machine.
+VS Code has opened your folder in **Restricted Mode**. That means it has switched off every extension until you tell it the folder is safe, and it will not interrupt you to ask. Newer versions wait for you to say so instead, which is exactly why this step is so easy to walk straight past.
 
-Now, which one? You want the Python that `pixi install` built for you a few minutes ago, and you can tell it apart from all the others by its path: it is the one with `.pixi` in it. Choose that one.
+Look at the bottom left corner of the window. There is a blue **Restricted Mode** button sitting there. Click it, then click **Trust** in the panel that opens, and close the panel again. The blue button disappears, and that is how you know it worked.
 
 ::: {.callout-important}
-The other entries in that list are Pythons that came with your machine, or with something else you once installed. None of them has the course widgets. A notebook running on the wrong Python looks perfectly happy right up until an exercise shows up as blank space where a widget should be.
+Do this *before* you install anything. Extensions do not run in Restricted Mode, so installing them first and trusting afterwards leaves you with extensions that are installed and switched off — which on screen looks exactly like extensions that were never installed at all. Trust first, then install.
 :::
 
-You only do this once. From here on VS Code remembers the choice for this folder and makes it for you every time you open a notebook here.
+### 3. Install the four extensions
+
+Open the Extensions panel on the left — the icon made of small squares — and type `@recommended` into its search box. That lists exactly the extensions this folder asks for, under the heading *Workspace Recommendations*. Install each one, then come back here.
+
+VS Code sometimes also offers to install them for you in a small notification. If you get one, use it. Do not wait for one: it does not always appear, and the search above works whether it does or not.
+
+There are four, and you want all four. Python support runs your code. Jupyter support runs notebooks. Pixi support is the one that goes looking inside your `.pixi` folder and finds the Python that `pixi install` built there — without it, the course Python is invisible to VS Code no matter how correctly you installed it. Quarto support is what makes the notes look like the notes: these chapters are written in Quarto's flavour of markdown, and without it the coloured boxes and other niceties turn up as raw text with stray colons around them.
+
+::: {.callout-tip}
+## Four clicks, or one command
+
+If you would rather not click **Install** four times, you can do the whole thing from the terminal instead:
+
+```bash
+code --install-extension ms-python.python --install-extension ms-toolsai.jupyter --install-extension quarto.quarto --install-extension renan-r-santos.pixi-code
+```
+
+On Windows that works as it stands. On a Mac the `code` command does not exist until you ask VS Code to make it: press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter. Then open a **new** terminal and run the command above — the terminal you already had open was started before the change, and will still tell you `command not found: code`.
+
+Either way, reload the window afterwards, as in step 4.
+:::
+
+### 4. Reload the window
+
+When the extensions have finished, reload the window. VS Code may offer to; if it does, say yes. If it does not, do it yourself: press `Ctrl+Shift+P` (`Cmd+Shift+P` on a Mac) to open the command palette, type `Developer: Reload Window`, and press Enter.
+
+This one is not optional. An extension installed while the folder was already open does not always go back and look at the folder again, and the pixi one is like that. The reload is what sends it to find your `.pixi` folder. Skip it and the kernel you are about to choose is simply not in the list, and the coloured boxes in these notes stay as raw text with stray colons around them.
 
 ## If something goes wrong {#sec-if-something-goes-wrong}
 
@@ -208,7 +234,8 @@ You only do this once. From here on VS Code remembers the choice for this folder
 - **"command not found: pixi" (Mac).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
 - **Windows says a script cannot be run, or mentions an execution policy.** You have found a PowerShell install script somewhere. Do not fight with it — use the `.msi` installer linked in [Installing pixi](#sec-installing-pixi) instead. It needs no permissions of that kind.
 - **`pixi install` fails part-way, or complains about paths being too long.** The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to `C:\bioprog\` and run `pixi install` again.
-- **The kernel list has no `.pixi` entry in it.** See [Choosing the kernel](#sec-choosing-the-kernel) for what you are looking for. If it is not there, make sure you opened the *folder* ([Opening the folder](#sec-opening-the-folder)), that `pixi install` has finished, and that the recommended extensions are installed. Then run `Developer: Reload Window` from the command palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), which makes VS Code look again.
+- **The window still says *Restricted Mode*, or nothing Python-related works at all.** The folder is untrusted, which is how VS Code opens every new folder now, and extensions do not run until you change it. Click the blue **Restricted Mode** button in the bottom left corner, then **Trust** ([Opening the folder](#sec-opening-the-folder), step 2). Then reload the window, because the extensions have been sitting switched off until this moment.
+- **There is no `Instructing Machines` entry in the kernel list.** It is created by `pixi run check`, so run that first if you have not. If it is still missing, make sure you opened the *folder* ([Opening the folder](#sec-opening-the-folder)), that `pixi install` has finished, and that the recommended extensions are installed. Then run `Developer: Reload Window` from the command palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), which makes VS Code look again.
 - **A widget shows as blank space, or as raw text.** You are running the notebook on the wrong Python. Click `Select Kernel` in the top right of the notebook and choose the one whose path contains `.pixi`.
 - **Nothing works and the lecture has already started.** Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.
 
