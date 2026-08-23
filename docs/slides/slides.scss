@@ -397,3 +397,32 @@ $selection-bg: #26351c !default;
   height: auto;
   object-fit: contain;
 }
+
+// Line highlighting shifts the code up inside its box, and this puts it back.
+//
+// Quarto's line-highlight plugin clones the code block once per highlight step
+// and lays the clones over the original with
+//   .reveal pre > code:not(:first-child).fragment { position: absolute; top: 0 }
+// On an absolutely positioned child, top: 0 is the containing block's *padding*
+// box, so every clone skips the pre's padding-top. Stepping into the first
+// highlight therefore drops the code by exactly that padding while the grey box
+// stays put: measured 17px above the first line at rest, 6px once highlighting
+// starts.
+//
+// The cure is to carry the vertical padding on the code elements instead of the
+// pre, so the clones bring their own and land where the original sat. The total
+// is unchanged (the pre contributed 12px and the code 6px), so plain blocks and
+// the box itself look exactly as before.
+.reveal div.sourceCode {
+  --im-code-pad-y: 18px;
+
+  pre {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  pre > code {
+    padding-top: var(--im-code-pad-y);
+    padding-bottom: var(--im-code-pad-y);
+  }
+}

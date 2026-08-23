@@ -15,9 +15,26 @@ format:
           /* The header is now real text in the page body (.im-header, see
              custom.scss), so Quarto's own title block is not needed. */
           #title-block-header { display: none; }
+
+          /* The "# Home" heading exists only to carry .unnumbered, which is
+             what keeps this page from taking chapter number 1. Hide the
+             heading element itself -- not its section, which is the whole
+             page. */
+          h1.unnumbered { display: none; }
           
           </style>
 ---
+
+<!-- The landing page is chapter one of the book, so without a heading here it
+     takes the number 1 and every real chapter is pushed up by one, which shows
+     as a sidebar starting at 2. Quarto decides a chapter is unnumbered from the
+     class on its level-one heading, and this page had none: its first heading
+     was "## Practical info", which Quarto adopted as the chapter title and duly
+     numbered. So the heading below exists only to carry .unnumbered, and the
+     style block above hides the heading element. Do not reach for .hidden
+     instead: on a level-one heading that hides the whole section, which on this
+     page is the entire body. -->
+# Home {.unnumbered}
 
 ::: {.im-header}
 ![](logo/im-prompt.svg){.im-logo}

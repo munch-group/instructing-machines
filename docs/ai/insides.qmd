@@ -40,9 +40,9 @@ Here is the Turing machine: There is a long paper tape divided into squares, and
 
 Grab a scrap of paper and draw three squares holding `0 1 1`, put the head on the leftmost square, and set the state to `A`. Now follow three rules, one step at a time until a rule tells you to stop: 
 
-- In state `A` reading a `0`: write `1`, move right, stay in state `A`.
-- In state `A` reading a `1`: write `0`, move right, switch to state `B`.
-- In state `B` reading a `1`: write `1`, move left, and then stop.
+- In state `A` reading a `0`: Write `1`, move right, stay in state `A`.
+- In state `A` reading a `1`: Write `0`, move right, switch to state `B`.
+- In state `B` reading a `1`: Write `1`, move left, and then stop.
 
 Before you start, try to predict what the three squares will say when the machine stops, and where the head will end up. Then trace it slowly and check. 
 
@@ -52,32 +52,7 @@ You may be wondering whether all that shuffling amounted to anything, and it did
 
 ## What the imagined machine has to do with yours {#sec-turing-vs-modern}
 
-Now the astonishing part. This ridiculous little tape shuffler can compute anything that any computer can compute, your laptop included.
-
-::: {.content-visible when-format="html"}
-```{mermaid}
-flowchart TD
-    subgraph tape [" "]
-        direction LR
-        s1["0"] --- s2["1"] --- s3["1"] --- s4["blank"]
-    end
-    head["the head, now in state A"] --> s1
-    rules["the table of rules<br>in A reading 0: write 1, move right, stay in A<br>in A reading 1: write 0, move right, switch to B<br>in B reading 1: write 1, move left, stop"] --> head
-```
-:::
-
-::: {.content-visible unless-format="html"}
-```txt
-   tape    | 0 | 1 | 1 |   |
-   head      ^ in state A
-
-   rules   in A reading 0: write 1, move right, stay in A
-           in A reading 1: write 0, move right, switch to B
-           in B reading 1: write 1, move left, stop
-```
-:::
-
-Turing then showed something stranger still. You can write one table of rules that lets the machine read a description of some *other* machine, written out as ordinary symbols on its own tape, and then act that machine out step by step. One machine that can become any machine, given the right instructions. That is the theoretical birth certificate of the thing on your desk, a general-purpose computer that runs whatever program you hand it.
+Now the astonishing part. This ridiculous little tape shuffler can compute anything that any computer can compute, your laptop included. Turing then showed something stranger still. You can write one table of rules that lets the machine read a description of some *other* machine, written out as ordinary symbols on its own tape, and then act that machine out step by step. One machine that can become any machine, given the right instructions. That is the theoretical birth certificate of the thing on your desk, a general-purpose computer that runs whatever program you hand it.
 
 So how does this paper fantasy line up with the chips in a modern computer? Closer than it looks, in three ways. First, both work through their instructions one small step at a time, and the head's cycle of reading a square, writing a square and moving one place along is the same shape as the CPU carrying out one small operation and then the next. Second, both keep the store apart from the worker: the tape holds the symbols and the head holds the rules, just as memory holds your data and the CPU does the work on it. Third, and this is the one that matters most, the universal machine reads its instructions off the tape as ordinary symbols, which means instructions and data are made of the same stuff. That is why a program on your computer is a file like any other, sitting on the disk among your photographs, until the moment the operating system loads it into memory and lets the CPU carry it out. When Python reads your `hello.py` and acts it out line by line, it is doing the universal machine's job: reading a description of a computation and performing it. 
 
@@ -88,6 +63,7 @@ You never actually talk to the disk, memory, and CPU directly. Sitting between y
 :::: {.content-visible when-format="html"}
 ::: {#fig-os-stack}
 ```{mermaid}
+%%| echo: false
 flowchart TD
     programs["your programs<br>VS Code, a browser, Python running your code"]
     os["the operating system<br>macOS, Windows or Linux"]

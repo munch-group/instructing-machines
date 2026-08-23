@@ -2,24 +2,6 @@
 
 Programmers face a trade-off. The closer your instructions are to the machine's own language, the more direct control you have, and the more painful they are to write. The closer your instructions are to plain human language, the easier they are to write, and the more you are trusting something else to bridge the communication with the CPU. The history of programming is basically a history of adding new layers to the stack of translations between you and the CPU.
 
-::: {.column-margin}
-
-::: {.content-visible when-format="html"}
-```mermaid
-flowchart TD
-    AI["An AI assistant: a request in plain language"] -->|translates down to| PY["Python: an interpreted language"]
-    PY -->|translates down to| C["C and other compiled languages"]
-    C -->|translates down to| ASM["Assembly"]
-    ASM -->|translates down to| MC["Machine code: the raw bits the CPU runs"]
-```
-:::
-
-::: {.content-visible unless-format="html"}
-![The layers of instruction: an AI assistant translates down to Python, which translates down to C and other compiled languages, down to assembly, down to machine code.](images/fig-layers-of-instruction.svg)
-:::
-
-:::
-
 ## Layers of instruction
 
 At the bottom is machine code, the raw bits the CPU runs. One step up is assembly, which swaps the bit patterns for short words like `MOV` and `ADD`, still one word per machine step. Higher up are compiled languages like C: now you write recognizable words and arithmetic, and a program translates the whole thing down to machine code before it runs. Higher still are interpreted languages, and this is where Python lives, the language you are about to learn.

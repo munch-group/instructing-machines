@@ -11,7 +11,12 @@ format:
     code-annotations: hover
     # section-divs: true
     include-in-header:
-      - text: <link rel="stylesheet" href="libs/bootstrap-icons/bootstrap-icons.css">
+      # Bootstrap Icons are used by _pdf-howto.qmd (bi-list, bi-gear). Quarto
+      # bundles them for the book format but not for revealjs, so they are
+      # vendored here. Not under libs/, which .gitignore treats as build
+      # output -- that is why this link 404ed: the files could never be
+      # committed, so no clone or CI build ever had them.
+      - text: <link rel="stylesheet" href="assets/bootstrap-icons/bootstrap-icons.css">
     # include-in-header:
     # - text: |
     #     <script>
@@ -27,7 +32,7 @@ execute:
 project:
   output-dir: _build
   resources:
-    - libs/bootstrap-icons/**
+    - assets/bootstrap-icons/**
   render:
     - index.qmd
     # - week01-values-operators.qmd
