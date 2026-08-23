@@ -3,15 +3,26 @@
     // you open this folder (File -> Open Folder), which is why opening the
     // folder rather than a single file matters.
 
-    // Find the Python interpreter that `pixi install` created, in .pixi/envs
-    // here or in a subfolder. Without this, VS Code offers you some unrelated
-    // Python it found on your machine and the course widgets are missing.
+    // Find the Python interpreter that `pixi install` created. Each entry must
+    // name a directory that IS an environment, not one that contains them --
+    // the shipped default is [".venv", "*/.venv"], and a .venv has bin/python
+    // straight inside it. ".pixi" does not: it holds only envs/, so pointing
+    // here made the Python extension try to validate .pixi itself and pop up
+    // "An Invalid Python interpreter is selected" over and over. The real
+    // environment is one level further down.
     "python-envs.workspaceSearchPaths": [
-        ".pixi",
-        "*/.pixi"
+        ".pixi/envs/default",
+        "*/.pixi/envs/default"
     ],
     "python-envs.defaultEnvManager": "renan-r-santos.pixi-code:pixi",
     "python-envs.defaultPackageManager": "renan-r-santos.pixi-code:pixi",
+
+    // On this course the assistant lives in the browser, not in the editor.
+    // This switches off VS Code's own chat and its inline suggestions, and
+    // disables the built-in Copilot extensions with them, so nothing writes
+    // code over your shoulder while you are still learning to write it. It is
+    // set for this folder only: your other projects are untouched.
+    "chat.disableAIFeatures": true,
 
     // Run every notebook as if it started in this folder, so that a notebook
     // opening 'data/orfs.csv' finds the data no matter which subfolder you

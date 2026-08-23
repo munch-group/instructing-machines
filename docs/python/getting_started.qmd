@@ -186,7 +186,9 @@ Start VS Code. What follows is four small steps, and they have to happen in this
 
 ### 1. Open the folder, not a file
 
-Choose **File → Open Folder…** and select the `instructing-machines` folder — the folder itself, not a file inside it.
+The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so click **Continue without signing in**.
+
+Then choose **File → Open Folder…** and select the `instructing-machines` folder — the folder itself, not a file inside it.
 
 This matters more than it looks like it does. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads that file when the folder is *what you opened*. Open a single file instead and VS Code has no idea any of this exists.
 
@@ -209,6 +211,14 @@ VS Code sometimes also offers to install them for you in a small notification. I
 There are four, and you want all four. Python support runs your code. Jupyter support runs notebooks. Pixi support is the one that goes looking inside your `.pixi` folder and finds the Python that `pixi install` built there — without it, the course Python is invisible to VS Code no matter how correctly you installed it. Quarto support is what makes the notes look like the notes: these chapters are written in Quarto's flavour of markdown, and without it the coloured boxes and other niceties turn up as raw text with stray colons around them.
 
 <!-- 
+Once the Python extension is installed, VS Code may open a tab called **Get Started with Python Development** and offer to walk you through it. You do not need it: this chapter is your walkthrough. Click **Mark Done** at the bottom and close the tab.
+
+::: {.callout-note}
+You may also notice that this folder has no chat panel, and that VS Code never finishes your lines for you. That is on purpose. The course folder switches VS Code's own AI features off, so that the editor stays a place where you write the code yourself.
+
+The assistant on this course is not gone, it has an address: it lives in your browser, where you have to go to it deliberately and can see exactly what you asked and what it answered. @sec-meet-ai introduces it in week one. The setting applies to this folder only, so anything else you open in VS Code is unaffected.
+:::
+
 ::: {.callout-tip}
 ## Four clicks, or one command
 
