@@ -716,12 +716,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-the-terminal" id="toc-sec-the-terminal" class="nav-link" data-scroll-target="#sec-the-terminal">The terminal</a></li>
   <li><a href="#sec-installing-pixi" id="toc-sec-installing-pixi" class="nav-link" data-scroll-target="#sec-installing-pixi">Installing pixi</a></li>
   <li><a href="#sec-course-tool" id="toc-sec-course-tool" class="nav-link" data-scroll-target="#sec-course-tool">Install the pixi environment in your course-folder</a></li>
-  <li><a href="#sec-text-editor" id="toc-sec-text-editor" class="nav-link" data-scroll-target="#sec-text-editor">The text editor</a></li>
-  <li><a href="#sec-opening-the-folder" id="toc-sec-opening-the-folder" class="nav-link" data-scroll-target="#sec-opening-the-folder">Opening the folder</a>
+  <li><a href="#sec-text-editor" id="toc-sec-text-editor" class="nav-link" data-scroll-target="#sec-text-editor">The text editor</a>
   <ul class="collapse">
-  <li><a href="#open-the-folder-not-a-file" id="toc-open-the-folder-not-a-file" class="nav-link" data-scroll-target="#open-the-folder-not-a-file">1. Open the folder, not a file</a></li>
-  <li><a href="#trust-the-folder" id="toc-trust-the-folder" class="nav-link" data-scroll-target="#trust-the-folder">2. Trust the folder</a></li>
-  <li><a href="#install-the-four-extensions" id="toc-install-the-four-extensions" class="nav-link" data-scroll-target="#install-the-four-extensions">3. Install the four extensions</a></li>
   <li><a href="#reload-the-window" id="toc-reload-the-window" class="nav-link" data-scroll-target="#reload-the-window">4. Reload the window</a></li>
   </ul></li>
   <li><a href="#sec-if-something-goes-wrong" id="toc-sec-if-something-goes-wrong" class="nav-link" data-scroll-target="#sec-if-something-goes-wrong">If something goes wrong</a></li>
@@ -952,18 +948,12 @@ Figure&nbsp;7.3: Visual Studio Code
 </figcaption>
 </figure>
 </div>
-</section>
-<section id="sec-opening-the-folder" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-opening-the-folder">Opening the folder</h2>
-<p>Start VS Code. What follows is four small steps, and they have to happen in this order. Each one only works if the one before it has happened already, which is why a step skipped here does not complain at the time. It shows up two minutes later as a kernel that is not in the list, and that looks like a broken installation when it is nothing of the sort.</p>
-<section id="open-the-folder-not-a-file" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="open-the-folder-not-a-file">1. Open the folder, not a file</h3>
+<p>The first time you open the course folder in VS Code, you need to the four steps below in order:</p>
+<p><strong>1. Open the folder, not a file:</strong></p>
 <p>The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so click <strong>Continue without signing in</strong>.</p>
 <p>Then choose <strong>File → Open Folder…</strong> and select the <code>instructing-machines</code> folder — the folder itself, not a file inside it.</p>
 <p>This matters more than it looks like it does. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads that file when the folder is <em>what you opened</em>. Open a single file instead and VS Code has no idea any of this exists.</p>
-</section>
-<section id="trust-the-folder" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="trust-the-folder">2. Trust the folder</h3>
+<p><strong>2. Trust the folder:</strong></p>
 <p>VS Code has opened your folder in <strong>Restricted Mode</strong>. That means it has switched off every extension until you tell it the folder is safe, and it will not interrupt you to ask. Newer versions wait for you to say so instead, which is exactly why this step is so easy to walk straight past.</p>
 <p>Look at the bottom left corner of the window. There is a blue <strong>Restricted Mode</strong> button sitting there. Click it, then click <strong>Trust</strong> in the panel that opens, and close the panel again. The blue button disappears, and that is how you know it worked.</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -979,9 +969,7 @@ Important
 <p>Do this <em>before</em> you install anything. Extensions do not run in Restricted Mode, so installing them first and trusting afterwards leaves you with extensions that are installed and switched off — which on screen looks exactly like extensions that were never installed at all. Trust first, then install.</p>
 </div>
 </div>
-</section>
-<section id="install-the-four-extensions" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="install-the-four-extensions">3. Install the four extensions</h3>
+<p><strong>3. Install the four extensions:</strong></p>
 <p>Open the Extensions panel on the left — the icon made of small squares — and type <code>@recommended</code> into its search box. That lists exactly the extensions this folder asks for, under the heading <em>Workspace Recommendations</em>. Install each one, then come back here.</p>
 <p>VS Code sometimes also offers to install them for you in a small notification. If you get one, use it. Do not wait for one: it does not always appear, and the search above works whether it does or not.</p>
 <p>There are four, and you want all four. Python support runs your code. Jupyter support runs notebooks. Pixi support is the one that goes looking inside your <code>.pixi</code> folder and finds the Python that <code>pixi install</code> built there — without it, the course Python is invisible to VS Code no matter how correctly you installed it. Quarto support is what makes the notes look like the notes: these chapters are written in Quarto’s flavour of markdown, and without it the coloured boxes and other niceties turn up as raw text with stray colons around them.</p>
@@ -1008,7 +996,6 @@ On Windows that works as it stands. On a Mac the `code` command does not exist u
 Either way, reload the window afterwards, as in step 4.
 :::
 -->
-</section>
 <section id="reload-the-window" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="reload-the-window">4. Reload the window</h3>
 <p>When the extensions have finished, reload the window. VS Code may offer to; if it does, say yes. If it does not, do it yourself: press <code>Ctrl+Shift+P</code> (<code>Cmd+Shift+P</code> on a Mac) to open the command palette, type <code>Developer: Reload Window</code>, and press Enter.</p>
