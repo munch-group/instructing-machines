@@ -17,6 +17,13 @@ ipykernel = ">=7.3.0,<8"
 ipywidgets = ">=8.1.9,<9"
 anywidget = ">=0.11.0,<0.12"
 jupyterlab = ">=4.6.3,<5"
+# The Quarto command line tools. The course notes are written in Quarto's
+# flavour of markdown, and the Quarto VS Code extension leans on this to
+# render things like callouts inside a notebook's markdown cells. Putting it
+# here rather than asking a hundred students to install it themselves costs
+# download size (it brings pandoc, deno and typst with it) and buys one less
+# thing that can be missing on one laptop and not another.
+quarto = ">=1.9.38,<2"
 pandas = ">=3.0.5,<4"
 seaborn = ">=0.13.2,<0.14"
 matplotlib = ">=3.11.1,<4"
@@ -60,6 +67,20 @@ vscodenb = ">=1.0.5, <2"
 # These aliases exist so that `pixi run check` works from a terminal that has
 # not activated the environment; pixi passes any extra words straight through,
 # so `pixi run get iteration` runs `im get iteration`.
-check = "im check"
+# Give this environment's kernel a name a student can recognise. Without it
+# the only entry in VS Code's kernel picker is "Python 3 (ipykernel)", which is
+# what every other Python on the machine calls itself too, so the right one is
+# findable only by squinting at paths for the one containing .pixi.
+#
+# --sys-prefix writes the kernelspec into .pixi/envs/default/share/jupyter, so
+# it stays inside this folder like everything else here and goes away with it.
+# (--user would put it in your home directory, which is the promise at the top
+# of this file broken for the sake of one file.)
+kernel = "python -m ipykernel install --sys-prefix --name instructing-machines --display-name 'Instructing Machines'"
+
+# `pixi run check` is the one command every student runs on day one, so the
+# kernel gets registered as part of it rather than as a step of its own that
+# half of them would skip. Running it again is harmless: it overwrites.
+check = { cmd = "im check", depends-on = ["kernel"] }
 get = "im get"
 update = "im update"

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,13 +12,10 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -79,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e89ea000c0c84f0741974ac7ad73179c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e78ddd6ce220c3a0bac0a9724384552d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-168e7e3de7f55a9ea09dcd8c2bedbe54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-702a4126a5293489920bf589fd63f1a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -718,10 +715,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-course-folder" id="toc-sec-course-folder" class="nav-link active" data-scroll-target="#sec-course-folder">The course folder</a></li>
   <li><a href="#sec-the-terminal" id="toc-sec-the-terminal" class="nav-link" data-scroll-target="#sec-the-terminal">The terminal</a></li>
   <li><a href="#sec-installing-pixi" id="toc-sec-installing-pixi" class="nav-link" data-scroll-target="#sec-installing-pixi">Installing pixi</a></li>
-  <li><a href="#sec-course-tool" id="toc-sec-course-tool" class="nav-link" data-scroll-target="#sec-course-tool">Instal the pixi environment in your course-folder</a></li>
+  <li><a href="#sec-course-tool" id="toc-sec-course-tool" class="nav-link" data-scroll-target="#sec-course-tool">Install the pixi environment in your course-folder</a></li>
   <li><a href="#sec-text-editor" id="toc-sec-text-editor" class="nav-link" data-scroll-target="#sec-text-editor">The text editor</a></li>
-  <li><a href="#sec-opening-the-folder" id="toc-sec-opening-the-folder" class="nav-link" data-scroll-target="#sec-opening-the-folder">Opening the folder</a></li>
-  <li><a href="#sec-choosing-the-kernel" id="toc-sec-choosing-the-kernel" class="nav-link" data-scroll-target="#sec-choosing-the-kernel">Choosing the kernel</a></li>
+  <li><a href="#sec-opening-the-folder" id="toc-sec-opening-the-folder" class="nav-link" data-scroll-target="#sec-opening-the-folder">Opening the folder</a>
+  <ul class="collapse">
+  <li><a href="#open-the-folder-not-a-file" id="toc-open-the-folder-not-a-file" class="nav-link" data-scroll-target="#open-the-folder-not-a-file">1. Open the folder, not a file</a></li>
+  <li><a href="#trust-the-folder" id="toc-trust-the-folder" class="nav-link" data-scroll-target="#trust-the-folder">2. Trust the folder</a></li>
+  <li><a href="#install-the-four-extensions" id="toc-install-the-four-extensions" class="nav-link" data-scroll-target="#install-the-four-extensions">3. Install the four extensions</a></li>
+  <li><a href="#reload-the-window" id="toc-reload-the-window" class="nav-link" data-scroll-target="#reload-the-window">4. Reload the window</a></li>
+  </ul></li>
   <li><a href="#sec-if-something-goes-wrong" id="toc-sec-if-something-goes-wrong" class="nav-link" data-scroll-target="#sec-if-something-goes-wrong">If something goes wrong</a></li>
   <li><a href="#you-are-all-set" id="toc-you-are-all-set" class="nav-link" data-scroll-target="#you-are-all-set">You are all set <i class="bi bi-hand-thumbs-up"></i></a></li>
   </ul>
@@ -914,8 +916,8 @@ Figure&nbsp;7.2: The Windows PowerShell app on Windows
 <p>It should print something like: “pixi 0.60.0”. You will probably see a different version number, and that is fine. If you instead see something about the command not being recognized, see <a href="#sec-if-something-goes-wrong">If something goes wrong</a>.</p>
 </section>
 <section id="sec-course-tool" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-course-tool">Instal the pixi environment in your course-folder</h2>
-<p>Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your <code>instructing-machines</code> folder. Open a new terminal, naavigate <code>instructing-machines</code> folder using <code>cd</code> and run this command:</p>
+<h2 class="unnumbered anchored" data-anchor-id="sec-course-tool">Install the pixi environment in your course-folder</h2>
+<p>Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your <code>instructing-machines</code> folder. Open a new terminal, navigate to the <code>instructing-machines</code> folder using <code>cd</code> and run this command:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> install <span class="kw">&amp;&amp;</span> <span class="ex">pixi</span> global install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When it is done there is a new hidden <code>.pixi</code> folder in the course folder containing your very own Python.</p>
 <p>Then check it by running this in the terminal:</p>
@@ -953,15 +955,16 @@ Figure&nbsp;7.3: Visual Studio Code
 </section>
 <section id="sec-opening-the-folder" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-opening-the-folder">Opening the folder</h2>
-<p>Start VS Code, then choose <strong>File → Open Folder…</strong> and select the <code>instructing-machines</code> folder — the folder itself, not a file inside it.</p>
-<p>This matters more than it looks like it does, so it is worth one sentence of explanation. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads those settings when the folder is <em>what you opened</em>. Open a single file instead and VS Code has no idea any of this exists.</p>
-<p>VS Code will show a small notification offering to install the <em>recommended extensions</em> for this folder. Say yes. It is installing Python support, notebook support, and pixi support. The notification only comes once, so if you miss it, open the Extensions panel on the left and type <code>@recommended</code> in its search box. That lists exactly the ones this folder asks for, and you can install each one from there.</p>
+<p>Start VS Code. What follows is four small steps, and they have to happen in this order. Each one only works if the one before it has happened already, which is why a step skipped here does not complain at the time. It shows up two minutes later as a kernel that is not in the list, and that looks like a broken installation when it is nothing of the sort.</p>
+<section id="open-the-folder-not-a-file" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="open-the-folder-not-a-file">1. Open the folder, not a file</h3>
+<p>Choose <strong>File → Open Folder…</strong> and select the <code>instructing-machines</code> folder — the folder itself, not a file inside it.</p>
+<p>This matters more than it looks like it does. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads that file when the folder is <em>what you opened</em>. Open a single file instead and VS Code has no idea any of this exists.</p>
 </section>
-<section id="sec-choosing-the-kernel" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-choosing-the-kernel">Choosing the kernel</h2>
-<p>One step is left, and it is the one people skip. In the folder you just opened there is a <code>week1</code> directory. Open it and click on <code>notebooks.ipynb</code>.</p>
-<p>A notebook does not run by itself. It needs a Python to run <em>on</em>, and VS Code calls that Python the <strong>kernel</strong>. Look at the top right corner of the notebook. If it says <code>Select Kernel</code>, click it. VS Code first asks what <em>kind</em> of kernel you are after: choose <strong>Python Environments</strong>, and it then shows you every Python it can find on your machine.</p>
-<p>Now, which one? You want the Python that <code>pixi install</code> built for you a few minutes ago, and you can tell it apart from all the others by its path: it is the one with <code>.pixi</code> in it. Choose that one.</p>
+<section id="trust-the-folder" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="trust-the-folder">2. Trust the folder</h3>
+<p>VS Code has opened your folder in <strong>Restricted Mode</strong>. That means it has switched off every extension until you tell it the folder is safe, and it will not interrupt you to ask. Newer versions wait for you to say so instead, which is exactly why this step is so easy to walk straight past.</p>
+<p>Look at the bottom left corner of the window. There is a blue <strong>Restricted Mode</strong> button sitting there. Click it, then click <strong>Trust</strong> in the panel that opens, and close the panel again. The blue button disappears, and that is how you know it worked.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -972,10 +975,36 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The other entries in that list are Pythons that came with your machine, or with something else you once installed. None of them has the course widgets. A notebook running on the wrong Python looks perfectly happy right up until an exercise shows up as blank space where a widget should be.</p>
+<p>Do this <em>before</em> you install anything. Extensions do not run in Restricted Mode, so installing them first and trusting afterwards leaves you with extensions that are installed and switched off — which on screen looks exactly like extensions that were never installed at all. Trust first, then install.</p>
 </div>
 </div>
-<p>You only do this once. From here on VS Code remembers the choice for this folder and makes it for you every time you open a notebook here.</p>
+</section>
+<section id="install-the-four-extensions" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="install-the-four-extensions">3. Install the four extensions</h3>
+<p>Open the Extensions panel on the left — the icon made of small squares — and type <code>@recommended</code> into its search box. That lists exactly the extensions this folder asks for, under the heading <em>Workspace Recommendations</em>. Install each one, then come back here.</p>
+<p>VS Code sometimes also offers to install them for you in a small notification. If you get one, use it. Do not wait for one: it does not always appear, and the search above works whether it does or not.</p>
+<p>There are four, and you want all four. Python support runs your code. Jupyter support runs notebooks. Pixi support is the one that goes looking inside your <code>.pixi</code> folder and finds the Python that <code>pixi install</code> built there — without it, the course Python is invisible to VS Code no matter how correctly you installed it. Quarto support is what makes the notes look like the notes: these chapters are written in Quarto’s flavour of markdown, and without it the coloured boxes and other niceties turn up as raw text with stray colons around them.</p>
+<!-- 
+::: {.callout-tip}
+## Four clicks, or one command
+
+If you would rather not click **Install** four times, you can do the whole thing from the terminal instead:
+
+```bash
+code --install-extension ms-python.python --install-extension ms-toolsai.jupyter --install-extension quarto.quarto --install-extension renan-r-santos.pixi-code
+```
+
+On Windows that works as it stands. On a Mac the `code` command does not exist until you ask VS Code to make it: press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter. Then open a **new** terminal and run the command above — the terminal you already had open was started before the change, and will still tell you `command not found: code`.
+
+Either way, reload the window afterwards, as in step 4.
+:::
+-->
+</section>
+<section id="reload-the-window" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="reload-the-window">4. Reload the window</h3>
+<p>When the extensions have finished, reload the window. VS Code may offer to; if it does, say yes. If it does not, do it yourself: press <code>Ctrl+Shift+P</code> (<code>Cmd+Shift+P</code> on a Mac) to open the command palette, type <code>Developer: Reload Window</code>, and press Enter.</p>
+<p>This one is not optional. An extension installed while the folder was already open does not always go back and look at the folder again, and the pixi one is like that. The reload is what sends it to find your <code>.pixi</code> folder. Skip it and the kernel you are about to choose is simply not in the list, and the coloured boxes in these notes stay as raw text with stray colons around them.</p>
+</section>
 </section>
 <section id="sec-if-something-goes-wrong" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-if-something-goes-wrong">If something goes wrong</h2>
@@ -984,7 +1013,8 @@ Important
 <li><strong>“command not found: pixi” (Mac).</strong> The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.</li>
 <li><strong>Windows says a script cannot be run, or mentions an execution policy.</strong> You have found a PowerShell install script somewhere. Do not fight with it — use the <code>.msi</code> installer linked in <a href="#sec-installing-pixi">Installing pixi</a> instead. It needs no permissions of that kind.</li>
 <li><strong><code>pixi install</code> fails part-way, or complains about paths being too long.</strong> The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to <code>C:\bioprog\</code> and run <code>pixi install</code> again.</li>
-<li><strong>The kernel list has no <code>.pixi</code> entry in it.</strong> See <a href="#sec-choosing-the-kernel">Choosing the kernel</a> for what you are looking for. If it is not there, make sure you opened the <em>folder</em> (<a href="#sec-opening-the-folder">Opening the folder</a>), that <code>pixi install</code> has finished, and that the recommended extensions are installed. Then run <code>Developer: Reload Window</code> from the command palette (<code>Ctrl+Shift+P</code>, or <code>Cmd+Shift+P</code> on a Mac), which makes VS Code look again.</li>
+<li><strong>The window still says <em>Restricted Mode</em>, or nothing Python-related works at all.</strong> The folder is untrusted, which is how VS Code opens every new folder now, and extensions do not run until you change it. Click the blue <strong>Restricted Mode</strong> button in the bottom left corner, then <strong>Trust</strong> (<a href="#sec-opening-the-folder">Opening the folder</a>, step 2). Then reload the window, because the extensions have been sitting switched off until this moment.</li>
+<li><strong>There is no <code>Instructing Machines</code> entry in the kernel list.</strong> It is created by <code>pixi run check</code>, so run that first if you have not. If it is still missing, make sure you opened the <em>folder</em> (<a href="#sec-opening-the-folder">Opening the folder</a>), that <code>pixi install</code> has finished, and that the recommended extensions are installed. Then run <code>Developer: Reload Window</code> from the command palette (<code>Ctrl+Shift+P</code>, or <code>Cmd+Shift+P</code> on a Mac), which makes VS Code look again.</li>
 <li><strong>A widget shows as blank space, or as raw text.</strong> You are running the notebook on the wrong Python. Click <code>Select Kernel</code> in the top right of the notebook and choose the one whose path contains <code>.pixi</code>.</li>
 <li><strong>Nothing works and the lecture has already started.</strong> Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.</li>
 </ul>
