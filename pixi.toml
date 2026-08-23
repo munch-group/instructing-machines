@@ -7,9 +7,9 @@ version = "0.1.0"
 
 [tasks]
 # Re-solve the student environment for all four platforms. Run this after
-# editing scripts/student-folder/pixi.toml, then commit the lock file. Then build 
+# editing student-folder/pixi.toml, then commit the lock file. Then build 
 # the downloadable zip by hand.
-student-folder = "pixi lock --manifest-path scripts/student-folder/pixi.toml && python3 scripts/build_student_folder.py"
+student-folder = "pixi lock --manifest-path student-folder/pixi.toml && python3 scripts/build_student_folder.py"
 # Execute every notebook the book renders, verify none of them raise, then
 # strip their output — run this after editing any notebook, before
 # committing. Quarto itself never executes (execute: enabled: false in

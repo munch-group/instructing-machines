@@ -3,9 +3,9 @@
 
 The zip that students download is built from three places:
 
-    scripts/student-folder/   the hand-maintained template (pixi.toml, .vscode, ...)
-    docs/python/data/         data files the lecture notes read
-    docs/intro/               the two week-one notebooks, which ship pre-placed
+    student-folder/     the hand-maintained template (pixi.toml, .vscode, ...)
+    docs/python/data/   data files the lecture notes read
+    docs/intro/         the two week-one notebooks, which ship pre-placed
 
 The projects are *not* in it. Like the chapter notebooks, each one is published
 as its own download and arrives in the week it is set — so a project can be
@@ -56,7 +56,7 @@ REPO = Path(__file__).resolve().parent.parent
 # keep it recognisable and free of spaces.
 FOLDER_NAME = "instructing-machines"
 
-TEMPLATE = REPO / "scripts" / "student-folder"
+TEMPLATE = REPO / "student-folder"
 DEFAULT_OUT = REPO / "docs" / "_book"
 
 # (source directory, destination inside the student folder)
@@ -331,10 +331,10 @@ def assemble(staging: Path, out_dir: Path) -> int:
     lock = folder / "pixi.lock"
     if not lock.exists():
         print(
-            "warning: scripts/student-folder/pixi.lock is missing, so students will each\n"
+            "warning: student-folder/pixi.lock is missing, so students will each\n"
             "         solve the environment themselves (slow, and they may not all\n"
             "         get the same versions). Generate it with:\n"
-            "             pixi lock --manifest-path scripts/student-folder/pixi.toml",
+            "             pixi lock --manifest-path student-folder/pixi.toml",
             file=sys.stderr,
         )
 

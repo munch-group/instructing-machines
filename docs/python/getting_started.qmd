@@ -186,7 +186,21 @@ Start VS Code, then choose **File → Open Folder…** and select the `instructi
 
 This matters more than it looks like it does, so it is worth one sentence of explanation. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads those settings when the folder is *what you opened*. Open a single file instead and VS Code has no idea any of this exists.
 
-VS Code will show a small notification offering to install the *recommended extensions* for this folder. Say yes. It is installing Python support, notebook support, and pixi support. The notification only comes once, so if you miss it, open the Extensions panel on the left and type `@recommended` in its search box. That lists exactly the three this folder asks for, and you can install each one from there.
+VS Code will show a small notification offering to install the *recommended extensions* for this folder. Say yes. It is installing Python support, notebook support, and pixi support. The notification only comes once, so if you miss it, open the Extensions panel on the left and type `@recommended` in its search box. That lists exactly the ones this folder asks for, and you can install each one from there.
+
+## Choosing the kernel {#sec-choosing-the-kernel}
+
+One step is left, and it is the one people skip. In the folder you just opened there is a `week1` directory. Open it and click on `notebooks.ipynb`.
+
+A notebook does not run by itself. It needs a Python to run *on*, and VS Code calls that Python the **kernel**. Look at the top right corner of the notebook. If it says `Select Kernel`, click it. VS Code first asks what *kind* of kernel you are after: choose **Python Environments**, and it then shows you every Python it can find on your machine.
+
+Now, which one? You want the Python that `pixi install` built for you a few minutes ago, and you can tell it apart from all the others by its path: it is the one with `.pixi` in it. Choose that one.
+
+::: {.callout-important}
+The other entries in that list are Pythons that came with your machine, or with something else you once installed. None of them has the course widgets. A notebook running on the wrong Python looks perfectly happy right up until an exercise shows up as blank space where a widget should be.
+:::
+
+You only do this once. From here on VS Code remembers the choice for this folder and makes it for you every time you open a notebook here.
 
 ## If something goes wrong {#sec-if-something-goes-wrong}
 
@@ -194,7 +208,7 @@ VS Code will show a small notification offering to install the *recommended exte
 - **"command not found: pixi" (Mac).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
 - **Windows says a script cannot be run, or mentions an execution policy.** You have found a PowerShell install script somewhere. Do not fight with it — use the `.msi` installer linked in [Installing pixi](#sec-installing-pixi) instead. It needs no permissions of that kind.
 - **`pixi install` fails part-way, or complains about paths being too long.** The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to `C:\bioprog\` and run `pixi install` again.
-- **VS Code will not offer the right kernel.** Make sure you opened the *folder* ([Opening the folder](#sec-opening-the-folder)), that `pixi install` has finished, and that the Python and Jupyter extensions are installed. Then run `Developer: Reload Window` from the command palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac).
+- **The kernel list has no `.pixi` entry in it.** See [Choosing the kernel](#sec-choosing-the-kernel) for what you are looking for. If it is not there, make sure you opened the *folder* ([Opening the folder](#sec-opening-the-folder)), that `pixi install` has finished, and that the recommended extensions are installed. Then run `Developer: Reload Window` from the command palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), which makes VS Code look again.
 - **A widget shows as blank space, or as raw text.** You are running the notebook on the wrong Python. Click `Select Kernel` in the top right of the notebook and choose the one whose path contains `.pixi`.
 - **Nothing works and the lecture has already started.** Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.
 

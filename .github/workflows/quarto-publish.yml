@@ -40,9 +40,9 @@ jobs:
         with:
           # Build the book with the same environment the students install, so
           # a chapter that renders here is a chapter that runs on their laptop.
-          # scripts/student-folder/pixi.toml is the one that is cross-platform and has
+          # student-folder/pixi.toml is the one that is cross-platform and has
           # the course widgets; the root pixi.toml is Mac-only (osx-arm64).
-          manifest-path: scripts/student-folder/pixi.toml
+          manifest-path: student-folder/pixi.toml
           run-install: true
           # Put that environment on PATH for the steps below, so Quarto's
           # jupyter engine executes the notebooks with the course Python
@@ -71,6 +71,15 @@ jobs:
         # This walks the profile's chapter list in render order and fails on
         # that arrives too early, so the ladder cannot silently bend again.
         run: python3 scripts/check-badge-order.py --census
+
+      - name: Check notebook kernel metadata
+        # Every notebook here is also a download, and a downloaded notebook is
+        # opened in a VS Code that has never seen it. With nothing remembered
+        # and no environment selected yet, `metadata.kernelspec` is the only
+        # thing VS Code has to go on — and nbconvert rewrites it with the name
+        # of whichever machine last executed the notebook. This fails the
+        # publish if any of them names a kernel a student cannot have.
+        run: python3 scripts/check_notebook_kernels.py
 
       - name: Execute and verify every notebook
         # Quarto never executes at render time (execute: enabled: false in

@@ -15,6 +15,14 @@ cell's output and execution count, and finally strips the two things plain
 ``metadata.widgets`` blob and each code cell's ``metadata.execution``
 timestamps — so a clean run produces a clean diff.
 
+It also normalizes each notebook's kernel metadata on the way past, via
+``scripts/check_notebook_kernels.py``. nbconvert stamps the executing machine's
+kernel name and Python version into every notebook it runs, and that stamp is
+what VS Code reads when it decides which kernel a freshly downloaded notebook
+wants. Left alone it names an environment only this machine has. Normalizing
+here means the stamp is undone by the same command that applies it, rather than
+by whoever notices.
+
 The file list is read from the book's own config (the same chapters
 ``scripts/check-badge-order.py`` walks), not a hardcoded list or a blind glob,
 so a notebook added to or dropped from the book is picked up automatically
@@ -51,6 +59,7 @@ import nbformat
 # check-badge-order.py by path.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from quarto_profile import quarto_config  # noqa: E402
+from check_notebook_kernels import normalize as normalize_kernel  # noqa: E402
 
 CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.ipynb)\s*$")
 
@@ -102,10 +111,14 @@ def execute_and_clean(path: Path, docs: Path) -> tuple[Path, bool, str]:
         tail = "\n".join(result.stderr.strip().splitlines()[-15:])
         return path, False, tail
 
+    # Read back what nbconvert wrote and undo its two stamps: the kernel
+    # metadata always, the outputs unless this is a notebook whose baked-in
+    # output is the whole point of the page.
+    nb = nbformat.read(path, as_version=4)
+    normalize_kernel(nb)
     if path.relative_to(docs).as_posix() not in KEEP_OUTPUT:
-        nb = nbformat.read(path, as_version=4)
         clean_metadata(nb)
-        nbformat.write(nb, path)
+    nbformat.write(nb, path)
     return path, True, ""
 
 
