@@ -721,6 +721,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-course-tool" id="toc-sec-course-tool" class="nav-link" data-scroll-target="#sec-course-tool">Instal the pixi environment in your course-folder</a></li>
   <li><a href="#sec-text-editor" id="toc-sec-text-editor" class="nav-link" data-scroll-target="#sec-text-editor">The text editor</a></li>
   <li><a href="#sec-opening-the-folder" id="toc-sec-opening-the-folder" class="nav-link" data-scroll-target="#sec-opening-the-folder">Opening the folder</a></li>
+  <li><a href="#sec-choosing-the-kernel" id="toc-sec-choosing-the-kernel" class="nav-link" data-scroll-target="#sec-choosing-the-kernel">Choosing the kernel</a></li>
   <li><a href="#sec-if-something-goes-wrong" id="toc-sec-if-something-goes-wrong" class="nav-link" data-scroll-target="#sec-if-something-goes-wrong">If something goes wrong</a></li>
   <li><a href="#you-are-all-set" id="toc-you-are-all-set" class="nav-link" data-scroll-target="#you-are-all-set">You are all set <i class="bi bi-hand-thumbs-up"></i></a></li>
   </ul>
@@ -954,7 +955,27 @@ Figure&nbsp;7.3: Visual Studio Code
 <h2 class="unnumbered anchored" data-anchor-id="sec-opening-the-folder">Opening the folder</h2>
 <p>Start VS Code, then choose <strong>File → Open Folder…</strong> and select the <code>instructing-machines</code> folder — the folder itself, not a file inside it.</p>
 <p>This matters more than it looks like it does, so it is worth one sentence of explanation. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads those settings when the folder is <em>what you opened</em>. Open a single file instead and VS Code has no idea any of this exists.</p>
-<p>VS Code will show a small notification offering to install the <em>recommended extensions</em> for this folder. Say yes. It is installing Python support, notebook support, and pixi support. The notification only comes once, so if you miss it, open the Extensions panel on the left and type <code>@recommended</code> in its search box. That lists exactly the three this folder asks for, and you can install each one from there.</p>
+<p>VS Code will show a small notification offering to install the <em>recommended extensions</em> for this folder. Say yes. It is installing Python support, notebook support, and pixi support. The notification only comes once, so if you miss it, open the Extensions panel on the left and type <code>@recommended</code> in its search box. That lists exactly the ones this folder asks for, and you can install each one from there.</p>
+</section>
+<section id="sec-choosing-the-kernel" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-choosing-the-kernel">Choosing the kernel</h2>
+<p>One step is left, and it is the one people skip. In the folder you just opened there is a <code>week1</code> directory. Open it and click on <code>notebooks.ipynb</code>.</p>
+<p>A notebook does not run by itself. It needs a Python to run <em>on</em>, and VS Code calls that Python the <strong>kernel</strong>. Look at the top right corner of the notebook. If it says <code>Select Kernel</code>, click it. VS Code first asks what <em>kind</em> of kernel you are after: choose <strong>Python Environments</strong>, and it then shows you every Python it can find on your machine.</p>
+<p>Now, which one? You want the Python that <code>pixi install</code> built for you a few minutes ago, and you can tell it apart from all the others by its path: it is the one with <code>.pixi</code> in it. Choose that one.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The other entries in that list are Pythons that came with your machine, or with something else you once installed. None of them has the course widgets. A notebook running on the wrong Python looks perfectly happy right up until an exercise shows up as blank space where a widget should be.</p>
+</div>
+</div>
+<p>You only do this once. From here on VS Code remembers the choice for this folder and makes it for you every time you open a notebook here.</p>
 </section>
 <section id="sec-if-something-goes-wrong" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-if-something-goes-wrong">If something goes wrong</h2>
@@ -963,7 +984,7 @@ Figure&nbsp;7.3: Visual Studio Code
 <li><strong>“command not found: pixi” (Mac).</strong> The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.</li>
 <li><strong>Windows says a script cannot be run, or mentions an execution policy.</strong> You have found a PowerShell install script somewhere. Do not fight with it — use the <code>.msi</code> installer linked in <a href="#sec-installing-pixi">Installing pixi</a> instead. It needs no permissions of that kind.</li>
 <li><strong><code>pixi install</code> fails part-way, or complains about paths being too long.</strong> The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to <code>C:\bioprog\</code> and run <code>pixi install</code> again.</li>
-<li><strong>VS Code will not offer the right kernel.</strong> Make sure you opened the <em>folder</em> (<a href="#sec-opening-the-folder">Opening the folder</a>), that <code>pixi install</code> has finished, and that the Python and Jupyter extensions are installed. Then run <code>Developer: Reload Window</code> from the command palette (<code>Ctrl+Shift+P</code>, or <code>Cmd+Shift+P</code> on a Mac).</li>
+<li><strong>The kernel list has no <code>.pixi</code> entry in it.</strong> See <a href="#sec-choosing-the-kernel">Choosing the kernel</a> for what you are looking for. If it is not there, make sure you opened the <em>folder</em> (<a href="#sec-opening-the-folder">Opening the folder</a>), that <code>pixi install</code> has finished, and that the recommended extensions are installed. Then run <code>Developer: Reload Window</code> from the command palette (<code>Ctrl+Shift+P</code>, or <code>Cmd+Shift+P</code> on a Mac), which makes VS Code look again.</li>
 <li><strong>A widget shows as blank space, or as raw text.</strong> You are running the notebook on the wrong Python. Click <code>Select Kernel</code> in the top right of the notebook and choose the one whose path contains <code>.pixi</code>.</li>
 <li><strong>Nothing works and the lecture has already started.</strong> Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.</li>
 </ul>
