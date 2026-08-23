@@ -426,3 +426,103 @@ $selection-bg: #26351c !default;
     padding-bottom: var(--im-code-pad-y);
   }
 }
+
+// The %%steps widget carries its own compact spacing (4px between steps, 11px
+// badges, 13px code), but reveal's list styling overrides it: `.reveal .slide
+// ol li` sets margin 0.4em/0.2em on every list item, and those em values
+// resolve against the 31.5px slide font, so each step picked up ~19px of margin
+// while the text stayed at 11px. Line-height was inherited the same way, as an
+// absolute 40.95px around 11px text. That is the small-text-in-a-tall-row look.
+//
+// Resetting it restores the proportions the widget has in a notebook. The zoom
+// then scales the whole thing uniformly, which is the only way to enlarge it:
+// the widget's own text sizes are absolute px, so font-size cannot touch them.
+// On the taller of the two widget slides 1.6 leaves 28px of headroom below the
+// widget and 1.8 overflows by 1px, so 1.6 is about as large as both slides
+// take. Raise or lower it per slide with
+// `## Title {style="--im-steps-zoom: 1.8"}`.
+//
+// The extra `.slides` is deliberate: `.reveal .slide ol li` is two classes and
+// two types, which outranks a plain `.reveal .sw-root li`. Going through
+// `.slides` makes this three classes and two types, so it wins on specificity
+// without resorting to !important.
+.reveal .slides .sw-root {
+  // The widget's containers (.sw-section, .sw-head) set no font-size of their
+  // own. In a slide they inherited 31.5px and built line boxes that tall around
+  // 11-13px text, which is what put far more air above the first line than
+  // below the last. 13px is the size the widget's own code text uses, and what
+  // these containers inherit in a notebook.
+  font-size: 13px;
+  line-height: normal;
+  zoom: var(--im-steps-zoom, 1.8);
+
+  ol,
+  ul,
+  li,
+  ol li,
+  ul li {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+  }
+
+  // Reveal also sets `display: inline-block` on ol, which quietly disabled the
+  // widget's own `gap: 4px` -- gap only applies to a flex or grid container.
+  // The em margins above were masking that, so removing them left the step
+  // rows touching. Restore the layout the widget asks for; these three
+  // declarations are copied from its own stylesheet, not invented here.
+  .sw-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+
+// Overview mode (Esc / O) sizes its cards from a hardcoded rule in reveal's
+// own overview plugin:
+//
+//     const min = Math.min(innerWidth, innerHeight);
+//     const scale = Math.max(min / 5, 150) / min;
+//
+// so a card is always a fifth of the smaller viewport dimension, and the value
+// lands in an inline transform on .slides. There is no config option and
+// nothing in reveal's CSS to override -- setting `perspective` does nothing,
+// because the shrink is an explicit scale() and not a 3D projection.
+//
+// Zooming the container is the way in. It multiplies reveal's scale and its
+// translate offsets alike, so the grid shrinks around the current slide and
+// that slide stays centred; and because it is CSS on a container rather than a
+// patch of the inline transform, it survives the plugin recomputing the
+// transform every time you move inside the overview. Unlike transform: scale()
+// it also keeps hit testing correct, so cards stay clickable.
+//
+// Measured at 1600x900 on this deck: 1 gives 220x146 cards and 11 on screen,
+// 0.6 gives 132x88 and 18, 0.4 gives 88x59 and 26. Below about 0.5 the titles
+// stop being readable, which is the point of the overview.
+.reveal.overview .slides {
+  zoom: var(--im-overview-zoom, 0.3);
+}
+
+// Optional drop shadow for figures:
+//
+//     ![](images/w01-vscode.png){.dropshadow}
+//
+// or on a wrapper, which also covers a figure with a caption:
+//
+//     ::: {.dropshadow}
+//     ![A caption](images/w01-vscode.png)
+//     :::
+//
+// The deck already styles every image with `.reveal section img { box-shadow:
+// none }` -- one class and two types -- so each selector below carries a second
+// class to outrank it. Tune one instance with
+// `{style="--im-dropshadow: 0 2px 8px rgba(0,0,0,.45)"}`.
+.reveal {
+  img.dropshadow,
+  .dropshadow img,
+  .dropshadow svg,
+  figure.dropshadow img {
+    box-shadow: var(--im-dropshadow, 0 6px 20px rgba(0, 0, 0, 0.28));
+  }
+}

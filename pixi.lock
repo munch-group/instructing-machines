@@ -39,6 +39,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/certifi-2026.7.22-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/cffi-2.1.0-py313h9af98d7_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/charset-normalizer-3.4.9-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/click-8.4.2-pyhc90fa1f_0.conda
       - conda: https://conda.anaconda.org/munch-group/noarch/codelens-widget-0.1.42-py_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/colorama-0.4.6-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/comm-0.2.3-pyhe01879c_0.conda
@@ -81,6 +82,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/hyperframe-6.1.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/icu-78.3-hef89b57_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/idna-3.18-pyhcf101f3_0.conda
+      - conda: https://conda.anaconda.org/munch-group/noarch/im-course-tools-0.1.5-py_0.conda
       - conda: https://conda.anaconda.org/munch-group/noarch/im-pytest-0.1.32-py_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-9.0.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.3.0-pyhd8ed1ab_0.conda
@@ -678,6 +680,19 @@ packages:
   - pkg:pypi/charset-normalizer?source=hash-mapping
   size: 61418
   timestamp: 1783505332569
+- conda: https://conda.anaconda.org/conda-forge/noarch/click-8.4.2-pyhc90fa1f_0.conda
+  sha256: ccc4787f511964f9a1f2d2d2859c91c5d571fb60f7f09d4c4e092c9b7a94e671
+  md5: 2c4bd6aeb90bb157456841c3270a0d92
+  depends:
+  - __unix
+  - python
+  - python >=3.10
+  license: BSD-3-Clause
+  license_family: BSD
+  purls:
+  - pkg:pypi/click?source=hash-mapping
+  size: 107155
+  timestamp: 1783085363526
 - conda: https://conda.anaconda.org/munch-group/noarch/codelens-widget-0.1.42-py_0.conda
   sha256: 05e825745d3bb7f25023df98bdc4b15df1f247e9f656d3905ab4128d21d9e828
   md5: f833fb9436b663f09030aaace9cc84bf
@@ -1175,6 +1190,15 @@ packages:
   - pkg:pypi/idna?source=hash-mapping
   size: 163869
   timestamp: 1781620148226
+- conda: https://conda.anaconda.org/munch-group/noarch/im-course-tools-0.1.5-py_0.conda
+  sha256: cb4f3ba7ff82f82626562b84584434e145f02879106b218d6c79001c2f5a7bed
+  md5: 9894b19314930293b93ec5e7a5316b5d
+  depends:
+  - click >=8
+  - python >=3.9
+  license: MIT
+  size: 46224
+  timestamp: 1787221101131
 - conda: https://conda.anaconda.org/munch-group/noarch/im-pytest-0.1.32-py_0.conda
   sha256: 540e1333118adb27258056940f80e243bc913c24fe5d8590a8f34fc6f41973ba
   md5: 18dc5138c698580e9ad563125f84d153

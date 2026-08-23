@@ -8,6 +8,7 @@ execute:
 jupyter: python3
 format:
   revealjs:
+    navigation-mode: linear
     controls-layout: bottom-right
     slide-number: c
     classoption: fleqn
@@ -26,13 +27,14 @@ format:
 -->
 ```
 
+
 <!-- Red text: -->
 <!-- [important note]{.alert} -->
 
 
 <!-- ============================================================ -->
 <!-- ============================================================ -->
-# Week 1 — Introduction
+# Week 1 — Introduction {background-gradient="linear-gradient(to bottom, #0D7D93, #E8F2F4)"}
 
 {{< include _pdf-howto.qmd >}}
 <!-- ============================================================ -->
@@ -49,10 +51,10 @@ format:
 <!-- ============================================================ -->
 
 <!-- ============================================================ -->
-## Lecturer
+## People
 <!-- ============================================================ -->
 
-**Kasper Munch**
+**Lecturer/responsible: Kasper Munch**
 
 **Instructors**
 
@@ -62,10 +64,29 @@ format:
 - Helle
 
 <!-- ============================================================ -->
-## Course comments padlet
+##  { background-image="images/padlet.png" }
 <!-- ============================================================ -->
 
-![](images/qr_code.png)
+
+
+<!-- ::: {.absolute top="15%" left="5%"}
+![](images/padlet.png)
+::: -->
+
+<!-- ============================================================ -->
+## Student comments padlet
+<!-- ============================================================ -->
+
+Anonymous comments, big and small, 
+
+::: {.absolute top="30%" left="5%" width="40%"}
+![](images/qr_code.png){.dropshadow}
+:::
+
+::: {.absolute top="30%" left="55%" width="40%"}
+![](images/padlet-link.png){.dropshadow}
+:::
+
 
 
 <!-- ============================================================ -->
@@ -480,10 +501,9 @@ Windows PowerShell / Terminal
 <!-- ============================================================ -->
 
 <!-- ============================================================ -->
+# Values, Operators, Reduction
 <!-- ============================================================ -->
-# Week 1 — Values, operators, precedence, reduction, variables, substitution
-{{< include _pdf-howto.qmd >}}
-<!-- ============================================================ -->
+
 
 <!-- ============================================================ -->
 ## Workflow
@@ -536,7 +556,7 @@ print("Hello world") # <1>
 ## Why is it called "print"?
 <!-- ============================================================ -->
 
-```python
+```{.python}
 print("Hello world")
 ```
 
@@ -549,7 +569,7 @@ print("Hello world")
 ## A program is a series of statements
 <!-- ============================================================ -->
 
-```python
+```{.python}
 print("Here we go")
 print("still at it")
 print("ok, that was it")
@@ -600,7 +620,7 @@ print "Hello"
 ## Numbers: integers and floats
 <!-- ============================================================ -->
 
-```python
+```{.python}
 print(42)
 print(3.14159265)
 
@@ -636,35 +656,26 @@ print(3 + 2 * 4 + 9)
 :::
 
 <!-- ============================================================ -->
-## Expressions {auto-animate="true"}
+## Expressions
 <!-- ============================================================ -->
 
 **(a piece of code that reduces to a value)**
 
-```{python}
-import steps_widget
-```
-
-```{python}
-%%steps
-3 + 2 * 4 + 9 # PRINT STEPS
-```
-
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
 3 * 8 + 6
 ```
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
   24  + 6
 ```
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
     30
 ```
 
@@ -673,36 +684,45 @@ import steps_widget
 ## Expressions {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 print(3 + 2 * 4 + 9)
 ```
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
 print(3 + 8 + 9)
 ```
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
 print(20)
 ```
 
 What happens if we leave out the `print`?
 
+## %%steps widget
+
+```{python}
+#| echo: false
+import steps_widget
+```
+
+```{python .python}
+%%steps
+3 + 2 * 4 + 9 # PRINT STEPS
+```
 
 <!-- ============================================================ -->
----
-
-::: {.r-fit-text}
-Variables
-:::
+# Variables, substitution
 <!-- ============================================================ -->
 
+<!-- ============================================================ -->
 ## Variables are names
+<!-- ============================================================ -->
 
-```python
+```{.python}
 n = 17
 pi = 3.1415
 message = "What's up doc?"
@@ -739,7 +759,7 @@ bruce = 7
 ## Expressions with variables {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 + x * 4 + y)
@@ -747,7 +767,7 @@ print(3 + x * 4 + y)
 
 ## Expressions with variables {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 + 2 * 4 + y)
@@ -757,7 +777,7 @@ print(3 + 2 * 4 + y)
 
 ## Expressions with variables {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 + 8 + y)
@@ -767,7 +787,7 @@ print(3 + 8 + y)
 
 ## Expressions with variables {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 + 8 + 9)
@@ -777,7 +797,7 @@ print(3 + 8 + 9)
 
 ## Expressions with variables {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(20)
@@ -803,7 +823,7 @@ print(b)
 ## Add one to a variable {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 x = 1
 print(x)
 x = *expression*
@@ -812,7 +832,7 @@ print(x)
 
 ## Add one to a variable {auto-animate="true"}
 
-```python
+```{.python}
 x = 1
 print(x)
 x = x + 1
@@ -853,7 +873,7 @@ print(x)
 ## Statements {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 x = 117
 
 print(x)
@@ -861,7 +881,7 @@ print(x)
 
 ## Statements {auto-animate="true"}
 
-```python
+```{.python}
 x = 117
 
 print(x)
@@ -883,7 +903,7 @@ print(x)
 ## Expressions {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 + x * 4 + y)
@@ -891,7 +911,7 @@ print(3 + x * 4 + y)
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 + 2 * 4 + y)
@@ -901,7 +921,7 @@ print(3 + 2 * 4 + y)
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 +   8   + y)
@@ -911,7 +931,7 @@ print(3 +   8   + y)
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(3 +   8   + 9)
@@ -921,7 +941,7 @@ print(3 +   8   + 9)
 
 ## Expressions {auto-animate="true"}
 
-```python
+```{.python}
 x = 2
 y = 9
 print(      20      )
@@ -945,7 +965,7 @@ print(b)
 ## Add one to a variable {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 x = 1
 print(x)
 x = *expression*
@@ -954,7 +974,7 @@ print(x)
 
 ## Add one to a variable {auto-animate="true"}
 
-```python
+```{.python}
 x = 1
 print(x)
 x = x + 1
@@ -1027,14 +1047,14 @@ print(42 >= 7)
 ## Expressions with relational operators {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 nr = 42
 print(nr >= 7)
 ```
 
 ## Expressions with relational operators {auto-animate="true"}
 
-```python
+```{.python}
 nr = 42
 print(42 >= 7)
 ```
@@ -1043,7 +1063,7 @@ print(42 >= 7)
 
 ## Expressions with relational operators {auto-animate="true"}
 
-```python
+```{.python}
 nr = 42
 print( True  )
 ```
@@ -1054,7 +1074,7 @@ print( True  )
 ## Expressions with relational operators {auto-animate="true"}
 <!-- ============================================================ -->
 
-```python
+```{.python}
 cars = 2
 people = 7
 print(cars * 4 >= people)
@@ -1062,7 +1082,7 @@ print(cars * 4 >= people)
 
 ## Expressions with relational operators {auto-animate="true"}
 
-```python
+```{.python}
 cars = 2
 people = 7
 print(   2 * 4 >=      7)
@@ -1072,7 +1092,7 @@ print(   2 * 4 >=      7)
 
 ## Expressions with relational operators {auto-animate="true"}
 
-```python
+```{.python}
 cars = 2
 people = 7
 print(     8   >=      7)
@@ -1082,7 +1102,7 @@ print(     8   >=      7)
 
 ## Expressions with relational operators {auto-animate="true"}
 
-```python
+```{.python}
 cars = 2
 people = 7
 print(       True       )
@@ -1115,7 +1135,7 @@ z = x * 7 + y # PRINT STEPS
 ## More expressions
 <!-- ============================================================ -->
 
-```python
+```{.python}
 print(7 * 6 >= 7)
 print(1 * 2 != 1 + 1)
 print(2 == "2")
@@ -1152,7 +1172,7 @@ not
 ## `not`
 <!-- ============================================================ -->
 
-```python
+```{.python}
 not 7 > 3
 not 2 * 4 == 3 * 5
 not True
@@ -1163,7 +1183,7 @@ not False
 ## `not`
 <!-- ============================================================ -->
 
-```python
+```{.python}
 not 0
 not 2
 not -1
@@ -1226,7 +1246,7 @@ True  and  True
 ## `and`
 <!-- ============================================================ -->
 
-```python
+```{.python}
 True and True
 False and True
 True and False
@@ -1237,7 +1257,7 @@ False and False
 ## `and`
 <!-- ============================================================ -->
 
-```python
+```{.python}
 print(True and 1)
 print(0 and True)
 print(True and 0)
@@ -1272,7 +1292,7 @@ False or  True
 ## `or`
 <!-- ============================================================ -->
 
-```python
+```{.python}
 True or True
 False or True
 True or False
@@ -1283,7 +1303,7 @@ False or False
 ## `or`
 <!-- ============================================================ -->
 
-```python
+```{.python}
 print(1 or True)
 print(False or 1)
 print(1 or False)
@@ -1294,7 +1314,7 @@ print(False or 0)
 ## Challenge
 <!-- ============================================================ -->
 
-```python
+```{.python}
 x = 7
 y = 4
 print(x > y and x or y)

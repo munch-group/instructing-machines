@@ -631,12 +631,13 @@ pre:not(.sourceCode) {
   top: 0;
   right: 0;
   border: none;
-  background-color: transparent;
+  background-color: transparent !important;
   color: #6c757d;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   transition: color 0.2s;
-  opacity: 0;
+  // opacity: 0;
+  opacity: 1;
 }
 
 div.sourceCode:hover .code-copy-button {
@@ -644,14 +645,16 @@ div.sourceCode:hover .code-copy-button {
 }
 
 .code-copy-button:hover {
-  color: #000000;
-  background-color: rgba(0, 0, 0, 0.05);
+  color: #000000 !important;
+  // background-color: rgba(0, 0, 0, 0.05);
+  background-color: transparent;  
 }
 
 .quarto-dark .code-copy-button:hover,
 [data-bs-theme="dark"] .code-copy-button:hover {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1);
+  // background-color: rgba(255, 255, 255, 0.1);
+  background-color: transparent;
 }
 
 /* Code annotation: line-highlight alignment.

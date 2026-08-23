@@ -1,0 +1,57 @@
+| Current tate | Current Reading | Move | New state|
+|:---|:---|:---|:---|
+| A | 0| 1 right | stay in A |
+| A | 1| 0 right, switch to B |
+| B | 1| 1 left | stop |
+
+: Turing example rules {#tbl-turing-rules}
+
+::: {.content-visible when-format="html"}
+```{mermaid}
+%%| echo: false
+%%| label: fig-turing-example
+%%| fig-cap: "Turing machine example."
+flowchart LR
+    subgraph tape [" "]
+        direction LR
+        s1["0"] --- s2["1"] --- s3["1"] --- s4["blank"]
+    end
+    head["the head, now in state A"] --> s1
+    rules["the table of rules<br>in A reading 0: write 1, move right, stay in A<br>in A reading 1: write 0, move right, switch to B<br>in B reading 1: write 1, move left, stop"] --> head
+    style rules text-align:left
+```
+:::
+
+::: {.content-visible unless-format="html"}
+```txt
+   tape    | 0 | 1 | 1 |   |
+   head      ^ in state A
+
+   rules   in A reading 0: write 1, move right, stay in A
+           in A reading 1: write 0, move right, switch to B
+           in B reading 1: write 1, move left, stop
+```
+:::
+
+
+
+
+::: {.column-margin}
+
+::: {.content-visible when-format="html"}
+```{mermaid}
+%%| echo: false
+%%| 
+flowchart TD
+    AI["An AI assistant: a request in plain language"] -->|Predicts| PY["Python: an interpreted language"]
+    PY -->|Translates| C["C and other compiled languages"]
+    C -->|Translates| ASM["Assembly"]
+    ASM -->|Translates| MC["Machine code: the raw bits the CPU runs"]
+```
+:::
+
+::: {.content-visible unless-format="html"}
+![The layers of instruction: an AI assistant translates down to Python, which translates down to C and other compiled languages, down to assembly, down to machine code.](images/fig-layers-of-instruction.svg)
+:::
+
+:::
