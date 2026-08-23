@@ -958,7 +958,8 @@ Figure&nbsp;7.3: Visual Studio Code
 <p>Start VS Code. What follows is four small steps, and they have to happen in this order. Each one only works if the one before it has happened already, which is why a step skipped here does not complain at the time. It shows up two minutes later as a kernel that is not in the list, and that looks like a broken installation when it is nothing of the sort.</p>
 <section id="open-the-folder-not-a-file" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="open-the-folder-not-a-file">1. Open the folder, not a file</h3>
-<p>Choose <strong>File → Open Folder…</strong> and select the <code>instructing-machines</code> folder — the folder itself, not a file inside it.</p>
+<p>The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so click <strong>Continue without signing in</strong>.</p>
+<p>Then choose <strong>File → Open Folder…</strong> and select the <code>instructing-machines</code> folder — the folder itself, not a file inside it.</p>
 <p>This matters more than it looks like it does. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads that file when the folder is <em>what you opened</em>. Open a single file instead and VS Code has no idea any of this exists.</p>
 </section>
 <section id="trust-the-folder" class="level3 unnumbered">
@@ -985,6 +986,14 @@ Important
 <p>VS Code sometimes also offers to install them for you in a small notification. If you get one, use it. Do not wait for one: it does not always appear, and the search above works whether it does or not.</p>
 <p>There are four, and you want all four. Python support runs your code. Jupyter support runs notebooks. Pixi support is the one that goes looking inside your <code>.pixi</code> folder and finds the Python that <code>pixi install</code> built there — without it, the course Python is invisible to VS Code no matter how correctly you installed it. Quarto support is what makes the notes look like the notes: these chapters are written in Quarto’s flavour of markdown, and without it the coloured boxes and other niceties turn up as raw text with stray colons around them.</p>
 <!-- 
+Once the Python extension is installed, VS Code may open a tab called **Get Started with Python Development** and offer to walk you through it. You do not need it: this chapter is your walkthrough. Click **Mark Done** at the bottom and close the tab.
+
+::: {.callout-note}
+You may also notice that this folder has no chat panel, and that VS Code never finishes your lines for you. That is on purpose. The course folder switches VS Code's own AI features off, so that the editor stays a place where you write the code yourself.
+
+The assistant on this course is not gone, it has an address: it lives in your browser, where you have to go to it deliberately and can see exactly what you asked and what it answered. @sec-meet-ai introduces it in week one. The setting applies to this folder only, so anything else you open in VS Code is unaffected.
+:::
+
 ::: {.callout-tip}
 ## Four clicks, or one command
 
