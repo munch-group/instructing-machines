@@ -40,9 +40,9 @@ jobs:
         with:
           # Build the book with the same environment the students install, so
           # a chapter that renders here is a chapter that runs on their laptop.
-          # student-folder/pixi.toml is the one that is cross-platform and has
+          # scripts/student-folder/pixi.toml is the one that is cross-platform and has
           # the course widgets; the root pixi.toml is Mac-only (osx-arm64).
-          manifest-path: student-folder/pixi.toml
+          manifest-path: scripts/student-folder/pixi.toml
           run-install: true
           # Put that environment on PATH for the steps below, so Quarto's
           # jupyter engine executes the notebooks with the course Python

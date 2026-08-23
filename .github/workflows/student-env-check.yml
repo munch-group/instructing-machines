@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "student-folder/**"
+      - "scripts/student-folder/**"
       - "scripts/build_student_folder.py"
       - ".github/workflows/student-env-check.yml"
 
@@ -36,11 +36,11 @@ jobs:
       # signal we want, because a student on this platform would fail too.
       - uses: prefix-dev/setup-pixi@v0.10.0
         with:
-          manifest-path: student-folder/pixi.toml
+          manifest-path: scripts/student-folder/pixi.toml
           locked: true
 
       - name: Import every course package
-        run: pixi run --manifest-path student-folder/pixi.toml check
+        run: pixi run --manifest-path scripts/student-folder/pixi.toml check
 
   package:
     name: Build the download

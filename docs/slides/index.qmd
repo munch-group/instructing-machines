@@ -9,6 +9,8 @@ jupyter: python3
 format:
   revealjs:
     navigation-mode: linear
+    view-distance: 1000
+    mobile-view-distance: 1000    
     controls-layout: bottom-right
     slide-number: c
     classoption: fleqn
@@ -64,7 +66,7 @@ format:
 - Helle
 
 <!-- ============================================================ -->
-##  { background-image="images/padlet.png" }
+##  { background-image="images/padlet.png" data-background-position="left" data-background-size="cover" }
 <!-- ============================================================ -->
 
 
@@ -355,6 +357,11 @@ Spreadsheets
 <!-- ============================================================ -->
 
 <!-- ============================================================ -->
+# What is programming?
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
 ## What is programming?
 <!-- ============================================================ -->
 
@@ -369,10 +376,10 @@ Spreadsheets
 :::
 
 <!-- ============================================================ -->
-## What is programming?
+## {background-image="images/w01-s0030-1.png" background-size="contain"}
 <!-- ============================================================ -->
 
-![images/w01-s0030-1.png](images/w01-s0031-1.jpg){.r-stretch}
+<!-- ![](images/w01-s0030-1.png){.r-stretch} -->
 
 <!-- ============================================================ -->
 ## What is programming?
@@ -500,10 +507,6 @@ Windows PowerShell / Terminal
 ## Pixi/Python installation
 <!-- ============================================================ -->
 
-<!-- ============================================================ -->
-# Values, Operators, Reduction
-<!-- ============================================================ -->
-
 
 <!-- ============================================================ -->
 ## Workflow
@@ -553,6 +556,72 @@ print("Hello world") # <1>
 ```
 
 <!-- ============================================================ -->
+# Statements
+<!-- ============================================================ -->
+
+<!-- ============================================================ -->
+## A program is a series of statements
+<!-- ============================================================ -->
+
+```{.python}
+print("Here we go")
+print("still at it")
+print("ok, that was it")
+```
+
+<!-- ============================================================ -->
+## The sequence of execution
+<!-- ============================================================ -->
+
+```{.python code-line-numbers="|1|2|3"}
+print("Here we go")
+print("still at it")
+print("ok, that was it")
+```
+
+<!-- ============================================================ -->
+## Ignored code
+<!-- ============================================================ -->
+
+```{.python code-line-numbers="|1|2|3"}
+print("Here #we go")
+print("still at it") #
+pri#nt("ok, that was it")
+```
+
+<!-- ============================================================ -->
+## Python errors
+<!-- ============================================================ -->
+
+- Syntax error: when Python cannot recognize your code as Python code, it is not
+run at all.
+- Runtime error: a fault Python does not discover until your code runs.
+- Remember that even when your code runs fine, that is no guarantee it does what
+you think it does.
+
+
+<!-- ============================================================ -->
+## Three errors
+<!-- ============================================================ -->
+
+```{.python}
+print( , "Hello")
+```
+
+[]{.spacer-1}
+
+
+```{.python}
+prit("Hello")
+```
+
+[]{.spacer-1}
+
+```{.python}
+print "Hello"
+```
+
+<!-- ============================================================ -->
 ## Why is it called "print"?
 <!-- ============================================================ -->
 
@@ -566,55 +635,8 @@ print("Hello world")
 
 
 <!-- ============================================================ -->
-## A program is a series of statements
+# Values, Operators, Expressions
 <!-- ============================================================ -->
-
-```{.python}
-print("Here we go")
-print("still at it")
-print("ok, that was it")
-```
-
-<!-- ============================================================ -->
-## The arrow of execution
-<!-- ============================================================ -->
-
-```{.python code-line-numbers="|1|2|3"}
-print("Here we go")
-print("still at it")
-print("ok, that was it")
-```
-
-<!-- ============================================================ -->
-## `#` ignored code
-<!-- ============================================================ -->
-
-```{.python .large code-line-numbers="|1|2|3"}
-print("Here #we go")
-print("still at it") #
-pri#nt("ok, that was it")
-```
-
-<!-- ============================================================ -->
-## Python errors
-<!-- ============================================================ -->
-
-- Syntax error: when Python cannot recognize your code as Python code, it is not
-run at all.
-- Runtime error: a fault Python does not discover until your code runs.
-- [Remember that even when your code runs fine, that is no guarantee it does what
-you think it does :-)]{.alert}
-
-
-<!-- ============================================================ -->
-## Three errors
-<!-- ============================================================ -->
-
-```{.python code-line-numbers="|1|2|3"}
-print( , "Hello")
-prit("Hello")
-print "Hello"
-```
 
 <!-- ============================================================ -->
 ## Numbers: integers and floats
@@ -722,7 +744,7 @@ import steps_widget
 ## Variables are names
 <!-- ============================================================ -->
 
-```{.python}
+```{.python .large}
 n = 17
 pi = 3.1415
 message = "What's up doc?"
@@ -732,78 +754,53 @@ message = "What's up doc?"
 ## Variables are names
 <!-- ============================================================ -->
 
-![](images/w01-names-diagram.png){.r-stretch}
+::: {.absolute top="15%" left="20%" width="50%"}
+![](images/w01-names-diagram.png){.nostretch width="100%"}
+:::
 
+<!-- ============================================================ -->
+## Variables are names
+<!-- ============================================================ -->
+
+::: {.absolute top="15%" left="20%" width="40%"}
+![](images/w01-bruce-diagram.png){.nostretch width="100%"}
+:::
 
 <!-- ============================================================ -->
 ## A new value for a variable
 <!-- ============================================================ -->
 
-::::: {layout="[0.5,-0.05,0.45]"}
+::: {.absolute top="25%" width="40%"}
+```{.python .large code-line-numbers="|1|2"}
+bruce = 5
+bruce = 7
+```
+:::
+
+::: {.absolute top="25%" left="50%" width="40%"}
+![](images/w01-bruce-diagram.png){.nostretch width="100%"}
+:::
+
+
+<!-- 
+::::: {layout="[0.3,-0.01,0.6]"}
 
 ::: column
-```{.python code-line-numbers="|1|2"}
+```{.python .large code-line-numbers="|1|2"}
 bruce = 5
 bruce = 7
 ```
 :::
 
 ::: column
-![](images/w01-bruce-diagram.png)
-:::
-
+![](images/w01-bruce-diagram.png){.nostretch width="100%"}
+::: 
 :::::
+-->
 
 
-<!-- ============================================================ -->
-## Expressions with variables {auto-animate="true"}
-<!-- ============================================================ -->
 
-```{.python}
-x = 2
-y = 9
-print(3 + x * 4 + y)
-```
 
-## Expressions with variables {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(3 + 2 * 4 + y)
-```
-
-[Substitution]{.fg style="--col: #2e8b57"}
-
-## Expressions with variables {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(3 + 8 + y)
-```
-
-[Reduction]{.alert}
-
-## Expressions with variables {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(3 + 8 + 9)
-```
-
-[Substitution]{.fg style="--col: #2e8b57"}
-
-## Expressions with variables {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(20)
-```
-
-[Reduction]{.alert}
 
 
 <!-- ============================================================ -->
@@ -823,7 +820,7 @@ print(b)
 ## Add one to a variable {auto-animate="true"}
 <!-- ============================================================ -->
 
-```{.python}
+```{.python .large}
 x = 1
 print(x)
 x = *expression*
@@ -831,155 +828,18 @@ print(x)
 ```
 
 ## Add one to a variable {auto-animate="true"}
-
-```{.python}
-x = 1
-print(x)
-x = x + 1
-print(x)
-```
-
-<!-- ============================================================ -->
-## Take home
-<!-- ============================================================ -->
-
-- Values: strings, numbers
-- Statements, the arrow of execution
-- Operators, precedence
-- Expressions, reduction
-- Variables, substitution
-
-
-<!-- ============================================================ -->
-## Feedback and comments on today's lecture
-<!-- ============================================================ -->
-
-![](images/qr_code.png){.r-stretch}
-
-<!-- ============================================================ -->
-<!-- ============================================================ -->
-# Week 1 — Substitution, reduction, relational operators, logic
-{{< include _pdf-howto.qmd >}}
-<!-- ============================================================ -->
-
-<!-- ============================================================ -->
-## Statements and Expressions
-<!-- ============================================================ -->
-
-- **Statement:** a *line* of code that *does something*.
-- **Expression:** a *bit of code in a line* that *reduces to a single value*.
-
-<!-- ============================================================ -->
-## Statements {auto-animate="true"}
-<!-- ============================================================ -->
-
-```{.python}
-x = 117
-
-print(x)
-```
-
-## Statements {auto-animate="true"}
-
-```{.python}
-x = 117
-
-print(x)
-```
-
-```
-117
-```
-
-<!-- ============================================================ -->
-## Expressions
-<!-- ============================================================ -->
 
 ```{.python .large}
-3 + 2 * 4 + 9
-```
-
-<!-- ============================================================ -->
-## Expressions {auto-animate="true"}
-<!-- ============================================================ -->
-
-```{.python}
-x = 2
-y = 9
-print(3 + x * 4 + y)
-```
-
-## Expressions {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(3 + 2 * 4 + y)
-```
-
-[Substitution]{.fg style="--col: #2e8b57"}
-
-## Expressions {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(3 +   8   + y)
-```
-
-[Reduction]{.alert}
-
-## Expressions {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(3 +   8   + 9)
-```
-
-[Substitution]{.fg style="--col: #2e8b57"}
-
-## Expressions {auto-animate="true"}
-
-```{.python}
-x = 2
-y = 9
-print(      20      )
-```
-
-[Reduction]{.alert}
-
-<!-- ============================================================ -->
-## Mind check
-<!-- ============================================================ -->
-
-```{.python code-line-numbers="|1|2|3|4|5"}
-a = 1
-b = a + 2
-print(b)
-a = 8
-print(b)
-```
-
-<!-- ============================================================ -->
-## Add one to a variable {auto-animate="true"}
-<!-- ============================================================ -->
-
-```{.python}
-x = 1
-print(x)
-x = *expression*
-print(x)
-```
-
-## Add one to a variable {auto-animate="true"}
-
-```{.python}
 x = 1
 print(x)
 x = x + 1
 print(x)
 ```
+
+<!-- ============================================================ -->
+# Relational operators, Logic
+<!-- ============================================================ -->
+
 
 <!-- ============================================================ -->
 ## Relational operators
@@ -1047,34 +907,30 @@ print(42 >= 7)
 ## Expressions with relational operators {auto-animate="true"}
 <!-- ============================================================ -->
 
-```{.python}
+```{.python .large}
 nr = 42
 print(nr >= 7)
 ```
 
 ## Expressions with relational operators {auto-animate="true"}
 
-```{.python}
+```{.python .large}
 nr = 42
 print(42 >= 7)
 ```
 
-[Substitution]{.fg style="--col: #2e8b57"}
-
 ## Expressions with relational operators {auto-animate="true"}
 
-```{.python}
+```{.python .large}
 nr = 42
 print( True  )
 ```
 
-[Reduction]{.alert}
-
 <!-- ============================================================ -->
 ## Expressions with relational operators {auto-animate="true"}
 <!-- ============================================================ -->
 
-```{.python}
+```{.python .large}
 cars = 2
 people = 7
 print(cars * 4 >= people)
@@ -1082,33 +938,27 @@ print(cars * 4 >= people)
 
 ## Expressions with relational operators {auto-animate="true"}
 
-```{.python}
+```{.python .large}
 cars = 2
 people = 7
 print(   2 * 4 >=      7)
 ```
 
-[Substitution]{.fg style="--col: #2e8b57"}
-
 ## Expressions with relational operators {auto-animate="true"}
 
-```{.python}
+```{.python .large}
 cars = 2
 people = 7
 print(     8   >=      7)
 ```
 
-[Reduction]{.alert}
-
 ## Expressions with relational operators {auto-animate="true"}
 
-```{.python}
+```{.python .large}
 cars = 2
 people = 7
 print(       True       )
 ```
-
-[Reduction]{.alert}
 
 <!-- ============================================================ -->
 ## Wax on - Wax off
