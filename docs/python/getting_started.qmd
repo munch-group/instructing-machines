@@ -146,12 +146,18 @@ pixi --version
 It should print something like: "pixi 0.60.0". You will probably see a different version number, and that is fine. If you instead see something about the command not being recognized, see [If something goes wrong](#sec-if-something-goes-wrong).
 
 
+## Install course utility globally on your computer
+
+```bash
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
+
 ## Install the pixi environment in your course-folder {#sec-course-tool}
 
 Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your `instructing-machines` folder. Open a new terminal, navigate to the `instructing-machines` folder using `cd` and run this command:
 
 ```bash
-pixi install && pixi global install -c conda-forge -c munch-group im-course-tools
+pixi install
 ```
 
 When it is done there is a new hidden `.pixi` folder in the course folder containing your very own Python.
