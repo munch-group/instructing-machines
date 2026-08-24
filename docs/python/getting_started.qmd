@@ -192,9 +192,27 @@ The first time you open the course folder in VS Code, you need to the four steps
 
 The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so click **Continue without signing in**.
 
+::: {.callout-important}
+If VS Code was already running while you installed pixi, quit it completely and start it again before you go on. Not "close the window" — quit the application. A program only learns where pixi lives when it starts, so a VS Code that was open beforehand cannot find it, and the extension whose whole job is to find your course Python gives up quietly. What you see later is a claim that there is no Python here at all, which by then looks like a problem with your installation rather than with the order you did things in.
+:::
+
 Then choose **File → Open Folder…** and select the `instructing-machines` folder — the folder itself, not a file inside it.
 
 This matters more than it looks like it does. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads that file when the folder is *what you opened*. Open a single file instead and VS Code has no idea any of this exists.
+
+::: {.callout-tip}
+## A better habit: `code .`
+
+Once you have VS Code installed, there is a shorter way to do all of the above, and it is the one to get used to. In a terminal, `cd` into the course folder and type:
+
+```bash
+code .
+```
+
+The `.` means "this folder, the one I am standing in", so this opens exactly the right thing and you cannot accidentally open a single file instead. It also starts VS Code from a terminal, which means VS Code inherits everything the terminal knows — including where pixi is.
+
+On Windows this works straight away. On a Mac the `code` command does not exist until you make it: start VS Code, press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter. Then open a **new** terminal, and `code .` will work from then on.
+:::
 
 **2. Trust the folder:**
 
@@ -232,7 +250,7 @@ If you would rather not click **Install** four times, you can do the whole thing
 code --install-extension ms-python.python --install-extension ms-toolsai.jupyter --install-extension quarto.quarto --install-extension renan-r-santos.pixi-code
 ```
 
-On Windows that works as it stands. On a Mac the `code` command does not exist until you ask VS Code to make it: press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter. Then open a **new** terminal and run the command above — the terminal you already had open was started before the change, and will still tell you `command not found: code`.
+This needs the same `code` command as step 1, so if you set that up there it works as it stands; if you skipped it, go back and do it now. On a Mac, remember that the terminal you already had open was started before the change and will still tell you `command not found: code` — open a new one.
 
 Either way, reload the window afterwards, as in step 4.
 :::
@@ -251,6 +269,9 @@ This one is not optional. An extension installed while the folder was already op
 - **Windows says a script cannot be run, or mentions an execution policy.** You have found a PowerShell install script somewhere. Do not fight with it — use the `.msi` installer linked in [Installing pixi](#sec-installing-pixi) instead. It needs no permissions of that kind.
 - **`pixi install` fails part-way, or complains about paths being too long.** The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to `C:\bioprog\` and run `pixi install` again.
 - **The window still says *Restricted Mode*, or nothing Python-related works at all.** The folder is untrusted, which is how VS Code opens every new folder now, and extensions do not run until you change it. Click the blue **Restricted Mode** button in the bottom left corner, then **Trust** ([Opening the folder](#sec-opening-the-folder), step 2). Then reload the window, because the extensions have been sitting switched off until this moment.
+- **"No Python found. Would you like to install uv and use it to install Python?"** Say no. You have a Python already — it is in the `.pixi` folder, and this message means VS Code has not found it rather than that it is missing. The usual cause is a VS Code that was started before pixi was installed: quit VS Code completely, start it again, and open the folder. If it persists, see the next entry.
+- **A warning about a "default environment manager" that "is not registered".** Ignore it. Two extensions start at the same time and one of them reads a setting a fraction of a second before the other is ready to answer; a moment later it is. Nothing is broken, and there is nothing for you to do. We would silence it if we could, but the setting it is complaining about is the one that gives your kernel its name.
+- **The pixi extension really does do nothing — no `Instructing Machines` anywhere, and no `.pixi` path offered.** This is different from the warning above. The extension has to run the `pixi` command before it can find anything, and it cannot. `pixi run check` writes the full path to pixi into the folder's settings for exactly this reason, so run it if you have not, and reload the window. If you have run it and nothing changes, you have probably copied this folder from a different computer, where that path pointed somewhere that does not exist here: run `pixi run check` again to rewrite it for this machine.
 - **There is no `Instructing Machines` entry in the kernel list.** It is created by `pixi run check`, so run that first if you have not. If it is still missing, make sure you opened the *folder* ([Opening the folder](#sec-opening-the-folder)), that `pixi install` has finished, and that the recommended extensions are installed. Then run `Developer: Reload Window` from the command palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), which makes VS Code look again.
 - **A widget shows as blank space, or as raw text.** You are running the notebook on the wrong Python. Click `Select Kernel` in the top right of the notebook and choose the one whose path contains `.pixi`.
 - **Nothing works and the lecture has already started.** Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.

@@ -79,11 +79,14 @@ echo "    $FOLDER"
 echo "==> 3/5  pixi install (this is the slow one)"
 pixi install --manifest-path "$FOLDER/pixi.toml"
 
-echo "==> 4/5  registering the course kernel, and checking it took"
-# `pixi run check` is what a student runs, and it registers the kernel as a
-# dependency. Calling the `kernel` task directly does the same thing without
-# the pages of environment diagnostics that `im check` prints.
+echo "==> 4/5  doing what pixi run check does, and checking it took"
+# `pixi run check` is what a student runs. It depends on both of these tasks:
+# `kernel` registers the course kernelspec, and `vscode` writes the path to
+# pixi into .vscode/settings.json so the pixi extension can find it however
+# VS Code was started. Calling them directly does the same work without the
+# pages of environment diagnostics that `im check` prints.
 pixi run --manifest-path "$FOLDER/pixi.toml" kernel 2>&1 | sed 's/^/    /'
+pixi run --manifest-path "$FOLDER/pixi.toml" vscode 2>&1 | sed 's/^/    /'
 pixi run --manifest-path "$FOLDER/pixi.toml" \
     python "$REPO/scripts/check_env_kernel.py" | sed 's/^/    /'
 
@@ -136,11 +139,17 @@ else
 fi
 echo "  3. RELOAD. Cmd/Ctrl+Shift+P, 'Developer: Reload Window'."
 echo
+echo "     A warning that the default environment manager 'is not registered'"
+echo "     is expected: python-envs reads that setting before pixi-code has"
+echo "     registered. It registers a moment later. Removing the setting"
+echo "     silences the warning and costs the kernel its name."
+echo
 echo "Then the things being tested:"
 echo "  4. open week1/notebooks.ipynb"
-echo "  5. top right: does it say 'Instructing Machines' already, or still"
-echo "     'Select Kernel'? If the latter, Select Kernel -> Python Environments"
-echo "     -> is 'Instructing Machines' there, and is it the suggested one?"
+echo "  5. top right: Select Kernel -> Jupyter Kernel. There should be exactly"
+echo "     one entry, ours, with .pixi in its path. VS Code labels a kernel"
+echo "     from the environment it lives in, not from our kernelspec, and it"
+echo "     cannot name a pixi environment -- so expect a path, not a name."
 echo "  6. run the first cell: does a widget render? And is a callout in a"
 echo "     markdown cell a coloured box rather than raw text with colons?"
 echo

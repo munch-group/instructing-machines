@@ -78,9 +78,23 @@ vscodenb = ">=1.0.5, <2"
 # of this file broken for the sake of one file.)
 kernel = "python -m ipykernel install --sys-prefix --name instructing-machines --display-name 'Instructing Machines'"
 
-# `pixi run check` is the one command every student runs on day one, so the
-# kernel gets registered as part of it rather than as a step of its own that
-# half of them would skip. Running it again is harmless: it overwrites.
-check = { cmd = "im check", depends-on = ["kernel"] }
+# Tell the VS Code pixi extension where pixi lives on this machine. A terminal
+# knows, because PATH says so; a VS Code started from the Dock or the Start menu
+# does not, and the extension that finds your course Python cannot work without
+# it. See .pin_pixi_path.py in this folder for the long version.
+#
+# The script sits in the folder root rather than in .vscode because this same
+# manifest is run straight out of the book's repository, where that directory
+# is still called `vscode` and only becomes `.vscode` in the built download.
+# One path that is correct in both beats a task that works in only one. The
+# leading dot, and the files.exclude entry next to it in .vscode/settings.json,
+# keep it out of a student's way: it is plumbing, not something to read on the
+# way to week one.
+vscode = "python .pin_pixi_path.py"
+
+# `pixi run check` is the one command every student runs on day one, so both of
+# those happen as part of it rather than as steps of their own that half of them
+# would skip. Running it again is harmless: both overwrite.
+check = { cmd = "im check", depends-on = ["kernel", "vscode"] }
 get = "im get"
 update = "im update"

@@ -14,8 +14,35 @@
         ".pixi/envs/default",
         "*/.pixi/envs/default"
     ],
-    "python-envs.defaultEnvManager": "renan-r-santos.pixi-code:pixi",
-    "python-envs.defaultPackageManager": "renan-r-santos.pixi-code:pixi",
+
+    // Do not offer to download and run the uv installer. Without this, a
+    // student whose pixi environment has not been found yet is met by "No
+    // Python found. Would you like to install uv and use it to install
+    // Python?" -- an offer to install a second Python they neither need nor
+    // asked for, from a URL they have no reason to trust. The environment is
+    // already on their disk; the answer is never uv.
+    "python-envs.alwaysUseUv": false,
+
+    // There is deliberately no "python-envs.defaultEnvManager" here, and the
+    // reason is a race the extension's own log spells out:
+    //
+    //     45.275  Discovered env: .../.pixi/envs/default/bin/python
+    //     45.582  [interpreterSelection] Applying initial environment selection
+    //     45.897  [interpreterSelection] instructing-machines: none
+    //                                    (source: defaultEnvManager)
+    //     45.905  Environment discovery complete: 4 found (Pixi: 1)
+    //
+    // Setting it makes interpreter selection ask the pixi extension, and at
+    // startup the pixi extension is not ready to answer -- it replies "none"
+    // eight milliseconds before discovery finishes. The workspace is then left
+    // with no environment at all, which is what produces "An Invalid Python
+    // interpreter is selected" and "No Python environment is set for this
+    // resource".
+    //
+    // Without it, selection falls back to what the native locator found, and
+    // the search paths above mean it had this environment half a second
+    // earlier and had already classified it as a pixi one. Fewer moving parts
+    // and no dependence on which extension wakes up first.
 
     // On this course the assistant lives in the browser, not in the editor.
     // This switches off VS Code's own chat and its inline suggestions, and
@@ -35,8 +62,19 @@
     // one thing VS Code insists a human decides. See the "Opening the folder"
     // section of the Getting Started chapter, step 2.)
     "notebook.output.textLineLimit": 60,
+    // Keep the file list to things a student has a reason to open.
+    //
+    // .pin_pixi_path.py is safe to hide: pixi runs it from a terminal by name,
+    // and nothing here is consulted for that. Hiding a file changes what the
+    // explorer shows and what the search API returns, not what a shell can run.
+    //
+    // .pixi is deliberately NOT hidden, for exactly that second reason. It is
+    // far more noise in the file list, but it is also where
+    // workspaceSearchPaths above tells the Python extension to look, and
+    // hiding it means asking VS Code to find the environment in a folder we
+    // have told it to ignore.
     "files.exclude": {
-        "**/.pixi": true,
+        "**/.pin_pixi_path.py": true,
         "**/__pycache__": true,
         "**/.pytest_cache": true
     }

@@ -81,6 +81,15 @@ jobs:
           test -f _check/pixi.toml
           test -f _check/pixi.lock
 
+      # The zip has to carry the script `pixi run check` calls, or day one ends
+      # with VS Code unable to find pixi and offering to install uv instead.
+      # This is a packaging check, not a behaviour one: the install job above
+      # runs the task itself.
+      - name: The download carries what pixi run check needs
+        run: |
+          unzip -l _check/instructing-machines.zip | grep -qF 'instructing-machines/.pin_pixi_path.py'
+          unzip -l _check/instructing-machines.zip | grep -qF 'instructing-machines/.vscode/settings.json'
+
       # The projects are fetched one per week rather than shipped on day one,
       # so the zips and the manifest `pixi run get` reads are part of what
       # a publish has to produce.
