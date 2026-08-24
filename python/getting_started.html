@@ -715,6 +715,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-course-folder" id="toc-sec-course-folder" class="nav-link active" data-scroll-target="#sec-course-folder">The course folder</a></li>
   <li><a href="#sec-the-terminal" id="toc-sec-the-terminal" class="nav-link" data-scroll-target="#sec-the-terminal">The terminal</a></li>
   <li><a href="#sec-installing-pixi" id="toc-sec-installing-pixi" class="nav-link" data-scroll-target="#sec-installing-pixi">Installing pixi</a></li>
+  <li><a href="#install-course-utility-globally-on-your-computer" id="toc-install-course-utility-globally-on-your-computer" class="nav-link" data-scroll-target="#install-course-utility-globally-on-your-computer">Install course utility globally on your computer</a></li>
   <li><a href="#sec-course-tool" id="toc-sec-course-tool" class="nav-link" data-scroll-target="#sec-course-tool">Install the pixi environment in your course-folder</a></li>
   <li><a href="#sec-text-editor" id="toc-sec-text-editor" class="nav-link" data-scroll-target="#sec-text-editor">The text editor</a></li>
   <li><a href="#sec-if-something-goes-wrong" id="toc-sec-if-something-goes-wrong" class="nav-link" data-scroll-target="#sec-if-something-goes-wrong">If something goes wrong</a></li>
@@ -908,13 +909,17 @@ Figure&nbsp;7.2: The Windows PowerShell app on Windows
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>It should print something like: “pixi 0.60.0”. You will probably see a different version number, and that is fine. If you instead see something about the command not being recognized, see <a href="#sec-if-something-goes-wrong">If something goes wrong</a>.</p>
 </section>
+<section id="install-course-utility-globally-on-your-computer" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="install-course-utility-globally-on-your-computer">Install course utility globally on your computer</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 <section id="sec-course-tool" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-course-tool">Install the pixi environment in your course-folder</h2>
 <p>Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your <code>instructing-machines</code> folder. Open a new terminal, navigate to the <code>instructing-machines</code> folder using <code>cd</code> and run this command:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> install <span class="kw">&amp;&amp;</span> <span class="ex">pixi</span> global install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When it is done there is a new hidden <code>.pixi</code> folder in the course folder containing your very own Python.</p>
 <p>Then check it by running this in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If it prints “Everything is installed. Python 3.13.5”, you are finished with the hard part.</p>
 <p>The <code>check</code> in that command is not a built-in pixi command — it is a little errand we wrote for you and stored in the folder’s <code>pixi.toml</code> file.</p>
 <div class="callout callout-style-default callout-note callout-titled">
