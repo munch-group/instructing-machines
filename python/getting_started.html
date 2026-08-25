@@ -924,10 +924,10 @@ Figure&nbsp;7.2: The Windows PowerShell app on Windows
 <p>Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your <code>instructing-machines</code> folder. Open a new terminal, navigate to the <code>instructing-machines</code> folder using <code>cd</code> and run this command:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When it is done there is a new hidden <code>.pixi</code> folder in the course folder containing your very own Python.</p>
-<p>Then check it by running this in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then finish the setup and check it by running this in the terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run setup</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If it prints “Everything is installed. Python 3.13.5”, you are finished with the hard part.</p>
-<p>The <code>check</code> in that command is not a built-in pixi command — it is a little errand we wrote for you and stored in the folder’s <code>pixi.toml</code> file.</p>
+<p>The <code>setup</code> in that command is not a built-in pixi command — it is a little errand we wrote for you and stored in the folder’s <code>pixi.toml</code> file. It does three things: it gives your course Python a name VS Code can show you in a list, it writes down where pixi lives on this particular machine so VS Code can find it, and then it checks that everything is installed. Running it again later is always safe.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
