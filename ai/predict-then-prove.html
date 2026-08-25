@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>16&nbsp; AI: The AI predicts, you prove – Instructing Machines</title>
+<title>17&nbsp; AI: The AI predicts, you prove – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -45,6 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-702a4126a5293489920bf589fd63f1a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -91,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/if-else.html">Week 2</a></li><li class="breadcrumb-item"><a href="../ai/predict-then-prove.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/if-else.html">Week 2</a></li><li class="breadcrumb-item"><a href="../ai/predict-then-prove.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -216,8 +252,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../python/variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
   </div>
 </li>
       </ul>
@@ -234,19 +276,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/if-else.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,37 +305,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +352,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,25 +387,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/files.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
   </div>
 </li>
       </ul>
@@ -380,25 +422,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
   </div>
 </li>
       </ul>
@@ -415,31 +457,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Primer analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/debugging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Debugging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
   </div>
 </li>
       </ul>
@@ -456,25 +498,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/reading-and-judging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">AI: Reading and judging</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">AI: Reading and judging</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">AI: Tests are the contract</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">AI: Tests are the contract</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../turtle/week8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Turtle: retiring the turtle</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Turtle: retiring the turtle</span></span></a>
   </div>
 </li>
       </ul>
@@ -491,25 +533,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/documentation-and-resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Documentation and resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Documentation and resources</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/the-docs-are-the-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: The docs are the test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">AI: The docs are the test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Codon usage</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/packages-modules.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Code in other files</span></span></a>
   </div>
 </li>
       </ul>
@@ -526,25 +568,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">HIV sub-groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
   </div>
 </li>
       </ul>
@@ -561,19 +603,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">AI: Directing to resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">AI: Directing to resources</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/seqdist-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Sequence trees</span></span></a>
   </div>
 </li>
       </ul>
@@ -590,19 +632,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Learning with an AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">AI: Learning with an AI</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Finding genes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/dataframes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
   </div>
 </li>
       </ul>
@@ -619,25 +661,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/finale-kickoff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Finale: planning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Finale: planning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/finale-build.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Finale build</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Finale build</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/finale-finishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Finale finishing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Finale finishing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
   </div>
 </li>
       </ul>
@@ -654,13 +696,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">AI: The AI-off test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">AI: The AI-off test</span></span></a>
   </div>
 </li>
       </ul>
@@ -671,27 +713,35 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p> </p>
+<p><a href="#dnldts45357" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgQUk6IFRoZSBBSSBwcmVkaWN0cywgeW91IHByb3ZlIHsjc2VjLXByZWRpY3QtdGhlbi1wcm92ZX1cbiIsCiAgICAiXG4iLAogICAgIipBIGNsYWltIGFib3V0IHdoYXQgY29kZSBkb2VzIGlzIGEgcHJlZGljdGlvbiB0byBiZSB2ZXJpZmllZC4qXG4iLAogICAgIlxuIiwKICAgICJUaGUgcm91dGluZSBmb3IgdGhpcyB3aG9sZSBzZXNzaW9uIGlzIHRoZSBzYW1lIHRocmVlLXdheSBtb3ZlLCByZXBlYXRlZCBvbiBoYXJkZXIgYW5kIGhhcmRlciBleHByZXNzaW9ucyB1bnRpbCBpdCBpcyBhdXRvbWF0aWMuIFlvdSBwcmVkaWN0IHdoYXQgYW4gZXhwcmVzc2lvbiBldmFsdWF0ZXMgdG8sIGJ5IGhhbmQsIGRvaW5nIHRoZSBzdWJzdGl0dXRpb24gYW5kIHJlZHVjdGlvbiBzdGVwcyB5b3Vyc2VsZi4gWW91IGFzayB0aGUgYXNzaXN0YW50IHdoYXQgaXQgZXZhbHVhdGVzIHRvLCBhbmQgcmVhZCBpdHMgYW5zd2VyLCBpbmNsdWRpbmcgd2hhdGV2ZXIgcmVhc29uaW5nIGl0IGdpdmVzLiBUaGVuIHlvdSBydW4gaXQgdGhyb3VnaCB0aGUgYCUlc3RlcHNgIHdpZGdldCwgd2hpY2ggaXMgdGhlIG9ubHkgb25lIG9mIHRoZSB0aHJlZSB0aGF0IGFjdHVhbGx5IHJlZHVjZXMgdGhlIGV4cHJlc3Npb24gc3RlcCBieSBzdGVwIGFuZCBjYW5ub3QgYmUgdGFsa2VkIGFyb3VuZC4gVGhyZWUgYW5zd2Vycywgb25lIHdpdG5lc3MuIFdoZW4geW91ciBwcmVkaWN0aW9uIGFuZCB0aGUgYXNzaXN0YW50J3MgYW5zd2VyIGFncmVlLCB0aGF0IGlzIHBsZWFzYW50IGFuZCBwcm92ZXMgbm90aGluZy4gV2hlbiB0aGV5IGRpc2FncmVlLCBvciB3aGVuIGVpdGhlciBvZiB5b3UgdHVybnMgb3V0IHRvIGJlIHdyb25nLCB0aGF0IGlzIHRoZSBzZXNzaW9uIHdvcmtpbmcgZXhhY3RseSBhcyBpbnRlbmRlZC5cbiIsCiAgICAiXG4iLAogICAgIjo6OiB7LmNhbGxvdXQtdGlwfVxuIiwKICAgICIjIyBUaGUgdGhyZWUtd2F5IG1vdmUsIGV2ZXJ5IHRpbWVcbiIsCiAgICAiMS4gKipQcmVkaWN0LioqIFdyaXRlIGRvd24geW91ciBhbnN3ZXIgYW5kIHRoZSBzdWJzdGl0dXRpb24vcmVkdWN0aW9uIHN0ZXBzIHRoYXQgZ290IHlvdSB0aGVyZSwgYmVmb3JlIHlvdSB0eXBlIGFueXRoaW5nIGludG8gdGhlIGFzc2lzdGFudC5cbiIsCiAgICAiMi4gKipBc2suKiogR2l2ZSB0aGUgYXNzaXN0YW50IHRoZSBiYXJlIGV4cHJlc3Npb24gYW5kIGFzayB3aGF0IGl0IGV2YWx1YXRlcyB0byBhbmQgd2h5LiBSZWFkIGl0cyByZWFzb25pbmcsIG5vdCBqdXN0IGl0cyBmaW5hbCBhbnN3ZXIuXG4iLAogICAgIjMuICoqUHJvdmUuKiogUnVuIHRoZSBleHByZXNzaW9uIHRocm91Z2ggYCUlc3RlcHNgLiBJdHMgdHJhY2UgaXMgdGhlIHZlcmRpY3QuIENvbXBhcmUgaXQgYWdhaW5zdCBib3RoIG9mIHlvdXIgYW5zd2VycyBhbmQgbm90ZSBhbnkgZGlzYWdyZWVtZW50LlxuIiwKICAgICI6OjpcbiIsCiAgICAiXG4iLAogICAgIkV2ZXJ5IHJvdW5kIGJlbG93IGNhcnJpZXMgdGhlIGBBSTogRXhwbGFpbmVyYCBiYWRnZSwgd2hpY2ggaXMgdGhlIHJ1bmcgb2YgdGhlIGxhZGRlciB5b3Ugd2VyZSBnaXZlbiBpbiB3ZWVrIG9uZSBhbmQgdGhlIG9ubHkgb25lIHlvdSBoYXZlIHNvIGZhci4gWW91IGFyZSBwdXR0aW5nIHNvbWV0aGluZyBpbiBmcm9udCBvZiB0aGUgYXNzaXN0YW50IHRoYXQgYWxyZWFkeSBleGlzdHMgYW5kIGFza2luZyBpdCB0byBleHBsYWluIHRoYXQgdGhpbmc7IHlvdSBhcmUgbm90IGFza2luZyBpdCB0byB3cml0ZSBhbnl0aGluZywgYW5kIHlvdSBhcmUgbm90IGFza2luZyBpdCB0byBjaG9vc2UgYmV0d2VlbiB0d28gdmVyc2lvbnMuIFdoYXQgbWFrZXMgdGhpcyBzZXNzaW9uIGRlbWFuZGluZyBpcyBub3QgdGhlIHBlcm1pc3Npb24sIHdoaWNoIGlzIHRoZSBzbWFsbGVzdCBvbmUgdGhlcmUgaXMsIGJ1dCBob3cgaGFyZCB5b3UgYXJlIGdvaW5nIHRvIHdvcmsgaXQuIGxldmVsIG9uZSwgdHdlbnR5LXR3byB0aW1lcywgdW50aWwgY2hlY2tpbmcgYSBjbGFpbSBhZ2FpbnN0IGEgbWFjaGluZSBpcyB3aGF0IHlvdXIgaGFuZHMgZG8gd2l0aG91dCBiZWluZyB0b2xkLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiaW1wb3J0IHN0ZXBzX3dpZGdldCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iLAogICAgIiMjIFdhcm0tdXBcbiIsCiAgICAiXG4iLAogICAgIlN0cmFpZ2h0Zm9yd2FyZCBvcGVyYXRvciBwcmVjZWRlbmNlLCB0byBnZXQgdGhlIHRocmVlLXdheSBtb3ZlIHJ1bm5pbmcgc21vb3RobHkgYmVmb3JlIGFueXRoaW5nIHRyaWNreSBzaG93cyB1cC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbQUk6IEV4cGxhaW5lcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWV4cGxhaW5lcil7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiYDQgKyA2ICogMiAtIDNgIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXN0ZXBzXG4iLAogICAgIjQgKyA2ICogMiAtIDMgICMgUFJJTlQgU1RFUFMiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJgMiAqKiAzICoqIDJgIChleHBvbmVudGlhdGlvbiBncm91cHMgcmlnaHQtdG8tbGVmdCwgZGVjaWRlIHdoYXQgdGhhdCBtZWFucyBmb3IgdGhpcyBvbmUgYmVmb3JlIHlvdSBwcmVkaWN0KSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgImAxMCAtIDIgLSAzYCAoc3VidHJhY3Rpb24gZ3JvdXBzIGxlZnQtdG8tcmlnaHQsIHNhbWUgY2F1dGlvbiBhcyBhYm92ZSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIlxuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbQUk6IEV4cGxhaW5lcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWV4cGxhaW5lcil7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiYCgzICsgMikgKiAoOCAtIDYpIC8gMmAiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJgNyAlIDMgKyAyICogNSAvLyAyYCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIENvbXBhcmlzb25zIGFuZCBib29sZWFuIGxvZ2ljXG4iLAogICAgIlxuIiwKICAgICJDaGFpbmVkIGNvbXBhcmlzb25zIGFuZCBgbm90YC9gYW5kYC9gb3JgIHByZWNlZGVuY2UgYXJlIGEgcGxhY2UgZmx1ZW50LXNvdW5kaW5nIHdyb25nIGFuc3dlcnMgYXJlIGNvbW1vbiwgYmVjYXVzZSB0aGUgcnVsZXMgcmVhZCBhcyBvYnZpb3VzIHJpZ2h0IHVwIHVudGlsIHlvdSBtZWV0IGEgY2FzZSB0aGF0IGJyZWFrcyB0aGUgb2J2aW91cyByZWFkaW5nLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgImAxIDwgMiA8IDNgICh0aGlzIGlzIGEgY2hhaW5lZCBjb21wYXJpc29uLCBub3QgdHdvIHNlcGFyYXRlIGNvbXBhcmlzb25zIGNvbWJpbmVkIGJ5IG1hZ2ljLCBwcmVkaWN0IHdoYXQgUHl0aG9uIGFjdHVhbGx5IGRvZXMgd2l0aCBpdCBiZWZvcmUgYXNraW5nKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJgMSA8IDIgPiAzYCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJgbm90IDEgPT0gMSA9PSAyYCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJgVHJ1ZSBhbmQgRmFsc2Ugb3IgVHJ1ZWAiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIlxuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbQUk6IEV4cGxhaW5lcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWV4cGxhaW5lcil7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiYG5vdCBUcnVlIGFuZCBub3QgRmFsc2VgIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJcbiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgU2hvcnQtY2lyY3VpdCB2YWx1ZXMsIG5vdCBqdXN0IFRydWUvRmFsc2VcbiIsCiAgICAiXG4iLAogICAgImBhbmRgIGFuZCBgb3JgIGRvIG5vdCByZXR1cm4gYFRydWVgIG9yIGBGYWxzZWA7IHRoZXkgcmV0dXJuIHdoaWNoZXZlciBvcGVyYW5kIGRlY2lkZWQgdGhlIG91dGNvbWUuIFRoaXMgaXMgdGhlIHNpbmdsZSByaWNoZXN0IHNvdXJjZSBvZiBhIHBsYXVzaWJsZS1idXQtd3JvbmcgQUkgYW5zd2VyIGluIHRoaXMgd2hvbGUgc2Vzc2lvbiwgYmVjYXVzZSBcImFuZC9vciByZXR1cm4gYm9vbGVhbnNcIiBpcyBhIHZlcnkgbmF0dXJhbCwgdmVyeSBjb21tb24sIHZlcnkgd3Jvbmcgc2ltcGxpZmljYXRpb24uIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJcbiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgImAnQVRHJyBhbmQgJ0dDQydgIChwcmVkaWN0IHRoZSBhY3R1YWwgdmFsdWUgcmV0dXJuZWQsIG5vdCBqdXN0IHdoZXRoZXIgaXQgaXMgXCJ0cnV0aHlcIikiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIlxuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbQUk6IEV4cGxhaW5lcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWV4cGxhaW5lcil7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiYCcnIG9yICdHQ0MnYCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJgMCBvciAnJyBvciAnZGVmYXVsdCdgIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJcbiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgImAnQVRHJyBhbmQgJycgYW5kICdHQ0MnYCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJBc2sgdGhlIGFzc2lzdGFudCwgYmVmb3JlIHByZWRpY3Rpbmcgb3IgcHJvdmluZyBhbnl0aGluZywgdG8gc3RhdGUgaW4gb25lIHNlbnRlbmNlIHdoYXQgYGFuZGAgYW5kIGBvcmAgcmV0dXJuIGluIFB5dGhvbi4gT25seSBhZnRlciB5b3UgaGF2ZSBpdHMgY2xhaW0gaW4gd3JpdGluZywgcnVuIEV4ZXJjaXNlcyAxMeKAkzE0IHRocm91Z2ggdGhlIHdpZGdldCBhbmQgY2hlY2sgaXRzIGdlbmVyYWwgY2xhaW0gYWdhaW5zdCBhbGwgZm91ciBhY3R1YWwgcmVzdWx0cy4gRG9lcyBpdHMgb25lLXNlbnRlbmNlIHJ1bGUgc3Vydml2ZSBjb250YWN0IHdpdGggYWxsIGZvdXI/IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJcbiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgTWl4ZWQgdHlwZXMgYW5kIHN0cmluZ3MgXG4iLAogICAgIlxuIiwKICAgICJJbiBQeXRob24gc29tZSBtYXRoZW1hdGljYWwgb3BlcmF0b3JzIGFsc28gd29yayBvbiBzdHJpbmdzIGluIGEgd2F5IHlvdSBtYXkgbm90IGFudGljaXBhdGUuIFZlcnkgY29udmVuaWVudCwgbm90IGtub3dpbmcgaXQgd291bGQgZ2V0IHlvdSBpbiB0cm91YmxlIGFzIHlvdSB3aWxsIHNlZSBiZWxvdy4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJgJ0FUJyAqIDMgKyAnRydgIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJcbiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgImAnQVQnICogMiA9PSAnQVRBVCdgIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJcbiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgImBib29sKCdGYWxzZScpYCAoYSBjbGFzc2ljIHRyYXAsIHByZWRpY3QgY2FyZWZ1bGx5KSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiXG4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2UgXG4iLAogICAgIlxuIiwKICAgICJbQUk6IEV4cGxhaW5lcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWV4cGxhaW5lcil7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiYDMgPT0gMy4wIGFuZCAzIGlzIDMuMGAgKGlmIHlvdXIgUHl0aG9uIHJhaXNlcyBhIGBTeW50YXhXYXJuaW5nYCBvbiBgaXNgIHdpdGggYSBsaXRlcmFsLCB0aGF0IGlzIGl0c2VsZiB3b3J0aCByZWFkaW5nIGFuZCBwcmVkaWN0aW5nIGFyb3VuZCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIlxuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlIFxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgImBsZW4oJ0FURycpID09IDMgYW5kICdHJyBpbiAnQVRHJ2AiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIlxuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBCcmVhayB0aGUgQUkgXG4iLAogICAgIlxuIiwKICAgICJOb3cgeW91IHdyaXRlIHRoZSBleHByZXNzaW9ucy4gV29ya2luZyBhbG9uZSBvciB3aXRoIGEgcGFydG5lciwgY29uc3RydWN0ICoqdHdvKiogZXhwcmVzc2lvbnMgb2YgeW91ciBvd24sIGVhY2ggY29tYmluaW5nIHByZWNlZGVuY2UsIGNvbXBhcmlzb24sIGFuZCBzaG9ydC1jaXJjdWl0IGxvZ2ljLCBzcGVjaWZpY2FsbHkgZGVzaWduZWQgdG8gYmUgdGhlIGtpbmQgb2YgY2FzZSBhIGZsdWVudCBndWVzc2VyIHdvdWxkIGdldCB3cm9uZzogc29tZXRoaW5nIHdoZXJlIHRoZSBvYnZpb3VzLWxvb2tpbmcgc2ltcGxpZmljYXRpb24gKGxpa2UgXCJhbmQvb3IgcmV0dXJuIGJvb2xlYW5zXCIpIGZhaWxzLiBUcmFkZSB5b3VyIHR3byBleHByZXNzaW9ucyB3aXRoIGFub3RoZXIgcGFpci4gRm9yIGVhY2ggZXhwcmVzc2lvbiB5b3UgcmVjZWl2ZSwgZG8gdGhlIGZ1bGwgdGhyZWUtd2F5IG1vdmU6IHByZWRpY3QsIGFzaywgcHJvdmUuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlIFxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJCZWZvcmUgdHJhZGluZyBhbnl0aGluZywgd3JpdGUgZG93biBpbiBvbmUgc2VudGVuY2UgKndoeSogZWFjaCBvZiB5b3VyIHR3byBleHByZXNzaW9ucyBpcyBkZXNpZ25lZCB0byB0cmlwIHVwIGEgcGxhdXNpYmxlLWJ1dC13cm9uZyBndWVzcy4gVGhpcyBpcyB0aGUgaGFyZGVyIGhhbGYgb2YgdGhlIGV4ZXJjaXNlOiBjb25zdHJ1Y3RpbmcgYSBnb29kIHRyYXAgcmVxdWlyZXMgdW5kZXJzdGFuZGluZyB0aGUgcnVsZSB3ZWxsIGVub3VnaCB0byBrbm93IGV4YWN0bHkgd2hlcmUgaXQgaXMgZWFzeSB0byBtaXNhcHBseS4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2UgXG4iLAogICAgIlxuIiwKICAgICJbQUk6IEV4cGxhaW5lcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWV4cGxhaW5lcil7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiUnVuIHRoZSBmdWxsIHRocmVlLXdheSBtb3ZlIG9uIHRoZSB0d28gZXhwcmVzc2lvbnMgeW91IHJlY2VpdmVkIGZyb20gdGhlIG90aGVyIHBhaXIuIFJlcG9ydCBiYWNrIHRvIHRoZW0sIGluIG9uZSBzZW50ZW5jZSBlYWNoLCB3aGV0aGVyIHRoZWlyIHRyYXAgYWN0dWFsbHkgY2F1Z2h0IHRoZSBhc3Npc3RhbnQsIGNhdWdodCB5b3UsIGNhdWdodCBuZWl0aGVyLCBvciBjYXVnaHQgYm90aC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIExvZ2Jvb2sgXG4iLAogICAgIlxuIiwKICAgICJGb3IgeW91ciBsb2dib29rIHRoaXMgd2VlaywgcmVwb3J0IHlvdXIgcGVyc29uYWwgdGFsbHkgYWNyb3NzIHRoZSB3aG9sZSBzZXNzaW9uOiBob3cgbWFueSBvZiB0aGUgcm91Z2hseSB0d2VudHkgZXhwcmVzc2lvbnMgdGhlIGFzc2lzdGFudCBnb3Qgd3JvbmcsIGhvdyBtYW55IHlvdSBnb3Qgd3JvbmcsIGFuZCB3aGV0aGVyIHRoZSB0d28gb2YgeW91IHRlbmRlZCB0byBnZXQgdGhlICpzYW1lKiBvbmVzIHdyb25nIG9yICpkaWZmZXJlbnQqIG9uZXMuIFRoYXQgbGFzdCBxdWVzdGlvbiBtYXR0ZXJzIG1vcmUgdGhhbiB0aGUgcmF3IGNvdW50LCBpdCB0ZWxscyB5b3Ugd2hldGhlciB5b3VyIGluc3RpbmN0cyBhbmQgdGhlIGFzc2lzdGFudCdzIGZhaWx1cmUgbW9kZXMgb3ZlcmxhcCwgd2hpY2ggaXMgZXhhY3RseSB0aGUgdGhpbmcgeW91IG5lZWQgdG8ga25vdyB0byBjaGVjayBpdCB3ZWxsLiIKICAgXQogIH0KIF0sCiAibWV0YWRhdGEiOiB7CiAgImtlcm5lbHNwZWMiOiB7CiAgICJkaXNwbGF5X25hbWUiOiAiSW5zdHJ1Y3RpbmcgTWFjaGluZXMiLAogICAibGFuZ3VhZ2UiOiAicHl0aG9uIiwKICAgIm5hbWUiOiAiaW5zdHJ1Y3RpbmctbWFjaGluZXMiCiAgfSwKICAibGFuZ3VhZ2VfaW5mbyI6IHsKICAgImNvZGVtaXJyb3JfbW9kZSI6IHsKICAgICJuYW1lIjogImlweXRob24iLAogICAgInZlcnNpb24iOiAzCiAgIH0sCiAgICJmaWxlX2V4dGVuc2lvbiI6ICIucHkiLAogICAibWltZXR5cGUiOiAidGV4dC94LXB5dGhvbiIsCiAgICJuYW1lIjogInB5dGhvbiIsCiAgICJuYmNvbnZlcnRfZXhwb3J0ZXIiOiAicHl0aG9uIiwKICAgInB5Z21lbnRzX2xleGVyIjogImlweXRob24zIgogIH0KIH0sCiAibmJmb3JtYXQiOiA0LAogIm5iZm9ybWF0X21pbm9yIjogNAp9Cg==').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'predict-then-prove.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts45357"><i class="bi bi-download"></i> Download notebook </button></a> </p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#warm-up-arithmetic-precedence" id="toc-warm-up-arithmetic-precedence" class="nav-link active" data-scroll-target="#warm-up-arithmetic-precedence">Warm-up: arithmetic precedence</a></li>
-  <li><a href="#comparisons-and-boolean-logic-35-min" id="toc-comparisons-and-boolean-logic-35-min" class="nav-link" data-scroll-target="#comparisons-and-boolean-logic-35-min">Comparisons and boolean logic (35 min)</a></li>
-  <li><a href="#short-circuit-values-not-just-truefalse-35-min" id="toc-short-circuit-values-not-just-truefalse-35-min" class="nav-link" data-scroll-target="#short-circuit-values-not-just-truefalse-35-min">Short-circuit values, not just True/False (35 min)</a></li>
+  <li><a href="#warm-up" id="toc-warm-up" class="nav-link active" data-scroll-target="#warm-up">Warm-up</a></li>
+  <li><a href="#comparisons-and-boolean-logic" id="toc-comparisons-and-boolean-logic" class="nav-link" data-scroll-target="#comparisons-and-boolean-logic">Comparisons and boolean logic</a></li>
+  <li><a href="#short-circuit-values-not-just-truefalse" id="toc-short-circuit-values-not-just-truefalse" class="nav-link" data-scroll-target="#short-circuit-values-not-just-truefalse">Short-circuit values, not just True/False</a></li>
   <li><a href="#mixed-types-and-strings" id="toc-mixed-types-and-strings" class="nav-link" data-scroll-target="#mixed-types-and-strings">Mixed types and strings</a></li>
   <li><a href="#break-the-ai" id="toc-break-the-ai" class="nav-link" data-scroll-target="#break-the-ai">Break the AI</a></li>
   <li><a href="#logbook" id="toc-logbook" class="nav-link" data-scroll-target="#logbook">Logbook</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/ai/predict-then-prove.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/ai/predict-then-prove.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/if-else.html">Week 2</a></li><li class="breadcrumb-item"><a href="../ai/predict-then-prove.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/if-else.html">Week 2</a></li><li class="breadcrumb-item"><a href="../ai/predict-then-prove.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-predict-then-prove" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></h1>
+<h1 class="title"><span id="sec-predict-then-prove" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></h1>
 </div>
 
 
@@ -708,7 +758,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>The week-two AI beat: a claim about what code does is a prediction to be checked.</em></p>
+<p><em>A claim about what code does is a prediction to be verified.</em></p>
 <p>The routine for this whole session is the same three-way move, repeated on harder and harder expressions until it is automatic. You predict what an expression evaluates to, by hand, doing the substitution and reduction steps yourself. You ask the assistant what it evaluates to, and read its answer, including whatever reasoning it gives. Then you run it through the <code>%%steps</code> widget, which is the only one of the three that actually reduces the expression step by step and cannot be talked around. Three answers, one witness. When your prediction and the assistant’s answer agree, that is pleasant and proves nothing. When they disagree, or when either of you turns out to be wrong, that is the session working exactly as intended.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -728,132 +778,193 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p>Every round below carries the <code>AI: Explainer</code> badge, which is the rung of the ladder you were given in week one and the only one you have so far. You are putting something in front of the assistant that already exists and asking it to explain that thing; you are not asking it to write anything, and you are not asking it to choose between two versions. What makes this session demanding is not the permission, which is the smallest one there is, but how hard you are going to work it. level one, twenty-two times, until checking a claim against a machine is what your hands do without being told.</p>
-<section id="warm-up-arithmetic-precedence" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="warm-up-arithmetic-precedence">Warm-up: arithmetic precedence</h2>
+<div id="cell-1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> steps_widget</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="warm-up" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="warm-up">Warm-up</h2>
 <p>Straightforward operator precedence, to get the three-way move running smoothly before anything tricky shows up.</p>
-<section id="exercise-1" class="level4" data-number="16.0.0.1">
-<h4 data-number="16.0.0.1" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 16-1</strong></h4>
+<section id="exercise" class="level4" data-number="17.0.0.1">
+<h4 data-number="17.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 17-1</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>4 + 6 * 2 - 3</code></p>
+<div id="cell-4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>steps</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">3</span>  <span class="co"># PRINT STEPS</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-2" class="level4" data-number="16.0.0.2">
-<h4 data-number="16.0.0.2" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 16-2</strong></h4>
+<section id="exercise-1" class="level4" data-number="17.0.0.2">
+<h4 data-number="17.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 17-2</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>2 ** 3 ** 2</code> (exponentiation groups right-to-left, decide what that means for this one before you predict)</p>
 </section>
-<section id="exercise-3" class="level4" data-number="16.0.0.3">
-<h4 data-number="16.0.0.3" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 16-3</strong></h4>
+<section id="exercise-2" class="level4" data-number="17.0.0.3">
+<h4 data-number="17.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 17-3</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>10 - 2 - 3</code> (subtraction groups left-to-right, same caution as above)</p>
+<div id="cell-7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-4" class="level4" data-number="16.0.0.4">
-<h4 data-number="16.0.0.4" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 16-4</strong></h4>
+<section id="exercise-3" class="level4" data-number="17.0.0.4">
+<h4 data-number="17.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 17-4</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>(3 + 2) * (8 - 6) / 2</code></p>
 </section>
-<section id="exercise-5" class="level4" data-number="16.0.0.5">
-<h4 data-number="16.0.0.5" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 16-5</strong></h4>
+<section id="exercise-4" class="level4" data-number="17.0.0.5">
+<h4 data-number="17.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 17-5</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>7 % 3 + 2 * 5 // 2</code></p>
+<div id="cell-10" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
-<section id="comparisons-and-boolean-logic-35-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="comparisons-and-boolean-logic-35-min">Comparisons and boolean logic (35 min)</h2>
+<section id="comparisons-and-boolean-logic" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="comparisons-and-boolean-logic">Comparisons and boolean logic</h2>
 <p>Chained comparisons and <code>not</code>/<code>and</code>/<code>or</code> precedence are a place fluent-sounding wrong answers are common, because the rules read as obvious right up until you meet a case that breaks the obvious reading.</p>
-<section id="exercise-6" class="level4" data-number="16.0.0.6">
-<h4 data-number="16.0.0.6" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 16-6</strong></h4>
+<section id="exercise-5" class="level4" data-number="17.0.0.6">
+<h4 data-number="17.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 17-6</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>1 &lt; 2 &lt; 3</code> (this is a chained comparison, not two separate comparisons combined by magic, predict what Python actually does with it before asking)</p>
+<div id="cell-13" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-7" class="level4" data-number="16.0.0.7">
-<h4 data-number="16.0.0.7" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 16-7</strong></h4>
+<section id="exercise-6" class="level4" data-number="17.0.0.7">
+<h4 data-number="17.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 17-7</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>1 &lt; 2 &gt; 3</code></p>
+<div id="cell-15" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-8" class="level4" data-number="16.0.0.8">
-<h4 data-number="16.0.0.8" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 16-8</strong></h4>
+<section id="exercise-7" class="level4" data-number="17.0.0.8">
+<h4 data-number="17.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 17-8</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>not 1 == 1 == 2</code></p>
+<div id="cell-17" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-9" class="level4" data-number="16.0.0.9">
-<h4 data-number="16.0.0.9" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 16-9</strong></h4>
+<section id="exercise-8" class="level4" data-number="17.0.0.9">
+<h4 data-number="17.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 17-9</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>True and False or True</code></p>
+<div id="cell-19" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-10" class="level4" data-number="16.0.0.10">
-<h4 data-number="16.0.0.10" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 16-10</strong></h4>
+<section id="exercise-9" class="level4" data-number="17.0.0.10">
+<h4 data-number="17.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 17-10</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>not True and not False</code></p>
+<div id="cell-21" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
-<section id="short-circuit-values-not-just-truefalse-35-min" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="short-circuit-values-not-just-truefalse-35-min">Short-circuit values, not just True/False (35 min)</h2>
+<section id="short-circuit-values-not-just-truefalse" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="short-circuit-values-not-just-truefalse">Short-circuit values, not just True/False</h2>
 <p><code>and</code> and <code>or</code> do not return <code>True</code> or <code>False</code>; they return whichever operand decided the outcome. This is the single richest source of a plausible-but-wrong AI answer in this whole session, because “and/or return booleans” is a very natural, very common, very wrong simplification.</p>
-<section id="exercise-11" class="level4" data-number="16.0.0.11">
-<h4 data-number="16.0.0.11" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 16-11</strong></h4>
+<div id="cell-23" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="exercise-10" class="level4" data-number="17.0.0.11">
+<h4 data-number="17.0.0.11" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 17-11</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>'ATG' and 'GCC'</code> (predict the actual value returned, not just whether it is “truthy”)</p>
+<div id="cell-25" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-12" class="level4" data-number="16.0.0.12">
-<h4 data-number="16.0.0.12" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 16-12</strong></h4>
+<section id="exercise-11" class="level4" data-number="17.0.0.12">
+<h4 data-number="17.0.0.12" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 17-12</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>'' or 'GCC'</code></p>
+<div id="cell-27" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-13" class="level4" data-number="16.0.0.13">
-<h4 data-number="16.0.0.13" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 16-13</strong></h4>
+<section id="exercise-12" class="level4" data-number="17.0.0.13">
+<h4 data-number="17.0.0.13" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 17-13</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>0 or '' or 'default'</code></p>
+<div id="cell-29" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-14" class="level4" data-number="16.0.0.14">
-<h4 data-number="16.0.0.14" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 16-14</strong></h4>
+<section id="exercise-13" class="level4" data-number="17.0.0.14">
+<h4 data-number="17.0.0.14" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 17-14</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>'ATG' and '' and 'GCC'</code></p>
+<div id="cell-31" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-15" class="level4" data-number="16.0.0.15">
-<h4 data-number="16.0.0.15" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 16-15</strong></h4>
+<section id="exercise-14" class="level4" data-number="17.0.0.15">
+<h4 data-number="17.0.0.15" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 17-15</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p>Ask the assistant, before predicting or proving anything, to state in one sentence what <code>and</code> and <code>or</code> return in Python. Only after you have its claim in writing, run Exercises 11–14 through the widget and check its general claim against all four actual results. Does its one-sentence rule survive contact with all four?</p>
+<div id="cell-33" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
 <section id="mixed-types-and-strings" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="mixed-types-and-strings">Mixed types and strings</h2>
-<p>Precedence and truthiness interact with strings, repetition, and coercion in ways worth a dedicated round.</p>
-<section id="exercise-16" class="level4" data-number="16.0.0.16">
-<h4 data-number="16.0.0.16" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 16-16</strong></h4>
+<p>In Python some mathematical operators also work on strings in a way you may not anticipate. Very convenient, not knowing it would get you in trouble as you will see below.</p>
+<section id="exercise-15" class="level4" data-number="17.0.0.16">
+<h4 data-number="17.0.0.16" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 17-16</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>'AT' * 3 + 'G'</code></p>
+<div id="cell-36" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-17" class="level4" data-number="16.0.0.17">
-<h4 data-number="16.0.0.17" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 16-17</strong></h4>
+<section id="exercise-16" class="level4" data-number="17.0.0.17">
+<h4 data-number="17.0.0.17" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 17-17</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>'AT' * 2 == 'ATAT'</code></p>
+<div id="cell-38" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-18" class="level4" data-number="16.0.0.18">
-<h4 data-number="16.0.0.18" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 16-18</strong></h4>
+<section id="exercise-17" class="level4" data-number="17.0.0.18">
+<h4 data-number="17.0.0.18" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 17-18</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>bool('False')</code> (a classic trap, predict carefully)</p>
+<div id="cell-40" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-19" class="level4" data-number="16.0.0.19">
-<h4 data-number="16.0.0.19" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 16-19</strong></h4>
+<section id="exercise-18" class="level4" data-number="17.0.0.19">
+<h4 data-number="17.0.0.19" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 17-19</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>3 == 3.0 and 3 is 3.0</code> (if your Python raises a <code>SyntaxWarning</code> on <code>is</code> with a literal, that is itself worth reading and predicting around)</p>
+<div id="cell-42" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="exercise-20" class="level4" data-number="16.0.0.20">
-<h4 data-number="16.0.0.20" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 16-20</strong></h4>
+<section id="exercise-19" class="level4" data-number="17.0.0.20">
+<h4 data-number="17.0.0.20" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 17-20</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p><code>len('ATG') == 3 and 'G' in 'ATG'</code></p>
+<div id="cell-44" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
 <section id="break-the-ai" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="break-the-ai">Break the AI</h2>
 <p>Now you write the expressions. Working alone or with a partner, construct <strong>two</strong> expressions of your own, each combining precedence, comparison, and short-circuit logic, specifically designed to be the kind of case a fluent guesser would get wrong: something where the obvious-looking simplification (like “and/or return booleans”) fails. Trade your two expressions with another pair. For each expression you receive, do the full three-way move: predict, ask, prove.</p>
-<section id="exercise-21" class="level4" data-number="16.0.0.21">
-<h4 data-number="16.0.0.21" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 16-21</strong></h4>
+<section id="exercise-20" class="level4" data-number="17.0.0.21">
+<h4 data-number="17.0.0.21" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 17-21</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Before trading anything, write down in one sentence <em>why</em> each of your two expressions is designed to trip up a plausible-but-wrong guess. This is the harder half of the exercise: constructing a good trap requires understanding the rule well enough to know exactly where it is easy to misapply.</p>
 </section>
-<section id="exercise-22" class="level4" data-number="16.0.0.22">
-<h4 data-number="16.0.0.22" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 16-22</strong></h4>
+<section id="exercise-21" class="level4" data-number="17.0.0.22">
+<h4 data-number="17.0.0.22" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 17-22</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p>Run the full three-way move on the two expressions you received from the other pair. Report back to them, in one sentence each, whether their trap actually caught the assistant, caught you, caught neither, or caught both.</p>
 </section>
@@ -1302,12 +1413,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../python/functions.html" class="pagination-link" aria-label="Functions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Functions</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../ai/how-models-produce-code.html" class="pagination-link" aria-label="AI: How AIs produce code">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1316,4 +1427,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/ai/predict-then-prove.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/ai/predict-then-prove.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
