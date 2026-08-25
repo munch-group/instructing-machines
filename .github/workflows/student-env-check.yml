@@ -27,7 +27,12 @@ jobs:
       matrix:
         include:
           - { os: windows-latest, label: Windows }
-          - { os: macos-13, label: Intel Mac }
+          # macos-13 was retired as a runner image, so this job never got a
+          # runner: it sat queued until GitHub expired the whole run, which is
+          # why every run of this workflow ends "cancelled" however well the
+          # other four jobs did. macos-15-intel is the current x64 macOS image,
+          # and standard runners are free on public repositories.
+          - { os: macos-15-intel, label: Intel Mac }
           - { os: macos-latest, label: Apple Silicon Mac }
           - { os: ubuntu-latest, label: Linux }
     steps:
