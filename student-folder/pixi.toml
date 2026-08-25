@@ -96,6 +96,17 @@ vscode = "python .pin_pixi_path.py"
 # those happen as part of it rather than as steps of their own that half of them
 # would skip. Running it again is harmless: both overwrite.
 check = { cmd = "im check", depends-on = ["kernel", "vscode"] }
+
+# The same task under the name that fits the day it matters most. On day one
+# this sets the folder up, and "check" is a thin word for something that writes
+# a kernel and two paths. `check` keeps working because it is the name already
+# written down everywhere it counts: the getting started chapter, the
+# troubleshooting notes, the comments .pin_pixi_path.py leaves inside a
+# student's own settings.json, and `im update`, which looks this task up by
+# name after downloading the manifest. Two names and one task means neither of
+# those has to be migrated, and none of them can go stale.
+setup = { depends-on = ["check"] }
+
 get = "im get"
 update = "im update"
 
