@@ -58,10 +58,10 @@ from quarto_profile import quarto_config  # noqa: E402
 # the build will tell you which exercises now sit on the wrong side of it.
 LADDER = [
     ("Explainer",           "intro/course-introduction.qmd"),
-    ("Comparer",            "ai/ask-for-another-way.qmd"),
-    ("Drafter",             "ai/let-it-draft.qmd"),
-    ("Collaborator",        "ai/plan-before-you-prompt.md"),
-    ("Developer",           "ai/delegate-the-full-problem.md"),
+    ("Comparer",            "ai/ask-for-another-way.ipynb"),
+    ("Drafter",             "ai/let-it-draft.ipynb"),
+    ("Collaborator",        "ai/plan-before-you-prompt.ipynb"),
+    ("Developer",           "ai/delegate-the-full-problem.ipynb"),
 ]
 INTRODUCED_BY = dict(LADDER)
 

@@ -32,10 +32,6 @@ Everything you work on for this course should go in a a folder I prepared for yo
 
 On Mac, you double-click to unpack the zip file. Then move the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
 
-```bash
-curl -fsSL https://pixi.sh/install.sh | sh
-```
-
 ## <i class="bi bi-windows"></i> Windows
 
 On Windows, you right-click and select "Extract all". When asked to "Select a Destination", click "Browse" and choose the folder you want to put the `instructing-machines` folder in - choose somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
@@ -120,8 +116,10 @@ Pixi is the program that installs Python for you along with all the packages you
 Open your Terminal application. Click the small clipboard icon, which appears when you hover over the command, paste the command into your terminal and press Enter.
 
 ```bash
-curl -fsSL https://pixi.sh/install.sh | sh
+curl -fsSL https://pixi.sh/install.sh | SHELL="$(ps -o comm= -p $$ | sed 's/^-//')" sh
 ```
+
+The `SHELL=...` in the middle of that line looks like noise, and it is earning its place. Installing pixi means writing one line into the settings file your terminal reads when it starts, and the installer works out which file that is by asking macOS which shell your account uses — not by looking at the shell you are actually typing in. On a good many Macs those two answers are different, and then the line lands in a file your terminal never opens. The fragment tells the installer to use the shell in front of you.
 
 ## <i class="bi bi-windows"></i> Windows
 
@@ -178,7 +176,7 @@ If `pixi install` fails, it may be because you have antivirus software (other th
 
 :::
 
-## The text editor {#sec-text-editor}
+## The VScode editor {#sec-text-editor}
 
 You will also need a *text editor*. A text editor is where you write your Python code. For this course, we will use *Visual Studio Code* — or *VS Code* for short. You can download it from [code.visualstudio.com](https://code.visualstudio.com/download). If you open VS Code, you should see something like @fig-vscode.
 
@@ -266,6 +264,13 @@ This one is not optional. An extension installed while the folder was already op
 
 - **"pixi is not recognized as an internal or external command" (Windows).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
 - **"command not found: pixi" (Mac).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
+- **"command not found: pixi" (Mac), and a brand new terminal does not help either.** Then the installer wrote its line into a file your terminal does not read. This happens when macOS records one shell for your account while your terminal runs another, which is common on Macs that have been through a few system upgrades. Paste this to put the line where it will be read:
+
+    ```bash
+    echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.zshrc
+    ```
+
+    Then close the terminal and open a new one, and `pixi --version` should answer. If you would like to see the disagreement for yourself, run `echo $SHELL` and `ps -o comm= -p $$` — on an affected Mac they name two different shells.
 - **Windows says a script cannot be run, or mentions an execution policy.** You have found a PowerShell install script somewhere. Do not fight with it — use the `.msi` installer linked in [Installing pixi](#sec-installing-pixi) instead. It needs no permissions of that kind.
 - **`pixi install` fails part-way, or complains about paths being too long.** The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to `C:\bioprog\` and run `pixi install` again.
 - **The window still says *Restricted Mode*, or nothing Python-related works at all.** The folder is untrusted, which is how VS Code opens every new folder now, and extensions do not run until you change it. Click the blue **Restricted Mode** button in the bottom left corner, then **Trust** ([Opening the folder](#sec-opening-the-folder), step 2). Then reload the window, because the extensions have been sitting switched off until this moment.
