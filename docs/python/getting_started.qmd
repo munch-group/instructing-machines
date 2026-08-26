@@ -318,13 +318,80 @@ This one is not optional. An extension installed while the folder was already op
 If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about.
 
 
-## Safe procedure on Windows
 
-We assume you already installed pixi (even though you cannot get it to work).
+## Safe procedure on Mac {#sec-safe-mac-procedure}
 
-1. Quit VS Code completely first if it's running. 
+1. Quit VS Code completely first if it is running. 
+
+2. Quit Terminal it it is running.
+
+3. Open a new Terminal window and run this command
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | SHELL="$(ps -o comm= -p $$ | sed 's/^-//')" sh
+```
+
+3. Now close that terminal *completely* and open a new one. 
+
+
+4. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
+
+```txt
+pixi --version
+```
+
+5. Delete any instructing-machines.zip files in your Downloads folder
+
+6. To to the "getting started" page and download the course folder again
+
+7. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
+
+8. In the terminal, run this to move it to your user folder
+
+```
+mv ~/Downloads/instructing-machines ~/.
+```
+
+9. Navigate to the course folder
+
+```
+cd ~/instructing-machines 
+```
+
+10. Run this to build the environment:
+
+```txt
+pixi clean ; pixi install
+```
+
+11. Finish the setup 
+
+```txt
+pixi run setup
+```
+
+Install the course tool
+
+```txt
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
+
+12. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
+
+
+
+
+
+
+## Safe procedure on Windows {#sec-safe-windows-procedure}
+
+1. Quit VS Code completely first if it is running. 
 
 2. Then in PowerShell (Start menu → PowerShell, not VS Code's terminal):
+
+```txt
+powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"
+```
 
 3. Now close that terminal *completely* and open a new one. 
 
@@ -334,38 +401,47 @@ We assume you already installed pixi (even though you cannot get it to work).
 pixi --version
 ```
 
-3. Run this in the terminal and answer Y when prompted.
+5. Run this in the terminal and answer `Y` when prompted.
 
 ```txt
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
-4. Delete any instructing-machines.zip files in your Downloads folder
+6. Delete any instructing-machines.zip files in your Downloads folder
 
-5. Run this to unpack the course folder in a place Windows will not fight you
+7. To to the "getting started" and download the course folder again.
+
+8. Run this to unpack the course folder in a place Windows will not fight you
 
 ```txt
 Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\im
 ```
 
-6. Run this to navigate to the course-folder
+9. Run this to navigate to the course-folder
 
 ```txt
 cd C:\im\instructing-machines
 ```
 
-7. Run this to build the environment in the course folder:
+10. Run this to build the environment:
 
 ```txt
 pixi clean ; pixi install
 ```
 
-8. Finish the setup 
+11. Finish the setup 
 
 ```txt
 pixi run setup
 ```
 
-9. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
+Install the course tool
+
+```txt
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
+
+12. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
 
 
 ## You are all set <i class="bi bi-hand-thumbs-up"></i>
