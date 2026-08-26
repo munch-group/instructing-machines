@@ -163,15 +163,9 @@ When it is done there is a new hidden `.pixi` folder in the course folder contai
 Then finish the setup and check it by running this in the terminal:
 
 ```bash
-pixi run check
-```
-<!-- 
-for 2027
-
-```bash
 pixi run setup
 ```
- -->
+
 If it prints "Everything is installed. Python {{< var python_version >}}", you are finished with the hard part.
 
 The `setup` in that command is not a built-in pixi command — it is a little errand we wrote for you and stored in the folder's `pixi.toml` file. It does three things: it gives your course Python a name VS Code can show you in a list, it writes down where pixi lives on this particular machine so VS Code can find it, and then it checks that everything is installed. Running it again later is always safe.
