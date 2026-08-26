@@ -2637,11 +2637,22 @@
     ]
   },
   {
-    "objectID": "python/getting_started.html#safe-procedure-on-windows",
-    "href": "python/getting_started.html#safe-procedure-on-windows",
+    "objectID": "python/getting_started.html#sec-safe-mac-procedure",
+    "href": "python/getting_started.html#sec-safe-mac-procedure",
+    "title": "7  Getting started",
+    "section": "Safe procedure on Mac",
+    "text": "Safe procedure on Mac\n\nQuit VS Code completely first if it is running.\nQuit Terminal it it is running.\nOpen a new Terminal window and run this command\n\ncurl -fsSL https://pixi.sh/install.sh | SHELL=\"$(ps -o comm= -p $$ | sed 's/^-//')\" sh\n\nNow close that terminal completely and open a new one.\nRun this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.\n\npixi --version\n\nDelete any instructing-machines.zip files in your Downloads folder\nTo to the “getting started” page and download the course folder again\nOpen the Downloads folder and double-click instructing-machines.zip to unpack it.\nIn the terminal, run this to move it to your user folder\n\nmv ~/Downloads/instructing-machines ~/.\n\nNavigate to the course folder\n\ncd ~/instructing-machines \n\nRun this to build the environment:\n\npixi clean ; pixi install\n\nFinish the setup\n\npixi run setup\nInstall the course tool\npixi global install -c conda-forge -c munch-group im-course-tools\n\nThen open C:-machines in VS Code using File → Open Folder.",
+    "crumbs": [
+      "Week 1",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Getting started</span>"
+    ]
+  },
+  {
+    "objectID": "python/getting_started.html#sec-safe-windows-procedure",
+    "href": "python/getting_started.html#sec-safe-windows-procedure",
     "title": "7  Getting started",
     "section": "Safe procedure on Windows",
-    "text": "Safe procedure on Windows\nWe assume you already installed pixi (even though you cannot get it to work).\n\nQuit VS Code completely first if it’s running.\nThen in PowerShell (Start menu → PowerShell, not VS Code’s terminal):\nNow close that terminal completely and open a new one.\nRun this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.\n\npixi --version\n\nRun this in the terminal and answer Y when prompted.\n\nSet-ExecutionPolicy RemoteSigned -Scope CurrentUser\n\n4. Delete any instructing-machines.zip files in your Downloads folder\n\n5. Run this to unpack the course folder in a place Windows will not fight you\n\n```txt\nExpand-Archive -Path \"$HOME\\Downloads\\instructing-machines.zip\" -DestinationPath C:\\im\n\nRun this to navigate to the course-folder\n\ncd C:\\im\\instructing-machines\n\nRun this to build the environment in the course folder:\n\npixi clean ; pixi install\n\nFinish the setup\n\npixi run setup\n\nThen open C:-machines in VS Code using File → Open Folder.",
+    "text": "Safe procedure on Windows\n\nQuit VS Code completely first if it is running.\nThen in PowerShell (Start menu → PowerShell, not VS Code’s terminal):\n\npowershell -ExecutionPolicy Bypass -c \"irm -useb https://pixi.sh/install.ps1 | iex\"\n\nNow close that terminal completely and open a new one.\nRun this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.\n\npixi --version\n\nRun this in the terminal and answer Y when prompted.\n\nSet-ExecutionPolicy RemoteSigned -Scope CurrentUser\n\nDelete any instructing-machines.zip files in your Downloads folder\nTo to the “getting started” and download the course folder again.\nRun this to unpack the course folder in a place Windows will not fight you\n\nExpand-Archive -Path \"$HOME\\Downloads\\instructing-machines.zip\" -DestinationPath C:\\im\n\nRun this to navigate to the course-folder\n\ncd C:\\im\\instructing-machines\n\nRun this to build the environment:\n\npixi clean ; pixi install\n\nFinish the setup\n\npixi run setup\nInstall the course tool\npixi global install -c conda-forge -c munch-group im-course-tools\n\nThen open C:-machines in VS Code using File → Open Folder.",
     "crumbs": [
       "Week 1",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Getting started</span>"
