@@ -141,6 +141,40 @@ To check that it worked, paste this line and press Enter:
 pixi --version
 ```
 
+
+<!-- 
+Quit VS Code completely first if it's running. Then in PowerShell (Start menu → PowerShell, not VS Code's terminal):
+
+# 1. Install pixi. The -ExecutionPolicy Bypass is what gets the installer past
+#    Windows' default "no scripts" setting — it applies to this one command only.
+powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"
+
+Now close that terminal completely and open a new one. A terminal reads PATH once, when it starts, so the one you just installed from cannot see pixi. This is the single most common false failure.
+
+# 2. Confirm the new terminal can see it
+pixi --version
+
+# 3. Allow scripts for your own account. Not needed for `pixi install`, but
+#    `pixi shell` and VS Code's terminal both fail without it. Answer Y.
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# 4. Unpack the course folder somewhere Windows will not fight you
+Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\im
+
+# 5. Build the environment
+cd C:\im\instructing-machines
+pixi clean
+pixi install
+
+# 6. Finish the setup
+pixi run setup
+
+Then open C:\im\instructing-machines in VS Code with File → Open Folder.
+ -->
+
+
+
+
 It should print something like: "pixi 0.60.0". You will probably see a different version number, and that is fine. If you instead see something about the command not being recognized, see [If something goes wrong](#sec-if-something-goes-wrong).
 
 
@@ -282,6 +316,57 @@ This one is not optional. An extension installed while the folder was already op
 - **Nothing works and the lecture has already started.** Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.
 
 If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about.
+
+
+## Safe procedure on Windows
+
+We assume you already installed pixi (even though you cannot get it to work).
+
+1. Quit VS Code completely first if it's running. 
+
+2. Then in PowerShell (Start menu → PowerShell, not VS Code's terminal):
+
+3. Now close that terminal *completely* and open a new one. 
+
+4. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
+
+```txt
+pixi --version
+```
+
+3. Run this in the terminal and answer Y when prompted.
+
+```txt
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+4. Delete any instructing-machines.zip files in your Downloads folder
+
+5. Run this to unpack the course folder in a place Windows will not fight you
+
+```txt
+Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\im
+```
+
+6. Run this to navigate to the course-folder
+
+```txt
+cd C:\im\instructing-machines
+```
+
+7. Run this to build the environment in the course folder:
+
+```txt
+pixi clean ; pixi install
+```
+
+8. Finish the setup 
+
+```txt
+pixi run setup
+```
+
+9. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
+
 
 ## You are all set <i class="bi bi-hand-thumbs-up"></i>
 
