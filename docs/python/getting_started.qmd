@@ -305,13 +305,6 @@ This one is not optional. An extension installed while the folder was already op
 
 - **"pixi is not recognized as an internal or external command" (Windows).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
 - **"command not found: pixi" (Mac).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
-- **"command not found: pixi" (Mac), and a brand new terminal does not help either.** Then the installer wrote its line into a file your terminal does not read. This happens when macOS records one shell for your account while your terminal runs another, which is common on Macs that have been through a few system upgrades. Paste this to put the line where it will be read:
-
-    ```bash
-    echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.zshrc
-    ```
-
-    Then close the terminal and open a new one, and `pixi --version` should answer. If you would like to see the disagreement for yourself, run `echo $SHELL` and `ps -o comm= -p $$` — on an affected Mac they name two different shells.
 - **Windows says a script cannot be run, or mentions an execution policy.** You have found a PowerShell install script somewhere. Do not fight with it — use the `.msi` installer linked in [Installing pixi](#sec-installing-pixi) instead. It needs no permissions of that kind.
 - **`pixi install` fails part-way, or complains about paths being too long.** The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to `C:\bioprog\` and run `pixi install` again.
 - **The window still says *Restricted Mode*, or nothing Python-related works at all.** The folder is untrusted, which is how VS Code opens every new folder now, and extensions do not run until you change it. Click the blue **Restricted Mode** button in the bottom left corner, then **Trust** ([Opening the folder](#sec-opening-the-folder), step 2). Then reload the window, because the extensions have been sitting switched off until this moment.

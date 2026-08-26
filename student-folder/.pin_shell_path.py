@@ -1,4 +1,5 @@
-"""Tell your terminal where pixi is, whichever shell it opens with.
+"""Tell your terminal where pixi is, whichever shell it opens and however that
+shell was started.
 
 You do not need to run this yourself. `pixi run check` runs it, and running it
 again is harmless.
@@ -18,22 +19,34 @@ yesterday, which reads like a broken installation and is not one: the program is
 there, on the disk, where it has always been, and this particular window has
 simply never been told.
 
-So this looks at where pixi actually is, works out which shells you have, and
-writes the line into the startup file each of them really reads -- including the
-one the installer missed. It writes nothing if the line is already there, and
-nothing at all if pixi came from somewhere other than its own installer (from
-Homebrew, say), because then the line would point at a folder that does not
-exist and the problem is not this one.
+There is a second half to the same problem, and it is the one that bites hardest
+because there is no window in which to see it. A shell reads different files
+depending on how it was started, not only on which shell it is. An interactive
+shell, one you type in, reads the rc file: ~/.zshrc or ~/.bashrc. A login shell
+reads the profile file: ~/.zprofile or ~/.bash_profile. And a login shell that
+is not interactive reads only that profile file, which matters because `zsh -lc`
+and `bash -lc` are exactly that, and they are what VS Code, its extensions and
+most other tooling run when they run something on your behalf. A line sitting in
+the rc file is invisible to all of it. That is how pixi comes to work when you
+type it yourself and to be missing when something else runs it for you.
 
-There is a second gap in the same place, and this closes that too. A login shell
-reads the profile file and stops: bash on macOS opens ~/.bash_profile and never
-looks at ~/.bashrc, and zsh reads ~/.zprofile but only reaches ~/.zshrc when it
-is also interactive. So a PATH line living in the rc file -- which is where the
-pixi installer, and every tutorial written for Linux, puts it -- is invisible to
-`bash -lc` and to `zsh -lc`, and those are what VS Code and most tooling actually
-run. Each profile file is therefore made to read its own rc file, which makes
-whatever is written in one of them true in both kinds of shell: this line, and
-anything a student adds later.
+So the line goes wherever that shell will read it whatever kind of shell it is.
+For zsh that is ~/.zshenv, the one file zsh reads on every invocation, login or
+not, interactive or not. bash has no such file, so it takes two: the login file
+it opens when it is a login shell, and ~/.bashrc for when it is interactive
+without being one. A `bash -c` that is neither reads no startup file at all, and
+nothing here can reach that one.
+
+Both shells are set up, whichever one this machine happens to open by default.
+The default shell is not the only shell a student will meet: VS Code opens what
+its own settings say, a tutorial tells them to type `bash`, an extension runs
+`zsh -lc`, and any one of those can be the thing that cannot find pixi while
+Terminal works perfectly.
+
+It writes nothing where the line is already there, and nothing at all if pixi
+came from somewhere other than its own installer (from Homebrew, say), because
+then the line would point at a folder that does not exist and the problem is not
+this one.
 
 Windows keeps its PATH somewhere else entirely, in the registry rather than in a
 startup file, so there is nothing here for it to do.
@@ -52,42 +65,31 @@ from pathlib import Path
 # this would neither help nor be true.
 INSTALLER_BIN = ".pixi/bin"
 
-# What each shell reads when it starts, best file first.
-#
-# The bash order is macOS's, and it is the trap this whole script exists next
-# to: macOS opens bash as a *login* shell, which reads .bash_profile and stops
-# without ever looking at .bashrc. Everywhere else it is the other way round.
-# Getting it wrong writes a correct line into a file the shell never opens,
-# which looks exactly like having done nothing at all.
-STARTUP_FILES = {
-    "zsh": (".zshrc", ".zprofile", ".zshenv"),
-    "bash": (".bash_profile", ".bashrc", ".profile"),
-    "fish": (".config/fish/config.fish",),
-}
-LINUX_BASH = (".bashrc", ".bash_profile", ".profile")
-
-# The two this is about. A student who has both -- and on a Mac that is most of
-# them, because plenty of software drops a .bash_profile in passing -- should be
-# able to open either and find pixi, so both get the line rather than only the
-# one they happen to be using today.
+# The two this is about, and both are always done. Which of them a student's
+# machine opens by default decides nothing here: the other is one typed word
+# away, and the window that cannot find pixi is usually the one they did not
+# choose.
 BOTH = ("zsh", "bash")
 
-# The profile file, the rc file it should read, and the line that makes it. The
-# two are written the way each shell's own manual writes them rather than in one
-# shared form, because a student who opens the file should find the idiom they
-# will meet everywhere else for that shell. Both are guarded on the rc file
-# existing, so the line is harmless in a home folder that has not got one.
+# The shells this knows how to write for at all. Anything else is left alone
+# rather than guessed at, because a startup line in a syntax the shell does not
+# speak is worse than no line: it fails on every start from then on.
+KNOWN = ("zsh", "bash", "fish")
+
+# Making the login file read the rc file. This is a separate fix from the PATH
+# line, and with the line where it now goes pixi is found without it. It earns
+# its place on everything else: a conda init, an alias, another tool's PATH
+# line, anything a student or an installer drops into the rc file later is then
+# true in a login shell too, without anyone having to know that these are two
+# files read on two different occasions.
+#
+# Each is written the way that shell's own manual writes it, so a student who
+# opens the file meets the idiom they will find everywhere else for that shell.
+# Both are guarded on the rc file existing, so neither breaks a home folder that
+# has not got one.
 BRIDGE = {
-    "bash": (
-        ".bash_profile",
-        ".bashrc",
-        "if [ -f ~/.bashrc ]; then\n    source ~/.bashrc\nfi",
-    ),
-    "zsh": (
-        ".zprofile",
-        ".zshrc",
-        "[[ -f ~/.zshrc ]] && source ~/.zshrc",
-    ),
+    "bash": (".bashrc", "if [ -f ~/.bashrc ]; then\n    source ~/.bashrc\nfi"),
+    "zsh": (".zshrc", "[[ -f ~/.zshrc ]] && source ~/.zshrc"),
 }
 
 # Written above the line so that whoever finds it later knows where it came from
@@ -113,17 +115,23 @@ def login_shell() -> str:
     when they open Terminal, and that is the login shell.
     """
     found = shell_named(os.environ.get("SHELL"))
-    if found in STARTUP_FILES:
+    if found in KNOWN:
         return found
     return "zsh" if sys.platform == "darwin" else "bash"
 
 
-def startup_files(shell: str, home: Path) -> list[Path]:
-    """The files that shell reads when it starts, the one to write to first."""
-    names = STARTUP_FILES.get(shell, ())
-    if shell == "bash" and sys.platform != "darwin":
-        names = LINUX_BASH
-    return [shell_home(shell, home).joinpath(*name.split("/")) for name in names]
+def shells_to_cover() -> list[str]:
+    """Every shell to set up: both of them, plus the default one if it is neither.
+
+    A student whose default shell is fish still gets zsh and bash configured. It
+    costs a few lines in files they do not read, and it means that the day
+    something opens a bash for them, and something will, pixi is there in it.
+    """
+    shells = list(BOTH)
+    first = login_shell()
+    if first not in shells:
+        shells.append(first)
+    return shells
 
 
 def shell_home(shell: str, home: Path) -> Path:
@@ -138,28 +146,90 @@ def shell_home(shell: str, home: Path) -> Path:
     return home
 
 
-def path_line(shell: str) -> str:
-    """The line that puts pixi on PATH, written the way that shell writes it."""
-    if shell == "fish":
-        return 'fish_add_path "$HOME/.pixi/bin"'
-    return 'export PATH="$HOME/.pixi/bin:$PATH"'
+def bash_login_file(base: Path) -> Path:
+    """The file bash opens when it starts as a login shell.
 
-
-def already_on_path(files: list[Path]) -> Path | None:
-    """The first of those files that puts pixi's own folder on PATH, if any does.
-
-    Looked for by the folder rather than by the whole line, so that a line the
-    installer wrote, or one a student typed themselves in some other form,
-    counts as done and is not doubled up on.
+    bash reads the first of these that exists and then stops, so the one to
+    write to is the first that is already there rather than always
+    .bash_profile. Writing to .bash_profile while a .profile is the file being
+    read today would both put the line where bash never looks and, by creating
+    .bash_profile, silence that .profile from then on. Where none of the three
+    exists there is nothing to shadow, and .bash_profile is the one to make.
     """
-    for path in files:
-        try:
-            text = path.read_text(encoding="utf-8", errors="replace")
-        except OSError:
-            continue
-        if INSTALLER_BIN in text.replace("\\", "/"):
-            return path
-    return None
+    for name in (".bash_profile", ".bash_login", ".profile"):
+        if (base / name).exists():
+            return base / name
+    return base / ".bash_profile"
+
+
+def path_files(shell: str, base: Path) -> list[Path]:
+    """Every file that shell has to be told, so that it is told in all its moods.
+
+    zsh needs one and bash needs two; the top of this script says why. fish
+    reads its one config file whether or not it is interactive, so it needs only
+    that.
+    """
+    if shell == "zsh":
+        return [base / ".zshenv"]
+    if shell == "bash":
+        return [bash_login_file(base), base / ".bashrc"]
+    if shell == "fish":
+        return [base / ".config" / "fish" / "config.fish"]
+    return []
+
+
+def bridge_file(shell: str, base: Path) -> Path | None:
+    """The login file to make read the rc file, or None where there is no safe one.
+
+    For bash this is deliberately not whatever bash_login_file returns. That can
+    be ~/.profile, which sh reads too, and `source` is bash's spelling of `.`:
+    an sh reading it would print an error on every login. So the bridge only
+    goes in a file belonging to bash alone, and is only created where there is
+    no ~/.profile for a new ~/.bash_profile to shadow.
+    """
+    if shell == "zsh":
+        return base / ".zprofile"
+    if shell != "bash":
+        return None
+    for name in (".bash_profile", ".bash_login"):
+        if (base / name).exists():
+            return base / name
+    return None if (base / ".profile").exists() else base / ".bash_profile"
+
+
+def path_line(shell: str) -> str:
+    """The line that puts pixi on PATH, written the way that shell writes it.
+
+    Guarded on the folder not being on PATH already, which the plain export was
+    not. The line now goes in more than one file per shell and a login shell
+    reads more than one of them, so unguarded, PATH would collect a copy of the
+    folder from each, and another copy for every shell opened inside another.
+
+    The guard is written in POSIX shell rather than with [[ ]], because for bash
+    the file it lands in can be ~/.profile, and on a Linux machine sh reads that
+    one as well, where [[ is a syntax error rather than a test.
+    """
+    if shell == "fish":
+        return 'fish_add_path "$HOME/.pixi/bin"'      # already does not repeat
+    return ('case ":$PATH:" in\n'
+            '    *":$HOME/.pixi/bin:"*) ;;\n'
+            '    *) export PATH="$HOME/.pixi/bin:$PATH" ;;\n'
+            'esac')
+
+
+def mentions(path: Path, needle: str) -> bool:
+    """Whether that file already says that, a missing file counting as a no.
+
+    Looked for by the folder, or by the rc file's name, rather than by the whole
+    line, so that what the pixi installer wrote, or what a student typed
+    themselves in one of the several forms people write these in, counts as done
+    and does not get a second copy underneath it.
+    """
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return False
+    return needle in text.replace("\\", "/")
 
 
 def tilde(path: Path, home: Path) -> str:
@@ -171,7 +241,7 @@ def tilde(path: Path, home: Path) -> str:
 
 
 def append(path: Path, block: str) -> bool:
-    """Add the line to the end of that file, making it if it is not there.
+    """Add the block to the end of that file, making it if it is not there.
 
     Opened for appending rather than read and rewritten, so that nothing already
     in the file can be lost by this even if it is being written to at the time.
@@ -205,62 +275,6 @@ def pixi_is_the_installers(home: Path) -> bool:
         return Path(found).parent == home / ".pixi" / "bin"
 
 
-def shells_to_cover(home: Path) -> list[str]:
-    """The login shell, plus the other of zsh and bash if it is set up here.
-
-    The second one is the point of this. A student whose login shell is zsh and
-    who has a .bash_profile from some installer or other will one day type
-    `bash`, or open something that does, and land in a shell that has never
-    heard of pixi. Writing to both costs one line in a file they do not read and
-    removes a whole class of "it worked yesterday".
-
-    A shell with no startup file at all is left alone: making one for a shell
-    nobody on this machine uses is clutter, not a fix.
-    """
-    first = login_shell()
-    covered = [first]
-    for shell in BOTH:
-        if shell != first and any(path.exists() for path in startup_files(shell, home)):
-            covered.append(shell)
-    return covered
-
-
-def bridge_profile_to_rc(shell: str, home: Path) -> Path | None:
-    """Make that shell's login file read its rc file, and say which file that was.
-
-    Returns None when there was nothing to do, which is the ordinary case on a
-    machine that has been set up once already.
-    """
-    if shell not in BRIDGE:
-        return None                     # fish keeps one file and reads it always
-    profile_name, rc_name, line = BRIDGE[shell]
-    base = shell_home(shell, home)
-    profile, rc = base / profile_name, base / rc_name
-
-    try:
-        text = profile.read_text(encoding="utf-8", errors="replace")
-    except OSError:
-        text = ""
-        # Nothing to read yet, so the question is whether to make the file at
-        # all. With no rc file either there is nothing for it to source, and a
-        # profile file made for that is clutter. And bash reads the first of
-        # .bash_profile, .bash_login and .profile that exists and then stops,
-        # so a .bash_profile made here would silence a .profile that is being
-        # read today, which is a worse fault than the one being fixed.
-        if not rc.exists():
-            return None
-        if shell == "bash" and any((base / other).exists()
-                                   for other in (".bash_login", ".profile")):
-            return None
-
-    # Looked for by the rc file's name rather than by the whole line, so that a
-    # student who wrote the source themselves, in whichever of the several forms
-    # people write it, counts as done and does not get a second one.
-    if rc_name in text:
-        return None
-    return profile if append(profile, line) else None
-
-
 def main() -> int:
     if sys.platform == "win32":
         return 0                        # PATH lives in the registry here
@@ -273,16 +287,21 @@ def main() -> int:
         return 0
 
     written, bridged = [], []
-    for shell in shells_to_cover(home):
-        files = startup_files(shell, home)
-        # The PATH line goes in first, so that on a home folder with no startup
-        # files at all the rc file exists by the time the bridge asks whether
-        # there is anything worth sourcing.
-        if files and not already_on_path(files) and append(files[0], path_line(shell)):
-            written.append((shell, files[0]))
-        profile = bridge_profile_to_rc(shell, home)
-        if profile:
-            bridged.append((shell, profile))
+    for shell in shells_to_cover():
+        base = shell_home(shell, home)
+
+        # The PATH line goes in first, so that in a home folder with no startup
+        # files at all the rc file exists by the time the bridge below asks
+        # whether there is anything there worth reading.
+        for path in path_files(shell, base):
+            if not mentions(path, INSTALLER_BIN) and append(path, path_line(shell)):
+                written.append((shell, path))
+
+        if shell in BRIDGE:
+            rc_name, line = BRIDGE[shell]
+            profile = bridge_file(shell, base)
+            if profile and not mentions(profile, rc_name) and append(profile, line):
+                bridged.append((shell, profile, rc_name))
 
     if not written and not bridged:
         print("Your terminal already knows where pixi is.")
@@ -294,8 +313,8 @@ def main() -> int:
             print(f"    {shell}: added the line to {tilde(path, home)}")
     if bridged:
         print("Made your login shell read the file that line is in:")
-        for shell, path in bridged:
-            print(f"    {shell}: {tilde(path, home)} now reads ~/{BRIDGE[shell][1]}")
+        for shell, path, rc_name in bridged:
+            print(f"    {shell}: {tilde(path, home)} now reads ~/{rc_name}")
     print("")
     print("A shell only reads those files when it starts, so this terminal is")
     print("unchanged. Open a new one and pixi will be there in that, and in every")
