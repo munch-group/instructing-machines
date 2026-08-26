@@ -25,6 +25,16 @@ nothing at all if pixi came from somewhere other than its own installer (from
 Homebrew, say), because then the line would point at a folder that does not
 exist and the problem is not this one.
 
+There is a second gap in the same place, and this closes that too. A login shell
+reads the profile file and stops: bash on macOS opens ~/.bash_profile and never
+looks at ~/.bashrc, and zsh reads ~/.zprofile but only reaches ~/.zshrc when it
+is also interactive. So a PATH line living in the rc file -- which is where the
+pixi installer, and every tutorial written for Linux, puts it -- is invisible to
+`bash -lc` and to `zsh -lc`, and those are what VS Code and most tooling actually
+run. Each profile file is therefore made to read its own rc file, which makes
+whatever is written in one of them true in both kinds of shell: this line, and
+anything a student adds later.
+
 Windows keeps its PATH somewhere else entirely, in the registry rather than in a
 startup file, so there is nothing here for it to do.
 """
@@ -62,6 +72,24 @@ LINUX_BASH = (".bashrc", ".bash_profile", ".profile")
 # one they happen to be using today.
 BOTH = ("zsh", "bash")
 
+# The profile file, the rc file it should read, and the line that makes it. The
+# two are written the way each shell's own manual writes them rather than in one
+# shared form, because a student who opens the file should find the idiom they
+# will meet everywhere else for that shell. Both are guarded on the rc file
+# existing, so the line is harmless in a home folder that has not got one.
+BRIDGE = {
+    "bash": (
+        ".bash_profile",
+        ".bashrc",
+        "if [ -f ~/.bashrc ]; then\n    source ~/.bashrc\nfi",
+    ),
+    "zsh": (
+        ".zprofile",
+        ".zshrc",
+        "[[ -f ~/.zshrc ]] && source ~/.zshrc",
+    ),
+}
+
 # Written above the line so that whoever finds it later knows where it came from
 # and that deleting it is allowed.
 MARKER = "# Added for the Instructing Machines course by `pixi run check`."
@@ -95,10 +123,19 @@ def startup_files(shell: str, home: Path) -> list[Path]:
     names = STARTUP_FILES.get(shell, ())
     if shell == "bash" and sys.platform != "darwin":
         names = LINUX_BASH
-    base = home
+    return [shell_home(shell, home).joinpath(*name.split("/")) for name in names]
+
+
+def shell_home(shell: str, home: Path) -> Path:
+    """Where that shell keeps its startup files, which is not always the home folder.
+
+    zsh reads $ZDOTDIR instead when it is set, and a student who has set it has
+    done so on purpose; writing to the home folder anyway would put the line in
+    a file that shell no longer opens.
+    """
     if shell == "zsh" and os.environ.get("ZDOTDIR"):
-        base = Path(os.environ["ZDOTDIR"]).expanduser()
-    return [base.joinpath(*name.split("/")) for name in names]
+        return Path(os.environ["ZDOTDIR"]).expanduser()
+    return home
 
 
 def path_line(shell: str) -> str:
@@ -133,7 +170,7 @@ def tilde(path: Path, home: Path) -> str:
         return str(path)
 
 
-def append(path: Path, shell: str) -> bool:
+def append(path: Path, block: str) -> bool:
     """Add the line to the end of that file, making it if it is not there.
 
     Opened for appending rather than read and rewritten, so that nothing already
@@ -147,7 +184,7 @@ def append(path: Path, shell: str) -> bool:
         with path.open("a", encoding="utf-8") as handle:
             if existing and not existing.endswith(b"\n"):
                 handle.write("\n")
-            handle.write(f"\n{MARKER}\n{path_line(shell)}\n")
+            handle.write(f"\n{MARKER}\n{block}\n")
     except OSError as error:
         print(f"could not write to {path}: {error}")
         return False
@@ -188,6 +225,42 @@ def shells_to_cover(home: Path) -> list[str]:
     return covered
 
 
+def bridge_profile_to_rc(shell: str, home: Path) -> Path | None:
+    """Make that shell's login file read its rc file, and say which file that was.
+
+    Returns None when there was nothing to do, which is the ordinary case on a
+    machine that has been set up once already.
+    """
+    if shell not in BRIDGE:
+        return None                     # fish keeps one file and reads it always
+    profile_name, rc_name, line = BRIDGE[shell]
+    base = shell_home(shell, home)
+    profile, rc = base / profile_name, base / rc_name
+
+    try:
+        text = profile.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        text = ""
+        # Nothing to read yet, so the question is whether to make the file at
+        # all. With no rc file either there is nothing for it to source, and a
+        # profile file made for that is clutter. And bash reads the first of
+        # .bash_profile, .bash_login and .profile that exists and then stops,
+        # so a .bash_profile made here would silence a .profile that is being
+        # read today, which is a worse fault than the one being fixed.
+        if not rc.exists():
+            return None
+        if shell == "bash" and any((base / other).exists()
+                                   for other in (".bash_login", ".profile")):
+            return None
+
+    # Looked for by the rc file's name rather than by the whole line, so that a
+    # student who wrote the source themselves, in whichever of the several forms
+    # people write it, counts as done and does not get a second one.
+    if rc_name in text:
+        return None
+    return profile if append(profile, line) else None
+
+
 def main() -> int:
     if sys.platform == "win32":
         return 0                        # PATH lives in the registry here
@@ -199,21 +272,30 @@ def main() -> int:
         # startup file at ~/.pixi/bin.
         return 0
 
-    written = []
+    written, bridged = [], []
     for shell in shells_to_cover(home):
         files = startup_files(shell, home)
-        if not files or already_on_path(files):
-            continue
-        if append(files[0], shell):
+        # The PATH line goes in first, so that on a home folder with no startup
+        # files at all the rc file exists by the time the bridge asks whether
+        # there is anything worth sourcing.
+        if files and not already_on_path(files) and append(files[0], path_line(shell)):
             written.append((shell, files[0]))
+        profile = bridge_profile_to_rc(shell, home)
+        if profile:
+            bridged.append((shell, profile))
 
-    if not written:
+    if not written and not bridged:
         print("Your terminal already knows where pixi is.")
         return 0
 
-    print("Told your terminal where pixi is:")
-    for shell, path in written:
-        print(f"    {shell}: added the line to {tilde(path, home)}")
+    if written:
+        print("Told your terminal where pixi is:")
+        for shell, path in written:
+            print(f"    {shell}: added the line to {tilde(path, home)}")
+    if bridged:
+        print("Made your login shell read the file that line is in:")
+        for shell, path in bridged:
+            print(f"    {shell}: {tilde(path, home)} now reads ~/{BRIDGE[shell][1]}")
     print("")
     print("A shell only reads those files when it starts, so this terminal is")
     print("unchanged. Open a new one and pixi will be there in that, and in every")

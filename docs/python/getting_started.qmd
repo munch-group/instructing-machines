@@ -197,8 +197,15 @@ When it is done there is a new hidden `.pixi` folder in the course folder contai
 Then finish the setup and check it by running this in the terminal:
 
 ```bash
-pixi run setup
+pixi run check
 ```
+<!--
+for 2027
+```bash
+pixi run setup
+``` 
+-->
+
 
 If it prints "Everything is installed. Python {{< var python_version >}}", you are finished with the hard part.
 
@@ -331,52 +338,81 @@ If you see red text you cannot place, take a screenshot — or better, copy the 
 curl -fsSL https://pixi.sh/install.sh | SHELL="$(ps -o comm= -p $$ | sed 's/^-//')" sh
 ```
 
-3. Now close that terminal *completely* and open a new one. 
+and then this command:
+
+```bash
+pixi run shell
+```
+
+<!-- 
+
+~/.bash_profile
+
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+
+~/.zprofile
+
+[[ -f ~/.zshrc ]] && source ~/.zshrc
+
+ -->
 
 
-4. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
 
-```txt
+
+4. Now close that terminal *completely* and open a new one. 
+
+
+5. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
+
+```bash
 pixi --version
 ```
 
-5. Delete any instructing-machines.zip files in your Downloads folder
+6. Delete any instructing-machines.zip files in your Downloads folder
 
-6. To to the "getting started" page and download the course folder again
+7. To to the "getting started" page and download the course folder again
+8. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
 
-7. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
+9. In the terminal, run this to move it to your user folder
 
-8. In the terminal, run this to move it to your user folder
-
-```
+```bash
 mv ~/Downloads/instructing-machines ~/.
 ```
 
-9. Navigate to the course folder
+10. Navigate to the course folder
 
-```
+```bash
 cd ~/instructing-machines 
 ```
 
-10. Run this to build the environment:
+11. Run this to build the environment:
 
-```txt
+```bash
 pixi clean ; pixi install
 ```
 
-11. Finish the setup 
+12. Finish the setup 
 
-```txt
-pixi run setup
+```bash
+pixi run check
 ```
+<!-- 
+for 2027
+
+```bash
+pixi run setup
+``` 
+-->
 
 Install the course tool
 
-```txt
+```bash
 pixi global install -c conda-forge -c munch-group im-course-tools
 ```
 
-12. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
+13. Then open `C:\im\instructing-machines` in VS Code using `File → Open Folder`.
 
 
 
