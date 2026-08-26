@@ -92,10 +92,19 @@ kernel = "python -m ipykernel install --sys-prefix --name instructing-machines -
 # way to week one.
 vscode = "python .pin_pixi_path.py"
 
+# Tell the terminal where pixi lives, which is a different terminal's problem
+# from the one above. A Mac opens zsh and reads ~/.zshrc; a bash reads
+# ~/.bash_profile and has never heard of the other file. The pixi installer
+# writes its PATH line into whichever of the two it happened to be run from, so
+# a student can end up with pixi working perfectly in the window they installed
+# it from and absent from the next one they open. See .pin_shell_path.py for the
+# long version. Does nothing on Windows, where PATH is not kept in a file.
+shell = "python .pin_shell_path.py"
+
 # `pixi run check` is the one command every student runs on day one, so both of
 # those happen as part of it rather than as steps of their own that half of them
 # would skip. Running it again is harmless: both overwrite.
-check = { cmd = "im check", depends-on = ["kernel", "vscode"] }
+check = { cmd = "im check", depends-on = ["kernel", "vscode", "shell"] }
 
 # The same task under the name that fits the day it matters most. On day one
 # this sets the folder up, and "check" is a thin word for something that writes
