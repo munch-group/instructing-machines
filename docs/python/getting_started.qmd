@@ -1,221 +1,154 @@
 
 # Getting started {#sec-getting_started}
 
-This chapter will get your computer set up with what you need for the course. You need to carefully read the instructions and follow them to the letter. Some of the instructions differ between Mac and Windows. In those cases you will see two tabs like the ones below. Pick the right one now to make entire page reflect your choice:
+This chapter will get your computer set up with what you need for the course. You need to read carefully and follow instructions to the letter. They are different on Mac and Windows so pick which kind of computer you have below:
 
 ::: {.panel-tabset group="platform"}
 
 ## <i class="bi bi-apple"></i> Mac
 
-Yes, Mine is a Mac computer!
+**1.** Quit VS Code completely first if it is running. 
 
+**2.** Open a new Terminal window and run this command to download the course folder
 
-## <i class="bi bi-windows"></i> Windows
-
-Yes, Mine is a Windows computer!
-
-:::
-
-If one of the steps below does not do what it should, read [If something goes wrong](#sec-if-something-goes-wrong) at the bottom, and bring the exact error message to class. Do **not** try to complete the steps by some alternative means. That will only sink you deeper into the quicksand.
-
-## The course folder {#sec-course-folder}
-
-Everything you work on for this course should go in a a folder I prepared for you. Download it now:
-
-::: {.lp-actions}
-[<i class="bi bi-download"></i> Download the course folder](../instructing-machines.zip){.lp-btn-outline}
-:::
-
-::: {.panel-tabset group="platform"}
-
-## <i class="bi bi-apple"></i> Mac
-
-On Mac, you double-click to unpack the zip file. Then move the folder somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
-
-## <i class="bi bi-windows"></i> Windows
-
-On Windows, you right-click and select "Extract all". When asked to "Select a Destination", click "Browse" and choose the folder you want to put the `instructing-machines` folder in - choose somewhere plain and short that belongs to you. Your user/home folder is the best place. Do **not** put it in OneDrive or iCloud Drive. They sync files in and out from under you while Python is reading them, and that produces errors nobody can explain.
-
-:::
-
-## The terminal {#sec-the-terminal}
-
-On **Mac**, the terminal is an application called *Terminal*. You can find it by typing "Terminal" in Spotlight Search. When you start it, you will see something like @fig-terminal. On **Windows**, it is called *Windows PowerShell*, and you should be able to find it from the Start menu — make sure you open *Windows PowerShell* and **not** some other shell (the name should be exactly that). When you do, you should see something like @fig-powershell.
-
-![The Terminal app on Mac](./images/terminal.png){#fig-terminal width=85%}
-
-![The Windows PowerShell app on Windows](./images/WindowsPowershell.png){#fig-powershell width=75%}
-
-What are *Windows PowerShell* and this *Terminal* thing? Both are what we call *terminal emulators*. They are used to run other programs, like the ones you will write yourself. I will informally refer to both as "the terminal". So if I write something like "open the terminal", you should open *Windows PowerShell* if you are running Windows and the *Terminal* application if you are on a Mac.
-
-The terminal is a very useful tool. However, to use it, you need to know a few basics. First of all, a terminal lets you execute programs on your computer. You type the command you want and then hit Enter. The first word of commands is always the name of a program. The place where you type is called a prompt (or command prompt), and it may look a little different depending on which terminal emulator you use. In this book, we represent the prompt with the character `>`. So a command in the examples below is the line of text to the right of the `>`.
-
-You can navigate your folders in terminal the same way you do in Finder on mac and File Explorer on Windows. When you open the terminal, you are put in your user folder. You can see which folder you are in by typing `pwd`, and then pressing `Enter` on the keyboard. When you press `Enter`, you tell the terminal to execute the command you have written to run the `pwd` program. In this case, the command you typed tells you the path to the folder we are in. If I do it, I get:
-
-```{.txt filename="Terminal"}
-> pwd
-/Users/kasper/instructing-machines
+```bash
+curl https://munch-group.org/instructing-machines/instructing-machines.zip > ~/Downloads/instructing-machines.zip
 ```
 
-So, right now, I am in the `instructing-machines` folder. `/Users/kasper/instructing-machines` is the folder's path or "full address", with slashes (or backslashes on Windows) separating nested folders. So `instructing-machines` is a subfolder of `kasper`, which is a subfolder of `Users`. That way, you know which folder you are in and where that folder is.
+**3.** Run this to unpack the student folder and put it in your home folder:
 
-Let us see what is in this folder. You can use the `ls` command (l as in Lima and s as in Sierra). When I do that and press `Enter` I get the following:
-
-```{.txt filename="Terminal"}
-> ls
-course.py     get.py        pixi.toml     week1
-data          pixi.lock     projects      update.py
+```bash
+unzip -o ~/Downloads/instructing-machines.zip && mv ~/Downloads/instructing-machines ~/.
 ```
 
-There seem to be three folder: `data`, `projects`, and `week1`. If you are curious about what is inside the `week1` folder, you can "walk" into the folder with the `cd` command. To use this command, you must specify which folder you want to walk into (in this case, `week1`). We do this by typing `cd`, then a space, and then the folder's name. When I press `Enter` I get the following:
+**4.** Navigate to the course folder
 
-```{.txt filename="Terminal"}
-> cd week1
->
+```bash
+cd ~/instructing-machines
 ```
 
-It seems that nothing really happened, but if I run the `pwd` command now to see which folder I am in, I get the following:
-
-```{.txt filename="Terminal"}
-> pwd
-/Users/kasper/instructing-machines/week1
-```
-
-Just to keep track of what is happening: before we ran the `cd` command, we were in the `/Users/kasper/instructing-machines` folder, and now we are in `/Users/kasper/instructing-machines/week1`. This means that we can now use the `ls` command to see what is in the `week1` folder:
-
-```{.txt filename="Terminal"}
-> ls
-notebooks-in-vscode.ipynb script-vs-notebook.ipynb
-```
-
-So `week1` contains two notebook files (you can tell by their `.ipynb` suffix). Don't try to open them yet. Let us go back to where we came from. To walk "back" or "up" to `/Users/kasper/instructing-machines`, we again use the `cd` command, but we do not need to name a folder this time. Instead, we use the special name `..` to say that we wish to go to the parent folder, i.e. the folder we just came from:
-
-```{.txt filename="Terminal"}
-> cd ..
-> pwd
-/Users/kasper/instructing-machines
-```
-
-Hopefully, you can now navigate your folders and see what is in them. You will need this later to reach the folders with the code you write for the exercises and projects during the course. There are many other commands that you may learn along the way, but for now, the only ones you need are:
-
-| Action | Windows | Mac |
-|:---|:---|:---|
-| Show current folder | `pwd` | `pwd` |
-| List folder content | `ls` | `ls` |
-| Go to subfolder "notes" | `cd notes` | `cd notes` |
-| Go to parent folder | `cd ..` | `cd ..` |
-
-## Installing pixi {#sec-installing-pixi}
-
-Pixi is the program that installs Python for you along with all the packages you need for the course. To avoid conflicts between multiple projects that use Python, Pixi installs one self-contained Python *per project folder* (in your case the `instructing-machines` folder). It lives in a hidden `.pixi` folder inside the course folder, nothing is installed anywhere else, and deleting the course folder removes every trace of it. So the Python we use cannot collide with a Python you install next year for something else, and if your installation ever ties itself in a knot, the cure is to delete the .pixi folder and start again.
-
-::: {.panel-tabset group="platform"}
-
-## <i class="bi bi-apple"></i> Mac
-
-Open your Terminal application. Click the small clipboard icon, which appears when you hover over the command, paste the command into your terminal and press Enter.
+**5.** Run this to install Pixi
 
 ```bash
 curl -fsSL https://pixi.sh/install.sh | SHELL="$(ps -o comm= -p $$ | sed 's/^-//')" sh
 ```
 
-The `SHELL=...` in the middle of that line looks like noise, and it is earning its place. Installing pixi means writing one line into the settings file your terminal reads when it starts, and the installer works out which file that is by asking macOS which shell your account uses — not by looking at the shell you are actually typing in. On a good many Macs those two answers are different, and then the line lands in a file your terminal never opens. The fragment tells the installer to use the shell in front of you.
+**6.** Run this to make sure you can use pixi from the terminal;
 
-## <i class="bi bi-windows"></i> Windows
+```bash
+pixi run shell
+```
 
-Download and run the installer:
+**7.** Now quit that Terminal *completely* and open a new one. 
 
-<https://github.com/prefix-dev/pixi/releases/latest/download/pixi-x86_64-pc-windows-msvc.msi>
-
-Double-click it and click through. That is all.
-
-If you have one of the rare ARM-based Windows machines — a Surface Pro X, for instance — use [pixi-aarch64-pc-windows-msvc.msi](https://github.com/prefix-dev/pixi/releases/latest/download/pixi-aarch64-pc-windows-msvc.msi) instead.
-
-:::
-
-Now, whichever machine you are on: **close the terminal window and open a new one.**. A program that has just been installed is invisible to terminals that were already open. A terminal reads the list of available programs once, when it starts, and does not look again. So the terminal you installed pixi from does not know pixi exists. This one detail is responsible for more confusion than everything else on this page combined.
-
-To check that it worked, paste this line and press Enter:
+**8.** Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
 
 ```bash
 pixi --version
 ```
 
-
-<!-- 
-Quit VS Code completely first if it's running. Then in PowerShell (Start menu → PowerShell, not VS Code's terminal):
-
-# 1. Install pixi. The -ExecutionPolicy Bypass is what gets the installer past
-#    Windows' default "no scripts" setting — it applies to this one command only.
-powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"
-
-Now close that terminal completely and open a new one. A terminal reads PATH once, when it starts, so the one you just installed from cannot see pixi. This is the single most common false failure.
-
-# 2. Confirm the new terminal can see it
-pixi --version
-
-# 3. Allow scripts for your own account. Not needed for `pixi install`, but
-#    `pixi shell` and VS Code's terminal both fail without it. Answer Y.
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-# 4. Unpack the course folder somewhere Windows will not fight you
-Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\im
-
-# 5. Build the environment
-cd C:\im\instructing-machines
-pixi clean
-pixi install
-
-# 6. Finish the setup
-pixi run setup
-
-Then open C:\im\instructing-machines in VS Code with File → Open Folder.
- -->
-
-
-
-
-It should print something like: "pixi 0.60.0". You will probably see a different version number, and that is fine. If you instead see something about the command not being recognized, see [If something goes wrong](#sec-if-something-goes-wrong).
-
-
-## Install course utility globally on your computer
+**9.** Run this to build the environment:
 
 ```bash
-pixi global install -c conda-forge -c munch-group im-course-tools
+pixi clean ; pixi install
 ```
 
-## Install the pixi environment in your course-folder {#sec-course-tool}
-
-Having installed the Pixi package manager, we can now use it to install all the packages we need for the course, right in your `instructing-machines` folder. Open a new terminal, navigate to the `instructing-machines` folder using `cd` and run this command:
-
-```bash
-pixi install
-```
-
-When it is done there is a new hidden `.pixi` folder in the course folder containing your very own Python.
-
-Then finish the setup and check it by running this in the terminal:
+**10.** Finish the setup 
 
 ```bash
 pixi run check
 ```
-<!--
+<!-- 
 for 2027
+
 ```bash
 pixi run setup
 ``` 
 -->
 
+**11.** Install the course tool
 
-If it prints "Everything is installed. Python {{< var python_version >}}", you are finished with the hard part.
+```bash
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
 
-The `setup` in that command is not a built-in pixi command — it is a little errand we wrote for you and stored in the folder's `pixi.toml` file. It does three things: it gives your course Python a name VS Code can show you in a list, it writes down where pixi lives on this particular machine so VS Code can find it, and then it checks that everything is installed. Running it again later is always safe.
+
+## <i class="bi bi-windows"></i> Windows
+
+
+**1.** Quit VS Code completely first if it is running. 
+
+**2.** Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder.
+
+```bash
+iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip" -OutFile "$env:USERPROFILE\Downloads\instructing-machines.zip"
+```
+
+**3.** Run this to unpack the student folder and put it in your home folder:
+
+```txt
+Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\
+```
+
+**4.** Navigate to the course folder
+
+```
+cd C:\instructing-machines
+```
+
+**5.** Run this to install Pixi
+
+```txt
+irm -useb https://pixi.sh/install.ps1 | iex
+```
+
+**6.** Run this to make sure you can use pixi from Powershell;
+
+```
+pixi run shell
+```
+
+**7.** Now quit that Powershell *completely* and open a new one. 
+
+**8.** Run this in the new Powershell to make sure pixi is installed. If it is, it will print its version nr.
+
+```
+pixi --version
+```
+
+**9.** Run this to build the environment:
+
+```
+pixi clean ; pixi install
+```
+
+**10.** Finish the setup 
+
+```
+pixi run check
+```
+<!-- 
+for 2027
+
+```
+pixi run setup
+``` 
+-->
+
+**11.**  Install the course tool
+
+```
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
+
+:::
 
 ::: {.callout-note}
 
 If `pixi install` fails, it may be because you have antivirus software (other than Microsoft Defender) that blocks Pixi from downloading packages. Here are instructions for how do do this for: [BitDefender](https://www.bitdefender.com/consumer/support/answer/13425/), [Norton](https://knowledge.civilgeo.com/adding-an-exception-to-norton-firewall), [McAfee](https://knowledge.civilgeo.com/adding-an-exception-to-mcafee-firewall), [Kaspersky](https://knowledge.civilgeo.com/adding-an-exception-to-kaspersky-firewall).
 
 :::
+
 
 ## The VScode editor {#sec-text-editor}
 
@@ -225,82 +158,31 @@ You may wonder why we cannot use Word to create and edit files with programming 
 
 ![Visual Studio Code](./images/vscode.png){#fig-vscode width=80%}
 
-The first time you open the course folder in VS Code, you need to the four steps below in order:
+**1.** If VS Code was already running, quit it completely and start it again before you go on. Not "close the window", quit the application. 
 
-**1. Open the folder, not a file:**
+**1.** Open VS Code. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so click **Continue without signing in**.
 
-The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so click **Continue without signing in**.
+**2.** Open the `instructing-machines` folder using `File → Open Folder`. The entire setup only works if you open the *folder*. If you just open any single file **nothing will work**.
 
-::: {.callout-important}
-If VS Code was already running while you installed pixi, quit it completely and start it again before you go on. Not "close the window" — quit the application. A program only learns where pixi lives when it starts, so a VS Code that was open beforehand cannot find it, and the extension whose whole job is to find your course Python gives up quietly. What you see later is a claim that there is no Python here at all, which by then looks like a problem with your installation rather than with the order you did things in.
-:::
+**3.** Accept when prompted to trust and install recommended extensions. If asked to trust the folder/workspace, accept that too. If there is a blue button saying "Trust" at the bottom left, click that too. 
 
-Then choose **File → Open Folder…** and select the `instructing-machines` folder — the folder itself, not a file inside it.
 
-This matters more than it looks like it does. The course folder carries a small settings file that tells VS Code where the course Python lives, and VS Code only reads that file when the folder is *what you opened*. Open a single file instead and VS Code has no idea any of this exists.
 
-::: {.callout-tip}
-## A better habit: `code .`
 
-Once you have VS Code installed, there is a shorter way to do all of the above, and it is the one to get used to. In a terminal, `cd` into the course folder and type:
+## Opening a folder in VS Code from the terminal
+
+Once you have VS Code installed, there is an alternative way to open a folder directly from the terminal. In a terminal, `cd` into the course folder and then run `code .`. `.` means "the current folder".
 
 ```bash
 code .
 ```
 
-The `.` means "this folder, the one I am standing in", so this opens exactly the right thing and you cannot accidentally open a single file instead. It also starts VS Code from a terminal, which means VS Code inherits everything the terminal knows — including where pixi is.
+On Windows this works straight away, but on a Mac you need to do the following to make the `code` command available. Close all your Terminal windows. In VS Code, press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter.
 
-On Windows this works straight away. On a Mac the `code` command does not exist until you make it: start VS Code, press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter. Then open a **new** terminal, and `code .` will work from then on.
-:::
 
-**2. Trust the folder:**
 
-VS Code has opened your folder in **Restricted Mode**. That means it has switched off every extension until you tell it the folder is safe, and it will not interrupt you to ask. Newer versions wait for you to say so instead, which is exactly why this step is so easy to walk straight past.
-
-Look at the bottom left corner of the window. There is a blue **Restricted Mode** button sitting there. Click it, then click **Trust** in the panel that opens, and close the panel again. The blue button disappears, and that is how you know it worked.
-
-::: {.callout-important}
-Do this *before* you install anything. Extensions do not run in Restricted Mode, so installing them first and trusting afterwards leaves you with extensions that are installed and switched off — which on screen looks exactly like extensions that were never installed at all. Trust first, then install.
-:::
-
-**3. Install the four extensions:**
-
-Open the Extensions panel on the left — the icon made of small squares — and type `@recommended` into its search box. That lists exactly the extensions this folder asks for, under the heading *Workspace Recommendations*. Install each one, then come back here.
-
-VS Code sometimes also offers to install them for you in a small notification. If you get one, use it. Do not wait for one: it does not always appear, and the search above works whether it does or not.
-
-There are four, and you want all four. Python support runs your code. Jupyter support runs notebooks. Pixi support is the one that goes looking inside your `.pixi` folder and finds the Python that `pixi install` built there — without it, the course Python is invisible to VS Code no matter how correctly you installed it. Quarto support is what makes the notes look like the notes: these chapters are written in Quarto's flavour of markdown, and without it the coloured boxes and other niceties turn up as raw text with stray colons around them.
 
 <!-- 
-Once the Python extension is installed, VS Code may open a tab called **Get Started with Python Development** and offer to walk you through it. You do not need it: this chapter is your walkthrough. Click **Mark Done** at the bottom and close the tab.
-
-::: {.callout-note}
-You may also notice that this folder has no chat panel, and that VS Code never finishes your lines for you. That is on purpose. The course folder switches VS Code's own AI features off, so that the editor stays a place where you write the code yourself.
-
-The assistant on this course is not gone, it has an address: it lives in your browser, where you have to go to it deliberately and can see exactly what you asked and what it answered. @sec-meet-ai introduces it in week one. The setting applies to this folder only, so anything else you open in VS Code is unaffected.
-:::
-
-::: {.callout-tip}
-## Four clicks, or one command
-
-If you would rather not click **Install** four times, you can do the whole thing from the terminal instead:
-
-```bash
-code --install-extension ms-python.python --install-extension ms-toolsai.jupyter --install-extension quarto.quarto --install-extension renan-r-santos.pixi-code
-```
-
-This needs the same `code` command as step 1, so if you set that up there it works as it stands; if you skipped it, go back and do it now. On a Mac, remember that the terminal you already had open was started before the change and will still tell you `command not found: code` — open a new one.
-
-Either way, reload the window afterwards, as in step 4.
-:::
--->
-
-**4. Reload the window:**
-
-When the extensions have finished, reload the window. VS Code may offer to; if it does, say yes. If it does not, do it yourself: press `Ctrl+Shift+P` (`Cmd+Shift+P` on a Mac) to open the command palette, type `Developer: Reload Window`, and press Enter.
-
-This one is not optional. An extension installed while the folder was already open does not always go back and look at the folder again, and the pixi one is like that. The reload is what sends it to find your `.pixi` folder. Skip it and the kernel you are about to choose is simply not in the list, and the coloured boxes in these notes stay as raw text with stray colons around them.
-
 ## If something goes wrong {#sec-if-something-goes-wrong}
 
 - **"pixi is not recognized as an internal or external command" (Windows).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
@@ -315,60 +197,18 @@ This one is not optional. An extension installed while the folder was already op
 - **A widget shows as blank space, or as raw text.** You are running the notebook on the wrong Python. Click `Select Kernel` in the top right of the notebook and choose the one whose path contains `.pixi`.
 - **Nothing works and the lecture has already started.** Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.
 
-If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about.
+If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about. 
+-->
 
-
-
-## Safe procedure on Mac {#sec-safe-mac-procedure}
-
-1. Quit VS Code completely first if it is running. 
-
-2. Quit Terminal it it is running.
-
-3. Open a new Terminal window and run this command
-
-```bash
-curl -fsSL https://pixi.sh/install.sh | SHELL="$(ps -o comm= -p $$ | sed 's/^-//')" sh
-```
-
-and then this command:
-
-```bash
-pixi run shell
-```
 
 <!-- 
 
-~/.bash_profile
+1.  Delete any instructing-machines.zip files in your Downloads folder
 
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
+2. To to the "getting started" page and download the course folder again
+3. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
 
-~/.zprofile
-
-[[ -f ~/.zshrc ]] && source ~/.zshrc
-
- -->
-
-
-
-
-4. Now close that terminal *completely* and open a new one. 
-
-
-5. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
-
-```bash
-pixi --version
-```
-
-6. Delete any instructing-machines.zip files in your Downloads folder
-
-7. To to the "getting started" page and download the course folder again
-8. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
-
-9. In the terminal, run this to move it to your user folder
+4. In the terminal, run this to move it to your user folder
 
 ```bash
 mv ~/Downloads/instructing-machines ~/.
@@ -391,13 +231,7 @@ pixi clean ; pixi install
 ```bash
 pixi run check
 ```
-<!-- 
-for 2027
 
-```bash
-pixi run setup
-``` 
--->
 
 Install the course tool
 
@@ -405,12 +239,12 @@ Install the course tool
 pixi global install -c conda-forge -c munch-group im-course-tools
 ```
 
-13. Then open `C:\im\instructing-machines` in VS Code using `File → Open Folder`.
+1.  Then open `C:\im\instructing-machines` in VS Code using `File → Open Folder`.
+
+ -->
 
 
-
-
-
+<!-- 
 
 ## Safe procedure on Windows {#sec-safe-windows-procedure}
 
@@ -476,4 +310,4 @@ pixi global install -c conda-forge -c munch-group im-course-tools
 ## You are all set <i class="bi bi-hand-thumbs-up"></i>
 
 Well done! You are all set to start the course. Have a cup of coffee, and look forward to your first program. 
-
+ -->

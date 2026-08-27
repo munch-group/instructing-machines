@@ -34,6 +34,9 @@ args = [
 ]
 cmd = "python scripts/todo.py --strict {{ claude }} {{ todo }} {{ match }}"
 
+[tasks.preview]
+cmd = "cd docs && quarto render --profile preview && open _book/index.html"
+
 [dependencies]
 jupyter = ">=1.1.1,<2"
 nodejs = ">=26.6.0,<26.7"
