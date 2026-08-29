@@ -139,11 +139,11 @@ def main() -> int:
             written.append(f"    {setting} = {value}")
 
     if not written:
-        print("VS Code already knows where pixi and the course Python are.")
+        # print("VS Code already knows where pixi and the course Python are.")
         return 0
 
     path.write_text(text, encoding="utf-8")
-    print("Told VS Code where things are on this machine:")
+#    print("Told VS Code where things are on this machine:")
     for line in written:
         print(line)
     return 0
