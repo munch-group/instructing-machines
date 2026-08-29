@@ -732,16 +732,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This chapter will get your computer set up with what you need for the course. You need to read carefully and follow instructions to the letter. They are different on Mac and Windows so pick which kind of computer you have below:</p>
+<p>This chapter will get your computer set up with what you need for the course. You need to read carefully and follow instructions to the letter. Click the <i class="bi bi-clipboard"></i> icons to copy each command to your clipboard.</p>
+<p>Instructions differ on Mac and Windows so pick which kind of computer you have below:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="platform">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><i class="bi bi-apple"></i> Mac</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><i class="bi bi-windows"></i> Windows</a></li></ul>
 <div class="tab-content" data-group="platform">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p><strong>1.</strong> Quit VS Code completely first if it is running.</p>
-<p><strong>2.</strong> Open a new Terminal window and run this command to download the course folder:</p>
+<p><strong>1.</strong> Quit Finder, Terminal, and VS Code completely they are running.</p>
+<p><strong>2.</strong> Open a new Terminal window and run this command to download the course folder to your home folder:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>curl https://munch-group.org/instructing-machines/instructing-machines.zip &gt; ~/Downloads/instructing-machines.zip</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>3.</strong> Run this to unpack the student folder and put it in your home folder:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>unzip -o ~/Downloads/instructing-machines.zip &amp;&amp; mv ~/Downloads/instructing-machines ~/.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bash -c 'im=$HOME/instructing-machines; [ -d "$im" ] &amp;&amp; mv "$im" "$im-old-$(date +%Y%m%d-%H%M%S)"; unzip -q "$HOME/Downloads/instructing-machines.zip" -d "$HOME"'</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>4.</strong> Navigate to the course folder:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cd ~/instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>5.</strong> Run this to install Pixi:</p>
@@ -768,11 +769,15 @@ pixi run setup
 -->
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><strong>1.</strong> Quit VS Code completely first if it is running.</p>
+<p><strong>1.</strong> Quit File Explorer, PowerShell, and VS Code completely they are running.</p>
 <p><strong>2.</strong> Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip" -OutFile "$env:USERPROFILE\Downloads\instructing-machines.zip"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>3.</strong> Run this to unpack the student folder and put it in your home folder:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>3.</strong> Run this to unpack the student folder and put it in your home folder: <!-- 
+```txt
+Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\
+``` 
+--></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>$im = "C:\instructing-machines"; if (Test-Path $im) { Move-Item $im "${im}-old-$(Get-Date -Format 'yyyyMMdd-HHmmss')" }; Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath 'C:\'</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>4.</strong> Navigate to the course folder:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cd C:\instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>5.</strong> Run this to install Pixi:</p>
@@ -881,114 +886,6 @@ Tip
 
 If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about. 
 -->
-<!-- 
-
-1.  Delete any instructing-machines.zip files in your Downloads folder
-
-2. To to the "getting started" page and download the course folder again
-3. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
-
-4. In the terminal, run this to move it to your user folder
-
-```bash
-mv ~/Downloads/instructing-machines ~/.
-```
-
-10. Navigate to the course folder
-
-```bash
-cd ~/instructing-machines 
-```
-
-11. Run this to build the environment:
-
-```bash
-pixi clean ; pixi install
-```
-
-12. Finish the setup 
-
-```bash
-pixi run check
-```
-
-
-Install the course tool
-
-```bash
-pixi global install -c conda-forge -c munch-group im-course-tools
-```
-
-1.  Then open `C:\im\instructing-machines` in VS Code using `File → Open Folder`.
-
- -->
-<!-- 
-
-## Safe procedure on Windows {#sec-safe-windows-procedure}
-
-1. Quit VS Code completely first if it is running. 
-
-2. Then in PowerShell (Start menu → PowerShell, not VS Code's terminal):
-
-```txt
-powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"
-```
-
-3. Now close that terminal *completely* and open a new one. 
-
-4. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
-
-```txt
-pixi --version
-```
-
-5. Run this in the terminal and answer `Y` when prompted.
-
-```txt
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-6. Delete any instructing-machines.zip files in your Downloads folder
-
-7. To to the "getting started" and download the course folder again.
-
-8. Run this to unpack the course folder in a place Windows will not fight you
-
-```txt
-Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\im
-```
-
-9. Run this to navigate to the course-folder
-
-```txt
-cd C:\im\instructing-machines
-```
-
-10. Run this to build the environment:
-
-```txt
-pixi clean ; pixi install
-```
-
-11. Finish the setup 
-
-```txt
-pixi run setup
-```
-
-Install the course tool
-
-```txt
-pixi global install -c conda-forge -c munch-group im-course-tools
-```
-
-12. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
-
-
-## You are all set <i class="bi bi-hand-thumbs-up"></i>
-
-Well done! You are all set to start the course. Have a cup of coffee, and look forward to your first program. 
- -->
 
 
 </section>
