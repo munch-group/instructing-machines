@@ -159,3 +159,24 @@ update = "im update"
 [target.win-64.tasks]
 shell = "true"
 
+# Silence a warning that only Windows sees, and that only says a directory is
+# empty. The openssl package ships an activation script for Windows that points
+# two variables at this environment: SSL_CERT_FILE at Library\ssl\cacert.pem,
+# which is a real certificate bundle, and SSL_CERT_DIR at Library\ssl\certs,
+# which openssl ships containing nothing but a .keep placeholder. pixi reads
+# both, finds the second one empty, and says so:
+#
+#     WARN ignoring `SSL_CERT_DIR`: no certificates found in ...\Library\ssl\certs
+#
+# Nothing is broken -- the file variable is the one that carries the
+# certificates, and pixi falls back to its own roots for the other -- but a
+# warning about certificates is exactly the kind of thing that stops a student
+# on day one and costs a mail to ask about.
+#
+# Both activation scripts set their variable only when it is not already set,
+# so setting it here wins whichever order pixi applies the two in. The value is
+# the folder one level up, which is where ca-certificates puts cacert.pem and
+# cert.pem, so the directory pixi is pointed at now has certificates in it.
+[target.win-64.activation.env]
+SSL_CERT_DIR = "$CONDA_PREFIX/Library/ssl"
+
