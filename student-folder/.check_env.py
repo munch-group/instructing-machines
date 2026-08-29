@@ -41,11 +41,17 @@ PACKAGE_SECTIONS = ("dependencies", "pypi-dependencies")
 SECTION = re.compile(r"^\[([^]]+)]")
 ENTRY = re.compile(r"^([A-Za-z0-9._-]+)\s*=")
 
-# Where an environment keeps the programs it installed, in the two layouts
-# there are. Not everything in the manifest is importable -- `quarto` is a
-# command-line tool and `python` is the interpreter itself -- so a name that
-# does not import is looked for here before it is called missing.
-BIN_DIRS = ("bin", "Scripts")
+# Where an environment keeps the programs it installed. Not everything in the
+# manifest is importable -- `quarto` is a command-line tool and `python` is the
+# interpreter itself -- so a name that does not import is looked for here before
+# it is called missing.
+#
+# Unix keeps all of them in bin. Windows spreads them over three places, and the
+# prefix root is one of them: python.exe sits there, while pip and jupyter go to
+# Scripts and anything a conda package built around a C library goes to
+# Library\bin. Leaving the root out is what made the Windows CI job report
+# `python` missing from an environment that had just run ipykernel with it.
+BIN_DIRS = (".", "bin", "Scripts", "Library/bin")
 
 
 def course_folder() -> Path:
