@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>62&nbsp; Finale finishing – Instructing Machines</title>
+<title>8&nbsp; Getting set up – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,8 +68,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../projects/assembly-project.html" rel="next">
-<link href="../ai/finale-build.html" rel="prev">
+<link href="../python/hello-world.html" rel="next">
+<link href="../python/terminal.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -45,7 +80,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-702a4126a5293489920bf589fd63f1a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -92,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/finale-kickoff.html">Week 13</a></li><li class="breadcrumb-item"><a href="../ai/finale-finishing.html"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Finale finishing</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../python/getting_set_up.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting set up</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,8 +221,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
+  <a href="../python/getting_set_up.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting set up</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -209,6 +243,17 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro/notebooks.html" class="sidebar-item-text sidebar-link">
@@ -237,13 +282,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 2</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/if-else.html" class="sidebar-item-text sidebar-link">
@@ -266,13 +311,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 3</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
@@ -313,13 +358,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 4</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
@@ -348,13 +393,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 5</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
@@ -383,13 +428,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 6</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
@@ -418,13 +463,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 7</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
@@ -459,13 +504,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 8</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/reading-and-judging.html" class="sidebar-item-text sidebar-link">
@@ -494,13 +539,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 9</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/documentation-and-resources.html" class="sidebar-item-text sidebar-link">
@@ -529,13 +574,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 10</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 11</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
@@ -564,13 +609,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 11</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 12</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link">
@@ -593,13 +638,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 12</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 13</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
@@ -614,43 +659,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/dataframes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 13</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai/finale-kickoff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Finale: planning</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai/finale-build.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Finale build</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai/finale-finishing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Finale finishing</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Genome assembly</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dataframes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Dataframes: a table you can plot</span></span></a>
   </div>
 </li>
       </ul>
@@ -667,13 +683,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">AI: The AI-off test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: The AI-off test</span></span></a>
   </div>
 </li>
       </ul>
@@ -684,33 +700,22 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><a href="#dnldts37066" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgRmluYWxlIGZpbmlzaGluZyB7I3NlYy1maW5hbGUtZmluaXNoaW5nfVxuIiwKICAgICJcbiIsCiAgICAiQXQgdGhpcyBwb2ludCB0aGUgcGllY2VzIG9mIHlvdXIgdG9vbCBleGlzdCwgZWFjaCBvZiB0aGVtIHRlc3RlZCwgZWFjaCBvZiB0aGVtIGJ1aWx0IG9uIHBpZWNlcyB0aGF0IHdlcmUgdGVzdGVkIGJlZm9yZSBpdC4gV2hhdCByZW1haW5zIGlzIHRoZSBwYXJ0IHRoYXQgbW9zdCBwcm9qZWN0cyBza2ltcCBvbiwgd2hpY2ggaXMgdGhlIGZpbmlzaGluZzogbWFraW5nIHRoZSB3aG9sZSB0aGluZyB3b3JrIGVuZCB0byBlbmQsIHRlc3RpbmcgdGhlIG9uZSBmdW5jdGlvbiB5b3UgaGF2ZSBiZWVuIHF1aWV0bHkgYXZvaWRpbmcsIGFuZCB0aGVuIHN0ZXBwaW5nIGJhY2sgZmFyIGVub3VnaCB0byBzZWUgd2hhdCB5b3UgaGF2ZSBhY3R1YWxseSBkZW1vbnN0cmF0ZWQuIFRoYXQgbGFzdCBzdGVwIGlzIG5vdCBkZWNvcmF0aW9uLiBUaGUgcG9pbnQgb2YgdGhlIGZpbmFsZSB3YXMgbmV2ZXIgdGhlIHRvb2wuIEl0IHdhcyB0byBmaW5kIG91dCB3aGV0aGVyIHlvdSBjYW4gcHJvZHVjZSBzb21ldGhpbmcgY29ycmVjdCwgdW5kZXJzdG9vZCwgYW5kIGRlZmVuc2libGUgaW4gYSBkb21haW4geW91IGtub3csIHVzaW5nIGEgbWFjaGluZSB5b3UgZG8gbm90IGZ1bGx5IHRydXN0LCBhbmQgdGhlIGZpbmlzaGluZyBpcyB3aGVyZSB5b3UgZmluZCBvdXQuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBUaGUgZnVuY3Rpb24gdGhhdCBmYWNlcyB5b3UgeyNzZWMtaW50ZXJmYWNlLWZ1bmN0aW9ufVxuIiwKICAgICJcbiIsCiAgICAiRXZlcnkgdG9vbCBoYXMgYSBwaWVjZSBhdCB0aGUgdG9wIHRoYXQgZmFjZXMgdGhlIHBlcnNvbiB1c2luZyBpdCwgdGhlIG9uZSB0aGF0IHByaW50cyB0aGUgcmVwb3J0LCBkcmF3cyB0aGUgcGxvdCwgd3JpdGVzIHRoZSBvdXRwdXQgZmlsZSwgb3IgYW5zd2VycyB0aGUgcXVlc3Rpb24gdGhlIHRvb2wgd2FzIGJ1aWx0IHRvIGFuc3dlci4gSXQgaXMgYWxtb3N0IGFsd2F5cyB0aGUgbGFzdCBvbmUgYnVpbHQgYW5kIGFsbW9zdCBhbHdheXMgdGhlIGxlYXN0IHRlc3RlZCwgZm9yIGEgcmVhc29uIHRoYXQgc291bmRzIGNvbnZpbmNpbmcgYW5kIGlzIG5vdDogeW91IGNhbiBzZWUgaXQgd29ya2luZy4gSXQgcmFuLCBvdXRwdXQgYXBwZWFyZWQsIHRoZSBvdXRwdXQgbG9va2VkIGxpa2UgYSByZXBvcnQsIGFuZCBzbyBpdCBtdXN0IGJlIGZpbmUuXG4iLAogICAgIlxuIiwKICAgICJMb29rIGF0IHdoYXQgdGhhdCByZWFzb25pbmcgYWN0dWFsbHkgY292ZXJzLiBJdCBjb25maXJtcyB0aGF0IHRoZSBmdW5jdGlvbiBwcm9kdWNlZCBvdXRwdXQgd2l0aG91dCBjcmFzaGluZy4gSXQgc2F5cyBub3RoaW5nIGFib3V0IHdoZXRoZXIgdGhlIG51bWJlcnMgaW4gdGhhdCBvdXRwdXQgYXJlIHRoZSByaWdodCBudW1iZXJzLCB3aGV0aGVyIHRoZSBsYWJlbHMgYXJlIGF0dGFjaGVkIHRvIHRoZSB2YWx1ZXMgdGhleSBkZXNjcmliZSwgd2hldGhlciBhIGZpbHRlciB0aGF0IHdhcyBzdXBwb3NlZCB0byBleGNsdWRlIHNvbWV0aGluZyBhY3R1YWxseSBleGNsdWRlZCBpdCwgb3Igd2hldGhlciBhIGNvdW50IGlzIG9mZiBieSBvbmUgYXQgdGhlIGVkZ2VzLiBFdmVyeSBvbmUgb2YgdGhvc2UgZmFpbHVyZXMgcHJvZHVjZXMgb3V0cHV0IHRoYXQgbG9va3MgZXhhY3RseSBsaWtlIHN1Y2Nlc3MsIGJlY2F1c2UgbG9va2luZyByaWdodCBpcyBhIHByb3BlcnR5IG9mIHRoZSBmb3JtYXR0aW5nIGFuZCBub3Qgb2YgdGhlIGNvbnRlbnQuXG4iLAogICAgIlxuIiwKICAgICJTbyB0ZXN0IGl0IGxpa2UgYW55dGhpbmcgZWxzZS4gR2l2ZSBpdCBhbiBpbnB1dCBzbWFsbCBlbm91Z2ggdGhhdCB5b3UgY2FuIHdyaXRlIHRoZSBlbnRpcmUgY29ycmVjdCBvdXRwdXQgYnkgaGFuZCwgcnVuIGl0LCBhbmQgY29tcGFyZSBjaGFyYWN0ZXIgYnkgY2hhcmFjdGVyIG9yIHZhbHVlIGJ5IHZhbHVlLiBJZiB0aGUgZnVuY3Rpb24gcHJpbnRzLCBjYXB0dXJlIHdoYXQgaXQgcHJpbnRzIGFuZCBjb21wYXJlIGl0IGFnYWluc3QgdGhlIGV4YWN0IHN0cmluZyB5b3UgZXhwZWN0LiBJZiBpdCBwbG90cywgYXJyYW5nZSBmb3IgaXQgdG8gYWxzbyByZXR1cm4gdGhlIHZhbHVlcyBpdCBpcyBwbG90dGluZyBhbmQgdGVzdCB0aG9zZSwgYmVjYXVzZSBhIHBsb3QgeW91IGNhbiBvbmx5IGNoZWNrIGJ5IHNxdWludGluZyBhdCBpdCBpcyBub3QgYSBwbG90IHlvdSBoYXZlIGNoZWNrZWQuIElmIGl0IHdyaXRlcyBhIGZpbGUsIHdyaXRlIGEgdGlueSBpbnB1dCwgcnVuIGl0LCByZWFkIHRoZSBmaWxlIGJhY2ssIGFuZCBjb21wYXJlIGl0IGFnYWluc3Qgd2hhdCB5b3Ugd3JvdGUgb3V0IGJ5IGhhbmQgYmVmb3JlaGFuZC5cbiIsCiAgICAiXG4iLAogICAgIlRoZSBhd2t3YXJkIGlucHV0cyBkZXNlcnZlIHRoZSBzYW1lIGF0dGVudGlvbiBoZXJlIGFzIGFueXdoZXJlIGVsc2UsIGFuZCBhdCB0aGUgaW50ZXJmYWNlIHRoZXkgYXJlIHVzdWFsbHkgYWJvdXQgZW1wdGluZXNzIGFuZCBhYm91dCB0aGUgZWRnZXMuIFdoYXQgZG9lcyB5b3VyIHRvb2wgcmVwb3J0IHdoZW4gdGhlIGlucHV0IGNvbnRhaW5zIG5vIHJvd3MgdGhhdCBwYXNzIHRoZSBmaWx0ZXI/IFdoZW4gdGhlIGlucHV0IGlzIGVtcHR5IGVudGlyZWx5PyBXaGVuIHR3byByZXN1bHRzIHRpZSBmb3IgdGhlIGFuc3dlciB5b3UgYXNrZWQgaXQgdG8gcmVwb3J0PyBFYWNoIG9mIHRob3NlIGlzIGEgZGVjaXNpb24sIGFuZCBpZiB5b3UgZG8gbm90IG1ha2UgaXQgZGVsaWJlcmF0ZWx5IHlvdXIgdG9vbCB3aWxsIG1ha2UgaXQgZm9yIHlvdSwgc2lsZW50bHksIGF0IHRoZSB3b3JzdCBwb3NzaWJsZSBtb21lbnQuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlIHsjc2VjLWV4LWludGVyZmFjZS10ZXN0fVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJUYWtlIHRoZSBmdW5jdGlvbiBpbiB5b3VyIHRvb2wgdGhhdCBmYWNlcyB5b3UgYW5kIHdyaXRlIGEgdGVzdCBmb3IgaXQgYWdhaW5zdCBhbiBpbnB1dCBzbWFsbCBlbm91Z2ggdGhhdCB5b3Ugd29ya2VkIG91dCB0aGUgd2hvbGUgY29ycmVjdCBvdXRwdXQgYnkgaGFuZCBmaXJzdC4gVGhlbiBhZGQgb25lIHRlc3QgZm9yIGFuIGF3a3dhcmQgY2FzZSBhdCB0aGUgaW50ZXJmYWNlLCB3aGV0aGVyIGFuIGVtcHR5IHJlc3VsdCwgYSB0aWUsIG9yIGEgZmlsdGVyIHRoYXQgZXhjbHVkZXMgZXZlcnl0aGluZywgYW5kIHN0YXRlIGluIGEgY29tbWVudCB3aGljaCBkZWNpc2lvbiB0aGF0IHRlc3QgaXMgcGlubmluZyBkb3duLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgUnVubmluZyBpdCBlbmQgdG8gZW5kIG9uIHJlYWwgZGF0YSB7I3NlYy1lbmQtdG8tZW5kfVxuIiwKICAgICJcbiIsCiAgICAiV2l0aCBldmVyeSBwaWVjZSB0ZXN0ZWQgaW5kaXZpZHVhbGx5LCBydW4gdGhlIHRvb2wgb24gdGhlIHJlYWwgaW5wdXQgaXQgd2FzIGJ1aWx0IGZvciwgYW5kIHRoZW4gZG8gdGhlIHRoaW5nIHRoYXQgc2VwYXJhdGVzIGEgZmluaXNoZWQgdG9vbCBmcm9tIG9uZSB0aGF0IG1lcmVseSBydW5zLiBUYWtlIG9uZSByZXN1bHQgb3V0IG9mIHRoZSBvdXRwdXQgYW5kIHZlcmlmeSBpdCBieSBoYW5kLCBpbmRlcGVuZGVudGx5LCBmcm9tIHRoZSBvcmlnaW5hbCBkYXRhLlxuIiwKICAgICJcbiIsCiAgICAiUGljayBhIHJvdywgYSBnZW5lLCBhIHNlcXVlbmNlLCB3aGF0ZXZlciB1bml0IHlvdXIgdG9vbCByZXBvcnRzIG9uLCBmaW5kIGl0IGluIHRoZSBzb3VyY2UgZGF0YSB5b3Vyc2VsZiwgY29tcHV0ZSB0aGUgYW5zd2VyIHlvdXIgdG9vbCBjbGFpbXMgZm9yIGl0IHVzaW5nIG5vdGhpbmcgYnV0IHlvdXIgb3duIGhlYWQgYW5kIHBlcmhhcHMgYSBjYWxjdWxhdG9yLCBhbmQgY2hlY2sgdGhhdCB0aGUgdHdvIGFncmVlLiBJZiB0aGV5IGRvLCB5b3UgaGF2ZSBldmlkZW5jZSB0aGF0IHRoZSBwaWVjZXMgYXJlIG5vdCBvbmx5IGluZGl2aWR1YWxseSBjb3JyZWN0IGJ1dCBjb3JyZWN0bHkgY29ubmVjdGVkLCB3aGljaCBpcyBhIGRpZmZlcmVudCBjbGFpbSBhbmQgb25lIHRoYXQgdW5pdCB0ZXN0cyBvbiB0aGUgcGllY2VzIGNhbm5vdCBtYWtlIGZvciB5b3UuIElmIHRoZXkgZGlzYWdyZWUsIHlvdSBoYXZlIGZvdW5kIGFuIGludGVncmF0aW9uIGZhdWx0LCBhbmQgeW91IGhhdmUgZm91bmQgaXQgbm93IHJhdGhlciB0aGFuIGFmdGVyIHByZXNlbnRpbmcgdGhlIHJlc3VsdC5cbiIsCiAgICAiXG4iLAogICAgIkRvIHRoaXMgYXQgbGVhc3QgdHdpY2UsIGFuZCBjaG9vc2UgdGhlIHNlY29uZCBjYXNlIGRlbGliZXJhdGVseSBmcm9tIHNvbWV3aGVyZSBvZGQ6IHRoZSBzaG9ydGVzdCBzZXF1ZW5jZSwgdGhlIHJvdyB3aXRoIGEgbWlzc2luZyB2YWx1ZSwgdGhlIGVudHJ5IGF0IHRoZSBib3VuZGFyeSBvZiB3aGF0ZXZlciB5b3VyIHRvb2wgZmlsdGVycyBvbi4gVGhlIG1pZGRsZSBvZiB0aGUgZGF0YSBpcyB3aGVyZSBldmVyeXRoaW5nIHdvcmtzLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZSB7I3NlYy1leC1oYW5kLXZlcmlmeX1cbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiUnVuIHlvdXIgdG9vbCBvbiBpdHMgcmVhbCBpbnB1dCBhbmQgdmVyaWZ5IHR3byBvZiBpdHMgcmVzdWx0cyBlbnRpcmVseSBieSBoYW5kIGZyb20gdGhlIHNvdXJjZSBkYXRhLCBvbmUgb3JkaW5hcnkgYW5kIG9uZSBmcm9tIGFuIGF3a3dhcmQgY29ybmVyIG9mIHRoZSBkYXRhLiBSZWNvcmQgYm90aCwgd2l0aCB0aGUgaGFuZCBjYWxjdWxhdGlvbiB3cml0dGVuIG91dCwgYmVjYXVzZSB0aGUgY2FsY3VsYXRpb24gaXMgdGhlIGV2aWRlbmNlIGFuZCB0aGUgYWdyZWVtZW50IGFsb25lIGlzIG5vdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIFdoYXQgeW91IGFjdHVhbGx5IGJ1aWx0IHsjc2VjLWF1Z21lbnRhdGlvbn1cbiIsCiAgICAiXG4iLAogICAgIk5vdyBzdGVwIGJhY2suIExvb2sgYXQgdGhlIGZpbmlzaGVkIHRvb2wgYW5kIGFzayBob25lc3RseSB3aG8gZGlkIHdoYXQuXG4iLAogICAgIlxuIiwKICAgICJZb3UgYnJvdWdodCB0aGUgYmlvbG9neS4gWW91IGtuZXcgd2hpY2ggcXVlc3Rpb24gd2FzIHdvcnRoIGFza2luZywgd2hhdCB0aGUgZGF0YSBtZWFudCwgd2hpY2ggYW5zd2VyIHdvdWxkIGJlIHN1c3BpY2lvdXMsIGFuZCB3aGF0IGFuIG9mZi1ieS1vbmUgb24gYSBjb29yZGluYXRlIG9yIGEgcmVhZCBvZiB0aGUgd3Jvbmcgc3RyYW5kIHdvdWxkIGRvIHRvIHRoZSByZXN1bHQuIE5vYm9keSBzdXBwbGllZCB0aGF0LCBhbmQgdGhlIGFzc2lzdGFudCBjb3VsZCBub3QgaGF2ZS4gWW91IGFsc28gYnJvdWdodCB0aGUgc3RydWN0dXJlLCBiZWNhdXNlIHlvdSBkZWNpZGVkIHdoYXQgdGhlIHBpZWNlcyB3ZXJlLCB3aGF0IGVhY2ggb25lIHByb21pc2VkLCBhbmQgaG93IHRoZXkgZml0dGVkIHRvZ2V0aGVyLCBhbmQgeW91IHdyb3RlIHRoYXQgZG93biBiZWZvcmUgYW55dGhpbmcgd2FzIHR5cGVkLlxuIiwKICAgICJcbiIsCiAgICAiVGhlIGFzc2lzdGFudCBicm91Z2h0IGZsdWVudCB0eXBpbmcgb2YgcGllY2VzIHlvdSBoYWQgYWxyZWFkeSBzcGVjaWZpZWQuIEl0IGZpbGxlZCBpbiBzaGFwZXMgeW91IGRyZXcuIE9uIHNldmVyYWwgb2YgdGhlbSBpdCB3YXMgd3JvbmcsIGFuZCB5b3VyIGpvdXJuYWwgcmVjb3JkcyB3aGVyZSwgYW5kIHRoZSB0ZXN0cyBvciB5b3VyIG93biByZWFkaW5nIGNhdWdodCBpdC4gVGhhdCBpcyB0aGUgaG9uZXN0IGFjY291bnRpbmcsIGFuZCBpdCBpcyB3b3J0aCBzdGF0aW5nIHBsYWlubHkgYmVjYXVzZSBpdCBpcyBuZWl0aGVyIG9mIHRoZSB0d28gc3RvcmllcyBwZW9wbGUgdXN1YWxseSB0ZWxsLiBJdCBpcyBub3QgdGhhdCB5b3Ugd3JvdGUgYSBwcm9ncmFtIHdpdGggYSBiaXQgb2YgaGVscCwgYW5kIGl0IGlzIG5vdCB0aGF0IHRoZSBtYWNoaW5lIHdyb3RlIHlvdXIgcHJvZ3JhbS4gWW91IHByb2R1Y2VkIHNvbWV0aGluZyBjb3JyZWN0IHRoYXQgeW91IGNvdWxkIG5vdCBoYXZlIHR5cGVkIHVuYWlkZWQsIGJ5IGtub3dpbmcgd2hhdCBjb3JyZWN0IG1lYW50IGFuZCByZWZ1c2luZyB0byBhY2NlcHQgYW55dGhpbmcgeW91IGhhZCBub3QgY2hlY2tlZC5cbiIsCiAgICAiXG4iLAogICAgIlRoYXQgaXMgYXVnbWVudGF0aW9uLCBhbmQgaXQgaXMgdGhlIHRoaW5nIHRoaXMgY291cnNlIHdhcyBhY3R1YWxseSBhYm91dC4gQSBtYWNoaW5lIHRoYXQgdHlwZXMgZmFzdGVyIHRoYW4geW91IGlzIG9ubHkgdXNlZnVsIHRvIHNvbWVvbmUgd2hvIGNhbiB0ZWxsIHJpZ2h0IGZyb20gcGxhdXNpYmxlLiBUaGUgcmVhc29uIHRoZSB0ZXJtIHNwZW50IHNvIGxvbmcgb24gd2hhdCBhIHByb2dyYW0gaXMsIG9uIHN1YnN0aXR1dGlvbiBhbmQgcmVkdWN0aW9uLCBvbiByZWFkaW5nIGVycm9ycywgb24gd3JpdGluZyB0ZXN0cywgd2FzIG5ldmVyIHRoYXQgeW91IHdvdWxkIG5lZWQgdG8gd3JpdGUgZXZlcnl0aGluZyB5b3Vyc2VsZi4gSXQgd2FzIHRoYXQgbm9uZSBvZiB0aGUgY2hlY2tpbmcgd29ya3Mgd2l0aG91dCBpdC4gVGhlIHBlb3BsZSBmb3Igd2hvbSB0aGVzZSBhc3Npc3RhbnRzIGFyZSBtb3N0IGRhbmdlcm91cyBhcmUgdGhlIG9uZXMgd2hvIGNhbm5vdCBldmFsdWF0ZSB0aGUgYW5zd2VyLCBhbmQgdGhlIHdob2xlIG9mIHlvdXIgYWJpbGl0eSB0byB1c2Ugb25lIHNhZmVseSByZXN0cyBvbiB0aGUgdW5kZXJzdGFuZGluZyB5b3UgYnVpbHQgYmVmb3JlIHlvdSB3ZXJlIGFsbG93ZWQgdG8gbGVhbiBvbiBpdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIFRoZSBsaW1pdHMgdGhhdCBkbyBub3QgZ28gYXdheSB7I3NlYy1yZW1haW5pbmctbGltaXRzfVxuIiwKICAgICJcbiIsCiAgICAiRmluaXNoaW5nIHRoZSB0b29sIGlzIGEgZ29vZCBtb21lbnQgdG8gYmUgY2xlYXItZXllZCBhYm91dCB3aGF0IHlvdXIgY2FyZWZ1bCB3b3JrIGRvZXMgbm90IGJ1eSB5b3UsIGFuZCBAc2VjLXN1cnZpdmluZy1haSB0cmVhdHMgdGhpcyBhdCBsZW5ndGguIFRocmVlIHRoaW5ncyBhcmUgd29ydGggaG9sZGluZyBpbiBtaW5kIGFzIHlvdSBjbG9zZSB0aGUgcHJvamVjdC5cbiIsCiAgICAiXG4iLAogICAgIllvdXIgdGVzdHMgY292ZXIgdGhlIGNhc2VzIHlvdSB0aG91Z2h0IG9mLCBhbmQgdGhlcmUgYXJlIGFsd2F5cyBjYXNlcyB5b3UgZGlkIG5vdCB0aGluayBvZiwgc28gdGhlIHRlc3RzIGFyZSBhIGZsb29yIHVuZGVyIHlvdXIgY29uZmlkZW5jZSBhbmQgbm90IGEgcHJvb2YuIFlvdXIgb3duIHVuZGVyc3RhbmRpbmcgb2YgZWFjaCBwaWVjZSBpcyB3aGF0IHN0YW5kcyBiZWhpbmQgdGhlbSwgd2hpY2ggaXMgd2h5IHRoZSBydWxlIGFib3V0IG5ldmVyIGFjY2VwdGluZyBjb2RlIHlvdSBjYW5ub3QgcmVhZCBtYXR0ZXJzIG1vcmUgYXQgdGhlIGVuZCBvZiBhIHByb2plY3QgdGhhbiBhdCB0aGUgc3RhcnQuIEFuZCBubyB0ZXN0IHlvdSB3cml0ZSBhYm91dCB0aGUgY29kZSBjYW4gY2F0Y2ggYSBtaXN0YWtlIGluIHRoZSBiaW9sb2d5IHRoZSBjb2RlIGFzc3VtZXMsIGJlY2F1c2UgYSBmbGF3bGVzcyBpbXBsZW1lbnRhdGlvbiBvZiBhIHdyb25nIHByZW1pc2UgcGFzc2VzIGV2ZXJ5IHRlc3QgeW91IGNhbiBkZXZpc2UuIERvbWFpbiBmYWN0cyBnZXQgY2hlY2tlZCBhZ2FpbnN0IGRvbWFpbiBzb3VyY2VzLCBub3QgYWdhaW5zdCB0aGUgYXNzaXN0YW50IHRoYXQgc3RhdGVkIHRoZW0uXG4iLAogICAgIlxuIiwKICAgICJBYm92ZSBhbGwsIHJlc3BvbnNpYmlsaXR5IHN0YXllZCB3aXRoIHlvdSB0aGUgd2hvbGUgd2F5LiBZb3UgYXJlIHN1Ym1pdHRpbmcgdGhpcyB0b29sLCBhbmQgaWYgc29tZW9uZSBwb2ludHMgYXQgYW55IGZ1bmN0aW9uIGluIGl0IGFuZCBhc2tzIGhvdyBpdCB3b3JrcywgdGhlIGFuc3dlciBoYXMgdG8gYmUgeW91cnMuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlIHsjc2VjLWV4LWFpLW9mZi1maW5hbGV9XG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkFwcGx5IHRoZSB0ZXN0IGluIEBzZWMtdGhlLWFpLW9mZi10ZXN0IHRvIHlvdXIgb3duIGZpbmFsZS4gQ2xvc2UgdGhlIGFzc2lzdGFudCwgcGljayB0aGUgdHdvIGZ1bmN0aW9ucyBpbiB5b3VyIHRvb2wgeW91IGFyZSBsZWFzdCBjb25maWRlbnQgYWJvdXQsIGFuZCBmb3IgZWFjaCBvbmUgZWl0aGVyIHJlYnVpbGQgaXQgZnJvbSBpdHMgZG9jc3RyaW5nIGFsb25lIG9yIGV4cGxhaW4gaXQgaW4gZnVsbCwgb3V0IGxvdWQsIHRvIHNvbWVvbmUgd2hvIHdhcyBub3QgdGhlcmUgd2hlbiB5b3Ugd3JvdGUgaXQuIFdoZXJlIHRoYXQgZ29lcyBiYWRseSB5b3UgaGF2ZSBmb3VuZCB3aGF0IGlzIGxlZnQgdG8gbGVhcm4sIGFuZCB0aGVyZSBpcyBzdGlsbCB0aW1lIHRvIGxlYXJuIGl0LlxuIiwKICAgICJcbiIsCiAgICAiRm9yIHlvdXIgZmluYWwgbG9nYm9vayBlbnRyeSBvbiB0aGlzIHByb2plY3QsIHdyaXRlIHRoZSBob25lc3QgYWNjb3VudGluZzogd2hhdCB5b3UgYnJvdWdodCwgd2hhdCB0aGUgYXNzaXN0YW50IGJyb3VnaHQsIHdoZXJlIGl0IHdhcyB3cm9uZyBhbmQgaG93IHlvdSBrbmV3LiBUaGVuIG5hbWUgdGhlIG9uZSBmdW5jdGlvbiBpbiB5b3VyIHRvb2wgeW91IHdvdWxkIGJlIG1vc3QgY29tZm9ydGFibGUgZGVmZW5kaW5nIGluIGZyb250IG9mIHNvbWVvbmUgd2hvIHdhbnRlZCB0byBmaW5kIGEgZmF1bHQgaW4gaXQsIGFuZCBzYXkgd2hhdCBtYWtlcyB5b3UgY29tZm9ydGFibGUgYWJvdXQgdGhhdCBvbmUgaW4gcGFydGljdWxhci4iCiAgIF0KICB9CiBdLAogIm1ldGFkYXRhIjogewogICJrZXJuZWxzcGVjIjogewogICAiZGlzcGxheV9uYW1lIjogIkluc3RydWN0aW5nIE1hY2hpbmVzIiwKICAgImxhbmd1YWdlIjogInB5dGhvbiIsCiAgICJuYW1lIjogImluc3RydWN0aW5nLW1hY2hpbmVzIgogIH0sCiAgImxhbmd1YWdlX2luZm8iOiB7CiAgICJjb2RlbWlycm9yX21vZGUiOiB7CiAgICAibmFtZSI6ICJpcHl0aG9uIiwKICAgICJ2ZXJzaW9uIjogMwogICB9LAogICAiZmlsZV9leHRlbnNpb24iOiAiLnB5IiwKICAgIm1pbWV0eXBlIjogInRleHQveC1weXRob24iLAogICAibmFtZSI6ICJweXRob24iLAogICAibmJjb252ZXJ0X2V4cG9ydGVyIjogInB5dGhvbiIsCiAgICJweWdtZW50c19sZXhlciI6ICJpcHl0aG9uMyIKICB9CiB9LAogIm5iZm9ybWF0IjogNCwKICJuYmZvcm1hdF9taW5vciI6IDQKfQo=').then(res => res.blob()).then(blob => {
-    const downloadURL = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.href = downloadURL;
-    a.download = 'finale-finishing.ipynb'; a.click();
-    window.URL.revokeObjectURL(downloadURL);
-    document.body.removeChild(a);
-      });"><button class="btn btn-light downloadthis  " id="dnldts37066"><i class="bi bi-download"></i> Download notebook </button></a> </p>
+<p> </p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-interface-function" id="toc-sec-interface-function" class="nav-link active" data-scroll-target="#sec-interface-function">The function that faces you</a></li>
-  <li><a href="#sec-end-to-end" id="toc-sec-end-to-end" class="nav-link" data-scroll-target="#sec-end-to-end">Running it end to end on real data</a></li>
-  <li><a href="#sec-augmentation" id="toc-sec-augmentation" class="nav-link" data-scroll-target="#sec-augmentation">What you actually built</a></li>
-  <li><a href="#sec-remaining-limits" id="toc-sec-remaining-limits" class="nav-link" data-scroll-target="#sec-remaining-limits">The limits that do not go away</a></li>
+  <li><a href="#sec-text-editor" id="toc-sec-text-editor" class="nav-link active" data-scroll-target="#sec-text-editor">The VScode editor</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/ai/finale-finishing.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/getting_set_up.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/finale-kickoff.html">Week 13</a></li><li class="breadcrumb-item"><a href="../ai/finale-finishing.html"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Finale finishing</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro/course-introduction.html">Week 1</a></li><li class="breadcrumb-item"><a href="../python/getting_set_up.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting set up</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-finale-finishing" class="quarto-section-identifier"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Finale finishing</span></span></h1>
+<h1 class="title"><span id="sec-getting_set_up" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting set up</span></span></h1>
 </div>
 
 
@@ -727,50 +732,265 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>At this point the pieces of your tool exist, each of them tested, each of them built on pieces that were tested before it. What remains is the part that most projects skimp on, which is the finishing: making the whole thing work end to end, testing the one function you have been quietly avoiding, and then stepping back far enough to see what you have actually demonstrated. That last step is not decoration. The point of the finale was never the tool. It was to find out whether you can produce something correct, understood, and defensible in a domain you know, using a machine you do not fully trust, and the finishing is where you find out.</p>
-<section id="sec-interface-function" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-interface-function">The function that faces you</h2>
-<p>Every tool has a piece at the top that faces the person using it, the one that prints the report, draws the plot, writes the output file, or answers the question the tool was built to answer. It is almost always the last one built and almost always the least tested, for a reason that sounds convincing and is not: you can see it working. It ran, output appeared, the output looked like a report, and so it must be fine.</p>
-<p>Look at what that reasoning actually covers. It confirms that the function produced output without crashing. It says nothing about whether the numbers in that output are the right numbers, whether the labels are attached to the values they describe, whether a filter that was supposed to exclude something actually excluded it, or whether a count is off by one at the edges. Every one of those failures produces output that looks exactly like success, because looking right is a property of the formatting and not of the content.</p>
-<p>So test it like anything else. Give it an input small enough that you can write the entire correct output by hand, run it, and compare character by character or value by value. If the function prints, capture what it prints and compare it against the exact string you expect. If it plots, arrange for it to also return the values it is plotting and test those, because a plot you can only check by squinting at it is not a plot you have checked. If it writes a file, write a tiny input, run it, read the file back, and compare it against what you wrote out by hand beforehand.</p>
-<p>The awkward inputs deserve the same attention here as anywhere else, and at the interface they are usually about emptiness and about the edges. What does your tool report when the input contains no rows that pass the filter? When the input is empty entirely? When two results tie for the answer you asked it to report? Each of those is a decision, and if you do not make it deliberately your tool will make it for you, silently, at the worst possible moment.</p>
-<section id="sec-ex-interface-test" class="level4" data-number="62.0.0.1">
-<h4 data-number="62.0.0.1" class="anchored" data-anchor-id="sec-ex-interface-test"><strong>Exercise 62-1</strong></h4>
-<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Take the function in your tool that faces you and write a test for it against an input small enough that you worked out the whole correct output by hand first. Then add one test for an awkward case at the interface, whether an empty result, a tie, or a filter that excludes everything, and state in a comment which decision that test is pinning down.</p>
-</section>
-</section>
-<section id="sec-end-to-end" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-end-to-end">Running it end to end on real data</h2>
-<p>With every piece tested individually, run the tool on the real input it was built for, and then do the thing that separates a finished tool from one that merely runs. Take one result out of the output and verify it by hand, independently, from the original data.</p>
-<p>Pick a row, a gene, a sequence, whatever unit your tool reports on, find it in the source data yourself, compute the answer your tool claims for it using nothing but your own head and perhaps a calculator, and check that the two agree. If they do, you have evidence that the pieces are not only individually correct but correctly connected, which is a different claim and one that unit tests on the pieces cannot make for you. If they disagree, you have found an integration fault, and you have found it now rather than after presenting the result.</p>
-<p>Do this at least twice, and choose the second case deliberately from somewhere odd: the shortest sequence, the row with a missing value, the entry at the boundary of whatever your tool filters on. The middle of the data is where everything works.</p>
-<section id="sec-ex-hand-verify" class="level4" data-number="62.0.0.2">
-<h4 data-number="62.0.0.2" class="anchored" data-anchor-id="sec-ex-hand-verify"><strong>Exercise 62-2</strong></h4>
-<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Run your tool on its real input and verify two of its results entirely by hand from the source data, one ordinary and one from an awkward corner of the data. Record both, with the hand calculation written out, because the calculation is the evidence and the agreement alone is not.</p>
-</section>
-</section>
-<section id="sec-augmentation" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-augmentation">What you actually built</h2>
-<p>Now step back. Look at the finished tool and ask honestly who did what.</p>
-<p>You brought the biology. You knew which question was worth asking, what the data meant, which answer would be suspicious, and what an off-by-one on a coordinate or a read of the wrong strand would do to the result. Nobody supplied that, and the assistant could not have. You also brought the structure, because you decided what the pieces were, what each one promised, and how they fitted together, and you wrote that down before anything was typed.</p>
-<p>The assistant brought fluent typing of pieces you had already specified. It filled in shapes you drew. On several of them it was wrong, and your journal records where, and the tests or your own reading caught it. That is the honest accounting, and it is worth stating plainly because it is neither of the two stories people usually tell. It is not that you wrote a program with a bit of help, and it is not that the machine wrote your program. You produced something correct that you could not have typed unaided, by knowing what correct meant and refusing to accept anything you had not checked.</p>
-<p>That is augmentation, and it is the thing this course was actually about. A machine that types faster than you is only useful to someone who can tell right from plausible. The reason the term spent so long on what a program is, on substitution and reduction, on reading errors, on writing tests, was never that you would need to write everything yourself. It was that none of the checking works without it. The people for whom these assistants are most dangerous are the ones who cannot evaluate the answer, and the whole of your ability to use one safely rests on the understanding you built before you were allowed to lean on it.</p>
-</section>
-<section id="sec-remaining-limits" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-remaining-limits">The limits that do not go away</h2>
-<p>Finishing the tool is a good moment to be clear-eyed about what your careful work does not buy you, and <a href="surviving-ai.html" class="quarto-xref"><span>Chapter 64</span></a> treats this at length. Three things are worth holding in mind as you close the project.</p>
-<p>Your tests cover the cases you thought of, and there are always cases you did not think of, so the tests are a floor under your confidence and not a proof. Your own understanding of each piece is what stands behind them, which is why the rule about never accepting code you cannot read matters more at the end of a project than at the start. And no test you write about the code can catch a mistake in the biology the code assumes, because a flawless implementation of a wrong premise passes every test you can devise. Domain facts get checked against domain sources, not against the assistant that stated them.</p>
-<p>Above all, responsibility stayed with you the whole way. You are submitting this tool, and if someone points at any function in it and asks how it works, the answer has to be yours.</p>
-<section id="sec-ex-ai-off-finale" class="level4" data-number="62.0.0.3">
-<h4 data-number="62.0.0.3" class="anchored" data-anchor-id="sec-ex-ai-off-finale"><strong>Exercise 62-3</strong></h4>
-<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Apply the test in <a href="the-ai-off-test.html" class="quarto-xref"><span>Chapter 65</span></a> to your own finale. Close the assistant, pick the two functions in your tool you are least confident about, and for each one either rebuild it from its docstring alone or explain it in full, out loud, to someone who was not there when you wrote it. Where that goes badly you have found what is left to learn, and there is still time to learn it.</p>
-<p>For your final logbook entry on this project, write the honest accounting: what you brought, what the assistant brought, where it was wrong and how you knew. Then name the one function in your tool you would be most comfortable defending in front of someone who wanted to find a fault in it, and say what makes you comfortable about that one in particular.</p>
+<p>This chapter will get your computer set up with what you need for the course. You need to read carefully and follow instructions to the letter. They are different on Mac and Windows so pick which kind of computer you have below:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="platform">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><i class="bi bi-apple"></i> Mac</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><i class="bi bi-windows"></i> Windows</a></li></ul>
+<div class="tab-content" data-group="platform">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>1.</strong> Quit VS Code completely first if it is running.</p>
+<p><strong>2.</strong> Open a new Terminal window and run this command to download the course folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>curl https://munch-group.org/instructing-machines/instructing-machines.zip &gt; ~/Downloads/instructing-machines.zip</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>3.</strong> Run this to unpack the student folder and put it in your home folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>unzip -o ~/Downloads/instructing-machines.zip &amp;&amp; mv ~/Downloads/instructing-machines ~/.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>4.</strong> Navigate to the course folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cd ~/instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>5.</strong> Run this to install Pixi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>curl -fsSL https://pixi.sh/install.sh | sh &amp;&amp; sh .pin_shell_path.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>6.</strong> Now quit that Terminal <em>completely</em> and open a new one.</p>
+<p><strong>7.</strong> The new Terminal starts in your home folder, so navigate back to the course folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cd ~/instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>8.</strong> Run this in the new Terminal to make sure pixi is installed. If it is, it will print its version number:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pixi --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>9.</strong> Run this to install the <code>im</code> course tool:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pixi global install -c conda-forge -c munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>10.</strong> Run this to make sure it installed. If it did, it will print its version number:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>im --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>11.</strong> Run this to build the environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pixi clean ; pixi install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>12.</strong> Finish the setup:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pixi run check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<!-- 
+for 2027
+
+```txt
+pixi run setup
+``` 
+-->
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>1.</strong> Quit VS Code completely first if it is running.</p>
+<p><strong>2.</strong> Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip" -OutFile "$env:USERPROFILE\Downloads\instructing-machines.zip"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>3.</strong> Run this to unpack the student folder and put it in your home folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>4.</strong> Navigate to the course folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cd C:\instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>5.</strong> Run this to install Pixi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>irm -useb https://pixi.sh/install.ps1 | iex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>6.</strong> Now quit that Powershell <em>completely</em> and open a new one.</p>
+<p><strong>7.</strong> The new Powershell starts in your home folder, so navigate back to the course folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cd C:\instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>8.</strong> Run this in the new Powershell to make sure pixi is installed. If it is, it will print its version number:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pixi --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>9.</strong> Run this to install the <code>im</code> course tool:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pixi global install -c conda-forge -c munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>10.</strong> Run this to make sure it installed. If it did, it will print its version number:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>im --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>11.</strong> Run this to build the environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pixi clean ; pixi install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>12.</strong> Finish the setup:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pixi run check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<!-- 
+for 2027
+
+```txt
+pixi run setup
+``` 
+-->
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <code>pixi install</code> fails, it may be because you have antivirus software (other than Microsoft Defender) that blocks Pixi from downloading packages. Here are instructions for how do do this for: <a href="https://www.bitdefender.com/consumer/support/answer/13425/">BitDefender</a>, <a href="https://knowledge.civilgeo.com/adding-an-exception-to-norton-firewall">Norton</a>, <a href="https://knowledge.civilgeo.com/adding-an-exception-to-mcafee-firewall">McAfee</a>, <a href="https://knowledge.civilgeo.com/adding-an-exception-to-kaspersky-firewall">Kaspersky</a>.</p>
+</div>
+</div>
+<section id="sec-text-editor" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-text-editor">The VScode editor</h2>
+<p>You will also need a <em>text editor</em>. A text editor is where you write your Python code. For this course, we will use <em>Visual Studio Code</em>, <em>VS Code</em> for short, or <code>vscode</code> for even shorter.</p>
+<p><strong>First-time setup:</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="platform">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><i class="bi bi-apple"></i> Mac</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><i class="bi bi-windows"></i> Windows</a></li></ul>
+<div class="tab-content" data-group="platform">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p><strong>1.</strong> Download VS Code from <a href="https://code.visualstudio.com/download">code.visualstudio.com</a>.</p>
+<p><strong>2.</strong> Open VS Code. You should see something like <a href="#fig-vscode" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click “Continue without signing in”.</p>
+<p><strong>3.</strong> Open the <code>instructing-machines</code> folder using <code>File → Open Folder</code>. The entire course setup <em>only</em> works if you open the <em>folder</em>.</p>
+<p><strong>4.</strong> At the bottom left, click the blue ‘Restricted Mode’ button, then click ‘Trust’ and close the panel.</p>
+<p><strong>5.</strong> If prompted install the recommended extensions. Otherwise, open the Extensions panel on the left (icon with four squares), search ‘<span class="citation" data-cites="recommended">@recommended</span>’ and install all the listed extensions.</p>
+<p><strong>6.</strong> Press <code>Cmd+Shift+P</code>, type <code>Shell Command: Install 'code' command in PATH</code>, and press Enter.</p>
+<p><strong>7.</strong> <strong>Quit</strong> VS Code completely.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p><strong>1.</strong> Download VS Code from <a href="https://code.visualstudio.com/download">code.visualstudio.com</a>.</p>
+<p><strong>2.</strong> Open VS Code. You should see something like <a href="#fig-vscode" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click “Continue without signing in”.</p>
+<p><strong>3.</strong> Open the <code>instructing-machines</code> folder using <code>File → Open Folder</code>. The entire course setup <em>only</em> works if you open the <em>folder</em>.</p>
+<p><strong>4.</strong> At the bottom left, click the blue ‘Restricted Mode’ button, then click ‘Trust’ and close the panel.</p>
+<p><strong>5.</strong> If prompted install/trust the recommended extensions Otherwise, open the Extensions panel on the left (icon with four squares), search ‘<span class="citation" data-cites="recommended">@recommended</span>’ and install all the listed extensions.</p>
+<p><strong>6.</strong> <strong>Quit</strong> VS Code completely.</p>
+</div>
+</div>
+</div>
+<div id="fig-vscode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vscode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/vscode.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vscode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Visual Studio Code
+</figcaption>
+</figure>
+</div>
+<p>From now on all you need is to open the <code>instructing-machines</code> folder using <code>File → Open Folder</code>. Remember, the entire course setup <em>only</em> works if you open the <em>folder</em>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can also open the folder from the terminal. <code>cd</code> into the course folder and then run <code>code .</code>. <code>.</code> means “the current folder”.</p>
+</div>
+</div>
+<p>You may wonder why we cannot use Word to create and edit files with programming code. The reason is that a text editor made for programming, such as VS Code, only saves the actual characters you type. So, unlike Word, it does not silently save all kinds of formatting, like margins, boldface text, headers, etc. With VS Code, what you type is <em>exactly</em> what is in the file when you save it. In addition, where Word is made for prose, VS Code is made for programming and has many features that will make your programming life easier.</p>
+<!-- 
+## If something goes wrong {#sec-if-something-goes-wrong}
+
+- **"pixi is not recognized as an internal or external command" (Windows).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
+- **"command not found: pixi" (Mac).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
+- **Windows says a script cannot be run, or mentions an execution policy.** You have found a PowerShell install script somewhere. Do not fight with it — use the `.msi` installer linked in [Installing pixi](#sec-installing-pixi) instead. It needs no permissions of that kind.
+- **`pixi install` fails part-way, or complains about paths being too long.** The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to `C:\bioprog\` and run `pixi install` again.
+- **The window still says *Restricted Mode*, or nothing Python-related works at all.** The folder is untrusted, which is how VS Code opens every new folder now, and extensions do not run until you change it. Click the blue **Restricted Mode** button in the bottom left corner, then **Trust** ([Opening the folder](#sec-opening-the-folder), step 2). Then reload the window, because the extensions have been sitting switched off until this moment.
+- **"No Python found. Would you like to install uv and use it to install Python?"** Say no. You have a Python already — it is in the `.pixi` folder, and this message means VS Code has not found it rather than that it is missing. The usual cause is a VS Code that was started before pixi was installed: quit VS Code completely, start it again, and open the folder. If it persists, see the next entry.
+- **A warning about a "default environment manager" that "is not registered".** Ignore it. Two extensions start at the same time and one of them reads a setting a fraction of a second before the other is ready to answer; a moment later it is. Nothing is broken, and there is nothing for you to do. We would silence it if we could, but the setting it is complaining about is the one that gives your kernel its name.
+- **The pixi extension really does do nothing — no `Instructing Machines` anywhere, and no `.pixi` path offered.** This is different from the warning above. The extension has to run the `pixi` command before it can find anything, and it cannot. `pixi run check` writes the full path to pixi into the folder's settings for exactly this reason, so run it if you have not, and reload the window. If you have run it and nothing changes, you have probably copied this folder from a different computer, where that path pointed somewhere that does not exist here: run `pixi run check` again to rewrite it for this machine.
+- **There is no `Instructing Machines` entry in the kernel list.** It is created by `pixi run check`, so run that first if you have not. If it is still missing, make sure you opened the *folder* ([Opening the folder](#sec-opening-the-folder)), that `pixi install` has finished, and that the recommended extensions are installed. Then run `Developer: Reload Window` from the command palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), which makes VS Code look again.
+- **A widget shows as blank space, or as raw text.** You are running the notebook on the wrong Python. Click `Select Kernel` in the top right of the notebook and choose the one whose path contains `.pixi`.
+- **Nothing works and the lecture has already started.** Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.
+
+If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about. 
+-->
+<!-- 
+
+1.  Delete any instructing-machines.zip files in your Downloads folder
+
+2. To to the "getting started" page and download the course folder again
+3. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
+
+4. In the terminal, run this to move it to your user folder
+
+```bash
+mv ~/Downloads/instructing-machines ~/.
+```
+
+10. Navigate to the course folder
+
+```bash
+cd ~/instructing-machines 
+```
+
+11. Run this to build the environment:
+
+```bash
+pixi clean ; pixi install
+```
+
+12. Finish the setup 
+
+```bash
+pixi run check
+```
 
 
-</section>
+Install the course tool
+
+```bash
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
+
+1.  Then open `C:\im\instructing-machines` in VS Code using `File → Open Folder`.
+
+ -->
+<!-- 
+
+## Safe procedure on Windows {#sec-safe-windows-procedure}
+
+1. Quit VS Code completely first if it is running. 
+
+2. Then in PowerShell (Start menu → PowerShell, not VS Code's terminal):
+
+```txt
+powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"
+```
+
+3. Now close that terminal *completely* and open a new one. 
+
+4. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
+
+```txt
+pixi --version
+```
+
+5. Run this in the terminal and answer `Y` when prompted.
+
+```txt
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+6. Delete any instructing-machines.zip files in your Downloads folder
+
+7. To to the "getting started" and download the course folder again.
+
+8. Run this to unpack the course folder in a place Windows will not fight you
+
+```txt
+Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\im
+```
+
+9. Run this to navigate to the course-folder
+
+```txt
+cd C:\im\instructing-machines
+```
+
+10. Run this to build the environment:
+
+```txt
+pixi clean ; pixi install
+```
+
+11. Finish the setup 
+
+```txt
+pixi run setup
+```
+
+Install the course tool
+
+```txt
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
+
+12. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
+
+
+## You are all set <i class="bi bi-hand-thumbs-up"></i>
+
+Well done! You are all set to start the course. Have a cup of coffee, and look forward to your first program. 
+ -->
+
+
 </section>
 
 </main> <!-- /main -->
@@ -1209,13 +1429,13 @@ document.addEventListener("DOMContentLoaded", function () {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../ai/finale-build.html" class="pagination-link" aria-label="Finale build">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Finale build</span></span>
+      <a href="../python/terminal.html" class="pagination-link" aria-label="Terminal Howto">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Terminal Howto</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../projects/assembly-project.html" class="pagination-link" aria-label="Genome assembly">
-        <span class="nav-page-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Genome assembly</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../python/hello-world.html" class="pagination-link" aria-label="Hello world">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Hello world</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1224,4 +1444,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/ai/finale-finishing.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/getting_set_up.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
