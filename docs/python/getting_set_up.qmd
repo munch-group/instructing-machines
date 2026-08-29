@@ -1,5 +1,5 @@
 
-# Getting started {#sec-getting_started}
+# Getting set up {#sec-getting_set_up}
 
 This chapter will get your computer set up with what you need for the course. You need to read carefully and follow instructions to the letter. They are different on Mac and Windows so pick which kind of computer you have below:
 
@@ -9,68 +9,74 @@ This chapter will get your computer set up with what you need for the course. Yo
 
 **1.** Quit VS Code completely first if it is running. 
 
-**2.** Open a new Terminal window and run this command to download the course folder
+**2.** Open a new Terminal window and run this command to download the course folder:
 
-```bash
+```txt
 curl https://munch-group.org/instructing-machines/instructing-machines.zip > ~/Downloads/instructing-machines.zip
 ```
 
 **3.** Run this to unpack the student folder and put it in your home folder:
 
-```bash
+```txt
 unzip -o ~/Downloads/instructing-machines.zip && mv ~/Downloads/instructing-machines ~/.
 ```
 
-**4.** Navigate to the course folder
+**4.** Navigate to the course folder:
 
-```bash
+```txt
 cd ~/instructing-machines
 ```
 
-**5.** Run this to install Pixi
+**5.** Run this to install Pixi:
 
-```bash
-curl -fsSL https://pixi.sh/install.sh | SHELL="$(ps -o comm= -p $$ | sed 's/^-//')" sh
+```txt
+curl -fsSL https://pixi.sh/install.sh | sh && sh .pin_shell_path.sh
 ```
 
-**6.** Run this to make sure you can use pixi from the terminal;
+**6.** Now quit that Terminal *completely* and open a new one. 
 
-```bash
-pixi run shell
+**7.** The new Terminal starts in your home folder, so navigate back to the course folder:
+
+```txt
+cd ~/instructing-machines
 ```
 
-**7.** Now quit that Terminal *completely* and open a new one. 
+**8.** Run this in the new Terminal to make sure pixi is installed. If it is, it will print its version number:
 
-**8.** Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
-
-```bash
+```txt
 pixi --version
 ```
 
-**9.** Run this to build the environment:
+**9.** Run this to install the `im` course tool:
 
-```bash
+```txt
+pixi global install -c conda-forge -c munch-group im-course-tools
+```
+
+**10.** Run this to make sure it installed. If it did, it will print its version number:
+
+```txt
+im --version
+```
+
+**11.** Run this to build the environment:
+
+```txt
 pixi clean ; pixi install
 ```
 
-**10.** Finish the setup 
+**12.** Finish the setup:
 
-```bash
+```txt
 pixi run check
 ```
 <!-- 
 for 2027
 
-```bash
+```txt
 pixi run setup
 ``` 
 -->
-
-**11.** Install the course tool
-
-```bash
-pixi global install -c conda-forge -c munch-group im-course-tools
-```
 
 
 ## <i class="bi bi-windows"></i> Windows
@@ -78,9 +84,9 @@ pixi global install -c conda-forge -c munch-group im-course-tools
 
 **1.** Quit VS Code completely first if it is running. 
 
-**2.** Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder.
+**2.** Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder:
 
-```bash
+```txt
 iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip" -OutFile "$env:USERPROFILE\Downloads\instructing-machines.zip"
 ```
 
@@ -90,56 +96,62 @@ iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip"
 Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\
 ```
 
-**4.** Navigate to the course folder
+**4.** Navigate to the course folder:
 
-```
+```txt
 cd C:\instructing-machines
 ```
 
-**5.** Run this to install Pixi
+**5.** Run this to install Pixi:
 
 ```txt
 irm -useb https://pixi.sh/install.ps1 | iex
 ```
 
-**6.** Run this to make sure you can use pixi from Powershell;
+**6.** Now quit that Powershell *completely* and open a new one. 
 
+**7.** The new Powershell starts in your home folder, so navigate back to the course folder:
+
+```txt
+cd C:\instructing-machines
 ```
-pixi run shell
-```
 
-**7.** Now quit that Powershell *completely* and open a new one. 
+**8.** Run this in the new Powershell to make sure pixi is installed. If it is, it will print its version number:
 
-**8.** Run this in the new Powershell to make sure pixi is installed. If it is, it will print its version nr.
-
-```
+```txt
 pixi --version
 ```
 
-**9.** Run this to build the environment:
+**9.** Run this to install the `im` course tool:
 
+```txt
+pixi global install -c conda-forge -c munch-group im-course-tools
 ```
+
+**10.** Run this to make sure it installed. If it did, it will print its version number:
+
+```txt
+im --version
+```
+
+**11.** Run this to build the environment:
+
+```txt
 pixi clean ; pixi install
 ```
 
-**10.** Finish the setup 
+**12.** Finish the setup:
 
-```
+```txt
 pixi run check
 ```
 <!-- 
 for 2027
 
-```
+```txt
 pixi run setup
 ``` 
 -->
-
-**11.**  Install the course tool
-
-```
-pixi global install -c conda-forge -c munch-group im-course-tools
-```
 
 :::
 
@@ -152,32 +164,62 @@ If `pixi install` fails, it may be because you have antivirus software (other th
 
 ## The VScode editor {#sec-text-editor}
 
-You will also need a *text editor*. A text editor is where you write your Python code. For this course, we will use *Visual Studio Code* — or *VS Code* for short. You can download it from [code.visualstudio.com](https://code.visualstudio.com/download). If you open VS Code, you should see something like @fig-vscode.
+You will also need a *text editor*. A text editor is where you write your Python code. For this course, we will use *Visual Studio Code*, *VS Code* for short, or `vscode` for even shorter. 
 
-You may wonder why we cannot use Word to create and edit files with programming code. The reason is that a text editor made for programming, such as VS Code, only saves the actual characters you type. So, unlike Word, it does not silently save all kinds of formatting, like margins, boldface text, headers, etc. With VS Code, what you type is *exactly* what is in the file when you save it. In addition, where Word is made for prose, VS Code is made for programming and has many features that will make your programming life easier.
+**First-time setup:**
+
+::: {.panel-tabset group="platform"}
+
+## <i class="bi bi-apple"></i> Mac
+
+**1.** Download VS Code from [code.visualstudio.com](https://code.visualstudio.com/download).
+
+**2.** Open VS Code. You should see something like @fig-vscode. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click "Continue without signing in".
+
+**3.** Open the `instructing-machines` folder using `File → Open Folder`. The entire course setup *only* works if you open the *folder*.
+
+**4.** At the bottom left, click the blue 'Restricted Mode' button, then click 'Trust' and close the panel.
+
+**5.** If prompted install the recommended extensions. Otherwise, open the  Extensions panel on the left (icon with four squares), search '@recommended' and install all the listed extensions.
+
+**6.** Press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter.
+
+**7.** **Quit** VS Code completely.
+
+
+## <i class="bi bi-windows"></i> Windows
+
+**1.** Download VS Code from [code.visualstudio.com](https://code.visualstudio.com/download).
+
+**2.** Open VS Code. You should see something like @fig-vscode. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click "Continue without signing in".
+
+**3.** Open the `instructing-machines` folder using `File → Open Folder`. The entire course setup *only* works if you open the *folder*.
+
+**4.** At the bottom left, click the blue 'Restricted Mode' button, then click 'Trust' and close the panel.
+
+**5.** If prompted install/trust the recommended extensions Otherwise, open the  Extensions panel on the left (icon with four squares), search '@recommended' and install all the listed extensions.
+
+**6.** **Quit** VS Code completely.
+
+:::
 
 ![Visual Studio Code](./images/vscode.png){#fig-vscode width=80%}
 
-**1.** If VS Code was already running, quit it completely and start it again before you go on. Not "close the window", quit the application. 
+From now on all you need is to open the `instructing-machines` folder using `File → Open Folder`. Remember, the entire course setup *only* works if you open the *folder*.
 
-**1.** Open VS Code. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so click **Continue without signing in**.
+::: {.callout-tip }
 
-**2.** Open the `instructing-machines` folder using `File → Open Folder`. The entire setup only works if you open the *folder*. If you just open any single file **nothing will work**.
+You can also open the folder from the terminal. `cd` into the course folder and then run `code .`. `.` means "the current folder".
 
-**3.** Accept when prompted to trust and install recommended extensions. If asked to trust the folder/workspace, accept that too. If there is a blue button saying "Trust" at the bottom left, click that too. 
-
-
+:::
 
 
-## Opening a folder in VS Code from the terminal
+You may wonder why we cannot use Word to create and edit files with programming code. The reason is that a text editor made for programming, such as VS Code, only saves the actual characters you type. So, unlike Word, it does not silently save all kinds of formatting, like margins, boldface text, headers, etc. With VS Code, what you type is *exactly* what is in the file when you save it. In addition, where Word is made for prose, VS Code is made for programming and has many features that will make your programming life easier.
 
-Once you have VS Code installed, there is an alternative way to open a folder directly from the terminal. In a terminal, `cd` into the course folder and then run `code .`. `.` means "the current folder".
 
-```bash
-code .
-```
 
-On Windows this works straight away, but on a Mac you need to do the following to make the `code` command available. Close all your Terminal windows. In VS Code, press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter.
+
+
 
 
 

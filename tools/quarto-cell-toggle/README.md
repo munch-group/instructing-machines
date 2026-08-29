@@ -61,7 +61,7 @@ never meant to run, so the guard rails matter more than the convenience:
   all leave the cell untouched and report why.
 - A fence whose language is not in `quartoCellToggle.runnableLanguages` is left alone.
   That is what protects the `{.txt filename="Terminal"}` transcripts - the shell
-  sessions in `getting_started` would otherwise become code cells that raise on the
+  sessions in `getting_set_up` would otherwise become code cells that raise on the
   first render. Use the explicit **to Code Cell** command to override.
 - Converting a code cell that has outputs asks first, because the outputs and the
   execution count are discarded by the change of cell kind.

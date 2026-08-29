@@ -83,8 +83,8 @@ echo "==> 4/5  doing what pixi run check does, and checking it took"
 # `pixi run check` is what a student runs. It depends on both of these tasks:
 # `kernel` registers the course kernelspec, and `vscode` writes the path to
 # pixi into .vscode/settings.json so the pixi extension can find it however
-# VS Code was started. Calling them directly does the same work without the
-# pages of environment diagnostics that `im check` prints.
+# VS Code was started. Calling them directly does the same work without also
+# running the folder's .check_env.py, whose answer this script does not need.
 pixi run --manifest-path "$FOLDER/pixi.toml" kernel 2>&1 | sed 's/^/    /'
 pixi run --manifest-path "$FOLDER/pixi.toml" vscode 2>&1 | sed 's/^/    /'
 pixi run --manifest-path "$FOLDER/pixi.toml" \
@@ -112,10 +112,11 @@ mkdir -p "$USER_DATA" "$EXTENSIONS"
 
 if [ "$WITH_EXTENSIONS" -eq 1 ]; then
     echo "==> 5/5  installing the extensions into the throwaway profile"
-    # Same list as student-folder/vscode/extensions.json. pixi-code
-    # pulls in ms-python.vscode-python-envs on its own, so installing it here
-    # is belt and braces.
-    for extension in ms-python.python ms-toolsai.jupyter quarto.quarto renan-r-santos.pixi-code; do
+    # Same list as student-folder/vscode/extensions.json.
+    # ms-python.vscode-python-envs is not installed on purpose: it arrives
+    # anyway inside ms-python.python's extension pack, and the folder's
+    # settings.json switches its environment handling back off.
+    for extension in ms-python.python ms-toolsai.jupyter quarto.quarto munch-group.im-pixi-vscode; do
         code --user-data-dir "$USER_DATA" --extensions-dir "$EXTENSIONS" \
              --install-extension "$extension" --force 2>&1 | sed 's/^/    /'
     done
@@ -138,11 +139,6 @@ else
     echo "  2. INSTALL. Already done — the four are in this throwaway profile."
 fi
 echo "  3. RELOAD. Cmd/Ctrl+Shift+P, 'Developer: Reload Window'."
-echo
-echo "     A warning that the default environment manager 'is not registered'"
-echo "     is expected: python-envs reads that setting before pixi-code has"
-echo "     registered. It registers a moment later. Removing the setting"
-echo "     silences the warning and costs the kernel its name."
 echo
 echo "Then the things being tested:"
 echo "  4. open week1/notebooks.ipynb"

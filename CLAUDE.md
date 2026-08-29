@@ -1,5 +1,7 @@
 # CLAUDE.md — Instructing Machines
 
+NB: scripts/add_vscode_python_envs_setting.py is not obsolete
+
 Guidance for Claude (and collaborators) when writing or editing content in this repository.
 
 **What this is.** *Instructing Machines* is a Quarto book of lecture notes, exercises, projects, and tutorials for a 14-week introductory programming course for undergraduates in Molecular Biology and Molecular Medicine at Aarhus University. The audience has **no prior programming experience** and little sense of how a computer works. The goal is not to make programmers, but to build abstract/computational thinking and the vocabulary to direct and verify AI-generated code. The course introduces an AI assistant **from week 1** in escalating "roles," and leans on a family of custom notebook widgets.
@@ -146,7 +148,7 @@ Status legend: **Solid** = reusable after a copyedit; **Needs work** = good bone
 
 ### `docs/python/` — programming notes
 
-- **getting_started.ipynb** — *Needs work.* Terminal walkthrough (`pwd`/`ls`/`cd`) + install. Cut the orphaned "Installing Phasic" block and the large commented Conda legacy; restore a two-column Mac/Windows command table; add the first real `%%sandbox`.
+- **getting_set_up.ipynb** — *Needs work.* Terminal walkthrough (`pwd`/`ls`/`cd`) + install. Cut the orphaned "Installing Phasic" block and the large commented Conda legacy; restore a two-column Mac/Windows command table; add the first real `%%sandbox`.
 - **hello-world.ipynb** — *Needs work.* First program, running from the terminal, reading errors, strings/quotes, comments;. Fix quote/error-message inconsistencies and update transcripts to current Python. Ideal first `AI: Explainer` exercise ("ask the assistant to explain this error, then judge it").
 - **values-operators-logic.ipynb** — *Solid-ish / Needs work.* Values, operators, comparison/logical operators, truthiness & short-circuit, types, conversion. Excellent assignment-vs-substitution framing. Fix the duplicated exercise line (`print("apple" and "")` twice) and punctuation inside code spans; `steps-widget` on precedence/short-circuit.
 - **precedence-steps.ipynb** — *Solid (keystone).* Precedence table, statements vs. expressions, the substitution/reduction model. Highest-value note. Fix "his"→"this", `result`/`results`, an unterminated inline-code target. Maps 1:1 onto `steps-widget` and `puzzle-widget`.

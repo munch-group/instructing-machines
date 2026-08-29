@@ -8,14 +8,19 @@
         // this, a callout in a notebook's markdown cell arrives as raw
         // text with colons around it instead of a coloured box.
         "quarto.quarto",
-        // Finds the Python that `pixi install` put in .pixi, so that it shows
-        // up in the kernel picker at all. It pulls in ms-python.vscode-python-envs
-        // by itself, which is what reads the python-envs settings next door.
-        "renan-r-santos.pixi-code",
-        // Listed even though pixi-code already depends on it, so that a student
-        // who has it disabled, or who installed the three by hand from the
-        // Extensions panel, still ends up with a working set.
-        "ms-python.vscode-python-envs"
+        // Finds the Python that `pixi install` put in .pixi and selects it, so
+        // that it is the kernel a notebook offers without anyone typing a path.
+        // It also repairs an environment built by an older pixi: those are
+        // missing a marker file, VS Code reads them as conda environments
+        // instead, and every kernel start then waits 30 seconds for a command
+        // that never returns.
+        //
+        // ms-python.vscode-python-envs is deliberately NOT recommended here.
+        // It arrives anyway, inside ms-python.python's extension pack, but it
+        // has no pixi support and takes environment handling away from the
+        // extension that does. "python.useEnvironmentsExtension" next door
+        // switches that off.
+        "munch-group.im-pixi-vscode"
     ],
 
     // Deliberately not on this course. The assistant lives in the browser,
@@ -25,6 +30,11 @@
     // next door switches off the ones VS Code now ships with.
     "unwantedRecommendations": [
         "github.copilot",
-        "github.copilot-chat"
+        "github.copilot-chat",
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-containers",
+        "eamodio.gitlens",
+        "vscodevim.vim",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
     ]
 }

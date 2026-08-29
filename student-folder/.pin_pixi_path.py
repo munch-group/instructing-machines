@@ -21,12 +21,14 @@ extension reads it. That path is right for this machine and no other, which is
 why it is written here rather than shipped in the download. Afterwards it stops
 mattering how you start VS Code.
 
-It writes a second path for a related reason. Until something tells it
-otherwise, the Python extension picks an interpreter on its own, and the one it
-picks in a pixi folder is one it then cannot run -- which produces "An Invalid
-Python interpreter is selected", a message that sounds like your installation is
-broken when nothing is. Naming the course Python outright means there is a valid
-one selected from the start and the message never appears. This script is run by
+It writes a second path for a related reason. Choosing the interpreter is the
+pixi extension's job, and it does it well, but it cannot do it before it has
+started and it cannot do it at all on a machine where it never found pixi. In
+that gap the Python extension picks one on its own, and the one it picks in a
+pixi folder is one it then cannot run -- which produces "An Invalid Python
+interpreter is selected", a message that sounds like your installation is broken
+when nothing is. Naming the course Python outright means there is a valid one
+selected from the start and the message never appears. This script is run by
 that very interpreter, so it does not have to guess: sys.executable is the
 answer, on every platform, without a bin-versus-Scripts special case.
 
@@ -46,7 +48,7 @@ from pathlib import Path
 # The settings written, and where each value comes from. Both are
 # "machine-overridable" in VS Code's scheme, which is what allows a workspace
 # settings.json to carry them at all.
-PIXI_SETTING = "pixi-code.pixiExecutable"
+PIXI_SETTING = "im-pixi-vscode.pixiExecutable"
 PYTHON_SETTING = "python.defaultInterpreterPath"
 
 # Written above each setting so that whoever finds it later knows it was not
@@ -61,9 +63,10 @@ COMMENTS = {
 """,
     PYTHON_SETTING: """\
     // Written by `pixi run check` on this machine. The course Python itself,
-    // named so the Python extension does not go looking and settle on one it
-    // cannot run -- which is what produces "An Invalid Python interpreter is
-    // selected". Right for this computer only, as above.
+    // named so that until the pixi extension has chosen one, the Python
+    // extension does not go looking and settle on one it cannot run -- which
+    // is what produces "An Invalid Python interpreter is selected". Right for
+    // this computer only, as above.
 """,
 }
 

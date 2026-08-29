@@ -56,23 +56,26 @@ book:
         #   text: "Widget demo"
         # - href: "https://github.com/munch-group/instructing-machines/slides/index.html"
         #   text: "Slides"
+
     - part: "Week 1"
-      # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
-      #   work in ai/meet-ai.ipynb and ai/about-microsoft-copilot.qmd. 11 EXPLAINER
-      #   exercises against 105 SOLO.
       chapters: 
         - intro/course-introduction.qmd
         - ai/insides.ipynb
         - python/terminal.qmd
-        - python/getting_started.qmd
+        - python/getting_set_up.qmd
         - python/hello-world.qmd
         - ai/meet-ai.ipynb
         - ai/instruction.ipynb
-        - intro/notebooks.ipynb
+    - part: "Week 2"
+      # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
+      #   work in ai/meet-ai.ipynb and ai/about-microsoft-copilot.qmd. 11 EXPLAINER
+      #   exercises against 105 SOLO.
+      chapters: 
+        - intro/notebooks.ipynb        
         - python/values-operators-logic.ipynb
         - python/variables.ipynb
         - python/precedence-steps.ipynb
-    - part: "Week 2"
+    - part: "Week 3"
       # AI: no new level. EXPLAINER is consolidated by ai/predict-then-prove.ipynb,
       #   which is where "the AI predicts; the machine proves" is stated as a
       #   working rule rather than a slogan. 26 EXPLAINER against 43 SOLO — the
@@ -81,7 +84,7 @@ book:
         - python/if-else.ipynb
         - python/functions.ipynb
         - ai/predict-then-prove.ipynb
-    - part: "Week 3"
+    - part: "Week 4"
       # AI: no new level. ai/how-models-produce-code.ipynb adds two more
       #   EXPLAINER moves (translating code to English and back, asking for
       #   more examples of a pattern) on top of the 10 already earned. 14
@@ -97,7 +100,7 @@ book:
           #   typos. Its hand-typed traceback is also stale — regenerate it
           #   against the pinned interpreter.
         - turtle/week3.qmd
-    - part: "Week 4"
+    - part: "Week 5"
       # AI: no new level. EXPLAINER is sharpened by ai/explain-then-confirm.ipynb,
       #   which supplies all 15 of the week's EXPLAINER exercises, against 17
       #   SOLO.
@@ -119,7 +122,7 @@ book:
           #   all, which is odd given that turtle output is the most visually
           #   checkable thing in the book and therefore the safest place to let
           #   the AI draft. Decide whether that is intentional.
-    - part: "Week 5"
+    - part: "Week 6"
       # AI: no new level. ai/practical-ai-use.ipynb. Only 3 EXPLAINER against 38
       #   SOLO, the thinnest AI presence of any week before the projects begin.
       chapters: 
@@ -128,7 +131,7 @@ book:
         - python/data_structures.ipynb
         - python/files.ipynb
         - turtle/week5.qmd
-    - part: "Week 6"
+    - part: "Week 7"
       # AI: COMPARER, introduced by ai/ask-for-another-way.ipynb. 11 COMPARER
       #   against 7 SOLO: the only week in which AI-licensed exercises
       #   outnumber the solo ones, which is the point of the level — asking for
@@ -145,7 +148,7 @@ book:
           #   first matters.
         - python/composition.qmd
         - turtle/week6.qmd
-    - part: "Week 7"
+    - part: "Week 8"
       # AI: DRAFTER, introduced by ai/let-it-draft.ipynb. 7 DRAFTER, 1 COMPARER
       #   and 4 EXPLAINER against 28 SOLO. This is the first level where the
       #   student lets the assistant write code they will keep.
@@ -161,7 +164,7 @@ book:
         - projects/folding-project.qmd
         - python/debugging.qmd
         - turtle/week7.qmd
-    - part: "Week 8"
+    - part: "Week 9"
       # Python: no new Python. The alignment project and the turtle chapter
       #   carry the practice while the AI thread does the teaching.
       # AI: no new level. ai/tests-are-the-contract.ipynb deepens DRAFTER into its
@@ -175,7 +178,7 @@ book:
         - ai/tests-are-the-contract.ipynb
         - projects/alignment-project.qmd
         - turtle/week8.qmd
-    - part: "Week 9"
+    - part: "Week 10"
       # Python: packages and modules — using code from other files, the modern
       #   "giant's shoulders". new/biopython.ipynb is commented out below.
       # AI: no new level. ai/the-docs-are-the-test.ipynb extends DRAFTER from "a
@@ -187,7 +190,7 @@ book:
         - projects/codonbias-project.qmd
         - python/packages-modules.ipynb
         # - new/biopython.ipynb
-    - part: "Week 10"
+    - part: "Week 11"
       # Python: recursion and decomposition — breaking a problem into parts,
       #   which is the same skill in code that the Collaborator level asks for
       #   in prose. The pairing is deliberate.
@@ -205,7 +208,7 @@ book:
           #   or confirm the widget always sets cwd correctly.
         - python/recursion.ipynb
         - python/decomposition.qmd
-    - part: "Week 11"
+    - part: "Week 12"
       # AI: DEVELOPER, the top of the ladder, introduced by
       #   ai/delegate-the-full-problem.ipynb with ai/directing-a-resource.ipynb
       #   ahead of it. 3 DEVELOPER and 1 COLLABORATOR against 3 SOLO.
@@ -213,7 +216,7 @@ book:
         - ai/directing-a-resource.ipynb
         - ai/delegate-the-full-problem.ipynb
         - projects/seqdist-project.qmd
-    - part: "Week 12"
+    - part: "Week 13"
       # AI: no new level. ai/learning-with-an-ai.ipynb turns the ladder back on
       #   the student's own learning. 1 COLLABORATOR, 2 COMPARER and 1 DRAFTER
       #   against 5 SOLO.
@@ -221,24 +224,25 @@ book:
       chapters: 
         - ai/learning-with-an-ai.ipynb
         - projects/orf-project.qmd
+        - projects/assembly-project.qmd        
           # CLAUDE: projects/curration-project.qmd is written but scheduled
           #   nowhere. This is the week it would join, if it joins. Decide
           #   whether it is a second project here or is dropped, and either add
           #   the line or delete the file.
         - python/dataframes.ipynb
-    - part: "Week 13"
-      # Python: no new Python; the assembly project.
-      # AI: no new level. The finale exercises the whole ladder at once, which
-      #   is what it is for. 1 DEVELOPER against 5 SOLO.
-      chapters: 
-        - ai/finale-kickoff.qmd
-          # CLAUDE: 135 words. The finale is the assessment the whole role
-          #   ladder builds toward, and its opening chapter is a placeholder.
-          #   Done looks like a kickoff that states the task, the deliverable,
-          #   the rules about AI involvement, and how the work is judged.
-        - ai/finale-build.ipynb
-        - ai/finale-finishing.ipynb
-        - projects/assembly-project.qmd
+    # - part: "Week 14"
+    #   # Python: no new Python; the assembly project.
+    #   # AI: no new level. The finale exercises the whole ladder at once, which
+    #   #   is what it is for. 1 DEVELOPER against 5 SOLO.
+    #   chapters: 
+    #     - ai/finale-kickoff.qmd
+    #       # CLAUDE: 135 words. The finale is the assessment the whole role
+    #       #   ladder builds toward, and its opening chapter is a placeholder.
+    #       #   Done looks like a kickoff that states the task, the deliverable,
+    #       #   the rules about AI involvement, and how the work is judged.
+    #     - ai/finale-build.ipynb
+    #     - ai/finale-finishing.ipynb
+    #     - projects/assembly-project.qmd
     - part: "Week 14"
       # AI: no new level; the ladder is put down. ai/surviving-ai.ipynb is the
       #   argument for why any of it mattered. 4 SOLO.

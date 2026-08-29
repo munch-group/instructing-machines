@@ -3,6 +3,30 @@
     // you open this folder (File -> Open Folder), which is why opening the
     // folder rather than a single file matters.
 
+    // Let the Python extension handle Python environments, not the Python
+    // Environments extension (ms-python.vscode-python-envs).
+    //
+    // That extension arrives whether it is asked for or not, inside
+    // ms-python.python's extension pack, and takes over both environment
+    // discovery and terminal activation. It has no pixi support, so the course
+    // environment in .pixi is passed over and the interpreter falls back to
+    // whatever system Python the machine happens to have. The Python extension
+    // handles pixi correctly on its own; this hands the job back to it.
+    //
+    // It has to be written down rather than left to the default. The setting
+    // is an experiment flag, so a fresh VS Code -- which is what a student has
+    // -- can be enrolled with it switched on, and the Python extension reads
+    // only values that are physically present, never its own default of false.
+    // munch-group.im-pixi-vscode writes this itself when it finds it missing, but
+    // the Python extension reads it once at startup, so doing it there costs a
+    // window reload on first open. Shipping it here means it is already true
+    // the first time the folder is opened.
+    "python.useEnvironmentsExtension": false,
+
+    // The two python-envs settings below now do nothing, because the extension
+    // that reads them is no longer handling discovery. They are kept as a
+    // fallback for the case where the setting above is removed or overridden.
+    //
     // Find the Python interpreter that `pixi install` created. Each entry must
     // name a directory that IS an environment, not one that contains them --
     // the shipped default is [".venv", "*/.venv"], and a .venv has bin/python
@@ -23,26 +47,12 @@
     // already on their disk; the answer is never uv.
     "python-envs.alwaysUseUv": false,
 
-    // There is deliberately no "python-envs.defaultEnvManager" here, and the
-    // reason is a race the extension's own log spells out:
-    //
-    //     45.275  Discovered env: .../.pixi/envs/default/bin/python
-    //     45.582  [interpreterSelection] Applying initial environment selection
-    //     45.897  [interpreterSelection] instructing-machines: none
-    //                                    (source: defaultEnvManager)
-    //     45.905  Environment discovery complete: 4 found (Pixi: 1)
-    //
-    // Setting it makes interpreter selection ask the pixi extension, and at
-    // startup the pixi extension is not ready to answer -- it replies "none"
-    // eight milliseconds before discovery finishes. The workspace is then left
-    // with no environment at all, which is what produces "An Invalid Python
-    // interpreter is selected" and "No Python environment is set for this
-    // resource".
-    //
-    // Without it, selection falls back to what the native locator found, and
-    // the search paths above mean it had this environment half a second
-    // earlier and had already classified it as a pixi one. Fewer moving parts
-    // and no dependence on which extension wakes up first.
+    // There is still deliberately no "python-envs.defaultEnvManager" here.
+    // Setting it hands interpreter selection to the Python Environments
+    // extension, which is precisely what the setting at the top of this file
+    // switches off. It used to cause a startup race that left the workspace
+    // with no environment at all and produced "An Invalid Python interpreter is
+    // selected"; now it would simply undo the arrangement above.
 
     // On this course the assistant lives in the browser, not in the editor.
     // This switches off VS Code's own chat and its inline suggestions, and
@@ -64,10 +74,10 @@
     "notebook.output.textLineLimit": 60,
     // Keep the file list to things a student has a reason to open.
     //
-    // The two .pin_ scripts are safe to hide: pixi runs them from a terminal by
-    // name, and nothing here is consulted for that. Hiding a file changes what
-    // the explorer shows and what the search API returns, not what a shell can
-    // run.
+    // The two .pin_ scripts and .check_env.py are safe to hide: pixi runs them
+    // from a terminal by name, and nothing here is consulted for that. Hiding a
+    // file changes what the explorer shows and what the search API returns, not
+    // what a shell can run.
     //
     // .pixi is deliberately NOT hidden, for exactly that second reason. It is
     // far more noise in the file list, but it is also where
@@ -77,7 +87,15 @@
     "files.exclude": {
         "**/.pin_pixi_path.py": true,
         "**/.pin_shell_path.py": true,
+        "**/.check_env.py": true,
         "**/__pycache__": true,
         "**/.pytest_cache": true
-    }
+    },
+
+    "editor.inlineSuggest.edits.allowCodeShifting": "never",
+    "editor.inlineSuggest.edits.renderSideBySide": "never",
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.snippetSuggestions": "none",
+    "workbench.welcomePage.walkthroughs.openOnInstall": false,
+
 }

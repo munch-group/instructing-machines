@@ -36,7 +36,7 @@ turtle-widget = ">=1.0.9,<2"
 puzzle-widget = ">=0.1.18,<0.2"
 codelens-widget = ">=0.1.42,<0.2"
 im-pytest = ">=0.1.32,<0.2"
-im-course-tools = ">=0.1.16,<0.2"
+im-course-tools = ">=0.1.22,<0.2"
 biopython = ">=1.88,<2"
 cryptography = ">=50.0.0,<51"
 
@@ -59,14 +59,23 @@ vscodenb = ">=1.0.5, <2"
 # im-pytest = ">=0.1.25,<0.2"
 
 [tasks]
-# The three commands are `im check`, `im get <name>` and `im update`, and they
-# come from the im-course-tools package above rather than from files in this folder:
-# that way a fix reaches everyone through an update instead of asking a hundred
-# people to download a script again.
+# `im get <name>` and `im update` come from the im-course-tools package above
+# rather than from files in this folder: that way a fix reaches everyone through
+# an update instead of asking a hundred people to download a script again.
 #
-# These aliases exist so that `pixi run check` works from a terminal that has
-# not activated the environment; pixi passes any extra words straight through,
-# so `pixi run get iteration` runs `im get iteration`.
+# The aliases below exist so that `pixi run get` and `pixi run update` work from
+# a terminal that has not activated the environment; pixi passes any extra words
+# straight through, so `pixi run get iteration` runs `im get iteration`.
+#
+# `check` is the one that is deliberately not an alias. What it has to answer on
+# day one is whether `pixi install` worked, and a check that arrives inside the
+# environment cannot answer that: when the install went wrong the check went
+# wrong with it, and a student gets `im: command not found` instead of a list of
+# what is missing. So it runs .check_env.py from this folder, which needs
+# nothing but a Python. `im update` keeps that file current the same way it
+# keeps this one current, so the reason the others live in the package still
+# holds for it.
+
 # Give this environment's kernel a name a student can recognise. Without it
 # the only entry in VS Code's kernel picker is "Python 3 (ipykernel)", which is
 # what every other Python on the machine calls itself too, so the right one is
@@ -97,14 +106,28 @@ vscode = "python .pin_pixi_path.py"
 # ~/.bash_profile and has never heard of the other file. The pixi installer
 # writes its PATH line into whichever of the two it happened to be run from, so
 # a student can end up with pixi working perfectly in the window they installed
-# it from and absent from the next one they open. See .pin_shell_path.py for the
-# long version. Does nothing on Windows, where PATH is not kept in a file.
-shell = "python .pin_shell_path.py"
+# it from and absent from the next one they open. See .pin_shell_path.sh for the
+# long version.
+#
+# This runs the shell version rather than the Python one beside it. The two do
+# the same work, and a task always has a Python to hand, so the choice is not
+# about what the task needs. It is that the student who needs this most cannot
+# run the task at all: a terminal that cannot find pixi cannot run `pixi run
+# check` either, and is told to type `sh .pin_shell_path.sh` instead. Pointing
+# the task at that same file means the copy they are told to run is the one
+# exercised every time anyone runs the check, rather than the one that sits
+# untried until the morning it has to work.
+shell = "sh .pin_shell_path.sh"
 
 # `pixi run check` is the one command every student runs on day one, so both of
 # those happen as part of it rather than as steps of their own that half of them
 # would skip. Running it again is harmless: both overwrite.
-check = { cmd = "im check", depends-on = ["kernel", "vscode", "shell"] }
+#
+# What it then runs is .check_env.py, which reads the [dependencies] above and
+# reports anything the environment does not have. Reading them rather than
+# carrying its own copy of the list means adding a widget to the course is one
+# edit, here, and the check knows about it the moment pixi does.
+check = { cmd = "python .check_env.py", depends-on = ["kernel", "vscode", "shell"] }
 
 # The same task under the name that fits the day it matters most. On day one
 # this sets the folder up, and "check" is a thin word for something that writes
@@ -119,3 +142,19 @@ setup = { depends-on = ["check"] }
 get = "im get"
 update = "im update"
 
+
+# Nothing to do here, and this says so. The problem the task above solves is a
+# Unix one: PATH is kept in each shell's own startup files, zsh and bash read
+# different ones, and a login shell reads different ones again, which is why a
+# line has to go into several files before every window can find pixi. Windows
+# keeps PATH in the registry instead. The pixi installer writes it there, every
+# new process reads it whatever shell it happens to be, and so there is no file
+# to pin and no shell to tell. Windows also has no `sh` to run that script with.
+#
+# The task still has to exist under this name, because `check` above depends on
+# it and a dependency that resolves on three of the four platforms fails on the
+# fourth. `true` is a command that succeeds and does nothing, which is exactly
+# what is wanted. If Windows ever does need something -- a line in a PowerShell
+# $PROFILE, say -- this is where it goes.
+[target.win-64.tasks]
+shell = "true"

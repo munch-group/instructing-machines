@@ -4,6 +4,14 @@ shell was started.
 You do not need to run this yourself. `pixi run check` runs it, and running it
 again is harmless.
 
+There is a second copy of this program beside it, .pin_shell_path.sh, written in
+shell for the machine that has no Python to run this one with -- which is the
+machine this is for, on the day it is for. The two do the same things in the
+same order and write the same line under the same marker, and each looks for the
+folder rather than for its own handiwork, so whichever runs first does the work
+and the other finds nothing left to do. Change what one of them writes and
+change the other in the same commit.
+
 The problem it solves is that a Mac has two shells and they do not read the same
 files. Terminal opens zsh, which reads ~/.zshrc when it starts. Anything you
 started from an older tutorial, from VS Code with a changed setting, or from a
@@ -265,10 +273,19 @@ def pixi_is_the_installers(home: Path) -> bool:
     """Whether the pixi in play is the one its own installer put in the home folder.
 
     PIXI_EXE is set by pixi itself, so under `pixi run` this is not a guess.
+
+    Where neither of those finds anything, the folder is asked directly. The
+    moment this script is most needed is the one in which nothing can find pixi
+    yet: run by hand straight after the installer, from the shell the installer
+    has just written a line for and which has not read it, there is no PIXI_EXE
+    and no pixi on PATH, and the only evidence that the install happened is the
+    file sitting there in the home folder. Asking PATH alone would make the
+    script do nothing, and say nothing, in exactly that case. A pixi from
+    somewhere else still fails this test, since it leaves no ~/.pixi/bin behind.
     """
     found = os.environ.get("PIXI_EXE") or shutil.which("pixi")
     if not found:
-        return False
+        return (home / ".pixi" / "bin" / "pixi").exists()
     try:
         return Path(found).resolve().parent == (home / ".pixi" / "bin").resolve()
     except OSError:
