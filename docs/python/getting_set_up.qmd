@@ -1,15 +1,17 @@
 
 # Getting set up {#sec-getting_set_up}
 
-This chapter will get your computer set up with what you need for the course. You need to read carefully and follow instructions to the letter. They are different on Mac and Windows so pick which kind of computer you have below:
+This chapter will get your computer set up with what you need for the course. You need to read carefully and follow instructions to the letter. Click the <i class="bi bi-clipboard"></i> icons to copy each command to your clipboard.
+
+Instructions differ on Mac and Windows so pick which kind of computer you have below:
 
 ::: {.panel-tabset group="platform"}
 
 ## <i class="bi bi-apple"></i> Mac
 
-**1.** Quit VS Code completely first if it is running. 
+**1.** Quit Finder, Terminal, and VS Code completely they are running.  
 
-**2.** Open a new Terminal window and run this command to download the course folder:
+**2.** Open a new Terminal window and run this command to download the course folder to your home folder:
 
 ```txt
 curl https://munch-group.org/instructing-machines/instructing-machines.zip > ~/Downloads/instructing-machines.zip
@@ -18,7 +20,7 @@ curl https://munch-group.org/instructing-machines/instructing-machines.zip > ~/D
 **3.** Run this to unpack the student folder and put it in your home folder:
 
 ```txt
-unzip -o ~/Downloads/instructing-machines.zip && mv ~/Downloads/instructing-machines ~/.
+bash -c 'im=$HOME/instructing-machines; [ -d "$im" ] && mv "$im" "$im-old-$(date +%Y%m%d-%H%M%S)"; unzip -q "$HOME/Downloads/instructing-machines.zip" -d "$HOME"'
 ```
 
 **4.** Navigate to the course folder:
@@ -82,7 +84,7 @@ pixi run setup
 ## <i class="bi bi-windows"></i> Windows
 
 
-**1.** Quit VS Code completely first if it is running. 
+**1.** Quit File Explorer, PowerShell, and VS Code completely they are running. 
 
 **2.** Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder:
 
@@ -91,9 +93,13 @@ iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip"
 ```
 
 **3.** Run this to unpack the student folder and put it in your home folder:
-
+<!-- 
 ```txt
 Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\
+``` 
+-->
+```txt
+$im = "C:\instructing-machines"; if (Test-Path $im) { Move-Item $im "${im}-old-$(Get-Date -Format 'yyyyMMdd-HHmmss')" }; Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath 'C:\'
 ```
 
 **4.** Navigate to the course folder:
@@ -241,115 +247,3 @@ You may wonder why we cannot use Word to create and edit files with programming 
 
 If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about. 
 -->
-
-
-<!-- 
-
-1.  Delete any instructing-machines.zip files in your Downloads folder
-
-2. To to the "getting started" page and download the course folder again
-3. Open the Downloads folder and double-click instructing-machines.zip to unpack it.
-
-4. In the terminal, run this to move it to your user folder
-
-```bash
-mv ~/Downloads/instructing-machines ~/.
-```
-
-10. Navigate to the course folder
-
-```bash
-cd ~/instructing-machines 
-```
-
-11. Run this to build the environment:
-
-```bash
-pixi clean ; pixi install
-```
-
-12. Finish the setup 
-
-```bash
-pixi run check
-```
-
-
-Install the course tool
-
-```bash
-pixi global install -c conda-forge -c munch-group im-course-tools
-```
-
-1.  Then open `C:\im\instructing-machines` in VS Code using `File → Open Folder`.
-
- -->
-
-
-<!-- 
-
-## Safe procedure on Windows {#sec-safe-windows-procedure}
-
-1. Quit VS Code completely first if it is running. 
-
-2. Then in PowerShell (Start menu → PowerShell, not VS Code's terminal):
-
-```txt
-powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"
-```
-
-3. Now close that terminal *completely* and open a new one. 
-
-4. Run this in the new terminal to make sure pixi is installed. If it is, it will print its version nr.
-
-```txt
-pixi --version
-```
-
-5. Run this in the terminal and answer `Y` when prompted.
-
-```txt
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-6. Delete any instructing-machines.zip files in your Downloads folder
-
-7. To to the "getting started" and download the course folder again.
-
-8. Run this to unpack the course folder in a place Windows will not fight you
-
-```txt
-Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\im
-```
-
-9. Run this to navigate to the course-folder
-
-```txt
-cd C:\im\instructing-machines
-```
-
-10. Run this to build the environment:
-
-```txt
-pixi clean ; pixi install
-```
-
-11. Finish the setup 
-
-```txt
-pixi run setup
-```
-
-Install the course tool
-
-```txt
-pixi global install -c conda-forge -c munch-group im-course-tools
-```
-
-12. Then open C:\im\instructing-machines in VS Code using `File → Open Folder`.
-
-
-## You are all set <i class="bi bi-hand-thumbs-up"></i>
-
-Well done! You are all set to start the course. Have a cup of coffee, and look forward to your first program. 
- -->

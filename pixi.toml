@@ -15,6 +15,11 @@ student-folder = "pixi lock --manifest-path student-folder/pixi.toml && python3 
 # committing. Quarto itself never executes (execute: enabled: false in
 # docs/_quarto.yml), so this is the only place a broken cell gets caught.
 clean-notebooks = "python3 scripts/clean_notebooks.py"
+# Point git at scripts/hooks, whose pre-commit hook does the fast half of
+# clean-notebooks — kernel metadata and output stripping — on the notebooks in
+# a commit, so neither can reach CI. Run once per clone; core.hooksPath is
+# local config and is not cloned with the repository.
+install-hooks = "git config core.hooksPath scripts/hooks"
 # Convenience wrapper: repairs the docs/jupyterlite pixi env if this repo
 # was moved/cloned to a new path and its baked-in interpreter paths went
 # stale. build-demo.sh's pixi tasks already run this automatically; this
