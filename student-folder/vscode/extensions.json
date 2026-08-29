@@ -2,18 +2,26 @@
     // VS Code offers to install these the first time you open this folder.
     // Say yes: without them there is no Python and no notebooks.
     "recommendations": [
-        "ms-python.python",
-        "ms-toolsai.jupyter",
-        // The notes are written in Quarto's flavour of markdown. Without
-        // this, a callout in a notebook's markdown cell arrives as raw
-        // text with colons around it instead of a coloured box.
-        "quarto.quarto",
-        // Finds the Python that `pixi install` put in .pixi and selects it, so
-        // that it is the kernel a notebook offers without anyone typing a path.
-        // It also repairs an environment built by an older pixi: those are
-        // missing a marker file, VS Code reads them as conda environments
-        // instead, and every kernel start then waits 30 seconds for a command
-        // that never returns.
+        // One entry, which brings the rest with it.
+        //
+        // im-pixi-vscode finds the Python that `pixi install` put in .pixi and
+        // selects it, so that it is the kernel a notebook offers without anyone
+        // typing a path. It also repairs an environment built by an older pixi:
+        // those are missing a marker file, VS Code reads them as conda
+        // environments instead, and every kernel start then waits 30 seconds
+        // for a command that never returns.
+        //
+        // It declares ms-python.python, ms-toolsai.jupyter and quarto.quarto as
+        // extension dependencies, so VS Code installs all three with it. They
+        // used to be listed here as well, which meant a student could install
+        // some of the four and not others, and end up with Python but no
+        // notebooks, or notebooks but nothing to run them on. One name cannot
+        // be half accepted.
+        //
+        // (Quarto is in that list because the notes are written in Quarto's
+        // flavour of markdown: without it, a callout in a notebook's markdown
+        // cell arrives as raw text with colons around it instead of a coloured
+        // box.)
         //
         // ms-python.vscode-python-envs is deliberately NOT recommended here.
         // It arrives anyway, inside ms-python.python's extension pack, but it
