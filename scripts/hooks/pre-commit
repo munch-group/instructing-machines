@@ -1,0 +1,234 @@
+#!/usr/bin/env python3
+"""Clean the notebooks in a commit before they become one.
+
+Every notebook in the book is also a download, and VS Code decides which
+kernel a freshly downloaded notebook wants by reading ``metadata.kernelspec``
+out of the file. nbconvert — and VS Code itself — rewrite that stamp with
+whatever the executing machine calls its own kernel, along with the running
+interpreter's patch version. Committed, those land in the repository and fail
+the publish workflow's "Check notebook kernel metadata" step, which is where
+docs/intro/notebooks.ipynb was caught naming a kernel called "default" on a
+Python called 3.13.15.
+
+CI cannot fix it: nothing there is committed back, so the same drift comes
+round again on the next push. The fix belongs in the commit, which is here.
+For each staged .ipynb the book publishes, this rewrites metadata.kernelspec
+to the course kernel and drops the drifting language_info keys — exactly what
+``scripts/check_notebook_kernels.py --fix`` does — and re-stages the file.
+
+The file list comes from the script that already owns it, so a notebook added
+to the book or to the download is covered without editing this file. Notebooks
+the book does not publish — drafts in docs/blocks/, the project walkthroughs —
+are left alone, as clean_notebooks.py leaves them.
+
+It also clears cell output, execution counts and the widget-state blob from
+the chapters clean_notebooks.py strips, honoring the same KEEP_OUTPUT list:
+python/course-tools.ipynb exists to show what each widget looks like when it
+runs, and with Quarto never executing at render time that page only has
+something to show if its output is baked in. Every other chapter is published
+from a stripped notebook — CI runs clean_notebooks.py before the render — so a
+chapter committed with output only means the repository disagrees with the
+website, and a "predict, then run" exercise arrives with the answer already
+sitting under it.
+
+What it does not do is execute anything. ``pixi run clean-notebooks`` runs all
+37 chapters through a kernel and takes over two minutes; that is the gate that
+catches a broken cell, and it stays a thing you run before pushing, not
+something every commit pays for.
+
+Install the hook once per clone (`pixi run install-hooks` does exactly this)::
+
+    git config core.hooksPath scripts/hooks
+
+Skip it for one commit with `git commit --no-verify`.
+"""
+
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+# core.hooksPath makes this file scripts/hooks/pre-commit inside the repository
+# rather than a copy in .git/hooks, so the scripts it borrows from sit two
+# directories up and can be imported rather than reimplemented.
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "scripts"))
+
+# Those imports happen inside the functions that need them, not here. Most
+# commits touch no notebook at all and should pay nothing for this hook, and
+# clean_notebooks imports nbformat, which is a second of import time and not
+# guaranteed to be on whichever python git runs the hook with.
+
+
+def git(*args: str, cwd: Path | None = None) -> str:
+    """Run a git command and return its stdout.
+
+    Everything after the first call passes cwd, because a wildcard pathspec is
+    resolved against the working directory: `-- "*.ipynb"` run from docs/ would
+    quietly report only the notebooks under docs/. git runs hooks from the root
+    of the working tree, so this only matters when the hook is run by hand, but
+    a check that is silently partial is the failure mode worth ruling out.
+    """
+    return subprocess.run(
+        ("git",) + args, cwd=cwd, capture_output=True, text=True, check=True
+    ).stdout
+
+
+def zsplit(output: str) -> list[str]:
+    """Split the NUL-separated path list git -z prints."""
+    return [name for name in output.split("\0") if name]
+
+
+def target_sets() -> tuple[set[str], set[str]]:
+    """The notebooks this hook acts on, as repo-relative posix paths.
+
+    The first set is every notebook a student can end up holding, which is
+    what the kernel check covers. The second is the subset whose output is
+    stripped — the book's chapters, minus the ones whose baked-in output is
+    the page.
+    """
+    from check_notebook_kernels import published_notebooks
+    from quarto_profile import quarto_config
+    from clean_notebooks import KEEP_OUTPUT, chapters_in_order
+
+    published = {p.relative_to(REPO).as_posix() for p in published_notebooks()}
+    docs = REPO / "docs"
+    stripped = {
+        (docs / chapter).relative_to(REPO).as_posix()
+        for chapter in chapters_in_order(quarto_config(docs))
+        if chapter not in KEEP_OUTPUT
+    }
+    return published, stripped
+
+
+def stale(notebook: dict, strip_output: bool) -> list[str]:
+    """Describe everything about this notebook that the commit should not carry.
+
+    Reads a plain parsed notebook, so the common case — nothing drifted —
+    costs a json.load per staged file and no rewrite.
+    """
+    from check_notebook_kernels import drift
+
+    problems = drift(notebook)
+    if not strip_output:
+        return problems
+
+    if notebook.get("metadata", {}).get("widgets") is not None:
+        problems.append("widget state")
+    executed = sum(
+        1
+        for cell in notebook.get("cells", [])
+        if cell.get("cell_type") == "code"
+        and (
+            cell.get("outputs")
+            or cell.get("execution_count") is not None
+            or "execution" in cell.get("metadata", {})
+        )
+    )
+    if executed:
+        problems.append(f"{executed} executed cell(s)")
+    return problems
+
+
+def clean(path: Path, strip_output: bool) -> None:
+    """Rewrite one notebook in nbformat's own style, so the diff stays small."""
+    import nbformat
+
+    from check_notebook_kernels import normalize
+
+    notebook = nbformat.read(path, as_version=4)
+    normalize(notebook)
+    if strip_output:
+        from clean_notebooks import clean_metadata
+
+        clean_metadata(notebook)
+    nbformat.write(notebook, path)
+
+
+def kernel_only(staged: list[str], tree: Path) -> int:
+    """Report drifted kernel metadata without fixing it, and refuse the commit.
+
+    The fallback for a python that has no nbformat: everything here is stdlib,
+    so the gate CI enforces is still applied, but the repair has to happen in
+    the project environment.
+    """
+    from check_notebook_kernels import drift, published_notebooks
+
+    published = {p.relative_to(REPO).as_posix() for p in published_notebooks()}
+    drifted = []
+    for name in staged:
+        if name not in published:
+            continue
+        problems = drift(json.loads((tree / name).read_text(encoding="utf-8")))
+        if problems:
+            drifted.append((name, problems))
+
+    if not drifted:
+        return 0
+
+    print("pre-commit: these notebooks name a kernel no student has, and nbformat",
+          file=sys.stderr)
+    print("is not on this python, so the hook cannot repair them here:", file=sys.stderr)
+    for name, problems in drifted:
+        print(f"  {name}: {'; '.join(problems)}", file=sys.stderr)
+    print("Fix them in the project environment, then commit again:", file=sys.stderr)
+    print("    pixi run python3 scripts/check_notebook_kernels.py --fix", file=sys.stderr)
+    return 1
+
+
+def main() -> int:
+    tree = Path(git("rev-parse", "--show-toplevel").strip())
+    staged = zsplit(
+        git("diff", "--cached", "--name-only", "--diff-filter=ACM", "-z", "--", "*.ipynb",
+            cwd=tree)
+    )
+    if not staged:
+        return 0
+
+    try:
+        import nbformat  # noqa: F401
+    except ImportError:
+        return kernel_only(staged, tree)
+
+    published, stripped = target_sets()
+
+    work: list[tuple[str, Path, bool, list[str]]] = []
+    for name in staged:
+        if name not in published:
+            continue
+        path = tree / name
+        problems = stale(json.loads(path.read_text(encoding="utf-8")), name in stripped)
+        if problems:
+            work.append((name, path, name in stripped, problems))
+
+    if not work:
+        return 0
+
+    # Rewriting a file that also has unstaged edits and then `git add`-ing it
+    # would sweep those edits into the commit. Rare enough for a notebook to be
+    # worth refusing rather than guessing at.
+    unstaged = set(zsplit(
+        git("diff", "--name-only", "-z", "--", *[n for n, *_ in work], cwd=tree)
+    ))
+    if unstaged:
+        print("pre-commit: these notebooks need cleaning but have unstaged changes too:",
+              file=sys.stderr)
+        for name in sorted(unstaged):
+            print(f"  {name}", file=sys.stderr)
+        print("Stage or stash the rest of the file, then commit again.", file=sys.stderr)
+        return 1
+
+    for name, path, strip_output, problems in work:
+        clean(path, strip_output)
+        git("add", "--", name, cwd=tree)
+        print(f"pre-commit: cleaned {name} ({'; '.join(problems)})")
+
+    print(f"pre-commit: {len(work)} notebook(s) cleaned and re-staged. "
+          "Run `pixi run clean-notebooks` before pushing to check they still execute.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
