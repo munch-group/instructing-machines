@@ -1,0 +1,32 @@
+{
+    "_comment": [
+        "VS Code extensions that break this course folder's arrangement, read by",
+        "`im update`, which removes any of them it finds and says why.",
+        "",
+        "This list is published with the course folder rather than built into the",
+        "im-course-tools package, so a conflict found in class can be added here",
+        "and reach every student on their next `im update`, without releasing a",
+        "new version of the package to a hundred machines.",
+        "",
+        "Keep it short, and prefer a fix that is not this one. Everything named",
+        "here is uninstalled from a student's editor, for all of their projects",
+        "and not only this one, and an extension that arrives inside somebody",
+        "else's extension pack comes back with the next update of it -- so an",
+        "uninstall is a repair that has to keep being made. The list is empty",
+        "today for exactly that reason.",
+        "",
+        "ms-python.vscode-python-envs was the first entry and is no longer here.",
+        "It contributes a \"Run as Task\" entry to the Run menu whose `when` clause",
+        "does not check the setting that switches the extension off, so a student",
+        "who clicked it was told the command was not found. Uninstalling stopped",
+        "that until ms-python.python installed it again; munch-group.im-pixi-vscode",
+        "now registers the command that entry points at, which the extension",
+        "itself leaves unregistered whenever it is switched off, so the button",
+        "runs the file on the .pixi interpreter instead of failing. See",
+        "src/python/runAsTask.ts in that extension.",
+        "",
+        "`why` is printed to the student under the line saying what was removed,",
+        "so write it to be read by someone who did not ask for any of this."
+    ],
+    "extensions": []
+}
