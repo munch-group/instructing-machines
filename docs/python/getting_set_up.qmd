@@ -17,7 +17,7 @@ Instructions differ on Mac and Windows so pick which kind of computer you have b
 
 ## <i class="bi bi-apple"></i> Mac
 
-**1.** Quit Finder, Terminal, and VS Code completely they are running.  
+**1.** Quit Finder, Terminal, and VS Code completely if they are running.  
 
 **2.** Open a new Terminal window and run this command to download the course folder to your home folder:
 
@@ -31,72 +31,66 @@ curl https://munch-group.org/instructing-machines/instructing-machines.zip > ~/D
 bash -c 'im=$HOME/instructing-machines; [ -d "$im" ] && mv "$im" "$im-old-$(date +%Y%m%d-%H%M%S)"; unzip -q "$HOME/Downloads/instructing-machines.zip" -d "$HOME"'
 ```
 
-**4.** Run this to navigate to the course folder:
+<!-- **4.** Run this to navigate to the course folder:
 
 ```txt
 cd ~/instructing-machines
-```
+``` -->
 
-**5.** Run this to install Pixi:
+**4.** Run this to install Pixi:
 
 ```txt
-curl -fsSL https://pixi.sh/install.sh | sh && sh .pin_shell_path.sh
+curl -fsSL https://pixi.sh/install.sh | sh && sh ~/instructing-machines/.pin_shell_path.sh
 ```
 
-**6.** Run this to kill all Terminal sessions:
+**5.** Run this to kill all Terminal sessions:
 
 ```txt
 killall Terminal
 ``` 
 
-**7.** The new Terminal starts in your home folder, so run this to navigate back to the course folder:
+<!-- **7.** The new Terminal starts in your home folder, so run this to navigate back to the course folder:
 
 ```txt
 cd ~/instructing-machines
-```
+``` -->
 
-**8.** Run this in the new Terminal to make sure pixi is installed. If it is, it will print its version number:
+**6.** Run this in the new Terminal to make sure pixi is installed. If it is, it will print its version number:
 
 ```txt
 pixi --version
 ```
 
-**9.** Run this to install the `im` course tool:
+**7.** Run this to install the `im` course tool:
 
 ```txt
 pixi global install -c conda-forge -c munch-group im-course-tools
 ```
 
-**10.** Run this to make sure it installed. If it did, it will print its version number:
+**8.** Run this to make sure it installed. If it did, it will print its version number:
 
 ```txt
 im --version
 ```
 
-**11.** Run this to build the environment:
+**9.** Run this to build the environment:
 
 ```txt
-pixi clean ; pixi install
+pixi clean -m ~/instructing-machines ; pixi install -m ~/instructing-machines
 ```
 
-**12.** Run this to finish the setup:
+**10.** Run this to finish the setup:
 
 ```txt
-pixi --quiet run check
+pixi --quiet run -m ~/instructing-machines check
 ```
-<!-- 
-for 2027
 
-```txt
-pixi run setup
-``` 
--->
 
 
 ## <i class="bi bi-windows"></i> Windows
 
 
-**1.** Quit File Explorer, PowerShell, and VS Code completely they are running. 
+**1.** Quit File Explorer, PowerShell, and VS Code completely if they are running. 
 
 **2.** Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder:
 
@@ -114,75 +108,72 @@ Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath
 $im = "C:\instructing-machines"; if (Test-Path $im) { Move-Item $im "${im}-old-$(Get-Date -Format 'yyyyMMdd-HHmmss')" }; Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath 'C:\'
 ```
 
-**4.** Run this to navigate to the course folder:
+<!-- **4.** Run this to navigate to the course folder:
 
 ```txt
 cd C:\instructing-machines
-```
+``` -->
 
-**5.** Run this to install Pixi:
+**4.** Run this to install Pixi:
 
 ```txt
 irm -useb https://pixi.sh/install.ps1 | iex
 ```
 
-**6.** Run this to quit/restart all Powershell sessions:
+**5.** Run this to quit/restart all Powershell sessions:
 
 ```txt
 Stop-Process -Name "powershell"
 ```
 
-**7.** The new Powershell starts in your home folder, so tun this  navigate back to the course folder:
+<!-- **7.** The new Powershell starts in your home folder, so tun this  navigate back to the course folder:
 
 ```txt
 cd C:\instructing-machines
-```
+``` -->
 
-**8.** Run this in the new Powershell to make sure pixi is installed. If it is, it will print its version number:
+**6.** Run this in the new Powershell to make sure pixi is installed. If it is, it will print its version number:
 
 ```txt
 pixi --version
 ```
 
-**9.** Run this to install the `im` course tool:
+**7.** Run this to install the `im` course tool:
 
 ```txt
 pixi global install -c conda-forge -c munch-group im-course-tools
 ```
 
-**10.** Run this to make sure it installed. If it did, it will print its version number:
+If this fails, it may be your antivirus software now allowing Pixi though its firewall. If you are using BitDefender, [here](https://www.bitdefender.com/consumer/support/answer/13425/) are instructions for how do allow this. If you have other brands of antivirus software, you can Google: "bitdefender add firewall rule" (replacing "bitdefender" with whatever brand you use).
+
+**8.** Run this to make sure it installed. If it did, it will print its version number:
 
 ```txt
 im --version
 ```
 
-**11.** Run this to build the environment:
+**9.** Run this to build the environment:
 
 ```txt
-pixi clean ; pixi install
+pixi clean -m ~/instructing-machines ; pixi install -m ~/instructing-machines
 ```
 
-**12.** Run this to finish the setup:
+**10.** Run this to finish the setup:
 
 ```txt
-pixi --quiet run check
+pixi --quiet run -m ~/instructing-machines check
 ```
-<!-- 
-for 2027
-
-```txt
-pixi run setup
-``` 
--->
-
-:::
 
 ::: {.callout-note}
 
-If `pixi install` fails, it may be because you have antivirus software (other than Microsoft Defender) that blocks Pixi from downloading packages. Here are instructions for how do do this for: [BitDefender](https://www.bitdefender.com/consumer/support/answer/13425/), [Norton](https://knowledge.civilgeo.com/adding-an-exception-to-norton-firewall), [McAfee](https://knowledge.civilgeo.com/adding-an-exception-to-mcafee-firewall), [Kaspersky](https://knowledge.civilgeo.com/adding-an-exception-to-kaspersky-firewall).
+## Do not move your student folder
+
+We put your `instructing-machines` folder where it is least likely to give permission problems and cloud sync issues, and moving it somewhere else voids its warranty. Even if you want to move it anyway, do not do that before you have successfully set it up in the standard location and made sure everything works as it should. After moving the folder, it *may* still work if you navigate to its now location in the terminal and run `pixi clean`, `pixi install`, `pixi run check` (in that order).
 
 :::
 
+
+:::
 
 ## The VScode editor {#sec-text-editor}
 
@@ -215,7 +206,7 @@ You will also need a *text editor*. A text editor is where you write your Python
 
 **2.** Open VS Code. You should see something like @fig-vscode. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click "Continue without signing in".
 
-**3.** Open the `instructing-machines` folder using `File → Open Folder`. The entire course setup *only* works if you open the *folder*.
+**3.** Open the `C:\instructing-machines` folder using `File → Open Folder`. The entire course setup *only* works if you open the *folder*.
 
 **4.** At the bottom left, click the blue 'Restricted Mode' button, then click 'Trust' and close the panel. If you are prompted to  "Trust this workspace", do that too.
 
@@ -227,7 +218,7 @@ You will also need a *text editor*. A text editor is where you write your Python
 
 ![Visual Studio Code](./images/vscode.png){#fig-vscode width=80%}
 
-From now on all you need is to open the `instructing-machines` folder using `File → Open Folder`. Remember, the entire course setup *only* works if you open the *folder*.
+From now on all you need is to open the `C:\instructing-machines` folder using `File → Open Folder`. Remember, the entire course setup *only* works if you open the *folder*.
 
 ::: {.callout-tip }
 
@@ -241,25 +232,3 @@ You may wonder why we cannot use Word to create and edit files with programming 
 
 
 
-
-
-
-
-
-<!-- 
-## If something goes wrong {#sec-if-something-goes-wrong}
-
-- **"pixi is not recognized as an internal or external command" (Windows).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
-- **"command not found: pixi" (Mac).** The terminal you are typing in was opened before pixi was installed. Close it and open a new one. If you are inside VS Code, quit VS Code entirely and start it again.
-- **Windows says a script cannot be run, or mentions an execution policy.** You have found a PowerShell install script somewhere. Do not fight with it — use the `.msi` installer linked in [Installing pixi](#sec-installing-pixi) instead. It needs no permissions of that kind.
-- **`pixi install` fails part-way, or complains about paths being too long.** The folder is almost certainly too deep, or inside OneDrive. Move the whole folder to `C:\bioprog\` and run `pixi install` again.
-- **The window still says *Restricted Mode*, or nothing Python-related works at all.** The folder is untrusted, which is how VS Code opens every new folder now, and extensions do not run until you change it. Click the blue **Restricted Mode** button in the bottom left corner, then **Trust** ([Opening the folder](#sec-opening-the-folder), step 2). Then reload the window, because the extensions have been sitting switched off until this moment.
-- **"No Python found. Would you like to install uv and use it to install Python?"** Say no. You have a Python already — it is in the `.pixi` folder, and this message means VS Code has not found it rather than that it is missing. The usual cause is a VS Code that was started before pixi was installed: quit VS Code completely, start it again, and open the folder. If it persists, see the next entry.
-- **A warning about a "default environment manager" that "is not registered".** Ignore it. Two extensions start at the same time and one of them reads a setting a fraction of a second before the other is ready to answer; a moment later it is. Nothing is broken, and there is nothing for you to do. We would silence it if we could, but the setting it is complaining about is the one that gives your kernel its name.
-- **The pixi extension really does do nothing — no `Instructing Machines` anywhere, and no `.pixi` path offered.** This is different from the warning above. The extension has to run the `pixi` command before it can find anything, and it cannot. `pixi run check` writes the full path to pixi into the folder's settings for exactly this reason, so run it if you have not, and reload the window. If you have run it and nothing changes, you have probably copied this folder from a different computer, where that path pointed somewhere that does not exist here: run `pixi run check` again to rewrite it for this machine.
-- **There is no `Instructing Machines` entry in the kernel list.** It is created by `pixi run check`, so run that first if you have not. If it is still missing, make sure you opened the *folder* ([Opening the folder](#sec-opening-the-folder)), that `pixi install` has finished, and that the recommended extensions are installed. Then run `Developer: Reload Window` from the command palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), which makes VS Code look again.
-- **A widget shows as blank space, or as raw text.** You are running the notebook on the wrong Python. Click `Select Kernel` in the top right of the notebook and choose the one whose path contains `.pixi`.
-- **Nothing works and the lecture has already started.** Open the course website and use the in-browser notebooks. They run Python inside the browser with nothing installed, they are slower and slightly limited, and they will get you through the next hour. Then come to the study café and we will fix your installation properly.
-
-If you see red text you cannot place, take a screenshot — or better, copy the text itself — and send it to <kaspermunch@birc.au.dk>. Bring the exact message, not a description of it. Reading error messages is one of the things this course is actually about. 
--->
