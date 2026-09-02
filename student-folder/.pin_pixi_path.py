@@ -30,7 +30,12 @@ interpreter is selected", a message that sounds like your installation is broken
 when nothing is. Naming the course Python outright means there is a valid one
 selected from the start and the message never appears. This script is run by
 that very interpreter, so it does not have to guess: sys.executable is the
-answer, on every platform, without a bin-versus-Scripts special case.
+answer, on every platform, without a bin-versus-Scripts special case. It is
+written down exactly as pixi handed it over, and deliberately not resolved
+through its symlink: bin/python is the name VS Code discovers the environment
+under and the name the notebook kernel records, while resolving lands on
+bin/python3.13, a third name for the same file that matches neither of them
+and goes stale the day the course moves to a new Python.
 
 The file is edited as text rather than parsed and rewritten, because
 settings.json is full of comments explaining what each setting is for, and
@@ -122,8 +127,12 @@ def main() -> int:
     # that other python, and writing it here would point VS Code at an
     # interpreter with none of the course packages in it. Better to write
     # nothing than to write something wrong into a student's settings.
-    interpreter = Path(sys.executable).resolve()
-    if interpreter.is_relative_to(path.parent.parent.resolve()):
+    #
+    # Only the test resolves symlinks, not the value: a folder reached through
+    # one still has to be recognized as this folder, while the value has to
+    # stay the name VS Code and the kernel both use.
+    interpreter = Path(sys.executable)
+    if interpreter.resolve().is_relative_to(path.parent.parent.resolve()):
         wanted[PYTHON_SETTING] = str(interpreter)
     else:
         print(f"not writing {PYTHON_SETTING}: this script is running on")
