@@ -139,6 +139,15 @@ check = { cmd = "python .check_env.py", depends-on = ["kernel", "vscode", "shell
 # those has to be migrated, and none of them can go stale.
 setup = { depends-on = ["check"] }
 
+# The other half of the setup, and the one command in this folder that is meant
+# to be typed after VS Code has been set up rather than before it. `check` above
+# runs at the end of the terminal steps, where there is no editor installed yet
+# and so nothing to say about its extensions; this runs at the end of the
+# editor's own steps, where there is. Two commands rather than one script
+# working out which of the two moments it is in: that guess is wrong for every
+# student who already had VS Code before this course started.
+check-vscode = "python .check_vscode.py"
+
 get = "im get"
 update = "im update"
 
