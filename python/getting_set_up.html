@@ -702,14 +702,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
 <p> </p>
 </div></div>
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#sec-text-editor" id="toc-sec-text-editor" class="nav-link active" data-scroll-target="#sec-text-editor">The VScode editor</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/getting_set_up.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
-    </div>
+        
+    <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -778,44 +772,66 @@ cd ~/instructing-machines
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>im --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>9.</strong> Run this to build the environment:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pixi clean -m ~/instructing-machines ; pixi install -m ~/instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>10.</strong> Run this to finish the setup:</p>
+<p><strong>10.</strong> Run this to finish the environment setup:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pixi run -m ~/instructing-machines check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>11.</strong> Download VS Code text editor from <a href="https://code.visualstudio.com/download">code.visualstudio.com</a> and complete the default installation.</p>
+<p><strong>12.</strong> Open VS Code. You should see something like <a href="#fig-vscode" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click “Continue without signing in”.</p>
+<p><strong>13.</strong> Open the <code>instructing-machines</code> folder using <code>File → Open Folder</code>. The entire course setup <em>only</em> works if you open the <em>folder</em>.</p>
+<p><strong>14.</strong> At the bottom left, click the blue ‘Restricted Mode’ button, then click ‘Trust’ and close the panel. If you are prompted to “Trust this workspace”, do that too.</p>
+<p><strong>15.</strong> If prompted install the recommended extensions. Otherwise, open the Extensions panel on the left (icon with four squares), search ‘<span class="citation" data-cites="recommended">@recommended</span>’ and install all the listed extensions.</p>
+<p><strong>16.</strong> Press <code>Cmd+Shift+P</code>, type <code>Shell Command: Install 'code' command in PATH</code>, and press Enter.</p>
+<p><strong>17.</strong> <strong>Quit</strong> VS Code completely.</p>
+<p><strong>18.</strong> Open a new Terminal and run this to check that VS Code got what it needs. It should list the extensions it found:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pixi run -m ~/instructing-machines check-vscode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If it names something as missing instead, do what it says and run it again.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p><strong>1.</strong> Quit File Explorer, PowerShell, and VS Code completely if they are running.</p>
 <p><strong>2.</strong> Open a new PowerShell (Start menu → PowerShell) and run this command to download the course folder:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip" -OutFile "$env:USERPROFILE\Downloads\instructing-machines.zip"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iwr -Uri "https://munch-group.org/instructing-machines/instructing-machines.zip" -OutFile "$env:USERPROFILE\Downloads\instructing-machines.zip"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>3.</strong> Run this to unpack the student folder and put it in your home folder: <!-- 
 ```txt
 Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath C:\
 ``` 
 --></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>$im = "C:\instructing-machines"; if (Test-Path $im) { Move-Item $im "${im}-old-$(Get-Date -Format 'yyyyMMdd-HHmmss')" }; Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath 'C:\'</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>$im = "C:\instructing-machines"; if (Test-Path $im) { Move-Item $im "${im}-old-$(Get-Date -Format 'yyyyMMdd-HHmmss')" }; Expand-Archive -Path "$HOME\Downloads\instructing-machines.zip" -DestinationPath 'C:\'</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- **4.** Run this to navigate to the course folder:
 
 ```txt
 cd C:\instructing-machines
 ``` -->
 <p><strong>4.</strong> Run this to install Pixi:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>irm -useb https://pixi.sh/install.ps1 | iex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>irm -useb https://pixi.sh/install.ps1 | iex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>5.</strong> Run this to quit/restart all Powershell sessions:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Stop-Process -Name "powershell"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Stop-Process -Name "powershell"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- **7.** The new Powershell starts in your home folder, so tun this  navigate back to the course folder:
 
 ```txt
 cd C:\instructing-machines
 ``` -->
 <p><strong>6.</strong> Run this in the new Powershell to make sure pixi is installed. If it is, it will print its version number:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pixi --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pixi --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>7.</strong> Run this to install the <code>im</code> course tool:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pixi global install -c conda-forge -c munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pixi global install -c conda-forge -c munch-group im-course-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If this fails, it may be your antivirus software now allowing Pixi though its firewall. If you are using BitDefender, <a href="https://www.bitdefender.com/consumer/support/answer/13425/">here</a> are instructions for how do allow this. If you have other brands of antivirus software, you can Google: “bitdefender add firewall rule” (replacing “bitdefender” with whatever brand you use).</p>
 <p><strong>8.</strong> Run this to make sure it installed. If it did, it will print its version number:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>im --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>im --version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>9.</strong> Run this to build the environment:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pixi clean -m C:\instructing-machines ; pixi install -m C:\instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>10.</strong> Run this to finish the setup:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pixi run -m C:\instructing-machines check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pixi clean -m C:\instructing-machines ; pixi install -m C:\instructing-machines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>10.</strong> Run this to finish the environment setup:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pixi run -m C:\instructing-machines check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>11.</strong> Download VS Code from <a href="https://code.visualstudio.com/download">code.visualstudio.com</a> and complete the default installation.</p>
+<p><strong>12.</strong> Open VS Code. You should see something like <a href="#fig-vscode" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click “Continue without signing in”.</p>
+<p><strong>13.</strong> Open the <code>C:\instructing-machines</code> folder using <code>File → Open Folder</code>. The entire course setup <em>only</em> works if you open the <em>folder</em>.</p>
+<p><strong>14.</strong> At the bottom left, click the blue ‘Restricted Mode’ button, then click ‘Trust’ and close the panel. If you are prompted to “Trust this workspace”, do that too.</p>
+<p><strong>15.</strong> If prompted install/trust the recommended extensions Otherwise, open the Extensions panel on the left (icon with four squares), search ‘<span class="citation" data-cites="recommended">@recommended</span>’ and install all the listed extensions.</p>
+<p><strong>16.</strong> <strong>Quit</strong> VS Code completely.</p>
+<p><strong>17.</strong> Open a new PowerShell and run this to check that VS Code got what it needs. It should list the extensions it found:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pixi run -m C:\instructing-machines check-vscode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If it names something as missing instead, do what it says and run it again.</p>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -829,41 +845,64 @@ cd C:\instructing-machines
 <p>We put your <code>instructing-machines</code> folder where it is least likely to give permission problems and cloud sync issues, and moving it somewhere else voids its warranty. Even if you want to move it anyway, do not do that before you have successfully set it up in the standard location and made sure everything works as it should. After moving the folder, it <em>may</em> still work if you navigate to its now location in the terminal and run <code>pixi clean</code>, <code>pixi install</code>, <code>pixi run check</code> (in that order).</p>
 </div>
 </div>
-</div>
-</div>
-</div>
-<section id="sec-text-editor" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-text-editor">The VScode editor</h2>
-<p>You will also need a <em>text editor</em>. A text editor is where you write your Python code. For this course, we will use <em>Visual Studio Code</em>, <em>VS Code</em> for short, or <code>vscode</code> for even shorter.</p>
-<p><strong>First-time setup:</strong></p>
-<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="platform">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><i class="bi bi-apple"></i> Mac</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><i class="bi bi-windows"></i> Windows</a></li></ul>
-<div class="tab-content" data-group="platform">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p><strong>1.</strong> Download VS Code from <a href="https://code.visualstudio.com/download">code.visualstudio.com</a> and complete the default installation.</p>
-<p><strong>2.</strong> Open VS Code. You should see something like <a href="#fig-vscode" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click “Continue without signing in”.</p>
-<p><strong>3.</strong> Open the <code>instructing-machines</code> folder using <code>File → Open Folder</code>. The entire course setup <em>only</em> works if you open the <em>folder</em>.</p>
-<p><strong>4.</strong> At the bottom left, click the blue ‘Restricted Mode’ button, then click ‘Trust’ and close the panel. If you are prompted to “Trust this workspace”, do that too.</p>
-<p><strong>5.</strong> If prompted install the recommended extensions. Otherwise, open the Extensions panel on the left (icon with four squares), search ‘<span class="citation" data-cites="recommended">@recommended</span>’ and install all the listed extensions.</p>
-<p><strong>6.</strong> Press <code>Cmd+Shift+P</code>, type <code>Shell Command: Install 'code' command in PATH</code>, and press Enter.</p>
-<p><strong>7.</strong> <strong>Quit</strong> VS Code completely.</p>
-<p><strong>8.</strong> Open a new Terminal and run this to check that VS Code got what it needs. It should list the extensions it found:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pixi run -m ~/instructing-machines check-vscode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If it names something as missing instead, do what it says and run it again.</p>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p><strong>1.</strong> Download VS Code from <a href="https://code.visualstudio.com/download">code.visualstudio.com</a> and complete the default installation.</p>
-<p><strong>2.</strong> Open VS Code. You should see something like <a href="#fig-vscode" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click “Continue without signing in”.</p>
-<p><strong>3.</strong> Open the <code>C:\instructing-machines</code> folder using <code>File → Open Folder</code>. The entire course setup <em>only</em> works if you open the <em>folder</em>.</p>
-<p><strong>4.</strong> At the bottom left, click the blue ‘Restricted Mode’ button, then click ‘Trust’ and close the panel. If you are prompted to “Trust this workspace”, do that too.</p>
-<p><strong>5.</strong> If prompted install/trust the recommended extensions Otherwise, open the Extensions panel on the left (icon with four squares), search ‘<span class="citation" data-cites="recommended">@recommended</span>’ and install all the listed extensions.</p>
-<p><strong>6.</strong> <strong>Quit</strong> VS Code completely.</p>
-<p><strong>7.</strong> Open a new PowerShell and run this to check that VS Code got what it needs. It should list the extensions it found:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pixi run -m C:\instructing-machines check-vscode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If it names something as missing instead, do what it says and run it again.</p>
-</div>
-</div>
-</div>
+<!-- 
+**The VScode editor**
+
+You will also need a *text editor*. A text editor is where you write your Python code. For this course, we will use *Visual Studio Code*, *VS Code* for short, or `vscode` for even shorter. 
+
+**First-time setup:**
+
+::: {.panel-tabset group="platform"}
+
+## <i class="bi bi-apple"></i> Mac
+
+**1.** Download VS Code text editor from [code.visualstudio.com](https://code.visualstudio.com/download) and complete the default installation.
+
+**2.** Open VS Code. You should see something like @fig-vscode. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click "Continue without signing in".
+
+**3.** Open the `instructing-machines` folder using `File → Open Folder`. The entire course setup *only* works if you open the *folder*.
+
+**4.** At the bottom left, click the blue 'Restricted Mode' button, then click 'Trust' and close the panel. If you are prompted to  "Trust this workspace", do that too.
+
+**5.** If prompted install the recommended extensions. Otherwise, open the  Extensions panel on the left (icon with four squares), search '@recommended' and install all the listed extensions.
+
+**6.** Press `Cmd+Shift+P`, type `Shell Command: Install 'code' command in PATH`, and press Enter.
+
+**7.** **Quit** VS Code completely.
+
+**8.** Open a new Terminal and run this to check that VS Code got what it needs. It should list the extensions it found:
+
+```txt
+pixi run -m ~/instructing-machines check-vscode
+```
+
+If it names something as missing instead, do what it says and run it again.
+
+
+## <i class="bi bi-windows"></i> Windows
+
+**1.** Download VS Code from [code.visualstudio.com](https://code.visualstudio.com/download) and complete the default installation.
+
+**2.** Open VS Code. You should see something like @fig-vscode. The first time you start VS Code it greets you with a welcome screen that wants you to sign in. Nothing on this course needs an account, so you can click "Continue without signing in".
+
+**3.** Open the `C:\instructing-machines` folder using `File → Open Folder`. The entire course setup *only* works if you open the *folder*.
+
+**4.** At the bottom left, click the blue 'Restricted Mode' button, then click 'Trust' and close the panel. If you are prompted to  "Trust this workspace", do that too.
+
+**5.** If prompted install/trust the recommended extensions Otherwise, open the  Extensions panel on the left (icon with four squares), search '@recommended' and install all the listed extensions.
+
+**6.** **Quit** VS Code completely.
+
+**7.** Open a new PowerShell and run this to check that VS Code got what it needs. It should list the extensions it found:
+
+```txt
+pixi run -m C:\instructing-machines check-vscode
+```
+
+If it names something as missing instead, do what it says and run it again.
+
+::: 
+-->
 <div id="fig-vscode" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vscode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -891,7 +930,6 @@ Tip
 <p>You may wonder why we cannot use Word to create and edit files with programming code. The reason is that a text editor made for programming, such as VS Code, only saves the actual characters you type. So, unlike Word, it does not silently save all kinds of formatting, like margins, boldface text, headers, etc. With VS Code, what you type is <em>exactly</em> what is in the file when you save it. In addition, where Word is made for prose, VS Code is made for programming and has many features that will make your programming life easier.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script>
@@ -1344,4 +1382,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/getting_set_up.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/getting_set_up.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
