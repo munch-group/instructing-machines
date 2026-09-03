@@ -74,10 +74,10 @@
     "notebook.output.textLineLimit": 60,
     // Keep the file list to things a student has a reason to open.
     //
-    // The two .pin_ scripts and .check_env.py are safe to hide: pixi runs them
-    // from a terminal by name, and nothing here is consulted for that. Hiding a
-    // file changes what the explorer shows and what the search API returns, not
-    // what a shell can run.
+    // The two .pin_ scripts and the two .check_ ones are safe to hide: pixi runs
+    // them from a terminal by name, and nothing here is consulted for that.
+    // Hiding a file changes what the explorer shows and what the search API
+    // returns, not what a shell can run.
     //
     // .pixi is deliberately NOT hidden, for exactly that second reason. It is
     // far more noise in the file list, but it is also where
@@ -88,6 +88,7 @@
         "**/.pin_pixi_path.py": true,
         "**/.pin_shell_path.py": true,
         "**/.check_env.py": true,
+        "**/.check_vscode.py": true,
         "**/__pycache__": true,
         "**/.pytest_cache": true
     },

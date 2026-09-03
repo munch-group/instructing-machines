@@ -53,6 +53,37 @@ ENTRY = re.compile(r"^([A-Za-z0-9._-]+)\s*=")
 # `python` missing from an environment that had just run ipykernel with it.
 BIN_DIRS = (".", "bin", "Scripts", "Library/bin")
 
+# What the tasks before this one write, and that this reads back.
+#
+# `pixi run check` installs a notebook kernel and writes two paths into
+# .vscode/settings.json before it reaches this file, in tasks that run one
+# after another and stop at the first one to fail. Nothing announces that: a
+# chain that stops early simply ends. So the command that answers "did the
+# install work" reads back the rest of its own work too, rather than leaving a
+# student to find out weeks later that VS Code cannot see the environment.
+#
+# This is as far as it can see. Whether VS Code itself has the extensions the
+# folder asks for is .check_vscode.py's question, and it is a separate script
+# because it is a question for a separate moment: this one runs at the end of
+# the terminal steps, before the chapter has asked anybody to install an editor.
+KERNEL_NAME = "instructing-machines"
+KERNEL_SPEC = ("share", "jupyter", "kernels", KERNEL_NAME, "kernel.json")
+SETTINGS = (".vscode", "settings.json")
+
+# The same file as it stands in the book's own repository, where it is not
+# dotted and only becomes .vscode in the download. The paths are never written
+# there, so its absence is not a fault worth reporting on every run.
+AUTHORING_SETTINGS = ("vscode", "settings.json")
+
+# Written by .pin_pixi_path.py, and absolute paths, which is why they are
+# written on the machine instead of published with the folder.
+PINNED = ("im-pixi-vscode.pixiExecutable", "python.defaultInterpreterPath")
+
+# Looked for by matching the line rather than by parsing, because settings.json
+# is JSON with comments in it and the comments are the point: each setting there
+# carries the paragraph saying why it is there.
+PINNED_LINE = r'^[ \t]*"{}"[ \t]*:[ \t]*"'
+
 
 def course_folder() -> Path:
     """The folder this script belongs to, which is the folder pixi was run in."""
@@ -106,6 +137,38 @@ def present(name: str, prefix: Path) -> bool:
     return shutil.which(name, path=commands(prefix)) is not None
 
 
+def editor_problems(folder: Path, prefix: Path) -> list[str] | None:
+    """What VS Code still needs from this folder, or None when it was not asked.
+
+    None is the book's own copy of this folder, where the paths are never
+    written and there is nothing here to be wrong. It is not an empty list,
+    because an empty list is a claim that everything was looked at and found in
+    order, and nothing was looked at.
+    """
+    settings = folder.joinpath(*SETTINGS)
+    if not settings.is_file() and folder.joinpath(*AUTHORING_SETTINGS).is_file():
+        return None
+
+    problems = []
+    if not prefix.joinpath(*KERNEL_SPEC).is_file():
+        problems.append(f"the {KERNEL_NAME} notebook kernel is not installed")
+
+    if not settings.is_file():
+        problems.append(f"there is no {'/'.join(SETTINGS)} for VS Code to read")
+        return problems
+
+    try:
+        text = settings.read_text(encoding="utf-8")
+    except OSError as error:
+        problems.append(f"{'/'.join(SETTINGS)} could not be read ({error})")
+        return problems
+
+    for name in PINNED:
+        if not re.search(PINNED_LINE.format(re.escape(name)), text, re.MULTILINE):
+            problems.append(f"{name} has not been written into {'/'.join(SETTINGS)}")
+    return problems
+
+
 def main() -> int:
     folder = course_folder()
     manifest = folder / "pixi.toml"
@@ -137,18 +200,34 @@ def main() -> int:
         return 1
 
     missing = [name for name in wanted if not present(name, prefix)]
-    if not missing:
-        print(f"Everything is installed. Python {sys.version.split()[0]}")
-        return 0
+    problems = editor_problems(folder, prefix)
 
-    print("Your environment is missing:")
-    print("")
-    for name in missing:
-        print(f"    {name}")
-    print("")
-    print("Run `im update` to refresh the environment. If that does not fix it,")
-    print("bring this message to class.")
-    return 1
+    if missing:
+        print("Your environment is missing:")
+        print("")
+        for name in missing:
+            print(f"    {name}")
+        print("")
+        print("Run `im update` to refresh the environment. If that does not fix it,")
+        print("bring this message to class.")
+    else:
+        print(f"Everything is installed. Python {sys.version.split()[0]}")
+
+    if problems:
+        print("")
+        print("This folder is not ready for VS Code yet:")
+        print("")
+        for problem in problems:
+            print(f"    {problem}")
+        print("")
+        print("These are written by the tasks that run just before this one, and a")
+        print("task that fails stops the ones after it. Run `pixi run check` again")
+        print("and read what it prints on the way past.")
+    elif problems is not None and not missing:
+        print("This folder has the notebook kernel and both of the paths VS Code")
+        print("will read when it opens the folder.")
+
+    return 1 if missing or problems else 0
 
 
 if __name__ == "__main__":
