@@ -296,9 +296,9 @@ format:
     fig-width: 5
     fig-height: 3
     filters:
-      - unnumber.lua
+      - filters/unnumber.lua
       - quarto
-      - headers.lua
+      - filters/headers.lua
     # Repoints the "TA version" / "Student version" margin link declared in the
     # two profile files at the counterpart of the page being read. Inert on a
     # page that declares neither, so it is shared by both profiles.
@@ -352,16 +352,16 @@ format:
   #     - "exercise"
   #     - "exercises"
   #   filters:
-  #     - unnumber.lua
-  #     - pdf-badge-spacing.lua
+  #     - filters/unnumber.lua
+  #     - filters/pdf-badge-spacing.lua
   #     - quarto
-  #     - pdf-inline-code.lua
+  #     - filters/pdf-inline-code.lua
   #   include-in-header:
   #     - file: header_extra.tex
   # epub:
   #   cover-image: logo/im-mark.svg
   #   highlight-style: kate
   #   filters:
-  #     - unnumber.lua
+  #     - filters/unnumber.lua
   #     - quarto
   #   # epub-fonts: DejaVuSans-*.ttf
