@@ -61,6 +61,37 @@
     // set for this folder only: your other projects are untouched.
     "chat.disableAIFeatures": true,
 
+    // Where VS Code looks for the code that draws a widget. The course widgets
+    // -- steps, puzzle, codelens, turtle, sandbox, iplot -- are all built on
+    // anywidget, and VS Code does not ship with anywidget the way it ships
+    // with sliders and buttons. It has to obtain that support code before it
+    // can draw any of them, and this setting is the list of places it will
+    // look beyond the environment running the notebook.
+    //
+    // Empty is the whole point. The environment pixi built already contains
+    // the file, at share/jupyter/nbextensions/anywidget/index.js, so there is
+    // nothing to download and an empty list means nothing is attempted. The
+    // alternative is the two content delivery networks VS Code offers to use
+    // instead, and it offers them in a one-time notification that a student
+    // may or may not have clicked at some point in the past -- which is why
+    // this had to be written down for the folder rather than left to whatever
+    // each machine happens to have answered.
+    //
+    // Nothing is given up by leaving it empty. VS Code copies the widget code
+    // out of whichever environment the kernel runs in before it draws
+    // anything, and it does that whatever this setting says, so the download
+    // is a second route to a file that is already there.
+    //
+    // A download that is refused fails quickly and says so. One that is
+    // neither answered nor refused does not, and that is what a VPN, an
+    // outbound firewall such as Little Snitch, a DNS-level content blocker or
+    // a network that quietly drops what it does not recognise will produce.
+    // The request stays open and the widget goes on waiting for it. That is
+    // the state behind the two reports this setting is here to prevent: a
+    // first widget that draws nothing at all, and a second that turns a
+    // spinner without ever stopping. No error appears anywhere to say so.
+    "jupyter.widgetScriptSources": [],
+
     // Run every notebook as if it started in this folder, so that a notebook
     // opening 'data/orfs.csv' finds the data no matter which subfolder you
     // saved the notebook in.
