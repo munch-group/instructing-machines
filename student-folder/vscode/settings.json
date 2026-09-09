@@ -90,6 +90,16 @@
     // the state behind the two reports this setting is here to prevent: a
     // first widget that draws nothing at all, and a second that turns a
     // spinner without ever stopping. No error appears anywhere to say so.
+    //
+    // Empty carries a precondition, though: with no second place to look, every
+    // module a notebook here asks for has to actually be in the environment.
+    // That holds today, and `pixi run check-vscode` says so rather than leaving
+    // it assumed -- it reads this setting, works out what the installed widgets
+    // ask for, and resolves it against the environment the way VS Code does. It
+    // is checked rather than trusted because the thing that would break it -- a
+    // widget added later whose JavaScript is not installed alongside it -- fails
+    // the same silent way this setting exists to prevent, just from the other
+    // direction.
     "jupyter.widgetScriptSources": [],
 
     // Run every notebook as if it started in this folder, so that a notebook
