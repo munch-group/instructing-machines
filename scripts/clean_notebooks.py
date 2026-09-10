@@ -28,11 +28,19 @@ The file list is read from the book's own config (the same chapters
 so a notebook added to or dropped from the book is picked up automatically
 and a notebook that isn't part of the book (a demo, a draft) is left alone.
 
-One exception: KEEP_OUTPUT below. python/course-tools.ipynb exists to show
+One exception: LEAVE_ALONE below. python/course-tools.ipynb exists to show
 what each widget actually looks like when it runs; with Quarto never
 executing at render time, that page only has anything to show if its output
-is baked into the file. It's still executed on every run — a broken demo
-cell still fails the build — just not stripped afterward.
+is baked into the file. So this script does not touch that notebook at all —
+it is not executed, not stripped, and not kernel-normalized here. Its output
+is whatever was there when it was last run by hand, which is also what the
+page and its download button carry.
+
+The cost of that is a gap in the gate: a widget demo that breaks after a
+package upgrade ships stale output silently, and running the notebook by hand
+is the only thing that catches it. Its kernel metadata is hand-maintained for
+the same reason — see scripts/check_notebook_kernels.py, which does not see
+it either.
 
 Run it with no arguments from anywhere in the repository::
 
@@ -71,10 +79,17 @@ BASE_KERNEL = "python3"
 DEFAULT_WORKERS = 4
 EXECUTE_TIMEOUT = 180  # seconds per cell; sandbox_widget spawns a subprocess per cell
 
-# Chapters whose baked-in output survives the strip — see the module
-# docstring. Paths are relative to docs/, matching how they appear in
-# the book's config.
-KEEP_OUTPUT = {"python/course-tools.ipynb"}
+# Chapters this script does not touch: not executed, not stripped, not
+# kernel-normalized. See the module docstring for why. Paths are relative to
+# docs/, matching how they appear in the book's config.
+#
+# As it happens the one entry here is already invisible to chapters_in_order:
+# _quarto.yml lists it as `- href: python/course-tools.ipynb` with a `text:`
+# line under it, and the CHAPTER pattern above matches only a path sitting
+# directly after the `-`. This set is what makes the omission a decision
+# rather than an accident, and what keeps the behavior if that line is ever
+# rewritten in the plain form.
+LEAVE_ALONE = {"python/course-tools.ipynb"}
 
 
 def chapters_in_order(quarto_yml: Path):
@@ -98,9 +113,9 @@ def clean_metadata(nb) -> None:
         cell.metadata.pop("execution", None)
 
 
-def execute_and_clean(path: Path, docs: Path) -> tuple[Path, bool, str]:
-    """Execute ``path`` in place, then clear its output unless it's in
-    KEEP_OUTPUT. Returns (path, ok, message)."""
+def execute_and_clean(path: Path) -> tuple[Path, bool, str]:
+    """Execute ``path`` in place, then clear its output. Returns
+    (path, ok, message)."""
     result = subprocess.run(
         [
             "jupyter", "nbconvert", "--to", "notebook", "--execute", "--inplace",
@@ -124,13 +139,12 @@ def execute_and_clean(path: Path, docs: Path) -> tuple[Path, bool, str]:
         tail = "\n".join(result.stderr.strip().splitlines()[-15:])
         return path, False, tail
 
-    # Read back what nbconvert wrote and undo its two stamps: the kernel
-    # metadata always, the outputs unless this is a notebook whose baked-in
-    # output is the whole point of the page.
+    # Read back what nbconvert wrote and undo both its stamps, the kernel
+    # metadata and the outputs. A notebook whose baked-in output is the page
+    # never reaches here — main() holds it out; see LEAVE_ALONE.
     nb = nbformat.read(path, as_version=4)
     normalize_kernel(nb)
-    if path.relative_to(docs).as_posix() not in KEEP_OUTPUT:
-        clean_metadata(nb)
+    clean_metadata(nb)
     nbformat.write(nb, path)
     return path, True, ""
 
@@ -147,22 +161,34 @@ def main() -> int:
         print(f"cannot find {quarto_yml}", file=sys.stderr)
         return 1
 
-    paths = [docs / chapter for chapter in chapters_in_order(quarto_yml)]
+    paths = [docs / chapter
+             for chapter in chapters_in_order(quarto_yml)
+             if chapter not in LEAVE_ALONE]
     missing = [p for p in paths if not p.exists()]
     for p in missing:
         print(f"WARNING: {p} is listed in {quarto_yml.name} but not on disk — skipping",
               file=sys.stderr)
     paths = [p for p in paths if p.exists()]
 
+    # Name what is being held out. A notebook this script silently never
+    # touches reads as an oversight; a line saying so reads as the decision
+    # it is, and a stale entry here shows up as a warning rather than as
+    # nothing happening.
+    for chapter in sorted(LEAVE_ALONE):
+        if (docs / chapter).exists():
+            print(f"skip:  {chapter} (left alone — its baked-in output is the page)")
+        else:
+            print(f"WARNING: {chapter} is in LEAVE_ALONE but not on disk",
+                  file=sys.stderr)
+
     failures = []
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
-        futures = {pool.submit(execute_and_clean, p, docs): p for p in paths}
+        futures = {pool.submit(execute_and_clean, p): p for p in paths}
         for future in as_completed(futures):
             path, ok, message = future.result()
             rel = path.relative_to(docs)
             if ok:
-                note = " (output kept)" if rel.as_posix() in KEEP_OUTPUT else ""
-                print(f"clean: {rel}{note}")
+                print(f"clean: {rel}")
             else:
                 print(f"FAILED: {rel}", file=sys.stderr)
                 failures.append((rel, message))

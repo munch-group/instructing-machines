@@ -22,17 +22,18 @@ the book does not publish — drafts in docs/blocks/, the project walkthroughs �
 are left alone, as clean_notebooks.py leaves them.
 
 It also clears cell output, execution counts and the widget-state blob from
-the chapters clean_notebooks.py strips, honoring the same KEEP_OUTPUT list:
+the chapters clean_notebooks.py strips, honoring the same LEAVE_ALONE list:
 python/course-tools.ipynb exists to show what each widget looks like when it
 runs, and with Quarto never executing at render time that page only has
-something to show if its output is baked in. Every other chapter is published
-from a stripped notebook — CI runs clean_notebooks.py before the render — so a
-chapter committed with output only means the repository disagrees with the
-website, and a "predict, then run" exercise arrives with the answer already
-sitting under it.
+something to show if its output is baked in. clean_notebooks.py leaves that
+notebook alone entirely, and this hook leaves its output alone too. Every
+other chapter is published from a stripped notebook — CI runs
+clean_notebooks.py before the render — so a chapter committed with output only
+means the repository disagrees with the website, and a "predict, then run"
+exercise arrives with the answer already sitting under it.
 
 What it does not do is execute anything. ``pixi run clean-notebooks`` runs all
-37 chapters through a kernel and takes over two minutes; that is the gate that
+43 chapters through a kernel and takes over two minutes; that is the gate that
 catches a broken cell, and it stays a thing you run before pushing, not
 something every commit pays for.
 
@@ -86,19 +87,19 @@ def target_sets() -> tuple[set[str], set[str]]:
 
     The first set is every notebook a student can end up holding, which is
     what the kernel check covers. The second is the subset whose output is
-    stripped — the book's chapters, minus the ones whose baked-in output is
-    the page.
+    stripped — the book's chapters, minus the ones clean_notebooks.py leaves
+    alone because their baked-in output is the page.
     """
     from check_notebook_kernels import published_notebooks
     from quarto_profile import quarto_config
-    from clean_notebooks import KEEP_OUTPUT, chapters_in_order
+    from clean_notebooks import LEAVE_ALONE, chapters_in_order
 
     published = {p.relative_to(REPO).as_posix() for p in published_notebooks()}
     docs = REPO / "docs"
     stripped = {
         (docs / chapter).relative_to(REPO).as_posix()
         for chapter in chapters_in_order(quarto_config(docs))
-        if chapter not in KEEP_OUTPUT
+        if chapter not in LEAVE_ALONE
     }
     return published, stripped
 

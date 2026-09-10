@@ -54,10 +54,11 @@ drifted. To rewrite them in place::
 ``pixi run``); the read-only check is plain stdlib so it can run on a bare
 runner with no environment installed.
 
-The file list is the book's own chapter list plus the two notebooks that ship
-pre-placed inside the download, both read from the modules that already own
-them, so a notebook added to the book or to the zip is covered here without
-anyone remembering to update a list.
+The file list is the book's own chapter list — in both the forms that list
+takes, a bare path and an `href:` with its own link text — plus the two
+notebooks that ship pre-placed inside the download, read from the module that
+already owns them, so a notebook added to the book or to the zip is covered
+here without anyone remembering to update a list.
 """
 
 from __future__ import annotations
@@ -94,12 +95,29 @@ DRIFTING_LANGUAGE_INFO_KEYS = ("version",)
 # build_student_folder.py.
 CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
 
+# Matches the other form a chapter takes, `- href: python/course-tools.ipynb`
+# with a `text:` line under it, which is how a page that wants its own label in
+# the sidebar is written. CHAPTER_LINE cannot see those — it wants the path
+# directly after the `-` — and for a long time nothing did, which is how
+# python/course-tools.ipynb came to be the one published notebook naming a
+# kernel no student has. A notebook listed this way is still a page with a
+# download button embedding the source file, so the kernel written in it still
+# reaches a student, which is exactly what this script is for.
+#
+# Deliberately not mirrored into build_student_folder.py or clean_notebooks.py:
+# whether such a page is also published loose for `im get`, and whether it is
+# executed and stripped, are separate questions from whether its kernelspec is
+# checked. clean_notebooks.py holds this one out on purpose — see LEAVE_ALONE
+# there.
+HREF_LINE = re.compile(r'^\s*-\s+href:\s*"?([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
+
 
 def published_notebooks() -> list[Path]:
     """Every notebook a student can end up holding, in render order.
 
-    That is the book's chapters (each published loose for `im get`) plus the
-    week-one pair that ships inside the zip. The second list is imported from
+    That is the book's chapters (each published loose for `im get`), the
+    notebooks the chapter list links by `href:` rather than by bare path, and
+    the week-one pair that ships inside the zip. The last list is imported from
     build_student_folder rather than repeated, so the two cannot disagree about
     what is in the download.
     """
@@ -110,7 +128,7 @@ def published_notebooks() -> list[Path]:
     for line in config.read_text(encoding="utf-8").splitlines():
         if line.lstrip().startswith("#"):
             continue
-        match = CHAPTER_LINE.match(line)
+        match = CHAPTER_LINE.match(line) or HREF_LINE.match(line)
         if match:
             paths.append(DOCS / match.group(1))
 
