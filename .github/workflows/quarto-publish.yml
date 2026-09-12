@@ -57,6 +57,18 @@ jobs:
           python -c "import sys, steps_widget, puzzle_widget, codelens_widget, turtle_widget, sandbox_widget, iplot_widget, im_pytest, pandas, seaborn; print('Everything is installed. Python', sys.version.split()[0])"
           jupyter --version
 
+      - name: Register the course kernel
+        # docs/python/course-tools.ipynb is the one chapter Quarto executes at
+        # render time (execute.enabled: true in its own front matter), because
+        # it is the widget demo and a widget only renders from a state blob the
+        # kernel that produced the outputs wrote. Quarto executes it with the
+        # kernel its metadata names, and that kernel is registered by the
+        # `kernel` task in student-folder/pixi.toml, which `pixi run check`
+        # runs on a student's machine and CI never does. Without this the
+        # render stops on "Jupyter kernel 'instructing-machines' not found".
+        # Same command as that task, so the two cannot drift apart.
+        run: python -m ipykernel install --sys-prefix --name instructing-machines --display-name 'Instructing Machines'
+
       # - uses: r-lib/actions/setup-r@v2
       # - uses: r-lib/actions/setup-r-dependencies@v2
       #   with:

@@ -29,18 +29,23 @@ so a notebook added to or dropped from the book is picked up automatically
 and a notebook that isn't part of the book (a demo, a draft) is left alone.
 
 One exception: LEAVE_ALONE below. python/course-tools.ipynb exists to show
-what each widget actually looks like when it runs; with Quarto never
-executing at render time, that page only has anything to show if its output
-is baked into the file. So this script does not touch that notebook at all —
-it is not executed, not stripped, and not kernel-normalized here. Its output
-is whatever was there when it was last run by hand, which is also what the
-page and its download button carry.
+what each widget actually looks like when it runs, so it is the one chapter
+Quarto executes at render time — `execute: enabled: true` in its own front
+matter overrides the project-wide `enabled: false`. That makes its saved
+output irrelevant to what the site shows, so this script does not touch the
+notebook at all: not executed, not stripped. Leaving it alone is the point.
+Commit it in whatever state the editor leaves it; the published page is built
+from a fresh run either way, and a widget that breaks after a package upgrade
+fails the render rather than shipping stale.
 
-The cost of that is a gap in the gate: a widget demo that breaks after a
-package upgrade ships stale output silently, and running the notebook by hand
-is the only thing that catches it. Its kernel metadata is hand-maintained for
-the same reason — see scripts/check_notebook_kernels.py, which does not see
-it either.
+That arrangement exists because a widget renders only from the notebook-level
+``metadata.widgets`` blob, and it draws nothing at all — silently, with no
+error on the page — unless that blob names the same model ids the cell
+outputs reference. Only the kernel session that produced the outputs can
+write matching ids, and an editor that rewrites outputs without rewriting the
+blob leaves the two disagreeing. That is what happened between 2026-08-18 and
+2026-09-07 and went unnoticed for a month. Executing at render time takes the
+question away from whatever wrote the file.
 
 Run it with no arguments from anywhere in the repository::
 
@@ -79,9 +84,15 @@ BASE_KERNEL = "python3"
 DEFAULT_WORKERS = 4
 EXECUTE_TIMEOUT = 180  # seconds per cell; sandbox_widget spawns a subprocess per cell
 
-# Chapters this script does not touch: not executed, not stripped, not
-# kernel-normalized. See the module docstring for why. Paths are relative to
-# docs/, matching how they appear in the book's config.
+# Chapters this script does not touch: not executed and not stripped, because
+# Quarto executes them itself at render time. See the module docstring for why.
+# Paths are relative to docs/, matching how they appear in the book's config.
+#
+# Their kernel metadata is still checked and still normalized, by
+# check_notebook_kernels.py and the pre-commit hook. That matters more here
+# than anywhere else: Quarto executes this notebook with the kernel its
+# metadata names, so a kernelspec naming an environment the runner does not
+# have stops the publish.
 #
 # As it happens the one entry here is already invisible to chapters_in_order:
 # _quarto.yml lists it as `- href: python/course-tools.ipynb` with a `text:`

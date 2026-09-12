@@ -23,10 +23,12 @@ are left alone, as clean_notebooks.py leaves them.
 
 It also clears cell output, execution counts and the widget-state blob from
 the chapters clean_notebooks.py strips, honoring the same LEAVE_ALONE list:
-python/course-tools.ipynb exists to show what each widget looks like when it
-runs, and with Quarto never executing at render time that page only has
-something to show if its output is baked in. clean_notebooks.py leaves that
-notebook alone entirely, and this hook leaves its output alone too. Every
+python/course-tools.ipynb is the widget demo, and it is the one chapter Quarto
+executes at render time, so what the file holds does not decide what the page
+shows. clean_notebooks.py leaves that notebook alone entirely, and this hook
+leaves its output alone too — commit it in whatever state the editor leaves
+it. Its kernelspec is still normalized, and there that is not housekeeping:
+Quarto executes it with the kernel its metadata names. Every
 other chapter is published from a stripped notebook — CI runs
 clean_notebooks.py before the render — so a chapter committed with output only
 means the repository disagrees with the website, and a "predict, then run"

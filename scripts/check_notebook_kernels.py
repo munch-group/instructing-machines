@@ -108,7 +108,10 @@ CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
 # whether such a page is also published loose for `im get`, and whether it is
 # executed and stripped, are separate questions from whether its kernelspec is
 # checked. clean_notebooks.py holds this one out on purpose — see LEAVE_ALONE
-# there.
+# there — because Quarto executes it at render time instead. Which is the
+# second reason its kernelspec has to be right: that name is what Quarto looks
+# up to run the page, so a wrong one no longer just confuses a student's
+# VS Code, it stops the publish.
 HREF_LINE = re.compile(r'^\s*-\s+href:\s*"?([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
 
 

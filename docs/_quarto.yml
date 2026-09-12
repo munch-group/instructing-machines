@@ -266,6 +266,13 @@ execute:
                      #   then stripped of output before commit, so the website and the
                      #   download are always the same notebook — the one a student would
                      #   open and run, not one with the answer already sitting in it.
+                     #   One chapter overrides this in its own front matter:
+                     #   python/course-tools.ipynb, the widget demo, which has to show
+                     #   widgets that run. A widget renders only from a state blob naming
+                     #   the same model ids its outputs do, and only the kernel session
+                     #   that produced those outputs can write it — so that page is
+                     #   executed here rather than trusting whatever the editor last
+                     #   saved into the file.
   output: true      # moot while enabled is false; kept so flipping enabled back on for a
                      #   local preview does the right thing without editing this block
   warning: false    # hide Python warnings (default: true)
