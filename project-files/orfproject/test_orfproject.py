@@ -24,8 +24,7 @@ GENOME_FILE = "e_coli_O157_H157_str_Sakai.fasta"
 
 @requires("find_start_positions")
 def test_find_start_positions(module):
-    assert isinstance(module.find_start_positions("AATGA"), list)
-    assert isinstance(module.find_start_positions(""), list)
+    assert module.find_start_positions("") == []
     assert module.find_start_positions("AATGAATGTATG") == [1, 5, 9]
     assert module.find_start_positions("ATGATGATG") == [0, 3, 6]
 

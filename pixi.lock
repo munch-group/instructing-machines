@@ -63,6 +63,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-9.0.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.3.0-pyh01cf8df_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/ipytest-0.14.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipython-9.16.1-pyh53cf698_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipywidgets-8.1.9-pyhd8ed1ab_0.conda
@@ -312,7 +313,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - conda: https://conda.anaconda.org/munch-group/noarch/codelens-widget-0.1.43-py_0.conda
       - conda: https://conda.anaconda.org/munch-group/noarch/im-course-tools-0.1.13-py_0.conda
-      - conda: https://conda.anaconda.org/munch-group/noarch/im-pytest-0.1.33-py_0.conda
+      - conda: https://conda.anaconda.org/munch-group/noarch/im-pytest-0.1.35-py_0.conda
       - conda: https://conda.anaconda.org/munch-group/noarch/iplot-widget-0.1.18-py_0.conda
       - conda: https://conda.anaconda.org/munch-group/noarch/puzzle-widget-0.1.21-py_0.conda
       - conda: https://conda.anaconda.org/munch-group/noarch/sandbox-widget-1.0.21-py_0.conda
@@ -934,6 +935,21 @@ packages:
   - pkg:pypi/ipykernel?source=hash-mapping
   size: 137725
   timestamp: 1781101860049
+- conda: https://conda.anaconda.org/conda-forge/noarch/ipytest-0.14.2-pyhd8ed1ab_0.conda
+  sha256: d4fd018f436e32f5ac4396302706d02025c33be084437e1d5c39d6a2b4412d1f
+  md5: e5a185bb068a37450406ace364165461
+  depends:
+  - ipython
+  - packaging
+  - pytest >=5.4
+  - python >=3.7
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/ipytest?source=hash-mapping
+  run_exports: {}
+  size: 20989
+  timestamp: 1713720928372
 - conda: https://conda.anaconda.org/conda-forge/noarch/ipython-9.16.1-pyh53cf698_0.conda
   sha256: 8470648b5e790d1881c09c02068d53e1bf0126f020db02a6dc2e73400cf1eeeb
   md5: 23564ed27c9c7714905be96ac5786500
@@ -4456,19 +4472,19 @@ packages:
   license: MIT
   size: 67082
   timestamp: 1787589993197
-- conda: https://conda.anaconda.org/munch-group/noarch/im-pytest-0.1.33-py_0.conda
-  sha256: 631ecc87fa0ed88abf96b6ab93fd382b7fbbb8e0cb8e667395affcba77bbf1e0
-  md5: b71fd0d5fd9c25cc40602be70ba135f8
+- conda: https://conda.anaconda.org/munch-group/noarch/im-pytest-0.1.35-py_0.conda
+  sha256: 5321ea14eab8cdb253ef2574f8cb5b8f1ee017a32d29def8999ac9ef09e67650
+  md5: 340ff889d764b9279bd6615bc638d163
   depends:
   - anywidget >=0.11,<0.12
   - ipython
   - pytest >=7
-  - python >=3.9,<3.14
+  - python >=3.9,<3.16
   - setuptools >=61.0
   - traitlets >=5.0
   license: MIT
-  size: 38280
-  timestamp: 1788955908187
+  size: 46254
+  timestamp: 1789566292990
 - conda: https://conda.anaconda.org/munch-group/noarch/iplot-widget-0.1.18-py_0.conda
   sha256: cb5a0c2192ba6a409797bef4473add87e32cbd33fedc2a84b2b77bc27038d654
   md5: 64963536c5d7a07aed76d706aad8facd
