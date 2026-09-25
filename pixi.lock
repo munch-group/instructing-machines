@@ -322,6 +322,8 @@ environments:
       - conda: https://conda.anaconda.org/munch-group/noarch/turtle-widget-1.0.9-py_0.conda
       - conda: https://conda.anaconda.org/munch-group/osx-arm64/vscodenb-1.0.7-0.conda
       - pypi: https://files.pythonhosted.org/packages/60/db/645aa9af249f059cc3a368b118de33889219e0362141e75d4eaf6f80f163/pycrypto-2.6.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/de/0a/a95f56b2ecb352080d9f36d3ace313cdcc2b6662cc66ecbdebd137833f8d/pyarmor-9.2.7-3-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/e7/64/bd3419284798569f60ad9db0766cb7c0e3a9ea882489bad0fa8c5a754daa/pyarmor_cli_core-8.1.2-cp313-cp313-macosx_11_0_arm64.whl
 packages:
 - conda: https://conda.anaconda.org/conda-forge/noarch/_python_abi3_support-1.0-hd8ed1ab_3.conda
   sha256: 2a7204314663eeda5dec482a956f0e2eaf289bd5b9953eaaaad0e81aa64638f2
@@ -4573,3 +4575,13 @@ packages:
   name: pycrypto
   version: 2.6.1
   sha256: f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c
+- pypi: https://files.pythonhosted.org/packages/de/0a/a95f56b2ecb352080d9f36d3ace313cdcc2b6662cc66ecbdebd137833f8d/pyarmor-9.2.7-3-py3-none-any.whl
+  name: pyarmor
+  version: 9.2.7
+  sha256: 7dc03740cd31ab38d6064fbd822a1b62aae7d2267aa1dd99be3055f2107b1909
+  requires_dist:
+  - pyarmor-cli-core~=8.1.2
+- pypi: https://files.pythonhosted.org/packages/e7/64/bd3419284798569f60ad9db0766cb7c0e3a9ea882489bad0fa8c5a754daa/pyarmor_cli_core-8.1.2-cp313-cp313-macosx_11_0_arm64.whl
+  name: pyarmor-cli-core
+  version: 8.1.2
+  sha256: 2b068b77395b3f74d4384e3c18d4684c56a4360c8fde848692444d5e6dac8d1e

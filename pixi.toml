@@ -27,6 +27,8 @@ install-hooks = "git config core.hooksPath scripts/hooks"
 jupyterlite-doctor = "pixi run --manifest-path docs/jupyterlite/pixi.toml doctor"
 # Run project tests against the solutions for each project.
 test-projects = "pytest-check --sweep project-files/"
+# Run pyarmor to build oracles for each proejct
+build-oracles = "bash -c 'for F in $(find project-files -name \"*_solution.py\" -exec realpath {} \\;) ; do echo $F && cd $(dirname $F) && cp *_solution.py __init__.py && pyarmor generate -O oracle --platform windows.x86_64 --platform linux.x86_64 --platform darwin.x86_64 __init__.py && rm -f __init__.py  ; done;'"
 
 [tasks.todo]
 # Defaults match the old `prompts` task's behaviour (CLAUDE: only, strict):
@@ -78,3 +80,4 @@ ipytest = ">=0.14.2,<0.15"
 
 [pypi-dependencies]
 pycrypto = ">=2.6.1, <3"
+pyarmor = ">=9.2.7, <10"
