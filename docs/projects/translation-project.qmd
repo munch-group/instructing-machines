@@ -7,28 +7,34 @@ In this project you will write the code needed to translate an open reading fram
 
 ## Project files
 
-Begin by downloading the project. In the VS Code terminal, ask for it by name:
+Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
 ```{.txt filename="Terminal"}
 > pixi run get translationproject
 ```
 
-That puts the folder straight into your course folder, beside your notebooks.
+That puts the `translationproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-There is a button for it too, if you would rather click than type. It lands in
-your Downloads folder, so you have to carry it across yourself:
-
-{{< project-download label="Download translationproject" type="light" >}}
+If that fails, you can always click "Download project" in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the `projects` folder of your student folder yourself.
 :::
 
-Either way you get a folder called `translationproject`.
 
-The file `translationproject.py` in it is for your code. The file `test_translationproject.py` is the script you use to test the functions you write for this project (see @sec-testing).
+You write your code in the file called `translationproject.py`. In the terminal, navigate to the project folder and run your code in the usual way:
+
+```txt
+python orfproject.py
+```
+
+To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_orfproject.py` using this command:
+
+```txt
+pytest test_orfproject.py
+```
 
 In this project you will need a data structure that pairs each codon to the amino acid it encodes. This is an obvious use of a dictionary and at the top of `translationproject.py` I have defined such a dictionary you can use. Defining it outside the functions means that it is visible inside all your functions (unless you define *another* variable called `codon_map` inside a function). Defining variables globally to your program sometimes make sense if some value can be considered a *constant* in your program and is *never* changed.
 
-> It is normally very bad programming style to access variables outside functions in this way because it may have all kinds of unexpected side effects across function calls. So make it a rule for yourself that code *inside* a function should never to access variables *outside* the function. The reason we define `codon_map` globally in this project is to help you understand that when Python cannot find a variable inside a function, it looks outside the function to find it. In this project functions will find `codon_map` in this way. However, as I already said, you should *never* do this yourself. The chance that you make an unexpected mistake is overwhelming. 
+> It is normally not good programming style to access variables outside functions in this way because it may have all kinds of unexpected side effects across function calls. So make it a rule for yourself that code *inside* a function should never to access variables *outside* the function. The reason we define `codon_map` globally in this project is to help you understand that when Python cannot find a variable inside a function, it looks outside the function to find it. In this project functions will find `codon_map` in this way. However, as I already said, you should *never* do this yourself. The chance that you make an unexpected mistake is overwhelming. 
 
 ## Translating a single codon
 

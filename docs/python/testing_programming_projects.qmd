@@ -1,0 +1,73 @@
+
+# Testing programming projects {#sec-testing-programming-projects}
+
+The programming projects you will do in this course comes with a ready-made suite of tests for the functions you are asked to implement. So, for each function, you can run tests to ensure it implements the behavior it is supposed to.
+
+Each project comes with two files that you will download from the course page. They have their names for a good reason, so do not change them. In the first project about translating DNA, they are called `orfproject.py` and `test_orfproject.py`.  The latter one is the one that with the tests for the project functions. In this course, we will use three different approaches to writing and testing code. For starters, we will only use approach 1, but the other two are included below for reference
+
+## Approach 1
+
+You write your code in the file called `orfproject.py`. NavigYou run your code in the usual way:
+
+```txt
+python orfproject.py
+```
+
+To test the functions as you complete each one, you can run the test script `test_orfproject.py` like this:
+
+```txt
+pytest test_orfproject.py
+```
+
+## Approach 2
+
+Write your code in a cell of a notebook in the same folder as the tests file (E.g. `test_orfproject.py`). Adding the project name to the `%%test` magic makes it run the tests in the test file:
+
+```python
+%%test orfproject
+
+def split_codons(orf):
+    codons = []
+    for i in range(0, len(orf)-3+1, 3):
+        codon = orf[i:i+3]
+        codons.append(codon)
+    return codons
+
+print('hi')
+```
+
+## Approach 3
+
+Put both code and tests in a notebook cell and use the `%%test` magic to run the tests in the cell. Don't worry about the lines like `@requires("find_start_positions")`. They are just there to make sure the test functions are only run once you have implemented the function it tests.
+
+```python
+%%test
+from im_pytest import requires
+
+@requires("find_start_positions")
+def test_find_start_positions(module):
+    assert module.find_start_positions("") == []
+    assert module.find_start_positions("AATGAATGTATG") == [1, 5, 9]
+    assert module.find_start_positions("ATGATGATG") == [0, 3, 6]
+
+
+@requires("find_next_codon")
+def test_find_next_codon(module):
+    assert module.find_next_codon("AATTTATTT", 0, "TTT") == 6
+    assert module.find_next_codon("AATTTATTT", 2, "TTT") == 2
+    assert module.find_next_codon("AATTTATTT", 1, "TTT") is None
+
+# ... and many more test functions 
+
+
+
+
+def find_start_positions(module):
+    ...
+
+
+def find_next_codon(module):
+    ...
+
+# ... and many more project functions
+```
