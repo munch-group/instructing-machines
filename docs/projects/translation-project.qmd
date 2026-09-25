@@ -9,8 +9,8 @@ In this project you will write the code needed to translate an open reading fram
 
 Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
-```{.txt filename="Terminal"}
-> pixi run get translationproject
+```txt
+pixi run get translationproject
 ```
 
 That puts the `translationproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
@@ -23,13 +23,13 @@ If that fails, you can always click "Download project" in the top right corner o
 You write your code in the file called `translationproject.py`. In the terminal, navigate to the project folder and run your code in the usual way:
 
 ```txt
-python orfproject.py
+python translationproject.py
 ```
 
-To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_orfproject.py` using this command:
+To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_translationproject.py` using this command:
 
 ```txt
-pytest test_orfproject.py
+pytest test_translationproject.py
 ```
 
 In this project you will need a data structure that pairs each codon to the amino acid it encodes. This is an obvious use of a dictionary and at the top of `translationproject.py` I have defined such a dictionary you can use. Defining it outside the functions means that it is visible inside all your functions (unless you define *another* variable called `codon_map` inside a function). Defining variables globally to your program sometimes make sense if some value can be considered a *constant* in your program and is *never* changed.

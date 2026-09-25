@@ -4,25 +4,29 @@
 
 Say you have a short sequence that you want to use as a PCR primer. To evaluate if it a suitable primer, you need to know the melting temperature of the sequence. You also need to make sure that it will not fold up on itself so that it cannot bind to the DNA sequence you want to amplify.
 
-Download the project. In the VS Code terminal, ask for it by name:
+Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
-```{.txt filename="Terminal"}
-> pixi run get foldingproject
+```txt
+pixi run get foldingproject
 ```
 
-That puts the folder straight into your course folder, beside your notebooks.
+That puts the `foldingproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-There is a button for it too, if you would rather click than type. It lands in
-your Downloads folder, so you have to carry it across yourself:
-
-{{< project-download label="Download foldingproject" type="light" >}}
+If that fails, you can always click "Download project" in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the `projects` folder of your student folder yourself.
 :::
 
-Either way you get a folder called `foldingproject` with these files in it:
+You write your code in the file called `foldingproject.py`. In the terminal, navigate to the project folder and run your code in the usual way:
 
-- `foldingproject.py` is an empty file where you must write your code.
-- `test_foldingproject.py` is the test program that lets you test the code you write in `foldingproject.py`.
+```txt
+python foldingproject.py
+```
+
+To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_foldingproject.py` using this command:
+
+```txt
+pytest test_foldingproject.py
+```
 
 ## Count the number of bases in your candidate primer
 

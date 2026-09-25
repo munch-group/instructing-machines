@@ -29,26 +29,29 @@ Given an open reading frame (ORF), you must compute the codon usage. Your goal i
 
 That data structure is a dictionary with keys corresponding to amino acids (i.e. single letter strings designating an amino acid such as `'R'` for arginine). The value associated with *each* amino acid key is also a dictionary, and the keys of *this* dictionary should be the different codons that encode the amino acid. The value associated with each codon key should be a number, representing the frequency with which that codon is used to encode that amino acid. The final data structure should only include amino acids that are found in the ORF.
 
-Download the project. In the VS Code terminal, ask for it by name:
+Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
-```{.txt filename="Terminal"}
-> pixi run get codonbiasproject
+```txt
+pixi run get codonbiasproject
 ```
 
-That puts the folder straight into your course folder, beside your notebooks.
+That puts the `codonbiasproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-There is a button for it too, if you would rather click than type. It lands in
-your Downloads folder, so you have to carry it across yourself:
-
-{{< project-download label="Download codonbiasproject" type="light" >}}
+If that fails, you can always click "Download project" in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the `projects` folder of your student folder yourself.
 :::
 
-Either way you get a folder called `codonbiasproject` with these files in it:
+You write your code in the file called `codonbiasproject.py`. In the terminal, navigate to the project folder and run your code in the usual way:
 
-- `sample_orfs.txt` contains open reading frame sequences you can work on.
-- `codonbiasproject.py` is an empty file where you must write your code.
-- `test_codonbiasproject.py` is the test program that lets you test the code you write in `codonbiasproject.py`.
+```txt
+python codonbiasproject.py
+```
+
+To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_codonbiasproject.py` using this command:
+
+```txt
+pytest test_codonbiasproject.py
+```
 
 Now open each file in *VScode* and have a look at what is in `sample_orfs.txt`. (Do *not* change it in any way and do not save it after viewing. If VScode asks you if you want to save it before closing, say *no*.) How many sequences are there in each file?
 

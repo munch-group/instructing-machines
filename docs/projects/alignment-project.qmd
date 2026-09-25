@@ -6,25 +6,31 @@ Your task is to find an optimal alignment of two sequences. If two such sequence
 
 This project is meant to train your coding abilities and consolidate your understanding of the Needleman-Wunch algorithm. The better you understand the algorithm before you begin, the easier and more rewarding the project will be. So, re-read the book chapter about pairwise alignment and browse the lecture slides.
 
-Download the project. In the VS Code terminal, ask for it by name:
+Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
-```{.txt filename="Terminal"}
-> pixi run get alignmentproject
+```txt
+pixi run get alignmentproject
 ```
 
-That puts the folder straight into your course folder, beside your notebooks.
+That puts the `alignmentproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-There is a button for it too, if you would rather click than type. It lands in
-your Downloads folder, so you have to carry it across yourself:
-
-{{< project-download label="Download alignmentproject" type="light" >}}
+If that fails, you can always click "Download project" in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the `projects` folder of your student folder yourself.
 :::
 
-Either way you get a folder called `alignmentproject` with these files in it:
 
-- `alignmentproject.py` is the file where you must write your code. It already contains a function I wrote for you.
-- `test_alignmentproject.py` is the test program that lets you test the code you write in `alignmentproject.py`.
+You write your code in the file called `alignmentproject.py`. In the terminal, navigate to the project folder and run your code in the usual way:
+
+```txt
+python alignmentproject.py
+```
+
+To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_alignmentproject.py` using this command:
+
+```txt
+pytest test_alignmentproject.py
+```
+
 
 The project is split into two parts: 
 

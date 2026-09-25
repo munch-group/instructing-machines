@@ -8,21 +8,33 @@
 
 This assignment proceeds like the programming projects you completed during the course. You start by downloading the exam assignment from the Blackboard course home page. Once you have downloaded the package you must turn off internet on your computer. Internet is ***not*** allowed during the exam.
 
-At the bottom of the course front page you can see the exam assignment just below project1, projct2 and project3. Download the file `exam.zip` and unpack it on your computer. The package contains two files: `exam.py` and `test_exam.py`. These two files are the equivalent to `project3.py` and `test_project3.py` from programming project 3. You write your code in `exam.py` and you can test your code using `test_exam.py`.
+<!-- At the bottom of the course front page you can see the exam assignment just below project1, projct2 and project3. Download the file `exam.zip` and unpack it on your computer. The package contains two files: `exam.py` and `test_exam.py`. These two files are the equivalent to `project3.py` and `test_project3.py` from programming project 3. You write your code in `exam.py` and you can test your code using `test_exam.py`. -->
 
-As always you run your code like this:
+Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
-```
-python exam.py
-```
-
-and test your code like this:
-
-```python
-python test_exam.py
+```txt
+pixi run get currationproject
 ```
 
-Note that functions, which do not pass *ALL* tests, are considered failed. 
+That puts the `currationproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
+
+::: {.content-visible when-format="html"}
+If that fails, you can always click "Download project" in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the `projects` folder of your student folder yourself.
+:::
+
+You write your code in the file called `currationproject.py`. In the terminal, navigate to the project folder and run your code in the usual way:
+
+```txt
+python currationproject.py
+```
+
+To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_currationproject.py` using this command:
+
+```txt
+pytest test_currationproject.py
+```
+
+<!-- Note that functions, which do not pass *ALL* tests, are considered failed.  -->
 
 ## How to hand in your assingment
 

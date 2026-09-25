@@ -6,20 +6,29 @@ You have now been introduced to all the programming rules you will see in this c
 
 The programming project in this chapter deals with DNA sequences from HIV viruses. There are two types of HIV: HIV-1, which is by far the most common, and HIV-2, which is mostly found in West Africa. HIV-1 vira are divided into groups M, N, O, and P. The most important group M (for major) is one primarily responsible for the global epidemic. Group M is further divided into subtypes A, B, C, D, F, G, J, K, and CRFs. In this project we will look at sequences from the subtypes A, B, C, and D. You have multiple database sequences for each of these four subtypes and you have one *unknown* sequence from a patient that you need to assign to either subtype A, B, C or D. To do this you will have to write a program that *predicts* the subtype of the unknown sequence. How cool is that?
 
-Download the project. In the VS Code terminal, ask for it by name:
+Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
-```{.txt filename="Terminal"}
-> pixi run get hivproject
+```txt
+pixi run get hivproject
 ```
 
-That puts the folder straight into your course folder, beside your notebooks.
+That puts the `hivproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
 
 ::: {.content-visible when-format="html"}
-There is a button for it too, if you would rather click than type. It lands in
-your Downloads folder, so you have to carry it across yourself:
-
-{{< project-download label="Download hivproject" type="light" >}}
+If that fails, you can always click "Download project" in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the `projects` folder of your student folder yourself.
 :::
+
+You write your code in the file called `hivproject.py`. In the terminal, navigate to the project folder and run your code in the usual way:
+
+```txt
+python hivproject.py
+```
+
+To test the functions as you complete each one, you use `pytest` to run the project test suite in `test_hivproject.py` using this command:
+
+```txt
+pytest test_hivproject.py
+```
 
 Either way you get a folder called `hivproject` with these files in it:
 
