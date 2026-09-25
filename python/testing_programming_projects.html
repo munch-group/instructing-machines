@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>53&nbsp; Worked example: decomposition modeled live – Instructing Machines</title>
+<title>32&nbsp; Testing programming projects – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../projects/orf-project.html" rel="next">
-<link href="../python/recursion.html" rel="prev">
+<link href="../projects/translation-project.html" rel="next">
+<link href="../turtle/turtle-drawing-from-data.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/plan-before-you-prompt.html">Week 11</a></li><li class="breadcrumb-item"><a href="../python/decomposition.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/practical-ai-use.html">Week 6</a></li><li class="breadcrumb-item"><a href="../python/testing_programming_projects.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -420,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link">
+  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></a>
   </div>
 </li>
@@ -601,7 +601,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link active">
+  <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
   </div>
 </li>
@@ -694,20 +694,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#naming-the-pieces" id="toc-naming-the-pieces" class="nav-link active" data-scroll-target="#naming-the-pieces">Naming the pieces</a></li>
-  <li><a href="#naming-the-shape-of-the-data-not-just-the-functions" id="toc-naming-the-shape-of-the-data-not-just-the-functions" class="nav-link" data-scroll-target="#naming-the-shape-of-the-data-not-just-the-functions">Naming the shape of the data, not just the functions</a></li>
-  <li><a href="#one-worked-example-per-piece" id="toc-one-worked-example-per-piece" class="nav-link" data-scroll-target="#one-worked-example-per-piece">One worked example per piece</a></li>
-  <li><a href="#from-plan-to-code-one-piece-at-a-time" id="toc-from-plan-to-code-one-piece-at-a-time" class="nav-link" data-scroll-target="#from-plan-to-code-one-piece-at-a-time">From plan to code, one piece at a time</a></li>
-  <li><a href="#what-the-plan-bought-you" id="toc-what-the-plan-bought-you" class="nav-link" data-scroll-target="#what-the-plan-bought-you">What the plan bought you</a></li>
+  <li><a href="#approach-1" id="toc-approach-1" class="nav-link active" data-scroll-target="#approach-1">Approach 1</a></li>
+  <li><a href="#approach-2" id="toc-approach-2" class="nav-link" data-scroll-target="#approach-2">Approach 2</a></li>
+  <li><a href="#approach-3" id="toc-approach-3" class="nav-link" data-scroll-target="#approach-3">Approach 3</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/decomposition.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/testing_programming_projects.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/plan-before-you-prompt.html">Week 11</a></li><li class="breadcrumb-item"><a href="../python/decomposition.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/practical-ai-use.html">Week 6</a></li><li class="breadcrumb-item"><a href="../python/testing_programming_projects.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-decomposition" class="quarto-section-identifier"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></h1>
+<h1 class="title"><span id="sec-testing-programming-projects" class="quarto-section-identifier"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></h1>
 </div>
 
 
@@ -724,79 +722,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><em>A companion to this week’s lecture on breaking a task into pieces, pairing with <a href="../ai/plan-before-you-prompt.html" class="quarto-xref"><span>Chapter 51</span></a>.</em></p>
-<p>In the plan-before-you-prompt note, you were set an exercise: without writing any code, plan a task that reads a file of DNA sequences and reports which one has the highest GC content. This note is that exercise, done properly and out loud, the way the lecture models it live. If you already wrote a plan of your own, keep it beside you and compare it to the decisions made here; disagreeing with a decision below is a perfectly good outcome, as long as you can say why.</p>
-<section id="naming-the-pieces" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="naming-the-pieces">Naming the pieces</h3>
-<p>The task, stated in full: given several named DNA sequences, report the name of the one with the highest GC content. Said that way, it already suggests its own pieces. Something needs to compute the GC content of one sequence, since you cannot compare what you cannot measure. Something needs to look across all the sequences and find the best one, once each can be measured. And something needs to turn that result into an actual report, since “find the best one” and “tell the user which one” are not quite the same job. Three pieces, and notice the shape: the second piece cannot be built without the first, and the third leans on the second. That dependency order is itself a decision, and it is the order they get built and tested in.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gc_content(dna):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Fraction of bases in a strand that are G or C."</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> most_gc_rich(sequences):</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Given a dict of name to DNA string, return the name with the highest GC content."</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report(sequences):</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"A sentence naming the most GC-rich sequence and its GC content."</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The programming projects you will do in this course comes with a ready-made suite of tests for the functions you are asked to implement. So, for each function, you can run tests to ensure it implements the behavior it is supposed to.</p>
+<p>Each project comes with two files that you will download from the course page. They have their names for a good reason, so do not change them. In the first project about translating DNA, they are called <code>orfproject.py</code> and <code>test_orfproject.py</code>. The latter one is the one that with the tests for the project functions. In this course, we will use three different approaches to writing and testing code. For starters, we will only use approach 1, but the other two are included below for reference</p>
+<section id="approach-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="approach-1">Approach 1</h2>
+<p>You write your code in the file called <code>orfproject.py</code>. NavigYou run your code in the usual way:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python orfproject.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To test the functions as you complete each one, you can run the test script <code>test_orfproject.py</code> like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pytest test_orfproject.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="naming-the-shape-of-the-data-not-just-the-functions" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="naming-the-shape-of-the-data-not-just-the-functions">Naming the shape of the data, not just the functions</h3>
-<p>There is a decision hiding above that is easy to walk past: <code>most_gc_rich</code> takes “a dict of name to DNA string.” Nothing forced that shape. The sequences could have arrived as two parallel lists, one of names and one of strings, or as a list of two-element tuples. A dictionary was chosen because a name naturally maps to one sequence and you will want to look sequences up by name later, but this is exactly the kind of decision a decomposition has to make explicit and in writing, because if you leave it implicit, the assistant will guess a shape for you, silently, and it may not be the one the rest of your program expects.</p>
+<section id="approach-2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="approach-2">Approach 2</h2>
+<p>Write your code in a cell of a notebook in the same folder as the tests file (E.g. <code>test_orfproject.py</code>). Adding the project name to the <code>%%test</code> magic makes it run the tests in the test file:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>test orfproject</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> split_codons(orf):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    codons <span class="op">=</span> []</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(orf)<span class="op">-</span><span class="dv">3</span><span class="op">+</span><span class="dv">1</span>, <span class="dv">3</span>):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        codon <span class="op">=</span> orf[i:i<span class="op">+</span><span class="dv">3</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        codons.append(codon)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> codons</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'hi'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="one-worked-example-per-piece" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="one-worked-example-per-piece">One worked example per piece</h3>
-<p>A plan is not finished until each piece has a concrete input and output you worked out by hand, because that is what turns a vague name into something you could test.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gc_content(dna):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Fraction of bases in a strand that are G or C. gc_content('GGCC') == 1.0"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> most_gc_rich(sequences):</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Given a dict of name to DNA string, return the name with the highest GC content.</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="er">    most_gc_rich</span>({<span class="st">'a'</span>: <span class="st">'GGCC'</span>, <span class="st">'b'</span>: <span class="st">'ATAT'</span>}) <span class="op">==</span> <span class="st">'a'"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="er">    ...</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report(sequences):</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"A sentence naming the most GC-rich sequence and its GC content.</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="er">    report</span>({<span class="st">'a'</span>: <span class="st">'GGCC'</span>, <span class="st">'b'</span>: <span class="st">'ATAT'</span>}) <span class="op">==</span> <span class="st">'a is the most GC-rich sequence, at 1.0.'"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="er">    ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Writing the <code>most_gc_rich</code> example is where a real decision surfaces, the same way it did for <code>is_gc_rich</code> in the plan-before-you-prompt note: what happens on a tie, two sequences with exactly the same GC content? The example above simply does not have a tie in it, which means the decomposition has quietly left that case unspecified. That is worth noticing rather than hiding. A stronger plan would add a second example that does contain a tie, and decide, in writing, which name wins or whether both should be reported.</p>
-</section>
-<section id="from-plan-to-code-one-piece-at-a-time" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="from-plan-to-code-one-piece-at-a-time">From plan to code, one piece at a time</h3>
-<p>The plan above is not decoration; it is what you hand the assistant, one function at a time, in the order the dependencies demand. <code>gc_content</code> first, since nothing else can be built without it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gc_content(dna):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Fraction of bases in a strand that are G or C."</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    gc <span class="op">=</span> dna.count(<span class="st">'G'</span>) <span class="op">+</span> dna.count(<span class="st">'C'</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gc <span class="op">/</span> <span class="bu">len</span>(dna)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> gc_content(<span class="st">'GGCC'</span>) <span class="op">==</span> <span class="fl">1.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Only once that test passes do you move to <code>most_gc_rich</code>, which is now allowed to call <code>gc_content</code> and trust it completely:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> most_gc_rich(sequences):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Given a dict of name to DNA string, return the name with the highest GC content."</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">max</span>(sequences, key<span class="op">=</span><span class="kw">lambda</span> name: gc_content(sequences[name]))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> most_gc_rich({<span class="st">'a'</span>: <span class="st">'GGCC'</span>, <span class="st">'b'</span>: <span class="st">'ATAT'</span>}) <span class="op">==</span> <span class="st">'a'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>And last, <code>report</code>, on top of two pieces already proven:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report(sequences):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"A sentence naming the most GC-rich sequence and its GC content."</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> most_gc_rich(sequences)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> is the most GC-rich sequence, at </span><span class="sc">{</span>gc_content(sequences[name])<span class="sc">}</span><span class="ss">."</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(report({<span class="st">'a'</span>: <span class="st">'GGCC'</span>, <span class="st">'b'</span>: <span class="st">'ATAT'</span>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="what-the-plan-bought-you" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="what-the-plan-bought-you">What the plan bought you</h3>
-<p>Look back at how that went. At no point did you face “write the whole program.” You faced, in order, three small named problems, each with a worked example that told you exactly what correct looked like before you or the assistant wrote a line. When you hand a piece like <code>most_gc_rich</code> to the assistant, you can hand it the one-line docstring and the worked example together, which is a request specific enough to check rather than a mood. That is the entire payoff of decomposition: it turns one large, unverifiable request into several small, verifiable ones.</p>
-<section id="exercise" class="level4" data-number="53.0.0.1">
-<h4 data-number="53.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 53-1</strong></h4>
-<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Decide, in writing, what <code>most_gc_rich</code> should do when two sequences tie exactly, add a second worked example that exercises that tie, and update the function so it satisfies both examples on purpose rather than by accident of how <code>max</code> breaks ties.</p>
-<p>For your logbook this week, name one function from your own project plan where writing the worked example was harder than you expected, and say what that difficulty told you about the decomposition.</p>
+<section id="approach-3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="approach-3">Approach 3</h2>
+<p>Put both code and tests in a notebook cell and use the <code>%%test</code> magic to run the tests in the cell. Don’t worry about the lines like <code>@requires("find_start_positions")</code>. They are just there to make sure the test functions are only run once you have implemented the function it tests.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>test</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> im_pytest <span class="im">import</span> requires</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">@requires</span>(<span class="st">"find_start_positions"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_find_start_positions(module):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> module.find_start_positions(<span class="st">""</span>) <span class="op">==</span> []</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> module.find_start_positions(<span class="st">"AATGAATGTATG"</span>) <span class="op">==</span> [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">9</span>]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> module.find_start_positions(<span class="st">"ATGATGATG"</span>) <span class="op">==</span> [<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="at">@requires</span>(<span class="st">"find_next_codon"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_find_next_codon(module):</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> module.find_next_codon(<span class="st">"AATTTATTT"</span>, <span class="dv">0</span>, <span class="st">"TTT"</span>) <span class="op">==</span> <span class="dv">6</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> module.find_next_codon(<span class="st">"AATTTATTT"</span>, <span class="dv">2</span>, <span class="st">"TTT"</span>) <span class="op">==</span> <span class="dv">2</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> module.find_next_codon(<span class="st">"AATTTATTT"</span>, <span class="dv">1</span>, <span class="st">"TTT"</span>) <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ... and many more test functions </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_start_positions(module):</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_next_codon(module):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ... and many more project functions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1235,13 +1217,13 @@ document.addEventListener("DOMContentLoaded", function () {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../python/recursion.html" class="pagination-link" aria-label="Recursion">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Recursion</span></span>
+      <a href="../turtle/turtle-drawing-from-data.html" class="pagination-link" aria-label="Turtle: drawing from data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../projects/orf-project.html" class="pagination-link" aria-label="Finding genes">
-        <span class="nav-page-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Finding genes</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../projects/translation-project.html" class="pagination-link" aria-label="Translating ORFs">
+        <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Translating ORFs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1250,4 +1232,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/decomposition.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/python/testing_programming_projects.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
