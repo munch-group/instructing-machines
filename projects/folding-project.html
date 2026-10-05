@@ -818,7 +818,7 @@ window.Quarto = {
 </section>
 <section id="check-for-hairpins" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="check-for-hairpins">Check for hairpins</h2>
-<p>You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consequtive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick basepairs. Here is an example of a hairpin with five basepairs and a loop of four bases (four Cs):</p>
+<p>You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consecutive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick base pairs. Here is an example of a hairpin with five base pairs and a loop of four bases (four Cs):</p>
 <pre><code>        C C
       C     C
        A - T
@@ -826,11 +826,11 @@ window.Quarto = {
        A - T
        T - A
        A - T</code></pre>
-<p>To test if a sequence can form a hairpin with at least four consequtive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another nonoverlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.</p>
+<p>To test if a sequence can form a hairpin with at least four consecutive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another non-overlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.</p>
 <p><em>Write a function</em>, <code>has_hairpin</code>, which takes two arguments:</p>
 <ol type="1">
 <li>A string, which is a DNA sequence.</li>
-<li>An integer, which represents the minimum number of consequtive base pairs in the hairpins to search for.</li>
+<li>An integer, which represents the minimum number of consecutive base pairs in the hairpins to search for.</li>
 </ol>
 <p>The function must return:</p>
 <ul>
