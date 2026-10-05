@@ -161,7 +161,7 @@ def reverse_complement(s):
 
 ## Check for hairpins
 
-You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consequtive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick basepairs. Here is an example of a hairpin with five basepairs and a loop of four bases (four Cs):
+You would like to be able to determine if your primer can fold to form a hairpin with some specified minimum number of consecutive base pairs. We assume that hairpin loops are always at least four bases long and that base pairs in the hairpin can only be Watson-Crick base pairs. Here is an example of a hairpin with five base pairs and a loop of four bases (four Cs):
 
 ```
         C C
@@ -173,12 +173,12 @@ You would like to be able to determine if your primer can fold to form a hairpin
        A - T
 ```
 
-To test if a sequence can form a hairpin with at least four consequtive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another nonoverlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.
+To test if a sequence can form a hairpin with at least four consecutive base pairs, you need to test if the sequence contains any subsequence of length four whose reverse complement is identical to another non-overlapping subsequence. To take into account that the hairpin loop is at least four bases long, any such two subsequences must be separated by at least four bases.
 
 *Write a function*, `has_hairpin`, which takes two arguments:
 
 1. A string, which is a DNA sequence.
-2. An integer, which represents the minimum number of consequtive base pairs in the hairpins to search for.
+2. An integer, which represents the minimum number of consecutive base pairs in the hairpins to search for.
 
 The function must return:
 
