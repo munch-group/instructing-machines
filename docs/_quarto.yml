@@ -89,8 +89,8 @@ book:
       #   more examples of a pattern) on top of the 10 already earned. 14
       #   EXPLAINER against 65 SOLO.
       chapters: 
-        - ai/how-models-produce-code.ipynb
         - python/objects.ipynb
+        - ai/how-models-produce-code.ipynb
         - python/lists.ipynb
         - python/dictionaries.ipynb
         - python/tuples.ipynb
@@ -139,13 +139,6 @@ book:
       #   a second solution is worthless unless you write several.
       chapters: 
         - ai/ask-for-another-way.ipynb
-          # CLAUDE: this project and hiv-project.qmd (week 10) are the two
-          #   "mandatory hand-in" projects in the old course this one is
-          #   paced against, but nothing in this repo operationalizes that —
-          #   no grading, deadline, or hand-in mechanism exists for either,
-          #   here or in project-files/. course-design.qmd already lists this
-          #   as "Still open." Decide before week 6, since that's the week it
-          #   first matters.
         - python/composition.qmd
         - turtle/turtle-functions.ipynb
         - projects/folding-project.qmd ###########
@@ -154,20 +147,12 @@ book:
       #   and 4 EXPLAINER against 28 SOLO. This is the first level where the
       #   student lets the assistant write code they will keep.
       chapters: 
-        - ai/let-it-draft.ipynb
         - python/classes.ipynb
-          # CLAUDE: the defects flagged in the earlier audit are gone — no
-          #   truncated codon_table, no undefined TreeNode, no wrong palindrome
-          #   example, and there is now an explicit `## Not a "constructor"`
-          #   section. What is still open is scope: CLAUDE.md 4.9 recommends
-          #   moving the over-scoped half to an appendix. That is a decision,
-          #   not a defect.
+        - ai/let-it-draft.ipynb
         - python/debugging.qmd
         - turtle/turtle-classes-debugging.ipynb
         - projects/codonbias-project.qmd ###########
     - part: "Week 9"
-      # Python: no new Python. The alignment project and the turtle chapter
-      #   carry the practice while the AI thread does the teaching.
       # AI: no new level. ai/tests-are-the-contract.ipynb deepens DRAFTER into its
       #   stricter, contract-first form — the assistant stops being a source of
       #   explanations and becomes something you check. ai/reading-and-judging.ipynb
@@ -180,8 +165,6 @@ book:
         - turtle/turtle-limits-to-visual-checks.ipynb
         - projects/hiv-project.qmd ###########
     - part: "Week 10"
-      # Python: packages and modules — using code from other files, the modern
-      #   "giant's shoulders". new/biopython.ipynb is commented out below.
       # AI: no new level. ai/the-docs-are-the-test.ipynb extends DRAFTER from "a
       #   test settles it" to "the real documentation settles it", which is the
       #   answer to invented library functions.
@@ -198,7 +181,9 @@ book:
       # AI: COLLABORATOR, introduced by ai/plan-before-you-prompt.ipynb. 3
       #   COLLABORATOR and 16 SOLO.
       chapters: 
-        - ai/plan-before-you-prompt.ipynb
+        - python/recursion.ipynb
+        - python/decomposition.qmd
+        - ai/plan-before-you-prompt.ipynb # should go with decomposition.qmd
           # CLAUDE: test_hivproject.py reads its five subtype .txt files by
           #   bare relative filename at import time, so pytest (or the
           #   im-pytest widget) must be run with cwd = project-files/hivproject/
@@ -206,8 +191,6 @@ book:
           #   other project's suite degrades to a clean skip regardless of
           #   invocation directory. Resolve the paths relative to __file__,
           #   or confirm the widget always sets cwd correctly.
-        - python/recursion.ipynb
-        - python/decomposition.qmd
         - projects/orf-project.qmd ###########
     - part: "Week 12"
       # AI: DEVELOPER, the top of the ladder, introduced by

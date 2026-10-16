@@ -32,9 +32,9 @@ To test the functions as you complete each one, you use `pytest` to run the proj
 pytest test_translationproject.py
 ```
 
-In this project you will need a data structure that pairs each codon to the amino acid it encodes. This is an obvious use of a dictionary and at the top of `translationproject.py` I have defined such a dictionary you can use. Defining it outside the functions means that it is visible inside all your functions (unless you define *another* variable called `codon_map` inside a function). Defining variables globally to your program sometimes make sense if some value can be considered a *constant* in your program and is *never* changed.
+In this project you will need a data structure that pairs each codon to the amino acid it encodes. This is an obvious use of a dictionary and at the top of `translationproject.py` I have defined such a dictionary you can use. Defining it outside the functions means that it is visible inside all your functions (unless you define *another* variable called `CODON_MAP` inside a function). Defining variables globally to your program sometimes make sense if some value can be considered a *constant* in your program and is *never* changed.
 
-> It is normally not good programming style to access variables outside functions in this way because it may have all kinds of unexpected side effects across function calls. So make it a rule for yourself that code *inside* a function should never to access variables *outside* the function. The reason we define `codon_map` globally in this project is to help you understand that when Python cannot find a variable inside a function, it looks outside the function to find it. In this project functions will find `codon_map` in this way. However, as I already said, you should *never* do this yourself. The chance that you make an unexpected mistake is overwhelming. 
+> It is normally not good programming style to access variables outside functions in this way because it may have all kinds of unexpected side effects across function calls. So make it a rule for yourself that code *inside* a function should never to access variables *outside* the function. The reason we define `CODON_MAP` globally in this project is to help you understand that when Python cannot find a variable inside a function, it looks outside the function to find it. In this project functions will find `CODON_MAP` in this way. However, as I already said, you should *never* do this yourself. The chance that you make an unexpected mistake is overwhelming. 
 
 ## Translating a single codon
 
@@ -44,7 +44,7 @@ Write a function, `translate_codon` that takes one argument:
 
 The function should return:
 
-* A string of length one (one character). If the string argument is a valid codon then this letter should the be an amino acid letter specified by the `codon_map` dictionary. Note that stop codons are represented by a star (`'*'`). If the string argument is *not* a valid codon, the function must return `'?'`.
+* A string of length one (one character). If the string argument is a valid codon then this letter should the be an amino acid letter specified by the `CODON_MAP` dictionary. Note that stop codons are represented by a star (`'*'`). If the string argument is *not* a valid codon, the function must return `'?'`.
 
 Example usage:
 
@@ -58,19 +58,19 @@ should return
 'T'
 ```
 
-Before you start coding you should always outline for yourself intuitively what you need to do to complete the task at hand. In this case want to translate, or map, between a three letter string, codon, and the corresponding one letter string for the amino acid that the codon corresponds to. Notice that the keys in the `codon_map` dictionary are in upper case, so you must make sure that the keys *you* use are also in upper case. You can translate codon into an upper case version of itself using the upper() method.
+Before you start coding you should always outline for yourself intuitively what you need to do to complete the task at hand. In this case want to translate, or map, between a three letter string, codon, and the corresponding one letter string for the amino acid that the codon corresponds to. Notice that the keys in the `CODON_MAP` dictionary are in upper case, so you must make sure that the keys *you* use are also in upper case. You can translate codon into an upper case version of itself using the upper() method.
 
 Try this out first:
 
 ```python
 codon = 'TTG'
-amino_acid = codon_map[codon]
+amino_acid = CODON_MAP[codon]
 print(amino_acid)
 ```
 
 Now write the function so it uses the string parameter as a key to look up the corresponding amino acid letter and returns this letter. Before you go on, make a function that does only that.
 
-Before you are completely done you need to make your function handle the situation when the argument to the function is not a key in the `codon_map` dictionary. Use an if-else construct to handle the two cases. The boolean expression must test if the function argument is a key in `codon_map`. Remember that you can use the `in` operator to do this.
+Before you are completely done you need to make your function handle the situation when the argument to the function is not a key in the `CODON_MAP` dictionary. Use an if-else construct to handle the two cases. The boolean expression must test if the function argument is a key in `CODON_MAP`. Remember that you can use the `in` operator to do this.
 
 
 ::: {.content-hidden unless-profile="ta"}
@@ -83,9 +83,9 @@ def translate_codon(x):
     # turn into upper case:
     codon = x.upper()
     # check if the codon is in the amino acid dictionary:
-    if codon in codon_map:
+    if codon in CODON_MAP:
         # return the aminoacid by looking up in the dictionary:
-        return codon_map[codon]
+        return CODON_MAP[codon]
     else:
         # return '?' if we could not translate the codon:
         return '?'
