@@ -152,86 +152,86 @@ book:
         - python/debugging.qmd
         - turtle/turtle-classes-debugging.ipynb
         - projects/codonbias-project.qmd ###########
-    - part: "Week 9"
-      # AI: no new level. ai/tests-are-the-contract.ipynb deepens DRAFTER into its
-      #   stricter, contract-first form — the assistant stops being a source of
-      #   explanations and becomes something you check. ai/reading-and-judging.ipynb
-      #   also sits at DRAFTER. 6 DRAFTER against 13 SOLO; 2 exercises carry no
-      #   badge, where the point is that no test or draft would have caught the
-      #   fault.
-      chapters: 
-        - ai/reading-and-judging.ipynb
-        - ai/tests-are-the-contract.ipynb
-        - turtle/turtle-limits-to-visual-checks.ipynb
-        - projects/hiv-project.qmd ###########
-    - part: "Week 10"
-      # AI: no new level. ai/the-docs-are-the-test.ipynb extends DRAFTER from "a
-      #   test settles it" to "the real documentation settles it", which is the
-      #   answer to invented library functions.
-      chapters:
-        - ai/documentation-and-resources.ipynb
-        - ai/the-docs-are-the-test.ipynb
-        - python/packages-modules.ipynb
-        # - new/biopython.ipynb
-        - projects/assembly-project.qmd  ###########       
-    - part: "Week 11"
-      # Python: recursion and decomposition — breaking a problem into parts,
-      #   which is the same skill in code that the Collaborator level asks for
-      #   in prose. The pairing is deliberate.
-      # AI: COLLABORATOR, introduced by ai/plan-before-you-prompt.ipynb. 3
-      #   COLLABORATOR and 16 SOLO.
-      chapters: 
-        - python/recursion.ipynb
-        - python/decomposition.qmd
-        - ai/plan-before-you-prompt.ipynb # should go with decomposition.qmd
-          # CLAUDE: test_hivproject.py reads its five subtype .txt files by
-          #   bare relative filename at import time, so pytest (or the
-          #   im-pytest widget) must be run with cwd = project-files/hivproject/
-          #   or collection crashes outright with FileNotFoundError — every
-          #   other project's suite degrades to a clean skip regardless of
-          #   invocation directory. Resolve the paths relative to __file__,
-          #   or confirm the widget always sets cwd correctly.
-        - projects/orf-project.qmd ###########
-    - part: "Week 12"
-      # AI: DEVELOPER, the top of the ladder, introduced by
-      #   ai/delegate-the-full-problem.ipynb with ai/directing-a-resource.ipynb
-      #   ahead of it. 3 DEVELOPER and 1 COLLABORATOR against 3 SOLO.
-      chapters: 
-        - ai/directing-a-resource.ipynb
-        - ai/delegate-the-full-problem.ipynb
-    - part: "Week 13"
-      # AI: no new level. ai/learning-with-an-ai.ipynb turns the ladder back on
-      #   the student's own learning. 1 COLLABORATOR, 2 COMPARER and 1 DRAFTER
-      #   against 5 SOLO.
-      # Workload: 3 chapters, ~6,100 words, 9 exercises, plus the ORF project.
-      chapters: 
-        - ai/learning-with-an-ai.ipynb
-          # CLAUDE: projects/curration-project.qmd is written but scheduled
-          #   nowhere. This is the week it would join, if it joins. Decide
-          #   whether it is a second project here or is dropped, and either add
-          #   the line or delete the file.
-        - python/dataframes.ipynb
-    # - part: "Week 14"
-    #   # Python: no new Python; the assembly project.
-    #   # AI: no new level. The finale exercises the whole ladder at once, which
-    #   #   is what it is for. 1 DEVELOPER against 5 SOLO.
+    # - part: "Week 9"
+    #   # AI: no new level. ai/tests-are-the-contract.ipynb deepens DRAFTER into its
+    #   #   stricter, contract-first form — the assistant stops being a source of
+    #   #   explanations and becomes something you check. ai/reading-and-judging.ipynb
+    #   #   also sits at DRAFTER. 6 DRAFTER against 13 SOLO; 2 exercises carry no
+    #   #   badge, where the point is that no test or draft would have caught the
+    #   #   fault.
     #   chapters: 
-    #     - ai/finale-kickoff.qmd
-    #       # CLAUDE: 135 words. The finale is the assessment the whole role
-    #       #   ladder builds toward, and its opening chapter is a placeholder.
-    #       #   Done looks like a kickoff that states the task, the deliverable,
-    #       #   the rules about AI involvement, and how the work is judged.
-    #     - ai/finale-build.ipynb
-    #     - ai/finale-finishing.ipynb
-    #     - projects/assembly-project.qmd
-    - part: "Week 14"
-      # AI: no new level; the ladder is put down. ai/surviving-ai.ipynb is the
-      #   argument for why any of it mattered. 4 SOLO.
-      # Workload: 2 chapters, ~2,800 words, 5 exercises — the lightest week,
-      #   which is right for a wrap-up.
-      chapters: 
-        - ai/surviving-ai.ipynb
-        - ai/the-ai-off-test.ipynb
+    #     - ai/reading-and-judging.ipynb
+    #     - ai/tests-are-the-contract.ipynb
+    #     - turtle/turtle-limits-to-visual-checks.ipynb
+    #     - projects/hiv-project.qmd ###########
+    # - part: "Week 10"
+    #   # AI: no new level. ai/the-docs-are-the-test.ipynb extends DRAFTER from "a
+    #   #   test settles it" to "the real documentation settles it", which is the
+    #   #   answer to invented library functions.
+    #   chapters:
+    #     - python/recursion.ipynb
+    #     - python/decomposition.qmd
+    #     - ai/plan-before-you-prompt.ipynb # should go with decomposition.qmd
+    #       # CLAUDE: test_hivproject.py reads its five subtype .txt files by
+    #       #   bare relative filename at import time, so pytest (or the
+    #       #   im-pytest widget) must be run with cwd = project-files/hivproject/
+    #       #   or collection crashes outright with FileNotFoundError — every
+    #       #   other project's suite degrades to a clean skip regardless of
+    #       #   invocation directory. Resolve the paths relative to __file__,
+    #       #   or confirm the widget always sets cwd correctly.
+    #     - projects/orf-project.qmd ###########
+    # - part: "Week 11"
+    #   # Python: recursion and decomposition — breaking a problem into parts,
+    #   #   which is the same skill in code that the Collaborator level asks for
+    #   #   in prose. The pairing is deliberate.
+    #   # AI: COLLABORATOR, introduced by ai/plan-before-you-prompt.ipynb. 3
+    #   #   COLLABORATOR and 16 SOLO.
+    #   chapters: 
+    #     - ai/documentation-and-resources.ipynb
+    #     - ai/the-docs-are-the-test.ipynb
+    #     - python/packages-modules.ipynb
+    #     # - new/biopython.ipynb
+    #     - projects/assembly-project.qmd  ###########      
+    # - part: "Week 12"
+    #   # AI: DEVELOPER, the top of the ladder, introduced by
+    #   #   ai/delegate-the-full-problem.ipynb with ai/directing-a-resource.ipynb
+    #   #   ahead of it. 3 DEVELOPER and 1 COLLABORATOR against 3 SOLO.
+    #   chapters: 
+    #     - ai/directing-a-resource.ipynb
+    #     - ai/delegate-the-full-problem.ipynb
+    # - part: "Week 13"
+    #   # AI: no new level. ai/learning-with-an-ai.ipynb turns the ladder back on
+    #   #   the student's own learning. 1 COLLABORATOR, 2 COMPARER and 1 DRAFTER
+    #   #   against 5 SOLO.
+    #   # Workload: 3 chapters, ~6,100 words, 9 exercises, plus the ORF project.
+    #   chapters: 
+    #     - ai/learning-with-an-ai.ipynb
+    #       # CLAUDE: projects/curration-project.qmd is written but scheduled
+    #       #   nowhere. This is the week it would join, if it joins. Decide
+    #       #   whether it is a second project here or is dropped, and either add
+    #       #   the line or delete the file.
+    #     - python/dataframes.ipynb
+    # # - part: "Week 14"
+    # #   # Python: no new Python; the assembly project.
+    # #   # AI: no new level. The finale exercises the whole ladder at once, which
+    # #   #   is what it is for. 1 DEVELOPER against 5 SOLO.
+    # #   chapters: 
+    # #     - ai/finale-kickoff.qmd
+    # #       # CLAUDE: 135 words. The finale is the assessment the whole role
+    # #       #   ladder builds toward, and its opening chapter is a placeholder.
+    # #       #   Done looks like a kickoff that states the task, the deliverable,
+    # #       #   the rules about AI involvement, and how the work is judged.
+    # #     - ai/finale-build.ipynb
+    # #     - ai/finale-finishing.ipynb
+    # #     - projects/assembly-project.qmd
+    # - part: "Week 14"
+    #   # AI: no new level; the ladder is put down. ai/surviving-ai.ipynb is the
+    #   #   argument for why any of it mattered. 4 SOLO.
+    #   # Workload: 2 chapters, ~2,800 words, 5 exercises — the lightest week,
+    #   #   which is right for a wrap-up.
+    #   chapters: 
+    #     - ai/surviving-ai.ipynb
+    #     - ai/the-ai-off-test.ipynb
 
 
 # bibliography: references.bib
