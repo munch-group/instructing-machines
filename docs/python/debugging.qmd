@@ -1,10 +1,8 @@
 # Debugging {#sec-debugging}
 
-*A companion to this week's debugging clinic, reused across the project weeks.*
+*The best debugging is to avoid introducing in the first place, but no one is perfect...*
 
-Every piece of code you have written so far has broken at least once, and every piece you write for the rest of the course will too, whether you typed it or the assistant did. That is not a sign you are behind; it is what writing code is. What separates a bad afternoon from a five-minute fix is not luck, it is a method, and this note gives you one: read the traceback, locate the failing line, form a hypothesis, confirm it. The bugs below are planted on purpose, curated so that each one teaches a different way code breaks, rather than left to chance the way a real bug is.
-
-### The method
+When it comes to finding bugs, what separates a bad afternoon from a five-minute fix is not luck, it a is method that can be learned.
 
 1. **Read the traceback from the bottom up.** The last line names the error and usually says what value was involved. Start there, not at the top.
 2. **Locate the failing line.** Python tells you the exact line, and the file and function it was in. Find it before you theorize about anything else.
