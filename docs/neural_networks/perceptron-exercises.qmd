@@ -1,0 +1,345 @@
+---
+title: "AI: Perceptrons"
+format:
+  html:
+    include-after-body: perceptron-widget.html
+---
+
+## Setting the weights by hand {#sec-nn-by-hand}
+
+In the exercises below you play the part of the training algorithm: you choose the weights and
+thresholds yourself and predict what the neuron will decide. This chapter stays with a single neuron
+and everyday decisions. The [next chapter](network-exercises.qmd) moves to a tiny network with a
+hidden layer, where you will see how hidden neurons combine into curves and how the choice of
+activation function changes the picture.
+
+Each exercise has its own perceptron, already set up. Before every change, decide what the output
+will be (and why), then change the slider and compare. Computing the weighted sum on paper is
+usually the quickest way to be sure. In these exercises the weighted sum never lands exactly on the
+threshold, so it does not matter whether you read the rule as $\geq$ or $>$.
+
+::: {.callout-note icon=false}
+
+## Practical tips
+
+- "Reset" puts a perceptron back to the start of its exercise.
+- To set a slider to an exact value, click it and use the arrow keys: inputs change by 0.01 per press,
+  weights and the threshold by 0.1. Weights and the threshold go from −10 to 10.
+- The output is shown inside the node $y$ and on the output arrow.
+
+:::
+
+<style>
+/* Change callout header title to normal text style for this page */
+.callout-tip .callout-title {
+  font-size: 1rem;
+  font-weight: normal;
+  color: normal;
+}
+.callout .callout-title-container {
+  font-weight: normal;
+}
+</style>
+
+#### Exercise
+
+*Two out of three ain't bad*
+
+Should you go to the festival? Three things matter: the weather is good, you have company, and
+the festival is accessible by public transport. Each counts equally ($w_1 = w_2 = w_3 = 2$) and the
+threshold is $\theta = 3$. Right now the weather is bad but you have company and it is accessible:
+$x = (0,\, 1,\, 1)$. The output is 1. Check that you can explain why.
+
+```{=html}
+<div class="pcp" data-set="x1=0, x2=1, x3=1, w1=2, w2=2, w3=2, th=3"
+     data-inputs="Weather, Company, Accessible" data-output="Go to the festival"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Why is the output 1
+
+The weighted sum is $2 \times 0 + 2 \times 1 + 2 \times 1 = 4$, which is at least the threshold 3.
+:::
+
+::: {.callout-tip collapse="true"  appearance="minimal" icon=false}
+
+## Your company cancels: set $x_2 = 0$. Do you still go?
+
+No. The sum is $2$, below the threshold 3. One good reason is not enough.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The weather turns good: set $x_1 = 1$. Do you go now?
+
+Yes. Weather and accessibility give $2 + 2 = 4 \geq 3$. Any two of the three are enough; which two does
+not matter.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The trains stop running: set $x_3 = 0$. Do you go?
+
+No. Only the weather is left: $2 < 3$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## You really want to go: lower the threshold to $\theta = 1$. What happens?
+
+You go. With $\theta = 1$, a single reason ($2 \geq 1$) is enough. Lowering the threshold makes the
+perceptron easier to convince.
+:::
+
+<br>
+
+#### Exercise
+
+*Not going anywhere in bad weather!*
+
+Same festival, but now the weather matters much more: $w_1 = 6$, $w_2 = w_3 = 2$, and the threshold is
+$\theta = 5$. You have company and it is accessible, but the weather is bad: $x = (0,\, 1,\, 1)$, and the
+output is 0.
+
+```{=html}
+<div class="pcp" data-set="x1=0, x2=1, x3=1, w1=6, w2=2, w3=2, th=5"
+     data-inputs="Weather, Company, Accessible" data-output="Go to the festival"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The weather turns good: set ($x_1 = 1$). Do you go?
+
+Yes: $6 + 2 + 2 = 10 \geq 5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Your company cancels: set $x_2 = 0$. Do you still go?
+
+Yes: $6 + 2 = 8 \geq 5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The festival is no longer accessible: set $x_3 = 0$. Do you still go?
+
+Yes: the good weather alone gives $6 \geq 5$. Good weather is enough on its own.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The weather turns bad again: set $x_1 = 0$. Do you go?
+
+No: the sum is 0. And even with company and accessibility the sum would only be $2 + 2 = 4 < 5$, so
+with these weights good weather is also necessary: you never go in bad weather.
+:::
+
+<br>
+
+#### Exercise
+
+*Lowering the bar, and the bias*
+
+The same weights as in Exercise 2 ($w_1 = 6,\ w_2 = w+3 = 2,\ \theta = 5$), with bad weather, company and
+accessibility: $x = (0,\, 1,\, 1)$, output 0.
+
+```{=html}
+<div class="pcp" data-set="x1=0, x2=1, x3=1, w1=6, w2=2, w3=2, th=5"
+     data-inputs="Weather, Company, Accessible" data-output="Go to the festival"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Lower the threshold to $θ\theta = 3$. Do you go now?
+
+Yes: $2 + 2 = 4 \geq 3$. With the lower threshold, company and accessibility together make up for the
+bad weather.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Your company cancels: set $x_2 = 0$. Do you go?
+
+No: $2 < 3$. Accessibility alone does not make up for bad weather.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The festival is no longer accessible either: set $x_3 = 0$. Do you go?
+
+No: all inputs are 0, so the sum is 0.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Now set the threshold to $\theta = −1$. What happens, even though every input is 0?
+
+The output becomes 1: $\theta \geq −1$. Written as a bias, $b = −\theta = 1 \gt 0$, and a perceptron with a positive
+bias outputs 1 even with no input. With a negative bias (a positive threshold), it may output $\theta$
+even when some inputs are on.
+:::
+
+<br>
+
+#### Exercise
+
+*Bring an umbrella? (a negative weight)*
+
+Two things make you bring an umbrella: a rain forecast ($w_1 = 4$) and dark clouds ($w_2 = 3$).
+One thing makes you leave it at home: the umbrella is heavy ($w_3 = -2$). The threshold is
+$\theta = 3.5$. Right now rain is forecast, but there are no dark clouds and the umbrella is not heavy:
+the output is 1.
+
+```{=html}
+<div class="pcp" data-set="x1=1, x2=0, x3=0, w1=4, w2=3, w3=-2, th=3.5"
+     data-inputs="Rain forecast, Dark clouds, Umbrella is heavy" data-output="Bring umbrella"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## You only have your heavy umbrella: set $x_3 = 1$. Do you bring it?
+
+No: $4 − 2 = 2 < 3.5$. A negative weight is counts against the decision.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Dark clouds appear: set $x_2 = 1$. Do you bring it now?
+
+Yes: $4 + 3 - 2 = 5 \geq 3.5$. Enough evidence for rain outweighs the inconvenience.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The forecast changes to dry: set $x_1 = 0$. Do you bring it?
+
+No: $3 - 2 = 1 < 3.5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## You find your light umbrella: set $x_3 = 0$. Do you bring it?
+
+No: dark clouds alone give $3 < 3.5$. Clouds alone are not enough for this person.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Someone more cautious has a lower threshold: set $\theta = 2.5$. Do they bring it?
+
+Yes: $3 \geq 2.5$. Same evidence, same weights, a different decision: the threshold describes how much
+evidence this person needs.
+:::
+
+<br>
+
+#### Exercise
+
+*Borrow the car? (AND, "at least two", OR)*
+
+You may borrow the car if you have a license, the car is free and your parents agree. All
+weights are 1 and the threshold is $\theta = 2.5$. Right now you have a licence and the car is free, but
+your parents have not agreed yet: the output is 0.
+
+```{=html}
+<div class="pcp" data-example="and" data-set="x1=1, x2=1, x3=0"
+     data-inputs="Have a licence, Car is free, Parents agree" data-output="Borrow the car"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Your parents agree: set $x_3 = 1$. Can you borrow the car?
+
+Yes: $1 + 1 + 1 = 3 \geq 2.5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## You lose your licence: set $x_1 = 0$. Can you borrow the car?
+
+No: $2 < 2.5$. With threshold 2.5 all three conditions must hold: the perceptron computes AND.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Change the threshold to $\theta = 1.5$. Can you borrow the car now?
+
+Yes: $2 \geq 1.5$. With threshold 1.5 any two of the three are enough (a majority vote). This is not
+a sensible rule for borrowing a car, but the perceptron does not know that.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The car is taken: set $x_2 = 0$. Can you borrow it?
+
+No: only one condition holds, $1 < 1.5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Change the threshold to $\theta = 0.5$. Can you borrow it now?
+
+Yes: $1 \geq 0.5$. Now *any one* condition is enough: the perceptron computes OR. The same weights
+give AND, "at least two" or OR depending only on the threshold.
+:::
+
+<br>
+
+#### Exercise
+
+Find weights and a threshold yourself. Go running if the weather is good and you have either company or an accessible
+track (or both).
+
+```{=html}
+<div class="pcp" data-example="and"
+     data-inputs="Weather, Company, Accessible" data-output="Go running"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## One solution
+
+$w_1 = 2$, $w_2 = 1$, $w_3 = 1$, $\theta = 2.5$. Weather plus one of the others gives 3; weather alone gives 2,
+and company plus accessibility also gives only 2.
+:::
+
+#### Exercise
+
+Find weights and a threshold yourself. Order pizza if you are hungry and the pizza is not expensive, but always order when
+friends visit.
+
+```{=html}
+<div class="pcp" data-example="and"
+     data-inputs="Hungry, Pizza is expensive, Friends visit" data-output="Order pizza"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## One solution
+
+$w_1 = 2$, $w_2 = -3$, $w_3 = 5$, $\theta = 1.5$. Hungry alone gives 2 (order); hungry and expensive gives −1
+(don't); friends always give at least $5 - 3 = 2$ (order).
+:::
+
+<br>
+
+#### Exercise
+
+Find weights and a threshold yourself. A staircase light has a switch at the bottom and one at the top of the stairs. The lamp should be on when exactly one of the switches is up (ignore the third input; keep it at 0).
+
+```{=html}
+<div class="pcp" data-example="and" data-set="x3=0"
+     data-inputs="Bottom switch, Top switch, (not used)" data-output="Lamp on"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Answer
+
+It cannot be done. With both switches down the lamp must be off, so $0 < \theta$. With one switch up it
+must be on, so $w_1 \geq \theta$ and $w_2 \geq \theta$. But then both switches up give $w_1 + w_2 \geq 2\theta > \theta$, so the lamp
+would be on, not off. This rule (called XOR, "exclusive or") cannot be computed by a single
+perceptron. It needs a *hidden layer*: several neurons whose outputs are combined by another one.
+:::

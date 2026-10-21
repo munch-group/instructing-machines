@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiny Neural Network</title>
+</head>
+<body style="margin:0; padding:16px; background:#ffffff;">
+<!-- Generated from nnw-widget.html by build_standalone.py; edit that file instead. -->
+<div class="nnw"></div>
+<!--
+  Tiny neural network widget: styles and script. Include this once per page; every element
+  <div class="nnw"></div> on the page then becomes a widget (any number of them).
+
+  Optional attributes on the div set the widget's starting state, which the "Reset" button
+  returns to:
+    data-act="step | sigmoid | relu"      activation (default step)
+    data-hidden="1 | 2 | 3"               number of hidden neurons (default 2)
+    data-example="flat | bump | stairs | random"   example applied at the start
+    data-outact="true"                    tick "Apply f at output"
+    data-contrib="true"                   tick "Show contributions"
+    data-set="v1=10, t1=2"                extra slider values (w1-w3, t1-t3, v1-v3, th)
+    data-theme="light | dark | auto"      colours (default light)
+
+  This file is the source of the widget. tiny-network.html is generated from it by
+  build_standalone.py.
+-->
+<style>
+  /* ---------- Widget styles (all scoped to .nnw) ---------- */
+  /* width: 100% matters: inside a CSS grid (a Quarto section with margin content) the auto margins
+     would otherwise shrink the widget to its content, which inline-size containment makes zero. */
+  .nnw {
+    --bg: #ffffff; --fg: #1f2937; --muted: #6b7280; --grid: #eef0f3; --axis: #9ca3af;
+    --panel: #f8fafc; --border: #e2e8f0; --label-bg: rgba(255,255,255,0.92);
+    --pos: #0d9488; --neg: #dc2626;
+    --handle: #d1d5db; --fill: #e5e7eb; --track: #ffffff; --track-line: #000000;
+    --c-in: #64748b; --curve: #374151; --c-1: #2563eb; --c-2: #c026d3; --c-3: #d97706;
+    container-type: inline-size;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--fg); background: var(--bg);
+    width: 100%; max-width: 760px; margin: 0 auto; padding: 16px; box-sizing: border-box;
+  }
+  .nnw[data-theme="dark"] {
+    --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+    --panel: #1a2232; --border: #2d3748; --label-bg: rgba(17,24,39,0.92);
+    --pos: #2dd4bf; --neg: #f87171;
+    --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8; --curve: #d1d5db; --c-1: #60a5fa; --c-2: #e879f9; --c-3: #fbbf24;
+  }
+  @media (prefers-color-scheme: dark) {
+    .nnw[data-theme="auto"] {
+      --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+      --panel: #1a2232; --border: #2d3748; --label-bg: rgba(17,24,39,0.92);
+      --pos: #2dd4bf; --neg: #f87171;
+      --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8; --curve: #d1d5db; --c-1: #60a5fa; --c-2: #e879f9; --c-3: #fbbf24;
+    }
+  }
+  .nnw *, .nnw *::before, .nnw *::after { box-sizing: border-box; }
+  .nnw svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+  /* Network on top, the plot below it, then the hint and formula, at every width */
+  .nnw-main { display: block; }
+  .nnw-netcell { padding: 16px 0; }
+
+  .nnw-toolbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+    font-size: 14px; margin-bottom: 12px; }
+  .nnw-toolbar label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .nnw-toolbar select, .nnw-toolbar button {
+    font: inherit; font-size: 13px; color: var(--fg); background: var(--panel);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; cursor: pointer;
+  }
+  .nnw-toolbar button:hover { border-color: var(--axis); }
+  .nnw-presets { display: inline-flex; gap: 6px; align-items: center; }
+  .nnw-presets span { color: var(--muted); }
+
+  /* Network diagram with sliders placed on it (positions are % of the SVG viewBox) */
+  .nnw-netwrap { position: relative; container-type: inline-size; }
+  /* Each slider has two pieces, both positioned by the script (top-centre anchored):
+     the head ("w₁:" + bar), placed above its edge or node, and the value, placed below it. */
+  /* Slider text scales with the drawing, like the node labels: numbers 15 and names 18 diagram units
+     (of 710 across). The bar keeps a fixed thickness; only its length follows the width. */
+  .nnw-ctl { position: absolute; width: 13.94%; height: max(18px, 3.2cqw); transform: translate(-50%, 0);
+    display: flex; align-items: center; font-size: 2.113cqw; }
+  .nnw-ctl .lab { display: flex; align-items: center; height: max(18px, 3.2cqw); padding-right: 0.3em;
+    white-space: nowrap; color: var(--fg); }
+  /* Each slider: value centred above the bar, label left of the bar. Sliders are 15% of the drawing
+     wide, so threshold and weight sliders never reach into each other's columns. */
+  .nnw-ctl.row { width: 15%; height: auto; align-items: flex-end; }
+  .nnw-ctl .barcol { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .nnw-ctl .barrow { height: max(18px, 3.2cqw); display: flex; align-items: center; }
+  .nnw-ctl .nnw-topval { height: 1.25em; text-align: center; line-height: 1.25; white-space: nowrap;
+    font-variant-numeric: tabular-nums; color: var(--cc); }
+  .nnw-ctl .name { color: var(--fg); font-style: italic; font-family: "Times New Roman", Georgia, serif; font-size: 1.2em; }
+  .nnw-ctl sub { line-height: 0; }
+  .nnw-ctl input[type=range] { display: block; flex: 1; min-width: 0; height: 18px; margin: 0; cursor: pointer;
+    -webkit-appearance: none; appearance: none; background: transparent; --frac: 0.5; }
+  .nnw-ctl input[type=range]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px;
+    border: 0.5px solid var(--track-line);
+    background: linear-gradient(to right, var(--fill) 0 calc(6px + (100% - 12px) * var(--frac)),
+      var(--track) calc(6px + (100% - 12px) * var(--frac)) 100%); }
+  .nnw-ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+    width: 12px; height: 12px; margin-top: -3.5px; border-radius: 50%; background: var(--handle);
+    border: 0.5px solid var(--track-line); }
+  .nnw-ctl input[type=range]::-moz-range-track { height: 5px; border-radius: 3px; background: var(--track);
+    border: 0.5px solid var(--track-line); }
+  .nnw-ctl input[type=range]::-moz-range-progress { height: 5px; border-radius: 3px; background: var(--fill); }
+  .nnw-ctl input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%;
+    background: var(--handle); border: 0.5px solid var(--track-line); }
+  .nnw-ctl input[type=range]:focus-visible { outline: 2px solid var(--axis); outline-offset: 2px; border-radius: 4px; }
+
+  .nnw-formula { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .nnw-formula .math { font-family: "Times New Roman", Georgia, serif; font-size: 17px; color: var(--fg); }
+  .nnw-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .nnw-plotwrap { touch-action: none; cursor: crosshair; }
+</style>
+<script>
+(function () {
+  // Markup of one widget; it is inserted into every empty <div class="nnw"> on the page.
+  const TEMPLATE = `
+  <div class="nnw-toolbar">
+    <label>Activation <i>f</i>
+      <select data-role="act">
+        <option value="step">Step (threshold)</option>
+        <option value="sigmoid">Sigmoid</option>
+        <option value="relu">ReLU</option>
+      </select>
+    </label>
+    <label>Hidden neurons
+      <select data-role="nh">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+      </select>
+    </label>
+    <label><input type="checkbox" data-role="outact"> Apply <i>f</i> at output</label>
+    <label><input type="checkbox" data-role="contrib"> Show contributions</label>
+    <span class="nnw-presets"><span>Examples:</span>
+      <button type="button" data-preset="flat">Flat</button>
+      <button type="button" data-preset="bump">Bump</button>
+      <button type="button" data-preset="stairs">Staircase</button>
+      <button type="button" data-preset="random">Random</button>
+    </span>
+    <button type="button" data-role="reset" hidden title="Back to the start of this exercise">Reset</button>
+  </div>
+
+  <div class="nnw-main">
+    <div class="nnw-netcell">
+      <div class="nnw-netwrap" data-role="netwrap">
+        <svg data-role="net" viewBox="0 0 710 385" aria-label="Network diagram"></svg>
+      </div>
+    </div>
+    <div class="nnw-plotwrap"><svg data-role="plot" viewBox="0 0 700 364" aria-label="Plot of the network function"></svg></div>
+    <div class="nnw-below">
+      <div class="nnw-hint">Move the pointer over the plot to choose an input <i>x</i> and see the activations in the network.</div>
+      <div class="nnw-formula" data-role="formula"></div>
+    </div>
+  </div>
+`;
+  let count = 0;
+
+  function initWidget(root) {
+    if (root.dataset.nnwReady) return;
+    root.dataset.nnwReady = '1';
+    const uid = count ? 'nnw' + count : 'nnw';     // unique id prefix per widget on the page
+    count++;
+    if (!root.dataset.theme) root.dataset.theme = 'light';
+    if (!root.querySelector('.nnw-toolbar')) root.innerHTML = TEMPLATE;
+    const $ = (r) => root.querySelector('[data-role="' + r + '"]');
+    const netSvg = $('net'), plotSvg = $('plot');
+
+    // ---------------- State ----------------
+    // Values are kept for all three hidden neurons; only the first n are used and shown.
+    // wᵢ: weight x → hᵢ, tᵢ: threshold of hᵢ, vᵢ: weight hᵢ → y, th: threshold of y.
+    // The page starts like the "Flat" example: input weights 1.0, thresholds 0.0 and output weights
+    // 0.0, so the output is flat at y = 0 (with a linear output).
+    const FLAT = { w1: 1, t1: 0, v1: 0, w2: 1, t2: 0, v2: 0, w3: 1, t3: 0, v3: 0, th: 0 };
+    const p = Object.assign({}, FLAT);
+    let n = 2, act = 'step', outAct = false, showContrib = false, probeX = 0;
+    const XMIN = -5, XMAX = 5;
+    const SUB = ['', '₁', '₂', '₃'];
+    const idx = () => Array.from({ length: n }, (_, i) => i + 1);
+
+    // ---------------- Layout (SVG viewBox units) ----------------
+    // Hidden neurons are stacked with spacing S; x and y sit level with their centre.
+    // S and the drawing height VBH are set by placeSliders() so that no slider collides with anything.
+    const VBW = 710, R = 30;
+    const EH = 6.75 / 2;           // half the widest edge (|weight| = 10)
+    let VBH = 400, NODES;
+    function layout(S) {
+      const top = 50, C = top + (n - 1) * S / 2;
+      NODES = { x: { cx: 125, cy: C, label: 'x' }, y: { cx: 575, cy: C, label: 'y' } };
+      idx().forEach((i) => { NODES['h' + i] = { cx: 350, cy: top + (i - 1) * S, label: 'h' + SUB[i] }; });
+    }
+
+    const PRESETS = {
+      bump: { n: 2, p: { w1: 1, t1: -1, w2: 1, t2: 1, v1: 10, v2: -10, th: 0 } },
+    };
+
+    // ---------------- Math ----------------
+    function f(z) {
+      if (act === 'step') return z >= 0 ? 1 : 0;
+      if (act === 'sigmoid') return 1 / (1 + Math.exp(-z));
+      return Math.max(0, z); // relu
+    }
+    function forward(x) {
+      const hs = idx().map((i) => f(p['w' + i] * x - p['t' + i]));
+      const z = hs.reduce((acc, h, j) => acc + p['v' + (j + 1)] * h, 0) - p.th;
+      return { hs, z, y: outAct ? f(z) : z };
+    }
+
+    // ---------------- Helpers ----------------
+    const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+    const fmt = (v, d) => { const s = (Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v).toFixed(d); return s.replace('-', '−'); };
+    function niceStep(span, target) {
+      const raw = span / target, mag = Math.pow(10, Math.floor(Math.log10(raw))), r = raw / mag;
+      return (r < 1.5 ? 1 : r < 3 ? 2 : r < 7 ? 5 : 10) * mag;
+    }
+
+    // ---------------- Controls ----------------
+    // Weight sliders sit on the middle of their connection; threshold sliders sit under their node.
+    const netWrap = $('netwrap');
+    let inputs = {};
+    function buildSliders() {
+      netWrap.querySelectorAll('.nnw-ctl').forEach((el) => el.remove());
+      inputs = {};
+      const defs = [];
+      idx().forEach((i) => {
+        defs.push({ k: 'w' + i, name: 'w<sub>' + i + '</sub>', edge: ['x', 'h' + i], aria: 'weight from x to h' + i });
+        defs.push({ k: 'v' + i, name: 'v<sub>' + i + '</sub>', edge: ['h' + i, 'y'], aria: 'weight from h' + i + ' to y' });
+        defs.push({ k: 't' + i, name: 'θ<sub>' + i + '</sub>', node: 'h' + i, aria: 'threshold of h' + i });
+      });
+      defs.push({ k: 'th', name: 'θ', node: 'y', aria: 'threshold of y' });
+      defs.forEach((it) => {
+        const box = document.createElement('div');
+        box.className = 'nnw-ctl';
+        const id = uid + '-' + it.k;
+        box.classList.add('row');               // value centred above the bar
+        box.innerHTML =
+          '<label class="lab" for="' + id + '"><span class="name">' + it.name + '</span>:</label>' +
+          '<div class="barcol"><output class="nnw-topval" for="' + id + '"></output><div class="barrow">' +
+          '<input type="range" id="' + id + '" min="-10" max="10" step="0.1" aria-label="' + it.aria + '"></div></div>';
+        netWrap.append(box);
+        const val = box.querySelector('output');
+        const inp = box.querySelector('input');
+        inputs[it.k] = { inp, out: val, box, def: it };
+        inp.addEventListener('input', () => { p[it.k] = parseFloat(inp.value); render(); });
+      });
+    }
+
+    // Switch the number of hidden neurons: new layout, new sliders
+    // Place the sliders. Each slider is "w₁:" + bar, with the value centred above the bar. A weight
+    // slider sits above the midpoint of its edge, 1px clear of the widest edge (4px from edge to
+    // handle); on a sloped edge the
+    // line therefore crosses the ends of the row. Weight rows are thus evenly spaced, like the edge
+    // midpoints. A threshold row goes above its node and moves up past any edge that would cross it,
+    // keeping at least 1px from every edge (measured perpendicular to the edge, at the widest edge
+    // width). The hidden-neuron spacing S then grows until no two rows (or a row and a node) collide.
+    // Row sizes are in pixels while the drawing scales, so this is redone whenever the width changes.
+    function placeSliders() {
+      const W = netSvg.getBoundingClientRect().width || VBW;
+      const k = VBW / W;                                   // diagram units per pixel
+      const ctl = Object.values(inputs);
+      const br = inputs.w1.box.getBoundingClientRect();
+      const half = br.width * k / 2, HH = br.height * k, clear = k;   // slider size (value line + bar line)
+      let pos, lines;
+      const band = (A, B, x0, x1) => {
+        const xa = Math.max(x0, A.cx), xb = Math.min(x1, B.cx);
+        if (xa > xb) return null;
+        const m = (B.cy - A.cy) / (B.cx - A.cx), yAt = (x) => A.cy + m * (x - A.cx), sl = Math.sqrt(1 + m * m);
+        return { lo: Math.min(yAt(xa), yAt(xb)) - EH * sl, hi: Math.max(yAt(xa), yAt(xb)) + EH * sl, cv: clear * sl };
+      };
+      // Rectangle [left, right, top, bottom] of a slider row, centred on its anchor
+      const rowRect = (q) => [q.cx - half, q.cx + half, q.bottom - HH, q.bottom];
+      const solve = () => {
+        lines = [];
+        idx().forEach((i) => { lines.push([NODES.x, NODES['h' + i]], [NODES['h' + i], NODES.y]); });
+        pos = {};
+        ctl.forEach((c) => {
+          const def = c.def;
+          let cx, bottom;
+          if (def.edge) {
+            const A = NODES[def.edge[0]], B = NODES[def.edge[1]];
+            cx = (A.cx + B.cx) / 2; bottom = (A.cy + B.cy) / 2 - EH - clear;
+          } else {
+            const N = NODES[def.node];
+            cx = N.cx; bottom = N.cy - R - EH - 3 * k;
+          }
+          const q = { cx, bottom };
+          for (let iter = 0, moved = !def.edge; moved && iter < 50; iter++) {
+            moved = false;
+            for (const [A, B] of lines) {
+              const h = rowRect(q), bh = band(A, B, h[0], h[1]);
+              if (bh && bh.lo < q.bottom + bh.cv && bh.hi > q.bottom - HH) { q.bottom = bh.lo - bh.cv; moved = true; }
+            }
+          }
+          pos[def.k] = q;
+        });
+      };
+      const collides = () => {
+        const rects = [], nodeRows = [];
+        ctl.forEach((c) => { const r = rowRect(pos[c.def.k]); rects.push(r); if (c.def.node) nodeRows.push(r); });
+        // For threshold rows, an edge closer than the clearance on the far side also counts as a collision
+        for (const [A, B] of lines)
+          for (const r of nodeRows) {
+            const b = band(A, B, r[0], r[1]);
+            if (b && b.lo < r[3] + b.cv && b.hi > r[2] - b.cv) return true;
+          }
+        const np = rects.length;
+        Object.values(NODES).forEach((N) => rects.push([N.cx - R - EH, N.cx + R + EH, N.cy - R - EH, N.cy + R + EH]));
+        for (let a = 0; a < np; a++)
+          for (let b = a + 1; b < rects.length; b++) {
+            const [l1, r1, t1, b1] = rects[a], [l2, r2, t2, b2] = rects[b];
+            if (l1 < r2 && l2 < r1 && t1 < b2 && t2 < b1) return true;
+          }
+        return false;
+      };
+      // Smallest collision-free spacing, then 20% extra so the network gets more height; the top and
+      // bottom hidden neurons are also at least 300 units apart
+      let S = 150;
+      for (; ; S += 5) {
+        layout(S); solve();
+        if (n === 1 || !collides() || S > 800) break;
+      }
+      if (n > 1) { layout(Math.max(S * 1.2, 300 / (n - 1))); solve(); }
+      // Shift everything so the topmost row (or the input label) starts just below the top edge,
+      // then size the drawing to the lowest row (or the input/output captions).
+      const tops = [NODES.x.cy - 34], bottoms = [NODES.x.cy + R + 30];
+      ctl.forEach((c) => { const r = rowRect(pos[c.def.k]); tops.push(r[2]); bottoms.push(r[3]); });
+      Object.values(NODES).forEach((N) => { tops.push(N.cy - R - EH); bottoms.push(N.cy + R + EH); });
+      const dy = 6 - Math.min(...tops);
+      Object.values(NODES).forEach((N) => { N.cy += dy; });
+      VBH = Math.max(...bottoms) + dy + 6;
+      netSvg.setAttribute('viewBox', '0 0 ' + VBW + ' ' + VBH);
+      ctl.forEach((c) => {
+        const q = pos[c.def.k];
+        c.box.style.left = (q.cx / VBW * 100) + '%';
+        c.box.style.top = ((q.bottom - HH + dy) / VBH * 100) + '%';
+      });
+    }
+
+    function setN(newN) {
+      n = newN;
+      layout(218);
+      buildSliders();
+      placeSliders();
+    }
+
+    const actSel = $('act'), nhSel = $('nh'), outChk = $('outact'), conChk = $('contrib');
+    actSel.addEventListener('change', () => { act = actSel.value; render(); });
+    nhSel.addEventListener('change', () => { setN(parseInt(nhSel.value, 10)); syncControls(); render(); });
+    outChk.addEventListener('change', () => { outAct = outChk.checked; render(); });
+    conChk.addEventListener('change', () => { showContrib = conChk.checked; render(); });
+
+    // ReLU kinks sit at x = θᵢ/wᵢ. A kink counts as visible when it lies well inside the x-range,
+    // is at least 1 away from the other kinks, the curve there is on screen, and the slope of the
+    // output really changes there.
+    function kinksVisible() {
+      const ks = [];
+      for (const i of idx()) {
+        if (Math.abs(p['w' + i]) < 0.3) return false;
+        ks.push(p['t' + i] / p['w' + i]);
+      }
+      for (let a = 0; a < ks.length; a++)
+        for (let b = a + 1; b < ks.length; b++) if (Math.abs(ks[a] - ks[b]) < 1) return false;
+      const e = 0.05;
+      return ks.every((k) => {
+        if (Math.abs(k) > 4.5) return false;
+        const y0 = forward(k).y, yl = forward(k - e).y, yr = forward(k + e).y;
+        return Math.abs(y0) <= 20 && Math.abs((yr - y0) / e - (y0 - yl) / e) >= 2;
+      });
+    }
+
+    function applyPreset(name) {
+      const r = (a) => Math.round((Math.random() * 2 - 1) * a * 10) / 10;
+      if (name === 'flat') {
+        // Input weights 1.0, thresholds and output weights 0.0 (for all three hidden neurons): y = 0
+        Object.assign(p, FLAT);
+      } else if (name === 'random') {
+        if (act === 'relu') {
+          // Redraw until every kink is clearly visible in the plot
+          for (let tries = 0; tries < 20000; tries++) {
+            idx().forEach((i) => Object.assign(p, { ['w' + i]: r(3), ['t' + i]: r(10), ['v' + i]: r(10) }));
+            p.th = r(10);
+            if (kinksVisible()) break;
+          }
+        } else {
+          // Output weights scaled so that the output always stays within the ±25 axis
+          const vmax = n === 3 ? 6.6 : 10;
+          idx().forEach((i) => Object.assign(p, { ['w' + i]: r(4), ['t' + i]: r(6), ['v' + i]: r(vmax) }));
+          p.th = r(5);
+        }
+      } else if (name === 'stairs') {
+        // One step per hidden neuron, evenly spaced, levels centred on 0
+        // (step height 6 for three neurons keeps the output threshold within the slider range)
+        const steps = { 1: [0], 2: [-2, 2], 3: [-3, 0, 3] }[n], v = n === 3 ? 6 : 10;
+        idx().forEach((i) => Object.assign(p, { ['w' + i]: 1, ['t' + i]: steps[i - 1], ['v' + i]: v }));
+        p.th = v * n / 2; act = 'step'; outAct = false;
+      } else if (PRESETS[name]) {
+        const pr = PRESETS[name];
+        if (n !== pr.n) setN(pr.n);
+        Object.assign(p, pr.p); act = 'step'; outAct = false;
+      }
+    }
+    root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      applyPreset(b.dataset.preset); syncControls(); render();
+    }));
+
+    function syncControls() {
+      for (const k in inputs) inputs[k].inp.value = p[k];
+      actSel.value = act; nhSel.value = String(n); outChk.checked = outAct; conChk.checked = showContrib;
+    }
+
+    // ---------------- Network diagram ----------------
+    // Line width grows with |weight| for edges and with |threshold| for node borders
+    const strokeW = (v) => 0.75 + 6 * Math.min(Math.abs(v), 10) / 10;
+
+    // Edges run centre to centre; the opaque node discs drawn on top hide the ends,
+    // so even wide edges never show inside or overlap a node.
+    function edge(a, b, w) {
+      const A = NODES[a], B = NODES[b];
+      const col = w >= 0 ? css('--pos') : css('--neg');
+      return '<line x1="' + A.cx + '" y1="' + A.cy + '" x2="' + B.cx + '" y2="' + B.cy + '" stroke="' + col +
+        '" stroke-width="' + strokeW(w) + '" stroke-linecap="butt" opacity="' + (w === 0 ? 0.25 : 0.85) + '"/>';
+    }
+
+    // "h₁" → h with a real subscript 1 (the serif font has no subscript-digit glyphs)
+    const nodeLabel = (l) => l.replace(/[₁₂₃]/, (d) => '<tspan font-size="12" dy="4">' + ('₁₂₃'.indexOf(d) + 1) + '</tspan>');
+
+    function node(key, value, theta) {
+      const N = NODES[key], col = css('--c-in');
+      const outline = theta === undefined ? col : css(theta >= 0 ? '--pos' : '--neg');
+      const sw = strokeW(theta === undefined ? 0 : theta);
+      return '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + (R + sw / 2) + '" fill="' + css('--bg') + '"/>' +
+        '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + R + '" fill="' + col + '" fill-opacity="0.08" stroke="' +
+        outline + '" stroke-width="' + sw + '"/>' +
+        '<text x="' + N.cx + '" y="' + (N.cy - 2) + '" text-anchor="middle" font-size="18" font-style="italic" ' +
+        'font-family="Times New Roman, Georgia, serif" fill="' + css('--fg') + '">' + nodeLabel(N.label) + '</text>' +
+        '<text x="' + N.cx + '" y="' + (N.cy + 15) + '" text-anchor="middle" font-size="11" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums">' + fmt(value, 2) + '</text>';
+    }
+
+    // Font size (in diagram units) that renders at the same pixel size as the slider labels
+    function labelSize() {
+      const px = parseFloat(getComputedStyle(inputs.w1.box).fontSize);
+      const w = netSvg.getBoundingClientRect().width;
+      return w > 0 ? px * VBW / w : 13;
+    }
+
+    // Horizontal arrow from x1 to x2 at height y, with the value above it and a caption below
+    function arrow(x1, x2, y, varName, value, caption) {
+      const col = css('--muted'), mid = (x1 + x2) / 2, fs = labelSize();
+      return '<line x1="' + x1 + '" y1="' + y + '" x2="' + (x2 - 8) + '" y2="' + y + '" stroke="' + col + '" stroke-width="1.5"/>' +
+        '<polygon points="' + x2 + ',' + y + ' ' + (x2 - 10) + ',' + (y - 5) + ' ' + (x2 - 10) + ',' + (y + 5) + '" fill="' + col + '"/>' +
+        '<text x="' + mid + '" y="' + (y - 9) + '" text-anchor="middle" font-size="' + fs + '" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums"><tspan font-style="italic" font-family="Times New Roman, Georgia, serif" font-size="' + (1.3 * fs) + '">' +
+        varName + '</tspan> = ' + fmt(value, 2) + '</text>' +
+        '<text x="' + mid + '" y="' + (y + 19) + '" text-anchor="middle" font-size="12" fill="' + col + '">' + caption + '</text>';
+    }
+
+    function renderNet() {
+      const a = forward(probeX);
+      const X = NODES.x, Y = NODES.y;
+      let s = '';
+      idx().forEach((i) => { s += edge('x', 'h' + i, p['w' + i]) + edge('h' + i, 'y', p['v' + i]); });
+      s += node('x', probeX);
+      idx().forEach((i) => { s += node('h' + i, a.hs[i - 1], p['t' + i]); });
+      s += node('y', a.y, p.th) +
+        arrow(4, X.cx - R - strokeW(0) / 2 - 3, X.cy, 'x', probeX, 'input') +
+        arrow(Y.cx + R + strokeW(p.th) / 2 + 3, VBW - 4, Y.cy, 'y', a.y, 'output');
+      netSvg.innerHTML = s;
+    }
+
+    // ---------------- Plot ----------------
+    const PW = 700, PH = 364, M = { l: 46, r: 14, t: 40, b: 38 };
+    const N_SAMPLES = 1000;
+    let sx, sy;
+
+    function renderPlot() {
+      const xs = [], ys = [], cs = idx().map(() => []);
+      for (let k = 0; k <= N_SAMPLES; k++) {
+        const x = XMIN + (XMAX - XMIN) * k / N_SAMPLES, a = forward(x);
+        xs.push(x); ys.push(a.y);
+        a.hs.forEach((h, j) => cs[j].push(p['v' + (j + 1)] * h));
+      }
+
+      const ymin = -25, ymax = 25; // fixed y-axis
+
+      const iw = PW - M.l - M.r, ih = PH - M.t - M.b;
+      sx = (x) => M.l + (x - XMIN) / (XMAX - XMIN) * iw;
+      sy = (y) => M.t + (ymax - y) / (ymax - ymin) * ih;
+      const fg = css('--fg'), muted = css('--muted'), grid = css('--grid'), axis = css('--axis');
+
+      let s = '<defs><clipPath id="' + uid + '-clip"><rect x="' + M.l + '" y="' + M.t + '" width="' + iw + '" height="' + ih + '"/></clipPath></defs>';
+      s += '<rect x="' + M.l + '" y="' + M.t + '" width="' + iw + '" height="' + ih + '" fill="none" stroke="' + grid + '"/>';
+
+      // grid + ticks
+      const xst = 1;
+      for (let x = XMIN; x <= XMAX + 1e-9; x += xst) {
+        const X = sx(x);
+        s += '<line x1="' + X + '" y1="' + M.t + '" x2="' + X + '" y2="' + (M.t + ih) + '" stroke="' + grid + '"/>';
+        s += '<text x="' + X + '" y="' + (M.t + ih + 15) + '" text-anchor="middle" font-size="11" fill="' + muted + '">' + fmt(x, 0) + '</text>';
+      }
+      const yst = niceStep(ymax - ymin, 6), yd = yst < 1 ? (yst < 0.1 ? 2 : 1) : 0;
+      for (let y = Math.ceil(ymin / yst) * yst; y <= ymax + 1e-9; y += yst) {
+        const Y = sy(y);
+        s += '<line x1="' + M.l + '" y1="' + Y + '" x2="' + (M.l + iw) + '" y2="' + Y + '" stroke="' + grid + '"/>';
+        s += '<text x="' + (M.l - 6) + '" y="' + (Y + 4) + '" text-anchor="end" font-size="11" fill="' + muted + '">' + fmt(y, yd) + '</text>';
+      }
+      // axes through the origin
+      if (ymin <= 0 && ymax >= 0) s += '<line x1="' + M.l + '" y1="' + sy(0) + '" x2="' + (M.l + iw) + '" y2="' + sy(0) + '" stroke="' + axis + '" stroke-width="1.3"/>';
+      s += '<line x1="' + sx(0) + '" y1="' + M.t + '" x2="' + sx(0) + '" y2="' + (M.t + ih) + '" stroke="' + axis + '" stroke-width="1.3"/>';
+      s += '<text x="' + (M.l + iw) + '" y="' + (PH - 6) + '" text-anchor="end" font-size="14" font-style="italic" font-family="Times New Roman, Georgia, serif" fill="' + fg + '">x</text>';
+      s += '<text x="12" y="' + (M.t + 10) + '" font-size="14" font-style="italic" font-family="Times New Roman, Georgia, serif" fill="' + fg + '">y</text>';
+
+      const path = (arr) => {
+        let d = '';
+        for (let i = 0; i < arr.length; i++) d += (i ? 'L' : 'M') + sx(xs[i]).toFixed(2) + ' ' + sy(arr[i]).toFixed(2);
+        return d;
+      };
+      s += '<g clip-path="url(#' + uid + '-clip)">';
+      if (showContrib) {
+        cs.forEach((c, j) => {
+          s += '<path d="' + path(c) + '" fill="none" stroke="' + css('--c-' + (j + 1)) + '" stroke-width="2" stroke-dasharray="6 4" opacity="0.9"/>';
+        });
+      }
+      s += '<path d="' + path(ys) + '" fill="none" stroke="' + css('--curve') + '" stroke-width="3" stroke-linejoin="round"/>';
+
+      // probe
+      const a = forward(probeX), PX = sx(probeX);
+      s += '<line x1="' + PX + '" y1="' + M.t + '" x2="' + PX + '" y2="' + (M.t + ih) + '" stroke="' + muted + '" stroke-dasharray="3 3"/>';
+      s += '<circle cx="' + PX + '" cy="' + sy(a.y) + '" r="5" fill="' + css('--curve') + '" stroke="' + css('--bg') + '" stroke-width="2"/>';
+      s += '</g>';
+
+      // readout + legend in the strip above the plot area, so curves never run through them
+      const ly = 22;
+      s += '<text x="' + M.l + '" y="' + ly + '" font-size="12" fill="' + fg + '" font-variant-numeric="tabular-nums">' +
+        'x = ' + fmt(probeX, 2) + ',  y = ' + fmt(a.y, 2) + '</text>';
+      if (showContrib) {
+        const leg = [[180, '--curve', 'y (output)', false]]
+          .concat(idx().map((i) => [270 + 60 * (i - 1), '--c-' + i, 'v' + SUB[i] + '·h' + SUB[i], true]));
+        leg.forEach(([X, c, t, dash]) => {
+          s += '<line x1="' + X + '" y1="' + (ly - 4) + '" x2="' + (X + 20) + '" y2="' + (ly - 4) + '" stroke="' + css(c) +
+            '" stroke-width="2.5"' + (dash ? ' stroke-dasharray="5 3"' : '') + '/>' +
+            '<text x="' + (X + 25) + '" y="' + ly + '" font-size="11.5" fill="' + fg + '">' + t + '</text>';
+        });
+      }
+      plotSvg.innerHTML = s;
+    }
+
+    // The pointer sets the input x only while it is over the plot area itself (not the axis-label
+    // margins); when it leaves the plot, x returns to 0.
+    function setProbe(evt) {
+      const r = plotSvg.getBoundingClientRect();
+      const X = (evt.clientX - r.left) * PW / r.width, Y = (evt.clientY - r.top) * PH / r.height;
+      if (X < M.l || X > PW - M.r || Y < M.t || Y > PH - M.b) return;
+      const x = XMIN + (X - M.l) / (PW - M.l - M.r) * (XMAX - XMIN);
+      probeX = Math.max(XMIN, Math.min(XMAX, Math.round(x * 100) / 100));
+      renderNet(); renderPlot();
+    }
+    plotSvg.addEventListener('pointermove', setProbe);
+    plotSvg.addEventListener('pointerdown', setProbe);
+    plotSvg.addEventListener('pointerleave', () => { probeX = 0; renderNet(); renderPlot(); });
+
+    // ---------------- Formula ----------------
+    function renderFormula() {
+      const fdef = {
+        step: '<i>f</i>(<i>z</i>) = 1 if <i>z</i> ≥ 0, otherwise 0 &nbsp;(the node fires when its weighted input reaches the threshold)',
+        sigmoid: '<i>f</i>(<i>z</i>) = 1 / (1 + e<sup>−<i>z</i></sup>) &nbsp;(a smooth version of the step)',
+        relu: '<i>f</i>(<i>z</i>) = max(0, <i>z</i>)',
+      }[act];
+      const inner = idx().map((i) => '<i>v</i><sub>' + i + '</sub>·<i>f</i>(<i>w</i><sub>' + i + '</sub><i>x</i> − θ<sub>' + i + '</sub>)')
+        .join(' + ') + ' − θ';
+      $('formula').innerHTML =
+        '<div class="math"><i>y</i> = ' + (outAct ? '<i>f</i>( ' + inner + ' )' : inner) + '</div>' +
+        '<div>where ' + fdef + '.</div>';
+    }
+
+    function render() {
+      for (const k in inputs) {
+        const c = inputs[k];
+        c.out.textContent = fmt(p[k], 1);
+        c.inp.style.setProperty('--frac', (p[k] + 10) / 20);
+        c.out.style.setProperty('--cc', p[k] >= 0 ? 'var(--pos)' : 'var(--neg)');
+      }
+      renderNet(); renderPlot(); renderFormula();
+    }
+
+    // Re-render if the reader's colour scheme changes (only matters with data-theme="auto")
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      (mq.addEventListener ? mq.addEventListener('change', render) : mq.addListener(render));
+    }
+
+    // Keep the arrow labels matched to the slider labels when the widget is resized
+    let lastW = 0;
+    if (window.ResizeObserver) new ResizeObserver((entries) => {
+      const w = entries[0].contentRect.width;
+      if (Math.abs(w - lastW) < 0.5) return;
+      lastW = w; placeSliders(); renderNet();
+    }).observe(netWrap);
+
+
+    // ---------------- Starting state ----------------
+    // Optional attributes on the widget's <div class="nnw"> set where it starts (and where "Reset"
+    // returns to): data-act (step | sigmoid | relu), data-hidden (1-3), data-example (flat | bump |
+    // stairs | random), data-outact and data-contrib ("true" ticks the checkbox), and data-set with
+    // extra slider values, e.g. "v1=10, t1=2" (keys w1-w3, t1-t3, v1-v3, th; values -10 to 10).
+    const cfg = root.dataset;
+    const configured = ['act', 'hidden', 'example', 'outact', 'contrib', 'set'].some((k) => cfg[k] !== undefined);
+    function applyConfig() {
+      Object.assign(p, FLAT);
+      const nn = parseInt(cfg.hidden, 10);
+      setN(nn >= 1 && nn <= 3 ? nn : 2);
+      act = ['step', 'sigmoid', 'relu'].includes(cfg.act) ? cfg.act : 'step';
+      outAct = cfg.outact === 'true';
+      showContrib = cfg.contrib === 'true';
+      if (cfg.example) applyPreset(cfg.example);
+      (cfg.set || '').split(/[,;]/).forEach((pair) => {
+        const [key, val] = pair.split('=').map((t) => (t || '').trim());
+        const v = parseFloat((val || '').replace('\u2212', '-'));
+        if (key in p && !isNaN(v)) p[key] = Math.max(-10, Math.min(10, v));
+      });
+      probeX = 0;
+      syncControls(); render();
+    }
+    const resetBtn = $('reset');
+    if (configured) {
+      resetBtn.hidden = false;
+      resetBtn.addEventListener('click', applyConfig);
+    }
+    applyConfig();
+
+  }
+
+  function initAll() { document.querySelectorAll('.nnw').forEach(initWidget); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+  else initAll();
+})();
+</script>
+</body>
+</html>

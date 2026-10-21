@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perceptron</title>
+</head>
+<body style="margin:0; padding:16px; background:#ffffff;">
+<!-- Generated from perceptron-widget.html by build_standalone.py; edit that file instead. -->
+<div class="pcp"></div>
+<!--
+  Perceptron widget: styles and script. Include this once per page; every element
+  <div class="pcp"></div> on the page then becomes a perceptron widget (any number of them).
+  It uses its own class names, so it can share a page with the network widget (nnw-widget.html).
+
+  Optional attributes on the div (the "Reset" button returns to this starting state):
+    data-example="and | or | maj | random"   example applied at the start
+    data-set="x1=0, x2=1, x3=1, w1=2, w2=2, w3=2, th=3"
+                                          slider values (inputs 0 to 1, weights/threshold -10 to 10)
+    data-inputs="Weather, Company, Accessible"   names shown above the three input sliders
+    data-output="Go to the festival"      name shown under the output arrow
+    data-theme="light | dark | auto"      colours (default light)
+    data-examples="false"                 hide the example buttons (shown by default)
+    data-formula="false"                  hide the formula below the diagram (shown by default)
+
+  This file is the source of the perceptron widget. perceptron.html is generated from it by
+  build_standalone.py.
+-->
+<style>
+  /* ---------- Widget styles (all scoped to .pcp) ---------- */
+  /* width: 100% matters: inside a CSS grid (a Quarto section with margin content) the auto margins
+     would otherwise shrink the widget to its content, which inline-size containment makes zero. */
+  .pcp {
+    --bg: #ffffff; --fg: #1f2937; --muted: #6b7280; --grid: #eef0f3; --axis: #9ca3af;
+    --panel: #f8fafc; --border: #e2e8f0;
+    --pos: #0d9488; --neg: #dc2626;
+    --handle: #d1d5db; --fill: #e5e7eb; --track: #ffffff; --track-line: #000000;
+    --c-in: #64748b;
+    container-type: inline-size;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--fg); background: var(--bg);
+    width: 100%; max-width: 1080px; margin: 0 auto; padding: 16px; box-sizing: border-box;
+  }
+  .pcp[data-theme="dark"] {
+    --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+    --panel: #1a2232; --border: #2d3748;
+    --pos: #2dd4bf; --neg: #f87171;
+    --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pcp[data-theme="auto"] {
+      --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+      --panel: #1a2232; --border: #2d3748;
+      --pos: #2dd4bf; --neg: #f87171;
+      --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8;
+    }
+  }
+  .pcp *, .pcp *::before, .pcp *::after { box-sizing: border-box; }
+  .pcp svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+  /* The network takes the full width; the formula sits below it. */
+  .pcp-netcell { padding: 16px 0 0; }
+
+  .pcp-toolbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+    font-size: 14px; margin-bottom: 12px; }
+  .pcp-toolbar button {
+    font: inherit; font-size: 13px; color: var(--fg); background: var(--panel);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; cursor: pointer;
+  }
+  .pcp-toolbar button:hover { border-color: var(--axis); }
+  .pcp-presets { display: inline-flex; gap: 6px; align-items: center; }
+  .pcp-presets span { color: var(--muted); }
+
+  /* Network diagram with sliders placed on it (positions are % of the SVG viewBox) */
+  .pcp-netwrap { position: relative; container-type: inline-size; }
+  /* Each slider has two pieces, both positioned by the script (top-centre anchored):
+     the head ("w₁:" + bar), placed above its edge or node, and the value, placed below it. */
+  /* Slider text scales with the drawing, like the node labels: numbers 15 and names 18 diagram units
+     (of 710 across). The bar keeps a fixed thickness; only its length follows the width. */
+  .pcp-ctl { position: absolute; width: 13.94%; height: max(18px, 3.2cqw); transform: translate(-50%, 0);
+    display: flex; align-items: center; font-size: 2.113cqw; }
+  .pcp-ctl .lab { display: flex; align-items: center; height: 100%; padding-right: 0.3em; white-space: nowrap; color: var(--fg); }
+  /* Input sliders are one row ("x₁:" + bar + value); weight and threshold sliders have their value above the bar */
+  .pcp-ctl.row { width: max(19%, 110px); }
+  /* Value starts right after the bar, at the same distance as the label name ends before it
+     (--vgap = colon + label padding, measured by the script) */
+  .pcp-ctl .pcp-inval { display: flex; align-items: center; justify-content: flex-start; height: 100%;
+    padding-left: var(--vgap, 0.55em); min-width: calc(var(--vgap, 0.55em) + 2.4em);
+    white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--cc); }
+  /* Weight and threshold sliders: value centred above the bar, label left of the bar as usual */
+  .pcp-ctl.stack { height: auto; align-items: flex-end; }
+  /* Weight and threshold rows have no value beside the bar, so they can be narrower on small screens */
+  .pcp-ctl.row.stack { width: max(19%, 70px); }
+  .pcp-ctl.stack .lab { height: max(18px, 3.2cqw); }
+  .pcp-ctl .barcol { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .pcp-ctl .barrow { height: max(18px, 3.2cqw); display: flex; align-items: center; }
+  .pcp-ctl .pcp-topval { height: 1.25em; text-align: center; line-height: 1.25; white-space: nowrap;
+    font-variant-numeric: tabular-nums; color: var(--cc); }
+  /* Optional input name (data-inputs) shown above an input row */
+  .pcp-ctl.named { flex-wrap: wrap; height: auto; }
+  .pcp-ctl .pcp-incap { flex-basis: 100%; line-height: 1.3; white-space: nowrap; font-weight: 600; color: var(--fg); }
+  .pcp-ctl .name { color: var(--fg); font-style: italic; font-family: "Times New Roman", Georgia, serif; font-size: 1.2em; }
+  .pcp-ctl sub { line-height: 0; }
+  .pcp-ctl input[type=range] { display: block; flex: 1; min-width: 0; height: 18px; margin: 0; cursor: pointer;
+    -webkit-appearance: none; appearance: none; background: transparent; --frac: 0.5; }
+  .pcp-ctl input[type=range]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px;
+    border: 0.5px solid var(--track-line);
+    background: linear-gradient(to right, var(--fill) 0 calc(6px + (100% - 12px) * var(--frac)),
+      var(--track) calc(6px + (100% - 12px) * var(--frac)) 100%); }
+  .pcp-ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+    width: 12px; height: 12px; margin-top: -3.5px; border-radius: 50%; background: var(--handle);
+    border: 0.5px solid var(--track-line); }
+  .pcp-ctl input[type=range]::-moz-range-track { height: 5px; border-radius: 3px; background: var(--track);
+    border: 0.5px solid var(--track-line); }
+  .pcp-ctl input[type=range]::-moz-range-progress { height: 5px; border-radius: 3px; background: var(--fill); }
+  .pcp-ctl input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%;
+    background: var(--handle); border: 0.5px solid var(--track-line); }
+  .pcp-ctl input[type=range]:focus-visible { outline: 2px solid var(--axis); outline-offset: 2px; border-radius: 4px; }
+
+  .pcp-formula { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .pcp-formula .math { font-family: "Times New Roman", Georgia, serif; font-size: 17px; color: var(--fg); }
+</style>
+<script>
+(function () {
+  // Markup of one widget; it is inserted into every empty <div class="pcp"> on the page.
+  const TEMPLATE = `
+  <div class="pcp-toolbar">
+    <span class="pcp-presets"><span>Examples:</span>
+      <button type="button" data-preset="and">AND</button>
+      <button type="button" data-preset="or">OR</button>
+      <button type="button" data-preset="maj">Majority</button>
+      <button type="button" data-preset="random">Random</button>
+    </span>
+    <button type="button" data-role="reset" hidden title="Back to the start of this exercise">Reset</button>
+  </div>
+
+  <div class="pcp-netcell">
+    <div class="pcp-netwrap" data-role="netwrap">
+      <svg data-role="net" viewBox="0 0 710 385" aria-label="Perceptron diagram"></svg>
+    </div>
+  </div>
+  <div class="pcp-formula" data-role="formula"></div>
+`;
+  let count = 0;
+
+  function initWidget(root) {
+    if (root.dataset.pcpReady) return;
+    root.dataset.pcpReady = '1';
+    const uid = count ? 'pcp' + count : 'pcp';     // unique id prefix per widget on the page
+    count++;
+    if (!root.dataset.theme) root.dataset.theme = 'light';
+    if (!root.querySelector('.pcp-toolbar')) root.innerHTML = TEMPLATE;
+    const $ = (r) => root.querySelector('[data-role="' + r + '"]');
+    const netSvg = $('net');
+
+    // ---------------- State ----------------
+    // xᵢ: inputs (0–1), wᵢ: weight xᵢ → y, th: threshold of the neuron y (whose output is the network output).
+    const DEFAULT = { x1: 1, x2: 0, x3: 1, w1: 1, w2: 1, w3: 1, th: 2.5 };   // the AND example
+    const p = Object.assign({}, DEFAULT);
+    const IDX = [1, 2, 3], SUB = ['', '₁', '₂', '₃'];
+    const WMAX = 10;                                  // weights and threshold range from −10 to 10
+
+    // ---------------- Layout (SVG viewBox units) ----------------
+    // The inputs are slider rows on the left, stacked with spacing S; each input's edge starts just
+    // right of its row (at xStart). The neuron y sits level with the middle input, at nodeX, with an
+    // output arrow ending at outEnd. S, xStart, nodeX, outEnd and the drawing height VBH are set by
+    // placeSliders() so that nothing collides.
+    const VBW = 710, R = 30;
+    const EH = 6.75 / 2;                              // half the widest edge (|weight| = WMAX)
+    const ROW_X0 = 4;                                 // input rows start here
+    let VBH = 385, NODES;
+    function layout(S, xStart, nodeX, outEnd) {
+      const top = 50, C = top + S;
+      NODES = { y: { cx: nodeX, cy: C, label: 'y', outEnd } };
+      IDX.forEach((i) => { NODES['x' + i] = { cx: xStart, cy: top + (i - 1) * S, input: true }; });
+    }
+
+    // ---------------- Math ----------------
+    const f = (z) => (z >= 0 ? 1 : 0);                // step activation
+    const zOf = (x1, x2, x3) => p.w1 * x1 + p.w2 * x2 + p.w3 * x3 - p.th;
+    function forward() {
+      const z = zOf(p.x1, p.x2, p.x3);
+      return { z, y: f(z) };
+    }
+
+    // ---------------- Helpers ----------------
+    const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+    const fmt = (v, d) => { const s = (Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v).toFixed(d); return s.replace('-', '−'); };
+
+    const PRESETS = {
+      and: { w1: 1, w2: 1, w3: 1, th: 2.5 },
+      or:  { w1: 1, w2: 1, w3: 1, th: 0.5 },
+      maj: { w1: 1, w2: 1, w3: 1, th: 1.5 },
+    };
+
+    // ---------------- Controls ----------------
+    const netWrap = $('netwrap');
+    // Optional names of the inputs and the output (data-inputs="Weather, Company, Accessible", data-output="Go")
+    const inputNames = (root.dataset.inputs || '').split(',').map((s) => s.trim());
+    const outputName = (root.dataset.output || '').trim();
+    const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    let inputs = {};
+    function buildSliders() {
+      const defs = [];
+      IDX.forEach((i) => defs.push({ k: 'x' + i, name: 'x<sub>' + i + '</sub>', input: 'x' + i, min: 0, max: 1, step: 0.01, d: 2,
+        aria: 'input x' + i }));
+      IDX.forEach((i) => defs.push({ k: 'w' + i, name: 'w<sub>' + i + '</sub>', edge: ['x' + i, 'y'], min: -WMAX, max: WMAX, step: 0.1, d: 1,
+        aria: 'weight from x' + i + ' to y' }));
+      defs.push({ k: 'th', name: 'θ', node: 'y', min: -WMAX, max: WMAX, step: 0.1, d: 1, aria: 'threshold of y' });
+      defs.forEach((it) => {
+        const box = document.createElement('div');
+        box.className = 'pcp-ctl';
+        const id = uid + '-' + it.k;
+        const label = '<label class="lab" for="' + id + '"><span class="name">' + it.name + '</span>:</label>';
+        const range = '<input type="range" id="' + id + '" min="' + it.min + '" max="' + it.max + '" step="' + it.step + '" aria-label="' + it.aria + '">';
+        box.classList.add('row');
+        if (it.input) {                   // input: value to the right of the bar, its name (if any) above
+          const nm = inputNames[+it.k.slice(1) - 1];
+          if (nm) box.classList.add('named');
+          box.innerHTML = (nm ? '<span class="pcp-incap">' + esc(nm) + '</span>' : '') +
+            label + range + '<output class="pcp-inval" for="' + id + '"></output>';
+        } else {                          // weight / threshold: value centred above the bar
+          box.classList.add('stack');
+          box.innerHTML = label + '<div class="barcol"><output class="pcp-topval" for="' + id + '"></output>' +
+            '<div class="barrow">' + range + '</div></div>';
+        }
+        netWrap.append(box);
+        const val = box.querySelector('output');
+        const inp = box.querySelector('input');
+        inputs[it.k] = { inp, out: val, box, def: it, sep: false };
+        inp.addEventListener('input', () => { p[it.k] = parseFloat(inp.value); render(); });
+      });
+    }
+
+    // Place the sliders. Input and weight sliders are single rows ("x₁:"/"w₁:" + bar + value).
+    // Input rows sit on the left, centred on the height where their edge starts. Weight rows line up
+    // in one column halfway between the edge starts and the neuron: on the horizontal edge the row sits
+    // 1px above the edge (4px from edge to handle while the row is no taller than the 18px bar; more
+    // when the scaled text makes the row taller); on a sloped edge the row sits at the height where
+    // the edge runs through the middle of the bar, except that w₁ is then moved up so that the w₁–w₂
+    // spacing equals the w₂–w₃ spacing. The threshold row goes above y and moves up past any edge that
+    // would cross it. Clearances are measured
+    // perpendicular to the edge, at the widest edge width. The input spacing S then grows until no two
+    // pieces (or a piece and the node) collide. Piece sizes are in pixels while the drawing scales, so
+    // this is redone whenever the width changes.
+    function placeSliders() {
+      // Gap between bar and value = gap between label name and bar (the colon plus the label's padding)
+      const lab = inputs.w1.box.querySelector('.lab'), colon = document.createRange();
+      colon.selectNodeContents(lab.lastChild);
+      netWrap.style.setProperty('--vgap', (colon.getBoundingClientRect().width + parseFloat(getComputedStyle(lab).paddingRight)) + 'px');
+      const W = netSvg.getBoundingClientRect().width || VBW;
+      const k = VBW / W;                                   // diagram units per pixel
+      const ctl = Object.values(inputs);
+      const clear = k;
+      ctl.forEach((c) => {
+        const br = c.box.getBoundingClientRect(), ir = c.inp.getBoundingClientRect();
+        c.half = br.width * k / 2;
+        c.hh = br.height * k;                                                    // row height (text scales, bar does not)
+        c.barUp = (br.bottom - (ir.top + ir.bottom) / 2) * k;                    // bar centre above the row's bottom
+        c.barOff = ((ir.left + ir.width / 2) - (br.left + br.width / 2)) * k;   // bar centre relative to row centre
+        if (!c.sep) return;
+        // Separate values are sized for the widest text they can show
+        const txt = c.out.textContent;
+        c.out.textContent = fmt(c.def.min, c.def.d);
+        const vr = c.out.getBoundingClientRect();
+        c.out.textContent = txt;
+        c.vw = vr.width * k; c.vh = vr.height * k;
+      });
+      let pos, lines;
+      const band = (A, B, x0, x1) => {
+        const xa = Math.max(x0, A.cx), xb = Math.min(x1, B.cx);
+        if (xa > xb) return null;
+        const m = (B.cy - A.cy) / (B.cx - A.cx), yAt = (x) => A.cy + m * (x - A.cx), sl = Math.sqrt(1 + m * m);
+        return { lo: Math.min(yAt(xa), yAt(xb)) - EH * sl, hi: Math.max(yAt(xa), yAt(xb)) + EH * sl, cv: clear * sl };
+      };
+      // Rectangles [left, right, top, bottom] of a slider's head and (separate) value, centred on the anchor
+      const headRect = (q, c) => [q.cx - c.half, q.cx + c.half, q.bottom - c.hh, q.bottom];
+      const valRect = (q, c) => [q.cx - c.vw / 2, q.cx + c.vw / 2, q.top, q.top + c.vh];
+      const pieces = (c) => (c.sep ? [headRect(pos[c.def.k], c), valRect(pos[c.def.k], c)] : [headRect(pos[c.def.k], c)]);
+      // Input rows end at ROW_X0 + rowW; edges start a few pixels further right. The neuron is placed so
+      // that the incoming edges (up to the node) and the output arrow (from the node) have the same
+      // length E, as an output can be the input edge of a further node. E is never shorter than a weight
+      // row plus a little margin; if the width runs out (phones), the output arrow is cut short instead.
+      // The weight column is centred between the edge starts and the neuron's left side.
+      const rowW = inputs.x1.half * 2, xStart = ROW_X0 + rowW + 6 * k;
+      const E = Math.max((VBW - 4 - xStart - 2 * (R + EH) - 3) / 2, inputs.w1.half * 2 + 12 * k);
+      const nodeX = xStart + E + R + EH, outEnd = Math.min(VBW - 4, nodeX + R + EH + 3 + E);
+      const col = (xStart + nodeX - R - EH) / 2;
+      const solve = () => {
+        lines = IDX.map((i) => [NODES['x' + i], NODES.y]);
+        pos = {};
+        ctl.forEach((c) => {
+          const def = c.def;
+          let cx, bottom, top;
+          if (def.input) {
+            const N = NODES[def.input];
+            cx = ROW_X0 + rowW / 2; bottom = N.cy + c.barUp;
+          } else if (def.edge) {
+            const A = NODES[def.edge[0]], B = NODES[def.edge[1]];
+            c.onEdge = A.cy !== B.cy;
+            cx = col;
+            if (c.onEdge) bottom = A.cy + (B.cy - A.cy) * (col + c.barOff - A.cx) / (B.cx - A.cx) + c.barUp;
+            else bottom = A.cy - EH - clear;
+          } else {
+            const N = NODES[def.node];
+            // centred over the node, but never sticking out past the right edge (narrow screens)
+            cx = Math.min(N.cx, VBW - c.half - 2); bottom = N.cy - R - EH - 3 * k; top = N.cy + R + EH + 2 * k;
+          }
+          const q = { cx, bottom, top };
+          for (let iter = 0, moved = !!def.node; moved && iter < 50; iter++) {
+            moved = false;
+            for (const [A, B] of lines) {
+              const h = headRect(q, c), bh = band(A, B, h[0], h[1]);
+              if (bh && bh.lo < q.bottom + bh.cv && bh.hi > q.bottom - c.hh) { q.bottom = bh.lo - bh.cv; moved = true; }
+              if (!c.sep) continue;
+              const v = valRect(q, c), bv = band(A, B, v[0], v[1]);
+              if (bv && bv.lo < q.top + c.vh && bv.hi > q.top - bv.cv) { q.top = bv.hi + bv.cv; moved = true; }
+            }
+          }
+          pos[def.k] = q;
+        });
+        // Equal spacing of the weight rows: move w₁ so that w₁–w₂ matches w₂–w₃
+        pos.w1.bottom = pos.w2.bottom - (pos.w3.bottom - pos.w2.bottom);
+      };
+      const collides = () => {
+        const rects = [], cleared = [];
+        ctl.forEach((c) => { const pc = pieces(c); rects.push(...pc); if (!c.onEdge) cleared.push(...pc); });
+        // An edge closer than the clearance on the far side of a piece also counts as a collision
+        // (sloped-edge weight sliders sit on their edge by design)
+        for (const [A, B] of lines)
+          for (const r of cleared) {
+            const b = band(A, B, r[0], r[1]);
+            if (b && b.lo < r[3] + b.cv && b.hi > r[2] - b.cv) return true;
+          }
+        const np = rects.length;
+        Object.values(NODES).forEach((N) => { if (!N.input) rects.push([N.cx - R - EH, N.cx + R + EH, N.cy - R - EH, N.cy + R + EH]); });
+        for (let a = 0; a < np; a++)
+          for (let b = a + 1; b < rects.length; b++) {
+            const [l1, r1, t1, b1] = rects[a], [l2, r2, t2, b2] = rects[b];
+            if (l1 < r2 && l2 < r1 && t1 < b2 && t2 < b1) return true;
+          }
+        return false;
+      };
+      // Inputs at least half an edge length apart, so the edges are not too steep
+      for (let S = Math.max(80, Math.round(E / 2)); ; S += 5) {
+        layout(S, xStart, nodeX, outEnd); solve();
+        if (!collides() || S > 800) break;
+      }
+      // Shift everything so the topmost piece starts just below the top edge, then size the drawing
+      // to the lowest piece (or the output caption).
+      const tops = [NODES.y.cy - 34], bottoms = [NODES.y.cy + R + 30];
+      ctl.forEach((c) => pieces(c).forEach((r) => { tops.push(r[2]); bottoms.push(r[3]); }));
+      Object.values(NODES).forEach((N) => { if (!N.input) { tops.push(N.cy - R - EH); bottoms.push(N.cy + R + EH); } });
+      const dy = 6 - Math.min(...tops);
+      Object.values(NODES).forEach((N) => { N.cy += dy; });
+      VBH = Math.max(...bottoms) + dy + 6;
+      netSvg.setAttribute('viewBox', '0 0 ' + VBW + ' ' + VBH);
+      ctl.forEach((c) => {
+        const q = pos[c.def.k];
+        c.box.style.left = (q.cx / VBW * 100) + '%';
+        c.box.style.top = ((q.bottom - c.hh + dy) / VBH * 100) + '%';
+        if (!c.sep) return;
+        c.out.style.left = (q.cx / VBW * 100) + '%';
+        c.out.style.top = ((q.top + dy) / VBH * 100) + '%';
+      });
+    }
+
+    function applyPreset(name) {
+      if (name === 'random') {
+        // Random weights and threshold that give both outputs 0 and 1 over the 0/1 input combinations
+        const r = (a) => Math.round((Math.random() * 2 - 1) * a * 10) / 10;
+        for (let tries = 0; tries < 1000; tries++) {
+          Object.assign(p, { w1: r(WMAX), w2: r(WMAX), w3: r(WMAX), th: r(WMAX) });
+          const ys = corners().map(([a, b, c]) => f(zOf(a, b, c)));
+          if (ys.includes(0) && ys.includes(1)) break;
+        }
+      } else if (PRESETS[name]) {
+        Object.assign(p, PRESETS[name]);
+      }
+    }
+    root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      applyPreset(b.dataset.preset); syncControls(); render();
+    }));
+
+    function syncControls() {
+      for (const k in inputs) inputs[k].inp.value = p[k];
+    }
+
+    // ---------------- Network diagram ----------------
+    // Line width grows with |weight| for edges and with |threshold| for node borders
+    const strokeW = (v) => 0.75 + 6 * Math.min(Math.abs(v), WMAX) / WMAX;
+
+    // Edges run centre to centre; the opaque node discs drawn on top hide the ends.
+    function edge(a, b, w) {
+      const A = NODES[a], B = NODES[b];
+      const col = w >= 0 ? css('--pos') : css('--neg');
+      return '<line x1="' + A.cx + '" y1="' + A.cy + '" x2="' + B.cx + '" y2="' + B.cy + '" stroke="' + col +
+        '" stroke-width="' + strokeW(w) + '" stroke-linecap="butt" opacity="' + (w === 0 ? 0.25 : 0.85) + '"/>';
+    }
+
+    // "h₁" → h with a real subscript 1 (the serif font has no subscript-digit glyphs)
+    const nodeLabel = (l) => l.replace(/[₁₂₃]/, (d) => '<tspan font-size="12" dy="4">' + ('₁₂₃'.indexOf(d) + 1) + '</tspan>');
+
+    function node(key, value, theta) {
+      const N = NODES[key], col = css('--c-in');
+      const outline = theta === undefined ? col : css(theta >= 0 ? '--pos' : '--neg');
+      const sw = strokeW(theta === undefined ? 0 : theta);
+      return '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + (R + sw / 2) + '" fill="' + css('--bg') + '"/>' +
+        '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + R + '" fill="' + col + '" fill-opacity="0.08" stroke="' +
+        outline + '" stroke-width="' + sw + '"/>' +
+        '<text x="' + N.cx + '" y="' + (N.cy - 2) + '" text-anchor="middle" font-size="18" font-style="italic" ' +
+        'font-family="Times New Roman, Georgia, serif" fill="' + css('--fg') + '">' + nodeLabel(N.label) + '</text>' +
+        '<text x="' + N.cx + '" y="' + (N.cy + 15) + '" text-anchor="middle" font-size="11" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums">' + fmt(value, 2) + '</text>';
+    }
+
+    // Font size (in diagram units) that renders at the same pixel size as the slider labels
+    function labelSize() {
+      const px = parseFloat(getComputedStyle(inputs.w1.box).fontSize);
+      const w = netSvg.getBoundingClientRect().width;
+      return w > 0 ? px * VBW / w : 13;
+    }
+
+    // Horizontal arrow from x1 to x2 at height y, with a value above it and a caption below
+    function arrow(x1, x2, y, value, caption) {
+      const col = css('--muted'), mid = (x1 + x2) / 2, fs = labelSize();
+      return '<line x1="' + x1 + '" y1="' + y + '" x2="' + (x2 - 8) + '" y2="' + y + '" stroke="' + col + '" stroke-width="1.5"/>' +
+        '<polygon points="' + x2 + ',' + y + ' ' + (x2 - 10) + ',' + (y - 5) + ' ' + (x2 - 10) + ',' + (y + 5) + '" fill="' + col + '"/>' +
+        '<text x="' + mid + '" y="' + (y - 9) + '" text-anchor="middle" font-size="' + labelSize() + '" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums">' + fmt(value, 2) + '</text>' +
+        (outputName
+          ? '<text class="pcp-outcap" x="' + mid + '" y="' + (y + 9 + fs) + '" text-anchor="middle" font-size="' + fs + '" font-weight="600" fill="' + css('--fg') + '">' + esc(caption) + '</text>'
+          : '<text x="' + mid + '" y="' + (y + 19) + '" text-anchor="middle" font-size="12" fill="' + col + '">' + caption + '</text>');
+    }
+
+    function renderNet() {
+      const a = forward(), Y = NODES.y;
+      let s = '';
+      IDX.forEach((i) => { s += edge('x' + i, 'y', p['w' + i]); });
+      s += node('y', a.y, p.th) +
+        arrow(Y.cx + R + strokeW(p.th) / 2 + 3, Y.outEnd, Y.cy, a.y, outputName || 'output');
+      netSvg.innerHTML = s;
+      // A long output name is moved left just enough to stay inside the drawing
+      const cap = netSvg.querySelector('.pcp-outcap');
+      if (cap) {
+        const b = cap.getBBox(), over = b.x + b.width - (VBW - 2);
+        if (over > 0) cap.setAttribute('x', +cap.getAttribute('x') - over);
+      }
+    }
+
+    // All combinations of 0/1 inputs (Random avoids weights whose output is the same for all of them)
+    const corners = () => [0, 1].flatMap((a) => [0, 1].flatMap((b) => [0, 1].map((c) => [a, b, c])));
+
+    // ---------------- Formula ----------------
+    function renderFormula() {
+      $('formula').innerHTML =
+        '<div class="math"><i>y</i> = <i>f</i>(' +
+        IDX.map((i) => '<i>w</i><sub>' + i + '</sub><i>x</i><sub>' + i + '</sub>').join(' + ') + ' − θ)</div>' +
+        '<div>where <i>f</i>(<i>z</i>) = 1 if <i>z</i> ≥ 0, otherwise 0 &nbsp;(the perceptron fires when its weighted input reaches the threshold).</div>';
+    }
+
+    function render() {
+      for (const k in inputs) {
+        const c = inputs[k], d = c.def;
+        c.out.textContent = fmt(p[k], d.d);
+        c.inp.style.setProperty('--frac', (p[k] - d.min) / (d.max - d.min));
+        c.out.style.setProperty('--cc', d.input ? 'var(--fg)' : (p[k] >= 0 ? 'var(--pos)' : 'var(--neg)'));
+      }
+      renderNet(); renderFormula();
+    }
+
+    // Re-render if the reader's colour scheme changes (only matters with data-theme="auto")
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      (mq.addEventListener ? mq.addEventListener('change', render) : mq.addListener(render));
+    }
+
+    // Keep slider positions and label sizes matched to the width
+    let lastW = 0;
+    if (window.ResizeObserver) new ResizeObserver((entries) => {
+      const w = entries[0].contentRect.width;
+      if (Math.abs(w - lastW) < 0.5) return;
+      lastW = w; placeSliders(); renderNet();
+    }).observe(netWrap);
+
+
+    // ---------------- Starting state ----------------
+    // Optional attributes on the widget's <div class="pcp"> set where it starts (and where "Reset"
+    // returns to): data-example (and | or | maj | random) and data-set with slider values, e.g.
+    // "x1=0, x2=1, x3=1, w1=2, w2=2, w3=2, th=3" (inputs 0 to 1, weights and threshold -10 to 10).
+    const cfg = root.dataset;
+    const configured = ['example', 'set', 'inputs', 'output'].some((k) => cfg[k] !== undefined);
+    function applyConfig() {
+      Object.assign(p, DEFAULT);
+      if (cfg.example) applyPreset(cfg.example);
+      (cfg.set || '').split(/[,;]/).forEach((pair) => {
+        const [key, val] = pair.split('=').map((t) => (t || '').trim());
+        const v = parseFloat((val || '').replace('\u2212', '-'));
+        if (!(key in p) || isNaN(v)) return;
+        p[key] = key[0] === 'x' ? Math.max(0, Math.min(1, v)) : Math.max(-WMAX, Math.min(WMAX, v));
+      });
+      syncControls(); render();
+    }
+    const resetBtn = $('reset');
+    if (configured) {
+      resetBtn.hidden = false;
+      resetBtn.addEventListener('click', applyConfig);
+    }
+    // data-examples="false" hides the example buttons (and the toolbar, if Reset is not shown
+    // either); data-formula="false" hides the formula.
+    if (cfg.examples === 'false') {
+      root.querySelector('.pcp-presets').style.display = 'none';
+      if (!configured) root.querySelector('.pcp-toolbar').style.display = 'none';
+    }
+    if (cfg.formula === 'false') $('formula').style.display = 'none';
+    layout(150);
+    buildSliders();
+    placeSliders();
+    applyConfig();
+
+  }
+
+  function initAll() { document.querySelectorAll('.pcp').forEach(initWidget); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+  else initAll();
+})();
+</script>
+</body>
+</html>

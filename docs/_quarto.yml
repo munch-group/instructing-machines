@@ -143,46 +143,42 @@ book:
         - turtle/turtle-functions.ipynb
         - projects/folding-project.qmd ###########
     - part: "Week 8"
+      chapters: 
       # AI: DRAFTER, introduced by ai/let-it-draft.ipynb. 7 DRAFTER, 1 COMPARER
       #   and 4 EXPLAINER against 28 SOLO. This is the first level where the
       #   student lets the assistant write code they will keep.
-      chapters: 
         - python/classes.ipynb
         - ai/let-it-draft.ipynb
         - python/debugging.ipynb
         - turtle/turtle-classes-debugging.ipynb
         - projects/codonbias-project.qmd ###########
-    # - part: "Week 9"
+    - part: "Week 9"
+      chapters: 
+        - python/modules-and-packages.ipynb
+        - neural_networks/neurons.qmd
+        - neural_networks/neural-networks.qmd
+        # - turtle/turtle-limits-to-visual-checks.ipynb
+        - projects/orf-project.qmd ###########
+    # - part: "Week 10"
+    #   # AI: no new level. ai/the-docs-are-the-test.ipynb extends DRAFTER from "a
+    #   #   test settles it" to "the real documentation settles it", which is the
+    #   #   answer to invented library functions.
+    #   chapters:
     #   # AI: no new level. ai/tests-are-the-contract.ipynb deepens DRAFTER into its
     #   #   stricter, contract-first form — the assistant stops being a source of
     #   #   explanations and becomes something you check. ai/reading-and-judging.ipynb
     #   #   also sits at DRAFTER. 6 DRAFTER against 13 SOLO; 2 exercises carry no
     #   #   badge, where the point is that no test or draft would have caught the
     #   #   fault.
-    #   chapters: 
-        # - python/modules-and-packages.ipynb
-        # - bioinf/BLAST.qmd
-    #     # - new/biopython.ipynb
     #     - ai/reading-and-judging.ipynb
     #     - ai/tests-are-the-contract.ipynb
-    #     - turtle/turtle-limits-to-visual-checks.ipynb
+    #     - python/biopython.ipynb
+    #     - bioinf/BLAST.qmd
+    #     - python/numpy.ipynb
+    #     - python/pandas.ipynb
+    #     - python/plotting.ipynb
+    #     - neural_networks/training.qmd
     #     - projects/hiv-project.qmd ###########
-    # - part: "Week 10"
-    #   # AI: no new level. ai/the-docs-are-the-test.ipynb extends DRAFTER from "a
-    #   #   test settles it" to "the real documentation settles it", which is the
-    #   #   answer to invented library functions.
-    #   chapters:
-    #     - python/recursion.ipynb
-    #     - python/decomposition.qmd
-    #     - ai/plan-before-you-prompt.ipynb # should go with decomposition.qmd
-    #       # CLAUDE: test_hivproject.py reads its five subtype .txt files by
-    #       #   bare relative filename at import time, so pytest (or the
-    #       #   im-pytest widget) must be run with cwd = project-files/hivproject/
-    #       #   or collection crashes outright with FileNotFoundError — every
-    #       #   other project's suite degrades to a clean skip regardless of
-    #       #   invocation directory. Resolve the paths relative to __file__,
-    #       #   or confirm the widget always sets cwd correctly.
-    #     - projects/orf-project.qmd ###########
     # - part: "Week 11"
     #   # Python: recursion and decomposition — breaking a problem into parts,
     #   #   which is the same skill in code that the Collaborator level asks for
@@ -190,9 +186,24 @@ book:
     #   # AI: COLLABORATOR, introduced by ai/plan-before-you-prompt.ipynb. 3
     #   #   COLLABORATOR and 16 SOLO.
     #   chapters: 
+    #     - python/decomposition.qmd
+    #     - ai/plan-before-you-prompt.ipynb # AI: COLLABORATOR # should go with decomposition.qmd
+    #       # CLAUDE: test_hivproject.py reads its five subtype .txt files by
+    #       #   bare relative filename at import time, so pytest (or the
+    #       #   im-pytest widget) must be run with cwd = project-files/hivproject/
+    #       #   or collection crashes outright with FileNotFoundError — every
+    #       #   other project's suite degrades to a clean skip regardless of
+    #       #   invocation directory. Resolve the paths relative to __file__,
+    #       #   or confirm the widget always sets cwd correctly.
+
+
+
     #     - ai/documentation-and-resources.ipynb
     #     - ai/the-docs-are-the-test.ipynb
-    #     - projects/assembly-project.qmd  ###########      
+    #     - neural_networks/large-language-models.qmd
+    #     - python/recursion.ipynb
+    #     - projects/assembly-project.qmd  ###########     
+
     # - part: "Week 12"
     #   # AI: DEVELOPER, the top of the ladder, introduced by
     #   #   ai/delegate-the-full-problem.ipynb with ai/directing-a-resource.ipynb
@@ -255,7 +266,9 @@ execute:
                      #   the same model ids its outputs do, and only the kernel session
                      #   that produced those outputs can write it — so that page is
                      #   executed here rather than trusting whatever the editor last
-                     #   saved into the file.
+                     #   saved into the file. neural_networks/neural-networks.qmd also
+                     #   overrides it, to draw its activation-function figure; it is a
+                     #   .qmd, not a notebook a student downloads.
   output: true      # moot while enabled is false; kept so flipping enabled back on for a
                      #   local preview does the right thing without editing this block
   warning: false    # hide Python warnings (default: true)

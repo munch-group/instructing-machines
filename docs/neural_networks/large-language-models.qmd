@@ -1,0 +1,147 @@
+---
+title: "AI: Large language models"
+# The project sets execute.enabled: false; this chapter is not a downloadable notebook, and its
+# figure is drawn by a code cell, so it is executed at render time.
+execute:
+  enabled: true
+---
+
+In the first week of the course you met the idea that an AI assistant does one small thing over and over: it guesses the next word (@sec-instruction). You now know enough to see how. The assistant is a *large language model*, and a large language model is a neural network of the kind you have met in the last chapters: neurons that weight their inputs, add them up and apply an activation function, arranged in layers and trained by gradient descent and backpropagation. What makes it special is the task it is trained on, the way it turns text into numbers and back, one extra kind of layer that lets it use context, and its size. This chapter takes these in turn, and ends with what they explain about the behavior of the assistant you use.
+
+## Text as numbers: tokens {#sec-llm-tokens}
+
+A neural network computes with numbers, so the first job is to turn text into numbers. The text is cut into *tokens*, and each token is given a number, its position in a fixed list called the *vocabulary*. A token is often a whole common word, such as "the" or "protein", but rarer words are split into pieces. A word like "phosphorylation" might become "ph", "osph", "ory" and "lation", and a made-up gene name is split into whatever pieces the vocabulary happens to contain. Spaces and punctuation are part of the tokens too. Vocabularies hold from tens of thousands to a few hundred thousand tokens, and the split is chosen once, before training, from how often pieces of text occur. With word pieces, the model can handle any text at all, including words it has never seen.
+
+The consequence is that the model never sees letters. It sees token numbers. A DNA sequence such as `ATGGCCATTGTAATGGGCCGC` reaches it as a handful of chunks of a few letters each, chosen by the tokenizer and not by any biological logic, and the same codon can be cut differently depending on what comes before it. Tasks that are trivial for a three-line Python program, such as counting the Gs in a sequence or writing out its reverse complement, are surprisingly hard for a language model, because the letters it would need to look at are hidden inside tokens. You will test this in the exercises.
+
+## Meaning as numbers: embeddings {#sec-llm-embeddings}
+
+A token number on its own says nothing about meaning. Token 4,821 is not more similar to token 4,822 than to token 90,000. So the first layer of the network replaces each token number by a long list of numbers, called its *embedding*. In GPT-3, an early large language model, each embedding has 12,288 numbers ([Brown et al., 2020](https://arxiv.org/abs/2005.14165)). These numbers are weights like any other, set by training, and nobody chooses them.
+
+Training places tokens that are used in similar ways at similar points. Think of each embedding as a position in a space with thousands of directions. "Kinase" ends up near "phosphatase", "mouse" near "rat", and directions in the space come to stand for relations. In an early and much simpler model, the embedding of "king" minus that of "man" plus that of "woman" landed closest to the embedding of "queen" ([Mikolov et al., 2013](https://arxiv.org/abs/1301.3781)). Nobody told the network about royalty or gender. That structure was the most useful way to arrange the words for predicting the text they appear in.
+
+## Predicting the next token {#sec-llm-next}
+
+At the other end of the network sits the output layer, with one output neuron for every token in the vocabulary. Each output neuron produces a score, and the scores are turned into probabilities by a function called *softmax*. It raises $e$ to the power of each score, which makes every number positive and makes high scores much higher, and then divides each result by their total so they add up to 1:
+
+$$
+p_i = \frac{e^{s_i}}{e^{s_1} + e^{s_2} + \dots + e^{s_n}}
+$$
+
+where $s_i$ is the score of token $i$ and $p_i$ is its probability. With only two tokens, softmax is the sigmoid from @sec-nn-sigmoid in disguise. The result is a probability for every possible next token, as in @fig-llm-next.
+
+```{python}
+#| label: fig-llm-next
+#| echo: false
+#| fig-cap: "The kind of output a language model produces: a probability for every token in its vocabulary of coming next, here after the text \"The codon ATG marks the start of\". Only the eight most likely tokens are shown. The numbers are made up for illustration and do not come from a real model."
+import matplotlib.pyplot as plt
+
+tokens = ["translation", "the", "a", "protein", "an", "every", "most", "transcription"]
+probs = [0.46, 0.21, 0.11, 0.07, 0.04, 0.03, 0.02, 0.02]
+
+fig, ax = plt.subplots(figsize=(6, 3.6))
+bars = ax.barh(tokens[::-1], probs[::-1], color="#2a78d6", height=0.6)
+for bar, p in zip(bars, probs[::-1]):
+    ax.text(bar.get_width() + 0.008, bar.get_y() + bar.get_height() / 2, f"{p:.2f}",
+            va="center", color="#444444")
+ax.set_xlim(0, 0.55)
+ax.set_xlabel("Probability of coming next")
+ax.spines[["top", "right"]].set_visible(False)
+plt.show()
+```
+
+The model then picks one token. It could always pick the most likely one, but that tends to produce dull and repetitive text, so it usually *samples*: it draws a token at random, with each token's chance of being drawn equal to its probability. In @fig-llm-next, "translation" would be chosen about half the time, and "transcription", which is wrong here, about one time in fifty. A setting called the *temperature* controls how adventurous the draw is. The scores are divided by the temperature before softmax. A low temperature makes the differences between scores bigger, so the most likely token wins almost every time. A high temperature evens the probabilities out, so unlikely tokens get chosen more often.
+
+The chosen token is added to the end of the text, and the whole thing runs again on the longer text to choose the token after that, and so on, one token at a time, until the model produces a special token that means "the answer is finished". This is how a reply appears word by word on your screen. Nothing in the process looks ahead or plans the whole answer before writing it, beyond what is implicit in the probabilities of the next token.
+
+## Using the context: attention {#sec-llm-attention}
+
+To predict the next token well, the model must take the earlier text into account, and the meaning of a word often depends on words far away from it. "Primer" means one thing in "we bought primer for the wall" and something else in "the primer did not bind because it was too short". In the second sentence, "it" refers to the primer, and to predict what follows, the model needs to know that.
+
+The networks you have met so far treat their inputs as a fixed list and have no natural way to do this. Language models use an additional kind of layer, called *attention*, introduced in an architecture called the *transformer* ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)). The "T" in GPT stands for transformer. In an attention layer, every token looks back at all the tokens before it and decides how relevant each of them is. It does this by computing, from its own embedding, a list of numbers that says what it is looking for, and comparing it with a list that each earlier token computes to say what it contains. The better the match, the higher the relevance score. The scores are turned into weights with softmax, and the token then takes in information from the earlier tokens, mixed in proportion to those weights. In "the primer did not bind because it was too short", the token "it" can learn to attend strongly to "primer" and take in its meaning. How to compute what a token is looking for, what it contains and what it passes on is again set by weights, learned in training like all the others.
+
+A language model stacks many such layers, each followed by an ordinary layer of neurons. GPT-3 has 96 ([Brown et al., 2020](https://arxiv.org/abs/2005.14165)). With every layer, each token's list of numbers is refined by what it has gathered from the others, so that by the last layer the list for the final token holds what the model has worked out about the text so far. That list is what the output layer turns into the next-token probabilities.
+
+There is a limit to how much text the model can attend to at once, called its *context window*. It has grown from a couple of thousand tokens in early models to hundreds of thousands in recent ones, but text beyond it is simply not seen. This also explains how a chat works. The model has no memory of its own. Each time you send a message, the whole conversation so far, including some instructions from the company that runs the assistant, is fed in as one long text, and the model continues it. When an assistant seems to remember something from earlier in a chat, it is because that part of the chat is still in the text it is reading.
+
+The same architecture works on other kinds of sequences. Protein language models are trained on amino-acid sequences instead of text, with one token per amino acid, and what they learn about which residues go together is enough to predict a protein's three-dimensional structure ([Lin et al., 2023](https://doi.org/10.1126/science.ade2574)).
+
+## How a large language model is trained {#sec-llm-training}
+
+A language model is trained in stages. The first and by far the largest is *pretraining*, and it is the next-token game: show the model a piece of text, let it predict each next token, and use backpropagation to adjust the weights so that the token that actually came next gets a higher probability. The loss is a measure of how surprised the model was by the real next token, and training makes it less surprised. The beauty of this game is that the training data needs no labels written by people. Every piece of text supplies its own targets, since the target for each position is just the token that follows it. So the model can be trained on enormous amounts of text: books, websites, articles and a great deal of code. GPT-3, with 175 billion parameters, was trained on several hundred billion tokens ([Brown et al., 2020](https://arxiv.org/abs/2005.14165)). The companies behind current models no longer publish such numbers, but they are larger, and training takes months on tens of thousands of specialized processors.
+
+A pretrained model is a remarkable text continuer, but not an assistant. Given a question, it might continue with three more questions, because that is how lists of questions on the internet continue. The next stage, *fine-tuning*, trains it further on a much smaller set of example conversations written by people, in which a request is followed by a helpful answer. After that, the model's answers are often improved by *reinforcement learning from human feedback*. The model writes several answers to the same request, people rank them from best to worst, and the model is trained toward the kinds of answers people ranked highly ([Ouyang et al., 2022](https://arxiv.org/abs/2203.02155)).
+
+Through all of this, the model's knowledge consists of its weights and nothing else. There is no database of facts inside it to look things up in. When it states a fact, it is producing text that its weights make likely, and the fact comes out right only because the training text made the correct version likely.
+
+## What this explains {#sec-llm-explains}
+
+Most of the behavior of an AI assistant that surprises people follows directly from how it works.
+
+It produces plausible text, and plausible text is not always true. Pretraining rewards predicting what text is likely to come next, and a false statement can be very likely: a reasonable-sounding function for a gene that was never studied, a reference to a paper that would fit perfectly but does not exist, a codon table with one quiet mistake. The model has no separate sense of whether a statement is true, so it states false things in the same fluent, confident tone as true ones. This is what is called *hallucination*.
+
+It knows nothing after its training data was collected, unless something newer is put into its context, for example by a web search that the assistant runs and pastes into the conversation before answering. Modern assistants use such tools, and they can also run code, which helps a great deal. But the final answer is still written token by token by the model, which can misread or misreport what the tool returned.
+
+It struggles with letters inside tokens, which is why it can miscount the bases in a sequence or get a reverse complement wrong while explaining correctly how a reverse complement is made.
+
+It can give different answers to the same question, because each token is drawn at random from the probabilities. If you ask twice and get two different answers, at least one of them did not come from knowing the answer.
+
+It tends to agree with you. The human feedback that made it helpful also rewards answers people like, and people like being agreed with. Language models trained this way have been shown to go along with a user's mistaken belief, and to give up a correct answer when the user pushes back ([Sharma et al., 2023](https://arxiv.org/abs/2310.13548)). That the assistant agrees with you is not evidence that you are right.
+
+None of this makes the assistant less useful. A system trained on a large part of everything people have written, and able to combine it fluently for exactly your question, is extraordinary. It means that the assistant's answers are proposals. As you have learned throughout the course, a proposal becomes something you can rely on when you have checked it: by running the code, by a test, or against the documentation or the literature.
+
+#### Exercise
+
+[AI: Explainer](../intro/course-introduction.qmd#sec-badge-explainer){.small}
+
+Give the assistant this sequence and ask it two things: how many times the base G occurs in it, and what its reverse complement is. Ask it not to use any tools or run any code, so that you test the model itself.
+
+```
+ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG
+```
+
+Then settle both answers yourself with a short Python program that you write without help. Count the Gs with a string method, and build the reverse complement with a dictionary and a loop, or any other way you know. Compare letter by letter. Then ask the assistant again, this time allowing it to run code, and compare once more.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Why can the assistant get this wrong?
+
+It never sees the individual bases, only tokens of several letters each, so counting letters and reversing them base by base is exactly the kind of task its input hides from it. When it runs code, it is no longer doing the task itself: Python does the counting, and the model only writes the program and reports the result, which is far more reliable. If its first answers were right, try a longer sequence. The longer the sequence, the more likely the model is to slip.
+:::
+
+<br>
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Suppose a model gives three possible next tokens the scores 2, 1 and 0. Use Python, with `math.exp` from the `math` module, to compute the softmax probabilities. Then divide the scores by a temperature of 0.5 and compute them again. Before you compute the second set, predict whether the most likely token becomes more or less likely.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## What are the probabilities at the original scores?
+
+$e^2 \approx 7.39$, $e^1 \approx 2.72$ and $e^0 = 1$, which add up to about $11.11$. The probabilities are about $0.67$, $0.24$ and $0.09$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## What happens at temperature 0.5?
+
+The scores become 4, 2 and 0. $e^4 \approx 54.6$, $e^2 \approx 7.39$ and $e^0 = 1$ add up to about $63.0$, so the probabilities are about $0.87$, $0.12$ and $0.02$. The most likely token became more likely, and the least likely one almost disappeared. A low temperature makes the model more predictable. Try a temperature of 2 as well, and you will see the probabilities even out.
+:::
+
+<br>
+
+#### Exercise
+
+[AI: Explainer](../intro/course-introduction.qmd#sec-badge-explainer){.small}
+
+Open two fresh conversations with the assistant and ask both, word for word, the same question: "In two sentences, what does the human gene TP53 do?" Put the two answers side by side. Then check every factual claim in them against the gene's entry in [NCBI Gene](https://www.ncbi.nlm.nih.gov/gene/7157) or [UniProt](https://www.uniprot.org/uniprotkb/P04637/entry). Do the two answers say the same things in different words, or do they make different claims? Repeat the experiment with a gene that is much less studied, picked from a list of genes in one of your courses, and note in your logbook whether the answers became less consistent, and whether the database agreed with them.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## What should you expect?
+
+For TP53, one of the most studied genes there is, the two answers will probably differ in wording but agree in substance, because the training text says the same things about it over and over, so the most likely tokens are the right ones. For an obscure gene, there is little training text, the probabilities are spread more evenly, and the sampled answers can differ in what they claim and may describe functions the database does not support. The tone of the answers will not tell you which case you are in. Only the database can.
+:::

@@ -1,0 +1,591 @@
+---
+title: "AI: Neural networks"
+format:
+  html:
+    include-after-body: nnw-widget.html
+---
+
+
+## From neuron to network {#sec-nn-network}
+
+A neural network is a set of neurons in which the outputs of some are the inputs of others. The neurons are arranged in layers, as in @fig-nn-layers.
+
+::: {#fig-nn-layers}
+
+```{=html}
+<svg viewBox="0 0 540 290" width="100%" style="max-width:540px" role="img"
+     aria-label="A network with two input nodes, three hidden nodes and one output node">
+  <g stroke="currentColor" stroke-width="1.5" opacity="0.7">
+    <line x1="90" y1="105" x2="270" y2="55"/>
+    <line x1="90" y1="105" x2="270" y2="140"/>
+    <line x1="90" y1="105" x2="270" y2="225"/>
+    <line x1="90" y1="175" x2="270" y2="55"/>
+    <line x1="90" y1="175" x2="270" y2="140"/>
+    <line x1="90" y1="175" x2="270" y2="225"/>
+    <line x1="270" y1="55" x2="450" y2="140"/>
+    <line x1="270" y1="140" x2="450" y2="140"/>
+    <line x1="270" y1="225" x2="450" y2="140"/>
+    <line x1="450" y1="140" x2="520" y2="140"/>
+  </g>
+  <polygon points="520,134 532,140 520,146" fill="currentColor" opacity="0.7"/>
+  <g stroke="currentColor" stroke-width="1.5" fill="#d1d5db">
+    <circle cx="90" cy="105" r="22"/>
+    <circle cx="90" cy="175" r="22"/>
+    <circle cx="270" cy="55" r="22"/>
+    <circle cx="270" cy="140" r="22"/>
+    <circle cx="270" cy="225" r="22"/>
+    <circle cx="450" cy="140" r="22"/>
+  </g>
+  <g font-family="sans-serif" font-size="17" font-style="italic" text-anchor="middle" fill="#111">
+    <text x="90" y="111">x₁</text>
+    <text x="90" y="181">x₂</text>
+    <text x="270" y="61">h₁</text>
+    <text x="270" y="146">h₂</text>
+    <text x="270" y="231">h₃</text>
+    <text x="450" y="146">y</text>
+  </g>
+  <g font-family="sans-serif" font-size="15" text-anchor="middle" fill="currentColor">
+    <text x="90" y="280">Input layer</text>
+    <text x="270" y="280">Hidden layer</text>
+    <text x="450" y="280">Output layer</text>
+  </g>
+</svg>
+```
+
+<!-- FIXME:  -->
+
+A small feed-forward network. Every line carries a weight, and every hidden and output node has its own threshold and applies the activation function.
+
+:::
+
+The input nodes hold the numbers you give the network: the brightness of each pixel in an image, say, or which base sits at each position of a DNA sequence. They compute nothing. They only pass their values on.
+
+The hidden nodes are neurons of the kind described above. Each has its own weight on every incoming connection and its own threshold, and each applies the activation function to its net input. They are called hidden because, seen from outside, you only set the inputs and read the outputs. What happens in between is the network's internal working. A network can have many hidden layers, each fed by the one before. A network with many of them is called *deep*, which is where the term *deep learning* comes from.
+
+The output nodes are neurons too, and their values are the network's answer. A yes-or-no question needs one output node. A network that predicts whether each residue of a protein sits in a helix, a strand or a coil might have three, one for each answer, and pick the one with the largest value.
+
+Information flows one way, from the inputs through the hidden layers to the outputs, which is why this kind of network is called *feed-forward*. Computing the output means working through the layers in order, finding each neuron's weighted sum and putting it through the activation function. It is the substitution and reduction you have practiced on Python expressions, with many more numbers.
+
+The weights and thresholds together are the network's parameters, and they are everything the network knows. The tiny network in the next chapter, with one input, three hidden nodes and one output, has ten: three weights into the hidden layer, three hidden thresholds, three weights into the output, and one output threshold. The language models behind AI assistants have billions, the largest hundreds of billions.
+
+## What a network can model {#sec-nn-what}
+
+Think of a neuron with two inputs. It says yes when $w_1x_1 + w_2x_2 \geq \theta$. If you draw every possible pair of inputs as a point on a sheet of paper, the points where $w_1x_1 + w_2x_2$ equals $\theta$ form a straight line. The neuron says yes on one side of that line and no on the other. With three inputs the line becomes a flat plane, but the idea is the same: a single neuron divides its inputs with a straight cut.
+
+Many useful rules are a straight cut. With all weights equal to 1, a neuron with three yes/no inputs computes AND ("all three") when the threshold is 2.5, "at least two" when it is 1.5, and OR ("at least one") when it is 0.5. You will try this in the exercises. Some rules cannot be drawn with a straight cut, and the simplest is "exactly one of the two". A staircase light with a switch at the top and one at the bottom should be on when exactly one switch is up. The last exercise in this chapter asks you to build that with a single neuron and explains why you cannot. This limitation was well known by the end of the 1960s, and for some years it made the perceptron look like a dead end.
+
+A hidden layer fixes it. "Exactly one" is the same as "at least one, but not both". Give the network two hidden neurons that each see both switches. The first, with weights 1 and 1 and threshold 0.5, computes "at least one". The second, with weights 1 and 1 and threshold 1.5, computes "both". The output neuron gets weight 1 from the first and −1 from the second, and threshold 0.5, so it says yes when the first hidden neuron is on and the second is off. Work through all four switch positions and you will find the lamp is on exactly when it should be. The hidden neurons re-described the input in terms that made the final decision easy. That is what hidden layers do in general. In a network trained to recognize images, early hidden neurons end up responding to edges and later ones to shapes made of edges, without anyone telling them to.
+
+Networks are not limited to yes or no. Give a network one input $x$ and a single hidden neuron with the step function, and plot the output against $x$. The hidden neuron switches on where $wx - \theta \geq 0$, that is where $x$ passes $\theta/w$, so the plot is a step at that point, and the output weight sets how tall the step is. Two hidden neurons give two steps, and one step up followed by one step down gives a bump. Enough bumps side by side can trace out any curve you like, as closely as you like. This result, that a single hidden layer with enough neurons can approximate any reasonable function, is called the universal approximation theorem ([Cybenko, 1989](https://doi.org/10.1007/BF02551274); [Hornik et al., 1989](https://doi.org/10.1016/0893-6080(89)90020-8)). You will build steps, bumps and staircases yourself in the next chapter. The theorem says that suitable weights exist. It says nothing about how to find them, or how many hidden neurons it will take.
+
+## Why neural networks are powerful {#sec-nn-why}
+
+Finding the weights is the part that made neural networks what they are today. Throughout this course you have instructed the machine by writing out every step. A neural network is instructed in a different way. You give it examples, inputs paired with the correct outputs, and a training algorithm adjusts the weights a little at a time, each time in the direction that brings the network's outputs closer to the correct ones. The standard algorithm, backpropagation, works out how much each weight contributed to the error ([Rumelhart et al., 1986](https://doi.org/10.1038/323533a0)). It depends on small changes to a weight giving small changes to the output, which is why the step function had to give way to smooth activation functions. After many rounds of adjustment, the weights settle on values that make the network do the job. Nobody writes them down.
+
+Three things together make this powerful. The building block is flexible: the same neurons, wired the same way, can compute very different things depending only on their weights, and with enough of them almost anything. The weights are learned from examples, so a network can do jobs that nobody knows how to write instructions for, such as recognizing a cat, predicting how a protein folds, or guessing the next word in a sentence. And all the arithmetic is multiplying and adding, which modern computers do extremely fast, so networks can have billions of parameters and learn from enormous collections of examples.
+
+The same properties explain problems you have already met. A network learns whatever is in its examples, including their mistakes and biases. What it knows is spread across a vast number of weights, none of which means anything on its own, so you cannot read the weights to find out why it gave a particular answer. And it produces an answer for any input, including inputs unlike anything it was trained on, with no sign that it is out of its depth. This is why you check what the AI assistant produces, and why the same caution applies to every neural network.
+
+
+<!-- 
+Training OpenAI's GPT 6 Astra takes an octillion computations
+https://www.nytimes.com/interactive/2026/10/15/upshot/ai-data-center-math.html?unlocked_article_code=1.KVE.nMBK.ATeVWV8Q2inC&smid=url-share
+ -->
+
+## A tiny network
+
+Each exercise below has its own copy of the network, already set up for that exercise. You change one slider at a time. Before every change, decide what you expect to happen to the graph. Sketch it or write it down in one sentence. Only then change the slider and compare. If the graph does something else than you
+predicted, try to explain why before you open the answer.
+
+In each interactive network, the input $x$ goes to each hidden neuron $h_i$, and the hidden neurons feed the output $y$:
+
+- Hidden neuron: $h_i = f(w_i x - \theta_i)$
+- Output with "Apply $f$ at output" disabled: $y = v_1 h_1 + v_2 h_2 + v_3 h_3 - \theta$
+- Output with "Apply $f$ at output" enabled: $y = f(v_1 h_1 + v_2 h_2 + v_3 h_3 - \theta)$
+
+With the "step" activation, $f(z) = 1$ if $z \geq 0$ and $0$ otherwise. A hidden neuron with a positive weight therefore switches on where $w_i x \geq \theta_i$, that is for $x \geq \theta_i / w_i$.
+
+::: {.callout-note icon=false}
+
+## Practical tips
+
+- "Reset" puts a network back to the start of its exercise.
+- All weights and thresholds go from −10 to 10. To set a slider to an exact value, click it and use the arrow keys: each press changes it by 0.1.
+- Move the mouse over the graph to choose an input $x$; the network then shows the value of every  neuron for that input.
+- "Show contributions" draws each hidden neuron's contribution $v_i h_i$ as a dashed line. Use it to check your reasoning.
+- The $y$-axis always runs from −25 to 25, so small values (like 1) give small changes in the graph.
+
+:::
+
+<style>
+/* Change callout header title to normal text style for this page */
+.callout-note .callout-title {
+  font-size: 1rem;
+  font-weight: normal;
+  color: normal;
+}
+.callout .callout-title-container {
+  font-weight: normal;
+}
+</style>
+
+#### Exercise
+
+*One step*
+
+One hidden neuron with the step activation, starting from "Flat": all weights $w$ are 1, all
+thresholds are 0 and the output weight $v_1$ is 0, so the graph is flat at $y = 0$.
+
+```{=html}
+<div class="nnw" data-act="step" data-hidden="1" data-example="flat"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = 10$. What does the graph look like now?
+
+A step: $y = 0$ for $x < 0$ and $y = 10$ for $x \geq 0$. The hidden neuron switches on where
+$1 \times x - 0 \geq 0$, i.e. at $x = 0$, and $v_1$ sets the height of the step.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_1 = 2$. Where is the step now?
+
+At $x = 2$. The neuron now needs $x - 2 \geq 0$. Increasing the threshold moves the step to the right.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_1 = -3$. Where is the step now?
+
+At $x = -3$: a negative threshold moves the step to the left.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = -10$. What changes?
+
+The step now goes *down*: $y = 0$ for $x < -3$ and $y = -10$ for $x \geq -3$. The hidden neuron still
+switches on at the same place; a negative output weight turns its contribution upside down.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set the output threshold $\theta = -5$. What happens to the whole graph?
+
+Everything moves *up* by 5: $y = 5$ for $x < -3$ and $y = -5$ for $x \geq -3$. The output threshold is
+subtracted from the output, so a negative $\theta$ adds to it.
+:::
+
+<br>
+
+#### Exercise
+
+*What the input weight does*
+
+One hidden neuron with the step activation, starting from **Flat** with $v_1 = 10$ and $\theta_1 = 2$:
+a step up at $x = 2$.
+
+```{=html}
+<div class="nnw" data-act="step" data-hidden="1" data-example="flat" data-set="v1=10, t1=2"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $w_1 = 2$. Where is the step now?
+
+At $x = 1$. The neuron switches on where $2x - 2 \geq 0$, i.e. $x \geq \theta_1/w_1 = 2/2 = 1$. A larger weight
+moves the step towards $x = 0$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $w_1 = 0.5$. Where is the step now?
+
+At $x = 4$ ($\theta_1/w_1 = 2/0.5$). A smaller weight moves the step away from $x = 0$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $w_1 = -1$. What happens?
+
+The step flips direction and moves to $x = -2$: $y = 10$ for $x \leq -2$ and $y = 0$ for $x > -2$.
+The neuron now needs $-x - 2 \geq 0$, i.e. $x \leq -2$: with a negative weight, the neuron is on to the
+*left* of the switching point.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $w_1 = 0$. What happens?
+
+The graph is flat at $y = 0$. With weight 0 the neuron ignores the input: its input is always
+$0 - 2 = -2$, which is below 0, so it is never on.
+:::
+
+<br>
+
+#### Exercise
+
+*Building a bump from two steps*
+
+Two hidden neurons with the step activation, starting from **Flat**, with **Show contributions**
+ticked.
+
+```{=html}
+<div class="nnw" data-act="step" data-hidden="2" data-example="flat" data-contrib="true"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = 10$. What do you see?
+
+A step up from 0 to 10 at $x = 0$, made by $h_1$ alone.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_2 = 10$. What happens?
+
+The step becomes twice as high ($0 \to 20$), still at $x = 0$. Both neurons switch on at the same place,
+so their contributions add up.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_2 = 2$. What happens?
+
+Two steps (a staircase): $y = 0$ for $x < 0$, $y = 10$ for $0 \leq x < 2$, and $y = 20$ for $x \geq 2$.
+The second neuron now switches on later.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_2 = -10$. What happens?
+
+A *bump*: $y = 10$ for $0 \leq x < 2$ and $y = 0$ everywhere else. The first neuron steps up at 0, the
+second steps down by the same amount at 2, so they cancel to the right of 2.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_1 = -2$. What happens to the bump?
+
+It gets wider: it now runs from $x = -2$ to $x = 2$. Each threshold controls one edge of the bump.
+:::
+
+<br>
+
+#### Exercise
+
+*Moving the edges of a bump*
+
+The "Bump" example: a bump of height 10 between $x = -1$ and $x = 1$ ($\theta_1 = -1$, $\theta_2 = 1$,
+$v_1 = 10$, $v_2 = -10$).
+
+```{=html}
+<div class="nnw" data-example="bump"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_1 = 1$. What happens?
+
+The bump disappears and the graph is flat at 0. Both neurons now switch on at $x = 1$; the step up and
+the step down happen at the same place and cancel.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_1 = 3$. What happens?
+
+A *dip*: $y = -10$ for $1 \leq x < 3$ and 0 elsewhere. Now the step down (at 1) comes before the step
+up (at 3).
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = 5$. What happens?
+
+The step up at $x = 3$ only goes half way back: $y = 0$ for $x < 1$, $-10$ for $1 \leq x < 3$, and
+$5 - 10 = -5$ for $x \geq 3$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta = -10$. What happens?
+
+The whole graph moves up by 10: $y = 10$ for $x < 1$, $0$ for $1 \leq x < 3$, and $5$ for $x \geq 3$.
+:::
+
+<br>
+
+#### Exercise
+
+*A staircase*
+
+The "Staircase" example with three hidden neurons: steps at $x = -3$, $0$ and $3$, each of height 6.
+The output threshold $\theta = 9$ centres the levels on zero: −9, −3, 3, 9.
+
+```{=html}
+<div class="nnw" data-hidden="3" data-example="stairs"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta = 0$. What are the levels now?
+
+0, 6, 12 and 18: the whole staircase moves up by 9.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_2 = 0$. What happens?
+
+The middle step disappears: $y = 0$ for $x < -3$, $6$ for $-3 \leq x < 3$, and $12$ for $x \geq 3$.
+Neuron $h_2$ still switches on at $x = 0$, but its contribution is multiplied by 0.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_2 = -6$. What happens?
+
+At $x = 0$ the graph now steps *down* by 6: $0$ for $x < -3$, $6$ for $-3 \leq x < 0$, $0$ for
+$0 \leq x < 3$, and $6$ again for $x \geq 3$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_3 = 6$. What happens?
+
+The last step disappears from the graph: $h_3$ would only switch on at $x = 6$, which is outside the
+plotted range. What is left is a *bump* of height 6 between $x = -3$ and $x = 0$, just like in
+Exercise 3.
+:::
+
+<br>
+
+#### Exercise
+
+*Smooth steps with the sigmoid*
+
+One hidden neuron with the sigmoid activation, starting from **Flat**. The sigmoid is a smooth version
+of the step: $f(z) = 1 / (1 + e^{-z})$, which is 0.5 at $z = 0$.
+
+```{=html}
+<div class="nnw" data-act="sigmoid" data-hidden="1" data-example="flat"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = 10$. What does the graph look like?
+
+A smooth S-shaped curve rising from almost 0 on the left to almost 10 on the right, passing through
+$y = 5$ at $x = 0$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $w_1 = 5$. What changes?
+
+The curve becomes much steeper and looks almost like a step at $x = 0$. The weight controls how
+sharp the transition is.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $w_1 = 0.5$. What changes?
+
+The curve becomes very gradual: it rises from about 0.8 at $x = -5$ to about 9.2 at $x = 5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_1 = 1$. Where is the middle of the curve (where $y = 5$) now?
+
+At $x = 2$ ($\theta_1/w_1 = 1/0.5$), just as for a step. The curve is shifted to the right.
+:::
+
+<br>
+
+#### Exercise
+
+*Ramps with ReLU*
+
+One hidden neuron with the ReLU activation, starting from **Flat**. ReLU is $f(z) = \max(0, z)$: zero
+for negative input, and the input itself otherwise.
+
+```{=html}
+<div class="nnw" data-act="relu" data-hidden="1" data-example="flat"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = 1$. What does the graph look like?
+
+A ramp: $y = 0$ for $x < 0$ and $y = x$ for $x \geq 0$, reaching 5 at the right edge. The point where it
+bends is called a kink.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $w_1 = 5$. What changes?
+
+The ramp becomes five times steeper and reaches 25 (the top of the plot) at $x = 5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_1 = 5$. Where is the kink now, and how high does the ramp get?
+
+The kink moves to $x = 1$ ($\theta_1/w_1 = 5/5$), and the ramp $y = 5x - 5$ reaches 20 at $x = 5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = -1$. What happens?
+
+The ramp now goes *down* from the kink at $x = 1$, reaching −20 at $x = 5$.
+:::
+
+<br>
+
+#### Exercise
+
+*A peak from two ramps*
+
+Two hidden neurons with the ReLU activation, starting from **Flat**, with **Show contributions**
+ticked.
+
+```{=html}
+<div class="nnw" data-act="relu" data-hidden="2" data-example="flat" data-contrib="true"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = 5$. What does the graph look like?
+
+A ramp from 0 at $x = 0$ up to 25 at $x = 5$ (slope 5).
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_2 = -10$. What happens?
+
+The ramp goes *down* instead: both neurons bend at $x = 0$, and the slopes add up to
+$5 - 10 = -5$, so the graph reaches −25 at $x = 5$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta_2 = 2$. What happens?
+
+A *peak*: the graph rises with slope 5 from $x = 0$, reaches 10 at $x = 2$, then falls with slope
+−5, crossing zero at $x = 4$ and reaching −5 at $x = 5$. The second neuron only starts pulling the
+graph down from $x = 2$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Tick "Apply $f$ at output". What happens?
+
+The output now also goes through ReLU, so negative values become 0: the graph is a clean triangle
+from $x = 0$ to $x = 4$ with its top (10) at $x = 2$, and 0 everywhere else.
+:::
+
+<br>
+
+#### Exercise
+
+*A threshold on the output*
+
+The "Bump" example again. Tick "Apply *f* at output", but before you do, predict what the graph
+will look like.
+
+```{=html}
+<div class="nnw" data-example="bump"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## What does the graph look like with "Apply $f$ at output" ticked?
+
+The graph becomes flat at $y = 1$. Inside the bump the output neuron receives $10 - 0 = 10$, outside
+it receives $0$. Both are $\geq 0$, so the step function gives 1 everywhere.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta = 5$. What happens?
+
+A bump of height 1 between $x = -1$ and $x = 1$, 0 elsewhere (it is small on this axis; hover over the
+graph to check the values). The output neuron now receives $10 - 5 = 5$ inside the bump and $-5$
+outside, so it only fires inside.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $v_1 = 3$. What happens?
+
+The graph is flat at 0. Inside the bump the output neuron receives $3 - 5 = -2$; outside it receives
+$-5$ (left) or $3 - 10 - 5 = -12$ (right). It never reaches its threshold.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set $\theta = 2$. What happens?
+
+The bump comes back: inside it receives $3 - 2 = 1 \geq 0$, outside $-2$ or $-9$. Only the inputs inside
+the bump make the output neuron fire.
+:::
+
+<br>
+
+#### Exercise
+
+Make a bump of height 8 that runs from $x = -2$ to $x = 3$.
+
+```{=html}
+<div class="nnw" data-act="step" data-hidden="2" data-example="flat"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## One solution
+
+$w_1 = w_2 = 1$, $\theta_1 = -2$, $\theta_2 = 3$, $v_1 = 8$, $v_2 = -8$, $\theta = 0$.
+:::
+
+<br>
+
+#### Exercise
+
+Make a staircase going **down**: 10 for $x < -1$, 0 between −1 and 1,
+and −10 for $x \geq 1$.
+
+```{=html}
+<div class="nnw" data-act="step" data-hidden="2" data-example="flat"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## One solution
+
+$w_1 = w_2 = 1$, $\theta_1 = -1$, $\theta_2 = 1$, $v_1 = v_2 = -10$, and $\theta = -10$ to lift the whole graph by 10.
+:::
+
+<br>
+
+#### Exercise
+
+```{=html}
+<div class="nnw" data-act="relu" data-hidden="2" data-example="flat"></div>
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## One solution
+
+$w_1 = 1$, $w_2 = -1$, $\theta_1 = \theta_2 = 0$, $v_1 = v_2 = 5$, $\theta = 0$. One neuron makes the right half of the V,
+the other (with a negative weight) the left half.
+:::
