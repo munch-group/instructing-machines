@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>44&nbsp; AI: Neurons – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../neural_networks/neural-networks.html" rel="next">
+<link href="../python/modules-and-packages.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5a3665b9392c5ae1e36b4ecc16804033.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/modules-and-packages.html">Week 9</a></li><li class="breadcrumb-item"><a href="../neural_networks/neurons.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes_slides_recordings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Week plan</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/course-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Course introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Terminal Howto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/getting_set_up.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Getting set up</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AI: Meet AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Notebooks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/control-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-the-object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-loops-and-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-drawing-from-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Project: Translating ORFs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Project: Primer analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-classes-debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Project: Codon usage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/modules-and-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Modules and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neurons.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neural-networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p> </p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-nn-perceptron" id="toc-sec-nn-perceptron" class="nav-link active" data-scroll-target="#sec-nn-perceptron">The perceptron</a></li>
+  <li><a href="#sec-nn-activation" id="toc-sec-nn-activation" class="nav-link" data-scroll-target="#sec-nn-activation">Activation functions</a>
+  <ul class="collapse">
+  <li><a href="#sec-nn-sigmoid" id="toc-sec-nn-sigmoid" class="nav-link" data-scroll-target="#sec-nn-sigmoid">The sigmoid</a></li>
+  <li><a href="#sec-nn-relu" id="toc-sec-nn-relu" class="nav-link" data-scroll-target="#sec-nn-relu">ReLU</a></li>
+  </ul></li>
+  <li><a href="#sec-nn-by-hand" id="toc-sec-nn-by-hand" class="nav-link" data-scroll-target="#sec-nn-by-hand">Setting the weights by hand</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/neural_networks/neurons.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/modules-and-packages.html">Week 9</a></li><li class="breadcrumb-item"><a href="../neural_networks/neurons.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The AI you use for this course is a neural network. So is the software that finds faces in the photos on your phone, turns speech into text, and predicts the three-dimensional structure of a protein from its amino-acid sequence. It would make sense to think that tasks so different would each require similarly different highly advanced algorithms, but they are all built from one very simple part, repeated many times.</p>
+<p>The idea is borrowed from biology, where simple neurons combined in (very) large numbers are able to do complex and diverse computations. A neuron receives signals from other neurons through synapses. Some synapses are excitatory and push the membrane potential up, others are inhibitory and push it down. Some synapses are stronger than others, making larger contributions to the potential. The neuron cell body adds up what comes in, and if the membrane potential reaches a threshold, the neuron fires an action potential down its axon that connects it too another neuron. If the threshold is not reached, it sends nothing. With neurons, the response is all or nothing.</p>
+<p>All the complicated chemistry aside, a neuron basically does three things: it <em>weights</em> each incoming signal by the strength of its synapse, it adds the weighted signals up, and it fires if the sum reaches a <em>threshold</em>. The idea of turning this into math dates back to <a href="https://doi.org/10.1007/BF02478259">1943</a>. The simplified mathematical version of a biological neuron is called a <em>perceptron</em>, coined by <a href="https://doi.org/10.1037/h0042519">Rosenblatt</a> who built the first working neural network in 1958. Modern neural networks do not try to imitate the brain. They get their unimaginable power from combining simple perceptrons. This chapter introduces how the logic of a single perceptron can be made to represent complicated decisions. Combining them into neural networks and the capabilities this introduces is covered in the next chapters.</p>
+<section id="sec-nn-perceptron" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-nn-perceptron">The perceptron</h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>A <strong>perceptron</strong> is more commonly called a <strong>neuron</strong>, so we will use that name here as well.</p>
+</div></div><p>There is a festival this weekend and you need to decide if are going or not<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Three things matter to your decision:</p>
+<ol type="1">
+<li>Is the weather good?</li>
+<li>Do you have company?</li>
+<li>Can get there by public transport?</li>
+</ol>
+<p>You treat weather, company, and accessibility as separate input: <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_3\)</span>. For now, 1 means yes and 0 means no. The three input do not matter equally to you. Perhaps you mind rain much more than going alone. This is why each input gets a <em>weight</em>, <span class="math inline">\(w_1\)</span>, <span class="math inline">\(w_2\)</span> and <span class="math inline">\(w_3\)</span>. If <span class="math inline">\(w_1\)</span> is larger than <span class="math inline">\(w_2\)</span>, it means the weather is more important than company. The perceptron multiplies each input by its weight and adds the results into a weighted sum</p>
+<p><span class="math inline">\(w_1x_1 + w_2x_2 + w_3x_3\)</span>.</p>
+<p>The sum is compared to a <em>threshold</em>, <span class="math inline">\(\theta\)</span>. If the weighted sum reaches the threshold, the neuron’s output is 1 (you go to the festival). Otherwise it is 0 (you stay home).</p>
+<p>Here is the festival neuron. The sliders on the left set the three inputs, the sliders on the connections set the weights, and the slider above the neuron sets the threshold. Turn the inputs on and off, and check each result against the resulting sums. For fine control of sliders, click them and use the arrow keys.</p>
+<div class="pcp" data-set="x1=1, x2=0, x3=0, w1=4, w2=3, w3=1, th=4.5" data-inputs="Weather, Company, Accessible" data-output="Go to the festival" data-examples="false"></div>
+<!-- data-formula="false"  -->
+<p>Say the weights are <span class="math inline">\(w_1 = 4\)</span> for the weather, <span class="math inline">\(w_2 = 3\)</span> for company and <span class="math inline">\(w_3 = 1\)</span> for transport, and the threshold is <span class="math inline">\(\theta = 4.5\)</span>. Good weather on its own gives a sum of 4, which falls short, so you stay at home. Good weather and a train gives <span class="math inline">\(4 + 1 = 5\)</span>, and you go. Company and a train gives <span class="math inline">\(3 + 1 = 4\)</span>, and you stay at home. The threshold sets how much evidence the neuron needs before it fires. In this case, it is how much convincing you need to go to the festival. If you lower the threshold to <span class="math inline">\(\theta = 3.5\)</span>, good weather alone is enough, and so is company with a train.</p>
+<p>If a weight is negative, the input counts <em>against</em> the decision: if <span class="math inline">\(w_2 = -3\)</span> it means you would rather go alone. In that case an input of 1 takes 3 off the sum. A very large negative weight works as a veto, because no combination of the other inputs can make up for it.</p>
+<p>You will often see the threshold moved to the other side of the comparison. Asking whether <span class="math inline">\(w_1x_1 + w_2x_2 + w_3x_3 \geq \theta\)</span> is the same as asking whether <span class="math inline">\(w_1x_1 + w_2x_2 + w_3x_3 - \theta \geq 0\)</span>. Most software and many textbooks express the threshold in terms of <em>bias</em>, which is just <span class="math inline">\(-\theta\)</span>. If a neuron has a large bias it will with a large bias says yes easily and one with a large negative bias needs a lot of convincing. The widgets in these notes use the threshold.</p>
+</section>
+<section id="sec-nn-activation" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-nn-activation">Activation functions</h2>
+<p>The last step that turn the sum into an output is usually written as a function of the neuron’s net input, <span class="math inline">\(z = w_1x_1 + w_2x_2 + w_3x_3 - \theta\)</span>. So <span class="math inline">\(f(z)\)</span> is the output and <span class="math inline">\(f\)</span> is the neuron’s activation function. So far we have used the step function,</p>
+<p><span class="math display">\[
+  f(z) =
+  \begin{cases}
+    \, 1, &amp; \text{if } z \geq 0\\
+    \, 0, &amp; \text{otherwise}
+  \end{cases},
+\]</span></p>
+<p>which produces the all-or-nothing response of the biological neuron. The step function works well for a single perceptron making a yes/no decision.</p>
+<div id="cell-fig-step-activation" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-step-activation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-step-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="neurons_files/figure-html/fig-step-activation-output-1.png" width="453" height="288" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-step-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;44.1: The step activation function.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>However, in a larger network simple yes/no answers will not work well. Three properties of the activation function matters:</p>
+<p>First, the function must be <em>non-linear</em>. A function is linear if its graph is a straight line, like <span class="math inline">\(f(z) = 2z\)</span> or <span class="math inline">\(f(z) = 3z - 1\)</span>, and non-linear if the graph bends, breaks or jumps somewhere. To see why this matters, suppose every neuron used a linear function, or no activation function at all, and simply passed on its weighted sum. Take one neuron that computes <span class="math inline">\(h = 2x + 1\)</span> and feed its output to a second neuron that computes <span class="math inline">\(y = 3h - 4\)</span>. Substituting <span class="math inline">\(h\)</span> into the second gives <span class="math inline">\(y = 3(2x + 1) - 4 = 6x - 1\)</span>, which is again a straight line. A single neuron could have computed that directly. The same happens however many neurons you connect: a weighted sum of weighted sums is just another weighted sum, so the whole network can compute nothing a single neuron could not. It is the bend in the activation function, the place where its graph stops being a straight line, that makes it worth connecting neurons at all. The step function jumps at <span class="math inline">\(z = 0\)</span>, so it is non-linear and passes this test.</p>
+<p>Second, the function must let the network learn. A network learns by making many small adjustments to its weights and keeping the ones that improve its answers. With a step function, a small change to a weight usually changes nothing at all, and once in a while flips the output from 0 to 1. The network gets no hint that it is moving in the right direction. A function that changes gradually gives that hint: nudge a weight and the output moves a little, up or down, and the network can tell which way is better. Modern networks therefore use smooth activation functions, or at least functions that are smooth almost everywhere.</p>
+<p>Third, the range of the output decides what the number can mean. An output that always lies between 0 and 1 can be read as a probability, or as how sure the network is that the answer is yes. An output with no upper limit can also say how much. Which of these you want depends on where in the network the neuron sits and what question it answers.</p>
+<p>These demands pull in different directions, so there is no single best activation function. The two that are used most are the sigmoid and ReLU. <a href="#fig-activation" class="quarto-xref">Figure&nbsp;<span>44.4</span></a> shows them together with the step function.</p>
+<section id="sec-nn-sigmoid" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-nn-sigmoid">The sigmoid</h3>
+<p>The sigmoid (from the Greek letter sigma, for its S shape) is a smoothed step:</p>
+<p><span class="math display">\[
+  f(z) = \frac{1}{1 + e^{-z}}
+\]</span></p>
+<p>When <span class="math inline">\(z\)</span> is large and negative, <span class="math inline">\(e^{-z}\)</span> is enormous, and the fraction is close to 0. When <span class="math inline">\(z\)</span> is large and positive, <span class="math inline">\(e^{-z}\)</span> is close to 0, and the fraction is close to 1. At <span class="math inline">\(z = 0\)</span>, <span class="math inline">\(e^{0} = 1\)</span> and the output is exactly <span class="math inline">\(1/2\)</span>. In between, the output rises gradually, so a small change to a weight always gives a small change to the output. The weights also control how steep the rise is: the bigger the weights, the faster the net input changes, and the closer the sigmoid comes to a step. You will see this in the next chapter.</p>
+<div id="cell-fig-sigmoid-activation" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-sigmoid-activation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sigmoid-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="neurons_files/figure-html/fig-sigmoid-activation-output-1.png" width="453" height="288" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigmoid-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;44.2: The sigmoid activation function.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The sigmoid was the standard activation function for decades, and the first networks trained with backpropagation used it (<a href="https://doi.org/10.1038/323533a0">Rumelhart et al., 1986</a>). Today it is used mainly in the output neuron of a network that answers a yes/no question, because its output always lies between 0 and 1 and can be read as a probability. A network that predicts whether a DNA sequence contains a splice site might answer 0.93, meaning it is fairly sure that it does.</p>
+<p>The sigmoid has a weakness that keeps it out of the hidden layers of large networks. Far from 0 the curve is almost flat. A neuron with net input 8 and one with net input 15 both output very nearly 1, and a small change to their weights makes almost no difference to what they send on. This is the problem of the step function again, only milder. In a network with many layers, the hint about which way to adjust the weights has to pass back through every layer, and each flat sigmoid it passes through weakens it. By the time it reaches the first layers there is almost nothing left, and those layers barely learn. This is known as the <em>vanishing gradient</em> problem.</p>
+</section>
+<section id="sec-nn-relu" class="level3 unnumbered page-columns page-full">
+<h3 class="unnumbered anchored" data-anchor-id="sec-nn-relu">ReLU</h3>
+<p>ReLU stands for <em>rectified linear unit</em>. The name comes from electronics, where a rectifier lets current through in one direction only.</p>
+<p><span class="math display">\[
+  f(z) = \max(0, z) =
+  \begin{cases}
+    \, z, &amp; \text{if } z \geq 0\\
+    \, 0, &amp; \text{otherwise}
+  \end{cases}
+\]</span></p>
+<p>As you can see in <a href="#fig-relu-activation" class="quarto-xref">Figure&nbsp;<span>44.3</span></a>, ReLU blocks negative values and lets positive values through unchanged. Below 0 the neuron is silent, just like the step function. Above 0 the output is the net input itself, so the neuron also tells how strongly it fires. The bend at 0, a sharp corner, is enough to make connecting neurons worthwhile. A network of ReLU neurons builds its curves from straight pieces joined at corners, and you will build some yourself in the next chapter.</p>
+<div id="cell-fig-relu-activation" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-relu-activation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-relu-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="neurons_files/figure-html/fig-relu-activation-output-1.png" width="453" height="288" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-relu-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;44.3: The sigmoid activation function.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>ReLU has been the default choice for the hidden neurons of deep networks since about 2010 (<a href="https://proceedings.mlr.press/v15/glorot11a.html">Glorot et al., 2011</a>). There are two reasons. Above 0 it never flattens out: its slope is 1 however large the net input gets, so the hint about which way to adjust the weights passes back through many layers without fading. And it is very cheap to compute. Comparing a number with 0 takes a computer far less time than calculating <span class="math inline">\(e^{-z}\)</span>, which matters when a network has billions of neurons.</p>
+<p>ReLU has weaknesses too. A neuron whose net input is negative for every example always outputs 0, and a small change to its weights does not change that, so it stops learning. Such a neuron is said to have died. And since ReLU has no upper limit, it is a poor choice for an output that should be read as a probability. Many modern networks, including the language models behind AI assistants, use close relatives of ReLU with the corner rounded off.</p>
+<div id="cell-fig-activation" class="cell page-columns page-full" data-execution_count="4">
+
+<div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
+<div id="fig-activation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="neurons_files/figure-html/fig-activation-output-1.png" width="441" height="288" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-activation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;44.4: <strong>Step</strong>: The original perceptron; rarely in networks that learn. <strong>Sigmoid</strong>: The output neuron for yes/no answers read as a probability. <strong>ReLU</strong>: The hidden neurons of modern deep networks.
+</figcaption>
+</figure>
+</div>
+</div></div></div>
+</section>
+</section>
+<section id="sec-nn-by-hand" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-nn-by-hand">Setting the weights by hand</h2>
+<p>In the exercises below you play the part of the training algorithm: you choose the weights and thresholds yourself and predict what the neuron will decide. This chapter stays with a single neuron and everyday decisions. The <a href="network-exercises.qmd">next chapter</a> moves to a tiny network with a hidden layer, where you will see how hidden neurons combine into curves and how the choice of activation function changes the picture.</p>
+<p>Each exercise has its own perceptron, already set up. Before every change, decide what the output will be (and why), then change the slider and compare. Computing the weighted sum on paper is usually the quickest way to be sure. In these exercises the weighted sum never lands exactly on the threshold, so it does not matter whether you read the rule as <span class="math inline">\(\geq\)</span> or <span class="math inline">\(&gt;\)</span>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Practical tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>“Reset” puts a perceptron back to the start of its exercise.</li>
+<li>To set a slider to an exact value, click it and use the arrow keys: inputs change by 0.01 per press, weights and the threshold by 0.1. Weights and the threshold go from −10 to 10.</li>
+<li>The output is shown inside the node <span class="math inline">\(y\)</span> and on the output arrow.</li>
+</ul>
+</div>
+</div>
+<style>
+/* Change callout header title to normal text style for this page */
+.callout-tip .callout-title {
+  font-size: 1rem;
+  font-weight: normal;
+  color: normal;
+}
+.callout .callout-title-container {
+  font-weight: normal;
+}
+</style>
+<section id="exercise" class="level4" data-number="44.0.0.1">
+<h4 data-number="44.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 44-1</strong></h4>
+<p><em>Two out of three ain’t bad</em></p>
+<p>Should you go to the festival? Three things matter: the weather is good, you have company, and the festival is accessible by public transport. Each counts equally (<span class="math inline">\(w_1 = w_2 = w_3 = 2\)</span>) and the threshold is <span class="math inline">\(\theta = 3\)</span>. Right now the weather is bad but you have company and it is accessible: <span class="math inline">\(x = (0,\, 1,\, 1)\)</span>. The output is 1. Check that you can explain why.</p>
+<div class="pcp" data-set="x1=0, x2=1, x3=1, w1=2, w2=2, w3=2, th=3" data-inputs="Weather, Company, Accessible" data-output="Go to the festival"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why is the output 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The weighted sum is <span class="math inline">\(2 \times 0 + 2 \times 1 + 2 \times 1 = 4\)</span>, which is at least the threshold 3.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your company cancels: set <span class="math inline">\(x_2 = 0\)</span>. Do you still go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No.&nbsp;The sum is <span class="math inline">\(2\)</span>, below the threshold 3. One good reason is not enough.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The weather turns good: set <span class="math inline">\(x_1 = 1\)</span>. Do you go now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes. Weather and accessibility give <span class="math inline">\(2 + 2 = 4 \geq 3\)</span>. Any two of the three are enough; which two does not matter.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The trains stop running: set <span class="math inline">\(x_3 = 0\)</span>. Do you go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No.&nbsp;Only the weather is left: <span class="math inline">\(2 &lt; 3\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>You really want to go: lower the threshold to <span class="math inline">\(\theta = 1\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You go. With <span class="math inline">\(\theta = 1\)</span>, a single reason (<span class="math inline">\(2 \geq 1\)</span>) is enough. Lowering the threshold makes the perceptron easier to convince.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-1" class="level4" data-number="44.0.0.2">
+<h4 data-number="44.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 44-2</strong></h4>
+<p><em>Not going anywhere in bad weather!</em></p>
+<p>Same festival, but now the weather matters much more: <span class="math inline">\(w_1 = 6\)</span>, <span class="math inline">\(w_2 = w_3 = 2\)</span>, and the threshold is <span class="math inline">\(\theta = 5\)</span>. You have company and it is accessible, but the weather is bad: <span class="math inline">\(x = (0,\, 1,\, 1)\)</span>, and the output is 0.</p>
+<div class="pcp" data-set="x1=0, x2=1, x3=1, w1=6, w2=2, w3=2, th=5" data-inputs="Weather, Company, Accessible" data-output="Go to the festival"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The weather turns good: set (<span class="math inline">\(x_1 = 1\)</span>). Do you go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(6 + 2 + 2 = 10 \geq 5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your company cancels: set <span class="math inline">\(x_2 = 0\)</span>. Do you still go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(6 + 2 = 8 \geq 5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The festival is no longer accessible: set <span class="math inline">\(x_3 = 0\)</span>. Do you still go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: the good weather alone gives <span class="math inline">\(6 \geq 5\)</span>. Good weather is enough on its own.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The weather turns bad again: set <span class="math inline">\(x_1 = 0\)</span>. Do you go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: the sum is 0. And even with company and accessibility the sum would only be <span class="math inline">\(2 + 2 = 4 &lt; 5\)</span>, so with these weights good weather is also necessary: you never go in bad weather.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-2" class="level4" data-number="44.0.0.3">
+<h4 data-number="44.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 44-3</strong></h4>
+<p><em>Lowering the bar, and the bias</em></p>
+<p>The same weights as in Exercise 2 (<span class="math inline">\(w_1 = 6,\ w_2 = w+3 = 2,\ \theta = 5\)</span>), with bad weather, company and accessibility: <span class="math inline">\(x = (0,\, 1,\, 1)\)</span>, output 0.</p>
+<div class="pcp" data-set="x1=0, x2=1, x3=1, w1=6, w2=2, w3=2, th=5" data-inputs="Weather, Company, Accessible" data-output="Go to the festival"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Lower the threshold to <span class="math inline">\(θ\theta = 3\)</span>. Do you go now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(2 + 2 = 4 \geq 3\)</span>. With the lower threshold, company and accessibility together make up for the bad weather.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your company cancels: set <span class="math inline">\(x_2 = 0\)</span>. Do you go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: <span class="math inline">\(2 &lt; 3\)</span>. Accessibility alone does not make up for bad weather.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The festival is no longer accessible either: set <span class="math inline">\(x_3 = 0\)</span>. Do you go?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: all inputs are 0, so the sum is 0.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Now set the threshold to <span class="math inline">\(\theta = −1\)</span>. What happens, even though every input is 0?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The output becomes 1: <span class="math inline">\(\theta \geq −1\)</span>. Written as a bias, <span class="math inline">\(b = −\theta = 1 \gt 0\)</span>, and a perceptron with a positive bias outputs 1 even with no input. With a negative bias (a positive threshold), it may output <span class="math inline">\(\theta\)</span> even when some inputs are on.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-3" class="level4" data-number="44.0.0.4">
+<h4 data-number="44.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 44-4</strong></h4>
+<p><em>Bring an umbrella? (a negative weight)</em></p>
+<p>Two things make you bring an umbrella: a rain forecast (<span class="math inline">\(w_1 = 4\)</span>) and dark clouds (<span class="math inline">\(w_2 = 3\)</span>). One thing makes you leave it at home: the umbrella is heavy (<span class="math inline">\(w_3 = -2\)</span>). The threshold is <span class="math inline">\(\theta = 3.5\)</span>. Right now rain is forecast, but there are no dark clouds and the umbrella is not heavy: the output is 1.</p>
+<div class="pcp" data-set="x1=1, x2=0, x3=0, w1=4, w2=3, w3=-2, th=3.5" data-inputs="Rain forecast, Dark clouds, Umbrella is heavy" data-output="Bring umbrella"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>You only have your heavy umbrella: set <span class="math inline">\(x_3 = 1\)</span>. Do you bring it?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: <span class="math inline">\(4 − 2 = 2 &lt; 3.5\)</span>. A negative weight is counts against the decision.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Dark clouds appear: set <span class="math inline">\(x_2 = 1\)</span>. Do you bring it now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(4 + 3 - 2 = 5 \geq 3.5\)</span>. Enough evidence for rain outweighs the inconvenience.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The forecast changes to dry: set <span class="math inline">\(x_1 = 0\)</span>. Do you bring it?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: <span class="math inline">\(3 - 2 = 1 &lt; 3.5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>You find your light umbrella: set <span class="math inline">\(x_3 = 0\)</span>. Do you bring it?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: dark clouds alone give <span class="math inline">\(3 &lt; 3.5\)</span>. Clouds alone are not enough for this person.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Someone more cautious has a lower threshold: set <span class="math inline">\(\theta = 2.5\)</span>. Do they bring it?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(3 \geq 2.5\)</span>. Same evidence, same weights, a different decision: the threshold describes how much evidence this person needs.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-4" class="level4" data-number="44.0.0.5">
+<h4 data-number="44.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 44-5</strong></h4>
+<p><em>Borrow the car? (AND, “at least two”, OR)</em></p>
+<p>You may borrow the car if you have a license, the car is free and your parents agree. All weights are 1 and the threshold is <span class="math inline">\(\theta = 2.5\)</span>. Right now you have a licence and the car is free, but your parents have not agreed yet: the output is 0.</p>
+<div class="pcp" data-example="and" data-set="x1=1, x2=1, x3=0" data-inputs="Have a licence, Car is free, Parents agree" data-output="Borrow the car"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your parents agree: set <span class="math inline">\(x_3 = 1\)</span>. Can you borrow the car?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(1 + 1 + 1 = 3 \geq 2.5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>You lose your licence: set <span class="math inline">\(x_1 = 0\)</span>. Can you borrow the car?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: <span class="math inline">\(2 &lt; 2.5\)</span>. With threshold 2.5 all three conditions must hold: the perceptron computes AND.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Change the threshold to <span class="math inline">\(\theta = 1.5\)</span>. Can you borrow the car now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(2 \geq 1.5\)</span>. With threshold 1.5 any two of the three are enough (a majority vote). This is not a sensible rule for borrowing a car, but the perceptron does not know that.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The car is taken: set <span class="math inline">\(x_2 = 0\)</span>. Can you borrow it?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No: only one condition holds, <span class="math inline">\(1 &lt; 1.5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Change the threshold to <span class="math inline">\(\theta = 0.5\)</span>. Can you borrow it now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes: <span class="math inline">\(1 \geq 0.5\)</span>. Now <em>any one</em> condition is enough: the perceptron computes OR. The same weights give AND, “at least two” or OR depending only on the threshold.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-5" class="level4" data-number="44.0.0.6">
+<h4 data-number="44.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 44-6</strong></h4>
+<p>Find weights and a threshold yourself. Go running if the weather is good and you have either company or an accessible track (or both).</p>
+<div class="pcp" data-example="and" data-inputs="Weather, Company, Accessible" data-output="Go running"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>One solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(w_1 = 2\)</span>, <span class="math inline">\(w_2 = 1\)</span>, <span class="math inline">\(w_3 = 1\)</span>, <span class="math inline">\(\theta = 2.5\)</span>. Weather plus one of the others gives 3; weather alone gives 2, and company plus accessibility also gives only 2.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6" class="level4" data-number="44.0.0.7">
+<h4 data-number="44.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 44-7</strong></h4>
+<p>Find weights and a threshold yourself. Order pizza if you are hungry and the pizza is not expensive, but always order when friends visit.</p>
+<div class="pcp" data-example="and" data-inputs="Hungry, Pizza is expensive, Friends visit" data-output="Order pizza"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>One solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(w_1 = 2\)</span>, <span class="math inline">\(w_2 = -3\)</span>, <span class="math inline">\(w_3 = 5\)</span>, <span class="math inline">\(\theta = 1.5\)</span>. Hungry alone gives 2 (order); hungry and expensive gives −1 (don’t); friends always give at least <span class="math inline">\(5 - 3 = 2\)</span> (order).</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-7" class="level4" data-number="44.0.0.8">
+<h4 data-number="44.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 44-8</strong></h4>
+<p>Find weights and a threshold yourself. A staircase light has a switch at the bottom and one at the top of the stairs. The lamp should be on when exactly one of the switches is up (ignore the third input; keep it at 0).</p>
+<div class="pcp" data-example="and" data-set="x3=0" data-inputs="Bottom switch, Top switch, (not used)" data-output="Lamp on"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>It cannot be done. With both switches down the lamp must be off, so <span class="math inline">\(0 &lt; \theta\)</span>. With one switch up it must be on, so <span class="math inline">\(w_1 \geq \theta\)</span> and <span class="math inline">\(w_2 \geq \theta\)</span>. But then both switches up give <span class="math inline">\(w_1 + w_2 \geq 2\theta &gt; \theta\)</span>, so the lamp would be on, not off. This rule (called XOR, “exclusive or”) cannot be computed by a single perceptron. It needs a <em>hidden layer</em>: several neurons whose outputs are combined by another one.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>The example is from the <a href="http://neuralnetworksanddeeplearning.com/chap1.html">great tutorial by Nielsen, 2015</a>].<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script>
+// The margin link to the other book ("TA version of this page" in the student
+// book, "Student version of this page" in the TA one) is declared with a fixed
+// href in _quarto-default.yml and _quarto-ta.yml, because Quarto resolves
+// other-links from metadata before pandoc runs and has no way to express "this
+// page, one directory over". So point it at the current page's counterpart here.
+//
+// document.baseURI rather than location.href: pagecrypt serves the decrypted TA
+// page inside a srcdoc iframe, where location.href is "about:srcdoc" but baseURI
+// is still inherited from the real page URL.
+//
+// The root is derived from the site_libs asset every page loads, rather than
+// hard-coded, so this works in local preview, over file:// and on the published
+// site alike. On a page carrying neither link the whole thing is a no-op.
+document.addEventListener("DOMContentLoaded", function () {
+  var asset = document.querySelector('script[src*="site_libs/"], link[href*="site_libs/"]');
+  if (!asset) return;
+  var url = asset.src || asset.href;                  // absolute, resolved against baseURI
+  var root = url.slice(0, url.indexOf("site_libs/")); // absolute URL of this book's root
+  var page = document.baseURI.slice(root.length);     // this page, relative to that root
+
+  var toTa = document.querySelector('.quarto-other-links a[rel="ta-version"]');
+  if (toTa) toTa.href = root + "ta/" + page;
+
+  var toStudent = document.querySelector('.quarto-other-links a[rel="student-version"]');
+  if (toStudent) toStudent.href = root.replace(/ta\/$/, "") + page;
+});
+</script>
+<!--
+  Perceptron widget: styles and script. Include this once per page; every element
+  <div class="pcp"></div> on the page then becomes a perceptron widget (any number of them).
+  It uses its own class names, so it can share a page with the network widget (nnw-widget.html).
+
+  Optional attributes on the div (the "Reset" button returns to this starting state):
+    data-example="and | or | maj | random"   example applied at the start
+    data-set="x1=0, x2=1, x3=1, w1=2, w2=2, w3=2, th=3"
+                                          slider values (inputs 0 to 1, weights/threshold -10 to 10)
+    data-inputs="Weather, Company, Accessible"   names shown above the three input sliders
+    data-output="Go to the festival"      name shown under the output arrow
+    data-theme="light | dark | auto"      colours (default light)
+    data-examples="false"                 hide the example buttons (shown by default)
+    data-formula="false"                  hide the formula below the diagram (shown by default)
+
+  This file is the source of the perceptron widget. perceptron.html is generated from it by
+  build_standalone.py.
+-->
+<style>
+  /* ---------- Widget styles (all scoped to .pcp) ---------- */
+  /* width: 100% matters: inside a CSS grid (a Quarto section with margin content) the auto margins
+     would otherwise shrink the widget to its content, which inline-size containment makes zero. */
+  .pcp {
+    --bg: #ffffff; --fg: #1f2937; --muted: #6b7280; --grid: #eef0f3; --axis: #9ca3af;
+    --panel: #f8fafc; --border: #e2e8f0;
+    --pos: #0d9488; --neg: #dc2626;
+    --handle: #d1d5db; --fill: #e5e7eb; --track: #ffffff; --track-line: #000000;
+    --c-in: #64748b;
+    container-type: inline-size;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--fg); background: var(--bg);
+    width: 100%; max-width: 1080px; margin: 0 auto; padding: 16px; box-sizing: border-box;
+  }
+  .pcp[data-theme="dark"] {
+    --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+    --panel: #1a2232; --border: #2d3748;
+    --pos: #2dd4bf; --neg: #f87171;
+    --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pcp[data-theme="auto"] {
+      --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+      --panel: #1a2232; --border: #2d3748;
+      --pos: #2dd4bf; --neg: #f87171;
+      --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8;
+    }
+  }
+  .pcp *, .pcp *::before, .pcp *::after { box-sizing: border-box; }
+  .pcp svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+  /* The network takes the full width; the formula sits below it. */
+  .pcp-netcell { padding: 16px 0 0; }
+
+  .pcp-toolbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+    font-size: 14px; margin-bottom: 12px; }
+  .pcp-toolbar button {
+    font: inherit; font-size: 13px; color: var(--fg); background: var(--panel);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; cursor: pointer;
+  }
+  .pcp-toolbar button:hover { border-color: var(--axis); }
+  .pcp-presets { display: inline-flex; gap: 6px; align-items: center; }
+  .pcp-presets span { color: var(--muted); }
+
+  /* Network diagram with sliders placed on it (positions are % of the SVG viewBox) */
+  .pcp-netwrap { position: relative; container-type: inline-size; }
+  /* Each slider has two pieces, both positioned by the script (top-centre anchored):
+     the head ("w₁:" + bar), placed above its edge or node, and the value, placed below it. */
+  /* Slider text scales with the drawing, like the node labels: numbers 15 and names 18 diagram units
+     (of 710 across). The bar keeps a fixed thickness; only its length follows the width. */
+  .pcp-ctl { position: absolute; width: 13.94%; height: max(18px, 3.2cqw); transform: translate(-50%, 0);
+    display: flex; align-items: center; font-size: 2.113cqw; }
+  .pcp-ctl .lab { display: flex; align-items: center; height: 100%; padding-right: 0.3em; white-space: nowrap; color: var(--fg); }
+  /* Input sliders are one row ("x₁:" + bar + value); weight and threshold sliders have their value above the bar */
+  .pcp-ctl.row { width: max(19%, 110px); }
+  /* Value starts right after the bar, at the same distance as the label name ends before it
+     (--vgap = colon + label padding, measured by the script) */
+  .pcp-ctl .pcp-inval { display: flex; align-items: center; justify-content: flex-start; height: 100%;
+    padding-left: var(--vgap, 0.55em); min-width: calc(var(--vgap, 0.55em) + 2.4em);
+    white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--cc); }
+  /* Weight and threshold sliders: value centred above the bar, label left of the bar as usual */
+  .pcp-ctl.stack { height: auto; align-items: flex-end; }
+  /* Weight and threshold rows have no value beside the bar, so they can be narrower on small screens */
+  .pcp-ctl.row.stack { width: max(19%, 70px); }
+  .pcp-ctl.stack .lab { height: max(18px, 3.2cqw); }
+  .pcp-ctl .barcol { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .pcp-ctl .barrow { height: max(18px, 3.2cqw); display: flex; align-items: center; }
+  .pcp-ctl .pcp-topval { height: 1.25em; text-align: center; line-height: 1.25; white-space: nowrap;
+    font-variant-numeric: tabular-nums; color: var(--cc); }
+  /* Optional input name (data-inputs) shown above an input row */
+  .pcp-ctl.named { flex-wrap: wrap; height: auto; }
+  .pcp-ctl .pcp-incap { flex-basis: 100%; line-height: 1.3; white-space: nowrap; font-weight: 600; color: var(--fg); }
+  .pcp-ctl .name { color: var(--fg); font-style: italic; font-family: "Times New Roman", Georgia, serif; font-size: 1.2em; }
+  .pcp-ctl sub { line-height: 0; }
+  .pcp-ctl input[type=range] { display: block; flex: 1; min-width: 0; height: 18px; margin: 0; cursor: pointer;
+    -webkit-appearance: none; appearance: none; background: transparent; --frac: 0.5; }
+  .pcp-ctl input[type=range]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px;
+    border: 0.5px solid var(--track-line);
+    background: linear-gradient(to right, var(--fill) 0 calc(6px + (100% - 12px) * var(--frac)),
+      var(--track) calc(6px + (100% - 12px) * var(--frac)) 100%); }
+  .pcp-ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+    width: 12px; height: 12px; margin-top: -3.5px; border-radius: 50%; background: var(--handle);
+    border: 0.5px solid var(--track-line); }
+  .pcp-ctl input[type=range]::-moz-range-track { height: 5px; border-radius: 3px; background: var(--track);
+    border: 0.5px solid var(--track-line); }
+  .pcp-ctl input[type=range]::-moz-range-progress { height: 5px; border-radius: 3px; background: var(--fill); }
+  .pcp-ctl input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%;
+    background: var(--handle); border: 0.5px solid var(--track-line); }
+  .pcp-ctl input[type=range]:focus-visible { outline: 2px solid var(--axis); outline-offset: 2px; border-radius: 4px; }
+
+  .pcp-formula { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .pcp-formula .math { font-family: "Times New Roman", Georgia, serif; font-size: 17px; color: var(--fg); }
+</style>
+<script>
+(function () {
+  // Markup of one widget; it is inserted into every empty <div class="pcp"> on the page.
+  const TEMPLATE = `
+  <div class="pcp-toolbar">
+    <span class="pcp-presets"><span>Examples:</span>
+      <button type="button" data-preset="and">AND</button>
+      <button type="button" data-preset="or">OR</button>
+      <button type="button" data-preset="maj">Majority</button>
+      <button type="button" data-preset="random">Random</button>
+    </span>
+    <button type="button" data-role="reset" hidden title="Back to the start of this exercise">Reset</button>
+  </div>
+
+  <div class="pcp-netcell">
+    <div class="pcp-netwrap" data-role="netwrap">
+      <svg data-role="net" viewBox="0 0 710 385" aria-label="Perceptron diagram"></svg>
+    </div>
+  </div>
+  <div class="pcp-formula" data-role="formula"></div>
+`;
+  let count = 0;
+
+  function initWidget(root) {
+    if (root.dataset.pcpReady) return;
+    root.dataset.pcpReady = '1';
+    const uid = count ? 'pcp' + count : 'pcp';     // unique id prefix per widget on the page
+    count++;
+    if (!root.dataset.theme) root.dataset.theme = 'light';
+    if (!root.querySelector('.pcp-toolbar')) root.innerHTML = TEMPLATE;
+    const $ = (r) => root.querySelector('[data-role="' + r + '"]');
+    const netSvg = $('net');
+
+    // ---------------- State ----------------
+    // xᵢ: inputs (0–1), wᵢ: weight xᵢ → y, th: threshold of the neuron y (whose output is the network output).
+    const DEFAULT = { x1: 1, x2: 0, x3: 1, w1: 1, w2: 1, w3: 1, th: 2.5 };   // the AND example
+    const p = Object.assign({}, DEFAULT);
+    const IDX = [1, 2, 3], SUB = ['', '₁', '₂', '₃'];
+    const WMAX = 10;                                  // weights and threshold range from −10 to 10
+
+    // ---------------- Layout (SVG viewBox units) ----------------
+    // The inputs are slider rows on the left, stacked with spacing S; each input's edge starts just
+    // right of its row (at xStart). The neuron y sits level with the middle input, at nodeX, with an
+    // output arrow ending at outEnd. S, xStart, nodeX, outEnd and the drawing height VBH are set by
+    // placeSliders() so that nothing collides.
+    const VBW = 710, R = 30;
+    const EH = 6.75 / 2;                              // half the widest edge (|weight| = WMAX)
+    const ROW_X0 = 4;                                 // input rows start here
+    let VBH = 385, NODES;
+    function layout(S, xStart, nodeX, outEnd) {
+      const top = 50, C = top + S;
+      NODES = { y: { cx: nodeX, cy: C, label: 'y', outEnd } };
+      IDX.forEach((i) => { NODES['x' + i] = { cx: xStart, cy: top + (i - 1) * S, input: true }; });
+    }
+
+    // ---------------- Math ----------------
+    const f = (z) => (z >= 0 ? 1 : 0);                // step activation
+    const zOf = (x1, x2, x3) => p.w1 * x1 + p.w2 * x2 + p.w3 * x3 - p.th;
+    function forward() {
+      const z = zOf(p.x1, p.x2, p.x3);
+      return { z, y: f(z) };
+    }
+
+    // ---------------- Helpers ----------------
+    const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+    const fmt = (v, d) => { const s = (Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v).toFixed(d); return s.replace('-', '−'); };
+
+    const PRESETS = {
+      and: { w1: 1, w2: 1, w3: 1, th: 2.5 },
+      or:  { w1: 1, w2: 1, w3: 1, th: 0.5 },
+      maj: { w1: 1, w2: 1, w3: 1, th: 1.5 },
+    };
+
+    // ---------------- Controls ----------------
+    const netWrap = $('netwrap');
+    // Optional names of the inputs and the output (data-inputs="Weather, Company, Accessible", data-output="Go")
+    const inputNames = (root.dataset.inputs || '').split(',').map((s) => s.trim());
+    const outputName = (root.dataset.output || '').trim();
+    const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    let inputs = {};
+    function buildSliders() {
+      const defs = [];
+      IDX.forEach((i) => defs.push({ k: 'x' + i, name: 'x<sub>' + i + '</sub>', input: 'x' + i, min: 0, max: 1, step: 0.01, d: 2,
+        aria: 'input x' + i }));
+      IDX.forEach((i) => defs.push({ k: 'w' + i, name: 'w<sub>' + i + '</sub>', edge: ['x' + i, 'y'], min: -WMAX, max: WMAX, step: 0.1, d: 1,
+        aria: 'weight from x' + i + ' to y' }));
+      defs.push({ k: 'th', name: 'θ', node: 'y', min: -WMAX, max: WMAX, step: 0.1, d: 1, aria: 'threshold of y' });
+      defs.forEach((it) => {
+        const box = document.createElement('div');
+        box.className = 'pcp-ctl';
+        const id = uid + '-' + it.k;
+        const label = '<label class="lab" for="' + id + '"><span class="name">' + it.name + '</span>:</label>';
+        const range = '<input type="range" id="' + id + '" min="' + it.min + '" max="' + it.max + '" step="' + it.step + '" aria-label="' + it.aria + '">';
+        box.classList.add('row');
+        if (it.input) {                   // input: value to the right of the bar, its name (if any) above
+          const nm = inputNames[+it.k.slice(1) - 1];
+          if (nm) box.classList.add('named');
+          box.innerHTML = (nm ? '<span class="pcp-incap">' + esc(nm) + '</span>' : '') +
+            label + range + '<output class="pcp-inval" for="' + id + '"></output>';
+        } else {                          // weight / threshold: value centred above the bar
+          box.classList.add('stack');
+          box.innerHTML = label + '<div class="barcol"><output class="pcp-topval" for="' + id + '"></output>' +
+            '<div class="barrow">' + range + '</div></div>';
+        }
+        netWrap.append(box);
+        const val = box.querySelector('output');
+        const inp = box.querySelector('input');
+        inputs[it.k] = { inp, out: val, box, def: it, sep: false };
+        inp.addEventListener('input', () => { p[it.k] = parseFloat(inp.value); render(); });
+      });
+    }
+
+    // Place the sliders. Input and weight sliders are single rows ("x₁:"/"w₁:" + bar + value).
+    // Input rows sit on the left, centred on the height where their edge starts. Weight rows line up
+    // in one column halfway between the edge starts and the neuron: on the horizontal edge the row sits
+    // 1px above the edge (4px from edge to handle while the row is no taller than the 18px bar; more
+    // when the scaled text makes the row taller); on a sloped edge the row sits at the height where
+    // the edge runs through the middle of the bar, except that w₁ is then moved up so that the w₁–w₂
+    // spacing equals the w₂–w₃ spacing. The threshold row goes above y and moves up past any edge that
+    // would cross it. Clearances are measured
+    // perpendicular to the edge, at the widest edge width. The input spacing S then grows until no two
+    // pieces (or a piece and the node) collide. Piece sizes are in pixels while the drawing scales, so
+    // this is redone whenever the width changes.
+    function placeSliders() {
+      // Gap between bar and value = gap between label name and bar (the colon plus the label's padding)
+      const lab = inputs.w1.box.querySelector('.lab'), colon = document.createRange();
+      colon.selectNodeContents(lab.lastChild);
+      netWrap.style.setProperty('--vgap', (colon.getBoundingClientRect().width + parseFloat(getComputedStyle(lab).paddingRight)) + 'px');
+      const W = netSvg.getBoundingClientRect().width || VBW;
+      const k = VBW / W;                                   // diagram units per pixel
+      const ctl = Object.values(inputs);
+      const clear = k;
+      ctl.forEach((c) => {
+        const br = c.box.getBoundingClientRect(), ir = c.inp.getBoundingClientRect();
+        c.half = br.width * k / 2;
+        c.hh = br.height * k;                                                    // row height (text scales, bar does not)
+        c.barUp = (br.bottom - (ir.top + ir.bottom) / 2) * k;                    // bar centre above the row's bottom
+        c.barOff = ((ir.left + ir.width / 2) - (br.left + br.width / 2)) * k;   // bar centre relative to row centre
+        if (!c.sep) return;
+        // Separate values are sized for the widest text they can show
+        const txt = c.out.textContent;
+        c.out.textContent = fmt(c.def.min, c.def.d);
+        const vr = c.out.getBoundingClientRect();
+        c.out.textContent = txt;
+        c.vw = vr.width * k; c.vh = vr.height * k;
+      });
+      let pos, lines;
+      const band = (A, B, x0, x1) => {
+        const xa = Math.max(x0, A.cx), xb = Math.min(x1, B.cx);
+        if (xa > xb) return null;
+        const m = (B.cy - A.cy) / (B.cx - A.cx), yAt = (x) => A.cy + m * (x - A.cx), sl = Math.sqrt(1 + m * m);
+        return { lo: Math.min(yAt(xa), yAt(xb)) - EH * sl, hi: Math.max(yAt(xa), yAt(xb)) + EH * sl, cv: clear * sl };
+      };
+      // Rectangles [left, right, top, bottom] of a slider's head and (separate) value, centred on the anchor
+      const headRect = (q, c) => [q.cx - c.half, q.cx + c.half, q.bottom - c.hh, q.bottom];
+      const valRect = (q, c) => [q.cx - c.vw / 2, q.cx + c.vw / 2, q.top, q.top + c.vh];
+      const pieces = (c) => (c.sep ? [headRect(pos[c.def.k], c), valRect(pos[c.def.k], c)] : [headRect(pos[c.def.k], c)]);
+      // Input rows end at ROW_X0 + rowW; edges start a few pixels further right. The neuron is placed so
+      // that the incoming edges (up to the node) and the output arrow (from the node) have the same
+      // length E, as an output can be the input edge of a further node. E is never shorter than a weight
+      // row plus a little margin; if the width runs out (phones), the output arrow is cut short instead.
+      // The weight column is centred between the edge starts and the neuron's left side.
+      const rowW = inputs.x1.half * 2, xStart = ROW_X0 + rowW + 6 * k;
+      const E = Math.max((VBW - 4 - xStart - 2 * (R + EH) - 3) / 2, inputs.w1.half * 2 + 12 * k);
+      const nodeX = xStart + E + R + EH, outEnd = Math.min(VBW - 4, nodeX + R + EH + 3 + E);
+      const col = (xStart + nodeX - R - EH) / 2;
+      const solve = () => {
+        lines = IDX.map((i) => [NODES['x' + i], NODES.y]);
+        pos = {};
+        ctl.forEach((c) => {
+          const def = c.def;
+          let cx, bottom, top;
+          if (def.input) {
+            const N = NODES[def.input];
+            cx = ROW_X0 + rowW / 2; bottom = N.cy + c.barUp;
+          } else if (def.edge) {
+            const A = NODES[def.edge[0]], B = NODES[def.edge[1]];
+            c.onEdge = A.cy !== B.cy;
+            cx = col;
+            if (c.onEdge) bottom = A.cy + (B.cy - A.cy) * (col + c.barOff - A.cx) / (B.cx - A.cx) + c.barUp;
+            else bottom = A.cy - EH - clear;
+          } else {
+            const N = NODES[def.node];
+            // centred over the node, but never sticking out past the right edge (narrow screens)
+            cx = Math.min(N.cx, VBW - c.half - 2); bottom = N.cy - R - EH - 3 * k; top = N.cy + R + EH + 2 * k;
+          }
+          const q = { cx, bottom, top };
+          for (let iter = 0, moved = !!def.node; moved && iter < 50; iter++) {
+            moved = false;
+            for (const [A, B] of lines) {
+              const h = headRect(q, c), bh = band(A, B, h[0], h[1]);
+              if (bh && bh.lo < q.bottom + bh.cv && bh.hi > q.bottom - c.hh) { q.bottom = bh.lo - bh.cv; moved = true; }
+              if (!c.sep) continue;
+              const v = valRect(q, c), bv = band(A, B, v[0], v[1]);
+              if (bv && bv.lo < q.top + c.vh && bv.hi > q.top - bv.cv) { q.top = bv.hi + bv.cv; moved = true; }
+            }
+          }
+          pos[def.k] = q;
+        });
+        // Equal spacing of the weight rows: move w₁ so that w₁–w₂ matches w₂–w₃
+        pos.w1.bottom = pos.w2.bottom - (pos.w3.bottom - pos.w2.bottom);
+      };
+      const collides = () => {
+        const rects = [], cleared = [];
+        ctl.forEach((c) => { const pc = pieces(c); rects.push(...pc); if (!c.onEdge) cleared.push(...pc); });
+        // An edge closer than the clearance on the far side of a piece also counts as a collision
+        // (sloped-edge weight sliders sit on their edge by design)
+        for (const [A, B] of lines)
+          for (const r of cleared) {
+            const b = band(A, B, r[0], r[1]);
+            if (b && b.lo < r[3] + b.cv && b.hi > r[2] - b.cv) return true;
+          }
+        const np = rects.length;
+        Object.values(NODES).forEach((N) => { if (!N.input) rects.push([N.cx - R - EH, N.cx + R + EH, N.cy - R - EH, N.cy + R + EH]); });
+        for (let a = 0; a < np; a++)
+          for (let b = a + 1; b < rects.length; b++) {
+            const [l1, r1, t1, b1] = rects[a], [l2, r2, t2, b2] = rects[b];
+            if (l1 < r2 && l2 < r1 && t1 < b2 && t2 < b1) return true;
+          }
+        return false;
+      };
+      // Inputs at least half an edge length apart, so the edges are not too steep
+      for (let S = Math.max(80, Math.round(E / 2)); ; S += 5) {
+        layout(S, xStart, nodeX, outEnd); solve();
+        if (!collides() || S > 800) break;
+      }
+      // Shift everything so the topmost piece starts just below the top edge, then size the drawing
+      // to the lowest piece (or the output caption).
+      const tops = [NODES.y.cy - 34], bottoms = [NODES.y.cy + R + 30];
+      ctl.forEach((c) => pieces(c).forEach((r) => { tops.push(r[2]); bottoms.push(r[3]); }));
+      Object.values(NODES).forEach((N) => { if (!N.input) { tops.push(N.cy - R - EH); bottoms.push(N.cy + R + EH); } });
+      const dy = 6 - Math.min(...tops);
+      Object.values(NODES).forEach((N) => { N.cy += dy; });
+      VBH = Math.max(...bottoms) + dy + 6;
+      netSvg.setAttribute('viewBox', '0 0 ' + VBW + ' ' + VBH);
+      ctl.forEach((c) => {
+        const q = pos[c.def.k];
+        c.box.style.left = (q.cx / VBW * 100) + '%';
+        c.box.style.top = ((q.bottom - c.hh + dy) / VBH * 100) + '%';
+        if (!c.sep) return;
+        c.out.style.left = (q.cx / VBW * 100) + '%';
+        c.out.style.top = ((q.top + dy) / VBH * 100) + '%';
+      });
+    }
+
+    function applyPreset(name) {
+      if (name === 'random') {
+        // Random weights and threshold that give both outputs 0 and 1 over the 0/1 input combinations
+        const r = (a) => Math.round((Math.random() * 2 - 1) * a * 10) / 10;
+        for (let tries = 0; tries < 1000; tries++) {
+          Object.assign(p, { w1: r(WMAX), w2: r(WMAX), w3: r(WMAX), th: r(WMAX) });
+          const ys = corners().map(([a, b, c]) => f(zOf(a, b, c)));
+          if (ys.includes(0) && ys.includes(1)) break;
+        }
+      } else if (PRESETS[name]) {
+        Object.assign(p, PRESETS[name]);
+      }
+    }
+    root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      applyPreset(b.dataset.preset); syncControls(); render();
+    }));
+
+    function syncControls() {
+      for (const k in inputs) inputs[k].inp.value = p[k];
+    }
+
+    // ---------------- Network diagram ----------------
+    // Line width grows with |weight| for edges and with |threshold| for node borders
+    const strokeW = (v) => 0.75 + 6 * Math.min(Math.abs(v), WMAX) / WMAX;
+
+    // Edges run centre to centre; the opaque node discs drawn on top hide the ends.
+    function edge(a, b, w) {
+      const A = NODES[a], B = NODES[b];
+      const col = w >= 0 ? css('--pos') : css('--neg');
+      return '<line x1="' + A.cx + '" y1="' + A.cy + '" x2="' + B.cx + '" y2="' + B.cy + '" stroke="' + col +
+        '" stroke-width="' + strokeW(w) + '" stroke-linecap="butt" opacity="' + (w === 0 ? 0.25 : 0.85) + '"/>';
+    }
+
+    // "h₁" → h with a real subscript 1 (the serif font has no subscript-digit glyphs)
+    const nodeLabel = (l) => l.replace(/[₁₂₃]/, (d) => '<tspan font-size="12" dy="4">' + ('₁₂₃'.indexOf(d) + 1) + '</tspan>');
+
+    function node(key, value, theta) {
+      const N = NODES[key], col = css('--c-in');
+      const outline = theta === undefined ? col : css(theta >= 0 ? '--pos' : '--neg');
+      const sw = strokeW(theta === undefined ? 0 : theta);
+      return '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + (R + sw / 2) + '" fill="' + css('--bg') + '"/>' +
+        '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + R + '" fill="' + col + '" fill-opacity="0.08" stroke="' +
+        outline + '" stroke-width="' + sw + '"/>' +
+        '<text x="' + N.cx + '" y="' + (N.cy - 2) + '" text-anchor="middle" font-size="18" font-style="italic" ' +
+        'font-family="Times New Roman, Georgia, serif" fill="' + css('--fg') + '">' + nodeLabel(N.label) + '</text>' +
+        '<text x="' + N.cx + '" y="' + (N.cy + 15) + '" text-anchor="middle" font-size="11" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums">' + fmt(value, 2) + '</text>';
+    }
+
+    // Font size (in diagram units) that renders at the same pixel size as the slider labels
+    function labelSize() {
+      const px = parseFloat(getComputedStyle(inputs.w1.box).fontSize);
+      const w = netSvg.getBoundingClientRect().width;
+      return w > 0 ? px * VBW / w : 13;
+    }
+
+    // Horizontal arrow from x1 to x2 at height y, with a value above it and a caption below
+    function arrow(x1, x2, y, value, caption) {
+      const col = css('--muted'), mid = (x1 + x2) / 2, fs = labelSize();
+      return '<line x1="' + x1 + '" y1="' + y + '" x2="' + (x2 - 8) + '" y2="' + y + '" stroke="' + col + '" stroke-width="1.5"/>' +
+        '<polygon points="' + x2 + ',' + y + ' ' + (x2 - 10) + ',' + (y - 5) + ' ' + (x2 - 10) + ',' + (y + 5) + '" fill="' + col + '"/>' +
+        '<text x="' + mid + '" y="' + (y - 9) + '" text-anchor="middle" font-size="' + labelSize() + '" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums">' + fmt(value, 2) + '</text>' +
+        (outputName
+          ? '<text class="pcp-outcap" x="' + mid + '" y="' + (y + 9 + fs) + '" text-anchor="middle" font-size="' + fs + '" font-weight="600" fill="' + css('--fg') + '">' + esc(caption) + '</text>'
+          : '<text x="' + mid + '" y="' + (y + 19) + '" text-anchor="middle" font-size="12" fill="' + col + '">' + caption + '</text>');
+    }
+
+    function renderNet() {
+      const a = forward(), Y = NODES.y;
+      let s = '';
+      IDX.forEach((i) => { s += edge('x' + i, 'y', p['w' + i]); });
+      s += node('y', a.y, p.th) +
+        arrow(Y.cx + R + strokeW(p.th) / 2 + 3, Y.outEnd, Y.cy, a.y, outputName || 'output');
+      netSvg.innerHTML = s;
+      // A long output name is moved left just enough to stay inside the drawing
+      const cap = netSvg.querySelector('.pcp-outcap');
+      if (cap) {
+        const b = cap.getBBox(), over = b.x + b.width - (VBW - 2);
+        if (over > 0) cap.setAttribute('x', +cap.getAttribute('x') - over);
+      }
+    }
+
+    // All combinations of 0/1 inputs (Random avoids weights whose output is the same for all of them)
+    const corners = () => [0, 1].flatMap((a) => [0, 1].flatMap((b) => [0, 1].map((c) => [a, b, c])));
+
+    // ---------------- Formula ----------------
+    function renderFormula() {
+      $('formula').innerHTML =
+        '<div class="math"><i>y</i> = <i>f</i>(' +
+        IDX.map((i) => '<i>w</i><sub>' + i + '</sub><i>x</i><sub>' + i + '</sub>').join(' + ') + ' − θ)</div>' +
+        '<div>where <i>f</i>(<i>z</i>) = 1 if <i>z</i> ≥ 0, otherwise 0 &nbsp;(the perceptron fires when its weighted input reaches the threshold).</div>';
+    }
+
+    function render() {
+      for (const k in inputs) {
+        const c = inputs[k], d = c.def;
+        c.out.textContent = fmt(p[k], d.d);
+        c.inp.style.setProperty('--frac', (p[k] - d.min) / (d.max - d.min));
+        c.out.style.setProperty('--cc', d.input ? 'var(--fg)' : (p[k] >= 0 ? 'var(--pos)' : 'var(--neg)'));
+      }
+      renderNet(); renderFormula();
+    }
+
+    // Re-render if the reader's colour scheme changes (only matters with data-theme="auto")
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      (mq.addEventListener ? mq.addEventListener('change', render) : mq.addListener(render));
+    }
+
+    // Keep slider positions and label sizes matched to the width
+    let lastW = 0;
+    if (window.ResizeObserver) new ResizeObserver((entries) => {
+      const w = entries[0].contentRect.width;
+      if (Math.abs(w - lastW) < 0.5) return;
+      lastW = w; placeSliders(); renderNet();
+    }).observe(netWrap);
+
+
+    // ---------------- Starting state ----------------
+    // Optional attributes on the widget's <div class="pcp"> set where it starts (and where "Reset"
+    // returns to): data-example (and | or | maj | random) and data-set with slider values, e.g.
+    // "x1=0, x2=1, x3=1, w1=2, w2=2, w3=2, th=3" (inputs 0 to 1, weights and threshold -10 to 10).
+    const cfg = root.dataset;
+    const configured = ['example', 'set', 'inputs', 'output'].some((k) => cfg[k] !== undefined);
+    function applyConfig() {
+      Object.assign(p, DEFAULT);
+      if (cfg.example) applyPreset(cfg.example);
+      (cfg.set || '').split(/[,;]/).forEach((pair) => {
+        const [key, val] = pair.split('=').map((t) => (t || '').trim());
+        const v = parseFloat((val || '').replace('\u2212', '-'));
+        if (!(key in p) || isNaN(v)) return;
+        p[key] = key[0] === 'x' ? Math.max(0, Math.min(1, v)) : Math.max(-WMAX, Math.min(WMAX, v));
+      });
+      syncControls(); render();
+    }
+    const resetBtn = $('reset');
+    if (configured) {
+      resetBtn.hidden = false;
+      resetBtn.addEventListener('click', applyConfig);
+    }
+    // data-examples="false" hides the example buttons (and the toolbar, if Reset is not shown
+    // either); data-formula="false" hides the formula.
+    if (cfg.examples === 'false') {
+      root.querySelector('.pcp-presets').style.display = 'none';
+      if (!configured) root.querySelector('.pcp-toolbar').style.display = 'none';
+    }
+    if (cfg.formula === 'false') $('formula').style.display = 'none';
+    layout(150);
+    buildSliders();
+    placeSliders();
+    applyConfig();
+
+  }
+
+  function initAll() { document.querySelectorAll('.pcp').forEach(initWidget); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+  else initAll();
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../python/modules-and-packages.html" class="pagination-link" aria-label="Modules and packages">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Modules and packages</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../neural_networks/neural-networks.html" class="pagination-link" aria-label="AI: Neural networks">
+        <span class="nav-page-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/neural_networks/neurons.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

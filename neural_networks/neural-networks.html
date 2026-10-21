@@ -1,0 +1,2504 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>45&nbsp; AI: Neural networks – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../projects/orf-project.html" rel="next">
+<link href="../neural_networks/neurons.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5a3665b9392c5ae1e36b4ecc16804033.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/modules-and-packages.html">Week 9</a></li><li class="breadcrumb-item"><a href="../neural_networks/neural-networks.html"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes_slides_recordings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Week plan</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/course-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Course introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Terminal Howto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/getting_set_up.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Getting set up</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AI: Meet AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Notebooks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/control-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-the-object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-loops-and-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-drawing-from-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Project: Translating ORFs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Project: Primer analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-classes-debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Project: Codon usage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/modules-and-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Modules and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neurons.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neural-networks.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p> </p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-nn-network" id="toc-sec-nn-network" class="nav-link active" data-scroll-target="#sec-nn-network">From neuron to network</a></li>
+  <li><a href="#sec-nn-what" id="toc-sec-nn-what" class="nav-link" data-scroll-target="#sec-nn-what">What a network can model</a></li>
+  <li><a href="#sec-nn-why" id="toc-sec-nn-why" class="nav-link" data-scroll-target="#sec-nn-why">Why neural networks are powerful</a></li>
+  <li><a href="#a-tiny-network" id="toc-a-tiny-network" class="nav-link" data-scroll-target="#a-tiny-network">A tiny network</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/neural_networks/neural-networks.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/modules-and-packages.html">Week 9</a></li><li class="breadcrumb-item"><a href="../neural_networks/neural-networks.html"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sec-nn-network" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-nn-network">From neuron to network</h2>
+<p>A neural network is a set of neurons in which the outputs of some are the inputs of others. The neurons are arranged in layers, as in <a href="#fig-nn-layers" class="quarto-xref">Figure&nbsp;<span>45.1</span></a>.</p>
+<div id="fig-nn-layers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nn-layers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<svg viewbox="0 0 540 290" width="100%" style="max-width:540px" role="img" aria-label="A network with two input nodes, three hidden nodes and one output node">
+  <g stroke="currentColor" stroke-width="1.5" opacity="0.7">
+    <line x1="90" y1="105" x2="270" y2="55"></line>
+    <line x1="90" y1="105" x2="270" y2="140"></line>
+    <line x1="90" y1="105" x2="270" y2="225"></line>
+    <line x1="90" y1="175" x2="270" y2="55"></line>
+    <line x1="90" y1="175" x2="270" y2="140"></line>
+    <line x1="90" y1="175" x2="270" y2="225"></line>
+    <line x1="270" y1="55" x2="450" y2="140"></line>
+    <line x1="270" y1="140" x2="450" y2="140"></line>
+    <line x1="270" y1="225" x2="450" y2="140"></line>
+    <line x1="450" y1="140" x2="520" y2="140"></line>
+  </g>
+  <polygon points="520,134 532,140 520,146" fill="currentColor" opacity="0.7"></polygon>
+  <g stroke="currentColor" stroke-width="1.5" fill="#d1d5db">
+    <circle cx="90" cy="105" r="22"></circle>
+    <circle cx="90" cy="175" r="22"></circle>
+    <circle cx="270" cy="55" r="22"></circle>
+    <circle cx="270" cy="140" r="22"></circle>
+    <circle cx="270" cy="225" r="22"></circle>
+    <circle cx="450" cy="140" r="22"></circle>
+  </g>
+  <g font-family="sans-serif" font-size="17" font-style="italic" text-anchor="middle" fill="#111">
+    <text x="90" y="111">x₁</text>
+    <text x="90" y="181">x₂</text>
+    <text x="270" y="61">h₁</text>
+    <text x="270" y="146">h₂</text>
+    <text x="270" y="231">h₃</text>
+    <text x="450" y="146">y</text>
+  </g>
+  <g font-family="sans-serif" font-size="15" text-anchor="middle" fill="currentColor">
+    <text x="90" y="280">Input layer</text>
+    <text x="270" y="280">Hidden layer</text>
+    <text x="450" y="280">Output layer</text>
+  </g>
+</svg>
+<!-- FIXME:  -->
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nn-layers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;45.1: A small feed-forward network. Every line carries a weight, and every hidden and output node has its own threshold and applies the activation function.
+</figcaption>
+</figure>
+</div>
+<p>The input nodes hold the numbers you give the network: the brightness of each pixel in an image, say, or which base sits at each position of a DNA sequence. They compute nothing. They only pass their values on.</p>
+<p>The hidden nodes are neurons of the kind described above. Each has its own weight on every incoming connection and its own threshold, and each applies the activation function to its net input. They are called hidden because, seen from outside, you only set the inputs and read the outputs. What happens in between is the network’s internal working. A network can have many hidden layers, each fed by the one before. A network with many of them is called <em>deep</em>, which is where the term <em>deep learning</em> comes from.</p>
+<p>The output nodes are neurons too, and their values are the network’s answer. A yes-or-no question needs one output node. A network that predicts whether each residue of a protein sits in a helix, a strand or a coil might have three, one for each answer, and pick the one with the largest value.</p>
+<p>Information flows one way, from the inputs through the hidden layers to the outputs, which is why this kind of network is called <em>feed-forward</em>. Computing the output means working through the layers in order, finding each neuron’s weighted sum and putting it through the activation function. It is the substitution and reduction you have practiced on Python expressions, with many more numbers.</p>
+<p>The weights and thresholds together are the network’s parameters, and they are everything the network knows. The tiny network in the next chapter, with one input, three hidden nodes and one output, has ten: three weights into the hidden layer, three hidden thresholds, three weights into the output, and one output threshold. The language models behind AI assistants have billions, the largest hundreds of billions.</p>
+</section>
+<section id="sec-nn-what" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-nn-what">What a network can model</h2>
+<p>Think of a neuron with two inputs. It says yes when <span class="math inline">\(w_1x_1 + w_2x_2 \geq \theta\)</span>. If you draw every possible pair of inputs as a point on a sheet of paper, the points where <span class="math inline">\(w_1x_1 + w_2x_2\)</span> equals <span class="math inline">\(\theta\)</span> form a straight line. The neuron says yes on one side of that line and no on the other. With three inputs the line becomes a flat plane, but the idea is the same: a single neuron divides its inputs with a straight cut.</p>
+<p>Many useful rules are a straight cut. With all weights equal to 1, a neuron with three yes/no inputs computes AND (“all three”) when the threshold is 2.5, “at least two” when it is 1.5, and OR (“at least one”) when it is 0.5. You will try this in the exercises. Some rules cannot be drawn with a straight cut, and the simplest is “exactly one of the two”. A staircase light with a switch at the top and one at the bottom should be on when exactly one switch is up. The last exercise in this chapter asks you to build that with a single neuron and explains why you cannot. This limitation was well known by the end of the 1960s, and for some years it made the perceptron look like a dead end.</p>
+<p>A hidden layer fixes it. “Exactly one” is the same as “at least one, but not both”. Give the network two hidden neurons that each see both switches. The first, with weights 1 and 1 and threshold 0.5, computes “at least one”. The second, with weights 1 and 1 and threshold 1.5, computes “both”. The output neuron gets weight 1 from the first and −1 from the second, and threshold 0.5, so it says yes when the first hidden neuron is on and the second is off. Work through all four switch positions and you will find the lamp is on exactly when it should be. The hidden neurons re-described the input in terms that made the final decision easy. That is what hidden layers do in general. In a network trained to recognize images, early hidden neurons end up responding to edges and later ones to shapes made of edges, without anyone telling them to.</p>
+<p>Networks are not limited to yes or no. Give a network one input <span class="math inline">\(x\)</span> and a single hidden neuron with the step function, and plot the output against <span class="math inline">\(x\)</span>. The hidden neuron switches on where <span class="math inline">\(wx - \theta \geq 0\)</span>, that is where <span class="math inline">\(x\)</span> passes <span class="math inline">\(\theta/w\)</span>, so the plot is a step at that point, and the output weight sets how tall the step is. Two hidden neurons give two steps, and one step up followed by one step down gives a bump. Enough bumps side by side can trace out any curve you like, as closely as you like. This result, that a single hidden layer with enough neurons can approximate any reasonable function, is called the universal approximation theorem (<a href="https://doi.org/10.1007/BF02551274">Cybenko, 1989</a>; <a href="https://doi.org/10.1016/0893-6080(89)90020-8">Hornik et al., 1989</a>). You will build steps, bumps and staircases yourself in the next chapter. The theorem says that suitable weights exist. It says nothing about how to find them, or how many hidden neurons it will take.</p>
+</section>
+<section id="sec-nn-why" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-nn-why">Why neural networks are powerful</h2>
+<p>Finding the weights is the part that made neural networks what they are today. Throughout this course you have instructed the machine by writing out every step. A neural network is instructed in a different way. You give it examples, inputs paired with the correct outputs, and a training algorithm adjusts the weights a little at a time, each time in the direction that brings the network’s outputs closer to the correct ones. The standard algorithm, backpropagation, works out how much each weight contributed to the error (<a href="https://doi.org/10.1038/323533a0">Rumelhart et al., 1986</a>). It depends on small changes to a weight giving small changes to the output, which is why the step function had to give way to smooth activation functions. After many rounds of adjustment, the weights settle on values that make the network do the job. Nobody writes them down.</p>
+<p>Three things together make this powerful. The building block is flexible: the same neurons, wired the same way, can compute very different things depending only on their weights, and with enough of them almost anything. The weights are learned from examples, so a network can do jobs that nobody knows how to write instructions for, such as recognizing a cat, predicting how a protein folds, or guessing the next word in a sentence. And all the arithmetic is multiplying and adding, which modern computers do extremely fast, so networks can have billions of parameters and learn from enormous collections of examples.</p>
+<p>The same properties explain problems you have already met. A network learns whatever is in its examples, including their mistakes and biases. What it knows is spread across a vast number of weights, none of which means anything on its own, so you cannot read the weights to find out why it gave a particular answer. And it produces an answer for any input, including inputs unlike anything it was trained on, with no sign that it is out of its depth. This is why you check what the AI assistant produces, and why the same caution applies to every neural network.</p>
+<!-- 
+Training OpenAI's GPT 6 Astra takes an octillion computations
+https://www.nytimes.com/interactive/2026/10/15/upshot/ai-data-center-math.html?unlocked_article_code=1.KVE.nMBK.ATeVWV8Q2inC&smid=url-share
+ -->
+</section>
+<section id="a-tiny-network" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="a-tiny-network">A tiny network</h2>
+<p>Each exercise below has its own copy of the network, already set up for that exercise. You change one slider at a time. Before every change, decide what you expect to happen to the graph. Sketch it or write it down in one sentence. Only then change the slider and compare. If the graph does something else than you predicted, try to explain why before you open the answer.</p>
+<p>In each interactive network, the input <span class="math inline">\(x\)</span> goes to each hidden neuron <span class="math inline">\(h_i\)</span>, and the hidden neurons feed the output <span class="math inline">\(y\)</span>:</p>
+<ul>
+<li>Hidden neuron: <span class="math inline">\(h_i = f(w_i x - \theta_i)\)</span></li>
+<li>Output with “Apply <span class="math inline">\(f\)</span> at output” disabled: <span class="math inline">\(y = v_1 h_1 + v_2 h_2 + v_3 h_3 - \theta\)</span></li>
+<li>Output with “Apply <span class="math inline">\(f\)</span> at output” enabled: <span class="math inline">\(y = f(v_1 h_1 + v_2 h_2 + v_3 h_3 - \theta)\)</span></li>
+</ul>
+<p>With the “step” activation, <span class="math inline">\(f(z) = 1\)</span> if <span class="math inline">\(z \geq 0\)</span> and <span class="math inline">\(0\)</span> otherwise. A hidden neuron with a positive weight therefore switches on where <span class="math inline">\(w_i x \geq \theta_i\)</span>, that is for <span class="math inline">\(x \geq \theta_i / w_i\)</span>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Practical tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>“Reset” puts a network back to the start of its exercise.</li>
+<li>All weights and thresholds go from −10 to 10. To set a slider to an exact value, click it and use the arrow keys: each press changes it by 0.1.</li>
+<li>Move the mouse over the graph to choose an input <span class="math inline">\(x\)</span>; the network then shows the value of every neuron for that input.</li>
+<li>“Show contributions” draws each hidden neuron’s contribution <span class="math inline">\(v_i h_i\)</span> as a dashed line. Use it to check your reasoning.</li>
+<li>The <span class="math inline">\(y\)</span>-axis always runs from −25 to 25, so small values (like 1) give small changes in the graph.</li>
+</ul>
+</div>
+</div>
+<style>
+/* Change callout header title to normal text style for this page */
+.callout-note .callout-title {
+  font-size: 1rem;
+  font-weight: normal;
+  color: normal;
+}
+.callout .callout-title-container {
+  font-weight: normal;
+}
+</style>
+<section id="exercise" class="level4" data-number="45.0.0.1">
+<h4 data-number="45.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 45-1</strong></h4>
+<p><em>One step</em></p>
+<p>One hidden neuron with the step activation, starting from “Flat”: all weights <span class="math inline">\(w\)</span> are 1, all thresholds are 0 and the output weight <span class="math inline">\(v_1\)</span> is 0, so the graph is flat at <span class="math inline">\(y = 0\)</span>.</p>
+<div class="nnw" data-act="step" data-hidden="1" data-example="flat"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = 10\)</span>. What does the graph look like now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A step: <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(x &lt; 0\)</span> and <span class="math inline">\(y = 10\)</span> for <span class="math inline">\(x \geq 0\)</span>. The hidden neuron switches on where <span class="math inline">\(1 \times x - 0 \geq 0\)</span>, i.e.&nbsp;at <span class="math inline">\(x = 0\)</span>, and <span class="math inline">\(v_1\)</span> sets the height of the step.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_1 = 2\)</span>. Where is the step now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At <span class="math inline">\(x = 2\)</span>. The neuron now needs <span class="math inline">\(x - 2 \geq 0\)</span>. Increasing the threshold moves the step to the right.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_1 = -3\)</span>. Where is the step now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At <span class="math inline">\(x = -3\)</span>: a negative threshold moves the step to the left.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = -10\)</span>. What changes?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The step now goes <em>down</em>: <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(x &lt; -3\)</span> and <span class="math inline">\(y = -10\)</span> for <span class="math inline">\(x \geq -3\)</span>. The hidden neuron still switches on at the same place; a negative output weight turns its contribution upside down.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set the output threshold <span class="math inline">\(\theta = -5\)</span>. What happens to the whole graph?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Everything moves <em>up</em> by 5: <span class="math inline">\(y = 5\)</span> for <span class="math inline">\(x &lt; -3\)</span> and <span class="math inline">\(y = -5\)</span> for <span class="math inline">\(x \geq -3\)</span>. The output threshold is subtracted from the output, so a negative <span class="math inline">\(\theta\)</span> adds to it.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-1" class="level4" data-number="45.0.0.2">
+<h4 data-number="45.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 45-2</strong></h4>
+<p><em>What the input weight does</em></p>
+<p>One hidden neuron with the step activation, starting from <strong>Flat</strong> with <span class="math inline">\(v_1 = 10\)</span> and <span class="math inline">\(\theta_1 = 2\)</span>: a step up at <span class="math inline">\(x = 2\)</span>.</p>
+<div class="nnw" data-act="step" data-hidden="1" data-example="flat" data-set="v1=10, t1=2"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(w_1 = 2\)</span>. Where is the step now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At <span class="math inline">\(x = 1\)</span>. The neuron switches on where <span class="math inline">\(2x - 2 \geq 0\)</span>, i.e.&nbsp;<span class="math inline">\(x \geq \theta_1/w_1 = 2/2 = 1\)</span>. A larger weight moves the step towards <span class="math inline">\(x = 0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(w_1 = 0.5\)</span>. Where is the step now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At <span class="math inline">\(x = 4\)</span> (<span class="math inline">\(\theta_1/w_1 = 2/0.5\)</span>). A smaller weight moves the step away from <span class="math inline">\(x = 0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(w_1 = -1\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The step flips direction and moves to <span class="math inline">\(x = -2\)</span>: <span class="math inline">\(y = 10\)</span> for <span class="math inline">\(x \leq -2\)</span> and <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(x &gt; -2\)</span>. The neuron now needs <span class="math inline">\(-x - 2 \geq 0\)</span>, i.e.&nbsp;<span class="math inline">\(x \leq -2\)</span>: with a negative weight, the neuron is on to the <em>left</em> of the switching point.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(w_1 = 0\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The graph is flat at <span class="math inline">\(y = 0\)</span>. With weight 0 the neuron ignores the input: its input is always <span class="math inline">\(0 - 2 = -2\)</span>, which is below 0, so it is never on.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-2" class="level4" data-number="45.0.0.3">
+<h4 data-number="45.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 45-3</strong></h4>
+<p><em>Building a bump from two steps</em></p>
+<p>Two hidden neurons with the step activation, starting from <strong>Flat</strong>, with <strong>Show contributions</strong> ticked.</p>
+<div class="nnw" data-act="step" data-hidden="2" data-example="flat" data-contrib="true"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = 10\)</span>. What do you see?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A step up from 0 to 10 at <span class="math inline">\(x = 0\)</span>, made by <span class="math inline">\(h_1\)</span> alone.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_2 = 10\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The step becomes twice as high (<span class="math inline">\(0 \to 20\)</span>), still at <span class="math inline">\(x = 0\)</span>. Both neurons switch on at the same place, so their contributions add up.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_2 = 2\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Two steps (a staircase): <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(x &lt; 0\)</span>, <span class="math inline">\(y = 10\)</span> for <span class="math inline">\(0 \leq x &lt; 2\)</span>, and <span class="math inline">\(y = 20\)</span> for <span class="math inline">\(x \geq 2\)</span>. The second neuron now switches on later.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_2 = -10\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A <em>bump</em>: <span class="math inline">\(y = 10\)</span> for <span class="math inline">\(0 \leq x &lt; 2\)</span> and <span class="math inline">\(y = 0\)</span> everywhere else. The first neuron steps up at 0, the second steps down by the same amount at 2, so they cancel to the right of 2.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_1 = -2\)</span>. What happens to the bump?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>It gets wider: it now runs from <span class="math inline">\(x = -2\)</span> to <span class="math inline">\(x = 2\)</span>. Each threshold controls one edge of the bump.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-3" class="level4" data-number="45.0.0.4">
+<h4 data-number="45.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 45-4</strong></h4>
+<p><em>Moving the edges of a bump</em></p>
+<p>The “Bump” example: a bump of height 10 between <span class="math inline">\(x = -1\)</span> and <span class="math inline">\(x = 1\)</span> (<span class="math inline">\(\theta_1 = -1\)</span>, <span class="math inline">\(\theta_2 = 1\)</span>, <span class="math inline">\(v_1 = 10\)</span>, <span class="math inline">\(v_2 = -10\)</span>).</p>
+<div class="nnw" data-example="bump"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_1 = 1\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The bump disappears and the graph is flat at 0. Both neurons now switch on at <span class="math inline">\(x = 1\)</span>; the step up and the step down happen at the same place and cancel.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_1 = 3\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A <em>dip</em>: <span class="math inline">\(y = -10\)</span> for <span class="math inline">\(1 \leq x &lt; 3\)</span> and 0 elsewhere. Now the step down (at 1) comes before the step up (at 3).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = 5\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The step up at <span class="math inline">\(x = 3\)</span> only goes half way back: <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(x &lt; 1\)</span>, <span class="math inline">\(-10\)</span> for <span class="math inline">\(1 \leq x &lt; 3\)</span>, and <span class="math inline">\(5 - 10 = -5\)</span> for <span class="math inline">\(x \geq 3\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta = -10\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The whole graph moves up by 10: <span class="math inline">\(y = 10\)</span> for <span class="math inline">\(x &lt; 1\)</span>, <span class="math inline">\(0\)</span> for <span class="math inline">\(1 \leq x &lt; 3\)</span>, and <span class="math inline">\(5\)</span> for <span class="math inline">\(x \geq 3\)</span>.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-4" class="level4" data-number="45.0.0.5">
+<h4 data-number="45.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 45-5</strong></h4>
+<p><em>A staircase</em></p>
+<p>The “Staircase” example with three hidden neurons: steps at <span class="math inline">\(x = -3\)</span>, <span class="math inline">\(0\)</span> and <span class="math inline">\(3\)</span>, each of height 6. The output threshold <span class="math inline">\(\theta = 9\)</span> centres the levels on zero: −9, −3, 3, 9.</p>
+<div class="nnw" data-hidden="3" data-example="stairs"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta = 0\)</span>. What are the levels now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>0, 6, 12 and 18: the whole staircase moves up by 9.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_2 = 0\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The middle step disappears: <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(x &lt; -3\)</span>, <span class="math inline">\(6\)</span> for <span class="math inline">\(-3 \leq x &lt; 3\)</span>, and <span class="math inline">\(12\)</span> for <span class="math inline">\(x \geq 3\)</span>. Neuron <span class="math inline">\(h_2\)</span> still switches on at <span class="math inline">\(x = 0\)</span>, but its contribution is multiplied by 0.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_2 = -6\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At <span class="math inline">\(x = 0\)</span> the graph now steps <em>down</em> by 6: <span class="math inline">\(0\)</span> for <span class="math inline">\(x &lt; -3\)</span>, <span class="math inline">\(6\)</span> for <span class="math inline">\(-3 \leq x &lt; 0\)</span>, <span class="math inline">\(0\)</span> for <span class="math inline">\(0 \leq x &lt; 3\)</span>, and <span class="math inline">\(6\)</span> again for <span class="math inline">\(x \geq 3\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_3 = 6\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The last step disappears from the graph: <span class="math inline">\(h_3\)</span> would only switch on at <span class="math inline">\(x = 6\)</span>, which is outside the plotted range. What is left is a <em>bump</em> of height 6 between <span class="math inline">\(x = -3\)</span> and <span class="math inline">\(x = 0\)</span>, just like in Exercise 3.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-5" class="level4" data-number="45.0.0.6">
+<h4 data-number="45.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 45-6</strong></h4>
+<p><em>Smooth steps with the sigmoid</em></p>
+<p>One hidden neuron with the sigmoid activation, starting from <strong>Flat</strong>. The sigmoid is a smooth version of the step: <span class="math inline">\(f(z) = 1 / (1 + e^{-z})\)</span>, which is 0.5 at <span class="math inline">\(z = 0\)</span>.</p>
+<div class="nnw" data-act="sigmoid" data-hidden="1" data-example="flat"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = 10\)</span>. What does the graph look like?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A smooth S-shaped curve rising from almost 0 on the left to almost 10 on the right, passing through <span class="math inline">\(y = 5\)</span> at <span class="math inline">\(x = 0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(w_1 = 5\)</span>. What changes?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The curve becomes much steeper and looks almost like a step at <span class="math inline">\(x = 0\)</span>. The weight controls how sharp the transition is.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(w_1 = 0.5\)</span>. What changes?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The curve becomes very gradual: it rises from about 0.8 at <span class="math inline">\(x = -5\)</span> to about 9.2 at <span class="math inline">\(x = 5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_1 = 1\)</span>. Where is the middle of the curve (where <span class="math inline">\(y = 5\)</span>) now?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At <span class="math inline">\(x = 2\)</span> (<span class="math inline">\(\theta_1/w_1 = 1/0.5\)</span>), just as for a step. The curve is shifted to the right.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-6" class="level4" data-number="45.0.0.7">
+<h4 data-number="45.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 45-7</strong></h4>
+<p><em>Ramps with ReLU</em></p>
+<p>One hidden neuron with the ReLU activation, starting from <strong>Flat</strong>. ReLU is <span class="math inline">\(f(z) = \max(0, z)\)</span>: zero for negative input, and the input itself otherwise.</p>
+<div class="nnw" data-act="relu" data-hidden="1" data-example="flat"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = 1\)</span>. What does the graph look like?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A ramp: <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(x &lt; 0\)</span> and <span class="math inline">\(y = x\)</span> for <span class="math inline">\(x \geq 0\)</span>, reaching 5 at the right edge. The point where it bends is called a kink.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(w_1 = 5\)</span>. What changes?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The ramp becomes five times steeper and reaches 25 (the top of the plot) at <span class="math inline">\(x = 5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_1 = 5\)</span>. Where is the kink now, and how high does the ramp get?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The kink moves to <span class="math inline">\(x = 1\)</span> (<span class="math inline">\(\theta_1/w_1 = 5/5\)</span>), and the ramp <span class="math inline">\(y = 5x - 5\)</span> reaches 20 at <span class="math inline">\(x = 5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = -1\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The ramp now goes <em>down</em> from the kink at <span class="math inline">\(x = 1\)</span>, reaching −20 at <span class="math inline">\(x = 5\)</span>.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-7" class="level4" data-number="45.0.0.8">
+<h4 data-number="45.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 45-8</strong></h4>
+<p><em>A peak from two ramps</em></p>
+<p>Two hidden neurons with the ReLU activation, starting from <strong>Flat</strong>, with <strong>Show contributions</strong> ticked.</p>
+<div class="nnw" data-act="relu" data-hidden="2" data-example="flat" data-contrib="true"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = 5\)</span>. What does the graph look like?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A ramp from 0 at <span class="math inline">\(x = 0\)</span> up to 25 at <span class="math inline">\(x = 5\)</span> (slope 5).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_2 = -10\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The ramp goes <em>down</em> instead: both neurons bend at <span class="math inline">\(x = 0\)</span>, and the slopes add up to <span class="math inline">\(5 - 10 = -5\)</span>, so the graph reaches −25 at <span class="math inline">\(x = 5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta_2 = 2\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A <em>peak</em>: the graph rises with slope 5 from <span class="math inline">\(x = 0\)</span>, reaches 10 at <span class="math inline">\(x = 2\)</span>, then falls with slope −5, crossing zero at <span class="math inline">\(x = 4\)</span> and reaching −5 at <span class="math inline">\(x = 5\)</span>. The second neuron only starts pulling the graph down from <span class="math inline">\(x = 2\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Tick “Apply <span class="math inline">\(f\)</span> at output”. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The output now also goes through ReLU, so negative values become 0: the graph is a clean triangle from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 4\)</span> with its top (10) at <span class="math inline">\(x = 2\)</span>, and 0 everywhere else.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-8" class="level4" data-number="45.0.0.9">
+<h4 data-number="45.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 45-9</strong></h4>
+<p><em>A threshold on the output</em></p>
+<p>The “Bump” example again. Tick “Apply <em>f</em> at output”, but before you do, predict what the graph will look like.</p>
+<div class="nnw" data-example="bump"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>What does the graph look like with “Apply <span class="math inline">\(f\)</span> at output” ticked?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The graph becomes flat at <span class="math inline">\(y = 1\)</span>. Inside the bump the output neuron receives <span class="math inline">\(10 - 0 = 10\)</span>, outside it receives <span class="math inline">\(0\)</span>. Both are <span class="math inline">\(\geq 0\)</span>, so the step function gives 1 everywhere.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta = 5\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A bump of height 1 between <span class="math inline">\(x = -1\)</span> and <span class="math inline">\(x = 1\)</span>, 0 elsewhere (it is small on this axis; hover over the graph to check the values). The output neuron now receives <span class="math inline">\(10 - 5 = 5\)</span> inside the bump and <span class="math inline">\(-5\)</span> outside, so it only fires inside.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(v_1 = 3\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The graph is flat at 0. Inside the bump the output neuron receives <span class="math inline">\(3 - 5 = -2\)</span>; outside it receives <span class="math inline">\(-5\)</span> (left) or <span class="math inline">\(3 - 10 - 5 = -12\)</span> (right). It never reaches its threshold.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Set <span class="math inline">\(\theta = 2\)</span>. What happens?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The bump comes back: inside it receives <span class="math inline">\(3 - 2 = 1 \geq 0\)</span>, outside <span class="math inline">\(-2\)</span> or <span class="math inline">\(-9\)</span>. Only the inputs inside the bump make the output neuron fire.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-9" class="level4" data-number="45.0.0.10">
+<h4 data-number="45.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 45-10</strong></h4>
+<p>Make a bump of height 8 that runs from <span class="math inline">\(x = -2\)</span> to <span class="math inline">\(x = 3\)</span>.</p>
+<div class="nnw" data-act="step" data-hidden="2" data-example="flat"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>One solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(w_1 = w_2 = 1\)</span>, <span class="math inline">\(\theta_1 = -2\)</span>, <span class="math inline">\(\theta_2 = 3\)</span>, <span class="math inline">\(v_1 = 8\)</span>, <span class="math inline">\(v_2 = -8\)</span>, <span class="math inline">\(\theta = 0\)</span>.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-10" class="level4" data-number="45.0.0.11">
+<h4 data-number="45.0.0.11" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 45-11</strong></h4>
+<p>Make a staircase going <strong>down</strong>: 10 for <span class="math inline">\(x &lt; -1\)</span>, 0 between −1 and 1, and −10 for <span class="math inline">\(x \geq 1\)</span>.</p>
+<div class="nnw" data-act="step" data-hidden="2" data-example="flat"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>One solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(w_1 = w_2 = 1\)</span>, <span class="math inline">\(\theta_1 = -1\)</span>, <span class="math inline">\(\theta_2 = 1\)</span>, <span class="math inline">\(v_1 = v_2 = -10\)</span>, and <span class="math inline">\(\theta = -10\)</span> to lift the whole graph by 10.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercise-11" class="level4" data-number="45.0.0.12">
+<h4 data-number="45.0.0.12" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 45-12</strong></h4>
+<div class="nnw" data-act="relu" data-hidden="2" data-example="flat"></div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>One solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-42" class="callout-42-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(w_1 = 1\)</span>, <span class="math inline">\(w_2 = -1\)</span>, <span class="math inline">\(\theta_1 = \theta_2 = 0\)</span>, <span class="math inline">\(v_1 = v_2 = 5\)</span>, <span class="math inline">\(\theta = 0\)</span>. One neuron makes the right half of the V, the other (with a negative weight) the left half.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+// The margin link to the other book ("TA version of this page" in the student
+// book, "Student version of this page" in the TA one) is declared with a fixed
+// href in _quarto-default.yml and _quarto-ta.yml, because Quarto resolves
+// other-links from metadata before pandoc runs and has no way to express "this
+// page, one directory over". So point it at the current page's counterpart here.
+//
+// document.baseURI rather than location.href: pagecrypt serves the decrypted TA
+// page inside a srcdoc iframe, where location.href is "about:srcdoc" but baseURI
+// is still inherited from the real page URL.
+//
+// The root is derived from the site_libs asset every page loads, rather than
+// hard-coded, so this works in local preview, over file:// and on the published
+// site alike. On a page carrying neither link the whole thing is a no-op.
+document.addEventListener("DOMContentLoaded", function () {
+  var asset = document.querySelector('script[src*="site_libs/"], link[href*="site_libs/"]');
+  if (!asset) return;
+  var url = asset.src || asset.href;                  // absolute, resolved against baseURI
+  var root = url.slice(0, url.indexOf("site_libs/")); // absolute URL of this book's root
+  var page = document.baseURI.slice(root.length);     // this page, relative to that root
+
+  var toTa = document.querySelector('.quarto-other-links a[rel="ta-version"]');
+  if (toTa) toTa.href = root + "ta/" + page;
+
+  var toStudent = document.querySelector('.quarto-other-links a[rel="student-version"]');
+  if (toStudent) toStudent.href = root.replace(/ta\/$/, "") + page;
+});
+</script>
+<!--
+  Tiny neural network widget: styles and script. Include this once per page; every element
+  <div class="nnw"></div> on the page then becomes a widget (any number of them).
+
+  Optional attributes on the div set the widget's starting state, which the "Reset" button
+  returns to:
+    data-act="step | sigmoid | relu"      activation (default step)
+    data-hidden="1 | 2 | 3"               number of hidden neurons (default 2)
+    data-example="flat | bump | stairs | random"   example applied at the start
+    data-outact="true"                    tick "Apply f at output"
+    data-contrib="true"                   tick "Show contributions"
+    data-set="v1=10, t1=2"                extra slider values (w1-w3, t1-t3, v1-v3, th)
+    data-theme="light | dark | auto"      colours (default light)
+
+  This file is the source of the widget. tiny-network.html is generated from it by
+  build_standalone.py.
+-->
+<style>
+  /* ---------- Widget styles (all scoped to .nnw) ---------- */
+  /* width: 100% matters: inside a CSS grid (a Quarto section with margin content) the auto margins
+     would otherwise shrink the widget to its content, which inline-size containment makes zero. */
+  .nnw {
+    --bg: #ffffff; --fg: #1f2937; --muted: #6b7280; --grid: #eef0f3; --axis: #9ca3af;
+    --panel: #f8fafc; --border: #e2e8f0; --label-bg: rgba(255,255,255,0.92);
+    --pos: #0d9488; --neg: #dc2626;
+    --handle: #d1d5db; --fill: #e5e7eb; --track: #ffffff; --track-line: #000000;
+    --c-in: #64748b; --curve: #374151; --c-1: #2563eb; --c-2: #c026d3; --c-3: #d97706;
+    container-type: inline-size;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--fg); background: var(--bg);
+    width: 100%; max-width: 760px; margin: 0 auto; padding: 16px; box-sizing: border-box;
+  }
+  .nnw[data-theme="dark"] {
+    --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+    --panel: #1a2232; --border: #2d3748; --label-bg: rgba(17,24,39,0.92);
+    --pos: #2dd4bf; --neg: #f87171;
+    --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8; --curve: #d1d5db; --c-1: #60a5fa; --c-2: #e879f9; --c-3: #fbbf24;
+  }
+  @media (prefers-color-scheme: dark) {
+    .nnw[data-theme="auto"] {
+      --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --grid: #1f2937; --axis: #6b7280;
+      --panel: #1a2232; --border: #2d3748; --label-bg: rgba(17,24,39,0.92);
+      --pos: #2dd4bf; --neg: #f87171;
+      --handle: #6b7280; --fill: #374151; --track: #111827; --track-line: #e5e7eb; --c-in: #94a3b8; --curve: #d1d5db; --c-1: #60a5fa; --c-2: #e879f9; --c-3: #fbbf24;
+    }
+  }
+  .nnw *, .nnw *::before, .nnw *::after { box-sizing: border-box; }
+  .nnw svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+  /* Network on top, the plot below it, then the hint and formula, at every width */
+  .nnw-main { display: block; }
+  .nnw-netcell { padding: 16px 0; }
+
+  .nnw-toolbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+    font-size: 14px; margin-bottom: 12px; }
+  .nnw-toolbar label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .nnw-toolbar select, .nnw-toolbar button {
+    font: inherit; font-size: 13px; color: var(--fg); background: var(--panel);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; cursor: pointer;
+  }
+  .nnw-toolbar button:hover { border-color: var(--axis); }
+  .nnw-presets { display: inline-flex; gap: 6px; align-items: center; }
+  .nnw-presets span { color: var(--muted); }
+
+  /* Network diagram with sliders placed on it (positions are % of the SVG viewBox) */
+  .nnw-netwrap { position: relative; container-type: inline-size; }
+  /* Each slider has two pieces, both positioned by the script (top-centre anchored):
+     the head ("w₁:" + bar), placed above its edge or node, and the value, placed below it. */
+  /* Slider text scales with the drawing, like the node labels: numbers 15 and names 18 diagram units
+     (of 710 across). The bar keeps a fixed thickness; only its length follows the width. */
+  .nnw-ctl { position: absolute; width: 13.94%; height: max(18px, 3.2cqw); transform: translate(-50%, 0);
+    display: flex; align-items: center; font-size: 2.113cqw; }
+  .nnw-ctl .lab { display: flex; align-items: center; height: max(18px, 3.2cqw); padding-right: 0.3em;
+    white-space: nowrap; color: var(--fg); }
+  /* Each slider: value centred above the bar, label left of the bar. Sliders are 15% of the drawing
+     wide, so threshold and weight sliders never reach into each other's columns. */
+  .nnw-ctl.row { width: 15%; height: auto; align-items: flex-end; }
+  .nnw-ctl .barcol { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .nnw-ctl .barrow { height: max(18px, 3.2cqw); display: flex; align-items: center; }
+  .nnw-ctl .nnw-topval { height: 1.25em; text-align: center; line-height: 1.25; white-space: nowrap;
+    font-variant-numeric: tabular-nums; color: var(--cc); }
+  .nnw-ctl .name { color: var(--fg); font-style: italic; font-family: "Times New Roman", Georgia, serif; font-size: 1.2em; }
+  .nnw-ctl sub { line-height: 0; }
+  .nnw-ctl input[type=range] { display: block; flex: 1; min-width: 0; height: 18px; margin: 0; cursor: pointer;
+    -webkit-appearance: none; appearance: none; background: transparent; --frac: 0.5; }
+  .nnw-ctl input[type=range]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px;
+    border: 0.5px solid var(--track-line);
+    background: linear-gradient(to right, var(--fill) 0 calc(6px + (100% - 12px) * var(--frac)),
+      var(--track) calc(6px + (100% - 12px) * var(--frac)) 100%); }
+  .nnw-ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+    width: 12px; height: 12px; margin-top: -3.5px; border-radius: 50%; background: var(--handle);
+    border: 0.5px solid var(--track-line); }
+  .nnw-ctl input[type=range]::-moz-range-track { height: 5px; border-radius: 3px; background: var(--track);
+    border: 0.5px solid var(--track-line); }
+  .nnw-ctl input[type=range]::-moz-range-progress { height: 5px; border-radius: 3px; background: var(--fill); }
+  .nnw-ctl input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%;
+    background: var(--handle); border: 0.5px solid var(--track-line); }
+  .nnw-ctl input[type=range]:focus-visible { outline: 2px solid var(--axis); outline-offset: 2px; border-radius: 4px; }
+
+  .nnw-formula { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .nnw-formula .math { font-family: "Times New Roman", Georgia, serif; font-size: 17px; color: var(--fg); }
+  .nnw-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .nnw-plotwrap { touch-action: none; cursor: crosshair; }
+</style>
+<script>
+(function () {
+  // Markup of one widget; it is inserted into every empty <div class="nnw"> on the page.
+  const TEMPLATE = `
+  <div class="nnw-toolbar">
+    <label>Activation <i>f</i>
+      <select data-role="act">
+        <option value="step">Step (threshold)</option>
+        <option value="sigmoid">Sigmoid</option>
+        <option value="relu">ReLU</option>
+      </select>
+    </label>
+    <label>Hidden neurons
+      <select data-role="nh">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+      </select>
+    </label>
+    <label><input type="checkbox" data-role="outact"> Apply <i>f</i> at output</label>
+    <label><input type="checkbox" data-role="contrib"> Show contributions</label>
+    <span class="nnw-presets"><span>Examples:</span>
+      <button type="button" data-preset="flat">Flat</button>
+      <button type="button" data-preset="bump">Bump</button>
+      <button type="button" data-preset="stairs">Staircase</button>
+      <button type="button" data-preset="random">Random</button>
+    </span>
+    <button type="button" data-role="reset" hidden title="Back to the start of this exercise">Reset</button>
+  </div>
+
+  <div class="nnw-main">
+    <div class="nnw-netcell">
+      <div class="nnw-netwrap" data-role="netwrap">
+        <svg data-role="net" viewBox="0 0 710 385" aria-label="Network diagram"></svg>
+      </div>
+    </div>
+    <div class="nnw-plotwrap"><svg data-role="plot" viewBox="0 0 700 364" aria-label="Plot of the network function"></svg></div>
+    <div class="nnw-below">
+      <div class="nnw-hint">Move the pointer over the plot to choose an input <i>x</i> and see the activations in the network.</div>
+      <div class="nnw-formula" data-role="formula"></div>
+    </div>
+  </div>
+`;
+  let count = 0;
+
+  function initWidget(root) {
+    if (root.dataset.nnwReady) return;
+    root.dataset.nnwReady = '1';
+    const uid = count ? 'nnw' + count : 'nnw';     // unique id prefix per widget on the page
+    count++;
+    if (!root.dataset.theme) root.dataset.theme = 'light';
+    if (!root.querySelector('.nnw-toolbar')) root.innerHTML = TEMPLATE;
+    const $ = (r) => root.querySelector('[data-role="' + r + '"]');
+    const netSvg = $('net'), plotSvg = $('plot');
+
+    // ---------------- State ----------------
+    // Values are kept for all three hidden neurons; only the first n are used and shown.
+    // wᵢ: weight x → hᵢ, tᵢ: threshold of hᵢ, vᵢ: weight hᵢ → y, th: threshold of y.
+    // The page starts like the "Flat" example: input weights 1.0, thresholds 0.0 and output weights
+    // 0.0, so the output is flat at y = 0 (with a linear output).
+    const FLAT = { w1: 1, t1: 0, v1: 0, w2: 1, t2: 0, v2: 0, w3: 1, t3: 0, v3: 0, th: 0 };
+    const p = Object.assign({}, FLAT);
+    let n = 2, act = 'step', outAct = false, showContrib = false, probeX = 0;
+    const XMIN = -5, XMAX = 5;
+    const SUB = ['', '₁', '₂', '₃'];
+    const idx = () => Array.from({ length: n }, (_, i) => i + 1);
+
+    // ---------------- Layout (SVG viewBox units) ----------------
+    // Hidden neurons are stacked with spacing S; x and y sit level with their centre.
+    // S and the drawing height VBH are set by placeSliders() so that no slider collides with anything.
+    const VBW = 710, R = 30;
+    const EH = 6.75 / 2;           // half the widest edge (|weight| = 10)
+    let VBH = 400, NODES;
+    function layout(S) {
+      const top = 50, C = top + (n - 1) * S / 2;
+      NODES = { x: { cx: 125, cy: C, label: 'x' }, y: { cx: 575, cy: C, label: 'y' } };
+      idx().forEach((i) => { NODES['h' + i] = { cx: 350, cy: top + (i - 1) * S, label: 'h' + SUB[i] }; });
+    }
+
+    const PRESETS = {
+      bump: { n: 2, p: { w1: 1, t1: -1, w2: 1, t2: 1, v1: 10, v2: -10, th: 0 } },
+    };
+
+    // ---------------- Math ----------------
+    function f(z) {
+      if (act === 'step') return z >= 0 ? 1 : 0;
+      if (act === 'sigmoid') return 1 / (1 + Math.exp(-z));
+      return Math.max(0, z); // relu
+    }
+    function forward(x) {
+      const hs = idx().map((i) => f(p['w' + i] * x - p['t' + i]));
+      const z = hs.reduce((acc, h, j) => acc + p['v' + (j + 1)] * h, 0) - p.th;
+      return { hs, z, y: outAct ? f(z) : z };
+    }
+
+    // ---------------- Helpers ----------------
+    const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+    const fmt = (v, d) => { const s = (Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v).toFixed(d); return s.replace('-', '−'); };
+    function niceStep(span, target) {
+      const raw = span / target, mag = Math.pow(10, Math.floor(Math.log10(raw))), r = raw / mag;
+      return (r < 1.5 ? 1 : r < 3 ? 2 : r < 7 ? 5 : 10) * mag;
+    }
+
+    // ---------------- Controls ----------------
+    // Weight sliders sit on the middle of their connection; threshold sliders sit under their node.
+    const netWrap = $('netwrap');
+    let inputs = {};
+    function buildSliders() {
+      netWrap.querySelectorAll('.nnw-ctl').forEach((el) => el.remove());
+      inputs = {};
+      const defs = [];
+      idx().forEach((i) => {
+        defs.push({ k: 'w' + i, name: 'w<sub>' + i + '</sub>', edge: ['x', 'h' + i], aria: 'weight from x to h' + i });
+        defs.push({ k: 'v' + i, name: 'v<sub>' + i + '</sub>', edge: ['h' + i, 'y'], aria: 'weight from h' + i + ' to y' });
+        defs.push({ k: 't' + i, name: 'θ<sub>' + i + '</sub>', node: 'h' + i, aria: 'threshold of h' + i });
+      });
+      defs.push({ k: 'th', name: 'θ', node: 'y', aria: 'threshold of y' });
+      defs.forEach((it) => {
+        const box = document.createElement('div');
+        box.className = 'nnw-ctl';
+        const id = uid + '-' + it.k;
+        box.classList.add('row');               // value centred above the bar
+        box.innerHTML =
+          '<label class="lab" for="' + id + '"><span class="name">' + it.name + '</span>:</label>' +
+          '<div class="barcol"><output class="nnw-topval" for="' + id + '"></output><div class="barrow">' +
+          '<input type="range" id="' + id + '" min="-10" max="10" step="0.1" aria-label="' + it.aria + '"></div></div>';
+        netWrap.append(box);
+        const val = box.querySelector('output');
+        const inp = box.querySelector('input');
+        inputs[it.k] = { inp, out: val, box, def: it };
+        inp.addEventListener('input', () => { p[it.k] = parseFloat(inp.value); render(); });
+      });
+    }
+
+    // Switch the number of hidden neurons: new layout, new sliders
+    // Place the sliders. Each slider is "w₁:" + bar, with the value centred above the bar. A weight
+    // slider sits above the midpoint of its edge, 1px clear of the widest edge (4px from edge to
+    // handle); on a sloped edge the
+    // line therefore crosses the ends of the row. Weight rows are thus evenly spaced, like the edge
+    // midpoints. A threshold row goes above its node and moves up past any edge that would cross it,
+    // keeping at least 1px from every edge (measured perpendicular to the edge, at the widest edge
+    // width). The hidden-neuron spacing S then grows until no two rows (or a row and a node) collide.
+    // Row sizes are in pixels while the drawing scales, so this is redone whenever the width changes.
+    function placeSliders() {
+      const W = netSvg.getBoundingClientRect().width || VBW;
+      const k = VBW / W;                                   // diagram units per pixel
+      const ctl = Object.values(inputs);
+      const br = inputs.w1.box.getBoundingClientRect();
+      const half = br.width * k / 2, HH = br.height * k, clear = k;   // slider size (value line + bar line)
+      let pos, lines;
+      const band = (A, B, x0, x1) => {
+        const xa = Math.max(x0, A.cx), xb = Math.min(x1, B.cx);
+        if (xa > xb) return null;
+        const m = (B.cy - A.cy) / (B.cx - A.cx), yAt = (x) => A.cy + m * (x - A.cx), sl = Math.sqrt(1 + m * m);
+        return { lo: Math.min(yAt(xa), yAt(xb)) - EH * sl, hi: Math.max(yAt(xa), yAt(xb)) + EH * sl, cv: clear * sl };
+      };
+      // Rectangle [left, right, top, bottom] of a slider row, centred on its anchor
+      const rowRect = (q) => [q.cx - half, q.cx + half, q.bottom - HH, q.bottom];
+      const solve = () => {
+        lines = [];
+        idx().forEach((i) => { lines.push([NODES.x, NODES['h' + i]], [NODES['h' + i], NODES.y]); });
+        pos = {};
+        ctl.forEach((c) => {
+          const def = c.def;
+          let cx, bottom;
+          if (def.edge) {
+            const A = NODES[def.edge[0]], B = NODES[def.edge[1]];
+            cx = (A.cx + B.cx) / 2; bottom = (A.cy + B.cy) / 2 - EH - clear;
+          } else {
+            const N = NODES[def.node];
+            cx = N.cx; bottom = N.cy - R - EH - 3 * k;
+          }
+          const q = { cx, bottom };
+          for (let iter = 0, moved = !def.edge; moved && iter < 50; iter++) {
+            moved = false;
+            for (const [A, B] of lines) {
+              const h = rowRect(q), bh = band(A, B, h[0], h[1]);
+              if (bh && bh.lo < q.bottom + bh.cv && bh.hi > q.bottom - HH) { q.bottom = bh.lo - bh.cv; moved = true; }
+            }
+          }
+          pos[def.k] = q;
+        });
+      };
+      const collides = () => {
+        const rects = [], nodeRows = [];
+        ctl.forEach((c) => { const r = rowRect(pos[c.def.k]); rects.push(r); if (c.def.node) nodeRows.push(r); });
+        // For threshold rows, an edge closer than the clearance on the far side also counts as a collision
+        for (const [A, B] of lines)
+          for (const r of nodeRows) {
+            const b = band(A, B, r[0], r[1]);
+            if (b && b.lo < r[3] + b.cv && b.hi > r[2] - b.cv) return true;
+          }
+        const np = rects.length;
+        Object.values(NODES).forEach((N) => rects.push([N.cx - R - EH, N.cx + R + EH, N.cy - R - EH, N.cy + R + EH]));
+        for (let a = 0; a < np; a++)
+          for (let b = a + 1; b < rects.length; b++) {
+            const [l1, r1, t1, b1] = rects[a], [l2, r2, t2, b2] = rects[b];
+            if (l1 < r2 && l2 < r1 && t1 < b2 && t2 < b1) return true;
+          }
+        return false;
+      };
+      // Smallest collision-free spacing, then 20% extra so the network gets more height; the top and
+      // bottom hidden neurons are also at least 300 units apart
+      let S = 150;
+      for (; ; S += 5) {
+        layout(S); solve();
+        if (n === 1 || !collides() || S > 800) break;
+      }
+      if (n > 1) { layout(Math.max(S * 1.2, 300 / (n - 1))); solve(); }
+      // Shift everything so the topmost row (or the input label) starts just below the top edge,
+      // then size the drawing to the lowest row (or the input/output captions).
+      const tops = [NODES.x.cy - 34], bottoms = [NODES.x.cy + R + 30];
+      ctl.forEach((c) => { const r = rowRect(pos[c.def.k]); tops.push(r[2]); bottoms.push(r[3]); });
+      Object.values(NODES).forEach((N) => { tops.push(N.cy - R - EH); bottoms.push(N.cy + R + EH); });
+      const dy = 6 - Math.min(...tops);
+      Object.values(NODES).forEach((N) => { N.cy += dy; });
+      VBH = Math.max(...bottoms) + dy + 6;
+      netSvg.setAttribute('viewBox', '0 0 ' + VBW + ' ' + VBH);
+      ctl.forEach((c) => {
+        const q = pos[c.def.k];
+        c.box.style.left = (q.cx / VBW * 100) + '%';
+        c.box.style.top = ((q.bottom - HH + dy) / VBH * 100) + '%';
+      });
+    }
+
+    function setN(newN) {
+      n = newN;
+      layout(218);
+      buildSliders();
+      placeSliders();
+    }
+
+    const actSel = $('act'), nhSel = $('nh'), outChk = $('outact'), conChk = $('contrib');
+    actSel.addEventListener('change', () => { act = actSel.value; render(); });
+    nhSel.addEventListener('change', () => { setN(parseInt(nhSel.value, 10)); syncControls(); render(); });
+    outChk.addEventListener('change', () => { outAct = outChk.checked; render(); });
+    conChk.addEventListener('change', () => { showContrib = conChk.checked; render(); });
+
+    // ReLU kinks sit at x = θᵢ/wᵢ. A kink counts as visible when it lies well inside the x-range,
+    // is at least 1 away from the other kinks, the curve there is on screen, and the slope of the
+    // output really changes there.
+    function kinksVisible() {
+      const ks = [];
+      for (const i of idx()) {
+        if (Math.abs(p['w' + i]) < 0.3) return false;
+        ks.push(p['t' + i] / p['w' + i]);
+      }
+      for (let a = 0; a < ks.length; a++)
+        for (let b = a + 1; b < ks.length; b++) if (Math.abs(ks[a] - ks[b]) < 1) return false;
+      const e = 0.05;
+      return ks.every((k) => {
+        if (Math.abs(k) > 4.5) return false;
+        const y0 = forward(k).y, yl = forward(k - e).y, yr = forward(k + e).y;
+        return Math.abs(y0) <= 20 && Math.abs((yr - y0) / e - (y0 - yl) / e) >= 2;
+      });
+    }
+
+    function applyPreset(name) {
+      const r = (a) => Math.round((Math.random() * 2 - 1) * a * 10) / 10;
+      if (name === 'flat') {
+        // Input weights 1.0, thresholds and output weights 0.0 (for all three hidden neurons): y = 0
+        Object.assign(p, FLAT);
+      } else if (name === 'random') {
+        if (act === 'relu') {
+          // Redraw until every kink is clearly visible in the plot
+          for (let tries = 0; tries < 20000; tries++) {
+            idx().forEach((i) => Object.assign(p, { ['w' + i]: r(3), ['t' + i]: r(10), ['v' + i]: r(10) }));
+            p.th = r(10);
+            if (kinksVisible()) break;
+          }
+        } else {
+          // Output weights scaled so that the output always stays within the ±25 axis
+          const vmax = n === 3 ? 6.6 : 10;
+          idx().forEach((i) => Object.assign(p, { ['w' + i]: r(4), ['t' + i]: r(6), ['v' + i]: r(vmax) }));
+          p.th = r(5);
+        }
+      } else if (name === 'stairs') {
+        // One step per hidden neuron, evenly spaced, levels centred on 0
+        // (step height 6 for three neurons keeps the output threshold within the slider range)
+        const steps = { 1: [0], 2: [-2, 2], 3: [-3, 0, 3] }[n], v = n === 3 ? 6 : 10;
+        idx().forEach((i) => Object.assign(p, { ['w' + i]: 1, ['t' + i]: steps[i - 1], ['v' + i]: v }));
+        p.th = v * n / 2; act = 'step'; outAct = false;
+      } else if (PRESETS[name]) {
+        const pr = PRESETS[name];
+        if (n !== pr.n) setN(pr.n);
+        Object.assign(p, pr.p); act = 'step'; outAct = false;
+      }
+    }
+    root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      applyPreset(b.dataset.preset); syncControls(); render();
+    }));
+
+    function syncControls() {
+      for (const k in inputs) inputs[k].inp.value = p[k];
+      actSel.value = act; nhSel.value = String(n); outChk.checked = outAct; conChk.checked = showContrib;
+    }
+
+    // ---------------- Network diagram ----------------
+    // Line width grows with |weight| for edges and with |threshold| for node borders
+    const strokeW = (v) => 0.75 + 6 * Math.min(Math.abs(v), 10) / 10;
+
+    // Edges run centre to centre; the opaque node discs drawn on top hide the ends,
+    // so even wide edges never show inside or overlap a node.
+    function edge(a, b, w) {
+      const A = NODES[a], B = NODES[b];
+      const col = w >= 0 ? css('--pos') : css('--neg');
+      return '<line x1="' + A.cx + '" y1="' + A.cy + '" x2="' + B.cx + '" y2="' + B.cy + '" stroke="' + col +
+        '" stroke-width="' + strokeW(w) + '" stroke-linecap="butt" opacity="' + (w === 0 ? 0.25 : 0.85) + '"/>';
+    }
+
+    // "h₁" → h with a real subscript 1 (the serif font has no subscript-digit glyphs)
+    const nodeLabel = (l) => l.replace(/[₁₂₃]/, (d) => '<tspan font-size="12" dy="4">' + ('₁₂₃'.indexOf(d) + 1) + '</tspan>');
+
+    function node(key, value, theta) {
+      const N = NODES[key], col = css('--c-in');
+      const outline = theta === undefined ? col : css(theta >= 0 ? '--pos' : '--neg');
+      const sw = strokeW(theta === undefined ? 0 : theta);
+      return '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + (R + sw / 2) + '" fill="' + css('--bg') + '"/>' +
+        '<circle cx="' + N.cx + '" cy="' + N.cy + '" r="' + R + '" fill="' + col + '" fill-opacity="0.08" stroke="' +
+        outline + '" stroke-width="' + sw + '"/>' +
+        '<text x="' + N.cx + '" y="' + (N.cy - 2) + '" text-anchor="middle" font-size="18" font-style="italic" ' +
+        'font-family="Times New Roman, Georgia, serif" fill="' + css('--fg') + '">' + nodeLabel(N.label) + '</text>' +
+        '<text x="' + N.cx + '" y="' + (N.cy + 15) + '" text-anchor="middle" font-size="11" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums">' + fmt(value, 2) + '</text>';
+    }
+
+    // Font size (in diagram units) that renders at the same pixel size as the slider labels
+    function labelSize() {
+      const px = parseFloat(getComputedStyle(inputs.w1.box).fontSize);
+      const w = netSvg.getBoundingClientRect().width;
+      return w > 0 ? px * VBW / w : 13;
+    }
+
+    // Horizontal arrow from x1 to x2 at height y, with the value above it and a caption below
+    function arrow(x1, x2, y, varName, value, caption) {
+      const col = css('--muted'), mid = (x1 + x2) / 2, fs = labelSize();
+      return '<line x1="' + x1 + '" y1="' + y + '" x2="' + (x2 - 8) + '" y2="' + y + '" stroke="' + col + '" stroke-width="1.5"/>' +
+        '<polygon points="' + x2 + ',' + y + ' ' + (x2 - 10) + ',' + (y - 5) + ' ' + (x2 - 10) + ',' + (y + 5) + '" fill="' + col + '"/>' +
+        '<text x="' + mid + '" y="' + (y - 9) + '" text-anchor="middle" font-size="' + fs + '" fill="' + css('--fg') +
+        '" font-variant-numeric="tabular-nums"><tspan font-style="italic" font-family="Times New Roman, Georgia, serif" font-size="' + (1.3 * fs) + '">' +
+        varName + '</tspan> = ' + fmt(value, 2) + '</text>' +
+        '<text x="' + mid + '" y="' + (y + 19) + '" text-anchor="middle" font-size="12" fill="' + col + '">' + caption + '</text>';
+    }
+
+    function renderNet() {
+      const a = forward(probeX);
+      const X = NODES.x, Y = NODES.y;
+      let s = '';
+      idx().forEach((i) => { s += edge('x', 'h' + i, p['w' + i]) + edge('h' + i, 'y', p['v' + i]); });
+      s += node('x', probeX);
+      idx().forEach((i) => { s += node('h' + i, a.hs[i - 1], p['t' + i]); });
+      s += node('y', a.y, p.th) +
+        arrow(4, X.cx - R - strokeW(0) / 2 - 3, X.cy, 'x', probeX, 'input') +
+        arrow(Y.cx + R + strokeW(p.th) / 2 + 3, VBW - 4, Y.cy, 'y', a.y, 'output');
+      netSvg.innerHTML = s;
+    }
+
+    // ---------------- Plot ----------------
+    const PW = 700, PH = 364, M = { l: 46, r: 14, t: 40, b: 38 };
+    const N_SAMPLES = 1000;
+    let sx, sy;
+
+    function renderPlot() {
+      const xs = [], ys = [], cs = idx().map(() => []);
+      for (let k = 0; k <= N_SAMPLES; k++) {
+        const x = XMIN + (XMAX - XMIN) * k / N_SAMPLES, a = forward(x);
+        xs.push(x); ys.push(a.y);
+        a.hs.forEach((h, j) => cs[j].push(p['v' + (j + 1)] * h));
+      }
+
+      const ymin = -25, ymax = 25; // fixed y-axis
+
+      const iw = PW - M.l - M.r, ih = PH - M.t - M.b;
+      sx = (x) => M.l + (x - XMIN) / (XMAX - XMIN) * iw;
+      sy = (y) => M.t + (ymax - y) / (ymax - ymin) * ih;
+      const fg = css('--fg'), muted = css('--muted'), grid = css('--grid'), axis = css('--axis');
+
+      let s = '<defs><clipPath id="' + uid + '-clip"><rect x="' + M.l + '" y="' + M.t + '" width="' + iw + '" height="' + ih + '"/></clipPath></defs>';
+      s += '<rect x="' + M.l + '" y="' + M.t + '" width="' + iw + '" height="' + ih + '" fill="none" stroke="' + grid + '"/>';
+
+      // grid + ticks
+      const xst = 1;
+      for (let x = XMIN; x <= XMAX + 1e-9; x += xst) {
+        const X = sx(x);
+        s += '<line x1="' + X + '" y1="' + M.t + '" x2="' + X + '" y2="' + (M.t + ih) + '" stroke="' + grid + '"/>';
+        s += '<text x="' + X + '" y="' + (M.t + ih + 15) + '" text-anchor="middle" font-size="11" fill="' + muted + '">' + fmt(x, 0) + '</text>';
+      }
+      const yst = niceStep(ymax - ymin, 6), yd = yst < 1 ? (yst < 0.1 ? 2 : 1) : 0;
+      for (let y = Math.ceil(ymin / yst) * yst; y <= ymax + 1e-9; y += yst) {
+        const Y = sy(y);
+        s += '<line x1="' + M.l + '" y1="' + Y + '" x2="' + (M.l + iw) + '" y2="' + Y + '" stroke="' + grid + '"/>';
+        s += '<text x="' + (M.l - 6) + '" y="' + (Y + 4) + '" text-anchor="end" font-size="11" fill="' + muted + '">' + fmt(y, yd) + '</text>';
+      }
+      // axes through the origin
+      if (ymin <= 0 && ymax >= 0) s += '<line x1="' + M.l + '" y1="' + sy(0) + '" x2="' + (M.l + iw) + '" y2="' + sy(0) + '" stroke="' + axis + '" stroke-width="1.3"/>';
+      s += '<line x1="' + sx(0) + '" y1="' + M.t + '" x2="' + sx(0) + '" y2="' + (M.t + ih) + '" stroke="' + axis + '" stroke-width="1.3"/>';
+      s += '<text x="' + (M.l + iw) + '" y="' + (PH - 6) + '" text-anchor="end" font-size="14" font-style="italic" font-family="Times New Roman, Georgia, serif" fill="' + fg + '">x</text>';
+      s += '<text x="12" y="' + (M.t + 10) + '" font-size="14" font-style="italic" font-family="Times New Roman, Georgia, serif" fill="' + fg + '">y</text>';
+
+      const path = (arr) => {
+        let d = '';
+        for (let i = 0; i < arr.length; i++) d += (i ? 'L' : 'M') + sx(xs[i]).toFixed(2) + ' ' + sy(arr[i]).toFixed(2);
+        return d;
+      };
+      s += '<g clip-path="url(#' + uid + '-clip)">';
+      if (showContrib) {
+        cs.forEach((c, j) => {
+          s += '<path d="' + path(c) + '" fill="none" stroke="' + css('--c-' + (j + 1)) + '" stroke-width="2" stroke-dasharray="6 4" opacity="0.9"/>';
+        });
+      }
+      s += '<path d="' + path(ys) + '" fill="none" stroke="' + css('--curve') + '" stroke-width="3" stroke-linejoin="round"/>';
+
+      // probe
+      const a = forward(probeX), PX = sx(probeX);
+      s += '<line x1="' + PX + '" y1="' + M.t + '" x2="' + PX + '" y2="' + (M.t + ih) + '" stroke="' + muted + '" stroke-dasharray="3 3"/>';
+      s += '<circle cx="' + PX + '" cy="' + sy(a.y) + '" r="5" fill="' + css('--curve') + '" stroke="' + css('--bg') + '" stroke-width="2"/>';
+      s += '</g>';
+
+      // readout + legend in the strip above the plot area, so curves never run through them
+      const ly = 22;
+      s += '<text x="' + M.l + '" y="' + ly + '" font-size="12" fill="' + fg + '" font-variant-numeric="tabular-nums">' +
+        'x = ' + fmt(probeX, 2) + ',  y = ' + fmt(a.y, 2) + '</text>';
+      if (showContrib) {
+        const leg = [[180, '--curve', 'y (output)', false]]
+          .concat(idx().map((i) => [270 + 60 * (i - 1), '--c-' + i, 'v' + SUB[i] + '·h' + SUB[i], true]));
+        leg.forEach(([X, c, t, dash]) => {
+          s += '<line x1="' + X + '" y1="' + (ly - 4) + '" x2="' + (X + 20) + '" y2="' + (ly - 4) + '" stroke="' + css(c) +
+            '" stroke-width="2.5"' + (dash ? ' stroke-dasharray="5 3"' : '') + '/>' +
+            '<text x="' + (X + 25) + '" y="' + ly + '" font-size="11.5" fill="' + fg + '">' + t + '</text>';
+        });
+      }
+      plotSvg.innerHTML = s;
+    }
+
+    // The pointer sets the input x only while it is over the plot area itself (not the axis-label
+    // margins); when it leaves the plot, x returns to 0.
+    function setProbe(evt) {
+      const r = plotSvg.getBoundingClientRect();
+      const X = (evt.clientX - r.left) * PW / r.width, Y = (evt.clientY - r.top) * PH / r.height;
+      if (X < M.l || X > PW - M.r || Y < M.t || Y > PH - M.b) return;
+      const x = XMIN + (X - M.l) / (PW - M.l - M.r) * (XMAX - XMIN);
+      probeX = Math.max(XMIN, Math.min(XMAX, Math.round(x * 100) / 100));
+      renderNet(); renderPlot();
+    }
+    plotSvg.addEventListener('pointermove', setProbe);
+    plotSvg.addEventListener('pointerdown', setProbe);
+    plotSvg.addEventListener('pointerleave', () => { probeX = 0; renderNet(); renderPlot(); });
+
+    // ---------------- Formula ----------------
+    function renderFormula() {
+      const fdef = {
+        step: '<i>f</i>(<i>z</i>) = 1 if <i>z</i> ≥ 0, otherwise 0 &nbsp;(the node fires when its weighted input reaches the threshold)',
+        sigmoid: '<i>f</i>(<i>z</i>) = 1 / (1 + e<sup>−<i>z</i></sup>) &nbsp;(a smooth version of the step)',
+        relu: '<i>f</i>(<i>z</i>) = max(0, <i>z</i>)',
+      }[act];
+      const inner = idx().map((i) => '<i>v</i><sub>' + i + '</sub>·<i>f</i>(<i>w</i><sub>' + i + '</sub><i>x</i> − θ<sub>' + i + '</sub>)')
+        .join(' + ') + ' − θ';
+      $('formula').innerHTML =
+        '<div class="math"><i>y</i> = ' + (outAct ? '<i>f</i>( ' + inner + ' )' : inner) + '</div>' +
+        '<div>where ' + fdef + '.</div>';
+    }
+
+    function render() {
+      for (const k in inputs) {
+        const c = inputs[k];
+        c.out.textContent = fmt(p[k], 1);
+        c.inp.style.setProperty('--frac', (p[k] + 10) / 20);
+        c.out.style.setProperty('--cc', p[k] >= 0 ? 'var(--pos)' : 'var(--neg)');
+      }
+      renderNet(); renderPlot(); renderFormula();
+    }
+
+    // Re-render if the reader's colour scheme changes (only matters with data-theme="auto")
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      (mq.addEventListener ? mq.addEventListener('change', render) : mq.addListener(render));
+    }
+
+    // Keep the arrow labels matched to the slider labels when the widget is resized
+    let lastW = 0;
+    if (window.ResizeObserver) new ResizeObserver((entries) => {
+      const w = entries[0].contentRect.width;
+      if (Math.abs(w - lastW) < 0.5) return;
+      lastW = w; placeSliders(); renderNet();
+    }).observe(netWrap);
+
+
+    // ---------------- Starting state ----------------
+    // Optional attributes on the widget's <div class="nnw"> set where it starts (and where "Reset"
+    // returns to): data-act (step | sigmoid | relu), data-hidden (1-3), data-example (flat | bump |
+    // stairs | random), data-outact and data-contrib ("true" ticks the checkbox), and data-set with
+    // extra slider values, e.g. "v1=10, t1=2" (keys w1-w3, t1-t3, v1-v3, th; values -10 to 10).
+    const cfg = root.dataset;
+    const configured = ['act', 'hidden', 'example', 'outact', 'contrib', 'set'].some((k) => cfg[k] !== undefined);
+    function applyConfig() {
+      Object.assign(p, FLAT);
+      const nn = parseInt(cfg.hidden, 10);
+      setN(nn >= 1 && nn <= 3 ? nn : 2);
+      act = ['step', 'sigmoid', 'relu'].includes(cfg.act) ? cfg.act : 'step';
+      outAct = cfg.outact === 'true';
+      showContrib = cfg.contrib === 'true';
+      if (cfg.example) applyPreset(cfg.example);
+      (cfg.set || '').split(/[,;]/).forEach((pair) => {
+        const [key, val] = pair.split('=').map((t) => (t || '').trim());
+        const v = parseFloat((val || '').replace('\u2212', '-'));
+        if (key in p && !isNaN(v)) p[key] = Math.max(-10, Math.min(10, v));
+      });
+      probeX = 0;
+      syncControls(); render();
+    }
+    const resetBtn = $('reset');
+    if (configured) {
+      resetBtn.hidden = false;
+      resetBtn.addEventListener('click', applyConfig);
+    }
+    applyConfig();
+
+  }
+
+  function initAll() { document.querySelectorAll('.nnw').forEach(initWidget); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+  else initAll();
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../neural_networks/neurons.html" class="pagination-link" aria-label="AI: Neurons">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../projects/orf-project.html" class="pagination-link" aria-label="Project: Finding genes">
+        <span class="nav-page-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/neural_networks/neural-networks.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
