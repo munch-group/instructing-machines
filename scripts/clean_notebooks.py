@@ -74,7 +74,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from quarto_profile import quarto_config  # noqa: E402
 from check_notebook_kernels import normalize as normalize_kernel  # noqa: E402
 
-CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.ipynb)\s*$")
+CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.ipynb)(?:\s+#.*)?\s*$")
 
 # The kernelspec ipykernel installs into any environment it is part of.
 # Distinct from the course kernel the notebooks name — see the comment in

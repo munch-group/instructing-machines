@@ -94,7 +94,7 @@ NOTEBOOK_DIR = "notebooks"
 
 # Matches `    - python/iteration.ipynb` but not a commented-out chapter and
 # not the `- "!python/snippet-cast.ipynb"` exclusions in the render list.
-CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
+CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?(?:\s+#.*)?\s*$')
 
 # Never ship these. Directory names are matched exactly; file patterns are
 # globs.

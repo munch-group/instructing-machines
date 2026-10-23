@@ -108,7 +108,7 @@ HEADING = re.compile(r"^#{1,6}\s")
 # Reading the config as prose rather than as YAML, because a YAML parser
 # throws comments away and the comments are the entire point here.
 PART = re.compile(r"^\s*-\s*part:\s*[\"']?(.+?)[\"']?\s*$")
-CHAPTER = re.compile(r"^\s{4,}-\s+([\w./-]+\.(?:qmd|md|ipynb))\s*$")
+CHAPTER = re.compile(r"^\s{4,}-\s+([\w./-]+\.(?:qmd|md|ipynb))(?:\s+#.*)?\s*$")
 
 
 class Patterns:

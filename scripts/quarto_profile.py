@@ -29,7 +29,7 @@ DEFAULT_PROFILE = re.compile(r"^\s*default:\s*(\S+)\s*$", re.M)
 # "    - python/lists.ipynb". Deliberately not matching the quoted `- "!x.ipynb"`
 # exclusions in the render list: those name a file the book leaves out, which is
 # the opposite of a chapter.
-CHAPTER_LINE = re.compile(r"^\s*-\s+[\w./-]+\.(?:qmd|md|ipynb)\s*$", re.M)
+CHAPTER_LINE = re.compile(r"^\s*-\s+[\w./-]+\.(?:qmd|md|ipynb)(?:\s+#.*)?\s*$", re.M)
 
 
 def profile_candidates(docs: Path) -> list[str]:

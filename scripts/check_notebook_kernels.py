@@ -93,7 +93,7 @@ DRIFTING_LANGUAGE_INFO_KEYS = ("version",)
 # Matches `    - python/iteration.ipynb`, skipping the `- "!python/..."`
 # exclusions in the render list. Kept in step with the same pattern in
 # build_student_folder.py.
-CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
+CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?(?:\s+#.*)?\s*$')
 
 # Matches the other form a chapter takes, `- href: python/course-tools.ipynb`
 # with a `text:` line under it, which is how a page that wants its own label in
@@ -112,7 +112,7 @@ CHAPTER_LINE = re.compile(r'^\s*-\s+"?(?!!)([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
 # second reason its kernelspec has to be right: that name is what Quarto looks
 # up to run the page, so a wrong one no longer just confuses a student's
 # VS Code, it stops the publish.
-HREF_LINE = re.compile(r'^\s*-\s+href:\s*"?([A-Za-z0-9_./-]+\.ipynb)"?\s*$')
+HREF_LINE = re.compile(r'^\s*-\s+href:\s*"?([A-Za-z0-9_./-]+\.ipynb)"?(?:\s+#.*)?\s*$')
 
 
 def published_notebooks() -> list[Path]:

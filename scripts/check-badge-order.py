@@ -88,7 +88,7 @@ def canonical(match: "re.Match[str]") -> str:
     role = badge.split(":", 1)[1].strip()
     return "AI: " + " ".join(word.capitalize() for word in role.split())
 # A chapter line in the config: "        - ai/meet-ai.qmd" (comments skipped).
-CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.(?:qmd|md|ipynb))\s*$")
+CHAPTER = re.compile(r"^\s*-\s+(?!part:)([\w./-]+\.(?:qmd|md|ipynb))(?:\s+#.*)?\s*$")
 
 
 PART = re.compile(r'^\s*-\s+part:\s*"?([^"\n]+?)"?\s*$')
