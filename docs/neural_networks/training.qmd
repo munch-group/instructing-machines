@@ -12,30 +12,63 @@ In the last two chapters you set every weight and threshold yourself. You moved 
 
 ## Learning from examples {#sec-train-examples}
 
-Throughout this course you have instructed the machine by writing out every step. A neural network is instructed in a different way. You give it *training data*: a large number of inputs, each paired with the output you want for it. For a network that recognizes splice sites, each input is a short DNA sequence and each desired output is 1 if the sequence contains a splice site and 0 if it does not. For a network that predicts how strongly a gene is expressed from its promoter sequence, the desired output is the measured expression level. The desired output is often called the *target*, or the *label*.
+A neural network is trained using *training data*: a large number of inputs, each paired with the output you want for it. For a network that recognizes splice sites, each input is a short DNA sequence and each desired output is 1 if the sequence contains a splice site and 0 if it does not. For a network that predicts how strongly a gene is expressed from its promoter sequence, the desired output is the measured expression level. The desired output is often called the *target*, or the *label*.
 
-At the start the weights are set to small random numbers, so the network's outputs are nonsense. Training then repeats three things many times. It runs the network on some examples and compares its outputs with the targets. It works out, for every weight, whether making that weight a little bigger or a little smaller would bring the outputs closer to the targets. And it changes every weight a little in the helpful direction. After enough rounds, the weights settle on values that make the network do the job. Nobody writes them down, and nobody needs to understand them for the network to work.
-
-To make this concrete we need two things: a way to measure how wrong the network is, and a way to find out which direction to change each weight.
+At the start the weights are set to small random numbers, so the network's outputs are nonsense. Training then repeats three things many times. It runs the network on some examples and compares its outputs with the targets. It works out, for every weight, whether making that weight a little bigger or a little smaller would bring the outputs closer to the targets. And it changes every weight a little in the helpful direction. After enough rounds, the weights settle on values that make the network do the job. 
 
 ## Measuring how wrong: the loss {#sec-train-loss}
 
-For a single example, the error is the difference between the network's output $y$ and the target $t$. Training uses the square of that difference, $(y - t)^2$. Squaring makes every error positive, so an output that is too high and one that is too low both count as wrong, and it makes large errors count much more than small ones: an error of 2 counts 4, an error of 10 counts 100. Averaged over all the examples, this number is called the *loss*. A loss of 0 means the network gets every example exactly right. The bigger the loss, the worse it does. Other kinds of loss are used for other kinds of output, but they all work the same way: one number that gets smaller as the network gets better.
+To change weights in a direction that makes the network predictions less wrong, we need a way to measure how wrong the network is. For a single example, the error is the difference between the network's output $y$ and the target $t$. Training uses the square of that difference, $(y - t)^2$. Squaring makes every error positive, so an output that is too high and one that is too low both count as wrong, and it makes large errors count much more than small ones: an error of 2 counts 4, an error of 10 counts 100. Averaged over all the examples, this number is called the *loss*. A loss of 0 means the network gets every example exactly right. The bigger the loss, the worse it does. Other kinds of loss are used for other kinds of output, but they all work the same way: one number that gets smaller as the network gets better.
 
-The examples are fixed, so the loss depends only on the weights. Training is the search for the weights that make the loss as small as possible.
-
-Let us take the smallest network there is: a single neuron with one input $x$, one weight $w$, no threshold and no activation function, so its output is just $y = wx$. And let us train it on a single example: input $x = 2$, target $t = 6$. You can see at once that the right weight is $w = 3$, because $3 \times 2 = 6$. The training algorithm cannot see that. All it can do is try a weight and compute the loss:
+For demonstration, lets try this with a "network" that is just a single neuron with one input $x$ and one weight $w$. To keep it simple we assume the threshold is so small that we can ignore both that and the activation function (@fig-one-neuron). In this simplest possible case, the output is just $y = wx$. To make it even simpler, our training data is just a single example: input $x = 2$, target $t = 6$. You can see at once that the right weight is $w = 3$, because $3 \times 2 = 6$. The training algorithm cannot see that. All it can do is try a weight and compute the loss:
 
 $$
-L(w) = (y - t)^2 = (2w - 6)^2
-$$
+L(w) = (y - t)^2 = (2w - 6)^2 
+$$ {#eq-loss-function}
 
-With $w = 1$ the output is 2 and the loss is $(2 - 6)^2 = 16$. With $w = 2$ the output is 4 and the loss is 4. With $w = 3$ the loss is 0. Computed for every $w$, the loss traces out the curve in @fig-loss-curve. Training means finding the bottom of that curve.
+::: {#fig-one-neuron}
+
+```{=html}
+<svg viewBox="0 30 540 128" width="100%" style="max-width:540px" role="img"
+     aria-label="An input node x feeds a neuron y through the weight w, and y is compared with the target to give the loss L">
+  <g stroke="currentColor" stroke-width="1.5" opacity="0.7">
+    <line x1="84" y1="90" x2="226" y2="90"/>
+    <line x1="284" y1="90" x2="422" y2="90"/>
+  </g>
+  <g fill="currentColor" opacity="0.7">
+    <polygon points="224,84 236,90 224,96"/>
+    <polygon points="420,84 432,90 420,96"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="#d1d5db">
+    <circle cx="60" cy="90" r="24"/>
+    <circle cx="260" cy="90" r="24"/>
+    <rect x="432" y="66" width="60" height="48" rx="6"/>
+  </g>
+  <g font-family="sans-serif" font-size="17" font-style="italic" text-anchor="middle" fill="#111">
+    <text x="60" y="96">x</text>
+    <text x="260" y="96">y</text>
+    <text x="462" y="96">L</text>
+  </g>
+  <g font-family="sans-serif" font-size="15" text-anchor="middle" fill="currentColor">
+    <text x="160" y="78">w</text>
+    <text x="462" y="50">t = 6</text>
+    <text x="60" y="142">x = 2</text>
+    <text x="260" y="142">y = w × 2 = 2w</text>
+    <text x="462" y="142">(2w − 6)²</text>
+  </g>
+</svg>
+```
+
+The one-neuron network. The input $x = 2$ is multiplied by the weight $w$ to give the output $y = 2w$, and the loss $L$ compares $y$ with the target $t = 6$.
+
+:::
+
+With $w = 1$ the output is 2 and the loss is $(2 - 6)^2 = 16$. With $w = 2$ the output is 4 and the loss is 4. With $w = 3$ the loss is 0. Computed for every $w$, the loss traces out the curve in @fig-loss-curve and goal is to find the $w$ that puts the loss at the bottom of that curve.
 
 ```{python}
 #| label: fig-loss-curve
 #| echo: false
-#| fig-cap: "The loss $(2w - 6)^2$ of the one-neuron network for different values of its weight $w$. The dots are the first steps of gradient descent from $w = 1$ with a learning rate of 0.05 (@sec-train-descent). Each step goes downhill, and the steps get shorter as the curve flattens out near the bottom at $w = 3$."
+#| fig-cap: "The loss $(2w - 6)^2$ of the one-neuron network for different values of its weight $w$. The dots are the first steps of gradient descent from $w = 1$ with a learning rate of 0.05. Each step goes downhill, and the steps get shorter as the curve flattens out near the bottom at $w = 3$."
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -66,13 +99,9 @@ plt.show()
 
 ## Walking downhill: gradient descent {#sec-train-descent}
 
-With one weight you could simply try a thousand values of $w$ and pick the best. With a million weights that is hopeless: trying just ten values for each would mean more combinations than there are atoms in the universe. The training algorithm therefore never looks at the whole curve. It only ever asks one local question: if I stand here, which way is downhill?
+With one weight you could simply try a lot of different values of $w$ and pick the best. With a million weights that is of cause hopeless: trying just ten values for each would mean more combinations than there are atoms in the universe. The *gradient descent* training algorithm does not know what the curve looks like. All it cares about is which direction is downhill from where it is now. The steeper the downhill slope (gradient) the better. The slope of the loss curve at a given $w$ says how much the loss changes when $w$ is nudged a little. At $w = 1$ the loss is $16$. At $w = 1.01$ the output is $2.02$ so the loss is $(2.02 - 6)^2 = 15.8404$. So from  $w = 1$ to $w = 1.01$, the loss went *down* by $0.1596$, so the slope is $-0.1596 / 0.01 = 15.96$.
 
-Think of a hiker on a mountainside in thick fog, trying to reach the valley. The valley is out of sight, but the hiker can feel which way the ground slopes underfoot. Keep taking a step in the downhill direction, and you end up at the bottom. That is the whole idea, and it is called *gradient descent* (a gradient is a slope).
-
-The slope of the loss curve at a given $w$ says how much the loss changes when $w$ is nudged a little. You can measure it the way you would measure anything: nudge and see. At $w = 1$ the loss is 16. At $w = 1.01$ the output is 2.02 and the loss is $(2.02 - 6)^2 = 15.8404$. The loss went down by 0.1596 when $w$ went up by 0.01, so the slope is $-0.1596 / 0.01 \approx -16$. A negative slope means that increasing $w$ decreases the loss, so the downhill direction is toward larger $w$. A positive slope would mean the opposite.
-
-For this simple loss, a little algebra (or calculus, if you have had it) gives the slope at any $w$ directly: it is $8w - 24$. At $w = 1$ that gives $-16$, just as the nudge said. Knowing the slope, the step downhill is
+Differentiating our simple loss function in @eq-loss-function, gives the slope as a function of $w$: $8w - 24$. At $w = 1$ that gives $-16$ agreeing with the $15.96$ computed above. Knowing the slope, the step downhill is
 
 $$
 w_{\text{new}} = w - \eta \times \text{slope}
@@ -88,43 +117,137 @@ target = 6          # the output we want for it
 w = 1               # a starting guess for the weight
 learning_rate = 0.05
 
-for step in range(10):
+print("{:<6}{:<10}{:<10}".format('Step', 'Weight', 'Loss'))
+for step in range(15):
     y = w * x                         # run the network
     loss = (y - target) ** 2          # how wrong is it?
     slope = 2 * (y - target) * x      # which way is downhill? (this is 8w - 24)
-    print("step", step, " w =", round(w, 4), " loss =", round(loss, 4))
+
+    print("{:<6}{:<10f}{:<20f}".format(step, w, loss))
+
     w = w - learning_rate * slope     # take a step downhill
 ```
 
-The weight creeps toward 3 and the loss toward 0. Look at the distance from $w$ to 3: it is 2, then 1.2, then 0.72. Each step removes 40 percent of what is left, so the network never quite arrives, but it gets as close as you like.
+The learning rate matters. If it is too small, training takes too long. If it is too large, and each step overshoots and lands on the other side of the valley, possibly even higher up than where it started.
 
-The learning rate matters. Too small, and training takes forever. Too large, and each step overshoots the bottom and lands on the other side of the valley, possibly higher up than where it started. Choosing the learning rate is one of the practical arts of training a network, and you will try a few in the exercises.
+In a real network the loss depends on all the weights, but the slope is still measured separately for each one. I.e., how does the loss change when one weight is nudged and all others remain the same. The list of all these slopes is the *gradient*. Each step of gradient descent moves every weight a little, each in its own downhill direction. Even in a landscape of million directions, this approach would still move the loss downhill. However, for a network with a billion weights, changing each weight separately would require a billion nudges just to take a single step, and since training requires millions of steps - well you can do the math. Training large networks became possible only because ([Rumelhart et al., 1986](https://doi.org/10.1038/323533a0)) came up with a much faster way to get all the slopes at once. The algorithm is called *backpropagation*
 
-A real network has many weights, but nothing changes in principle. The loss now depends on all of them at once, and the slope is measured separately for each weight: how much the loss changes when that one weight is nudged and all the others are kept still. The list of all these slopes is the *gradient*. Each step of gradient descent moves every weight a little, each in its own downhill direction. Picture the hiker in a landscape with a million directions instead of two. You cannot draw it, but the rule for walking downhill is the same.
+## Backpropagation {#sec-train-backprop}
 
-## Backpropagation: finding the slopes efficiently {#sec-train-backprop}
+Backpropagation finds every slope in a single backward pass through the network, which costs about as much as running the network once. Take a network with two neurons in a chain, as in @fig-backprop-forward. To keep the arithmetic simple are again assume are so small that we do not have to take them or the activation function into account. The input $x$ goes to a hidden neuron that computes $h = w_1 x$. $h$ then goes to an output neuron that computes $y = w_2 h$.
 
-There is a catch. Measuring a slope by nudging means running the network once for every weight you nudge. A network with a billion weights would need a billion runs just to take a single step, and training takes millions of steps. Training large networks became possible only because there is a much faster way to get all the slopes at once. It is called *backpropagation* ([Rumelhart et al., 1986](https://doi.org/10.1038/323533a0)), and it finds every slope in the network with a single backward pass through it, which costs about as much as running the network once.
+The "forward pass" is just running the network like you have done many times already. If $x = 1$, $w_1 = 2$, $w_2 = 1$ and the target is $t = 4$, then $h = 2 \times 1 = 2$, which in turn makes $y = 1 \times 2 = 2$, producing a loss of $(2 - 4)^2 = 4$.
 
-The idea is to share out the blame for the error, starting from the output and working backward. Take a network with two neurons in a chain. The input $x$ goes to a hidden neuron that computes $h = w_1 x$, and $h$ goes to an output neuron that computes $y = w_2 h$. To keep the arithmetic simple there are again no thresholds or activation functions. Say $x = 1$, $w_1 = 2$, $w_2 = 1$ and the target is $t = 4$.
+::: {#fig-backprop-forward}
 
-The *forward pass* is just running the network, and you have done it many times: $h = 2 \times 1 = 2$, then $y = 1 \times 2 = 2$, and the loss is $(2 - 4)^2 = 4$.
+```{=html}
+<svg viewBox="0 30 720 128" width="100%" style="max-width:720px" role="img"
+     aria-label="The forward pass: x equals 1 feeds h through w1 equals 2, h feeds y through w2 equals 1, and y is compared with the target 4 to give the loss 4">
+  <g stroke="currentColor" stroke-width="1.5" opacity="0.7">
+    <line x1="84" y1="90" x2="226" y2="90"/>
+    <line x1="284" y1="90" x2="426" y2="90"/>
+    <line x1="484" y1="90" x2="600" y2="90"/>
+  </g>
+  <g fill="currentColor" opacity="0.7">
+    <polygon points="224,84 236,90 224,96"/>
+    <polygon points="424,84 436,90 424,96"/>
+    <polygon points="598,84 610,90 598,96"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="#d1d5db">
+    <circle cx="60" cy="90" r="24"/>
+    <circle cx="260" cy="90" r="24"/>
+    <circle cx="460" cy="90" r="24"/>
+    <rect x="610" y="66" width="60" height="48" rx="6"/>
+  </g>
+  <g font-family="sans-serif" font-size="17" font-style="italic" text-anchor="middle" fill="#111">
+    <text x="60" y="96">x</text>
+    <text x="260" y="96">h</text>
+    <text x="460" y="96">y</text>
+    <text x="640" y="96">L</text>
+  </g>
+  <g font-family="sans-serif" font-size="15" text-anchor="middle" fill="currentColor">
+    <text x="160" y="78">w₁ = 2</text>
+    <text x="360" y="78">w₂ = 1</text>
+    <text x="640" y="50">t = 4</text>
+    <text x="60" y="142">x = 1</text>
+    <text x="260" y="142">h = 2 × 1 = 2</text>
+    <text x="460" y="142">y = 1 × 2 = 2</text>
+    <text x="640" y="142">(2 − 4)² = 4</text>
+  </g>
+</svg>
+```
 
-The *backward pass* asks, one neuron at a time and starting from the end, how much the loss would change if that neuron's value were nudged.
+The forward pass through the two-neuron chain. Each value is computed from the one before it, from left to right, and the loss $L$ compares the output $y$ with the target $t = 4$.
 
-At the output, the loss is $(y - t)^2$, and its slope with respect to $y$ is $2(y - t) = 2 \times (2 - 4) = -4$. If $y$ went up by a little, the loss would go down by four times as much. That makes sense: the output is too low.
+:::
 
-Now the weight $w_2$. Since $y = w_2 h$, nudging $w_2$ changes $y$ by $h$ times as much, so the slope for $w_2$ is the slope for $y$ times $h$: $-4 \times 2 = -8$.
+The "backward pass" starts from the end and works its way backwards, one neuron at a time. At every node, it evaluates how much the loss would change if that neuron's value was nudged. The idea is to "propagate" the slope from the loss "backwards" across the hidden neurons, in proportion to the weight that connects them. Since the loss is $(y - t)^2$, the slope with respect to $y$ is $2(y - t) = 2 \times (2 - 4) = -4$. This means that if $y$ went up by a little, the loss would go down by four times as much. That makes sense since the output $y$ is lower than the target $t$. Working backwards, we get to the $w_2$ weight. Since $y = w_2 h$, nudging $w_2$ changes $y$ by $h$ times as much, so the slope for $w_2$ is the slope for $y$ times $h$: $-4 \times 2 = -8$. Nudging $h$ changes $y$ by $w_2$ times as much, so the slope for $h$ is $-4 \times w_2 = -4 \times 1 = -4$. Finally, the weight $w_1$. Since $h = w_1 x$, nudging $w_1$ changes $h$ by $x$ times as much, so the slope for $w_1$ is $-4 \times x = -4 \times 1 = -4$. @fig-backprop-backward collects the whole backward pass.
 
-Next, the hidden neuron $h$. Nudging $h$ changes $y$ by $w_2$ times as much, so the slope for $h$ is $-4 \times w_2 = -4 \times 1 = -4$. This is the step that gives the method its name. The blame for the error has been passed back from the output neuron to the hidden neuron, in proportion to the weight that connects them.
+::: {#fig-backprop-backward}
 
-Finally, the weight $w_1$. Since $h = w_1 x$, nudging $w_1$ changes $h$ by $x$ times as much, so the slope for $w_1$ is $-4 \times x = -4 \times 1 = -4$.
+```{=html}
+<svg viewBox="0 0 720 205" width="100%" style="max-width:720px" role="img"
+     aria-label="The backward pass: the slope for y is minus 4, it is passed back to h as minus 4 times w2, which is minus 4; the slope for w2 is minus 4 times h, which is minus 8, and the slope for w1 is minus 4 times x, which is minus 4">
+  <g stroke="currentColor" stroke-width="1.5" opacity="0.35">
+    <line x1="84" y1="110" x2="226" y2="110"/>
+    <line x1="284" y1="110" x2="426" y2="110"/>
+    <line x1="484" y1="110" x2="600" y2="110"/>
+  </g>
+  <g fill="currentColor" opacity="0.35">
+    <polygon points="224,104 236,110 224,116"/>
+    <polygon points="424,104 436,110 424,116"/>
+    <polygon points="598,104 610,110 598,116"/>
+  </g>
+  <g stroke="#2a78d6" stroke-width="2">
+    <line x1="604" y1="142" x2="496" y2="142"/>
+    <line x1="424" y1="142" x2="296" y2="142"/>
+  </g>
+  <g fill="#2a78d6">
+    <polygon points="498,136 486,142 498,148"/>
+    <polygon points="298,136 286,142 298,148"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="#d1d5db">
+    <circle cx="60" cy="110" r="24"/>
+    <circle cx="260" cy="110" r="24"/>
+    <circle cx="460" cy="110" r="24"/>
+    <rect x="610" y="86" width="60" height="48" rx="6"/>
+  </g>
+  <g font-family="sans-serif" font-size="17" font-style="italic" text-anchor="middle" fill="#111">
+    <text x="60" y="116">x</text>
+    <text x="260" y="116">h</text>
+    <text x="460" y="116">y</text>
+    <text x="640" y="116">L</text>
+  </g>
+  <g font-family="sans-serif" font-size="15" text-anchor="middle" fill="currentColor" opacity="0.7">
+    <text x="60" y="78">x = 1</text>
+    <text x="260" y="78">h = 2</text>
+    <text x="460" y="78">y = 2</text>
+    <text x="640" y="78">t = 4</text>
+    <text x="160" y="98">w₁ = 2</text>
+    <text x="360" y="98">w₂ = 1</text>
+  </g>
+  <g font-family="sans-serif" font-size="15" text-anchor="middle" fill="#2a78d6">
+    <text x="160" y="40">slope for w₁</text>
+    <text x="160" y="60">−4 × x = −4</text>
+    <text x="360" y="40">slope for w₂</text>
+    <text x="360" y="60">−4 × h = −8</text>
+    <text x="460" y="174">slope for y</text>
+    <text x="460" y="194">2 × (2 − 4) = −4</text>
+    <text x="260" y="174">slope for h</text>
+    <text x="260" y="194">−4 × w₂ = −4</text>
+  </g>
+</svg>
+```
 
-Both slopes are negative, so gradient descent will make both weights larger, and $w_2$, with the steeper slope, will grow faster. You can check the numbers by nudging. With $w_1 = 2.01$ the forward pass gives $y = 2.01$ and a loss of $1.99^2 = 3.9601$, a change of $-0.0399$ for a nudge of $0.01$, so the slope is about $-4$. With $w_2 = 1.01$ instead, $y = 2.02$ and the loss is $1.98^2 = 3.9204$, so the slope is about $-8$. Backpropagation got both from one pass, without nudging anything.
+The backward pass. The blue arrows pass the slope back from the loss, one neuron at a time. The slope for each weight is the slope of the neuron the weight leads into, times the value that travels along the weight.
 
-The pattern is the whole method. Each neuron only needs to know two things: the slope that arrives from the neuron after it, and how its own output depends on its inputs and weights. It multiplies the two, hands the result back to the neurons before it, and uses it to compute the slopes for its own weights. In a network with many layers, the slopes flow backward layer by layer, each layer doing a little local multiplication, until every weight has its slope. In mathematics this way of combining slopes along a chain is called the *chain rule*.
+:::
 
-With activation functions, the chain gets one more factor at every neuron: the slope of the activation function itself. That is exactly why the choice of activation function, discussed in @sec-nn-activation, matters so much. The step function is flat everywhere except at its jump, so its slope is 0, and multiplying by 0 wipes out the blame for every weight behind it. Nothing learns. The sigmoid's slope is small far from 0, and in a deep network the blame is multiplied by such small numbers once per layer and fades to almost nothing before it reaches the first layers. That is the vanishing gradient problem. ReLU's slope is 1 wherever the neuron is active, so the blame passes through undiminished, and 0 where it is silent, which is why a neuron that is silent for every example stops learning.
+The slopes for both $w_1$ and $w_2$ are negative, which means gradient descent will make both weights larger. $w_2$, has the steeper slope and will grow fastest. In a network with many layers, the slopes flow backward layer by layer, each layer doing a little local multiplication, until every weight has its slope. In mathematics this way of combining slopes along a chain is called the *chain rule*.
+
+With activation functions, the slope of the activation function enters as an additional factor at every neuron. That is why a step function discussed in @sec-nn-activation does not work well in training. Its slope is 0 everywhere (except for the jump), and multiplying by 0 stops the chain propagating slope backwards. If the slope is 0, nudging the parameters in the remaining part of the network will not affect the loss. Without this connection between loss and parameter values, we cannot train the network.
+
+The sigmoid activation function has non-zero slope, but across many multiplications across a large network, the tiny slopes far from 0 make the numbers become near-zero anyway. ReLU works best in training because its slope is 1 wherever the neuron is active, so the slope propagates undiminished. Its slope is 0 where it is silent, so even with ReLU, a node will stop learning if it is silent for every example in the training set.
 
 ## Training in practice {#sec-train-practice}
 
