@@ -1,0 +1,191 @@
+# The Python environment for "Instructing Machines".
+#
+# You should not need to edit this file. Running `pixi install` in this folder
+# reads it (together with pixi.lock) and builds a private Python environment in
+# a hidden .pixi folder right here. Nothing is installed anywhere else on your
+# machine, and deleting this folder removes every trace of it.
+
+[workspace]
+name = "instructing-machines"
+version = "2026.0.0"
+channels = ["conda-forge", "munch-group"]
+platforms = ["osx-arm64", "osx-64", "win-64", "linux-64"]
+
+[dependencies]
+python = ">=3.13.15,<3.14"
+ipykernel = ">=7.3.0,<8"
+ipywidgets = ">=8.1.9,<9"
+anywidget = ">=0.11.0,<0.12"
+jupyterlab = ">=4.6.3,<5"
+# The Quarto command line tools. The course notes are written in Quarto's
+# flavour of markdown, and the Quarto VS Code extension leans on this to
+# render things like callouts inside a notebook's markdown cells. Putting it
+# here rather than asking a hundred students to install it themselves costs
+# download size (it brings pandoc, deno and typst with it) and buys one less
+# thing that can be missing on one laptop and not another.
+quarto = ">=1.9.38,<2"
+pandas = ">=3.0.5,<4"
+seaborn = ">=0.13.2,<0.14"
+matplotlib = ">=3.11.1,<4"
+pytest = ">=9.1.1,<10"
+steps-widget = ">=0.2.10,<0.3"
+sandbox-widget = ">=1.0.21,<2"
+snippet-cast = ">=0.1.56,<0.2"
+iplot-widget = ">=0.1.18,<0.2"
+turtle-widget = ">=1.0.9,<2"
+puzzle-widget = ">=0.1.21,<0.2"
+codelens-widget = ">=0.1.43,<0.2"
+im-pytest = ">=0.1.36,<0.2"
+im-course-tools = ">=0.1.29,<0.2"
+biopython = ">=1.88,<2"
+cryptography = ">=50.0.0,<51"
+
+[pypi-dependencies]
+vscodenb = ">=1.0.5, <2"
+
+# # The course widgets. These come from PyPI for now because the conda packages
+# # on the munch-group channel are still built per-platform (linux-64 and
+# # osx-arm64 only), which leaves Windows and Intel-Mac students with nothing to
+# # install. Once those recipes are rebuilt as `noarch: python`, delete this
+# # whole section, add "munch-group" to `channels` above, and move the seven
+# # entries into [dependencies] instead.
+# [pypi-dependencies]
+# steps-widget = ">=0.2.7,<0.3"
+# puzzle-widget = ">=0.1.14,<0.2"
+# codelens-widget = ">=0.1.40,<0.2"
+# turtle-widget = ">=1.0.3,<2"
+# sandbox-widget = ">=1.0.5,<2"
+# iplot-widget = ">=0.1.14,<0.2"
+# im-pytest = ">=0.1.25,<0.2"
+
+[tasks]
+# `im get <name>` and `im update` come from the im-course-tools package above
+# rather than from files in this folder: that way a fix reaches everyone through
+# an update instead of asking a hundred people to download a script again.
+#
+# The aliases below exist so that `pixi run get` and `pixi run update` work from
+# a terminal that has not activated the environment; pixi passes any extra words
+# straight through, so `pixi run get iteration` runs `im get iteration`.
+#
+# `check` is the one that is deliberately not an alias. What it has to answer on
+# day one is whether `pixi install` worked, and a check that arrives inside the
+# environment cannot answer that: when the install went wrong the check went
+# wrong with it, and a student gets `im: command not found` instead of a list of
+# what is missing. So it runs .check_env.py from this folder, which needs
+# nothing but a Python. `im update` keeps that file current the same way it
+# keeps this one current, so the reason the others live in the package still
+# holds for it.
+
+# Give this environment's kernel a name a student can recognise. Without it
+# the only entry in VS Code's kernel picker is "Python 3 (ipykernel)", which is
+# what every other Python on the machine calls itself too, so the right one is
+# findable only by squinting at paths for the one containing .pixi.
+#
+# --sys-prefix writes the kernelspec into .pixi/envs/default/share/jupyter, so
+# it stays inside this folder like everything else here and goes away with it.
+# (--user would put it in your home directory, which is the promise at the top
+# of this file broken for the sake of one file.)
+kernel = "python -m ipykernel install --sys-prefix --name instructing-machines --display-name 'Instructing Machines'"
+
+# Tell the VS Code pixi extension where pixi lives on this machine. A terminal
+# knows, because PATH says so; a VS Code started from the Dock or the Start menu
+# does not, and the extension that finds your course Python cannot work without
+# it. See .pin_pixi_path.py in this folder for the long version.
+#
+# The script sits in the folder root rather than in .vscode because this same
+# manifest is run straight out of the book's repository, where that directory
+# is still called `vscode` and only becomes `.vscode` in the built download.
+# One path that is correct in both beats a task that works in only one. The
+# leading dot, and the files.exclude entry next to it in .vscode/settings.json,
+# keep it out of a student's way: it is plumbing, not something to read on the
+# way to week one.
+vscode = "python .pin_pixi_path.py"
+
+# Tell the terminal where pixi lives, which is a different terminal's problem
+# from the one above. A Mac opens zsh and reads ~/.zshrc; a bash reads
+# ~/.bash_profile and has never heard of the other file. The pixi installer
+# writes its PATH line into whichever of the two it happened to be run from, so
+# a student can end up with pixi working perfectly in the window they installed
+# it from and absent from the next one they open. See .pin_shell_path.sh for the
+# long version.
+#
+# This runs the shell version rather than the Python one beside it. The two do
+# the same work, and a task always has a Python to hand, so the choice is not
+# about what the task needs. It is that the student who needs this most cannot
+# run the task at all: a terminal that cannot find pixi cannot run `pixi run
+# check` either, and is told to type `sh .pin_shell_path.sh` instead. Pointing
+# the task at that same file means the copy they are told to run is the one
+# exercised every time anyone runs the check, rather than the one that sits
+# untried until the morning it has to work.
+shell = "sh .pin_shell_path.sh"
+
+# `pixi run check` is the one command every student runs on day one, so both of
+# those happen as part of it rather than as steps of their own that half of them
+# would skip. Running it again is harmless: both overwrite.
+#
+# What it then runs is .check_env.py, which reads the [dependencies] above and
+# reports anything the environment does not have. Reading them rather than
+# carrying its own copy of the list means adding a widget to the course is one
+# edit, here, and the check knows about it the moment pixi does.
+check = { cmd = "python .check_env.py", depends-on = ["kernel", "vscode", "shell"] }
+
+# The same task under the name that fits the day it matters most. On day one
+# this sets the folder up, and "check" is a thin word for something that writes
+# a kernel and two paths. `check` keeps working because it is the name already
+# written down everywhere it counts: the getting started chapter, the
+# troubleshooting notes, the comments .pin_pixi_path.py leaves inside a
+# student's own settings.json, and `im update`, which looks this task up by
+# name after downloading the manifest. Two names and one task means neither of
+# those has to be migrated, and none of them can go stale.
+setup = { depends-on = ["check"] }
+
+# The other half of the setup, and the one command in this folder that is meant
+# to be typed after VS Code has been set up rather than before it. `check` above
+# runs at the end of the terminal steps, where there is no editor installed yet
+# and so nothing to say about its extensions; this runs at the end of the
+# editor's own steps, where there is. Two commands rather than one script
+# working out which of the two moments it is in: that guess is wrong for every
+# student who already had VS Code before this course started.
+check-vscode = "python .check_vscode.py"
+
+get = "im get"
+update = "im update"
+
+
+# Nothing to do here, and this says so. The problem the task above solves is a
+# Unix one: PATH is kept in each shell's own startup files, zsh and bash read
+# different ones, and a login shell reads different ones again, which is why a
+# line has to go into several files before every window can find pixi. Windows
+# keeps PATH in the registry instead. The pixi installer writes it there, every
+# new process reads it whatever shell it happens to be, and so there is no file
+# to pin and no shell to tell. Windows also has no `sh` to run that script with.
+#
+# The task still has to exist under this name, because `check` above depends on
+# it and a dependency that resolves on three of the four platforms fails on the
+# fourth. `true` is a command that succeeds and does nothing, which is exactly
+# what is wanted. If Windows ever does need something -- a line in a PowerShell
+# $PROFILE, say -- this is where it goes.
+[target.win-64.tasks]
+shell = "true"
+
+# Silence a warning that only Windows sees, and that only says a directory is
+# empty. The openssl package ships an activation script for Windows that points
+# two variables at this environment: SSL_CERT_FILE at Library\ssl\cacert.pem,
+# which is a real certificate bundle, and SSL_CERT_DIR at Library\ssl\certs,
+# which openssl ships containing nothing but a .keep placeholder. pixi reads
+# both, finds the second one empty, and says so:
+#
+#     WARN ignoring `SSL_CERT_DIR`: no certificates found in ...\Library\ssl\certs
+#
+# Nothing is broken -- the file variable is the one that carries the
+# certificates, and pixi falls back to its own roots for the other -- but a
+# warning about certificates is exactly the kind of thing that stops a student
+# on day one and costs a mail to ask about.
+#
+# Both activation scripts set their variable only when it is not already set,
+# so setting it here wins whichever order pixi applies the two in. The value is
+# the folder one level up, which is where ca-certificates puts cacert.pem and
+# cert.pem, so the directory pixi is pointed at now has certificates in it.
+[target.win-64.activation.env]
+SSL_CERT_DIR = "$CONDA_PREFIX/Library/ssl"
+
