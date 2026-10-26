@@ -100,7 +100,18 @@ EXECUTE_TIMEOUT = 180  # seconds per cell; sandbox_widget spawns a subprocess pe
 # directly after the `-`. This set is what makes the omission a decision
 # rather than an accident, and what keeps the behavior if that line is ever
 # rewritten in the plain form.
-LEAVE_ALONE = {"python/course-tools.ipynb"}
+#
+# The two neural-network chapters are here for the opposite reason: Quarto
+# does not execute them either, and their saved outputs are the point. They
+# are chapters to read, whose figures come from training a network on MNIST
+# and a small language model on Shakespeare, which takes minutes and would
+# break EXECUTE_TIMEOUT. They are executed by hand and committed with their
+# outputs, so stripping them here would publish chapters with no figures.
+LEAVE_ALONE = {
+    "python/course-tools.ipynb",
+    "neural_networks/digit-recognition.ipynb",
+    "neural_networks/language-models.ipynb",
+}
 
 
 def chapters_in_order(quarto_yml: Path):

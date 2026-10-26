@@ -249,6 +249,95 @@ With activation functions, the slope of the activation function enters as an add
 
 The sigmoid activation function has non-zero slope, but across many multiplications across a large network, the tiny slopes far from 0 make the numbers become near-zero anyway. ReLU works best in training because its slope is 1 wherever the neuron is active, so the slope propagates undiminished. Its slope is 0 where it is silent, so even with ReLU, a node will stop learning if it is silent for every example in the training set.
 
+## Backpropagation in the tiny network {#sec-train-backprop-tiny}
+
+The two-neuron chain left out the thresholds and the activation function to keep the arithmetic simple. Now we put them back and do a forward and a backward pass through the tiny network from @sec-nn-tiny, set to two hidden neurons. It has one input $x$, two hidden neurons and one output neuron. Each hidden neuron computes its net input $z_i = w_i x - \theta_i$ and puts it through the ReLU activation function, so $h_i = f(z_i)$, where $f(z) = \max(0, z)$. The output neuron has no activation function, as in the widget with "Apply $f$ at output" unticked, so it computes $y = v_1 h_1 + v_2 h_2 - \theta$. Training must find a slope for all seven parameters: the weights $w_1$ and $w_2$ into the hidden layer, the hidden thresholds $\theta_1$ and $\theta_2$, the weights $v_1$ and $v_2$ into the output, and the output threshold $\theta$.
+
+Let us start the network from the weights $w_1 = 1$ and $w_2 = -1$, give both hidden neurons the threshold 1, and set $v_1 = 2$, $v_2 = 3$ and $\theta = 1$. The training example is the input $x = 2$ with the target $t = 3$.
+
+The forward pass works through the network from left to right. The net inputs of the hidden neurons are $z_1 = 1 \times 2 - 1 = 1$ and $z_2 = -1 \times 2 - 1 = -3$. ReLU lets the positive value through and turns the negative one into 0, so $h_1 = 1$ and $h_2 = 0$. The second hidden neuron is silent. The output is $y = 2 \times 1 + 3 \times 0 - 1 = 1$, and the loss is $(1 - 3)^2 = 4$. @fig-backprop-tiny shows these values in gray.
+
+::: {#fig-backprop-tiny}
+
+```{=html}
+<svg viewBox="0 0 730 370" width="100%" style="max-width:730px" role="img"
+     aria-label="The backward pass through the tiny network with input x equals 2, two ReLU hidden neurons and one output neuron. Forward values are shown in gray and the slope for every weight, threshold and neuron in blue">
+  <g stroke="currentColor" stroke-width="1.5" opacity="0.35">
+    <line x1="92" y1="170.4" x2="268.8" y2="93.6"/>
+    <line x1="92" y1="189.6" x2="268.8" y2="266.4"/>
+    <line x1="322" y1="89.6" x2="498.8" y2="166.4"/>
+    <line x1="322" y1="270.4" x2="498.8" y2="193.6"/>
+    <line x1="554" y1="180" x2="630" y2="180"/>
+  </g>
+  <g fill="currentColor" opacity="0.35">
+    <polygon points="-12,-6 0,0 -12,6" transform="translate(278,89.6) rotate(-23.5)"/>
+    <polygon points="-12,-6 0,0 -12,6" transform="translate(278,270.4) rotate(23.5)"/>
+    <polygon points="-12,-6 0,0 -12,6" transform="translate(508,170.4) rotate(23.5)"/>
+    <polygon points="-12,-6 0,0 -12,6" transform="translate(508,189.6) rotate(-23.5)"/>
+    <polygon points="628,174 640,180 628,186"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="#d1d5db">
+    <circle cx="70" cy="180" r="24"/>
+    <circle cx="300" cy="80" r="24"/>
+    <circle cx="300" cy="280" r="24"/>
+    <circle cx="530" cy="180" r="24"/>
+    <rect x="640" y="156" width="60" height="48" rx="6"/>
+  </g>
+  <g font-family="sans-serif" font-size="17" font-style="italic" text-anchor="middle" fill="#111">
+    <text x="70" y="186">x</text>
+    <text x="300" y="86">h₁</text>
+    <text x="300" y="286">h₂</text>
+    <text x="530" y="186">y</text>
+    <text x="670" y="186">L</text>
+  </g>
+  <g font-family="sans-serif" font-size="14" text-anchor="middle" fill="currentColor" opacity="0.7">
+    <text x="70" y="226">x = 2</text>
+    <text x="160" y="96">w₁ = 1</text>
+    <text x="160" y="248">w₂ = −1</text>
+    <text x="300" y="28">θ₁ = 1</text>
+    <text x="300" y="228">θ₂ = 1</text>
+    <text x="300" y="122">h₁ = 1</text>
+    <text x="300" y="322">h₂ = 0</text>
+    <text x="450" y="104">v₁ = 2</text>
+    <text x="430" y="250">v₂ = 3</text>
+    <text x="545" y="128">θ = 1</text>
+    <text x="530" y="224">y = 1</text>
+    <text x="670" y="146">t = 3</text>
+    <text x="670" y="224">(1 − 3)² = 4</text>
+  </g>
+  <g font-family="sans-serif" font-size="14" text-anchor="middle" fill="#2a78d6">
+    <text x="160" y="114">−8 × 2 = −16</text>
+    <text x="160" y="266">0 × 2 = 0</text>
+    <text x="300" y="46">−8 × (−1) = 8</text>
+    <text x="300" y="246">0 × (−1) = 0</text>
+    <text x="300" y="140">−4 × 2 = −8</text>
+    <text x="300" y="158">−8 × 1 = −8</text>
+    <text x="300" y="340">−4 × 3 = −12</text>
+    <text x="300" y="358">−12 × 0 = 0</text>
+    <text x="450" y="122">−4 × 1 = −4</text>
+    <text x="430" y="268">−4 × 0 = 0</text>
+    <text x="545" y="146">−4 × (−1) = 4</text>
+    <text x="555" y="242">2 × (1 − 3) = −4</text>
+  </g>
+</svg>
+```
+
+The forward and backward pass through the tiny network. The gray numbers are the values from the forward pass, and the blue numbers are the slopes from the backward pass. Next to each weight and each threshold is the slope for that parameter. Under each hidden neuron, the first blue line is the slope for its output $h_i$, and the second is that slope passed back through ReLU, which gives the slope for its net input $z_i$. Under the output neuron is the slope for $y$, where the backward pass begins.
+
+:::
+
+Most of the backward pass works exactly as in the two-neuron chain. The slope for $y$ is $2(y - t) = -4$, and the slope for each weight is the slope of whatever the weight leads into, times the value that travels along the weight. @fig-backprop-tiny shows all of these products. Four things are new, and they are what this example is for.
+
+The first is that the output neuron receives two inputs. The backward pass sends the slope for $y$ back along both incoming edges, and each branch gets the slope for $y$ times its own weight: $-4 \times v_1 = -8$ for $h_1$ and $-4 \times v_2 = -12$ for $h_2$. The two branches do not affect each other. Each is computed as if the other were not there, and from here on the backward pass simply follows each branch on its own. An output neuron with a hundred inputs would send the same slope back along a hundred edges in the same way.
+
+The second is the thresholds. A threshold is subtracted from the net input, so nudging it up by a little moves the net input down by the same amount. That is a factor of $-1$, and the slope for a threshold is minus the slope of the net input it belongs to. For the output threshold that gives $-4 \times (-1) = 4$, and for $\theta_1$ it gives $-8 \times (-1) = 8$. Both are positive, so gradient descent will make both thresholds smaller, which makes the neurons fire more easily and raises the output, as it should since the output is too low. In this way a threshold behaves just like a weight on an input that is always $-1$, and training treats it as one.
+
+The third is the activation function. To get from $h_i$ back to the net input $z_i$, the slope has to pass through ReLU, and nudging $z_i$ changes $h_i$ by the slope of ReLU at $z_i$. Where $z$ is positive, ReLU passes its input straight through, so its slope is 1. Where $z$ is negative, the output stays at 0 however $z$ is nudged, so its slope is 0. The first hidden neuron is active, and its slope passes through unchanged: $-8 \times 1 = -8$. The second is silent, and its slope is stopped: $-12 \times 0 = 0$. Everything behind it, $w_2$ and $\theta_2$, gets a slope of 0 too, and so does $v_2$, because the value traveling along it is $h_2 = 0$. This is a pity, because $h_2$ had the steepest slope of all, so if the second neuron fired it could do the most to raise $y$. For this one example that does no harm, but a neuron that is silent for every example in the training data never gets a slope and never learns. This is the dead neuron from @sec-nn-relu. With the sigmoid instead of ReLU, the factor would be the slope of the sigmoid at $z$, which is never more than $0.25$, so the slope would shrink a little at every neuron it passes.
+
+The fourth is that $x$ feeds both hidden neurons. Nudging $x$ would change $z_1$ and $z_2$ at the same time, so the slope for $x$ is the sum of the slopes coming back along the two edges: $-8 \times w_1 + 0 \times w_2 = -8$. Training never needs this slope, because $x$ is the input and not a parameter. In a network with more than one hidden layer, though, every hidden neuron feeds every neuron in the next layer, just as $x$ does here, and its slope is the sum of the slopes coming back along all its outgoing edges. Multiplying along each edge and adding where edges meet is all backpropagation ever does, however large the network.
+
+The slopes that are not 0 all ask for a higher output: $w_1$ and $v_1$ will get larger, and $\theta_1$ and $\theta$ smaller. Training a real network is this, repeated. The forward pass computes every value, the backward pass computes every slope, and every parameter takes a small step downhill. The networks behind AI assistants have many more layers and billions of parameters, but every neuron in them does the same small local multiplications.
+
 ## Training in practice {#sec-train-practice}
 
 The network usually doesn't run on all the training data at every step. Instead, it computes the loss and the slopes from just a random uses a small random handful of examples, called a *batch*, and. The step is a little less accurate, but there are far more of them for the same amount of computing, and the noise from the random batches even helps the network avoid getting stuck. One pass through all the training data is called an *epoch*, and training usually runs for many epochs.

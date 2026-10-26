@@ -55,20 +55,17 @@ book:
         #   text: "Widget demo"
         # - href: "https://github.com/munch-group/instructing-machines/slides/index.html"
         #   text: "Slides"
-
     - part: "Week 1"
       chapters: 
-        - intro/course-introduction.qmd
+        - intro/course-introduction.qmd # AI: EXPLAINER
         - ai/insides.ipynb
         - python/terminal.qmd
         - python/getting_set_up.qmd
         - python/hello-world.qmd
         - ai/meet-ai.ipynb
         - ai/instruction.ipynb
+        # - intro/on_learning_with_ai.qmd # for next year
     - part: "Week 2"
-      # AI: EXPLAINER — introduced by intro/course-introduction.qmd and put to
-      #   work in ai/meet-ai.ipynb and ai/about-microsoft-copilot.qmd. 11 EXPLAINER
-      #   exercises against 105 SOLO.
       chapters: 
         - intro/notebooks.ipynb        
         - python/values-operators-logic.ipynb
@@ -76,143 +73,94 @@ book:
         - python/precedence-steps.ipynb
         - python/control-flow.ipynb
     - part: "Week 3"
-      # AI: no new level. EXPLAINER is consolidated by ai/predict-then-prove.ipynb,
-      #   which is where "the AI predicts; the machine proves" is stated as a
-      #   working rule rather than a slogan. 26 EXPLAINER against 43 SOLO — the
-      #   densest EXPLAINER week of the term.
       chapters: 
         - python/functions.ipynb
         - ai/predict-then-prove.ipynb
     - part: "Week 4"
-      # AI: no new level. ai/how-models-produce-code.ipynb adds two more
-      #   EXPLAINER moves (translating code to English and back, asking for
-      #   more examples of a pattern) on top of the 10 already earned. 14
-      #   EXPLAINER against 65 SOLO.
       chapters: 
         - python/objects.ipynb
         - ai/how-models-produce-code.ipynb
         - python/lists.ipynb
         - python/dictionaries.ipynb
         - python/tuples.ipynb
-          # CLAUDE: at 643 words the thinnest chapter in the book that is not a
-          #   stub, and flagged in the earlier audit for content rather than
-          #   typos. Its hand-typed traceback is also stale — regenerate it
-          #   against the pinned interpreter.
-        - turtle/turtle-the-object.ipynb
+        - turtle/turtle-the-object.ipynb # not used next year
     - part: "Week 5"
-      # AI: no new level. EXPLAINER is sharpened by ai/explain-then-confirm.ipynb,
-      #   which supplies all 15 of the week's EXPLAINER exercises, against 17
-      #   SOLO.
       chapters: 
         - ai/explain-then-confirm.ipynb
         - python/iteration.ipynb
-        - python/testing.ipynb
-          # CLAUDE: the smallest chapter doing the largest job. At 1392 words
-          #   across eight cells — and a good part of that length is now the
-          #   list of missing content appended to its end, so the chapter
-          #   proper is shorter than the number suggests — it is the designated
-          #   hub for the idea that a test is how you verify code you did not
-          #   write. Weeks 8 through 13 all lean on it, and it carries zero
-          #   badged exercises. It should be the chapter that grows most: frame
-          #   tests explicitly as how you verify AI-generated code, and add
-          #   exercises that write one failing test and then one passing one.
-        - turtle/turtle-loops-and-tests.ipynb
-          # CLAUDE: the turtle chapters for weeks 4 through 8 use no widget at
-          #   all, which is odd given that turtle output is the most visually
-          #   checkable thing in the book and therefore the safest place to let
-          #   the AI draft. Decide whether that is intentional.
+        - python/testing.ipynb # expand this chapter for next year
+        - turtle/turtle-loops-and-tests.ipynb # not used next year
     - part: "Week 6"
-      # AI: no new level. ai/practical-ai-use.ipynb. Only 3 EXPLAINER against 38
-      #   SOLO, the thinnest AI presence of any week before the projects begin.
       chapters: 
         - ai/practical-ai-use.ipynb
-        # - python/list-comprehensions.ipynb
         - python/data_structures.ipynb
         - python/files.ipynb
-        - turtle/turtle-drawing-from-data.ipynb
+        - turtle/turtle-drawing-from-data.ipynb # not used next year
         - python/testing_programming_projects.qmd
-        - projects/translation-project.qmd ###########
+        - projects/translation-project.qmd # PROJECT
     - part: "Week 7"
-      # AI: COMPARER, introduced by ai/ask-for-another-way.ipynb. 11 COMPARER
-      #   against 7 SOLO: the only week in which AI-licensed exercises
-      #   outnumber the solo ones, which is the point of the level — asking for
-      #   a second solution is worthless unless you write several.
       chapters: 
-        - ai/ask-for-another-way.ipynb
+        - ai/ask-for-another-way.ipynb # AI: COMPARER
         - python/composition.qmd
-        - turtle/turtle-functions.ipynb
-        - projects/folding-project.qmd ###########
+        - turtle/turtle-functions.ipynb # not used next year
+        - projects/folding-project.qmd # PROJECT
     - part: "Week 8"
       chapters: 
-      # AI: DRAFTER, introduced by ai/let-it-draft.ipynb. 7 DRAFTER, 1 COMPARER
-      #   and 4 EXPLAINER against 28 SOLO. This is the first level where the
-      #   student lets the assistant write code they will keep.
         - python/classes.ipynb
         - ai/let-it-draft.ipynb #  DRAFTER
         - python/debugging.ipynb
-        - turtle/turtle-classes-debugging.ipynb
-        - projects/codonbias-project.qmd ###########
+        - turtle/turtle-classes-debugging.ipynb # not used next year
+        - projects/codonbias-project.qmd # PROJECT
     - part: "Week 9"
       chapters: 
         - python/modules-and-packages.ipynb
         - neural_networks/neurons.qmd
         - neural_networks/neural-networks.qmd
         - neural_networks/training.qmd
-
-        # - neural_networks/large-language-models.qmd
-
-        # - turtle/turtle-limits-to-visual-checks.ipynb
-        - projects/orf-project.qmd ###########
+        - projects/orf-project.qmd # PROJECT
     - part: "Week 10"
       chapters:
-        # - ai/reading-and-judging.ipynb # after DRAFTER
-        # - ai/the-docs-are-the-test.ipynb  # extends DRAFTER
-        - ai/tests-are-the-contract.ipynb  # deepens DRAFTER 
-        # - python/biopython.ipynb
+        - neural_networks/digit-recognition.ipynb
+          # Committed with its outputs: training on MNIST is too slow for
+          #   clean_notebooks.py, which leaves it alone (LEAVE_ALONE there).
+        - neural_networks/language-models.ipynb
+          # Committed with its outputs, like digit-recognition.ipynb. Replaces
+          #   large-language-models.qmd, whose text it reuses.
+        # - neural_networks/handwritten-digits.ipynb
+        # - neural_networks/transformer.ipynb
+        - ai/tests-are-the-contract.ipynb  # deepens DRAFTER # NOT USED
+        - python/biopython.ipynb
         - bioinf/BLAST.qmd
-        - python/regular-expressions.ipynb
-        - projects/hiv-project.qmd ###########
+        - ai/plan-before-you-prompt.ipynb # AI: COLLABORATOR # should go with decomposition.qmd
+        - python/decomposition.qmd
+        - projects/assembly-project.qmd  # PROJECT     
     - part: "Week 11"
       chapters: 
         - python/numpy-and-pandas.ipynb
         - python/plotting.ipynb
-        - ai/plan-before-you-prompt.ipynb # AI: COLLABORATOR # should go with decomposition.qmd
-        - python/decomposition.qmd
-        # - ai/documentation-and-resources.ipynb
-        - projects/assembly-project.qmd  ###########     
+        - ai/delegate-the-full-problem.ipynb # AI: DEVELOPER
+        - python/regular-expressions.ipynb
+        - projects/hiv-project.qmd # PROJECT
     - part: "Week 12"
       chapters: 
-
         - python/recursion.ipynb
-        - ai/directing-a-resource.ipynb
-        - ai/delegate-the-full-problem.ipynb # AI: DEVELOPER
+        # - Finale gene prediction project 
     - part: "Week 13"
       chapters: 
-        - ai/learning-with-an-ai.ipynb
-        # - python/dataframes.ipynb
-        # - projects/curration-project.qmd ###########
-    # - part: "Week 14"
-    #   # Python: no new Python; the assembly project.
-    #   # AI: no new level. The finale exercises the whole ladder at once, which
-    #   #   is what it is for. 1 DEVELOPER against 5 SOLO.
-    #   chapters: 
-    #     - ai/finale-kickoff.qmd
-    #       # CLAUDE: 135 words. The finale is the assessment the whole role
-    #       #   ladder builds toward, and its opening chapter is a placeholder.
-    #       #   Done looks like a kickoff that states the task, the deliverable,
-    #       #   the rules about AI involvement, and how the work is judged.
-    #     - ai/finale-build.ipynb
-    #     - ai/finale-finishing.ipynb
-    #     - projects/assembly-project.qmd
+        - python/list-comprehensions.ipynb
+        # - Fully delegated project
     - part: "Week 14"
-      # AI: no new level; the ladder is put down. ai/surviving-ai.ipynb is the
-      #   argument for why any of it mattered. 4 SOLO.
-      # Workload: 2 chapters, ~2,800 words, 5 exercises — the lightest week,
-      #   which is right for a wrap-up.
       chapters: 
         - ai/surviving-ai.ipynb
-        - ai/the-ai-off-test.ipynb
 
+    # NOT USED
+        # - turtle/turtle-limits-to-visual-checks.ipynb 
+        # - ai/reading-and-judging.ipynb # after DRAFTER 
+        # - ai/the-docs-are-the-test.ipynb  # extends DRAFTER
+        # - ai/documentation-and-resources.ipynb
+        # - ai/directing-a-resource.ipynb
+        # - ai/learning-with-an-ai.ipynb
+        # - ai/the-ai-off-test.ipynb
 
 # bibliography: references.bib
 
