@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>61&nbsp; AI: Surviving AI – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ai/the-ai-off-test.html" rel="next">
+<link href="../ai/learning-with-an-ai.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-13707dd4ad03545be511275956388411.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/surviving-ai.html">Week 14</a></li><li class="breadcrumb-item"><a href="../ai/surviving-ai.html"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes_slides_recordings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Week plan</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/course-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Course introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Terminal Howto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/getting_set_up.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Getting set up</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AI: Meet AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Notebooks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/control-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-the-object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-loops-and-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-drawing-from-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Project: Translating ORFs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Project: Primer analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-classes-debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Project: Codon usage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/modules-and-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Modules and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neurons.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neural-networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">AI: Training</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">AI: Tests are the contract</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/BLAST.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 11</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/numpy-and-pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Plotting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Project: Genome assembly</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 12</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">AI: Directing to resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 13</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">AI: Learning with an AI</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 14</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: The AI-off test</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="#dnldts12520" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgQUk6IFN1cnZpdmluZyBBSSB7I3NlYy1zdXJ2aXZpbmctYWl9XG4iLAogICAgIlxuIiwKICAgICIhW10oaW1hZ2VzL3VuZGVyLWNvbnN0cnVjdGlvbi5wbmcpe3dpZHRoPTIwJX1cbiIsCiAgICAiXG4iLAogICAgIlRoZSB3aG9sZSBvZiB0aGlzIGNvdXJzZSBoYXMgYmVlbiBhbiBhcmd1bWVudCB0aGF0IHlvdSBjYW4gdHJ1c3QgdGhlIGFzc2lzdGFudCBmdXJ0aGVyIGJlY2F1c2UgeW91IGhhdmUgbGVhcm5lZCB0byBjaGVjayBpdC4gVGhhdCBhcmd1bWVudCBpcyB0cnVlLCBhbmQgaXQgaXMgdGhlIHJpZ2h0IHdheSB0byB3b3JrLCBidXQgaXQgd291bGQgYmUgYSBtaXNsZWFkaW5nIHBsYWNlIHRvIHN0b3AsIGJlY2F1c2UgY2hlY2tpbmcgd2VsbCBkb2VzIG5vdCByZW1vdmUgZXZlcnkgbGltaXQsIGFuZCBzb21lIG9mIHRoZSBtb3N0IGltcG9ydGFudCBqdWRnbWVudHMgeW91IHdpbGwgbWFrZSBhcmUgYWJvdXQgd2hlbiB0aGUgYXNzaXN0YW50IHNob3VsZCBub3QgYmUgdXNlZCBhdCBhbGwuIFRoaXMgbGFzdCBwYXJ0IGlzIGFib3V0IHRoZSBsaW1pdHMgdGhhdCByZW1haW4gZXZlbiBmb3Igc29tZW9uZSB3aG8gc3BlY2lmaWVzLCByZWFkcywganVkZ2VzLCBhbmQgdGVzdHMgY2FyZWZ1bGx5LCBhbmQgYWJvdXQgdGhlIHJlc3BvbnNpYmlsaXR5IHRoYXQgc3RheXMgd2l0aCB5b3Ugbm8gbWF0dGVyIGhvdyBnb29kIHlvdXIgY2hlY2tpbmcgYmVjb21lcy5cbiIsCiAgICAiXG4iLAogICAgIkJlZ2luIHdpdGggYSBmYWN0IGFib3V0IHBlb3BsZSByYXRoZXIgdGhhbiBhYm91dCBtYWNoaW5lcywgYmVjYXVzZSBpdCBpcyB0aGUgb25lIG1vc3QgbGlrZWx5IHRvIHVuZG8geW91LiBIdW1hbnMgdGVuZCB0byB0cnVzdCB0aGUgb3V0cHV0IG9mIGFuIGF1dG9tYXRlZCBzeXN0ZW0gbW9yZSB0aGFuIHRoZXkgc2hvdWxkLCBhbmQgdGhlIG1vcmUgZmx1ZW50IGFuZCBjb25maWRlbnQgdGhhdCBvdXRwdXQgbG9va3MsIHRoZSBzdHJvbmdlciB0aGUgcHVsbC4gVGhpcyBpcyBhIHdlbGwgZG9jdW1lbnRlZCB0ZW5kZW5jeSwgYW5kIGl0IGhhcyBhIG5hbWUsIGF1dG9tYXRpb24gYmlhcywgYW5kIGl0IGRvZXMgbm90IHNwYXJlIHBlb3BsZSB3aG8ga25vdyBhYm91dCBpdC4gVGhlIGRhbmdlciBmb3IgeW91IGlzIG5vdCB0aGF0IHlvdSB3aWxsIGZhaWwgdG8gbGVhcm4gdGhlIGNoZWNraW5nIGRpc2NpcGxpbmU7IGl0IGlzIHRoYXQgb25jZSB5b3UgaGF2ZSBpdCwgaXQgd2lsbCBxdWlldGx5IGVyb2RlLiBUaGUgZmlyc3Qgd2Vla3Mgb2YgdXNpbmcgdGhlIGFzc2lzdGFudCB5b3Ugd2lsbCBjaGVjayBldmVyeXRoaW5nLCBiZWNhdXNlIGl0IGlzIG5ldyBhbmQgeW91IGFyZSB3YXJ5LiBUaGVuIGl0IHdpbGwgYmUgcmlnaHQgc2V2ZXJhbCB0aW1lcyBpbiBhIHJvdywgYW5kIHlvdSB3aWxsIHJlbGF4LCBhbmQgeW91IHdpbGwgc3RhcnQgYWNjZXB0aW5nIGEgZnVuY3Rpb24gYmVjYXVzZSBpdCBsb29rcyBsaWtlIHRoZSBvbmVzIHRoYXQgd2VyZSBmaW5lIGJlZm9yZSwgd2hpY2ggaXMgZXhhY3RseSB0aGUgcGxhdXNpYmxlIHN1cmZhY2UgeW91IHdlcmUgdGF1Z2h0IHRvIGRpc3RydXN0LiBUaGUgYmV0dGVyIHRoZSBjb2RlIGxvb2tzIGFuZCB0aGUgbG9uZ2VyIHRoZSBhc3Npc3RhbnQncyByZWNlbnQgcmVjb3JkLCB0aGUgbW9yZSBzdXNwaWNpb3VzIHlvdSBzaG91bGQgYmVjb21lLCBub3QgbGVzcywgYmVjYXVzZSB0aGF0IGlzIHRoZSBzaXR1YXRpb24gaW4gd2hpY2ggeW91ciBndWFyZCBpcyBsb3dlc3QgYW5kIGl0cyBjb25maWRlbnQgd3JvbmduZXNzIGlzIG1vc3QgZXhwZW5zaXZlLiBUaGUgY2hlY2tpbmcgaXMgbm90IGEgcGhhc2UgeW91IHBhc3MgdGhyb3VnaCBvbiB0aGUgd2F5IHRvIHRydXN0aW5nIHRoZSBtYWNoaW5lLiBJdCBpcyB0aGUgcGVybWFuZW50IGNvbmRpdGlvbiBvZiB1c2luZyBpdCB3ZWxsLlxuIiwKICAgICJcbiIsCiAgICAiVGhlIHNlY29uZCBsaW1pdCBpcyBvbmUgeW91IGhhdmUgYWxyZWFkeSBtZXQgYnV0IG11c3Qgbm93IHN0YXRlIHNoYXJwbHksIGJlY2F1c2UgaXQgaXMgZWFzeSB0byBoYWxmIGxlYXJuLiBQYXNzaW5nIHRlc3RzIGlzIG5lY2Vzc2FyeSwgYW5kIGl0IGlzIG5vdCBzdWZmaWNpZW50LiBBIGdyZWVuIHJlc3VsdCB0ZWxscyB5b3UgdGhhdCB0aGUgY29kZSBwcm9kdWNlZCB0aGUgcmlnaHQgYW5zd2VyIG9uIHRoZSBwYXJ0aWN1bGFyIGlucHV0cyB5b3UgdGhvdWdodCB0byB0cnkuIEl0IHRlbGxzIHlvdSBub3RoaW5nIHdoYXRldmVyIGFib3V0IHRoZSBpbnB1dHMgeW91IGRpZCBub3QgdHJ5LCBhbmQgdGhlcmUgYXJlIGFsd2F5cyBpbnB1dHMgeW91IGRpZCBub3QgdHJ5LCBiZWNhdXNlIGEgaGFuZGZ1bCBvZiB0ZXN0cyBjYW5ub3QgY292ZXIgdGhlIGluZmluaXR5IG9mIHBvc3NpYmxlIGlucHV0cy4gVGhpcyBtZWFucyBhIHdyb25nIGZ1bmN0aW9uIGNhbiBwYXNzIGEgd2VhayBzdWl0ZSwgYW5kIGEgZnVuY3Rpb24gdGhhdCBwYXNzZXMgZXZlbiBhIHN0cm9uZyBzdWl0ZSBjYW4gc3RpbGwgYmUgd3Jvbmcgb24gYSBjYXNlIG5vYm9keSBpbWFnaW5lZC4gVGVzdHMgYXJlIGEgZmxvb3IgdW5kZXIgeW91ciBjb25maWRlbmNlLCBub3QgYSBwcm9vZiBvZiBjb3JyZWN0bmVzcywgYW5kIHRoZSBhc3Npc3RhbnQgaXMgc3BlY2lmaWNhbGx5IGdvb2QgYXQgcHJvZHVjaW5nIGNvZGUgdGhhdCBjbGVhcnMgdGhlIHZpc2libGUgZmxvb3Igd2hpbGUgaGlkaW5nIGEgZmF1bHQganVzdCBvdXQgb2Ygc2lnaHQgb2YgaXQuIFRoZSBvbmx5IHRoaW5nIHRoYXQgc3RhbmRzIGJlaGluZCB0aGUgdGVzdHMgaXMgeW91ciB1bmRlcnN0YW5kaW5nIG9mIHdoYXQgdGhlIGNvZGUgZG9lcywgd2hpY2ggaXMgd2h5IHRoZSBydWxlIHRoYXQgeW91IG5ldmVyIGFjY2VwdCBjb2RlIHlvdSBjYW5ub3QgcmVhZCBpcyBub3QgYSBiZWdpbm5lcidzIGNhdXRpb24geW91IHdpbGwgb25lIGRheSBvdXRncm93LiBJdCBpcyB0aGUgbGFzdCBsaW5lIG9mIGRlZmVuc2UgZm9yIGV2ZXJ5IGNhc2UgeW91ciB0ZXN0cyBmb3Jnb3QuXG4iLAogICAgIlxuIiwKICAgICJUaGUgdGhpcmQgbGltaXQgaXMgdGhlIG9uZSB0aGF0IG1hdHRlcnMgbW9zdCBpbiB5b3VyIGZpZWxkLCBhbmQgaXQgaXMgdGhlIG9uZSBubyBhbW91bnQgb2YgdGVzdGluZyBjYW4gcmVhY2gsIGJlY2F1c2UgaXQgaXMgbm90IGFib3V0IHRoZSBjb2RlIGF0IGFsbC4gVGhlIGFzc2lzdGFudCBzdGF0ZXMgZmFjdHMgYWJvdXQgYmlvbG9neSB3aXRoIGV4YWN0bHkgdGhlIHNhbWUgZmx1ZW50IGNvbmZpZGVuY2Ugd2hldGhlciB0aG9zZSBmYWN0cyBhcmUgdHJ1ZSBvciBmYWxzZSwgYmVjYXVzZSBpdCBoYXMgbm8gd2F5IG9mIGtub3dpbmcgd2hpY2ggdGhleSBhcmUuIEl0IHdpbGwgdGVsbCB5b3UgYSBiYXNlIHBhaXJpbmcsIGEgY29kb24gYXNzaWdubWVudCwgYSBnZW5lIGZ1bmN0aW9uLCBhIHN0YXRpc3RpY2FsIGFzc3VtcHRpb24sIGFuZCBpdCB3aWxsIHNvdW5kIGVxdWFsbHkgY2VydGFpbiB3aGVuIGl0IGlzIHJpZ2h0IGFuZCB3aGVuIGl0IGlzIGludmVudGluZy4gQSB3cm9uZyBmYWN0IG9mIHRoaXMga2luZCBpcyBtb3JlIGRhbmdlcm91cyB0aGFuIGEgd3JvbmcgbG9vcCBmb3IgdHdvIHJlYXNvbnMuIEl0IGhpZGVzIGJldHRlciwgYmVjYXVzZSB0aGVyZSBpcyBubyBlcnJvciBhbmQgbm8gZmFpbGluZyB0ZXN0IHRvIGRyYXcgeW91ciBleWUgdG8gaXQsIGFuZCBpdCBkb2VzIG1vcmUgZGFtYWdlLCBiZWNhdXNlIGEgZmFsc2UgcHJlbWlzZSBwcm9wYWdhdGVzIHNpbGVudGx5IGludG8gZXZlcnkgcmVzdWx0IGJ1aWx0IG9uIHRvcCBvZiBpdC4gTm8gdGVzdCB5b3Ugd3JpdGUgYWJvdXQgdGhlIGNvZGUgd2lsbCBldmVyIGNhdGNoIGEgbWlzdGFrZSBpbiB0aGUgYmlvbG9neSB0aGUgY29kZSBhc3N1bWVzLCBiZWNhdXNlIHRoZSBjb2RlIG1heSBiZSBhIGZsYXdsZXNzIGltcGxlbWVudGF0aW9uIG9mIGEgd3JvbmcgaWRlYS4gVGhlIG9ubHkgZGVmZW5zZSBpcyB0byBjaGVjayB0aGUgZG9tYWluIGZhY3RzIGFnYWluc3Qgc29tZXRoaW5nIG90aGVyIHRoYW4gdGhlIGFzc2lzdGFudDogeW91ciBvd24ga25vd2xlZGdlLCBhIHRleHRib29rLCBhIGRhdGFiYXNlLCBhIHByaW1hcnkgc291cmNlLiBJbiBhIHNjaWVudGlmaWMgY29udGV4dCB0aGlzIGlzIG5vdCBhbiBvcHRpb25hbCBuaWNldHkuIEEgcmVzdWx0IHRoYXQgcmVzdHMgb24gYSBiaW9sb2dpY2FsIGNsYWltIHlvdSBhY2NlcHRlZCBmcm9tIHRoZSBhc3Npc3RhbnQgd2l0aG91dCBjaGVja2luZyBpcyBhIHJlc3VsdCB5b3UgY2Fubm90IGRlZmVuZCwgaG93ZXZlciBncmVlbiBpdHMgdGVzdHMuXG4iLAogICAgIlxuIiwKICAgICJUaGVzZSBsaW1pdHMgdG9nZXRoZXIgc2hhcnBlbiBhIHF1ZXN0aW9uIHRoZSBjb3Vyc2UgaGFzIG1vc3RseSBhbnN3ZXJlZCBieSBkZW1vbnN0cmF0aW9uIGFuZCBzaG91bGQgbm93IGFuc3dlciBkaXJlY3RseSwgd2hpY2ggaXMgd2hlbiB5b3Ugc2hvdWxkIG5vdCB1c2UgdGhlIGFzc2lzdGFudCBhdCBhbGwuIFRoZSBjbGVhcmVzdCBjYXNlIGlzIHdoZW4geW91IGRvIG5vdCB1bmRlcnN0YW5kIHRoZSBwcm9ibGVtIHdlbGwgZW5vdWdoIHRvIGNoZWNrIHRoZSBhbnN3ZXIuIFRoZSBhc3Npc3RhbnQgYW1wbGlmaWVzIGp1ZGdtZW50IHlvdSBhbHJlYWR5IGhhdmU7IGl0IGNhbm5vdCBzdXBwbHkganVkZ21lbnQgeW91IGxhY2suIElmIHlvdSBjb3VsZCBub3QgdGVsbCBhIGNvcnJlY3Qgc29sdXRpb24gZnJvbSBhIHBsYXVzaWJsZSB3cm9uZyBvbmUsIHRoZW4gZGVsZWdhdGluZyB0aGUgcHJvYmxlbSBkb2VzIG5vdCBnZXQgeW91IGEgc29sdXRpb24sIGl0IGdldHMgeW91IGEgZ3Vlc3MgeW91IGFyZSB1bmFibGUgdG8gZXZhbHVhdGUsIGFuZCB5b3UgYXJlIHNpbXBseSB0cnVzdGluZyBibGluZCwgd2hpY2ggaXMgdGhlIG9uZSB0aGluZyB0aGlzIGNvdXJzZSB3YXMgYnVpbHQgdG8gc3RvcC4gQSBzZWNvbmQgY2FzZSBpcyB3aGVuIHRoZSBzdGFrZXMgYXJlIGhpZ2ggYW5kIHlvdSBjYW5ub3QgdmVyaWZ5LiBJZiBhIHdyb25nIGFuc3dlciB3b3VsZCBtYXR0ZXIgYW5kIHlvdSBoYXZlIG5vIHdheSB0byBjaGVjayB0aGUgYW5zd2VyLCB0aGUgYXNzaXN0YW50J3Mgc3BlZWQgaXMgd29ydGggbm90aGluZywgYmVjYXVzZSBzcGVlZCB0b3dhcmQgYW4gdW52ZXJpZmlhYmxlIHJlc3VsdCBpcyBub3QgcHJvZ3Jlc3MuIEEgdGhpcmQgY2FzZSBpcyBtb3JlIG9yZGluYXJ5IGFuZCBtb3JlIGNvbW1vbiB0aGFuIHN0dWRlbnRzIGV4cGVjdDogd2hlbiB0aGUgdGFzayBpcyBzbWFsbCBlbm91Z2ggdGhhdCB3cml0aW5nIGl0IHlvdXJzZWxmIGlzIGZhc3RlciBhbmQgc3VyZXIgdGhhbiBzcGVjaWZ5aW5nIGl0LCBwcm9tcHRpbmcgZm9yIGl0LCByZWFkaW5nIGl0LCBhbmQgdGVzdGluZyBpdC4gVGhlIHdob2xlIGFwcGFyYXR1cyBvZiBkZWxlZ2F0aW9uIGhhcyBhIGNvc3QsIGFuZCBmb3IgYSB0aHJlZSBsaW5lIGZ1bmN0aW9uIHlvdSB1bmRlcnN0YW5kIGNvbXBsZXRlbHksIHBheWluZyB0aGF0IGNvc3QgaXMgc2xvd2VyIHRoYW4ganVzdCB0eXBpbmcgdGhlIHRocmVlIGxpbmVzLiBBbmQgYSBmb3VydGggY2FzZSBpcyB0aGUgb25lIHRoYXQgbWF0dGVycyB3aGlsZSB5b3UgYXJlIHN0aWxsIGxlYXJuaW5nOiB3aGVuIHVzaW5nIHRoZSBhc3Npc3RhbnQgd291bGQgcm9iIHlvdSBvZiB1bmRlcnN0YW5kaW5nIHlvdSBhY3R1YWxseSBuZWVkIHRvIGFjcXVpcmUuIFRoZXJlIGFyZSB0aGluZ3MgeW91IG11c3QgYmUgYWJsZSB0byBkbyB5b3Vyc2VsZiwgbm90IGJlY2F1c2UgdGhlIGFzc2lzdGFudCBjYW5ub3QgZG8gdGhlbSwgYnV0IGJlY2F1c2UgeW91ciBhYmlsaXR5IHRvIGNoZWNrIGl0cyB3b3JrIG9uIGV2ZXJ5dGhpbmcgZWxzZSBkZXBlbmRzIG9uIHlvdXIgaGF2aW5nIGxlYXJuZWQgdGhlbS4gSGFuZGluZyB0aG9zZSB0byB0aGUgbWFjaGluZSBlYXJseSBpcyBhIGZhbHNlIGVjb25vbXkgdGhhdCBsZWF2ZXMgeW91IHVuYWJsZSB0byBqdWRnZSBpdCBsYXRlci5cbiIsCiAgICAiXG4iLAogICAgIlVuZGVybmVhdGggYWxsIG9mIHRoZXNlIGlzIGEgc2luZ2xlIHByaW5jaXBsZSB0aGF0IGRvZXMgbm90IGJlbmQsIHdoaWNoIGlzIHRoYXQgcmVzcG9uc2liaWxpdHkgZG9lcyBub3QgdHJhbnNmZXIuIFdoYXRldmVyIHRoZSBhc3Npc3RhbnQgcHJvZHVjZXMsIHRoZSBtb21lbnQgeW91IHN1Ym1pdCBpdCwgcnVuIGl0LCBvciBwdWJsaXNoIGEgcmVzdWx0IHRoYXQgZGVwZW5kcyBvbiBpdCwgaXQgaXMgeW91cnMuIFRoZSBBSSB3cm90ZSBpdCBpcyBub3QgYSBkZWZlbnNlIGZvciBhIHdyb25nIGFuc3dlciwgaW4gdGhpcyBjb3Vyc2Ugb3IgaW4gdGhlIHNjaWVuY2UgeW91IHdpbGwgZ28gb24gdG8gZG8sIGFueSBtb3JlIHRoYW4gYSBjYWxjdWxhdG9yJ3MgYXJpdGhtZXRpYyBleGN1c2VzIGEgd3Jvbmcgc3VtIHlvdSBjb3BpZWQgd2l0aG91dCBjaGVja2luZy4gRGVsZWdhdGluZyB0aGUgdHlwaW5nIG5ldmVyIGRlbGVnYXRlcyB0aGUgcmVzcG9uc2liaWxpdHksIGFuZCB0aGUgZW50aXJlIHN0cnVjdHVyZSB5b3UgaGF2ZSBsZWFybmVkLCB0aGUgc3BlY2lmeWluZyBhbmQgcmVhZGluZyBhbmQgcGxhbm5pbmcgYW5kIHRlc3RpbmcsIGV4aXN0cyBzbyB0aGF0IHlvdSBjYW4gYWNjZXB0IHRoYXQgcmVzcG9uc2liaWxpdHkgd2l0aCB5b3VyIGV5ZXMgb3BlbiB3aGlsZSBzdGlsbCB1c2luZyB0aGUgbWFjaGluZSBoZWF2aWx5LiBUaGlzIGhhcyBhIHByYWN0aWNhbCBjb21wYW5pb24sIHdoaWNoIGlzIGhvbmVzdHkgYWJvdXQgd2hhdCB0aGUgYXNzaXN0YW50IGRpZC4gUmVjb3JkaW5nIHdoZXJlIGFuZCBob3cgeW91IHVzZWQgaXQsIGluIHlvdXIgbG9nYm9vaywgaW4geW91ciBwcm9tcHQgam91cm5hbCwgaW4gdGhlIG5vdGVzIG9uIGEgcGllY2Ugb2Ygd29yaywgaXMgbm90IGFuIGFkbWlzc2lvbiBvZiB3ZWFrbmVzcyBhbmQgaXQgaXMgbm90IHNvbWV0aGluZyB0byBoaWRlLiBDb25jZWFsaW5nIHRoZSBhc3Npc3RhbnQncyBpbnZvbHZlbWVudCBpcyB0aGUgZGlzaG9uZXN0IGFjdDsgZGlzY2xvc2luZyBpdCBpcyBzaW1wbHkgYW4gYWNjdXJhdGUgYWNjb3VudCBvZiBob3cgdGhlIHdvcmsgd2FzIGRvbmUsIGFuZCBpbiBhIHNjaWVudGlmaWMgc2V0dGluZyBhbiBhY2N1cmF0ZSBhY2NvdW50IG9mIG1ldGhvZCBpcyBub3Qgb3B0aW9uYWwuIFRoZSBoYWJpdCBvZiBob25lc3QgYXR0cmlidXRpb24geW91IGJ1aWxkIG5vdyBpcyB0aGUgc2FtZSBoYWJpdCB0aGF0IHdpbGwga2VlcCB5b3VyIGxhdGVyIHJlc2VhcmNoIGRlZmVuc2libGUuXG4iLAogICAgIlxuIiwKICAgICJJdCBpcyB3b3J0aCBlbmRpbmcgd2hlcmUgdGhlIGNvdXJzZSBiZWdhbi4gSW4gdGhlIGZpcnN0IHdlZWsgdGhlIGlkZWEgd2FzIG9mZmVyZWQgdGhhdCBpbnN0cnVjdGluZyBhIG1hY2hpbmUgaGFzIHBhc3NlZCB0aHJvdWdoIGEgc2VxdWVuY2Ugb2YgbGF5ZXJzLCBmcm9tIHN3aXRjaGVzIHRvIG1hY2hpbmUgY29kZSB0byBjb21waWxlZCBsYW5ndWFnZXMgdG8gaW50ZXJwcmV0ZWQgbGFuZ3VhZ2VzIGxpa2UgUHl0aG9uLCBhbmQgdGhhdCBhbiBhc3Npc3RhbnQgaXMgb25lIG1vcmUgbGF5ZXIsIGEgd2F5IG9mIGRlc2NyaWJpbmcgd2hhdCB5b3Ugd2FudCBpbiBzb21ldGhpbmcgY2xvc2UgdG8gb3JkaW5hcnkgbGFuZ3VhZ2UgYW5kIGhhdmluZyBjb2RlIGNvbWUgYmFjay4gVGhlIGRpZmZlcmVuY2UsIHRoZSBvbmUgdGhhdCBoYXMgb3JnYW5pemVkIGV2ZXJ5dGhpbmcgc2luY2UsIGlzIHRoYXQgYSBjb21waWxlciBpcyBhIGZhaXRoZnVsIHRyYW5zbGF0b3IgYW5kIGFuIGFzc2lzdGFudCBpcyBub3QuIEEgY29tcGlsZXIgYWx3YXlzIHByb2R1Y2VzIGNvZGUgdGhhdCBtZWFucyBleGFjdGx5IHdoYXQgeW91IHdyb3RlOyBhbiBhc3Npc3RhbnQgcHJvZHVjZXMgY29kZSB0aGF0IGlzIG1lcmVseSBwbGF1c2libGUsIGFuZCBtYXkgbWVhbiBzb21ldGhpbmcgb3RoZXIgdGhhbiB3aGF0IHlvdSB3YW50ZWQsIGFuZCBjYW5ub3QgdGVsbCB5b3Ugd2hpY2guIFRoYXQgc2luZ2xlIGRpZmZlcmVuY2UgaXMgd2h5IHRoaXMgbmV3IGxheWVyLCB1bmxpa2UgdGhlIG9uZXMgYmVuZWF0aCBpdCwgY2Fubm90IGJlIHRydXN0ZWQgYW5kIG11c3QgYmUgdmVyaWZpZWQsIGFuZCBpdCBpcyB3aHkgeW91IGhhZCB0byBsZWFybiB3aGF0IGEgcHJvZ3JhbSBpcywgYW5kIHdoYXQgY29ycmVjdCBtZWFucywgYW5kIGhvdyB0byBzcGVjaWZ5IGFuZCByZWFkIGFuZCB0ZXN0LCBpbiBvcmRlciB0byB1c2UgdGhlIG5ld2VzdCBsYXllciBzYWZlbHkuIFRoZSBzeW50YXggeW91IGxlYXJuZWQgdGhpcyB0ZXJtIG1heSBmYWRlIHdpdGggZGlzdXNlLCBhbmQgdGhlIGFzc2lzdGFudHMgd2lsbCBrZWVwIGltcHJvdmluZywgYnV0IHRoZSBkdXJhYmxlIHNraWxsLCB0aGUgb25lIHRoYXQgd2lsbCBzdGlsbCBiZSB5b3VycyB3aGVuIHRoZSB0b29scyBoYXZlIGNoYW5nZWQsIGlzIHRoZSBqdWRnbWVudDoga25vd2luZyB3aGF0IGNvcnJlY3QgbWVhbnMsIGJlaW5nIGFibGUgdG8gc2F5IGl0IGV4YWN0bHksIGJlaW5nIGFibGUgdG8gcmVhZCB3aGF0IHlvdSBhcmUgZ2l2ZW4sIGFuZCBhbHdheXMsIGFsd2F5cyBjaGVja2luZy4gVGhlIG1hY2hpbmUgaXMgYSBwb3dlcmZ1bCBuZXcgd2F5IHRvIGluc3RydWN0IGEgY29tcHV0ZXIuIEl0IGlzIHlvdXIgam9iIHRvIGluc3RydWN0IGl0IHdlbGwsIGFuZCB0byBuZXZlciBzdG9wIHZlcmlmeWluZyB3aGF0IGl0IGRvZXMuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkF1ZGl0IHlvdXIgb3duIGd1YXJkLiBMb29rIGJhY2sgdGhyb3VnaCB5b3VyIGxvZ2Jvb2sgYXQgdGhlIHdlZWtzIHNpbmNlIHlvdSB3ZXJlIGZpcnN0IGFsbG93ZWQgdG8gbGV0IHRoZSBhc3Npc3RhbnQgZHJhZnQgY29kZSwgYW5kIGNvdW50IHR3byB0aGluZ3M6IGhvdyBtYW55IHBpZWNlcyBvZiBpdHMgY29kZSB5b3UgYWNjZXB0ZWQgYWZ0ZXIgcnVubmluZyBhIHRlc3QgeW91IHdyb3RlIHlvdXJzZWxmLCBhbmQgaG93IG1hbnkgeW91IGFjY2VwdGVkIGJlY2F1c2UgdGhleSBsb29rZWQgcmlnaHQuIERvIG5vdCBhZGp1c3QgdGhlIHNlY29uZCBudW1iZXIgdG8gYmUgZmxhdHRlcmluZzsgdGhlIHdob2xlIHZhbHVlIG9mIHRoZSBjb3VudCBpcyB0aGF0IGl0IGlzIGhvbmVzdC4gVGhlbiBzYXkgaW4gb25lIHNlbnRlbmNlIHdoYXQgY2hhbmdlZCBiZXR3ZWVuIHRoZSB3ZWVrIHlvdSBsZWFybmVkIHRvIGRpc3RydXN0IGEgZHJhZnQgYW5kIHRoZSB3ZWVrIHlvdSBzdG9wcGVkIGJvdGhlcmluZywgaWYgaXQgY2hhbmdlZCwgYW5kIHdoYXQgeW91IHdvdWxkIG5lZWQgdG8gcHV0IGluIHBsYWNlIHRvIHN0b3AgaXQgY2hhbmdpbmcgYWdhaW4uIEF1dG9tYXRpb24gYmlhcyBkb2VzIG5vdCBhbm5vdW5jZSBpdHNlbGYuIEEgY291bnQgaXMgdGhlIG9ubHkgd2F5IHRvIHNlZSBpdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiSWRlbnRpZnkgb25lIHRhc2sgZnJvbSB0aGUgY291cnNlIHdoZXJlLCBsb29raW5nIGJhY2ssIHlvdSBzaG91bGQgbm90IGhhdmUgdXNlZCB0aGUgYXNzaXN0YW50LCBlaXRoZXIgYmVjYXVzZSB5b3UgY291bGQgbm90IHJlYWxseSBjaGVjayBpdHMgYW5zd2VyLCBvciBiZWNhdXNlIGxlYW5pbmcgb24gaXQgY29zdCB5b3UgYW4gdW5kZXJzdGFuZGluZyB5b3UgbGF0ZXIgbmVlZGVkLiBTYXkgd2hhdCB5b3Ugd291bGQgZG8gZGlmZmVyZW50bHksIGFuZCBzYXkgd2hpY2ggb2YgdGhlIGZvdXIgY2FzZXMgaW4gdGhpcyBub3RlIGl0IGZhbGxzIHVuZGVyLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJOb3cgdGhlIG90aGVyIGRpcmVjdGlvbi4gSWRlbnRpZnkgb25lIHRhc2sgd2hlcmUgdGhlIGFzc2lzdGFudCBsZXQgeW91IHByb2R1Y2Ugc29tZXRoaW5nIGNvcnJlY3QgdGhhdCB5b3UgY291bGQgbm90IGhhdmUgd3JpdHRlbiB1bmFpZGVkLCBhbmQgYmUgc3BlY2lmaWMgYWJvdXQgd2hpY2ggcGFydCBvZiB5b3VyIGNoZWNraW5nIG1hZGUgdGhhdCBzYWZlLiBOb3QgXCJJIHRlc3RlZCBpdFwiOiBuYW1lIHRoZSB0ZXN0LCBhbmQgbmFtZSB0aGUgY2FzZSBpdCBjb3ZlcmVkIHRoYXQgeW91IHdvdWxkIG90aGVyd2lzZSBoYXZlIG1pc3NlZC4gSWYgeW91IGNhbm5vdCBuYW1lIGl0LCB0aGVuIHdoYXQgbWFkZSB0aGUgdGFzayBzYWZlIHdhcyBsdWNrLCBhbmQgaXQgaXMgd29ydGgga25vd2luZyB0aGF0IG5vdyByYXRoZXIgdGhhbiBsYXRlci4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIlRha2Ugb25lIGJpb2xvZ2ljYWwgY2xhaW0gdGhlIGFzc2lzdGFudCBtYWtlcywgaW4gYW4gZXhwbGFuYXRpb24sIGluIGEgY29tbWVudCwgb3IgaW5zaWRlIGEgdGFibGUgaXQgd3JpdGVzIGZvciB5b3UsIGFuZCB2ZXJpZnkgaXQgYWdhaW5zdCBhIHNvdXJjZSBvdXRzaWRlIHRoZSBhc3Npc3RhbnQgcmF0aGVyIHRoYW4gYWdhaW5zdCB0aGUgYXNzaXN0YW50IGl0c2VsZi4gUmVjb3JkIHdoZXRoZXIgaXQgaGVsZC4gVGhlbiBkbyB0aGUgdGhpbmcgdGhhdCBtYWtlcyB0aGlzIGRpZmZlcmVudCBmcm9tIGV2ZXJ5IG90aGVyIHZlcmlmaWNhdGlvbiB5b3UgaGF2ZSBkb25lIHRoaXMgdGVybTogYXNrIHRoZSBhc3Npc3RhbnQgd2hldGhlciBpdHMgb3duIGNsYWltIHdhcyBjb3JyZWN0LCBhbmQgd2F0Y2ggaXQgYWdyZWUgd2l0aCB5b3UgZWl0aGVyIHdheS4gQSBtYWNoaW5lIHRoYXQgd2lsbCBjb25maXJtIGJvdGggYSB0cnVlIHN0YXRlbWVudCBhbmQgYSBmYWxzZSBvbmUsIHdpdGggdGhlIHNhbWUgZmx1ZW5jeSwgaXMgbm90IGEgd2l0bmVzcy4gVGhhdCBpcyB3aHkgdGhlIHNvdXJjZSBoYWQgdG8gY29tZSBmcm9tIG91dHNpZGUsIGFuZCBpdCBpcyB0aGUgbGFzdCB0aW1lIHRoaXMgY291cnNlIHdpbGwgc2F5IHNvLlxuIiwKICAgICJcbiIsCiAgICAiRm9yIHlvdXIgbGFzdCBsb2dib29rIGVudHJ5LCBsb29rIGFjcm9zcyB0aGUgd2hvbGUgdGVybS4gRGVzY3JpYmUgaG93IHlvdXIgdXNlIG9mIHRoZSBhc3Npc3RhbnQgY2hhbmdlZCBhcyB5b3VyIHVuZGVyc3RhbmRpbmcgZ3JldywgZnJvbSB0aGUgZmlyc3Qgd2Vla3Mgd2hlbiBpdCBjb3VsZCBvbmx5IGV4cGxhaW4gdGhpbmdzIHRvIHlvdSwgdGhyb3VnaCB0aGUgcG9pbnQgd2hlcmUgeW91IGxldCBpdCBkcmFmdCBhbmQgbGVhcm5lZCB0byBkaXN0cnVzdCB0aGUgZHJhZnQsIHRvIHRoZSBmaW5hbGUgd2hlcmUgeW91IGRlbGVnYXRlZCByZWFsIHdvcmsgYW5kIGtlcHQgdGhlIHJlc3BvbnNpYmlsaXR5LiBOYW1lIHRoZSBzaW5nbGUgaGFiaXQgZnJvbSB0aGlzIGNvdXJzZSB5b3UgbW9zdCB3YW50IHRvIHN0aWxsIGhhdmUgaW4gdGhyZWUgeWVhcnMsIGFuZCBzYXkgd2h5LiIKICAgXQogIH0KIF0sCiAibWV0YWRhdGEiOiB7CiAgImtlcm5lbHNwZWMiOiB7CiAgICJkaXNwbGF5X25hbWUiOiAiSW5zdHJ1Y3RpbmcgTWFjaGluZXMiLAogICAibGFuZ3VhZ2UiOiAicHl0aG9uIiwKICAgIm5hbWUiOiAiaW5zdHJ1Y3RpbmctbWFjaGluZXMiCiAgfSwKICAibGFuZ3VhZ2VfaW5mbyI6IHsKICAgImNvZGVtaXJyb3JfbW9kZSI6IHsKICAgICJuYW1lIjogImlweXRob24iLAogICAgInZlcnNpb24iOiAzCiAgIH0sCiAgICJmaWxlX2V4dGVuc2lvbiI6ICIucHkiLAogICAibWltZXR5cGUiOiAidGV4dC94LXB5dGhvbiIsCiAgICJuYW1lIjogInB5dGhvbiIsCiAgICJuYmNvbnZlcnRfZXhwb3J0ZXIiOiAicHl0aG9uIiwKICAgInB5Z21lbnRzX2xleGVyIjogImlweXRob24zIgogIH0KIH0sCiAibmJmb3JtYXQiOiA0LAogIm5iZm9ybWF0X21pbm9yIjogNAp9Cg==').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'surviving-ai.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts12520"><i class="bi bi-download"></i> Download notebook </button></a> </p>
+</div></div>
+        
+    <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/surviving-ai.html">Week 14</a></li><li class="breadcrumb-item"><a href="../ai/surviving-ai.html"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-surviving-ai" class="quarto-section-identifier"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="images/under-construction.png" class="img-fluid" style="width:20.0%"></p>
+<p>The whole of this course has been an argument that you can trust the assistant further because you have learned to check it. That argument is true, and it is the right way to work, but it would be a misleading place to stop, because checking well does not remove every limit, and some of the most important judgments you will make are about when the assistant should not be used at all. This last part is about the limits that remain even for someone who specifies, reads, judges, and tests carefully, and about the responsibility that stays with you no matter how good your checking becomes.</p>
+<p>Begin with a fact about people rather than about machines, because it is the one most likely to undo you. Humans tend to trust the output of an automated system more than they should, and the more fluent and confident that output looks, the stronger the pull. This is a well documented tendency, and it has a name, automation bias, and it does not spare people who know about it. The danger for you is not that you will fail to learn the checking discipline; it is that once you have it, it will quietly erode. The first weeks of using the assistant you will check everything, because it is new and you are wary. Then it will be right several times in a row, and you will relax, and you will start accepting a function because it looks like the ones that were fine before, which is exactly the plausible surface you were taught to distrust. The better the code looks and the longer the assistant’s recent record, the more suspicious you should become, not less, because that is the situation in which your guard is lowest and its confident wrongness is most expensive. The checking is not a phase you pass through on the way to trusting the machine. It is the permanent condition of using it well.</p>
+<p>The second limit is one you have already met but must now state sharply, because it is easy to half learn. Passing tests is necessary, and it is not sufficient. A green result tells you that the code produced the right answer on the particular inputs you thought to try. It tells you nothing whatever about the inputs you did not try, and there are always inputs you did not try, because a handful of tests cannot cover the infinity of possible inputs. This means a wrong function can pass a weak suite, and a function that passes even a strong suite can still be wrong on a case nobody imagined. Tests are a floor under your confidence, not a proof of correctness, and the assistant is specifically good at producing code that clears the visible floor while hiding a fault just out of sight of it. The only thing that stands behind the tests is your understanding of what the code does, which is why the rule that you never accept code you cannot read is not a beginner’s caution you will one day outgrow. It is the last line of defense for every case your tests forgot.</p>
+<p>The third limit is the one that matters most in your field, and it is the one no amount of testing can reach, because it is not about the code at all. The assistant states facts about biology with exactly the same fluent confidence whether those facts are true or false, because it has no way of knowing which they are. It will tell you a base pairing, a codon assignment, a gene function, a statistical assumption, and it will sound equally certain when it is right and when it is inventing. A wrong fact of this kind is more dangerous than a wrong loop for two reasons. It hides better, because there is no error and no failing test to draw your eye to it, and it does more damage, because a false premise propagates silently into every result built on top of it. No test you write about the code will ever catch a mistake in the biology the code assumes, because the code may be a flawless implementation of a wrong idea. The only defense is to check the domain facts against something other than the assistant: your own knowledge, a textbook, a database, a primary source. In a scientific context this is not an optional nicety. A result that rests on a biological claim you accepted from the assistant without checking is a result you cannot defend, however green its tests.</p>
+<p>These limits together sharpen a question the course has mostly answered by demonstration and should now answer directly, which is when you should not use the assistant at all. The clearest case is when you do not understand the problem well enough to check the answer. The assistant amplifies judgment you already have; it cannot supply judgment you lack. If you could not tell a correct solution from a plausible wrong one, then delegating the problem does not get you a solution, it gets you a guess you are unable to evaluate, and you are simply trusting blind, which is the one thing this course was built to stop. A second case is when the stakes are high and you cannot verify. If a wrong answer would matter and you have no way to check the answer, the assistant’s speed is worth nothing, because speed toward an unverifiable result is not progress. A third case is more ordinary and more common than students expect: when the task is small enough that writing it yourself is faster and surer than specifying it, prompting for it, reading it, and testing it. The whole apparatus of delegation has a cost, and for a three line function you understand completely, paying that cost is slower than just typing the three lines. And a fourth case is the one that matters while you are still learning: when using the assistant would rob you of understanding you actually need to acquire. There are things you must be able to do yourself, not because the assistant cannot do them, but because your ability to check its work on everything else depends on your having learned them. Handing those to the machine early is a false economy that leaves you unable to judge it later.</p>
+<p>Underneath all of these is a single principle that does not bend, which is that responsibility does not transfer. Whatever the assistant produces, the moment you submit it, run it, or publish a result that depends on it, it is yours. The AI wrote it is not a defense for a wrong answer, in this course or in the science you will go on to do, any more than a calculator’s arithmetic excuses a wrong sum you copied without checking. Delegating the typing never delegates the responsibility, and the entire structure you have learned, the specifying and reading and planning and testing, exists so that you can accept that responsibility with your eyes open while still using the machine heavily. This has a practical companion, which is honesty about what the assistant did. Recording where and how you used it, in your logbook, in your prompt journal, in the notes on a piece of work, is not an admission of weakness and it is not something to hide. Concealing the assistant’s involvement is the dishonest act; disclosing it is simply an accurate account of how the work was done, and in a scientific setting an accurate account of method is not optional. The habit of honest attribution you build now is the same habit that will keep your later research defensible.</p>
+<p>It is worth ending where the course began. In the first week the idea was offered that instructing a machine has passed through a sequence of layers, from switches to machine code to compiled languages to interpreted languages like Python, and that an assistant is one more layer, a way of describing what you want in something close to ordinary language and having code come back. The difference, the one that has organized everything since, is that a compiler is a faithful translator and an assistant is not. A compiler always produces code that means exactly what you wrote; an assistant produces code that is merely plausible, and may mean something other than what you wanted, and cannot tell you which. That single difference is why this new layer, unlike the ones beneath it, cannot be trusted and must be verified, and it is why you had to learn what a program is, and what correct means, and how to specify and read and test, in order to use the newest layer safely. The syntax you learned this term may fade with disuse, and the assistants will keep improving, but the durable skill, the one that will still be yours when the tools have changed, is the judgment: knowing what correct means, being able to say it exactly, being able to read what you are given, and always, always checking. The machine is a powerful new way to instruct a computer. It is your job to instruct it well, and to never stop verifying what it does.</p>
+<section id="exercise" class="level4" data-number="61.0.0.1">
+<h4 data-number="61.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 61-1</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Audit your own guard. Look back through your logbook at the weeks since you were first allowed to let the assistant draft code, and count two things: how many pieces of its code you accepted after running a test you wrote yourself, and how many you accepted because they looked right. Do not adjust the second number to be flattering; the whole value of the count is that it is honest. Then say in one sentence what changed between the week you learned to distrust a draft and the week you stopped bothering, if it changed, and what you would need to put in place to stop it changing again. Automation bias does not announce itself. A count is the only way to see it.</p>
+</section>
+<section id="exercise-1" class="level4" data-number="61.0.0.2">
+<h4 data-number="61.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 61-2</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Identify one task from the course where, looking back, you should not have used the assistant, either because you could not really check its answer, or because leaning on it cost you an understanding you later needed. Say what you would do differently, and say which of the four cases in this note it falls under.</p>
+</section>
+<section id="exercise-2" class="level4" data-number="61.0.0.3">
+<h4 data-number="61.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 61-3</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Now the other direction. Identify one task where the assistant let you produce something correct that you could not have written unaided, and be specific about which part of your checking made that safe. Not “I tested it”: name the test, and name the case it covered that you would otherwise have missed. If you cannot name it, then what made the task safe was luck, and it is worth knowing that now rather than later.</p>
+</section>
+<section id="exercise-3" class="level4" data-number="61.0.0.4">
+<h4 data-number="61.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 61-4</strong></h4>
+<p>Take one biological claim the assistant makes, in an explanation, in a comment, or inside a table it writes for you, and verify it against a source outside the assistant rather than against the assistant itself. Record whether it held. Then do the thing that makes this different from every other verification you have done this term: ask the assistant whether its own claim was correct, and watch it agree with you either way. A machine that will confirm both a true statement and a false one, with the same fluency, is not a witness. That is why the source had to come from outside, and it is the last time this course will say so.</p>
+<p>For your last logbook entry, look across the whole term. Describe how your use of the assistant changed as your understanding grew, from the first weeks when it could only explain things to you, through the point where you let it draft and learned to distrust the draft, to the finale where you delegated real work and kept the responsibility. Name the single habit from this course you most want to still have in three years, and say why.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+// The margin link to the other book ("TA version of this page" in the student
+// book, "Student version of this page" in the TA one) is declared with a fixed
+// href in _quarto-default.yml and _quarto-ta.yml, because Quarto resolves
+// other-links from metadata before pandoc runs and has no way to express "this
+// page, one directory over". So point it at the current page's counterpart here.
+//
+// document.baseURI rather than location.href: pagecrypt serves the decrypted TA
+// page inside a srcdoc iframe, where location.href is "about:srcdoc" but baseURI
+// is still inherited from the real page URL.
+//
+// The root is derived from the site_libs asset every page loads, rather than
+// hard-coded, so this works in local preview, over file:// and on the published
+// site alike. On a page carrying neither link the whole thing is a no-op.
+document.addEventListener("DOMContentLoaded", function () {
+  var asset = document.querySelector('script[src*="site_libs/"], link[href*="site_libs/"]');
+  if (!asset) return;
+  var url = asset.src || asset.href;                  // absolute, resolved against baseURI
+  var root = url.slice(0, url.indexOf("site_libs/")); // absolute URL of this book's root
+  var page = document.baseURI.slice(root.length);     // this page, relative to that root
+
+  var toTa = document.querySelector('.quarto-other-links a[rel="ta-version"]');
+  if (toTa) toTa.href = root + "ta/" + page;
+
+  var toStudent = document.querySelector('.quarto-other-links a[rel="student-version"]');
+  if (toStudent) toStudent.href = root.replace(/ta\/$/, "") + page;
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../ai/learning-with-an-ai.html" class="pagination-link" aria-label="AI: Learning with an AI">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">AI: Learning with an AI</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ai/the-ai-off-test.html" class="pagination-link" aria-label="AI: The AI-off test">
+        <span class="nav-page-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: The AI-off test</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/ai/surviving-ai.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

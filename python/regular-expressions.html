@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>50&nbsp; Regular expressions – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../projects/hiv-project.html" rel="next">
+<link href="../bioinf/BLAST.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-13707dd4ad03545be511275956388411.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+</head>
+
+<body class="nav-sidebar floating slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/tests-are-the-contract.html">Week 10</a></li><li class="breadcrumb-item"><a href="../python/regular-expressions.html"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Regular expressions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes_slides_recordings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Week plan</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/course-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Course introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Terminal Howto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/getting_set_up.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Getting set up</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AI: Meet AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Notebooks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/control-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-the-object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-loops-and-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-drawing-from-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Project: Translating ORFs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Project: Primer analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-classes-debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Project: Codon usage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/modules-and-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Modules and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neurons.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neural-networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">AI: Training</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">AI: Tests are the contract</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/BLAST.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 11</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/numpy-and-pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Plotting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Project: Genome assembly</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 12</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/directing-a-resource.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">AI: Directing to resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 13</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/learning-with-an-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">AI: Learning with an AI</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 14</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/the-ai-off-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: The AI-off test</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="#dnldts23983" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMDAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIFJlZ3VsYXIgZXhwcmVzc2lvbnMgeyNzZWMtcmVndWxhci1leHByZXNzaW9uc31cbiIsCiAgICAiXG4iLAogICAgIiFbXShpbWFnZXMvdW5kZXItY29uc3RydWN0aW9uLnBuZyl7d2lkdGg9MjAlfVxuIiwKICAgICJcbiIsCiAgICAiKkEgcmVndWxhciBleHByZXNzaW9uIGlzIGEgdGlueSBwcm9ncmFtIHRoYXQgZGVzY3JpYmVzIGEgcGF0dGVybiBpbiB0ZXh0LiBUaGUgYHJlYCBtb2R1bGUgaXMgdGhlIG1hY2hpbmUgdGhhdCBydW5zIGl0LioiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMDEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJpbXBvcnQgc2FuZGJveF93aWRnZXQiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMDIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJZb3UgYWxyZWFkeSBrbm93IGhvdyB0byBsb29rIGZvciBhIHBpZWNlIG9mIHRleHQgaW5zaWRlIGEgc3RyaW5nLiBUaGUgYGluYCBvcGVyYXRvciB0ZWxscyB5b3Ugd2hldGhlciBpdCBpcyB0aGVyZSwgYC5maW5kYCB0ZWxscyB5b3Ugd2hlcmUsIGFuZCBgLmNvdW50YCB0ZWxscyB5b3UgaG93IG1hbnkgdGltZXMuIElmIHlvdSB3YW50IHRvIGtub3cgd2hldGhlciBhIEROQSBzZXF1ZW5jZSBjb250YWlucyBhIHNpdGUgZm9yIHRoZSByZXN0cmljdGlvbiBlbnp5bWUgRWNvUkksIHdoaWNoIGN1dHMgRE5BIHdoZXJldmVyIGl0IHNlZXMgYEdBQVRUQ2AsIHRoYXQgaXMgYWxsIHlvdSBuZWVkOlxuIiwKICAgICJcbiIsCiAgICAiYGBgcHl0aG9uXG4iLAogICAgIidHQUFUVEMnIGluICdDQ0dBQVRUQ0FUR0cnXG4iLAogICAgImBgYFxuIiwKICAgICJcbiIsCiAgICAiTm93IHRha2UgdGhlIGVuenltZSBIaW5mSS4gSXQgY3V0cyBhdCBgR0FOVENgLCB3aGVyZSBgTmAgbWVhbnMgKmFueSBiYXNlKi4gYCdHQU5UQycgaW4gZG5hYCB3aWxsIG5vdCBoZWxwIHlvdSwgYmVjYXVzZSBpdCBsb29rcyBmb3IgYSByZWFsIGxldHRlciBgTmAsIGFuZCB0aGVyZSBpcyBub25lIGluIHlvdXIgRE5BLiBZb3UgY291bGQgY2hlY2sgYEdBQVRDYCwgYEdBQ1RDYCwgYEdBR1RDYCBhbmQgYEdBVFRDYCBvbmUgYXQgYSB0aW1lLCBidXQgdGhhdCBnZXRzIG9sZCBmYXN0LiBUaGUgVEFUQSBib3gsIGEgc2hvcnQgc2VxdWVuY2UgZm91bmQgaW4gbWFueSBwcm9tb3RlcnMsIGhhcyB0aGUgY29uc2Vuc3VzIGBUQVRBV0FXYCwgd2hlcmUgYFdgIG1lYW5zICpBIG9yIFQqLiBUaGF0IGlzIGZvdXIgc3RyaW5ncyB0byBjaGVjay4gQW5kIGlmIHlvdSB3YW50IHRvIGZpbmQgYSBwb2x5LUEgdGFpbCwgYSBydW4gb2YgYEFgcyBvZiAqYW55KiBsZW5ndGgsIHRoZXJlIGlzIG5vIGxpc3Qgb2Ygc3RyaW5ncyB5b3UgY2FuIHdyaXRlIGRvd24gYXQgYWxsLlxuIiwKICAgICJcbiIsCiAgICAiV2hhdCB5b3UgbmVlZCBpcyBhIHdheSB0byAqZGVzY3JpYmUqIGEgcGF0dGVybiByYXRoZXIgdGhhbiBzcGVsbCBvdXQgZXZlcnkgc3RyaW5nIHRoYXQgZml0cyBpdC4gVGhhdCBpcyB3aGF0IGEgcmVndWxhciBleHByZXNzaW9uIGlzLiBJdCBpcyBhIHNtYWxsIGxhbmd1YWdlIG9mIGl0cyBvd24sIHdpdGggaXRzIG93biBncmFtbWFyLCBhbmQgaXQgZG9lcyBleGFjdGx5IG9uZSB0aGluZzogaXQgaW5zdHJ1Y3RzIGEgbGl0dGxlIG1hY2hpbmUgdG8gbG9vayBmb3IgdGV4dCB0aGF0IGZpdHMgYSBkZXNjcmlwdGlvbi4gQSBjb3Vyc2UgY2FsbGVkICpJbnN0cnVjdGluZyBNYWNoaW5lcyogY291bGQgaGFyZGx5IGxlYXZlIGl0IG91dC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMDMiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBZb3VyIGZpcnN0IHNlYXJjaCB7I3NlYy1yZS1zZWFyY2h9XG4iLAogICAgIlxuIiwKICAgICJSZWd1bGFyIGV4cHJlc3Npb25zIGxpdmUgaW4gdGhlIGByZWAgbW9kdWxlLCB3aGljaCBpcyBwYXJ0IG9mIFB5dGhvbidzIHN0YW5kYXJkIGxpYnJhcnkgKHNlZSBAc2VjLXN0YW5kYXJkLWxpYnJhcnkpLiBZb3UgZG8gbm90IG5lZWQgdG8gaW5zdGFsbCBhbnl0aGluZywgeW91IGp1c3QgaW1wb3J0IGl0LlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJSZWFkIHRoZSBjb2RlIGJlbG93IGFuZCBydW4gaXQ6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDA0IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiZG5hID0gJ0NDR0FBVFRDQVRHR0FUQ0NUVEdBQVRUQ0dHJ1xuIiwKICAgICJyZS5zZWFyY2goJ0dBQVRUQycsIGRuYSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMDUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJgcmUuc2VhcmNoYCB0YWtlcyB0d28gYXJndW1lbnRzOiB0aGUgcGF0dGVybiB5b3UgYXJlIGxvb2tpbmcgZm9yIGFuZCB0aGUgc3RyaW5nIHlvdSBhcmUgbG9va2luZyBpbi4gSXQgZm91bmQgYW4gRWNvUkkgc2l0ZSBhbmQgaGFuZGVkIHlvdSBiYWNrIGEgKm1hdGNoIG9iamVjdCouIFdoZW4gaXQgaXMgZGlzcGxheWVkLCBpdCB0ZWxscyB5b3UgdHdvIHRoaW5nczogYG1hdGNoPSdHQUFUVEMnYCBpcyB0aGUgdGV4dCBpdCBmb3VuZCwgYW5kIGBzcGFuPSgyLCA4KWAgaXMgd2hlcmUgaXQgZm91bmQgaXQuIFRoZSBzcGFuIHdvcmtzIGp1c3QgbGlrZSBhIHNsaWNlOiBgZG5hWzI6OF1gIGlzIGAnR0FBVFRDJ2AuXG4iLAogICAgIlxuIiwKICAgICJOb3RpY2UgdGhhdCB0aGUgc2VxdWVuY2UgY29udGFpbnMgKnR3byogRWNvUkkgc2l0ZXMsIGFuZCBgcmUuc2VhcmNoYCBvbmx5IHRvbGQgeW91IGFib3V0IHRoZSBmaXJzdCBvbmUuIEl0IHN0b3BzIHNlYXJjaGluZyBhcyBzb29uIGFzIGl0IGZpbmRzIHNvbWV0aGluZy4gWW91IHdpbGwgc2VlIGhvdyB0byBnZXQgYWxsIG9mIHRoZW0gaW4gQHNlYy1yZS1maW5kYWxsLlxuIiwKICAgICJcbiIsCiAgICAiQSBtYXRjaCBvYmplY3QgaXMgYW4gb2JqZWN0IGxpa2UgYW55IG90aGVyLCBhbmQgaXQgaGFzIG1ldGhvZHMuIGAuZ3JvdXAoKWAgZ2l2ZXMgeW91IHRoZSB0ZXh0IHRoYXQgbWF0Y2hlZCwgYC5zdGFydCgpYCB0aGUgaW5kZXggd2hlcmUgdGhlIG1hdGNoIGJlZ2lucyBhbmQgYC5lbmQoKWAgdGhlIGluZGV4IGp1c3QgYWZ0ZXIgaXQgZW5kcy5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiRGVjaWRlIHdoYXQgeW91IHRoaW5rIGVhY2ggb2YgdGhlIHRocmVlIGxpbmVzIHdpbGwgcHJpbnQgYmVmb3JlIHlvdSBydW4gdGhlIGNvZGUuIFRoZW4gcnVuIGl0IHRvIGNoZWNrLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTAwNiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgImRuYSA9ICdDQ0dBQVRUQ0FUR0dBVENDVFRHQUFUVENHRydcbiIsCiAgICAibWF0Y2ggPSByZS5zZWFyY2goJ0dHQVRDQycsIGRuYSlcbiIsCiAgICAicHJpbnQobWF0Y2guZ3JvdXAoKSlcbiIsCiAgICAicHJpbnQobWF0Y2guc3RhcnQoKSlcbiIsCiAgICAicHJpbnQobWF0Y2guZW5kKCkpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDA3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJUaGUgZW56eW1lIE5vdEkgY3V0cyBhdCBgR0NHR0NDR0NgLiBUaGVyZSBpcyBubyBOb3RJIHNpdGUgaW4gb3VyIHNlcXVlbmNlLiBXaGF0IGRvIHlvdSB0aGluayBgcmUuc2VhcmNoYCByZXR1cm5zIHdoZW4gaXQgZmluZHMgbm90aGluZz8gRGVjaWRlLCB0aGVuIHJ1biBpdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMDgiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJkbmEgPSAnQ0NHQUFUVENBVEdHQVRDQ1RUR0FBVFRDR0cnXG4iLAogICAgIm1hdGNoID0gcmUuc2VhcmNoKCdHQ0dHQ0NHQycsIGRuYSlcbiIsCiAgICAicHJpbnQobWF0Y2gpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDA5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiV2hlbiB0aGVyZSBpcyBubyBtYXRjaCwgYHJlLnNlYXJjaGAgcmV0dXJucyBgTm9uZWAuIFlvdSBtZXQgYE5vbmVgIGluIHRoZSBjaGFwdGVyIG9uIGZ1bmN0aW9ucywgYW5kIHlvdSBtZXQgKnRydXRoaW5lc3MqIGV2ZW4gZWFybGllcjogYSBtYXRjaCBvYmplY3QgY291bnRzIGFzIGBUcnVlYCBhbmQgYE5vbmVgIGNvdW50cyBhcyBgRmFsc2VgLiBUaGF0IGlzIG5vdCBhbiBhY2NpZGVudC4gSXQgbWVhbnMgeW91IGNhbiBwdXQgYSBzZWFyY2ggc3RyYWlnaHQgaW50byBhbiBgaWZgIHN0YXRlbWVudDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMTAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJkbmEgPSAnQ0NHQUFUVENBVEdHQVRDQ1RUR0FBVFRDR0cnXG4iLAogICAgIm1hdGNoID0gcmUuc2VhcmNoKCdHR0FUQ0MnLCBkbmEpXG4iLAogICAgImlmIG1hdGNoOlxuIiwKICAgICIgICAgcHJpbnQoJ0JhbUhJIHNpdGUgYXQgaW5kZXgnLCBtYXRjaC5zdGFydCgpKVxuIiwKICAgICJlbHNlOlxuIiwKICAgICIgICAgcHJpbnQoJ05vIEJhbUhJIHNpdGUnKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTAxMSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiV2hhdCBoYXBwZW5zIGlmIHlvdSBza2lwIHRoZSBgaWZgIGFuZCBjYWxsIGAuc3RhcnQoKWAgb24gdGhlIHJlc3VsdCBvZiBhIHNlYXJjaCB0aGF0IGZvdW5kIG5vdGhpbmc/IFByZWRpY3Qgd2hldGhlciB5b3UgZ2V0IGFuIGVycm9yLCBhbmQgaWYgc28gd2hpY2ggb25lLCBiZWZvcmUgeW91IHJ1biB0aGUgY29kZSBiZWxvdy4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMTIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJkbmEgPSAnQ0NHQUFUVENBVEdHQVRDQ1RUR0FBVFRDR0cnXG4iLAogICAgIm1hdGNoID0gcmUuc2VhcmNoKCdHQ0dHQ0NHQycsIGRuYSlcbiIsCiAgICAicHJpbnQobWF0Y2guc3RhcnQoKSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMTMiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJSZWFkIHRoZSBsYXN0IGxpbmUgb2YgdGhlIHRyYWNlYmFjayBjYXJlZnVsbHkuIGBOb25lYCBoYXMgbm8gYC5zdGFydCgpYCBtZXRob2QsIGFuZCBQeXRob24gc2F5cyBzby4gWW91IHdpbGwgc2VlIHRoaXMgZXJyb3IgYSBsb3Qgd2hlbiB5b3Ugc3RhcnQgdXNpbmcgcmVndWxhciBleHByZXNzaW9ucywgYW5kIG5vdyB5b3Uga25vdyB3aGF0IGl0IG1lYW5zOiBhIHNlYXJjaCBmb3VuZCBub3RoaW5nLCBhbmQgdGhlIGNvZGUgY2FycmllZCBvbiBhcyBpZiBpdCBoYWQuXG4iLAogICAgIlxuIiwKICAgICJTbyBmYXIsIHRoZSBwYXR0ZXJucyBoYXZlIGJlZW4gb3JkaW5hcnkgc3RyaW5ncywgYW5kIGByZS5zZWFyY2goJ0dBQVRUQycsIGRuYSlgIGRvZXMgbm90aGluZyB0aGF0IGBkbmEuZmluZCgnR0FBVFRDJylgIGNvdWxkIG5vdCBkby4gVGltZSB0byBjaGFuZ2UgdGhhdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMTQiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBDaGFyYWN0ZXJzIHdpdGggc3BlY2lhbCBwb3dlcnMgeyNzZWMtcmUtbWV0YWNoYXJhY3RlcnN9XG4iLAogICAgIlxuIiwKICAgICJNb3N0IGNoYXJhY3RlcnMgaW4gYSBwYXR0ZXJuIGp1c3QgbWF0Y2ggdGhlbXNlbHZlczogYSBgR2AgbWF0Y2hlcyBhIGBHYC4gQSBoYW5kZnVsIG9mIGNoYXJhY3RlcnMgYXJlIHNwZWNpYWwuIFRoZXkgYXJlIGNhbGxlZCAqbWV0YWNoYXJhY3RlcnMqLCBhbmQgdGhleSBhcmUgd2hhdCBtYWtlcyBhIHJlZ3VsYXIgZXhwcmVzc2lvbiBtb3JlIHRoYW4gYSBzdHJpbmcuXG4iLAogICAgIlxuIiwKICAgICJUaGUgZmlyc3Qgb25lIGlzIHRoZSBkb3QuIEEgYC5gIG1hdGNoZXMgKmFueSBzaW5nbGUgY2hhcmFjdGVyKi4gVGhhdCBpcyBleGFjdGx5IHRoZSBgTmAgaW4gdGhlIEhpbmZJIHNpdGUgYEdBTlRDYDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMTUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJyZS5zZWFyY2goJ0dBLlRDJywgJ1RUR0FDVENBQScpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDE2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJGb3IgZWFjaCBvZiB0aGUgZm91ciBzZWFyY2hlcyBiZWxvdywgZGVjaWRlIHdoZXRoZXIgaXQgZmluZHMgYSBtYXRjaCBhbmQsIGlmIGl0IGRvZXMsIHdoYXQgdGV4dCBpdCBtYXRjaGVzLiBXcml0ZSB5b3VyIGZvdXIgYW5zd2VycyBkb3duIGJlZm9yZSB5b3UgcnVuIHRoZSBjb2RlLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTAxNyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgInByaW50KHJlLnNlYXJjaCgnR0EuVEMnLCAnR0FUVENHQUdUQycpKVxuIiwKICAgICJwcmludChyZS5zZWFyY2goJ0dBLlRDJywgJ0dBVEMnKSlcbiIsCiAgICAicHJpbnQocmUuc2VhcmNoKCdHQS5UQycsICdHQS5UQycpKVxuIiwKICAgICJwcmludChyZS5zZWFyY2goJ0dBLi5DJywgJ0FBR0FBVFRDQUEnKSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMTgiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJUaGUgc2Vjb25kIG9uZSBpcyB0aGUgb25lIHBlb3BsZSBnZXQgd3Jvbmc6IHRoZSBkb3QgaGFzIHRvIG1hdGNoICpleGFjdGx5IG9uZSogY2hhcmFjdGVyLiBJdCBjYW5ub3QgbWF0Y2ggbm90aGluZy5cbiIsCiAgICAiXG4iLAogICAgIiMjIyBDaGFyYWN0ZXIgY2xhc3NlcyB7I3NlYy1yZS1jbGFzc2VzfVxuIiwKICAgICJcbiIsCiAgICAiVGhlIGRvdCBpcyBvZnRlbiB0b28gZ2VuZXJvdXMuIEluIHRoZSBUQVRBIGJveCBjb25zZW5zdXMgYFRBVEFXQVdgLCB0aGUgYFdgIGlzIG5vdCAqYW55KiBiYXNlLCBpdCBpcyAqQSBvciBUKi4gU3F1YXJlIGJyYWNrZXRzIGxldCB5b3UgbGlzdCB0aGUgY2hhcmFjdGVycyBhbGxvd2VkIGF0IGEgc2luZ2xlIHBvc2l0aW9uLiBgW0FUXWAgbWF0Y2hlcyBvbmUgY2hhcmFjdGVyIHRoYXQgaXMgZWl0aGVyIGFuIGBBYCBvciBhIGBUYC4gVGhpcyBpcyBjYWxsZWQgYSAqY2hhcmFjdGVyIGNsYXNzKjoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMTkiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJwcm9tb3RlciA9ICdHQ0dDVEFUQUFBQUdHQ0dDJ1xuIiwKICAgICJyZS5zZWFyY2goJ1RBVEFbQVRdQVtBVF0nLCBwcm9tb3RlcikiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMjAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJBIGNoYXJhY3RlciBjbGFzcyBhbHdheXMgbWF0Y2hlcyBleGFjdGx5IG9uZSBjaGFyYWN0ZXIsIGhvd2V2ZXIgbWFueSBjaGFyYWN0ZXJzIHlvdSBsaXN0IGluc2lkZSB0aGUgYnJhY2tldHMuIEEgZmV3IG1vcmUgdHJpY2tzIGdvIGluc2lkZSB0aGUgYnJhY2tldHM6XG4iLAogICAgIlxuIiwKICAgICItIGBbQS1aXWAgaXMgYSAqcmFuZ2UqOiBhbnkgdXBwZXJjYXNlIGxldHRlci4gYFswLTldYCBpcyBhbnkgZGlnaXQuXG4iLAogICAgIi0gYFteR0NdYCB3aXRoIGEgYF5gIGZpcnN0IGlzIHRoZSBvcHBvc2l0ZTogYW55IGNoYXJhY3RlciB0aGF0IGlzICpub3QqIGBHYCBvciBgQ2AuXG4iLAogICAgIlxuIiwKICAgICJTb21lIGNsYXNzZXMgYXJlIHNvIGNvbW1vbiB0aGF0IHRoZXkgaGF2ZSB0aGVpciBvd24gc2hvcnRoYW5kLiBgXFxkYCBtYXRjaGVzIGFueSBkaWdpdCwgbGlrZSBgWzAtOV1gLiBgXFxzYCBtYXRjaGVzIGFueSAqd2hpdGVzcGFjZSogKGEgc3BhY2UsIGEgdGFiIG9yIGEgbmV3bGluZSkuIGBcXHdgIG1hdGNoZXMgYW55ICp3b3JkIGNoYXJhY3Rlcio6IGEgbGV0dGVyLCBhIGRpZ2l0IG9yIGFuIHVuZGVyc2NvcmUuXG4iLAogICAgIlxuIiwKICAgICI6Ojogey5jb2x1bW4tbWFyZ2lufVxuIiwKICAgICJcbiIsCiAgICAifCBwYXR0ZXJuIHwgbWF0Y2hlcyBvbmUgfFxuIiwKICAgICJ8LS0tfC0tLXxcbiIsCiAgICAifCBgR2AgfCBgR2AgfFxuIiwKICAgICJ8IGAuYCB8IGFueSBjaGFyYWN0ZXIgfFxuIiwKICAgICJ8IGBbQVRdYCB8IGBBYCBvciBgVGAgfFxuIiwKICAgICJ8IGBbQS1aXWAgfCB1cHBlcmNhc2UgbGV0dGVyIHxcbiIsCiAgICAifCBgW15HQ11gIHwgYW55dGhpbmcgYnV0IGBHYCwgYENgIHxcbiIsCiAgICAifCBgXFxkYCB8IGRpZ2l0IHxcbiIsCiAgICAifCBgXFxzYCB8IHdoaXRlc3BhY2UgfFxuIiwKICAgICJ8IGBcXHdgIHwgbGV0dGVyLCBkaWdpdCBvciBgX2AgfFxuIiwKICAgICJcbiIsCiAgICAiOjo6XG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIlByZWRpY3Qgd2hhdCBlYWNoIGxpbmUgcHJpbnRzLCB0aGVuIHJ1biB0aGUgY29kZSB0byBjaGVjay4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMjEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJwcmludChyZS5zZWFyY2goJ1teQUNHVF0nLCAnQUNHVEFDR05BQ0dUJykpXG4iLAogICAgInByaW50KHJlLnNlYXJjaChyJ1xcZCcsICdjaHJvbW9zb21lIDcnKSlcbiIsCiAgICAicHJpbnQocmUuc2VhcmNoKHInXFxzJywgJ0ZPWFAyIGdlbmUnKSlcbiIsCiAgICAicHJpbnQocmUuc2VhcmNoKCdbR0NdW0dDXVtHQ10nLCAnQVRHQ0FUR0dDQVRUJykpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDIyIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIFdoeSB0aGUgbGl0dGxlIGByYD8geyNzZWMtcmUtcmF3LXN0cmluZ3N9XG4iLAogICAgIlxuIiwKICAgICJZb3UgcHJvYmFibHkgbm90aWNlZCB0aGF0IHRoZSBwYXR0ZXJucyB3aXRoIGEgYmFja3NsYXNoIGluIHRoZW0gd2VyZSB3cml0dGVuIGFzIGByJ1xcZCdgIGluc3RlYWQgb2YgYCdcXGQnYC4gSW4gdGhlIGNoYXB0ZXIgb24gZmlsZXMsIHlvdSBzYXcgdGhhdCBhIGJhY2tzbGFzaCBhbHJlYWR5IG1lYW5zIHNvbWV0aGluZyBpbiBhbiBvcmRpbmFyeSBQeXRob24gc3RyaW5nOiBgJ1xcbidgIGlzIGEgc2luZ2xlIG5ld2xpbmUgY2hhcmFjdGVyLCBub3QgYSBiYWNrc2xhc2ggZm9sbG93ZWQgYnkgYW4gYG5gLiBSZWd1bGFyIGV4cHJlc3Npb25zIHVzZSBiYWNrc2xhc2hlcyB0b28sIGFuZCB0aGUgdHdvIHVzZXMgZ2V0IGluIGVhY2ggb3RoZXIncyB3YXkuIFB1dHRpbmcgYW4gYHJgIGluIGZyb250IG9mIHRoZSBzdHJpbmcgbWFrZXMgaXQgYSAqcmF3IHN0cmluZyosIHdoZXJlIFB5dGhvbiBsZWF2ZXMgZXZlcnkgYmFja3NsYXNoIGFsb25lIGFuZCBwYXNzZXMgaXQgb24gdW50b3VjaGVkIHRvIHRoZSBgcmVgIG1vZHVsZS5cbiIsCiAgICAiXG4iLAogICAgIlNvbWUgcGF0dGVybnMgaGFwcGVuIHRvIHdvcmsgd2l0aG91dCB0aGUgYHJgIGFuZCBzb21lIHNpbGVudGx5IGRvIHNvbWV0aGluZyBlbHNlLCBhbmQgeW91IGRvIG5vdCB3YW50IHRvIGhhdmUgdG8gcmVtZW1iZXIgd2hpY2guIEFsd2F5cyB3cml0ZSB5b3VyIHBhdHRlcm5zIGFzIHJhdyBzdHJpbmdzLiBKdXN0IHRydXN0IG1lIG9uIHRoYXQgb25lLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIFdoZW4geW91IG1lYW4gdGhlIGRvdCBpdHNlbGYgeyNzZWMtcmUtZXNjYXBpbmd9XG4iLAogICAgIlxuIiwKICAgICJXaGF0IGlmIHlvdSB3YW50IHRvIG1hdGNoIGEgY2hhcmFjdGVyIHRoYXQgaGFwcGVucyB0byBiZSBhIG1ldGFjaGFyYWN0ZXIsIGxpa2UgYSByZWFsIGRvdD8gWW91IHB1dCBhIGJhY2tzbGFzaCBpbiBmcm9udCBvZiBpdC4gYFxcLmAgbWF0Y2hlcyBhIGRvdCBhbmQgbm90aGluZyBlbHNlLCBgXFwoYCBtYXRjaGVzIGFuIG9wZW5pbmcgcGFyZW50aGVzaXMsIGFuZCBzbyBvbi4gVGhpcyBpcyBjYWxsZWQgKmVzY2FwaW5nKiB0aGUgY2hhcmFjdGVyLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICI6Ojogey5jYWxsb3V0LWltcG9ydGFudH1cbiIsCiAgICAiIyMgU3BvdCB0aGUgYnVnXG4iLAogICAgIlRoZSBwYXR0ZXJuIGluIHRoZSBjZWxsIGJlbG93IGlzIHdyb25nIG9uIHB1cnBvc2UuIFlvdXIgam9iIGlzIHRvIGZpbmQgb3V0IGhvdy5cbiIsCiAgICAiOjo6XG4iLAogICAgIlxuIiwKICAgICJUaGUgY29kZSBiZWxvdyBpcyBzdXBwb3NlZCB0byByZXBvcnQgd2hpY2ggbGluZXMgbWVudGlvbiB0aGUgRk9YUDIgdHJhbnNjcmlwdCBgTk1fMTQ4OTAwLjRgLiBPbmx5IHRoZSBmaXJzdCBsaW5lIGRvZXMuIFRoZSB0aGlyZCBsaW5lIG1lbnRpb25zIGBOTV8xNDg5MDAxNGAsIGEgY29tcGxldGVseSBkaWZmZXJlbnQgYWNjZXNzaW9uIG51bWJlci4gUnVuIHRoZSBjb2RlIGFuZCBzZWUgdGhhdCBpdCByZXBvcnRzIHRoZSB0aGlyZCBsaW5lIGFueXdheS4gRXhwbGFpbiB3aHksIHRoZW4gZml4IHRoZSBwYXR0ZXJuIHNvIHRoYXQgb25seSB0aGUgZmlyc3QgbGluZSBtYXRjaGVzLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTAyMyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgImxpbmVzID0gWydSZWFkcyBhbGlnbmVkIHRvIE5NXzE0ODkwMC40JyxcbiIsCiAgICAiICAgICAgICAgJ1JlYWRzIGFsaWduZWQgdG8gTk1fMTQ4OTAwLjMnLFxuIiwKICAgICIgICAgICAgICAnUmVhZHMgYWxpZ25lZCB0byBOTV8xNDg5MDAxNCddXG4iLAogICAgImZvciBsaW5lIGluIGxpbmVzOlxuIiwKICAgICIgICAgcHJpbnQobGluZSwgcmUuc2VhcmNoKCdOTV8xNDg5MDAuNCcsIGxpbmUpKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTAyNCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIEhvdyBtYW55PyB7I3NlYy1yZS1xdWFudGlmaWVyc31cbiIsCiAgICAiXG4iLAogICAgIlNvIGZhciwgZXZlcnkgcGllY2Ugb2YgYSBwYXR0ZXJuIG1hdGNoZWQgZXhhY3RseSBvbmUgY2hhcmFjdGVyLiAqUXVhbnRpZmllcnMqIGNoYW5nZSB0aGF0LiBBIHF1YW50aWZpZXIgZ29lcyByaWdodCBhZnRlciB0aGUgdGhpbmcgaXQgYXBwbGllcyB0byBhbmQgc2F5cyBob3cgbWFueSB0aW1lcyBpdCBtYXkgcmVwZWF0OlxuIiwKICAgICJcbiIsCiAgICAiLSBgK2AgbWVhbnMgb25lIG9yIG1vcmUgdGltZXMsXG4iLAogICAgIi0gYCpgIG1lYW5zIHplcm8gb3IgbW9yZSB0aW1lcyxcbiIsCiAgICAiLSBgP2AgbWVhbnMgemVybyBvciBvbmUgdGltZSAoaS5lLiwgaXQgaXMgb3B0aW9uYWwpLFxuIiwKICAgICItIGB7M31gIG1lYW5zIGV4YWN0bHkgdGhyZWUgdGltZXMsIGFuZCBgezIsNX1gIG1lYW5zIGJldHdlZW4gdHdvIGFuZCBmaXZlIHRpbWVzLlxuIiwKICAgICJcbiIsCiAgICAiOjo6IHsuY29sdW1uLW1hcmdpbn1cbiIsCiAgICAiXG4iLAogICAgInwgcGF0dGVybiB8IG1lYW5zIHxcbiIsCiAgICAifC0tLXwtLS18XG4iLAogICAgInwgYEErYCB8IG9uZSBvciBtb3JlIGBBYCB8XG4iLAogICAgInwgYEEqYCB8IHplcm8gb3IgbW9yZSBgQWAgfFxuIiwKICAgICJ8IGBBP2AgfCB6ZXJvIG9yIG9uZSBgQWAgfFxuIiwKICAgICJ8IGBBezN9YCB8IGV4YWN0bHkgdGhyZWUgYEFgIHxcbiIsCiAgICAifCBgQXsyLDV9YCB8IHR3byB0byBmaXZlIGBBYCB8XG4iLAogICAgInwgYEF7NCx9YCB8IGZvdXIgb3IgbW9yZSBgQWAgfFxuIiwKICAgICJcbiIsCiAgICAiOjo6XG4iLAogICAgIlxuIiwKICAgICJIZXJlIGlzIHRoZSBwb2x5LUEgdGFpbCB0aGF0IG5vIGxpc3Qgb2Ygc3RyaW5ncyBjb3VsZCBkZXNjcmliZToiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMjUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJtcm5hID0gJ0FVR0dDQ1VBQUdDR0FBQUFBQUFBQUFBQSdcbiIsCiAgICAicmUuc2VhcmNoKCdBKycsIG1ybmEpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDI2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiSG1tLiBJdCBtYXRjaGVkIGEgc2luZ2xlIGBBYCwgdGhlIG9uZSBpbiBgQVVHR0NDYC4gVGhhdCBpcyBjb3JyZWN0LCB0aG91Z2g6IGBBK2AgbWVhbnMgKm9uZSBvciBtb3JlKiBgQWBzLCBhbmQgdGhlIHZlcnkgZmlyc3QgYEFgIGluIHRoZSBzdHJpbmcgaXMgb25lIG9yIG1vcmUgYEFgcy4gVGhlIHNlYXJjaCBhbHdheXMgcmVwb3J0cyB0aGUgbGVmdG1vc3QgcGxhY2Ugd2hlcmUgdGhlIHBhdHRlcm4gZml0cy4gSWYgeW91IHdhbnQgYSByZWFsIHRhaWwsIHNheSB3aGF0IHlvdSBtZWFuIGJ5IG9uZSwgZm9yIGluc3RhbmNlIGF0IGxlYXN0IHNpeCBgQWBzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTAyNyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgIm1ybmEgPSAnQVVHR0NDVUFBR0NHQUFBQUFBQUFBQUFBJ1xuIiwKICAgICJyZS5zZWFyY2goJ0F7Nix9JywgbXJuYSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMjgiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJXaGVuIGEgcXVhbnRpZmllciBoYXMgYSBjaG9pY2UsIGl0IHRha2VzIGFzIG1hbnkgY2hhcmFjdGVycyBhcyBpdCBjYW4uIE9uY2UgaXQgZm91bmQgc2l4IGBBYHMsIGl0IGtlcHQgZ29pbmcgYW5kIHRvb2sgYWxsIHR3ZWx2ZS4gUXVhbnRpZmllcnMgYXJlICpncmVlZHkqLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJQcmVkaWN0IGV4YWN0bHkgd2hhdCB0ZXh0IGVhY2ggc2VhcmNoIG1hdGNoZXMgYmVmb3JlIHlvdSBydW4gdGhlIGNvZGUuIFRoZSBxdWFudGlmaWVyIGFwcGxpZXMgb25seSB0byB0aGUgc2luZ2xlIGNoYXJhY3RlciByaWdodCBpbiBmcm9udCBvZiBpdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wMjkiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJwcmludChyZS5zZWFyY2goJ0NBKkcnLCAnVFRDQUFBR1RUJykpXG4iLAogICAgInByaW50KHJlLnNlYXJjaCgnQ0EqRycsICdUVENHVFQnKSlcbiIsCiAgICAicHJpbnQocmUuc2VhcmNoKCdDQStHJywgJ1RUQ0dUVCcpKVxuIiwKICAgICJwcmludChyZS5zZWFyY2goJ2NvbG91P3InLCAndGhlIGNvbG9yIG9mIHRoZSBnZWwnKSlcbiIsCiAgICAicHJpbnQocmUuc2VhcmNoKCdbQUNHVF17M30nLCAnTk5BVEdOTicpKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTAzMCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiR3JlZWQgY2FuIHN1cnByaXNlIHlvdS4gVGhlIHBhdHRlcm4gYmVsb3cgaXMgbWVhbnQgdG8gZmluZCBhIHN0cmV0Y2ggdGhhdCBzdGFydHMgd2l0aCBgQVRHYCBhbmQgZW5kcyB3aXRoIHRoZSBzdG9wIGNvZG9uIGBUQUFgLiBUaGUgc2VxdWVuY2UgY29udGFpbnMgKnR3byogYFRBQWBzLiBXaGljaCBvbmUgZG8geW91IHRoaW5rIHRoZSBtYXRjaCBlbmRzIGF0PyBEZWNpZGUsIHRoZW4gcnVuIGl0LiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTAzMSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgInJlLnNlYXJjaCgnQVRHLitUQUEnLCAnQVRHQUFBVEFBR0dHVEFBJykiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMzIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJUaGUgYC4rYCBnb2JibGVkIHVwIGFzIG11Y2ggYXMgaXQgY291bGQgYW5kIG9ubHkgZ2F2ZSBjaGFyYWN0ZXJzIGJhY2sgd2hlbiBpdCBoYWQgdG8sIHNvIHRoZSBtYXRjaCBlbmRzIGF0IHRoZSAqbGFzdCogYFRBQWAuIElmIHlvdSBwdXQgYSBgP2AgYWZ0ZXIgYSBxdWFudGlmaWVyLCBpdCBiZWNvbWVzICpsYXp5KiBhbmQgdGFrZXMgYXMgZmV3IGNoYXJhY3RlcnMgYXMgaXQgY2FuIGluc3RlYWQuIFRyeSBjaGFuZ2luZyB0aGUgcGF0dGVybiB0byBgJ0FURy4rP1RBQSdgIGFuZCBydW4gaXQgYWdhaW4uXG4iLAogICAgIlxuIiwKICAgICIoQmVmb3JlIHlvdSBnZXQgaWRlYXM6IGZpbmRpbmcgcmVhbCBvcGVuIHJlYWRpbmcgZnJhbWVzIHRha2VzIG1vcmUgdGhhbiB0aGlzLCBiZWNhdXNlIHRoZSBzdG9wIGNvZG9uIGhhcyB0byBiZSBpbiB0aGUgc2FtZSByZWFkaW5nIGZyYW1lIGFzIHRoZSBzdGFydCBjb2Rvbi4gWW91IHdpbGwgZG8gaXQgcHJvcGVybHkgaW4gdGhlIE9SRiBwcm9qZWN0LikiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wMzMiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBBbmNob3JzIHsjc2VjLXJlLWFuY2hvcnN9XG4iLAogICAgIlxuIiwKICAgICJUd28gbWV0YWNoYXJhY3RlcnMgbWF0Y2ggbm8gY2hhcmFjdGVyIGF0IGFsbC4gVGhleSBtYXRjaCBhICpwb3NpdGlvbiouIGBeYCBtYXRjaGVzIHRoZSBzdGFydCBvZiB0aGUgc3RyaW5nIGFuZCBgJGAgbWF0Y2hlcyB0aGUgZW5kLiBUb2dldGhlciB0aGV5IGxldCB5b3UgaW5zaXN0IHRoYXQgYSBwYXR0ZXJuIGRlc2NyaWJlcyB0aGUgKndob2xlKiBzdHJpbmcgYW5kIG5vdCBqdXN0IHNvbWUgcGllY2Ugb2YgaXQuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIlRoZSBwYXR0ZXJuIGBeW0FDR1RdKyRgIHJlYWRzICpmcm9tIHRoZSBzdGFydCwgb25lIG9yIG1vcmUgb2YgQSwgQywgRyBvciBULCB0aGVuIHRoZSBlbmQqLiBEZWNpZGUgd2hpY2ggb2YgdGhlIGZvdXIgc3RyaW5ncyBpdCBtYXRjaGVzIGJlZm9yZSB5b3UgcnVuIHRoZSBjb2RlLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTAzNCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgImZvciBzZXEgaW4gWydBQ0dUVEdDQScsICdBQ0dUTkdDQScsICdhY2d0JywgJyddOlxuIiwKICAgICIgICAgcHJpbnQocmVwcihzZXEpLCByZS5zZWFyY2goJ15bQUNHVF0rJCcsIHNlcSkpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDM1IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiTm90ZSB0aGF0IGBeYCBtZWFucyB0d28gZGlmZmVyZW50IHRoaW5nczogb3V0c2lkZSBzcXVhcmUgYnJhY2tldHMgaXQgaXMgKnN0YXJ0IG9mIHRoZSBzdHJpbmcqLCBhbmQgYXMgdGhlIGZpcnN0IGNoYXJhY3RlciBpbnNpZGUgdGhlbSBpdCBpcyAqbm90Ki4gU2FtZSBzeW1ib2wsIGRpZmZlcmVudCBqb2IuXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIldyaXRlIGEgZnVuY3Rpb24gYGlzX2RuYWAgdGhhdCB0YWtlcyBhIHN0cmluZyBhbmQgcmV0dXJucyBgVHJ1ZWAgaWYgaXQgY29uc2lzdHMgb25seSBvZiB0aGUgdXBwZXJjYXNlIGxldHRlcnMgYEFgLCBgQ2AsIGBHYCBhbmQgYFRgLCBhbmQgYEZhbHNlYCBvdGhlcndpc2UuIEEgZnVuY3Rpb24gdGhhdCByZXR1cm5zIGBUcnVlYCBvciBgRmFsc2VgIHNob3VsZCByZXR1cm4gZXhhY3RseSB0aG9zZSB2YWx1ZXMgYW5kIG5vdCBhIG1hdGNoIG9iamVjdCBvciBgTm9uZWAsIHNvIHlvdSBuZWVkIG9uZSBzbWFsbCBleHRyYSBzdGVwIGFmdGVyIHRoZSBzZWFyY2guIFRoZXNlIGxpbmVzIHNob3VsZCBhbGwgcHJpbnQgYFRydWVgOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTAzNiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgImBgYHB5dGhvblxuIiwKICAgICJwcmludChpc19kbmEoJ0FDR1RUR0NBJykgPT0gVHJ1ZSlcbiIsCiAgICAicHJpbnQoaXNfZG5hKCdBQ0dUTkdDQScpID09IEZhbHNlKVxuIiwKICAgICJwcmludChpc19kbmEoJ2FjZ3QnKSA9PSBGYWxzZSlcbiIsCiAgICAiYGBgIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDM3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiIyBZb3VyIGNvZGUgaGVyZSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTAzOCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIEZpbmRpbmcgYWxsIG9mIHRoZW0geyNzZWMtcmUtZmluZGFsbH1cbiIsCiAgICAiXG4iLAogICAgImByZS5zZWFyY2hgIHN0b3BzIGF0IHRoZSBmaXJzdCBtYXRjaC4gVG8gZ2V0IGV2ZXJ5IG1hdGNoLCB1c2UgYHJlLmZpbmRhbGxgLCB3aGljaCByZXR1cm5zIGEgbGlzdCBvZiB0aGUgbWF0Y2hlZCBzdHJpbmdzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTAzOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgImRuYSA9ICdUVEdBQ1RDQUFHQVRUQ0NHQUdUQ0EnXG4iLAogICAgInJlLmZpbmRhbGwoJ0dBLlRDJywgZG5hKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA0MCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlRoYXQgaXMgdGhyZWUgSGluZkkgc2l0ZXMsIGFuZCB5b3UgY2FuIHNlZSB3aGljaCBiYXNlIHNpdHMgaW4gdGhlIG1pZGRsZSBvZiBlYWNoLiBBIGxpc3Qgb2Ygc3RyaW5ncyBkb2VzIG5vdCB0ZWxsIHlvdSAqd2hlcmUqIHRoZXkgYXJlLCB0aG91Z2guIEZvciB0aGF0LCB1c2UgYHJlLmZpbmRpdGVyYC4gSXQgZ2l2ZXMgeW91IHRoZSBtYXRjaCBvYmplY3RzIG9uZSBhdCBhIHRpbWUsIHNvIGl0IHdvcmtzIHdpdGggYSBmb3ItbG9vcCBqdXN0IGxpa2UgYSBsaXN0IG9yIGEgZmlsZSBkb2VzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTA0MSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgImRuYSA9ICdUVEdBQ1RDQUFHQVRUQ0NHQUdUQ0EnXG4iLAogICAgImZvciBtYXRjaCBpbiByZS5maW5kaXRlcignR0EuVEMnLCBkbmEpOlxuIiwKICAgICIgICAgcHJpbnQobWF0Y2guZ3JvdXAoKSwgJ2F0JywgbWF0Y2guc3RhcnQoKSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wNDIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkhvdyBtYW55IHRpbWVzIGRvIHlvdSB0aGluayBgQVRBYCBvY2N1cnMgaW4gYEFUQVRBVEFgPyBDb3VudCB0aGVtIHlvdXJzZWxmIGJ5IHNsaWRpbmcgeW91ciBmaW5nZXIgYWxvbmcgdGhlIHN0cmluZy4gVGhlbiBwcmVkaWN0IHdoYXQgYHJlLmZpbmRhbGxgIHJldHVybnMsIGFuZCBydW4gdGhlIGNvZGUuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDQzIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAicmUuZmluZGFsbCgnQVRBJywgJ0FUQVRBVEEnKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA0NCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBzaG91bGQgaGF2ZSBjb3VudGVkIHRocmVlLCBhdCBpbmRleCAwLCAyIGFuZCA0LiBgcmUuZmluZGFsbGAgZm91bmQgdHdvLiBPbmNlIHRoZSByZWd1bGFyIGV4cHJlc3Npb24gbWFjaGluZSBoYXMgZm91bmQgYSBtYXRjaCwgaXQgY29udGludWVzIHNlYXJjaGluZyByaWdodCAqYWZ0ZXIqIHRoYXQgbWF0Y2gsIHNvIG1hdGNoZXMgbmV2ZXIgb3ZlcmxhcC4gVGhlIGAuY291bnRgIG1ldGhvZCBvbiBzdHJpbmdzIHdvcmtzIHRoZSBzYW1lIHdheS4gRm9yIHJlc3RyaWN0aW9uIHNpdGVzIHRoYXQgcmFyZWx5IG1hdHRlcnMsIGJ1dCBmb3Igc2hvcnQgcmVwZWF0ZWQgbW90aWZzIGl0IGNhbiBxdWlldGx5IGdpdmUgeW91IHRoZSB3cm9uZyBjb3VudC5cbiIsCiAgICAiXG4iLAogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRXhwbGFpbmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtZXhwbGFpbmVyKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJBc2sgdGhlIGFzc2lzdGFudCBob3cgdG8gbWFrZSBgcmUuZmluZGFsbGAgKG9yIGByZS5maW5kaXRlcmApIGFsc28gZmluZCBvdmVybGFwcGluZyBtYXRjaGVzLiBJdCB3aWxsIG1vc3QgbGlrZWx5IGdpdmUgeW91IGEgcGF0dGVybiBjb250YWluaW5nIHNvbWV0aGluZyB5b3UgaGF2ZSBub3Qgc2Vlbiwgc3VjaCBhcyBgKD89Li4uKWAuIERvIG5vdCBhY2NlcHQgaXQgdW50aWwgeW91IGNhbiBzYXkgaW4geW91ciBvd24gd29yZHMgd2hhdCBlYWNoIGNoYXJhY3RlciBpbiB0aGUgcGF0dGVybiBkb2VzLCBzbyBrZWVwIGFza2luZyBhYm91dCB0aGUgcGFydHMgeW91IGNhbm5vdCBleHBsYWluLiBUaGVuIGxldCB0aGUgbWFjaGluZSBzZXR0bGUgaXQ6IHJ1biB0aGUgc3VnZ2VzdGVkIGNvZGUgb24gYCdBVEFUQVRBJ2AgYW5kIG9uIGAnQUFBQUEnYCB3aXRoIHRoZSBwYXR0ZXJuIGBBQWAsIGFuZCBjb21wYXJlIGJvdGggcmVzdWx0cyB3aXRoIHRoZSBjb3VudCB5b3UgZ2V0IGJ5IHNsaWRpbmcgeW91ciBmaW5nZXIgYWxvbmcgdGhlIHN0cmluZy4gV3JpdGUgaW4geW91ciBsb2dib29rIHdoZXRoZXIgdGhlIGFzc2lzdGFudCdzIGV4cGxhbmF0aW9uIGFncmVlZCB3aXRoIHdoYXQgdGhlIGNvZGUgYWN0dWFsbHkgZGlkLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA0NSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIEdyb3VwczogcHVsbGluZyBvdXQgdGhlIHBpZWNlcyB7I3NlYy1yZS1ncm91cHN9XG4iLAogICAgIlxuIiwKICAgICJPZnRlbiB5b3UgZG8gbm90IGp1c3Qgd2FudCB0byBrbm93IHRoYXQgYSBwYXR0ZXJuIG1hdGNoZWQ7IHlvdSB3YW50IHRvIHB1bGwgcGllY2VzIG91dCBvZiB0aGUgdGV4dCBpdCBtYXRjaGVkLiBXcmFwIGEgcGllY2Ugb2YgdGhlIHBhdHRlcm4gaW4gcGFyZW50aGVzZXMsIGFuZCB0aGUgbWF0Y2ggb2JqZWN0IHJlbWVtYmVycyB3aGF0IHRoYXQgcGllY2UgbWF0Y2hlZC4gVGhlIHBhcmVudGhlc2l6ZWQgcGllY2VzIGFyZSBjYWxsZWQgKmdyb3VwcyosIGFuZCB0aGV5IGFyZSBudW1iZXJlZCBmcm9tIDEgaW4gdGhlIG9yZGVyIG9mIHRoZWlyIG9wZW5pbmcgcGFyZW50aGVzZXMuXG4iLAogICAgIlxuIiwKICAgICJHZW5vbWljIGNvb3JkaW5hdGVzIGFyZSBvZnRlbiB3cml0dGVuIGxpa2UgYGNocjc6MTE0MDg2MzI3LTExNDY5Mzc3MmA6IHRoZSBjaHJvbW9zb21lLCBhIGNvbG9uLCB0aGUgc3RhcnQgcG9zaXRpb24sIGEgZGFzaCBhbmQgdGhlIGVuZCBwb3NpdGlvbi4gSGVyZSBpcyBhIHBhdHRlcm4gdGhhdCB0YWtlcyBpdCBhcGFydDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wNDYiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJyZWdpb24gPSAnY2hyNzoxMTQwODYzMjctMTE0NjkzNzcyJ1xuIiwKICAgICJtYXRjaCA9IHJlLnNlYXJjaChyJyhcXHcrKTooXFxkKyktKFxcZCspJywgcmVnaW9uKVxuIiwKICAgICJwcmludChtYXRjaC5ncm91cCgxKSlcbiIsCiAgICAicHJpbnQobWF0Y2guZ3JvdXAoMikpXG4iLAogICAgInByaW50KG1hdGNoLmdyb3VwKDMpKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA0NyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgImBtYXRjaC5ncm91cCgpYCB3aXRoIG5vIGFyZ3VtZW50IChvciB3aXRoIGAwYCkgc3RpbGwgZ2l2ZXMgeW91IHRoZSB3aG9sZSBtYXRjaC4gYG1hdGNoLmdyb3VwcygpYCBnaXZlcyB5b3UgYWxsIHRoZSBncm91cHMgYXQgb25jZSBhcyBhIHR1cGxlLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJVc2luZyBgcmVnaW9uYCBhbmQgdGhlIHBhdHRlcm4gZnJvbSBhYm92ZSwgY29tcHV0ZSB0aGUgbGVuZ3RoIG9mIHRoZSByZWdpb24gYnkgc3VidHJhY3RpbmcgdGhlIHN0YXJ0IGZyb20gdGhlIGVuZC4gQmVmb3JlIHlvdSBydW4geW91ciBjb2RlLCBkZWNpZGUgd2hhdCB0eXBlIGBtYXRjaC5ncm91cCgyKWAgcmV0dXJucy4gSWYgeW91ciBmaXJzdCBhdHRlbXB0IGdpdmVzIHlvdSBhbiBlcnJvciwgcmVhZCBpdCwgYW5kIHJlbWVtYmVyIHdoYXQgeW91IGtub3cgYWJvdXQgY29udmVydGluZyBiZXR3ZWVuIHR5cGVzLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTA0OCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgInJlZ2lvbiA9ICdjaHI3OjExNDA4NjMyNy0xMTQ2OTM3NzInXG4iLAogICAgIm1hdGNoID0gcmUuc2VhcmNoKHInKFxcdyspOihcXGQrKS0oXFxkKyknLCByZWdpb24pXG4iLAogICAgIlxuIiwKICAgICIjIFlvdXIgY29kZSBoZXJlIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDQ5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiV2hlbiB0aGUgcGF0dGVybiBoYXMgZ3JvdXBzLCBgcmUuZmluZGFsbGAgY2hhbmdlcyB3aGF0IGl0IHJldHVybnMuIEluc3RlYWQgb2YgYSBsaXN0IG9mIHdob2xlIG1hdGNoZXMsIHlvdSBnZXQgYSBsaXN0IG9mIHR1cGxlcyB3aXRoIG9uZSBzdHJpbmcgcGVyIGdyb3VwLiBUaGF0IGZpdHMgbmljZWx5IHdpdGggdGhlIHR1cGxlIHVucGFja2luZyB5b3UgbGVhcm5lZCBpbiBAc2VjLXR1cGxlczoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wNTAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJ0ZXh0ID0gJ1JlZ2lvbnM6IGNocjc6MTE0MDg2MzI3LTExNDY5Mzc3MiwgY2hyWDoxMDAwLTIwMDAgYW5kIGNocjI6NTAwLTkwMC4nXG4iLAogICAgImZvciBjaHJvbSwgc3RhcnQsIGVuZCBpbiByZS5maW5kYWxsKHInKFxcdyspOihcXGQrKS0oXFxkKyknLCB0ZXh0KTpcbiIsCiAgICAiICAgIHByaW50KGNocm9tLCBpbnQoZW5kKSAtIGludChzdGFydCkpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDUxIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJUaGlzIGlzIHRoZSBERUZJTklUSU9OIGxpbmUgZnJvbSB0aGUgR2VuQmFuayBmaWxlIGZvciBhIEZPWFAyIHRyYW5zY3JpcHQ6XG4iLAogICAgIlxuIiwKICAgICJgYGB0eHRcbiIsCiAgICAiSG9tbyBzYXBpZW5zIGZvcmtoZWFkIGJveCBQMiAoRk9YUDIpLCB0cmFuc2NyaXB0IHZhcmlhbnQgNCwgbVJOQS5cbiIsCiAgICAiYGBgXG4iLAogICAgIlxuIiwKICAgICJXcml0ZSBhIHBhdHRlcm4gd2l0aCBvbmUgZ3JvdXAgdGhhdCBwdWxscyBvdXQgdGhlIGdlbmUgc3ltYm9sIGJldHdlZW4gdGhlIHBhcmVudGhlc2VzLCBzbyB0aGF0IGBtYXRjaC5ncm91cCgxKWAgaXMgYCdGT1hQMidgLiBQYXJlbnRoZXNlcyBhcmUgbWV0YWNoYXJhY3RlcnMsIHNvIHRoZSBvbmVzIHlvdSB3YW50IHRvICptYXRjaCogbmVlZCBlc2NhcGluZyAoc2VlIEBzZWMtcmUtZXNjYXBpbmcpIHdoaWxlIHRoZSBvbmUgeW91IHdhbnQgYXMgYSAqZ3JvdXAqIGRvZXMgbm90LiBUaGVuIGFkZCBhIHNlY29uZCBncm91cCB0aGF0IHB1bGxzIG91dCB0aGUgdmFyaWFudCBudW1iZXIuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDUyIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiZGVmaW5pdGlvbiA9ICdIb21vIHNhcGllbnMgZm9ya2hlYWQgYm94IFAyIChGT1hQMiksIHRyYW5zY3JpcHQgdmFyaWFudCA0LCBtUk5BLidcbiIsCiAgICAiXG4iLAogICAgIiMgWW91ciBjb2RlIGhlcmUiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wNTMiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBSZXBsYWNpbmcgYW5kIHNwbGl0dGluZyB7I3NlYy1yZS1zdWJ9XG4iLAogICAgIlxuIiwKICAgICJgcmUuc3ViYCBmaW5kcyBldmVyeSBtYXRjaCBvZiBhIHBhdHRlcm4gYW5kIHJlcGxhY2VzIGl0IHdpdGggc29tZXRoaW5nIGVsc2UuIEl0IHRha2VzIHRocmVlIGFyZ3VtZW50czogdGhlIHBhdHRlcm4sIHRoZSByZXBsYWNlbWVudCBhbmQgdGhlIHN0cmluZy4gVGhpcyBpcyB2ZXJ5IGhhbmR5IGZvciBjbGVhbmluZyB1cCBkYXRhLlxuIiwKICAgICJcbiIsCiAgICAiSGVyZSBhcmUgdGhlIGZpcnN0IHRocmVlIGxpbmVzIG9mIHRoZSBzZXF1ZW5jZSBwYXJ0IG9mIHRoYXQgc2FtZSBHZW5CYW5rIGZpbGUsIGV4YWN0bHkgYXMgdGhleSBhcHBlYXIgaW4gaXQuIEVhY2ggbGluZSBzdGFydHMgd2l0aCBhIG51bWJlciwgYW5kIHRoZSBiYXNlcyBjb21lIGluIGJsb2NrcyBvZiB0ZW4sIHNlcGFyYXRlZCBieSBzcGFjZXM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDU0IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiYmxvY2sgPSAnJydcbiIsCiAgICAiICAgICAgICAxIGFjYWdhY2F0Z2EgYWFnY3RhYWNjZyBhZ2dhY3R0Z2FnIGFnYWN0Y2FhYWMgdGdndGdjdHR0dCBndGN0Y3RjdGN0XG4iLAogICAgIiAgICAgICA2MSBjdGN0Z3RjdHR0IGN0Y3RjdGN0Y2EgY2FjYWNhY2FjdCBjYWNhY2FjdGNhIGNhY2FjYXRnY2EgY2FjYWNhY2FjYVxuIiwKICAgICIgICAgICAxMjEgdGFjYWNhY2FjYSBjYWFhYWF0Z2FhIGdjYWN0dGFjdHQgdGFnYWFhZ2F0dCBhdGdndGFhZ2NhIHRnY3RnZ2N0Y2FcbiIsCiAgICAiJycnXG4iLAogICAgInNlcSA9IHJlLnN1YihyJ1tcXGRcXHNdJywgJycsIGJsb2NrKS51cHBlcigpXG4iLAogICAgInByaW50KHNlcSlcbiIsCiAgICAicHJpbnQobGVuKHNlcSkpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDU1IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiVGhlIHBhdHRlcm4gYFtcXGRcXHNdYCBtYXRjaGVzIGFueSBzaW5nbGUgZGlnaXQgb3Igd2hpdGVzcGFjZSBjaGFyYWN0ZXIsIGFuZCBlYWNoIG9uZSBpcyByZXBsYWNlZCBieSB0aGUgZW1wdHkgc3RyaW5nLCBpLmUuLCBkZWxldGVkLiBUaGVuIGAudXBwZXIoKWAgbWFrZXMgaXQgbG9vayBsaWtlIHRoZSBETkEgeW91IGFyZSB1c2VkIHRvLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJMb29rIGF0IHRoZSBzZWNvbmQgbGluZSBvZiB0aGUgYmxvY2suIEl0IGNvbnRhaW5zIGEgbG9uZyBzdHJldGNoIG9mIGBDQWAgcmVwZWF0ZWQgb3ZlciBhbmQgb3Zlci4gU2hvcnQgcmVwZWF0cyBsaWtlIHRoaXMgYXJlIGNhbGxlZCAqbWljcm9zYXRlbGxpdGVzKiwgYW5kIHRoZXkgYXJlIHVzZWQgZm9yLCBhbW9uZyBvdGhlciB0aGluZ3MsIEROQSBmaW5nZXJwcmludGluZy4gQSBxdWFudGlmaWVyIGNhbiBhcHBseSB0byBhIHdob2xlIGdyb3VwOiBgKENBKStgIG1lYW5zIG9uZSBvciBtb3JlIGNvcGllcyBvZiBgQ0FgLiBTdGFydGluZyBmcm9tIHRoZSBjbGVhbmVkIGBzZXFgLCB1c2UgYHJlLmZpbmRpdGVyYCB3aXRoIHRoZSBwYXR0ZXJuIGAoQ0EpezUsfWAgdG8gcHJpbnQgZXZlcnkgcnVuIG9mIGF0IGxlYXN0IGZpdmUgYENBYCByZXBlYXRzLCB3aXRoIGl0cyBzdGFydCBwb3NpdGlvbiBhbmQgaXRzIGxlbmd0aC4gUHJlZGljdCBob3cgbWFueSBydW5zIHlvdSB3aWxsIGZpbmQgYnkgbG9va2luZyBhdCB0aGUgYmxvY2sgYmVmb3JlIHlvdSBydW4geW91ciBjb2RlLlxuIiwKICAgICJcbiIsCiAgICAiV2h5IGRpZCB5b3UgaGF2ZSB0byBjbGVhbiB0aGUgc2VxdWVuY2UgZmlyc3Q/IFdoYXQgd291bGQgYHJlLmZpbmRpdGVyYCBmaW5kIGluIHRoZSByYXcgYGJsb2NrYD9cbiIsCiAgICAiXG4iLAogICAgIkZpbmFsbHksIHRyeSBgcmUuZmluZGFsbGAgd2l0aCB0aGUgc2FtZSBwYXR0ZXJuLCBhbmQgcHJlZGljdCB3aGF0IGl0IHJldHVybnMgYmVmb3JlIHlvdSBydW4gaXQuIFJlbWVtYmVyIHdoYXQgYHJlLmZpbmRhbGxgIGRvZXMgd2hlbiB0aGUgcGF0dGVybiBjb250YWlucyBhIGdyb3VwIChAc2VjLXJlLWdyb3VwcykuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDU2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiYmxvY2sgPSAnJydcbiIsCiAgICAiICAgICAgICAxIGFjYWdhY2F0Z2EgYWFnY3RhYWNjZyBhZ2dhY3R0Z2FnIGFnYWN0Y2FhYWMgdGdndGdjdHR0dCBndGN0Y3RjdGN0XG4iLAogICAgIiAgICAgICA2MSBjdGN0Z3RjdHR0IGN0Y3RjdGN0Y2EgY2FjYWNhY2FjdCBjYWNhY2FjdGNhIGNhY2FjYXRnY2EgY2FjYWNhY2FjYVxuIiwKICAgICIgICAgICAxMjEgdGFjYWNhY2FjYSBjYWFhYWF0Z2FhIGdjYWN0dGFjdHQgdGFnYWFhZ2F0dCBhdGdndGFhZ2NhIHRnY3RnZ2N0Y2FcbiIsCiAgICAiJycnXG4iLAogICAgInNlcSA9IHJlLnN1YihyJ1tcXGRcXHNdJywgJycsIGJsb2NrKS51cHBlcigpXG4iLAogICAgIlxuIiwKICAgICIjIFlvdXIgY29kZSBoZXJlIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDU3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiYHJlLnNwbGl0YCBpcyB0aGUgcmVndWxhci1leHByZXNzaW9uIHZlcnNpb24gb2YgdGhlIHN0cmluZyBtZXRob2QgYC5zcGxpdGAuIFdoZXJlIGAuc3BsaXRgIGN1dHMgdGhlIHN0cmluZyBhdCBvbmUgZml4ZWQgc2VwYXJhdG9yLCBgcmUuc3BsaXRgIGN1dHMgaXQgd2hlcmV2ZXIgdGhlIHBhdHRlcm4gbWF0Y2hlcy4gVGhhdCBoZWxwcyB3aGVuIGEgY29sbGVhZ3VlJ3MgZ2VuZSBsaXN0IHdhcyB0eXBlZCBieSBoYW5kOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTA1OCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgImdlbmVzID0gJ0JSQ0ExLCBUUDUzO0ZPWFAyICAgTVlDLEtSQVMnXG4iLAogICAgInByaW50KGdlbmVzLnNwbGl0KCcsJykpXG4iLAogICAgInByaW50KHJlLnNwbGl0KHInWyw7XFxzXSsnLCBnZW5lcykpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDU5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgUGVlayBiZWhpbmQgdGhlIGN1cnRhaW46IGNvbXBpbGVkIHBhdHRlcm5zIHsjc2VjLXJlLWNvbXBpbGV9XG4iLAogICAgIlxuIiwKICAgICJXaGVuIHlvdSBjYWxsIGByZS5zZWFyY2hgLCB0aGUgYHJlYCBtb2R1bGUgZmlyc3QgdHJhbnNsYXRlcyB5b3VyIHBhdHRlcm4gaW50byBhbiBpbnRlcm5hbCBmb3JtIGl0IGNhbiBydW4gcXVpY2tseS4gWW91IGNhbiBkbyB0aGF0IHRyYW5zbGF0aW9uIHN0ZXAgeW91cnNlbGYgd2l0aCBgcmUuY29tcGlsZWAsIGFuZCB5b3UgZ2V0IGEgKnBhdHRlcm4gb2JqZWN0KiBiYWNrLiBMaWtlIGV2ZXJ5dGhpbmcgZWxzZSBpbiBQeXRob24sIGl0IGlzIGFuIG9iamVjdCB3aXRoIG1ldGhvZHM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDYwIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiaGluZmkgPSByZS5jb21waWxlKCdHQS5UQycpXG4iLAogICAgInByaW50KHR5cGUoaGluZmkpKVxuIiwKICAgICJwcmludChoaW5maS5maW5kYWxsKCdUVEdBQ1RDQUFHQVRUQ0NHQUdUQ0EnKSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wNjEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJgcmUuZmluZGFsbCgnR0EuVEMnLCBkbmEpYCBzYXlzICpcIkhleSBmdW5jdGlvbiwgZmluZCB0aGlzIHBhdHRlcm4gaW4gdGhpcyBzdHJpbmchXCIqLiBgaGluZmkuZmluZGFsbChkbmEpYCBzYXlzICpcIkhleSBwYXR0ZXJuLCBmaW5kIHlvdXJzZWxmIGluIHRoaXMgc3RyaW5nIVwiKi4gSXQgaXMgdGhlIHNhbWUgZnVuY3Rpb24tdmVyc3VzLW1ldGhvZCBzdG9yeSBhcyBgY2FwaXRhbGl6ZWAuIFRoZXkgZG8gZXhhY3RseSB0aGUgc2FtZSB0aGluZy4gQSBjb21waWxlZCBwYXR0ZXJuIGlzIG1vc3RseSBhIGNvbnZlbmllbmNlOiB5b3UgZ2l2ZSBpdCBhIGdvb2QgbmFtZSBvbmNlIGFuZCByZXVzZSBpdCBpbiBtYW55IHBsYWNlcy4gQW5kIGBwcmludCh0eXBlKC4uLikpYCBzaG93cyB5b3UgdGhhdCB0aGUgbWF0Y2ggb2JqZWN0cyB5b3UgaGF2ZSBiZWVuIHVzaW5nIGFsbCBhbG9uZyBhcmUgb2JqZWN0cyBvZiB0aGUgY2xhc3MgYHJlLk1hdGNoYC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wNjIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBXaGVuIG5vdCB0byB1c2UgdGhlbSB7I3NlYy1yZS13aGVuLW5vdH1cbiIsCiAgICAiXG4iLAogICAgIlRoZXJlIGlzIGFuIG9sZCBwcm9ncmFtbWVyIGpva2U6ICpcIlNvbWUgcGVvcGxlLCB3aGVuIGNvbmZyb250ZWQgd2l0aCBhIHByb2JsZW0sIHRoaW5rICdJIGtub3csIEknbGwgdXNlIHJlZ3VsYXIgZXhwcmVzc2lvbnMuJyBOb3cgdGhleSBoYXZlIHR3byBwcm9ibGVtcy5cIiogUmVndWxhciBleHByZXNzaW9ucyBhcmUgZGVuc2UuIEEgcGF0dGVybiB0aGF0IHRvb2sgeW91IHRlbiBtaW51dGVzIHRvIHdyaXRlIGNhbiB0YWtlIHlvdSB0d2VudHkgdG8gcmVhZCBhIG1vbnRoIGxhdGVyLCBhbmQgZXZlcnkgY2hhcmFjdGVyIGluIGl0IG1hdHRlcnMuIFNvIGhlcmUgaXMgYSBydWxlIG9mIHRodW1iLiBJZiB5b3UgYXJlIGxvb2tpbmcgZm9yIGV4YWN0IHRleHQsIHVzZSBgaW5gLCBgLmZpbmRgLCBgLmNvdW50YCwgYC5zdGFydHN3aXRoYCBvciBgLnNwbGl0YC4gVGhleSBzYXkgd2hhdCB0aGV5IGRvLCBhbmQgbm9ib2R5IG5lZWRzIHRvIGRlY29kZSB0aGVtLiBSZWFjaCBmb3IgYHJlYCB3aGVuIHRoZSB0aGluZyB5b3UgYXJlIGxvb2tpbmcgZm9yIGlzIGEgKnBhdHRlcm4qOiBhbHRlcm5hdGl2ZSBsZXR0ZXJzIGF0IGEgcG9zaXRpb24sIHJlcGVhdHMgb2YgdW5rbm93biBsZW5ndGgsIG9yIHBpZWNlcyB5b3Ugd2FudCB0byBwdWxsIG91dCBvZiBhIGxpbmUuXG4iLAogICAgIlxuIiwKICAgICI6Ojogey5jYWxsb3V0LXRpcH1cbiIsCiAgICAiUmVndWxhciBleHByZXNzaW9ucyBjb3VsZCBzaG9ydGN1dCBwYXJ0cyBvZiB0aGUgdXBjb21pbmcgT1JGIHByb2plY3QuIFNvbHZlIHRoZSBwcm9qZWN0IHdpdGggdGhlIGxvb3BzIGFuZCBzbGljaW5nIGl0IGFza3MgZm9yLiBUaGUgcHJvamVjdCBpcyBhYm91dCBkZWNvbXBvc2luZyBhIHByb2JsZW0gaW50byBmdW5jdGlvbnMsIGFuZCBhIG9uZS1saW5lIHBhdHRlcm4gdGhhdCB5b3UgY2Fubm90IGRlYnVnIHRlYWNoZXMgeW91IG5vdGhpbmcgYWJvdXQgdGhhdC5cbiIsCiAgICAiOjo6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDYzIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgUmVndWxhciBleHByZXNzaW9ucyBhbmQgdGhlIGFzc2lzdGFudCB7I3NlYy1yZS1haX1cbiIsCiAgICAiXG4iLAogICAgIlJlZ3VsYXIgZXhwcmVzc2lvbnMgYXJlIG9uZSBvZiB0aGUgdGhpbmdzIEFJIGFzc2lzdGFudHMgYXJlIGJlc3QgYXQgd3JpdGluZyBhbmQgb25lIG9mIHRoZSB0aGluZ3MgcGVvcGxlIGFyZSB3b3JzdCBhdCByZWFkaW5nLiBUaGF0IGlzIGFuIHVuY29tZm9ydGFibGUgY29tYmluYXRpb24uIEEgcGF0dGVybiBsb29rcyB0aGUgc2FtZSB3aGV0aGVyIGl0IGlzIHJpZ2h0IG9yIHdyb25nLCBzbyB0aGUgb25seSB3YXkgdG8ga25vdyBpcyB0byB0ZXN0IGl0IG9uIHN0cmluZ3MgZm9yIHdoaWNoICp5b3UqIGRlY2lkZWQgdGhlIGFuc3dlciBiZWZvcmVoYW5kLlxuIiwKICAgICJcbiIsCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkhlcmUgaXMgYSBwYXR0ZXJuIG9mIHRoZSBraW5kIHlvdSB3aWxsIGZpbmQgaW4gb3RoZXIgcGVvcGxlJ3MgY29kZSBmb3IgcmVhZGluZyBGQVNUQSBmaWxlczpcbiIsCiAgICAiXG4iLAogICAgImBgYHB5dGhvblxuIiwKICAgICJyJ14+KFxcUyspXFxzKyguKikkJ1xuIiwKICAgICJgYGBcbiIsCiAgICAiXG4iLAogICAgIkdpdmUgdGhlIGFzc2lzdGFudCB0aGlzIHBhdHRlcm4gYW5kIG5vdGhpbmcgZWxzZSwgYW5kIGFzayBpdCB0byB0cmFuc2xhdGUgaXQgaW50byBFbmdsaXNoIG9uZSBwaWVjZSBhdCBhIHRpbWUuIFRoZW4sIHdpdGggdGhlIGFzc2lzdGFudCBjbG9zZWQsIHdyaXRlIGRvd24gdGhyZWUgaGVhZGVyIGxpbmVzIHlvdSBwcmVkaWN0IGl0IG1hdGNoZXMgYW5kIHR3byB5b3UgcHJlZGljdCBpdCBkb2VzIG5vdCwgYW5kIGZvciB0aGUgb25lcyB0aGF0IG1hdGNoLCB3aGF0IHlvdSBleHBlY3QgaW4gZ3JvdXAgMSBhbmQgZ3JvdXAgMi4gUnVuIHRoZW0gdGhyb3VnaCBgcmUuc2VhcmNoYCBhbmQgY29tcGFyZS4gWW91ciBwcmVkaWN0aW9ucyBzZXR0bGUgaXQsIG5vdCB0aGUgZXhwbGFuYXRpb246IGlmIGEgcmVzdWx0IHN1cnByaXNlcyB5b3UsIGZpbmQgdGhlIHBpZWNlIG9mIHRoZSB0cmFuc2xhdGlvbiB0aGF0IG1pc2xlZCB5b3Ugb3IgdGhhdCB5b3UgbWlzcmVhZC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wNjQiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICJwYXR0ZXJuID0gcidePihcXFMrKVxccysoLiopJCdcbiIsCiAgICAiZm9yIGhlYWRlciBpbiBbJz5OTV8xNDg5MDAuNCBIb21vIHNhcGllbnMgZm9ya2hlYWQgYm94IFAyJyxcbiIsCiAgICAiICAgICAgICAgICAgICAgIyB5b3VyIHRlc3QgaGVhZGVycyBoZXJlXG4iLAogICAgIiAgICAgICAgICAgICAgXTpcbiIsCiAgICAiICAgIG1hdGNoID0gcmUuc2VhcmNoKHBhdHRlcm4sIGhlYWRlcilcbiIsCiAgICAiICAgIGlmIG1hdGNoOlxuIiwKICAgICIgICAgICAgIHByaW50KHJlcHIoaGVhZGVyKSwgJy0+JywgbWF0Y2guZ3JvdXBzKCkpXG4iLAogICAgIiAgICBlbHNlOlxuIiwKICAgICIgICAgICAgIHByaW50KHJlcHIoaGVhZGVyKSwgJy0+IG5vIG1hdGNoJykiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wNjUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbQUk6IENvbXBhcmVyXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2UtY29tcGFyZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkFzayB0aGUgYXNzaXN0YW50IGZvciB0d28gdmVyc2lvbnMgb2YgdGhlIGBpc19kbmFgIGZ1bmN0aW9uIGZyb20gQHNlYy1yZS1hbmNob3JzOiBvbmUgdGhhdCB1c2VzIGByZWAgYW5kIG9uZSB0aGF0IHVzZXMgbm8gcmVndWxhciBleHByZXNzaW9uIGF0IGFsbC4gQmVmb3JlIHlvdSBydW4gZWl0aGVyIG9mIHRoZW0sIGRlY2lkZSB3aGF0IGVhY2ggb25lIHJldHVybnMgZm9yIGAnJ2AsIHRoZSBlbXB0eSBzdHJpbmcsIGFuZCB3aGV0aGVyIHRoZSB0d28gdmVyc2lvbnMgYWdyZWUuIFRoZW4gcnVuIGJvdGggb24gYCdBQ0dUJ2AsIGAnQUNHTidgLCBgJ2FjZ3QnYCBhbmQgYCcnYC4gTWFueSByZWFzb25hYmxlIHZlcnNpb25zIGRpc2FncmVlIG9uIHRoZSBlbXB0eSBzdHJpbmcsIGFuZCBuZWl0aGVyIGlzIHdyb25nIHVudGlsIHlvdSBkZWNpZGUgd2hldGhlciBhbiBlbXB0eSBzdHJpbmcgaXMgRE5BLiBXcml0ZSBkb3duIHdoaWNoIHZlcnNpb24geW91IHdvdWxkIHJhdGhlciByZWFkIGluIHNpeCBtb250aHMsIGFuZCB3aGF0IHlvdSB0aGluayB0aGUgZW1wdHkgc3RyaW5nIHNob3VsZCBnaXZlLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA2NiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltBSTogRHJhZnRlcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWRyYWZ0ZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIlJlc3RyaWN0aW9uIHNpdGVzIGFyZSB1c3VhbGx5IHdyaXR0ZW4gaW4gSVVQQUMgY29kZSwgd2hlcmUgYE5gIGlzIGFueSBiYXNlLCBgV2AgaXMgQSBvciBULCBgU2AgaXMgRyBvciBDLCBgUmAgaXMgQSBvciBHIGFuZCBgWWAgaXMgQyBvciBULiBZb3Ugd2FudCBhIGZ1bmN0aW9uIGBmaW5kX3NpdGVzKHNlcSwgc2l0ZSlgIHRoYXQgdGFrZXMgYSBETkEgc2VxdWVuY2UgYW5kIGFuIElVUEFDIHNpdGUgc3VjaCBhcyBgJ0dBTlRDJ2AsIGFuZCByZXR1cm5zIGEgbGlzdCBvZiB0aGUgc3RhcnQgcG9zaXRpb25zIG9mIGV2ZXJ5IG1hdGNoLiBUbyBkbyB0aGF0LCBpdCBtdXN0IHRyYW5zbGF0ZSB0aGUgc2l0ZSBpbnRvIGEgcmVndWxhciBleHByZXNzaW9uLCBgJ0dBTlRDJ2AgaW50byBgJ0dBW0FDR1RdVEMnYCBhbmQgc28gb24uXG4iLAogICAgIlxuIiwKICAgICJEbyBpdCBpbiB0aGUgRHJhZnRlciBvcmRlci4gRmlyc3QsIHdpdGggdGhlIGFzc2lzdGFudCBjbG9zZWQsIGZpbmlzaCB0aGUgdGVzdHMgYmVsb3c6IHdvcmsgb3V0IGJ5IGhhbmQgdGhlIHJpZ2h0IGFuc3dlciBmb3IgZWFjaCBvbmUgYW5kIGFkZCBhdCBsZWFzdCB0d28gbW9yZSwgaW5jbHVkaW5nIG9uZSB3aXRoIGBXYCBvciBgU2AgYW5kIG9uZSB3aGVyZSB0aGVyZSBpcyBubyBtYXRjaCBhdCBhbGwuIFRoZW4gZ2l2ZSB0aGUgYXNzaXN0YW50IHRoZSBuYW1lLCB0aGUgYXJndW1lbnRzLCB0aGUgcmV0dXJuIHZhbHVlIGFuZCB0aGUgSVVQQUMgdGFibGUsIGJ1dCBub3QgeW91ciB0ZXN0cywgYW5kIGFzayBmb3IgYSBkcmFmdC4gUmVhZCBldmVyeSBsaW5lLCBhbmQgYXNrIGFib3V0IGFueSBsaW5lIHlvdSBjYW5ub3QgZXhwbGFpbi4gUGFzdGUgdGhlIGRyYWZ0IGFib3ZlIHRoZSB0ZXN0cyBhbmQgcnVuIHRoZSBjZWxsLiBUaGUgdGVzdHMgZGVjaWRlIHdoZXRoZXIgdGhlIGRyYWZ0IGlzIHJpZ2h0LCBub3QgaG93IGNvbnZpbmNpbmcgaXQgbG9va3MuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDY3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiIyBQYXN0ZSB0aGUgZHJhZnQgaGVyZVxuIiwKICAgICJcbiIsCiAgICAiXG4iLAogICAgImFzc2VydCBmaW5kX3NpdGVzKCdHQUFUQ0dBQ1RDJywgJ0dBTlRDJykgPT0gWzAsIDVdXG4iLAogICAgImFzc2VydCBmaW5kX3NpdGVzKCdUVEdBQVRUQ0FBJywgJ0dBQVRUQycpID09IFsyXVxuIiwKICAgICIjIFlvdXIgdGVzdHMgaGVyZVxuIiwKICAgICJcbiIsCiAgICAicHJpbnQoJ0FsbCB0ZXN0cyBwYXNzZWQnKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA2OCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIEdlbmVyYWwgZXhlcmNpc2VzXG4iLAogICAgIlxuIiwKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIldoYXQgZG9lcyBgcmUuZmluZGFsbCgnW0FDR1RdezN9JywgJ0FUR0dDQ1RBQScpYCByZXR1cm4/IERlY2lkZSwgdGhlbiBydW4gaXQuIENhbiB5b3UgdGhpbmsgb2YgYSB1c2UgZm9yIGl0PyIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogInJlLTA2OSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIiUlc2FuZGJveFxuIiwKICAgICJpbXBvcnQgcmVcbiIsCiAgICAiXG4iLAogICAgInJlLmZpbmRhbGwoJ1tBQ0dUXXszfScsICdBVEdHQ0NUQUEnKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA3MCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiV3JpdGUgYSBmdW5jdGlvbiBgaXNfcHJvdGVpbmAgdGhhdCByZXR1cm5zIGBUcnVlYCBpZiBhIHN0cmluZyBjb25zaXN0cyBvbmx5IG9mIHRoZSBvbmUtbGV0dGVyIGNvZGVzIGZvciB0aGUgdHdlbnR5IHN0YW5kYXJkIGFtaW5vIGFjaWRzIChgQUNERUZHSElLTE1OUFFSU1RWV1lgKSBhbmQgYEZhbHNlYCBvdGhlcndpc2UuIFdoaWNoIG9mIHRoZXNlIGRvIHlvdSBleHBlY3QgdG8gYmUgcHJvdGVpbnM6IGAnTUtUQVlJQUsnYCwgYCdNS1RYWUlBSydgLCBgJ0FDR1QnYD8gRGVjaWRlIGJlZm9yZSB5b3UgdGVzdCB5b3VyIGZ1bmN0aW9uIG9uIHRoZW0uIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDcxIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiIyBZb3VyIGNvZGUgaGVyZSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA3MiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiR0MtcmljaCBzdHJldGNoZXMgY2FuIG1ha2UgUENSIHByaW1lcnMgc3RpY2sgaW4gdGhlIHdyb25nIHBsYWNlcy4gV3JpdGUgYSBmdW5jdGlvbiBgZ2NfcnVuc2AgdGhhdCB0YWtlcyBhIEROQSBzZXF1ZW5jZSBhbmQgcmV0dXJucyBhIGxpc3Qgb2YgZXZlcnkgcnVuIG9mIGF0IGxlYXN0IGZvdXIgYmFzZXMgdGhhdCBhcmUgYWxsIGBHYCBvciBgQ2AuIEZvciBgJ0FUR0NHQ0NBVFRBR0dHQ0FUQUdDQSdgIGl0IHNob3VsZCByZXR1cm4gYFsnR0NHQ0MnLCAnR0dHQyddYC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJyZS0wNzMiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICIlJXNhbmRib3hcbiIsCiAgICAiaW1wb3J0IHJlXG4iLAogICAgIlxuIiwKICAgICIjIFlvdXIgY29kZSBoZXJlIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAicmUtMDc0IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJXcml0ZSBhIGZ1bmN0aW9uIGBwYXJzZV9oZWFkZXJzYCB0aGF0IHRha2VzIGEgbGlzdCBvZiBGQVNUQSBoZWFkZXIgbGluZXMgbGlrZSB0aGUgb25lcyBiZWxvdyBhbmQgcmV0dXJucyBhIGRpY3Rpb25hcnkgdGhhdCBtYXBzIGVhY2ggYWNjZXNzaW9uICh0aGUgdGV4dCBiZXR3ZWVuIGA+YCBhbmQgdGhlIGZpcnN0IHNwYWNlKSB0byB0aGUgcmVzdCBvZiB0aGUgbGluZS4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJyZS0wNzUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJgYGBweXRob25cbiIsCiAgICAiaGVhZGVycyA9IFsnPk5NXzE0ODkwMC40IEhvbW8gc2FwaWVucyBmb3JraGVhZCBib3ggUDIgKEZPWFAyKSwgdHJhbnNjcmlwdCB2YXJpYW50IDQsIG1STkEnLFxuIiwKICAgICIgICAgICAgICAgICc+Tk1fMDAwNTQ2LjYgSG9tbyBzYXBpZW5zIHR1bW9yIHByb3RlaW4gcDUzIChUUDUzKSwgdHJhbnNjcmlwdCB2YXJpYW50IDEsIG1STkEnLFxuIiwKICAgICIgICAgICAgICAgICc+TkNfMDAwOTEzLjMgRXNjaGVyaWNoaWEgY29saSBzdHIuIEstMTIgc3Vic3RyLiBNRzE2NTUsIGNvbXBsZXRlIGdlbm9tZSddXG4iLAogICAgImBgYCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA3NiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIkZvciB0aGUgaGVhZGVycyBhYm92ZSwgYHBhcnNlX2hlYWRlcnMoaGVhZGVycylbJ05NXzAwMDU0Ni42J11gIHNob3VsZCBiZSBgJ0hvbW8gc2FwaWVucyB0dW1vciBwcm90ZWluIHA1MyAoVFA1MyksIHRyYW5zY3JpcHQgdmFyaWFudCAxLCBtUk5BJ2AuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDc3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiIyBZb3VyIGNvZGUgaGVyZSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogInJlLTA3OCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiQ2hhbmdlIHlvdXIgYHBhcnNlX2hlYWRlcnNgIHNvIHRoYXQgdGhlIGRpY3Rpb25hcnkgbWFwcyBlYWNoIGFjY2Vzc2lvbiB0byB0aGUgZ2VuZSBzeW1ib2wgaW4gcGFyZW50aGVzZXMgaW5zdGVhZCwgYW5kIHRvIGBOb25lYCBpZiB0aGUgaGVhZGVyIGhhcyBubyBnZW5lIHN5bWJvbC4gV2hpY2ggb2YgdGhlIHRocmVlIGhlYWRlcnMgYWJvdmUgZ2l2ZXMgYE5vbmVgPyBEZWNpZGUgYmVmb3JlIHlvdSBydW4gaXQuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAicmUtMDc5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiJSVzYW5kYm94XG4iLAogICAgImltcG9ydCByZVxuIiwKICAgICJcbiIsCiAgICAiIyBZb3VyIGNvZGUgaGVyZSIKICAgXQogIH0KIF0sCiAibWV0YWRhdGEiOiB7CiAgImtlcm5lbHNwZWMiOiB7CiAgICJkaXNwbGF5X25hbWUiOiAiSW5zdHJ1Y3RpbmcgTWFjaGluZXMiLAogICAibGFuZ3VhZ2UiOiAicHl0aG9uIiwKICAgIm5hbWUiOiAiaW5zdHJ1Y3RpbmctbWFjaGluZXMiCiAgfSwKICAibGFuZ3VhZ2VfaW5mbyI6IHsKICAgImNvZGVtaXJyb3JfbW9kZSI6IHsKICAgICJuYW1lIjogImlweXRob24iLAogICAgInZlcnNpb24iOiAzCiAgIH0sCiAgICJmaWxlX2V4dGVuc2lvbiI6ICIucHkiLAogICAibWltZXR5cGUiOiAidGV4dC94LXB5dGhvbiIsCiAgICJuYW1lIjogInB5dGhvbiIsCiAgICJuYmNvbnZlcnRfZXhwb3J0ZXIiOiAicHl0aG9uIiwKICAgInB5Z21lbnRzX2xleGVyIjogImlweXRob24zIgogIH0KIH0sCiAibmJmb3JtYXQiOiA0LAogIm5iZm9ybWF0X21pbm9yIjogNQp9Cg==').then(res => res.blob()).then(blob => {
+    const downloadURL = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = downloadURL;
+    a.download = 'regular-expressions.ipynb'; a.click();
+    window.URL.revokeObjectURL(downloadURL);
+    document.body.removeChild(a);
+      });"><button class="btn btn-light downloadthis  " id="dnldts23983"><i class="bi bi-download"></i> Download notebook </button></a> </p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-re-search" id="toc-sec-re-search" class="nav-link active" data-scroll-target="#sec-re-search">Your first search</a></li>
+  <li><a href="#sec-re-metacharacters" id="toc-sec-re-metacharacters" class="nav-link" data-scroll-target="#sec-re-metacharacters">Characters with special powers</a>
+  <ul class="collapse">
+  <li><a href="#sec-re-classes" id="toc-sec-re-classes" class="nav-link" data-scroll-target="#sec-re-classes">Character classes</a></li>
+  <li><a href="#sec-re-raw-strings" id="toc-sec-re-raw-strings" class="nav-link" data-scroll-target="#sec-re-raw-strings">Why the little <code>r</code>?</a></li>
+  <li><a href="#sec-re-escaping" id="toc-sec-re-escaping" class="nav-link" data-scroll-target="#sec-re-escaping">When you mean the dot itself</a></li>
+  </ul></li>
+  <li><a href="#sec-re-quantifiers" id="toc-sec-re-quantifiers" class="nav-link" data-scroll-target="#sec-re-quantifiers">How many?</a></li>
+  <li><a href="#sec-re-anchors" id="toc-sec-re-anchors" class="nav-link" data-scroll-target="#sec-re-anchors">Anchors</a></li>
+  <li><a href="#sec-re-findall" id="toc-sec-re-findall" class="nav-link" data-scroll-target="#sec-re-findall">Finding all of them</a></li>
+  <li><a href="#sec-re-groups" id="toc-sec-re-groups" class="nav-link" data-scroll-target="#sec-re-groups">Groups: pulling out the pieces</a></li>
+  <li><a href="#sec-re-sub" id="toc-sec-re-sub" class="nav-link" data-scroll-target="#sec-re-sub">Replacing and splitting</a></li>
+  <li><a href="#sec-re-compile" id="toc-sec-re-compile" class="nav-link" data-scroll-target="#sec-re-compile">Peek behind the curtain: compiled patterns</a></li>
+  <li><a href="#sec-re-when-not" id="toc-sec-re-when-not" class="nav-link" data-scroll-target="#sec-re-when-not">When not to use them</a></li>
+  <li><a href="#sec-re-ai" id="toc-sec-re-ai" class="nav-link" data-scroll-target="#sec-re-ai">Regular expressions and the assistant</a></li>
+  <li><a href="#general-exercises" id="toc-general-exercises" class="nav-link" data-scroll-target="#general-exercises">General exercises</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/python/regular-expressions.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/tests-are-the-contract.html">Week 10</a></li><li class="breadcrumb-item"><a href="../python/regular-expressions.html"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Regular expressions</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-regular-expressions" class="quarto-section-identifier"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="images/under-construction.png" class="img-fluid" style="width:20.0%"></p>
+<p><em>A regular expression is a tiny program that describes a pattern in text. The <code>re</code> module is the machine that runs it.</em></p>
+<div id="re-001" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sandbox_widget</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You already know how to look for a piece of text inside a string. The <code>in</code> operator tells you whether it is there, <code>.find</code> tells you where, and <code>.count</code> tells you how many times. If you want to know whether a DNA sequence contains a site for the restriction enzyme EcoRI, which cuts DNA wherever it sees <code>GAATTC</code>, that is all you need:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">'GAATTC'</span> <span class="kw">in</span> <span class="st">'CCGAATTCATGG'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now take the enzyme HinfI. It cuts at <code>GANTC</code>, where <code>N</code> means <em>any base</em>. <code>'GANTC' in dna</code> will not help you, because it looks for a real letter <code>N</code>, and there is none in your DNA. You could check <code>GAATC</code>, <code>GACTC</code>, <code>GAGTC</code> and <code>GATTC</code> one at a time, but that gets old fast. The TATA box, a short sequence found in many promoters, has the consensus <code>TATAWAW</code>, where <code>W</code> means <em>A or T</em>. That is four strings to check. And if you want to find a poly-A tail, a run of <code>A</code>s of <em>any</em> length, there is no list of strings you can write down at all.</p>
+<p>What you need is a way to <em>describe</em> a pattern rather than spell out every string that fits it. That is what a regular expression is. It is a small language of its own, with its own grammar, and it does exactly one thing: it instructs a little machine to look for text that fits a description. A course called <em>Instructing Machines</em> could hardly leave it out.</p>
+<section id="sec-re-search" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-search">Your first search</h2>
+<p>Regular expressions live in the <code>re</code> module, which is part of Python’s standard library (see <span class="quarto-unresolved-ref">?sec-standard-library</span>). You do not need to install anything, you just import it.</p>
+<section id="exercise" class="level4" data-number="50.0.0.1">
+<h4 data-number="50.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 50-1</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Read the code below and run it:</p>
+<div id="re-004" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'CCGAATTCATGGATCCTTGAATTCGG'</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>re.search(<span class="st">'GAATTC'</span>, dna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>re.search</code> takes two arguments: the pattern you are looking for and the string you are looking in. It found an EcoRI site and handed you back a <em>match object</em>. When it is displayed, it tells you two things: <code>match='GAATTC'</code> is the text it found, and <code>span=(2, 8)</code> is where it found it. The span works just like a slice: <code>dna[2:8]</code> is <code>'GAATTC'</code>.</p>
+<p>Notice that the sequence contains <em>two</em> EcoRI sites, and <code>re.search</code> only told you about the first one. It stops searching as soon as it finds something. You will see how to get all of them in <span class="quarto-unresolved-ref">?sec-re-findall</span>.</p>
+<p>A match object is an object like any other, and it has methods. <code>.group()</code> gives you the text that matched, <code>.start()</code> the index where the match begins and <code>.end()</code> the index just after it ends.</p>
+</section>
+<section id="exercise-1" class="level4" data-number="50.0.0.2">
+<h4 data-number="50.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 50-2</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Decide what you think each of the three lines will print before you run the code. Then run it to check.</p>
+<div id="re-006" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'CCGAATTCATGGATCCTTGAATTCGG'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(<span class="st">'GGATCC'</span>, dna)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match.group())</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match.start())</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match.end())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-2" class="level4" data-number="50.0.0.3">
+<h4 data-number="50.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 50-3</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>The enzyme NotI cuts at <code>GCGGCCGC</code>. There is no NotI site in our sequence. What do you think <code>re.search</code> returns when it finds nothing? Decide, then run it.</p>
+<div id="re-008" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'CCGAATTCATGGATCCTTGAATTCGG'</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(<span class="st">'GCGGCCGC'</span>, dna)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>When there is no match, <code>re.search</code> returns <code>None</code>. You met <code>None</code> in the chapter on functions, and you met <em>truthiness</em> even earlier: a match object counts as <code>True</code> and <code>None</code> counts as <code>False</code>. That is not an accident. It means you can put a search straight into an <code>if</code> statement:</p>
+<div id="re-010" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'CCGAATTCATGGATCCTTGAATTCGG'</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(<span class="st">'GGATCC'</span>, dna)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> match:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'BamHI site at index'</span>, match.start())</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No BamHI site'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-3" class="level4" data-number="50.0.0.4">
+<h4 data-number="50.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 50-4</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>What happens if you skip the <code>if</code> and call <code>.start()</code> on the result of a search that found nothing? Predict whether you get an error, and if so which one, before you run the code below.</p>
+<div id="re-012" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'CCGAATTCATGGATCCTTGAATTCGG'</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(<span class="st">'GCGGCCGC'</span>, dna)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match.start())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Read the last line of the traceback carefully. <code>None</code> has no <code>.start()</code> method, and Python says so. You will see this error a lot when you start using regular expressions, and now you know what it means: a search found nothing, and the code carried on as if it had.</p>
+<p>So far, the patterns have been ordinary strings, and <code>re.search('GAATTC', dna)</code> does nothing that <code>dna.find('GAATTC')</code> could not do. Time to change that.</p>
+</section>
+</section>
+<section id="sec-re-metacharacters" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-metacharacters">Characters with special powers</h2>
+<p>Most characters in a pattern just match themselves: a <code>G</code> matches a <code>G</code>. A handful of characters are special. They are called <em>metacharacters</em>, and they are what makes a regular expression more than a string.</p>
+<p>The first one is the dot. A <code>.</code> matches <em>any single character</em>. That is exactly the <code>N</code> in the HinfI site <code>GANTC</code>:</p>
+<div id="re-015" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>re.search(<span class="st">'GA.TC'</span>, <span class="st">'TTGACTCAA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="exercise-4" class="level4" data-number="50.0.0.5">
+<h4 data-number="50.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 50-5</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>For each of the four searches below, decide whether it finds a match and, if it does, what text it matches. Write your four answers down before you run the code.</p>
+<div id="re-017" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'GA.TC'</span>, <span class="st">'GATTCGAGTC'</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'GA.TC'</span>, <span class="st">'GATC'</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'GA.TC'</span>, <span class="st">'GA.TC'</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'GA..C'</span>, <span class="st">'AAGAATTCAA'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The second one is the one people get wrong: the dot has to match <em>exactly one</em> character. It cannot match nothing.</p>
+</section>
+<section id="sec-re-classes" class="level3 unnumbered page-columns page-full">
+<h3 class="unnumbered anchored" data-anchor-id="sec-re-classes">Character classes</h3>
+<p>The dot is often too generous. In the TATA box consensus <code>TATAWAW</code>, the <code>W</code> is not <em>any</em> base, it is <em>A or T</em>. Square brackets let you list the characters allowed at a single position. <code>[AT]</code> matches one character that is either an <code>A</code> or a <code>T</code>. This is called a <em>character class</em>:</p>
+<div id="re-019" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>promoter <span class="op">=</span> <span class="st">'GCGCTATAAAAGGCGC'</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>re.search(<span class="st">'TATA[AT]A[AT]'</span>, promoter)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A character class always matches exactly one character, however many characters you list inside the brackets. A few more tricks go inside the brackets:</p>
+<ul>
+<li><code>[A-Z]</code> is a <em>range</em>: any uppercase letter. <code>[0-9]</code> is any digit.</li>
+<li><code>[^GC]</code> with a <code>^</code> first is the opposite: any character that is <em>not</em> <code>G</code> or <code>C</code>.</li>
+</ul>
+<p>Some classes are so common that they have their own shorthand. <code>\d</code> matches any digit, like <code>[0-9]</code>. <code>\s</code> matches any <em>whitespace</em> (a space, a tab or a newline). <code>\w</code> matches any <em>word character</em>: a letter, a digit or an underscore.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>pattern</th>
+<th>matches one</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>G</code></td>
+<td><code>G</code></td>
+</tr>
+<tr class="even">
+<td><code>.</code></td>
+<td>any character</td>
+</tr>
+<tr class="odd">
+<td><code>[AT]</code></td>
+<td><code>A</code> or <code>T</code></td>
+</tr>
+<tr class="even">
+<td><code>[A-Z]</code></td>
+<td>uppercase letter</td>
+</tr>
+<tr class="odd">
+<td><code>[^GC]</code></td>
+<td>anything but <code>G</code>, <code>C</code></td>
+</tr>
+<tr class="even">
+<td><code>\d</code></td>
+<td>digit</td>
+</tr>
+<tr class="odd">
+<td><code>\s</code></td>
+<td>whitespace</td>
+</tr>
+<tr class="even">
+<td><code>\w</code></td>
+<td>letter, digit or <code>_</code></td>
+</tr>
+</tbody>
+</table>
+</div></div><section id="exercise-5" class="level4" data-number="50.0.0.6">
+<h4 data-number="50.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 50-6</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Predict what each line prints, then run the code to check.</p>
+<div id="re-021" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'[^ACGT]'</span>, <span class="st">'ACGTACGNACGT'</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="vs">r'</span><span class="dv">\d</span><span class="vs">'</span>, <span class="st">'chromosome 7'</span>))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="vs">r'</span><span class="dv">\s</span><span class="vs">'</span>, <span class="st">'FOXP2 gene'</span>))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'[GC][GC][GC]'</span>, <span class="st">'ATGCATGGCATT'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="sec-re-raw-strings" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-re-raw-strings">Why the little <code>r</code>?</h3>
+<p>You probably noticed that the patterns with a backslash in them were written as <code>r'\d'</code> instead of <code>'\d'</code>. In the chapter on files, you saw that a backslash already means something in an ordinary Python string: <code>'\n'</code> is a single newline character, not a backslash followed by an <code>n</code>. Regular expressions use backslashes too, and the two uses get in each other’s way. Putting an <code>r</code> in front of the string makes it a <em>raw string</em>, where Python leaves every backslash alone and passes it on untouched to the <code>re</code> module.</p>
+<p>Some patterns happen to work without the <code>r</code> and some silently do something else, and you do not want to have to remember which. Always write your patterns as raw strings. Just trust me on that one.</p>
+</section>
+<section id="sec-re-escaping" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-re-escaping">When you mean the dot itself</h3>
+<p>What if you want to match a character that happens to be a metacharacter, like a real dot? You put a backslash in front of it. <code>\.</code> matches a dot and nothing else, <code>\(</code> matches an opening parenthesis, and so on. This is called <em>escaping</em> the character.</p>
+<section id="exercise-6" class="level4" data-number="50.0.0.7">
+<h4 data-number="50.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 50-7</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Spot the bug
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The pattern in the cell below is wrong on purpose. Your job is to find out how.</p>
+</div>
+</div>
+<p>The code below is supposed to report which lines mention the FOXP2 transcript <code>NM_148900.4</code>. Only the first line does. The third line mentions <code>NM_14890014</code>, a completely different accession number. Run the code and see that it reports the third line anyway. Explain why, then fix the pattern so that only the first line matches.</p>
+<div id="re-023" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> [<span class="st">'Reads aligned to NM_148900.4'</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Reads aligned to NM_148900.3'</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Reads aligned to NM_14890014'</span>]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> lines:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(line, re.search(<span class="st">'NM_148900.4'</span>, line))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-re-quantifiers" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-quantifiers">How many?</h2>
+<p>So far, every piece of a pattern matched exactly one character. <em>Quantifiers</em> change that. A quantifier goes right after the thing it applies to and says how many times it may repeat:</p>
+<ul>
+<li><code>+</code> means one or more times,</li>
+<li><code>*</code> means zero or more times,</li>
+<li><code>?</code> means zero or one time (i.e., it is optional),</li>
+<li><code>{3}</code> means exactly three times, and <code>{2,5}</code> means between two and five times.</li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>pattern</th>
+<th>means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>A+</code></td>
+<td>one or more <code>A</code></td>
+</tr>
+<tr class="even">
+<td><code>A*</code></td>
+<td>zero or more <code>A</code></td>
+</tr>
+<tr class="odd">
+<td><code>A?</code></td>
+<td>zero or one <code>A</code></td>
+</tr>
+<tr class="even">
+<td><code>A{3}</code></td>
+<td>exactly three <code>A</code></td>
+</tr>
+<tr class="odd">
+<td><code>A{2,5}</code></td>
+<td>two to five <code>A</code></td>
+</tr>
+<tr class="even">
+<td><code>A{4,}</code></td>
+<td>four or more <code>A</code></td>
+</tr>
+</tbody>
+</table>
+</div></div><p>Here is the poly-A tail that no list of strings could describe:</p>
+<div id="re-025" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mrna <span class="op">=</span> <span class="st">'AUGGCCUAAGCGAAAAAAAAAAAA'</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>re.search(<span class="st">'A+'</span>, mrna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Hmm. It matched a single <code>A</code>, the one in <code>AUGGCC</code>. That is correct, though: <code>A+</code> means <em>one or more</em> <code>A</code>s, and the very first <code>A</code> in the string is one or more <code>A</code>s. The search always reports the leftmost place where the pattern fits. If you want a real tail, say what you mean by one, for instance at least six <code>A</code>s:</p>
+<div id="re-027" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>mrna <span class="op">=</span> <span class="st">'AUGGCCUAAGCGAAAAAAAAAAAA'</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>re.search(<span class="st">'A{6,}'</span>, mrna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>When a quantifier has a choice, it takes as many characters as it can. Once it found six <code>A</code>s, it kept going and took all twelve. Quantifiers are <em>greedy</em>.</p>
+<section id="exercise-7" class="level4" data-number="50.0.0.8">
+<h4 data-number="50.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 50-8</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Predict exactly what text each search matches before you run the code. The quantifier applies only to the single character right in front of it.</p>
+<div id="re-029" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'CA*G'</span>, <span class="st">'TTCAAAGTT'</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'CA*G'</span>, <span class="st">'TTCGTT'</span>))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'CA+G'</span>, <span class="st">'TTCGTT'</span>))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'colou?r'</span>, <span class="st">'the color of the gel'</span>))</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(<span class="st">'[ACGT]</span><span class="sc">{3}</span><span class="st">'</span>, <span class="st">'NNATGNN'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-8" class="level4" data-number="50.0.0.9">
+<h4 data-number="50.0.0.9" class="anchored" data-anchor-id="exercise-8"><strong>Exercise 50-9</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Greed can surprise you. The pattern below is meant to find a stretch that starts with <code>ATG</code> and ends with the stop codon <code>TAA</code>. The sequence contains <em>two</em> <code>TAA</code>s. Which one do you think the match ends at? Decide, then run it.</p>
+<div id="re-031" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>re.search(<span class="st">'ATG.+TAA'</span>, <span class="st">'ATGAAATAAGGGTAA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>.+</code> gobbled up as much as it could and only gave characters back when it had to, so the match ends at the <em>last</em> <code>TAA</code>. If you put a <code>?</code> after a quantifier, it becomes <em>lazy</em> and takes as few characters as it can instead. Try changing the pattern to <code>'ATG.+?TAA'</code> and run it again.</p>
+<p>(Before you get ideas: finding real open reading frames takes more than this, because the stop codon has to be in the same reading frame as the start codon. You will do it properly in the ORF project.)</p>
+</section>
+</section>
+<section id="sec-re-anchors" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-anchors">Anchors</h2>
+<p>Two metacharacters match no character at all. They match a <em>position</em>. <code>^</code> matches the start of the string and <code>$</code> matches the end. Together they let you insist that a pattern describes the <em>whole</em> string and not just some piece of it.</p>
+<section id="exercise-9" class="level4" data-number="50.0.0.10">
+<h4 data-number="50.0.0.10" class="anchored" data-anchor-id="exercise-9"><strong>Exercise 50-10</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>The pattern <code>^[ACGT]+$</code> reads <em>from the start, one or more of A, C, G or T, then the end</em>. Decide which of the four strings it matches before you run the code.</p>
+<div id="re-034" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seq <span class="kw">in</span> [<span class="st">'ACGTTGCA'</span>, <span class="st">'ACGTNGCA'</span>, <span class="st">'acgt'</span>, <span class="st">''</span>]:</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">repr</span>(seq), re.search(<span class="st">'^[ACGT]+$'</span>, seq))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note that <code>^</code> means two different things: outside square brackets it is <em>start of the string</em>, and as the first character inside them it is <em>not</em>. Same symbol, different job.</p>
+</section>
+<section id="exercise-10" class="level4" data-number="50.0.0.11">
+<h4 data-number="50.0.0.11" class="anchored" data-anchor-id="exercise-10"><strong>Exercise 50-11</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Write a function <code>is_dna</code> that takes a string and returns <code>True</code> if it consists only of the uppercase letters <code>A</code>, <code>C</code>, <code>G</code> and <code>T</code>, and <code>False</code> otherwise. A function that returns <code>True</code> or <code>False</code> should return exactly those values and not a match object or <code>None</code>, so you need one small extra step after the search. These lines should all print <code>True</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_dna(<span class="st">'ACGTTGCA'</span>) <span class="op">==</span> <span class="va">True</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_dna(<span class="st">'ACGTNGCA'</span>) <span class="op">==</span> <span class="va">False</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_dna(<span class="st">'acgt'</span>) <span class="op">==</span> <span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="re-037" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="sec-re-findall" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-findall">Finding all of them</h2>
+<p><code>re.search</code> stops at the first match. To get every match, use <code>re.findall</code>, which returns a list of the matched strings:</p>
+<div id="re-039" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'TTGACTCAAGATTCCGAGTCA'</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>re.findall(<span class="st">'GA.TC'</span>, dna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>That is three HinfI sites, and you can see which base sits in the middle of each. A list of strings does not tell you <em>where</em> they are, though. For that, use <code>re.finditer</code>. It gives you the match objects one at a time, so it works with a for-loop just like a list or a file does:</p>
+<div id="re-041" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>dna <span class="op">=</span> <span class="st">'TTGACTCAAGATTCCGAGTCA'</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> match <span class="kw">in</span> re.finditer(<span class="st">'GA.TC'</span>, dna):</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(), <span class="st">'at'</span>, match.start())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="exercise-11" class="level4" data-number="50.0.0.12">
+<h4 data-number="50.0.0.12" class="anchored" data-anchor-id="exercise-11"><strong>Exercise 50-12</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>How many times do you think <code>ATA</code> occurs in <code>ATATATA</code>? Count them yourself by sliding your finger along the string. Then predict what <code>re.findall</code> returns, and run the code.</p>
+<div id="re-043" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>re.findall(<span class="st">'ATA'</span>, <span class="st">'ATATATA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You should have counted three, at index 0, 2 and 4. <code>re.findall</code> found two. Once the regular expression machine has found a match, it continues searching right <em>after</em> that match, so matches never overlap. The <code>.count</code> method on strings works the same way. For restriction sites that rarely matters, but for short repeated motifs it can quietly give you the wrong count.</p>
+</section>
+<section id="exercise-12" class="level4" data-number="50.0.0.13">
+<h4 data-number="50.0.0.13" class="anchored" data-anchor-id="exercise-12"><strong>Exercise 50-13</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
+<p>Ask the assistant how to make <code>re.findall</code> (or <code>re.finditer</code>) also find overlapping matches. It will most likely give you a pattern containing something you have not seen, such as <code>(?=...)</code>. Do not accept it until you can say in your own words what each character in the pattern does, so keep asking about the parts you cannot explain. Then let the machine settle it: run the suggested code on <code>'ATATATA'</code> and on <code>'AAAAA'</code> with the pattern <code>AA</code>, and compare both results with the count you get by sliding your finger along the string. Write in your logbook whether the assistant’s explanation agreed with what the code actually did.</p>
+</section>
+</section>
+<section id="sec-re-groups" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-groups">Groups: pulling out the pieces</h2>
+<p>Often you do not just want to know that a pattern matched; you want to pull pieces out of the text it matched. Wrap a piece of the pattern in parentheses, and the match object remembers what that piece matched. The parenthesized pieces are called <em>groups</em>, and they are numbered from 1 in the order of their opening parentheses.</p>
+<p>Genomic coordinates are often written like <code>chr7:114086327-114693772</code>: the chromosome, a colon, the start position, a dash and the end position. Here is a pattern that takes it apart:</p>
+<div id="re-046" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> <span class="st">'chr7:114086327-114693772'</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\w</span><span class="op">+</span><span class="kw">)</span><span class="vs">:</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">-</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>, region)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match.group(<span class="dv">1</span>))</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match.group(<span class="dv">2</span>))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match.group(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>match.group()</code> with no argument (or with <code>0</code>) still gives you the whole match. <code>match.groups()</code> gives you all the groups at once as a tuple.</p>
+<section id="exercise-13" class="level4" data-number="50.0.0.14">
+<h4 data-number="50.0.0.14" class="anchored" data-anchor-id="exercise-13"><strong>Exercise 50-14</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Using <code>region</code> and the pattern from above, compute the length of the region by subtracting the start from the end. Before you run your code, decide what type <code>match.group(2)</code> returns. If your first attempt gives you an error, read it, and remember what you know about converting between types.</p>
+<div id="re-048" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> <span class="st">'chr7:114086327-114693772'</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\w</span><span class="op">+</span><span class="kw">)</span><span class="vs">:</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">-</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>, region)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>When the pattern has groups, <code>re.findall</code> changes what it returns. Instead of a list of whole matches, you get a list of tuples with one string per group. That fits nicely with the tuple unpacking you learned in <a href="tuples.html" class="quarto-xref"><span>Chapter 22</span></a>:</p>
+<div id="re-050" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">'Regions: chr7:114086327-114693772, chrX:1000-2000 and chr2:500-900.'</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chrom, start, end <span class="kw">in</span> re.findall(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\w</span><span class="op">+</span><span class="kw">)</span><span class="vs">:</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">-</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>, text):</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(chrom, <span class="bu">int</span>(end) <span class="op">-</span> <span class="bu">int</span>(start))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-14" class="level4" data-number="50.0.0.15">
+<h4 data-number="50.0.0.15" class="anchored" data-anchor-id="exercise-14"><strong>Exercise 50-15</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>This is the DEFINITION line from the GenBank file for a FOXP2 transcript:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Homo sapiens forkhead box P2 (FOXP2), transcript variant 4, mRNA.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Write a pattern with one group that pulls out the gene symbol between the parentheses, so that <code>match.group(1)</code> is <code>'FOXP2'</code>. Parentheses are metacharacters, so the ones you want to <em>match</em> need escaping (see <span class="quarto-unresolved-ref">?sec-re-escaping</span>) while the one you want as a <em>group</em> does not. Then add a second group that pulls out the variant number.</p>
+<div id="re-052" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>definition <span class="op">=</span> <span class="st">'Homo sapiens forkhead box P2 (FOXP2), transcript variant 4, mRNA.'</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="sec-re-sub" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-sub">Replacing and splitting</h2>
+<p><code>re.sub</code> finds every match of a pattern and replaces it with something else. It takes three arguments: the pattern, the replacement and the string. This is very handy for cleaning up data.</p>
+<p>Here are the first three lines of the sequence part of that same GenBank file, exactly as they appear in it. Each line starts with a number, and the bases come in blocks of ten, separated by spaces:</p>
+<div id="re-054" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>block <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">        1 acagacatga aagctaaccg aggacttgag agactcaaac tggtgctttt gtctctctct</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">       61 ctctgtcttt ctctctctca cacacacact cacacactca cacacatgca cacacacaca</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">      121 tacacacaca caaaaatgaa gcacttactt tagaaagatt atggtaagca tgctggctca</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>seq <span class="op">=</span> re.sub(<span class="vs">r'</span><span class="pp">[</span><span class="dv">\d\s</span><span class="pp">]</span><span class="vs">'</span>, <span class="st">''</span>, block).upper()</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seq)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(seq))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The pattern <code>[\d\s]</code> matches any single digit or whitespace character, and each one is replaced by the empty string, i.e., deleted. Then <code>.upper()</code> makes it look like the DNA you are used to.</p>
+<section id="exercise-15" class="level4" data-number="50.0.0.16">
+<h4 data-number="50.0.0.16" class="anchored" data-anchor-id="exercise-15"><strong>Exercise 50-16</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Look at the second line of the block. It contains a long stretch of <code>CA</code> repeated over and over. Short repeats like this are called <em>microsatellites</em>, and they are used for, among other things, DNA fingerprinting. A quantifier can apply to a whole group: <code>(CA)+</code> means one or more copies of <code>CA</code>. Starting from the cleaned <code>seq</code>, use <code>re.finditer</code> with the pattern <code>(CA){5,}</code> to print every run of at least five <code>CA</code> repeats, with its start position and its length. Predict how many runs you will find by looking at the block before you run your code.</p>
+<p>Why did you have to clean the sequence first? What would <code>re.finditer</code> find in the raw <code>block</code>?</p>
+<p>Finally, try <code>re.findall</code> with the same pattern, and predict what it returns before you run it. Remember what <code>re.findall</code> does when the pattern contains a group (<span class="quarto-unresolved-ref">?sec-re-groups</span>).</p>
+<div id="re-056" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>block <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">        1 acagacatga aagctaaccg aggacttgag agactcaaac tggtgctttt gtctctctct</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="st">       61 ctctgtcttt ctctctctca cacacacact cacacactca cacacatgca cacacacaca</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="st">      121 tacacacaca caaaaatgaa gcacttactt tagaaagatt atggtaagca tgctggctca</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>seq <span class="op">=</span> re.sub(<span class="vs">r'</span><span class="pp">[</span><span class="dv">\d\s</span><span class="pp">]</span><span class="vs">'</span>, <span class="st">''</span>, block).upper()</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>re.split</code> is the regular-expression version of the string method <code>.split</code>. Where <code>.split</code> cuts the string at one fixed separator, <code>re.split</code> cuts it wherever the pattern matches. That helps when a colleague’s gene list was typed by hand:</p>
+<div id="re-058" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>genes <span class="op">=</span> <span class="st">'BRCA1, TP53;FOXP2   MYC,KRAS'</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(genes.split(<span class="st">','</span>))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.split(<span class="vs">r'</span><span class="pp">[,;</span><span class="dv">\s</span><span class="pp">]</span><span class="op">+</span><span class="vs">'</span>, genes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="sec-re-compile" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-compile">Peek behind the curtain: compiled patterns</h2>
+<p>When you call <code>re.search</code>, the <code>re</code> module first translates your pattern into an internal form it can run quickly. You can do that translation step yourself with <code>re.compile</code>, and you get a <em>pattern object</em> back. Like everything else in Python, it is an object with methods:</p>
+<div id="re-060" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>hinfi <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">'GA.TC'</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(hinfi))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hinfi.findall(<span class="st">'TTGACTCAAGATTCCGAGTCA'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>re.findall('GA.TC', dna)</code> says <em>“Hey function, find this pattern in this string!”</em>. <code>hinfi.findall(dna)</code> says <em>“Hey pattern, find yourself in this string!”</em>. It is the same function-versus-method story as <code>capitalize</code>. They do exactly the same thing. A compiled pattern is mostly a convenience: you give it a good name once and reuse it in many places. And <code>print(type(...))</code> shows you that the match objects you have been using all along are objects of the class <code>re.Match</code>.</p>
+</section>
+<section id="sec-re-when-not" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-when-not">When not to use them</h2>
+<p>There is an old programmer joke: <em>“Some people, when confronted with a problem, think ‘I know, I’ll use regular expressions.’ Now they have two problems.”</em> Regular expressions are dense. A pattern that took you ten minutes to write can take you twenty to read a month later, and every character in it matters. So here is a rule of thumb. If you are looking for exact text, use <code>in</code>, <code>.find</code>, <code>.count</code>, <code>.startswith</code> or <code>.split</code>. They say what they do, and nobody needs to decode them. Reach for <code>re</code> when the thing you are looking for is a <em>pattern</em>: alternative letters at a position, repeats of unknown length, or pieces you want to pull out of a line.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Regular expressions could shortcut parts of the upcoming ORF project. Solve the project with the loops and slicing it asks for. The project is about decomposing a problem into functions, and a one-line pattern that you cannot debug teaches you nothing about that.</p>
+</div>
+</div>
+</section>
+<section id="sec-re-ai" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-re-ai">Regular expressions and the assistant</h2>
+<p>Regular expressions are one of the things AI assistants are best at writing and one of the things people are worst at reading. That is an uncomfortable combination. A pattern looks the same whether it is right or wrong, so the only way to know is to test it on strings for which <em>you</em> decided the answer beforehand.</p>
+<section id="exercise-16" class="level4" data-number="50.0.0.17">
+<h4 data-number="50.0.0.17" class="anchored" data-anchor-id="exercise-16"><strong>Exercise 50-17</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
+<p>Here is a pattern of the kind you will find in other people’s code for reading FASTA files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">r'^&gt;(</span><span class="er">\</span><span class="co">S+)</span><span class="er">\</span><span class="co">s+(.*)$'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Give the assistant this pattern and nothing else, and ask it to translate it into English one piece at a time. Then, with the assistant closed, write down three header lines you predict it matches and two you predict it does not, and for the ones that match, what you expect in group 1 and group 2. Run them through <code>re.search</code> and compare. Your predictions settle it, not the explanation: if a result surprises you, find the piece of the translation that misled you or that you misread.</p>
+<div id="re-064" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r'</span><span class="dv">^</span><span class="vs">&gt;</span><span class="kw">(</span><span class="dv">\S</span><span class="op">+</span><span class="kw">)</span><span class="dv">\s</span><span class="op">+</span><span class="kw">(</span><span class="dv">.</span><span class="op">*</span><span class="kw">)</span><span class="dv">$</span><span class="vs">'</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> header <span class="kw">in</span> [<span class="st">'&gt;NM_148900.4 Homo sapiens forkhead box P2'</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>               <span class="co"># your test headers here</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>              ]:</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    match <span class="op">=</span> re.search(pattern, header)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> match:</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">repr</span>(header), <span class="st">'-&gt;'</span>, match.groups())</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">repr</span>(header), <span class="st">'-&gt; no match'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-17" class="level4" data-number="50.0.0.18">
+<h4 data-number="50.0.0.18" class="anchored" data-anchor-id="exercise-17"><strong>Exercise 50-18</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-comparer" class="small">AI: Comparer</a></p>
+<p>Ask the assistant for two versions of the <code>is_dna</code> function from <span class="quarto-unresolved-ref">?sec-re-anchors</span>: one that uses <code>re</code> and one that uses no regular expression at all. Before you run either of them, decide what each one returns for <code>''</code>, the empty string, and whether the two versions agree. Then run both on <code>'ACGT'</code>, <code>'ACGN'</code>, <code>'acgt'</code> and <code>''</code>. Many reasonable versions disagree on the empty string, and neither is wrong until you decide whether an empty string is DNA. Write down which version you would rather read in six months, and what you think the empty string should give.</p>
+</section>
+<section id="exercise-18" class="level4" data-number="50.0.0.19">
+<h4 data-number="50.0.0.19" class="anchored" data-anchor-id="exercise-18"><strong>Exercise 50-19</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-drafter" class="small">AI: Drafter</a></p>
+<p>Restriction sites are usually written in IUPAC code, where <code>N</code> is any base, <code>W</code> is A or T, <code>S</code> is G or C, <code>R</code> is A or G and <code>Y</code> is C or T. You want a function <code>find_sites(seq, site)</code> that takes a DNA sequence and an IUPAC site such as <code>'GANTC'</code>, and returns a list of the start positions of every match. To do that, it must translate the site into a regular expression, <code>'GANTC'</code> into <code>'GA[ACGT]TC'</code> and so on.</p>
+<p>Do it in the Drafter order. First, with the assistant closed, finish the tests below: work out by hand the right answer for each one and add at least two more, including one with <code>W</code> or <code>S</code> and one where there is no match at all. Then give the assistant the name, the arguments, the return value and the IUPAC table, but not your tests, and ask for a draft. Read every line, and ask about any line you cannot explain. Paste the draft above the tests and run the cell. The tests decide whether the draft is right, not how convincing it looks.</p>
+<div id="re-067" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Paste the draft here</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> find_sites(<span class="st">'GAATCGACTC'</span>, <span class="st">'GANTC'</span>) <span class="op">==</span> [<span class="dv">0</span>, <span class="dv">5</span>]</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> find_sites(<span class="st">'TTGAATTCAA'</span>, <span class="st">'GAATTC'</span>) <span class="op">==</span> [<span class="dv">2</span>]</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Your tests here</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'All tests passed'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="general-exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="general-exercises">General exercises</h2>
+<section id="exercise-19" class="level4" data-number="50.0.0.20">
+<h4 data-number="50.0.0.20" class="anchored" data-anchor-id="exercise-19"><strong>Exercise 50-20</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>What does <code>re.findall('[ACGT]{3}', 'ATGGCCTAA')</code> return? Decide, then run it. Can you think of a use for it?</p>
+<div id="re-069" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>re.findall(<span class="st">'[ACGT]</span><span class="sc">{3}</span><span class="st">'</span>, <span class="st">'ATGGCCTAA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-20" class="level4" data-number="50.0.0.21">
+<h4 data-number="50.0.0.21" class="anchored" data-anchor-id="exercise-20"><strong>Exercise 50-21</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Write a function <code>is_protein</code> that returns <code>True</code> if a string consists only of the one-letter codes for the twenty standard amino acids (<code>ACDEFGHIKLMNPQRSTVWY</code>) and <code>False</code> otherwise. Which of these do you expect to be proteins: <code>'MKTAYIAK'</code>, <code>'MKTXYIAK'</code>, <code>'ACGT'</code>? Decide before you test your function on them.</p>
+<div id="re-071" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-21" class="level4" data-number="50.0.0.22">
+<h4 data-number="50.0.0.22" class="anchored" data-anchor-id="exercise-21"><strong>Exercise 50-22</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>GC-rich stretches can make PCR primers stick in the wrong places. Write a function <code>gc_runs</code> that takes a DNA sequence and returns a list of every run of at least four bases that are all <code>G</code> or <code>C</code>. For <code>'ATGCGCCATTAGGGCATAGCA'</code> it should return <code>['GCGCC', 'GGGC']</code>.</p>
+<div id="re-073" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-22" class="level4" data-number="50.0.0.23">
+<h4 data-number="50.0.0.23" class="anchored" data-anchor-id="exercise-22"><strong>Exercise 50-23</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Write a function <code>parse_headers</code> that takes a list of FASTA header lines like the ones below and returns a dictionary that maps each accession (the text between <code>&gt;</code> and the first space) to the rest of the line.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> [<span class="st">'&gt;NM_148900.4 Homo sapiens forkhead box P2 (FOXP2), transcript variant 4, mRNA'</span>,</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">'&gt;NM_000546.6 Homo sapiens tumor protein p53 (TP53), transcript variant 1, mRNA'</span>,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">'&gt;NC_000913.3 Escherichia coli str. K-12 substr. MG1655, complete genome'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For the headers above, <code>parse_headers(headers)['NM_000546.6']</code> should be <code>'Homo sapiens tumor protein p53 (TP53), transcript variant 1, mRNA'</code>.</p>
+<div id="re-077" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercise-23" class="level4" data-number="50.0.0.24">
+<h4 data-number="50.0.0.24" class="anchored" data-anchor-id="exercise-23"><strong>Exercise 50-24</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Change your <code>parse_headers</code> so that the dictionary maps each accession to the gene symbol in parentheses instead, and to <code>None</code> if the header has no gene symbol. Which of the three headers above gives <code>None</code>? Decide before you run it.</p>
+<div id="re-079" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>sandbox</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+// The margin link to the other book ("TA version of this page" in the student
+// book, "Student version of this page" in the TA one) is declared with a fixed
+// href in _quarto-default.yml and _quarto-ta.yml, because Quarto resolves
+// other-links from metadata before pandoc runs and has no way to express "this
+// page, one directory over". So point it at the current page's counterpart here.
+//
+// document.baseURI rather than location.href: pagecrypt serves the decrypted TA
+// page inside a srcdoc iframe, where location.href is "about:srcdoc" but baseURI
+// is still inherited from the real page URL.
+//
+// The root is derived from the site_libs asset every page loads, rather than
+// hard-coded, so this works in local preview, over file:// and on the published
+// site alike. On a page carrying neither link the whole thing is a no-op.
+document.addEventListener("DOMContentLoaded", function () {
+  var asset = document.querySelector('script[src*="site_libs/"], link[href*="site_libs/"]');
+  if (!asset) return;
+  var url = asset.src || asset.href;                  // absolute, resolved against baseURI
+  var root = url.slice(0, url.indexOf("site_libs/")); // absolute URL of this book's root
+  var page = document.baseURI.slice(root.length);     // this page, relative to that root
+
+  var toTa = document.querySelector('.quarto-other-links a[rel="ta-version"]');
+  if (toTa) toTa.href = root + "ta/" + page;
+
+  var toStudent = document.querySelector('.quarto-other-links a[rel="student-version"]');
+  if (toStudent) toStudent.href = root.replace(/ta\/$/, "") + page;
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../bioinf/BLAST.html" class="pagination-link" aria-label="BLAST">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">BLAST</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../projects/hiv-project.html" class="pagination-link" aria-label="Project: HIV sub-groups">
+        <span class="nav-page-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/python/regular-expressions.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
