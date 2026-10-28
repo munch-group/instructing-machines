@@ -6,8 +6,6 @@ execute:
   enabled: true
 ---
 
-![](images/under-construction.png){width=20%}
-
 In the last two chapters you set every weight and threshold yourself. You moved a slider, watched what happened, and moved it again until the network did what you wanted. That works for a network with ten parameters. It does not work for one with a million, and the language models behind AI assistants have hundreds of billions. Nobody sets those by hand. Nobody even knows what most of them should be. Instead, the network finds its own weights from examples, in a process called *training*. This chapter explains how. It turns out to be the same thing you did with the sliders, made systematic: change a weight a little, see whether the answer got better, and keep going in the direction that helps.
 
 ## Learning from examples {#sec-train-examples}
@@ -134,7 +132,7 @@ In a real network the loss depends on all the weights, but the slope is still me
 
 ## Backpropagation {#sec-train-backprop}
 
-Backpropagation finds every slope in a single backward pass through the network, which costs about as much as running the network once. Take a network with two neurons in a chain, as in @fig-backprop-forward. To keep the arithmetic simple are again assume are so small that we do not have to take them or the activation function into account. The input $x$ goes to a hidden neuron that computes $h = w_1 x$. $h$ then goes to an output neuron that computes $y = w_2 h$.
+Backpropagation finds every slope in a single backward pass through the network, which costs about as much as running the network once. Take a network with two neurons in a chain, as in @fig-backprop-forward. To keep the arithmetic simple we again assume thresholds are so small that we do not have to take them or the activation function into account. The input $x$ goes to a hidden neuron that computes $h = w_1 x$. $h$ then goes to an output neuron that computes $y = w_2 h$.
 
 The "forward pass" is just running the network like you have done many times already. If $x = 1$, $w_1 = 2$, $w_2 = 1$ and the target is $t = 4$, then $h = 2 \times 1 = 2$, which in turn makes $y = 1 \times 2 = 2$, producing a loss of $(2 - 4)^2 = 4$.
 
