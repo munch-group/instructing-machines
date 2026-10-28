@@ -8,6 +8,11 @@
 <body style="margin:0; padding:16px; background:#ffffff;">
 <!-- Generated from nnw-widget.html by build_standalone.py; edit that file instead. -->
 <div class="nnw"></div>
+<script>
+  new URLSearchParams(location.search).forEach((value, key) => {
+    if (/^[a-z]+$/.test(key)) document.querySelector('.nnw').setAttribute('data-' + key, value);
+  });
+</script>
 <!--
   Tiny neural network widget: styles and script. Include this once per page; every element
   <div class="nnw"></div> on the page then becomes a widget (any number of them).
@@ -16,11 +21,16 @@
   returns to:
     data-act="step | sigmoid | relu"      activation (default step)
     data-hidden="1 | 2 | 3"               number of hidden neurons (default 2)
-    data-example="flat | bump | stairs | random"   example applied at the start
+    data-example="flat | bump | stairs | random"   example applied at the start (the example
+                                          buttons are then hidden; Reset returns to it)
     data-outact="true"                    tick "Apply f at output"
     data-contrib="true"                   tick "Show contributions"
     data-set="v1=10, t1=2"                extra slider values (w1-w3, t1-t3, v1-v3, th)
     data-theme="light | dark | auto"      colours (default light)
+    data-layout="side"                    plot, hint and formula right of the network instead of
+                                          below it (only when the widget is at least 900 px wide)
+    data-notes="false"                    hide the hint under the plot and the "where f(z) = ..."
+                                          line under the formula (shown by default)
 
   This file is the source of the widget. tiny-network.html is generated from it by
   build_standalone.py.
@@ -56,8 +66,14 @@
   }
   .nnw *, .nnw *::before, .nnw *::after { box-sizing: border-box; }
   .nnw svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
-  /* Network on top, the plot below it, then the hint and formula, at every width */
+  /* Network on top, the plot below it, then the hint and formula. With data-layout="side" the plot,
+     hint and formula form a second column right of the network, when there is room for two. */
   .nnw-main { display: block; }
+  .nnw[data-layout="side"] { max-width: 1400px; }
+  @container (min-width: 900px) {
+    .nnw[data-layout="side"] .nnw-main { display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0 24px; align-items: center; }
+  }
   .nnw-netcell { padding: 16px 0; }
 
   .nnw-toolbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
@@ -109,6 +125,7 @@
   .nnw-formula { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.5; }
   .nnw-formula .math { font-family: "Times New Roman", Georgia, serif; font-size: 17px; color: var(--fg); }
   .nnw-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .nnw[data-notes="false"] .nnw-hint, .nnw[data-notes="false"] .nnw-fdef { display: none; }
   .nnw-plotwrap { touch-action: none; cursor: crosshair; }
 </style>
 <script>
@@ -147,10 +164,12 @@
         <svg data-role="net" viewBox="0 0 710 385" aria-label="Network diagram"></svg>
       </div>
     </div>
-    <div class="nnw-plotwrap"><svg data-role="plot" viewBox="0 0 700 364" aria-label="Plot of the network function"></svg></div>
-    <div class="nnw-below">
-      <div class="nnw-hint">Move the pointer over the plot to choose an input <i>x</i> and see the activations in the network.</div>
-      <div class="nnw-formula" data-role="formula"></div>
+    <div class="nnw-plotcell">
+      <div class="nnw-plotwrap"><svg data-role="plot" viewBox="0 0 700 364" aria-label="Plot of the network function"></svg></div>
+      <div class="nnw-below">
+        <div class="nnw-hint">Move the pointer over the plot to choose an input <i>x</i> and see the activations in the network.</div>
+        <div class="nnw-formula" data-role="formula"></div>
+      </div>
     </div>
   </div>
 `;
@@ -570,7 +589,7 @@
         .join(' + ') + ' − θ';
       $('formula').innerHTML =
         '<div class="math"><i>y</i> = ' + (outAct ? '<i>f</i>( ' + inner + ' )' : inner) + '</div>' +
-        '<div>where ' + fdef + '.</div>';
+        '<div class="nnw-fdef">where ' + fdef + '.</div>';
     }
 
     function render() {
@@ -621,6 +640,8 @@
       probeX = 0;
       syncControls(); render();
     }
+    // A widget started from an example shows only Reset, not the other examples
+    if (cfg.example !== undefined) root.querySelector('.nnw-presets').style.display = 'none';
     const resetBtn = $('reset');
     if (configured) {
       resetBtn.hidden = false;

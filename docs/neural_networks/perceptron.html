@@ -8,6 +8,11 @@
 <body style="margin:0; padding:16px; background:#ffffff;">
 <!-- Generated from perceptron-widget.html by build_standalone.py; edit that file instead. -->
 <div class="pcp"></div>
+<script>
+  new URLSearchParams(location.search).forEach((value, key) => {
+    if (/^[a-z]+$/.test(key)) document.querySelector('.pcp').setAttribute('data-' + key, value);
+  });
+</script>
 <!--
   Perceptron widget: styles and script. Include this once per page; every element
   <div class="pcp"></div> on the page then becomes a perceptron widget (any number of them).

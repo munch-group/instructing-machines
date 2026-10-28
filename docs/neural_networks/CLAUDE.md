@@ -39,10 +39,15 @@ Attributes (all optional) set the starting state, which the widget's **Reset** b
 
 - `data-act`: `step` (default) | `sigmoid` | `relu`
 - `data-hidden`: `1` | `2` (default) | `3`
-- `data-example`: `flat` | `bump` | `stairs` | `random`
+- `data-example`: `flat` | `bump` | `stairs` | `random`; the example buttons are then hidden,
+  leaving Reset (which returns to this example)
 - `data-outact="true"`: tick "Apply f at output"; `data-contrib="true"`: tick "Show contributions"
 - `data-set="v1=10, t1=2"`: extra slider values (keys `w1-w3`, `t1-t3`, `v1-v3`, `th`; −10..10)
 - `data-theme`: `light` (default) | `dark` | `auto`
+- `data-layout="side"`: plot, hint and formula in a second column right of the network; the max
+  width grows to 1400 px, and below 900 px of widget width it falls back to the stacked layout
+- `data-notes="false"`: hide the hint under the plot and the "where f(z) = …" line under the
+  formula (the formula itself stays)
 
 Any number of widgets per page is supported: each gets a unique id prefix (`nnw-`, `nnw1-`, …).
 
@@ -59,6 +64,11 @@ The perceptron widget works the same way (`include-after-body: perceptron-widget
 
 `data-examples` and `data-formula` only change what is shown, so on their own they do not make the
 Reset button appear.
+
+The standalone pages take the same attributes as URL query parameters, without the `data-` prefix
+(`build_standalone.py` adds a small script that copies them onto the div before the widget starts):
+`perceptron.html?set=x1=0,x2=1,x3=1,w1=2,w2=2,w3=2,th=3&inputs=Weather,Company,Accessible&output=Go%20to%20the%20festival`,
+`tiny-network.html?act=relu&hidden=3&example=random`.
 
 ## The model (network widget)
 
