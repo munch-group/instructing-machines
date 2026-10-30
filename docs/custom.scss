@@ -1256,3 +1256,10 @@ main.content > h2 {
   .quarto-alternate-formats > ul,
   .quarto-alternate-notebooks > ul { display: block !important; }
 }
+
+// Space below a rendered pandas dataframe, so the next code cell does not
+// butt up against it. :has() picks out only the output blocks that contain a
+// dataframe; figures, printed text and other tables keep their spacing.
+.cell-output-display:has(table.dataframe) {
+  margin-bottom: 1.5rem;
+}

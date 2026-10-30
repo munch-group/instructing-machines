@@ -107,22 +107,24 @@ $$
   f(z) = \frac{1}{1 + e^{-z}}
 $$
 
-When $z$ is large and negative, $e^{-z}$ is enormous, and the fraction is close to 0. When $z$ is large and positive, $e^{-z}$ is close to 0, and the fraction is close to 1. At $z = 0$, $e^{0} = 1$ and the output is exactly $1/2$. In between, the output rises gradually, so a small change to a weight always gives a small change to the output. The weights also control how steep the rise is: the bigger the weights, the faster the net input changes, and the closer the sigmoid comes to a step. You will see this in the next chapter.
+When $z$ is large and negative, $e^{-z}$ is enormous, and the fraction is close to 0. When $z$ is large and positive, $e^{-z}$ is close to 0, and the fraction is close to 1. At $z = 0$, $e^{0} = 1$ and the output is exactly $1/2$. In between, the output rises gradually, so a small change to a weight always gives a small change to the output. The weights also control how steep the rise is: the bigger the weights, the faster the net input changes, and the closer the sigmoid comes to a step. The Tanh function is a steeper variant of of the sigmoid, mapping values to an a -1,1 interval ($tanh(z) = 2 * sigmoid(d * z) - 1$).
 
 ```{python}
 #| label: fig-sigmoid-activation
 #| echo: false
-#| fig-cap: "The sigmoid activation function."
+#| fig-cap: "The sigmoid and Tanh activation functions."
 
 import numpy as np
 import matplotlib.pyplot as plt
 z = np.linspace(-4, 4, 801)
-sigmoid = 1 / (1 + np.exp(-z))
+sigmoid = lambda z: 1 / (1 + np.exp(-z))
+tanh = 2 * sigmoid(2 * z) - 1
 fig, ax = plt.subplots(figsize=(5, 3))
 ax.axhline(0, color="lightgray", linewidth=0.8)
 ax.axvline(0, color="lightgray", linewidth=0.8)
-ax.plot(z, sigmoid, color="#eb6834", linewidth=2, label="Sigmoid")
-ax.set_ylim(-0.2, 1.2)
+ax.plot(z, sigmoid(z), color="#eb6834", linewidth=2, label="Sigmoid")
+ax.plot(z, tanh, color="#eb3486", linewidth=2, label="Tanh")
+ax.set_ylim(-1.2, 1.2)
 ax.set_xlabel("Net input $z$")
 ax.set_ylabel("Output $f(z)$")
 ax.spines[["top", "right"]].set_visible(False)
@@ -130,7 +132,7 @@ ax.legend(frameon=False, loc="upper left")
 plt.show()
 ```
 
-The sigmoid was the standard activation function for decades, and the first networks trained with backpropagation used it ([Rumelhart et al., 1986](https://doi.org/10.1038/323533a0)). Today it is used mainly in the output neuron of a network that answers a yes/no question, because its output always lies between 0 and 1 and can be read as a probability. A network that predicts whether a DNA sequence contains a splice site might answer 0.93, meaning it is fairly sure that it does.
+The two functions are mainly used in smaller networks. The sigmoid is also often used for the output neuron of a network that answers a yes/no question, because its output always lies between 0 and 1 and can be read as a probability. A network that predicts whether a DNA sequence contains a splice site might answer 0.93, meaning it is fairly sure that it does.
 
 The sigmoid has a weakness that keeps it out of the hidden layers of large networks. Far from 0 the curve is almost flat. A neuron with net input 8 and one with net input 15 both output very nearly 1, and a small change to their weights makes almost no difference to what they send on. This is the problem of the step function again, only milder. In a network with many layers, the hint about which way to adjust the weights has to pass back through every layer, and each flat sigmoid it passes through weakens it. By the time it reaches the first layers there is almost nothing left, and those layers barely learn. This is known as the *vanishing gradient* problem.
 
@@ -184,18 +186,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 z = np.linspace(-4, 4, 801)          # 801 evenly spaced values from -4 to 4
 step = np.where(z >= 0, 1, 0)        # 1 where z >= 0, otherwise 0
-sigmoid = 1 / (1 + np.exp(-z))
+sigmoid = lambda z: 1 / (1 + np.exp(-z))
+tanh = 2 * sigmoid(2 * z) - 1
+
+#sigmoid = 1 / (1 + np.exp(-z))
 relu = np.maximum(0, z)              # the larger of 0 and z
 fig, ax = plt.subplots(figsize=(5, 3))
 ax.axhline(0, color="lightgray", linewidth=0.8)
 ax.axvline(0, color="lightgray", linewidth=0.8)
 ax.plot(z, step, color="#2a78d6", linewidth=2, label="Step")
-ax.plot(z, sigmoid, color="#eb6834", linewidth=2, label="Sigmoid")
+ax.plot(z, sigmoid(z), color="#eb6834", linewidth=2, label="Sigmoid")
+ax.plot(z, tanh, color="#eb3486", linewidth=2, label="Tanh")
+
 ax.plot(z, relu, color="#1baf7a", linewidth=2, label="ReLU")
 ax.text(0.25, 1.06, "Step", va="bottom")
 ax.text(-2.4, 0.2, "Sigmoid", va="bottom")
 ax.text(1.95, 2.0, "ReLU", ha="right")
-ax.set_ylim(-0.3, 2.5)
+ax.text(-1.8, -0.8, "Tanh", va="bottom")
+ax.set_ylim(-1.2, 2.5)
 ax.set_xlabel("Net input $z$")
 ax.set_ylabel("Output $f(z)$")
 ax.spines[["top", "right"]].set_visible(False)

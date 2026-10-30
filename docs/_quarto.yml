@@ -17,6 +17,7 @@ project:
   resources: 
     - "python/.snippet-cast/*.mp4"
     - "slide-pdfs/week*.pdf"
+    - "python/data/NM_148900.4.*"
 book:
   title: "Instructing Machines"
   sidebar:
@@ -119,28 +120,30 @@ book:
         - projects/orf-project.qmd # PROJECT
     - part: "Week 10"
       chapters:
-        - ai/tests-are-the-contract.ipynb  # deepens DRAFTER # NOT USED
+        - python/numpy-and-pandas.ipynb
+        - python/plotting.ipynb
         - python/biopython.ipynb
-        - bioinf/BLAST.qmd
-        - ai/plan-before-you-prompt.ipynb # AI: COLLABORATOR # should go with decomposition.qmd
-        - python/decomposition.qmd
         - projects/assembly-project.qmd  # PROJECT     
     - part: "Week 11"
       chapters: 
+        - ai/plan-before-you-prompt.ipynb # AI: COLLABORATOR
         - neural_networks/training.qmd
-        - neural_networks/digit-recognition.ipynb # USE NEXT YEAR. Should be committed with its outputs and not rerun (added to LEAVE_ALONE in clean_notebooks.py)          
+        # - neural_networks/digit-recognition.ipynb # USE NEXT YEAR. Should be committed with its outputs and not rerun (added to LEAVE_ALONE in clean_notebooks.py)          
         # - neural_networks/language-models.ipynb # USE NEXT YEAR. Should be committed with its outputs and not rerun (added to LEAVE_ALONE in clean_notebooks.py)
-        - python/numpy-and-pandas.ipynb
-        - python/plotting.ipynb
-        - ai/delegate-the-full-problem.ipynb # AI: DEVELOPER
-        - projects/hiv-project.qmd # PROJECT
+
+        # pairwise alignment
+
+        - projects/alignment-project.qmd # PROJECT
+        # - projects/hiv-project.qmd # PROJECT
     - part: "Week 12"
       chapters: 
-        - python/regular-expressions.ipynb
-        # - Finale gene prediction project 
+        - bioinf/blast.ipynb # plus online blast
+        - ai/delegate-the-full-problem.ipynb # AI: DEVELOPER
+        # - python/regular-expressions.ipynb
     - part: "Week 13"
       chapters: 
         - python/recursion.ipynb
+        # - Finale gene prediction project 
         # - Fully delegated project
     - part: "Week 14"
       chapters: 
@@ -158,6 +161,8 @@ book:
         # - neural_networks/large-language-models.qmd
         # - neural_networks/handwritten-digits.ipynb # numpy version of neural_networks/digit-recognition.ipynb
         # - neural_networks/transformer.ipynb # numpy version of neural_networks/language-models.ipynb        
+        # - python/decomposition.qmd
+        # - ai/tests-are-the-contract.ipynb  # deepens DRAFTER # NOT USED
 
 # bibliography: references.bib
 

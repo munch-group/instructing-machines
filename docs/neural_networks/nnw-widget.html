@@ -16,6 +16,10 @@
                                           below it (only when the widget is at least 900 px wide)
     data-notes="false"                    hide the hint under the plot and the "where f(z) = ..."
                                           line under the formula (shown by default)
+    data-negative="false"                 weights w and v run 0..10 instead of -10..10, and the plot's
+                                          x-axis runs 0..10 instead of -5..5 (no Bump example)
+    data-thresholds="false"               all thresholds fixed at 0: their sliders are removed and the
+                                          formula drops the "- θ" terms (no Bump or Staircase example)
 
   This file is the source of the widget. tiny-network.html is generated from it by
   build_standalone.py.
@@ -178,7 +182,19 @@
     const FLAT = { w1: 1, t1: 0, v1: 0, w2: 1, t2: 0, v2: 0, w3: 1, t3: 0, v3: 0, th: 0 };
     const p = Object.assign({}, FLAT);
     let n = 2, act = 'step', outAct = false, showContrib = false, probeX = 0;
-    const XMIN = -5, XMAX = 5;
+    // data-negative="false": weights only 0..10 and inputs x only 0..10.
+    // data-thresholds="false": every threshold is fixed at 0 and has no slider.
+    const NEG = root.dataset.negative !== 'false', THR = root.dataset.thresholds !== 'false';
+    const XMIN = NEG ? -5 : 0, XMAX = NEG ? 5 : 10;
+    const isThr = (k) => k[0] === 't';
+    const sliderMin = (k) => (NEG || isThr(k) ? -10 : 0);
+    // Keep the values inside what the options allow
+    function constrain() {
+      for (const k in p) {
+        if (isThr(k) && !THR) p[k] = 0;
+        else p[k] = Math.max(sliderMin(k), Math.min(10, p[k]));
+      }
+    }
     const SUB = ['', '₁', '₂', '₃'];
     const idx = () => Array.from({ length: n }, (_, i) => i + 1);
 
@@ -229,9 +245,9 @@
       idx().forEach((i) => {
         defs.push({ k: 'w' + i, name: 'w<sub>' + i + '</sub>', edge: ['x', 'h' + i], aria: 'weight from x to h' + i });
         defs.push({ k: 'v' + i, name: 'v<sub>' + i + '</sub>', edge: ['h' + i, 'y'], aria: 'weight from h' + i + ' to y' });
-        defs.push({ k: 't' + i, name: 'θ<sub>' + i + '</sub>', node: 'h' + i, aria: 'threshold of h' + i });
+        if (THR) defs.push({ k: 't' + i, name: 'θ<sub>' + i + '</sub>', node: 'h' + i, aria: 'threshold of h' + i });
       });
-      defs.push({ k: 'th', name: 'θ', node: 'y', aria: 'threshold of y' });
+      if (THR) defs.push({ k: 'th', name: 'θ', node: 'y', aria: 'threshold of y' });
       defs.forEach((it) => {
         const box = document.createElement('div');
         box.className = 'nnw-ctl';
@@ -240,7 +256,7 @@
         box.innerHTML =
           '<label class="lab" for="' + id + '"><span class="name">' + it.name + '</span>:</label>' +
           '<div class="barcol"><output class="nnw-topval" for="' + id + '"></output><div class="barrow">' +
-          '<input type="range" id="' + id + '" min="-10" max="10" step="0.1" aria-label="' + it.aria + '"></div></div>';
+          '<input type="range" id="' + id + '" min="' + sliderMin(it.k) + '" max="10" step="0.1" aria-label="' + it.aria + '"></div></div>';
         netWrap.append(box);
         const val = box.querySelector('output');
         const inp = box.querySelector('input');
@@ -366,7 +382,7 @@
         for (let b = a + 1; b < ks.length; b++) if (Math.abs(ks[a] - ks[b]) < 1) return false;
       const e = 0.05;
       return ks.every((k) => {
-        if (Math.abs(k) > 4.5) return false;
+        if (k < XMIN + 0.5 || k > XMAX - 0.5) return false;
         const y0 = forward(k).y, yl = forward(k - e).y, yr = forward(k + e).y;
         return Math.abs(y0) <= 20 && Math.abs((yr - y0) / e - (y0 - yl) / e) >= 2;
       });
@@ -374,11 +390,26 @@
 
     function applyPreset(name) {
       const r = (a) => Math.round((Math.random() * 2 - 1) * a * 10) / 10;
+      const rp = (a) => Math.round(Math.random() * a * 10) / 10;     // 0..a
       if (name === 'flat') {
         // Input weights 1.0, thresholds and output weights 0.0 (for all three hidden neurons): y = 0
         Object.assign(p, FLAT);
+      } else if (name === 'random' && !NEG) {
+        // Positive weights only: each hidden neuron gets its step or kink at a random x in 1..9
+        // (with thresholds fixed at 0 they all sit at x = 0). For ReLU, redraw until every kink is
+        // clearly visible in the plot.
+        const relu = act === 'relu' && THR;
+        for (let tries = 0; tries < (relu ? 20000 : 1); tries++) {
+          idx().forEach((i) => {
+            const w = 0.5 + rp(relu ? 1.5 : 2.5), at = 1 + rp(8);
+            Object.assign(p, { ['w' + i]: w, ['t' + i]: Math.min(10, Math.round(w * at * 10) / 10),
+              ['v' + i]: relu ? rp(3) : rp(n === 3 ? 6.6 : 10) });
+          });
+          p.th = relu ? rp(10) : r(5);
+          if (relu && kinksVisible()) break;
+        }
       } else if (name === 'random') {
-        if (act === 'relu') {
+        if (act === 'relu' && THR) {
           // Redraw until every kink is clearly visible in the plot
           for (let tries = 0; tries < 20000; tries++) {
             idx().forEach((i) => Object.assign(p, { ['w' + i]: r(3), ['t' + i]: r(10), ['v' + i]: r(10) }));
@@ -394,7 +425,8 @@
       } else if (name === 'stairs') {
         // One step per hidden neuron, evenly spaced, levels centred on 0
         // (step height 6 for three neurons keeps the output threshold within the slider range)
-        const steps = { 1: [0], 2: [-2, 2], 3: [-3, 0, 3] }[n], v = n === 3 ? 6 : 10;
+        const c = (XMIN + XMAX) / 2;
+        const steps = { 1: [c], 2: [c - 2, c + 2], 3: [c - 3, c, c + 3] }[n], v = n === 3 ? 6 : 10;
         idx().forEach((i) => Object.assign(p, { ['w' + i]: 1, ['t' + i]: steps[i - 1], ['v' + i]: v }));
         p.th = v * n / 2; act = 'step'; outAct = false;
       } else if (PRESETS[name]) {
@@ -402,6 +434,7 @@
         if (n !== pr.n) setN(pr.n);
         Object.assign(p, pr.p); act = 'step'; outAct = false;
       }
+      constrain();
     }
     root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => {
       applyPreset(b.dataset.preset); syncControls(); render();
@@ -570,8 +603,8 @@
         sigmoid: '<i>f</i>(<i>z</i>) = 1 / (1 + e<sup>−<i>z</i></sup>) &nbsp;(a smooth version of the step)',
         relu: '<i>f</i>(<i>z</i>) = max(0, <i>z</i>)',
       }[act];
-      const inner = idx().map((i) => '<i>v</i><sub>' + i + '</sub>·<i>f</i>(<i>w</i><sub>' + i + '</sub><i>x</i> − θ<sub>' + i + '</sub>)')
-        .join(' + ') + ' − θ';
+      const inner = idx().map((i) => '<i>v</i><sub>' + i + '</sub>·<i>f</i>(<i>w</i><sub>' + i + '</sub><i>x</i>' +
+        (THR ? ' − θ<sub>' + i + '</sub>' : '') + ')').join(' + ') + (THR ? ' − θ' : '');
       $('formula').innerHTML =
         '<div class="math"><i>y</i> = ' + (outAct ? '<i>f</i>( ' + inner + ' )' : inner) + '</div>' +
         '<div class="nnw-fdef">where ' + fdef + '.</div>';
@@ -581,7 +614,8 @@
       for (const k in inputs) {
         const c = inputs[k];
         c.out.textContent = fmt(p[k], 1);
-        c.inp.style.setProperty('--frac', (p[k] + 10) / 20);
+        const lo = sliderMin(k);
+        c.inp.style.setProperty('--frac', (p[k] - lo) / (10 - lo));
         c.out.style.setProperty('--cc', p[k] >= 0 ? 'var(--pos)' : 'var(--neg)');
       }
       renderNet(); renderPlot(); renderFormula();
@@ -620,13 +654,18 @@
       (cfg.set || '').split(/[,;]/).forEach((pair) => {
         const [key, val] = pair.split('=').map((t) => (t || '').trim());
         const v = parseFloat((val || '').replace('\u2212', '-'));
-        if (key in p && !isNaN(v)) p[key] = Math.max(-10, Math.min(10, v));
+        if (key in p && !isNaN(v)) p[key] = v;
       });
+      constrain();
       probeX = 0;
       syncControls(); render();
     }
     // A widget started from an example shows only Reset, not the other examples
     if (cfg.example !== undefined) root.querySelector('.nnw-presets').style.display = 'none';
+    // Examples the options make impossible: a bump needs a negative weight and distinct thresholds,
+    // a staircase needs thresholds
+    if (!NEG || !THR) root.querySelector('[data-preset="bump"]').hidden = true;
+    if (!THR) root.querySelector('[data-preset="stairs"]').hidden = true;
     const resetBtn = $('reset');
     if (configured) {
       resetBtn.hidden = false;

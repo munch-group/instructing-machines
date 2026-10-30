@@ -48,6 +48,12 @@ Attributes (all optional) set the starting state, which the widget's **Reset** b
   width grows to 1400 px, and below 900 px of widget width it falls back to the stacked layout
 - `data-notes="false"`: hide the hint under the plot and the "where f(z) = …" line under the
   formula (the formula itself stays)
+- `data-negative="false"`: weight sliders *w*, *v* run 0..10 (thresholds keep −10..10) and the
+  plot's *x*-axis runs 0..10 instead of −5..5. Negative values from `data-set` are clamped to 0.
+  The Bump button is hidden (with non-negative weights the output can only rise with *x*); Staircase
+  centres its steps on *x* = 5; Random puts each step/kink at a random *x* in 1..9
+- `data-thresholds="false"`: every threshold (θ₁–θ₃ and θ) is fixed at 0; their sliders are not
+  drawn and the formula drops the "− θ" terms. Bump and Staircase are hidden
 
 Any number of widgets per page is supported: each gets a unique id prefix (`nnw-`, `nnw1-`, …).
 
@@ -68,7 +74,7 @@ Reset button appear.
 The standalone pages take the same attributes as URL query parameters, without the `data-` prefix
 (`build_standalone.py` adds a small script that copies them onto the div before the widget starts):
 `perceptron.html?set=x1=0,x2=1,x3=1,w1=2,w2=2,w3=2,th=3&inputs=Weather,Company,Accessible&output=Go%20to%20the%20festival`,
-`tiny-network.html?act=relu&hidden=3&example=random`.
+`tiny-network.html?act=relu&hidden=3&example=random`, `tiny-network.html?negative=false&thresholds=false`.
 
 ## The model (network widget)
 
@@ -76,7 +82,7 @@ The standalone pages take the same attributes as URL query parameters, without t
 - Step: *f(z) = 1 if z ≥ 0 else 0* (note *f(0) = 1*). Sigmoid, ReLU also available.
 - Sliders for all weights and thresholds run −10..10 in steps of 0.1.
 - Input *x* is set by hovering over the plot area (not its margins); it returns to 0 when the
-  pointer leaves the plot. Plot: *x* in −5..5, *y*-axis **fixed** at ±25.
+  pointer leaves the plot. Plot: *x* in −5..5 (0..10 with `data-negative="false"`), *y*-axis **fixed** at ±25.
 - Examples: **Flat** (all *w* = 1, all thresholds 0, all *v* = 0 → flat *y* = 0; this is also the
   state on page load; keeps activation and neuron count), **Bump** (2 neurons, step), **Staircase**
   (one step per hidden neuron, levels centred on 0), **Random** (for ReLU: every kink visible).
