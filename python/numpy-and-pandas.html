@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>55&nbsp; Numpy and Pandas – Instructing Machines</title>
+<title>47&nbsp; Numpy and Pandas – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../python/plotting.html" rel="next">
-<link href="../neural_networks/digit-recognition.html" rel="prev">
+<link href="../projects/orf-project.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-539ea9f0b0407fae3b50c2533a947f6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-94d439129a586302e9aa887c1d4c1aae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -114,6 +114,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -127,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../neural_networks/training.html">Week 11</a></li><li class="breadcrumb-item"><a href="../python/numpy-and-pandas.html"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/numpy-and-pandas.html">Week 10</a></li><li class="breadcrumb-item"><a href="../python/numpy-and-pandas.html"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -549,38 +552,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/tests-are-the-contract.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">AI: Tests are the contract</span></span></a>
+  <a href="../python/numpy-and-pandas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Plotting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/biopython.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Biopython</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../bioinf/BLAST.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Worked example: decomposition modeled live</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Biopython</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Project: Genome assembly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Project: Genome assembly</span></span></a>
   </div>
 </li>
       </ul>
@@ -596,38 +587,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../neural_networks/training.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">AI: Training</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">AI: Training</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../neural_networks/digit-recognition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">AI: Recognizing handwritten digits</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/numpy-and-pandas.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/plotting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Plotting</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+  <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -643,8 +616,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  <a href="../bioinf/blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -661,7 +640,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
       </ul>
@@ -678,13 +657,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/list-comprehensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></a>
   </div>
 </li>
       </ul>
@@ -695,7 +674,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><a href="#dnldts8023" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIyZjc5ZjJhMCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgTnVtcHkgYW5kIFBhbmRhcyB7I3NlYy1udW1weS1hbmQtcGFuZGFzfVxuIiwKICAgICJcbiIsCiAgICAiIVtdKGltYWdlcy91bmRlci1jb25zdHJ1Y3Rpb24ucG5nKXt3aWR0aD0yMCV9IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiOTFjNjBkYTciLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJJZiB5b3Uga25vdyBhIGJpdCBvZiBsaW5lYXIgYWxnZWJyYSwgeW91IGtub3cgaG93IHNvbWUgY29tcHV0YXRpb25zIGFyZSBtb3JlIGVhc2lseSBleHByZXNzZWQgYXMgdmVjdG9ycyBvciBtYXRyaWNlcy4gVGhlIFtOdW1QeSBsaWJyYXJ5XShodHRwczovL251bXB5Lm9yZy9kZXZkb2NzL3VzZXIvaW5kZXguaHRtbCN1c2VyKSBwcm92aWRlcyBhICBtdWx0aWRpbWVuc2lvbmFsIGFycmF5IG9iamVjdCB0aGF0IGxldHMgeW91IGRvIHRoYXQuIFlvdSBhbHJlYWR5IGluc3RhbGxlZCBgbnVtcHlgIHdoZW4gdGhlIGJlZ2lubmluZyBvZiB0aGUgY291cnNlLCBzbyBhbGwgeW91IGhhdmUgdG8gZG8gaXMgaW1wb3J0IGl0LiBUaGUgY2VsbCBiZWxvdyBpbXBvcnRzIHRoZSBgbnVtcHlgIG1vZHVsZSBhbmQgYmluZHMgaXQgdG8gdGhlIG5hbWUgYG5wYC4gVGhpcyBpcyB0aGUgd2F5IGV2ZXJ5IG9uZSBpbXBvcnRzIGl0IGFuZCBzYXZlcyB5b3UgYSB2aWV3IGtleXN0cm9rZXMgZXZlcnkgdGltZSB5b3UgbmVlZCB0byB1c2UgaXQuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiMzViMzM3MmIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJpbXBvcnQgbnVtcHkgYXMgbnAiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJhOWFjNWIzYSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIEFycmF5cyIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogImI0OWFiNzk1IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAibnVtYmVycyA9IFs5LCA4LCA3LCA2LCA1LCA0LCAzLCAyLCAxLCAwXVxuIiwKICAgICJhID0gbnAuYXJyYXkobnVtYmVycylcbiIsCiAgICAiYSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjY3NDkwOGE3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiQWxsIHRoZSBsaW5lYXIgYWxnZWJyYSBydWxlcyBhcHBseSB0byBhcnJheXM6XG4iLAogICAgIlxuIiwKICAgICI6Ojogey5jb250ZW50LW1hcmdpbn1cbiIsCiAgICAiXG4iLAogICAgIllvdSBtYXkgc2VlIHRoaXMgYmVoYXZpb3IgcmVmZXJyZWQgdG8gYXMgKmJyb2FkY2FzdGluZyosIGJ1dCB0aGF0IGlzIGp1c3QgdGhlIHByb2dyYW1taW5nIHRlcm0gZm9yIGxpbmVhciBhbGdlYnJhIHdheSBvZiBkb2luZyBjb21wdXRhdGlvbnMuXG4iLAogICAgIlxuIiwKICAgICI6OjoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJkMDc1NmU3YyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImIgPSBucC5hcnJheShbMCwgMSwgMiwgMywgNCwgNSwgNiwgNywgOCwgOV0pXG4iLAogICAgIlxuIiwKICAgICJwcmludChhICsgYilcbiIsCiAgICAicHJpbnQoYSAqIGIpXG4iLAogICAgInByaW50KGEgKyAxMCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI0MTBlNDk5ZiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIkFycmF5cyBhbHNvIGNvbWUgd2l0aCBhIGxvdCBvZiB1c2VmdWwgbWV0aG9kcyBsaWtlOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjczYTYwMWMzIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiYS5tZWFuKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJhYzAxNDVlOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIjo6OiB7LmNvbnRlbnQtbWFyZ2lufVxuIiwKICAgICJcbiIsCiAgICAiYG5wLmZsb2F0NjRgIGlzIE51bXB5J3Mgb3duIGZsb2F0IHR5cGUsIHdoaWNoIHdvcmtzIHRoZSBzYW1lIGFzIHRoZSByZWd1bGFyIGBmbG9hdGAuXG4iLAogICAgIlxuIiwKICAgICI6OjoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI3MDE0OWRmZCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBjYW4gbWFrZSBhIGFycmF5cyB3aXRoIGFueSBudW1iZXIgb2YgZGltZW5zaW9ucy4gQSB0d28tZGltZW5zaW9uYWwgYXJyYXkgY29ycmVzcG9uZHMgdG8gYSBtYXRyaXguIFlvdSBhbHJlYWR5IGtub3cgaG93IHRvIHJlcHJlc2VudCBhIG1hdHJpeCBhcyBhIGxpc3Qgb2YgbGlzdHMuIFRvIG1ha2UgYSBtYXRyaXgsIGp1c3QgdHVybiB0aGF0IGludG8gYW4gYXJyYXk6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiZTczY2IxYjIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJsaXN0X29mX2xpc3RzID0gW1sxLCAyLCAzXSwgWzEsIDIsIDNdLCBbMSwgMiwgM11dXG4iLAogICAgIlxuIiwKICAgICJtYXRyaXggPSBucC5hcnJheShsaXN0X29mX2xpc3RzKVxuIiwKICAgICJtYXRyaXgiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI0YWExOWEzYiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBjYW4gYWNjZXNzIGVsZW1lbnRzIHdpdGggc3F1YXJlIGJyYWNrZXRzIGp1c3QgbGlrZSB5b3UgZG8gd2l0aCBsaXN0czoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI4MDUwYjE2ZSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImxpc3Rfb2ZfbGlzdHNbMV1bMV0iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJkMDUxNTM1MiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIm1hdHJpeFsxXSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjliZDllMTI1IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAibWF0cml4WzFdWzFdIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMDlmNjUzMDEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJGb3IgY29tcHV0YXRpb25hbCBlZmZpY2llbmN5LCBudW1weSBhcnJheXMgYWxzbyBsZXRzIHlvdSBzcGVjaWZ5IGluZGljZXMgZm9yIGVhY2ggZGltZW5zaW9uIGluIGEgc2luZ2xlIHNldCBvZiBzcXVhcmUgYnJhY2tldHM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiZjkzYzMwMGIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJtYXRyaXhbMV0iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI0OTdmOTI5OCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIm1hdHJpeFsxLCAxXSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjg4OTI4MDRjIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiTWFueSBvZiB0aGUgYXJyYXkgbWV0aG9kcyBjYW4gYmUgdXNlZCBib3RoIG9uIHRoZSBlbnRpcmUgYXJyYXksIGJ1dCBhbHNvIHNlcGFyYXRlbHkgZm9yIHRoZSByb3dzIG9yIGNvbHVtbnM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiMjJjYzYzOTUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJtYXRyaXguc3VtKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI3ZTEzNGRiOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlBhc3MgYGF4aXM9MGAgdG8gZ2V0IHRoZSByb3cgc3VtczoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI3YTE5OWM1OCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIm1hdHJpeC5tZWFuKGF4aXM9MCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI3ODc4OWRlMyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlBhc3MgYGF4aXM9MWAgdG8gZ2V0IHRoZSBjb2x1bW4gc3VtczoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICIxYzc4MDExMSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgIm1hdHJpeC5tZWFuKGF4aXM9MSkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIyZTY4N2FiYyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIFRoZSBQYW5kYXMgbGlicmFyeSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImRjNjFlODYwIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiUnVuIHRoaXMgY2VsbCB0byBkb3dubG9hZCBhbiBleGFtcGxlIGRhdGEgc2V0IHRvIGEgYHBlbmd1aW5zLmNzdmAgZmlsZSBuZXh0IHRvIHRoaXMgbm90ZWJvb2suIFRoZW4gb3BlbiBpdCB0byBzZWUgd2hhdCB0aGUgY29udGVudHMgbG9vayBsaWtlIGFuZCBjbG9zZSBpdCBhZ2FpbiAoZG8gbm90IGNoYW5nZSBpdCkuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiYmMyNjRhMjAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJpbXBvcnQgc2VhYm9ybiBhcyBzbnNcbiIsCiAgICAic25zLmxvYWRfZGF0YXNldCgncGVuZ3VpbnMnKS50b19jc3YoJ3Blbmd1aW5zLmNzdicsIGluZGV4PUZhbHNlKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjE5NWEyMTI5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiQXMgeW91IGNhbiBzZWUsIGBwZW5ndWlucy5jc3ZgIGlzIGEgdGFibGUgd2l0aCBhIGhlYWRlciBsaW5lIGFuZCBsb3RzIG9mIHJvd3MuIFRoZSB2YWx1ZXMgaW4gZWFjaCByb3cgYXJlIHNlcGFyYXRlZCBieSBhIGNvbW1hLCB3aGljaCBpcyB3aHkgdGhlIGZpbGUgbmFtZSBlbmRzIHdpdGggYC5jc3ZgLiBDU1YgaXMgc2hvcnQgZm9yICpjb21tYS1zZXBhcmF0ZWQgdmFsdWVzKi4gVGhpcyBraW5kIG9mIHRhYmxlIGZvcm1hdCBpcyBvbmUgb2YgdGhlIG1vc3QgY29tbW9uIHdheXMgb2Ygc3RvcmluZyBkYXRhLiBQYW5kYXMgaXMgYSByaWNoIGFuZCBwb3dlcmZ1bCBsaWJyYXJ5IHRoYXQgbGV0cyB5b3UgZG8gYWxsIGtpbmRzIG9mIG1hbmlwdWxhdGlvbiBhbmQgYWR2YW5jZWQgZGF0YSBhbmFseXNpcyBvbiBzdWNoIHRhYmxlIGRhdGEuIFRoaXMgY2hhcHRlciBzaG93cyBpbnRyb2R1Y2VzIHlvdSB0byB0aGUgYmFzaWNzLCBidXQgaWYvd2hlbiB5b3UgbmVlZCB0bywgeW91IGNhbiBmaW5kIGFsbCB0aGUgaW5mb3JtYXRpb24geW91IG5lZWQgaW4gdGhlIFtQYW5kYXMgdXNlciBndWlkZV0oaHR0cHM6Ly9wYW5kYXMucHlkYXRhLm9yZy9kb2NzL3VzZXJfZ3VpZGUvaW5kZXguaHRtbCN1c2VyLWd1aWRlKS5cbiIsCiAgICAiXG4iLAogICAgIllvdSBhbHJlYWR5IGluc3RhbGxlZCBgcGFuZGFzYCB3aGVuIHRoZSBiZWdpbm5pbmcgb2YgdGhlIGNvdXJzZSwgc28gYWxsIHlvdSBoYXZlIHRvIGRvIGlzIGltcG9ydCBpdC4gVGhlIGNlbGwgYmVsb3cgaW1wb3J0cyB0aGUgYHBhbmRhc2AgbW9kdWxlIGFuZCBiaW5kcyBpdCB0byB0aGUgbmFtZSBgcGRgLiBUaGlzIGlzIHRoZSB3YXkgZXZlcnkgb25lIGltcG9ydHMgaXQgYW5kIHNhdmVzIHlvdSBhIHZpZXcga2V5c3Ryb2tlcyBldmVyeSB0aW1lIHlvdSBuZWVkIHRvIHVzZSBpdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI3MjMxYzhiMiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImltcG9ydCBwYW5kYXMgYXMgcGQiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJjYjZmZGQzOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIklmIHlvdSBhcmUgbm90IGNvbnZpbmNlZCwgeW91IGNhbiB1c2UgYHR5cGVgIHRvIGNoZWNrIHdoaWNoIGtpbmQgaXQgaXM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiN2ViYmMxMTgiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJ0eXBlKHBkKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImZjYjI3YWQ2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgRGF0YUZyYW1lcyB7I3NlYy1kYXRhZnJhbWVzfSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjBlZTI4ODBkIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiWW91IGNhbiByZWFkIGluIHRoZSB0YWJsZSBkYXRhIGluIGBwZW5ndWlucy5jc3ZgIHVzaW5nIHRoZSBgcmVhZF9jc3ZgIGZ1bmN0aW9uIGluIHRoZSBgcGFuZGFzYCBtb2R1bGUgKGF2YWlsYWJsZSBhcyB0aGUgYHBkYCBuYW1lKS4gTGV0cyBkbyB0aGF0IGFuZCBzdG9yZSBpdCBpbiBhIHZhcmlhYmxlIGNhbGxlZCBgcGVuZ3VpbnNgOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjhhOWFiZDc2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAicGVuZ3VpbnMgPSBwZC5yZWFkX2NzdigncGVuZ3VpbnMuY3N2JykiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJmMmEwY2M4MSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlBhbmRhcyBgcmVhZF9jc3ZgIGNyZWF0ZXMgYERhdGFGcmFtZWAgb2JqZWN0LiBgRGF0YUZyYW1lYCBpcyB0aGUgbWFpbiBvYmplY3Qgb2YgUGFuZGFzIGFuZCBpdHMgd2F5IG9mIHJlcHJlc2VudGluZyB0YWJsZSBkYXRhLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjdmYThkZjg5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAidHlwZShwZW5ndWlucykiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI4YmM1ZmY5MSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIklmIHlvdSBwdXQgYSBkYXRhZnJhbWUgb24gdGhlIGxhc3QgKG9yIG9ubHkpIGxpbmUgaW4gYSBjZWxsLCBpdCBkaXNwbGF5IGl0IG5pY2VseS4gSWYgaXQgaGFzIG1hbnkgcm93cywgaXQgd2lsbCBvbmx5IHNob3cgdGhlIGZpcnN0IGFuZCBsYXN0IGZpdmUgcm93cy4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI4OGFjMjIxOCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMWZiZDA1YWUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJJIHNlZSBqdXN0IHRoZSBmaXJzdCBvciBsYXN0IHJvd3MsIHlvdSBjYW4gdXNlIHRoZSBgaGVhZGAgYW5kIGB0YWlsYCBtZXRob2RzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjlmODI5MDFmIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAicGVuZ3VpbnMuaGVhZCgpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiY2E5MDcwM2QiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJwZW5ndWlucy50YWlsKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI1YzIyMzFjOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiTG9vayBhdCB0aGUgYERhdGFGcmFtZWAgW2RvY3VtZW50YXRpb24gcGFnZV0oaHR0cHM6Ly9wYW5kYXMucHlkYXRhLm9yZy9kb2NzL3JlZmVyZW5jZS9mcmFtZS5odG1sKSBhbmQgZmluZCB0aGUgbWV0aG9kIHlvdSBuZWVkIHRvIHNvcnQgdGhlIHJvd3Mgb2YgYSBkYXRhZnJhbWUuIFRoZW4gc29ydCB0aGUgcGVuZ3VpbnMgZGF0YSBieSBcImZsaXBwZXJfbGVuZ3RoX21tXCIuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiZmM4ZjcwM2QiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFtdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiY2IzNGVhYTYiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBFeHRyYWN0aW5nIGRhdGEiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIzMzAyOGI4YyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlRvIGFjY2VzcyBhIGNvbHVtbiwgeW91IGNhbiB1c2UgdGhlIGZhbWlsaWFyIHNxdWFyZSBicmFja2V0cyB0aGF0IHdlIGFsc28gdXNlIHdpdGggc3RyaW5ncywgbGlzdHMgYW5kIGRpY3Rpb25hcmllczoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI3OTM4N2FmMSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImJpbGxfZGVwdGggPSBwZW5ndWluc1snYmlsbF9kZXB0aF9tbSddXG4iLAogICAgImJpbGxfZGVwdGgiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJlNTVhMmYxNyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIjo6OiB7LmNvbnRlbnQtbWFyZ2lufVxuIiwKICAgICJcbiIsCiAgICAiWW91IG1heSBzZWUgb3RoZXIgcGVvcGxlIGFjY2VzcyB0aGUgY29sdW1ucyBhcyBhdHRyaWJ1dGVzIChsaWtlIGBwZW5ndWlucy5iaWxsX2RlcHRoX21tYCksIGJ1dCB3ZSB3aWxsIHN0aWNrIHRvIHRoZSBicmFja2V0IG5vdGF0aW9uIHRvIGtlZXAgaXQgc2ltcGxlLlxuIiwKICAgICJcbiIsCiAgICAiOjo6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiOGZhMGJmNWEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJDb2x1bW5zIGlzIGhhcyB0aGVpciBvd24gdHlwZSwgYFNlcmllc2AuICIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogImU2MWQ5NDA2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAidHlwZShiaWxsX2RlcHRoKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjgwOTBmNjM5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiSXRzIGRhdGEgaXMganVzdCBhIG51bXB5IGFycmF5LCBidXQgb24gdG9wIG9mIHRoYXQgaXQgcGFja3MgYSBsb3Qgb2YgdXNlZnVsIG1ldGhvZHMgZm9yIGNvbXB1dGluZyBzdGF0aXN0aWNzIGxpa2UgdGhlIGBtZWFuYCBvciBmb3IgbWFuaXB1bGF0aW5nIGxpa2UgYHNvcnRfdmFsdWVzYDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI5NDJkMGQwZCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImJpbGxfZGVwdGgubWVhbigpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiZjg1ODcyYjYiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICI6Ojogey5jb250ZW50LW1hcmdpbn1cbiIsCiAgICAiXG4iLAogICAgImBucC5mbG9hdDY0YCBpcyBOdW1weSdzIG93biBmbG9hdCB0eXBlLCB3aGljaCB3b3JrcyB0aGUgc2FtZSBhcyB0aGUgcmVndWxhciBgZmxvYXRgLlxuIiwKICAgICJcbiIsCiAgICAiOjo6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiNTllYWI3YmYiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJZb3UgY2FuIHNlZSBhbGwgdGhlIG90aGVyIG1ldGhvZHMgb24gdGhlIGBTZXJpZXNgIFtkb2N1bWVudGF0aW9uIHBhZ2VdKGh0dHBzOi8vcGFuZGFzLnB5ZGF0YS5vcmcvZG9jcy9yZWZlcmVuY2UvYXBpL3BhbmRhcy5TZXJpZXMuaHRtbCkuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMTZhNTQzNmQiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBJbmRleGluZyIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjMzOWE5MWRiIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiWW91IG1heSBoYXZlIG5vdGljZWQgdGhlIG51bWJlcnMgaW4gdGhlIGZhciBsZWZ0IGNvbHVtbiB0aGF0IGRvZXMgbm90IGhhdmUgYSBuYW1lLiBUaGF0IGlzIHRoZSByb3cgaW5kZXggdGhhdCB5b3UgbmVlZCB0byBhY2Nlc3MgaW5kaXZpZHVhbCByb3dzLiBEYXRhZnJhbWVzIGhhdmUgYSBgbG9jYCBhdHRyaWJ1dGUgdGhhdCB5b3UgY2FuIHVzZSBmb3IgYWNjZXNzaW5nIGRhdGEgaW4gYWxsIGtpbmRzIG9mIHdheXMuIFRvIGdldCBhIHJvdywgeW91IGp1c3QgZ2l2ZSBpdCB0aGUgcm93IGluZGV4IGluIHNxdWFyZSBicmFja2V0czoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJkZDY3Y2ZiMyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgInJvdyA9IHBlbmd1aW5zLmxvY1s0XVxuIiwKICAgICJ0eXBlKHJvdykiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIyNTRmYzJkNSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlRoZSByb3cgaXMgcmV0dXJuZWQgYXMgYSBgU2VyaWVzYCBpbmRleGVkIGJ5IHRoZSBjb2x1bW4gbmFtZXM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiNzhkMDFlOGUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJyb3ciCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI2Mjc0M2Q2YyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlNvIHlvdSBjYW4gYWNjZXNzIHRoZSB2YWx1ZXMgYnkgcGFzc2luZyBjb2x1bW4gbmFtZXMgdG8gYGxvY2A6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiZTdhY2JkNDUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJyb3cubG9jWydpc2xhbmQnXSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImM0MzE4ZjFlIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiWW91IGFuIGdldCB0aGUgc2FtZSBzaW5nbGUgZGF0YWZyYW1lIGNlbGwgYnkgcGFzc2luZyBib3RoIGEgcm93IGFuZCBhIGNvbHVtbiBpbmRleCB2YWx1ZSB0byBgbG9jYDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI5MjljNWVhZCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmxvY1s0LCAnaXNsYW5kJ10iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJjMzBmMTM4OCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBjYW4gYWxzbyBhY2Nlc3MgZGF0YSB1c2luZyBzbGljZXMgb3IgbGlzdHMgb2Ygcm93IGFuZCBjb2x1bW4gdmFsdWVzIGluZGV4IHZhbHVlczoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJjOGQxMmQ5YiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmxvY1s0MDo0NSwgWydpc2xhbmQnLCAnYm9keV9tYXNzX2cnXV0iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJjNjQ0NDViZSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmxvY1tbNywxNTMsMjU3XSwgWydzZXgnLCAnc3BlY2llcyddXSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImQyMjRmMjA4IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiUmF0aGVyIHRoYW4gcHJvdmlkaW5nIHJvdyBpbmRleCB2YWx1ZXMsIHlvdSBjYW4gcHJvdmlkZSBhIHNlcmllcyB3aXRoIGEgYFRydWVgIG9yIGBGYWxzZWAgZm9yIGVhY2ggcm93LiBTaW5jZSBgU2VyaWVzYCBzdXBwb3J0ICpib2FkY2FzdGluZyogdGhlIHNhbWUgd2F5IGFycmF5cyBkbywgc3RhdGVtZW50cyBsaWtlIHRoaXMgcHJvZHVjZSBzdWNoIFRydWUvRmFsc2Ugc2VyaWVzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogIjkxYjI5ZWEwIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiaXNfYWRlbGllID0gcGVuZ3VpbnNbJ3NwZWNpZXMnXSA9PSAnQWRlbGllJ1xuIiwKICAgICJpc19hZGVsaWUiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJlMTRiMDk0NiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlBhc3NpbmcgdGhhdCB0byBgcGVuZ3VpbnMubG9jYCBnaXZlcyB5b3UgYWxsIHRoZSByb3dzIHdoZXJlIHRoZSBcInNwZWNpZXNcIiBjb2x1bW4gYXMgdGhlIHZhbHVlIGBcIkFkZWxpZVwiYDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJhZjMyMzUxNSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmxvY1tpc19hZGVsaWVdIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiOTIyZTIxYmIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkV4dHJhY3QgdGhlIHJvd3Mgd2hlcmUgdmFsdWVzIGluIHRoZSBcImJvZHlfbWFzc19nXCIgY29sdW1uIGlzIGxhcmdlciB0aGFuIDQ1MDAuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiZTMwNGYyZDIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFtdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMGI2MDM5MzciLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkV4dHJhY3QgdGhlIHJvd3Mgd2hlcmUgdmFsdWVzIGluIHRoZSBcImJvZHlfbWFzc19nXCIgY29sdW1uIGlzIGxhcmdlciB0aGFuIDQ1MDAgKmFuZCogdGhlIHRoZSB2YWx1ZXMgaW4gdGhlIFwic3BlY2llc1wiIGNvbHVtbnMgaXMgYFwiQWRlbGllXCJgLiBIaW50OiBZb3UgY2FuIHVzZSB0aGUgbG9jIHR3aWNlIHRvIGFjaGlldmUgdGhpcy4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIyM2Y4NDcwOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiIFxuIiwKICAgICJbQUk6IEV4cGxhaW5lcl0oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLWV4cGxhaW5lcil7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiTm93IHRoYXQgeW91IGtub3cgdGhlIGJhc2ljcyBvZiBleHRyYWN0aW5nIGRhdGEsIHRyeSB0byBhc2sgdGhlIEFJIHRvIGdpdmUgeW91IGEgYnJpZWYgYWNjb3VudCBvZiBob3cgdGhlIGBEYXRhRnJhbWUubG9jYCB3b3Jrcy4gVGhlbiBjcm9zcy1jaGVjayBpdHMgZXhwbGFuYXRpb24gd2l0aCB0aGUgb25saW5lIGRvY3VtZW50YXRpb24uIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiYzY2MGJjZWUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBCdWlsZCBgRGF0YUZyYW1lYCBmcm9tIGRhdGFcbiIsCiAgICAiXG4iLAogICAgIlNvbWV0aW1lcyB0aGUgdGFibGUgZGF0YSBpcyBub3Qgc29tZXRoaW5nIHlvdXIgcmVhZCBpbiBmcm9tIGEgZmlsZSwgYnV0IGRhdGEgeW91IGFyZSBidWlsZGluZyBpbnNpZGUgeW91ciBub3RlYm9vay4gSW4gdGhhdCBjYXNlLCB5b3UgY2FuIGVhc2lseSB0dXJuIHlvdXIgZGF0YSBpbnRvIGEgYERhdGFGcmFtZWAuIFlvdSBjcmVhdGUgYSBgRGF0YUZyYW1lYCBieSBlaXRoZXIgc3BlY2lmeWluZyBpdHMgY29sdW1ucyBvciBpdHMgcm93cy4gVG8gY3JlYXRlIGl0IGZyb20gY29sdW1ucyB5b3UgZmlyc3QgbWFrZSBhIGRpY3Rpb25hcnkgd2hlcmUga2V5cyBhcmUgY29sdW1uIG5hbWVzIGFuZCB0aGUgdmFsdWVzIGFyZSBsaXN0cyB3aXRoIGNvbHVtbiB2YWx1ZXMgYW5kIHRoZW4gcGFzcyB0aGF0IGRpY3Rpb25hcnkgYXMgZGF0YSB0byBgRGF0YUZyYW1lKClgOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgImlkIjogImE0NTVkYjEwIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAiY29sdW1uc19kaWN0ID0geydzZXFfaWQnOiBbJ0EnLCAnQicsICdDJ10sICdnY19jb250ZW50JzogWzAuNDUyLCAwLjQyMSwgMC40MjFdfVxuIiwKICAgICJnY19kYXRhID0gcGQuRGF0YUZyYW1lKGNvbHVtbnNfZGljdClcbiIsCiAgICAiZ2NfZGF0YSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjUyYTI1YzZiIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiWW91IGNhbiBhbHNvIG1ha2UgYSBgRGF0YUZyYW1lYCBmcm9tIHJvd3MsIHlvdSBmaXJzdCBtYWtlIGEgbGlzdCBvZiBsaXN0cyBhbmQgdGhlbiBwYXNzIHRoYXQgYXMgYXJndW1lbnQgdG8gdGhlIHRoZSBgZnJvbV9yZWNvcmRzYCBtZXRob2Qgb2YgYERhdGFGcmFtZWA6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiMWQ4ZTUxZDEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJyb3dfcmVjb3JkcyA9IFsoJ0EnLCAwLjQ1MiksICgnQicsIDAuNDIxKSwgKCdDJywgMC40MjEpXVxuIiwKICAgICJnY19kYXRhID0gcGQuRGF0YUZyYW1lKCkuZnJvbV9yZWNvcmRzKHJvd19yZWNvcmRzLCBjb2x1bW5zPVsnc2VxX2lkJywgJ2djX2NvbnRlbnQnXSlcbiIsCiAgICAiZ2NfZGF0YSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjU3YTg4MmM3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiSWYgeW91IHdhbnQgdG8gc2F2ZSB5b3VyIGBnY19kYXRhYCBhcyBhIENTViBmaWxlLCB5b3UgY2FuIHNhdmUgaXQgdG8gYSBmaWxlIGxpa2UgdGhpczoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICI1ZTA3MWMwOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImdjX2RhdGEudG9fY3N2KCdnY19kYXRhLmNzdicpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiOTYwNDBlZTgtMGQwMy00ZjBlLWFmZGMtNjE4Yjk5NjhhMTE5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgR3JvdXBpbmciCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICJpZCI6ICJiOTgzZTFmYS00NzIwLTRjNTctOWE1OS0wZGMzYjNhNmZlYmYiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJwZW5ndWlucy5ncm91cGJ5KCdpc2xhbmQnKS5tZWFuKG51bWVyaWNfb25seT1UcnVlKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjUyODVlNTRiIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJFeHRyYWN0IHRoZSByb3dzIHdoZXJlIHZhbHVlcyBpbiB0aGUgXCJib2R5X21hc3NfZ1wiIGNvbHVtbiBpcyBsYXJnZXIgdGhhbiA0NTAwLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjM5YzUzMjM5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgTXVjaCBtb3JlIHRvIGxlYXJuIGFzIHlvdSBuZWVkIGl0XG4iLAogICAgIlxuIiwKICAgICJUaGlzIGlzIGEgc21hbGwgY2hhcHRlciBhYm91dCBhIHZlcnkgbGFyZ2UgbW9kdWxlLCBhbmQgYSBsb3Qgb2YgcG93ZXJmdWwgdGVjaG5pcXVlcyBoYXZlIGJlZW4gbGVmdCBvdXQuIFlvdSBjYW4gZG8gcHJldHR5IG11Y2ggYW55dGhpbmcgeW91IG1pZ2h0IHdhbnQgdG8gZG8gd2l0aCB0YWJsZXMuIFRvIGdldCBhIHRhc3RlLCB5b3UgY2FuIGJyb3dzZSBbMTAgbWludXRlcyB0byBwYW5kYXNdKGh0dHBzOi8vcGFuZGFzLnB5ZGF0YS5vcmcvZG9jcy91c2VyX2d1aWRlLzEwbWluLmh0bWwpLlxuIgogICBdCiAgfQogXSwKICJtZXRhZGF0YSI6IHsKICAia2VybmVsc3BlYyI6IHsKICAgImRpc3BsYXlfbmFtZSI6ICJJbnN0cnVjdGluZyBNYWNoaW5lcyIsCiAgICJsYW5ndWFnZSI6ICJweXRob24iLAogICAibmFtZSI6ICJpbnN0cnVjdGluZy1tYWNoaW5lcyIKICB9LAogICJsYW5ndWFnZV9pbmZvIjogewogICAiY29kZW1pcnJvcl9tb2RlIjogewogICAgIm5hbWUiOiAiaXB5dGhvbiIsCiAgICAidmVyc2lvbiI6IDMKICAgfSwKICAgImZpbGVfZXh0ZW5zaW9uIjogIi5weSIsCiAgICJtaW1ldHlwZSI6ICJ0ZXh0L3gtcHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uIiwKICAgIm5iY29udmVydF9leHBvcnRlciI6ICJweXRob24iLAogICAicHlnbWVudHNfbGV4ZXIiOiAiaXB5dGhvbjMiCiAgfQogfSwKICJuYmZvcm1hdCI6IDQsCiAibmJmb3JtYXRfbWlub3IiOiA1Cn0K').then(res => res.blob()).then(blob => {
+<p><a href="#dnldts4169" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIyZjc5ZjJhMCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIi0tLVxuIiwKICAgICJleGVjdXRlOlxuIiwKICAgICIgIGVuYWJsZWQ6IHRydWVcbiIsCiAgICAiLS0tXG4iLAogICAgIlxuIiwKICAgICIjIE51bXB5IGFuZCBQYW5kYXMgeyNzZWMtbnVtcHktYW5kLXBhbmRhc30iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI5MWM2MGRhNyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIklmIHlvdSBrbm93IGEgYml0IG9mIGxpbmVhciBhbGdlYnJhLCB5b3Uga25vdyBob3cgc29tZSBjb21wdXRhdGlvbnMgYXJlIG1vcmUgZWFzaWx5IGV4cHJlc3NlZCBhcyB2ZWN0b3JzIG9yIG1hdHJpY2VzLiBUaGUgW051bVB5IGxpYnJhcnldKGh0dHBzOi8vbnVtcHkub3JnL2RldmRvY3MvdXNlci9pbmRleC5odG1sI3VzZXIpIHByb3ZpZGVzIGEgIG11bHRpZGltZW5zaW9uYWwgYXJyYXkgb2JqZWN0IHRoYXQgbGV0cyB5b3UgZG8gdGhhdC4gWW91IGFscmVhZHkgaW5zdGFsbGVkIGBudW1weWAgd2hlbiB0aGUgYmVnaW5uaW5nIG9mIHRoZSBjb3Vyc2UsIHNvIGFsbCB5b3UgaGF2ZSB0byBkbyBpcyBpbXBvcnQgaXQuIFRoZSBjZWxsIGJlbG93IGltcG9ydHMgdGhlIGBudW1weWAgbW9kdWxlIGFuZCBiaW5kcyBpdCB0byB0aGUgbmFtZSBgbnBgLiBUaGlzIGlzIHRoZSB3YXkgZXZlcnkgb25lIGltcG9ydHMgaXQgYW5kIHNhdmVzIHlvdSBhIHZpZXcga2V5c3Ryb2tlcyBldmVyeSB0aW1lIHlvdSBuZWVkIHRvIHVzZSBpdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDEsCiAgICJpZCI6ICIzNWIzMzcyYiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImltcG9ydCBudW1weSBhcyBucCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImE5YWM1YjNhIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgQXJyYXlzIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAyLAogICAiaWQiOiAiYjQ5YWI3OTUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgImFycmF5KFs5LCA4LCA3LCA2LCA1LCA0LCAzLCAyLCAxLCAwXSkiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAyLAogICAgICJtZXRhZGF0YSI6IHt9LAogICAgICJvdXRwdXRfdHlwZSI6ICJleGVjdXRlX3Jlc3VsdCIKICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJudW1iZXJzID0gWzksIDgsIDcsIDYsIDUsIDQsIDMsIDIsIDEsIDBdXG4iLAogICAgIm5wLmFycmF5KG51bWJlcnMpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiNjc0OTA4YTciLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJBbGwgdGhlIGxpbmVhciBhbGdlYnJhIHJ1bGVzIGFwcGx5IHRvIGFycmF5czpcbiIsCiAgICAiXG4iLAogICAgIjo6OiB7LmNvbnRlbnQtbWFyZ2lufVxuIiwKICAgICJcbiIsCiAgICAiWW91IG1heSBzZWUgdGhpcyBiZWhhdmlvciByZWZlcnJlZCB0byBhcyAqYnJvYWRjYXN0aW5nKiwgYnV0IHRoYXQgaXMganVzdCB0aGUgcHJvZ3JhbW1pbmcgdGVybSBmb3IgbGluZWFyIGFsZ2VicmEgd2F5IG9mIGRvaW5nIGNvbXB1dGF0aW9ucy5cbiIsCiAgICAiXG4iLAogICAgIjo6OiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMywKICAgImlkIjogImQwNzU2ZTdjIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJuYW1lIjogInN0ZG91dCIsCiAgICAgIm91dHB1dF90eXBlIjogInN0cmVhbSIsCiAgICAgInRleHQiOiBbCiAgICAgICJbOSA5IDkgOSA5IDkgOSA5IDkgOV1cbiIsCiAgICAgICJbIDAgIDggMTQgMTggMjAgMjAgMTggMTQgIDggIDBdXG4iLAogICAgICAiWzE5IDE4IDE3IDE2IDE1IDE0IDEzIDEyIDExIDEwXVxuIgogICAgIF0KICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJhID0gbnAuYXJyYXkoWzksIDgsIDcsIDYsIDUsIDQsIDMsIDIsIDEsIDBdKVxuIiwKICAgICJiID0gbnAuYXJyYXkoWzAsIDEsIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDldKVxuIiwKICAgICJcbiIsCiAgICAicHJpbnQoYSArIGIpXG4iLAogICAgInByaW50KGEgKiBiKVxuIiwKICAgICJwcmludChhICsgMTApIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiNDEwZTQ5OWYiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJBcnJheXMgYWxzbyBjb21lIHdpdGggYSBsb3Qgb2YgdXNlZnVsIG1ldGhvZHMgbGlrZToiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDQsCiAgICJpZCI6ICI3M2E2MDFjMyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAibnAuZmxvYXQ2NCg0LjUpIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogNCwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAiYS5tZWFuKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJhYzAxNDVlOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIjo6OiB7LmNvbnRlbnQtbWFyZ2lufVxuIiwKICAgICJcbiIsCiAgICAiYG5wLmZsb2F0NjRgIGlzIE51bXB5J3Mgb3duIGZsb2F0IHR5cGUsIHdoaWNoIHdvcmtzIHRoZSBzYW1lIGFzIHRoZSByZWd1bGFyIGBmbG9hdGAuXG4iLAogICAgIlxuIiwKICAgICI6OjoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI3MDE0OWRmZCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBjYW4gbWFrZSBhIGFycmF5cyB3aXRoIGFueSBudW1iZXIgb2YgZGltZW5zaW9ucy4gQSB0d28tZGltZW5zaW9uYWwgYXJyYXkgY29ycmVzcG9uZHMgdG8gYSBtYXRyaXguIFlvdSBhbHJlYWR5IGtub3cgaG93IHRvIHJlcHJlc2VudCBhIG1hdHJpeCBhcyBhIGxpc3Qgb2YgbGlzdHMuIFRvIG1ha2UgYSBtYXRyaXgsIGp1c3QgdHVybiB0aGF0IGludG8gYW4gYXJyYXk6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiA1LAogICAiaWQiOiAiZTczY2IxYjIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgImFycmF5KFtbMSwgMiwgM10sXG4iLAogICAgICAgIiAgICAgICBbMSwgMiwgM10sXG4iLAogICAgICAgIiAgICAgICBbMSwgMiwgM11dKSIKICAgICAgXQogICAgIH0sCiAgICAgImV4ZWN1dGlvbl9jb3VudCI6IDUsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgImxpc3Rfb2ZfbGlzdHMgPSBbWzEsIDIsIDNdLCBbMSwgMiwgM10sIFsxLCAyLCAzXV1cbiIsCiAgICAiXG4iLAogICAgIm1hdHJpeCA9IG5wLmFycmF5KGxpc3Rfb2ZfbGlzdHMpXG4iLAogICAgIm1hdHJpeCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjRhYTE5YTNiIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiWW91IGNhbiBhY2Nlc3MgZWxlbWVudHMgd2l0aCBzcXVhcmUgYnJhY2tldHMganVzdCBsaWtlIHlvdSBkbyB3aXRoIGxpc3RzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogNiwKICAgImlkIjogIjgwNTBiMTZlIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICIyIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogNiwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAibGlzdF9vZl9saXN0c1sxXVsxXSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogNywKICAgImlkIjogImQwNTE1MzUyIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICJhcnJheShbMSwgMiwgM10pIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogNywKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAibWF0cml4WzFdIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiA4LAogICAiaWQiOiAiOWJkOWUxMjUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgIm5wLmludDY0KDIpIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogOCwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAibWF0cml4WzFdWzFdIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMDlmNjUzMDEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJGb3IgY29tcHV0YXRpb25hbCBlZmZpY2llbmN5LCBudW1weSBhcnJheXMgYWxzbyBsZXRzIHlvdSBzcGVjaWZ5IGluZGljZXMgZm9yIGVhY2ggZGltZW5zaW9uIGluIGEgc2luZ2xlIHNldCBvZiBzcXVhcmUgYnJhY2tldHM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiA5LAogICAiaWQiOiAiZjkzYzMwMGIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgImFycmF5KFsxLCAyLCAzXSkiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiA5LAogICAgICJtZXRhZGF0YSI6IHt9LAogICAgICJvdXRwdXRfdHlwZSI6ICJleGVjdXRlX3Jlc3VsdCIKICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJtYXRyaXhbMV0iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDEwLAogICAiaWQiOiAiNDk3ZjkyOTgiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgIm5wLmludDY0KDIpIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMTAsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgIm1hdHJpeFsxLCAxXSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjg4OTI4MDRjIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiTWFueSBvZiB0aGUgYXJyYXkgbWV0aG9kcyBjYW4gYmUgdXNlZCBib3RoIG9uIHRoZSBlbnRpcmUgYXJyYXksIGJ1dCBhbHNvIHNlcGFyYXRlbHkgZm9yIHRoZSByb3dzIG9yIGNvbHVtbnM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAxMSwKICAgImlkIjogIjIyY2M2Mzk1IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICJucC5pbnQ2NCgxOCkiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAxMSwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAibWF0cml4LnN1bSgpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiN2UxMzRkYjkiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJQYXNzIGBheGlzPTBgIHRvIGdldCB0aGUgcm93IHN1bXM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAxMiwKICAgImlkIjogIjdhMTk5YzU4IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICJhcnJheShbMS4sIDIuLCAzLl0pIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMTIsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgIm1hdHJpeC5tZWFuKGF4aXM9MCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI3ODc4OWRlMyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlBhc3MgYGF4aXM9MWAgdG8gZ2V0IHRoZSBjb2x1bW4gc3VtczoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDEzLAogICAiaWQiOiAiMWM3ODAxMTEiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgImFycmF5KFsyLiwgMi4sIDIuXSkiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAxMywKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAibWF0cml4Lm1lYW4oYXhpcz0xKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjJlNjg3YWJjIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgVGhlIFBhbmRhcyBsaWJyYXJ5IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiZGM2MWU4NjAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJSdW4gdGhpcyBjZWxsIHRvIGRvd25sb2FkIGFuIGV4YW1wbGUgZGF0YSBzZXQgdG8gYSBgcGVuZ3VpbnMuY3N2YCBmaWxlIG5leHQgdG8gdGhpcyBub3RlYm9vay4gVGhlbiBvcGVuIGl0IHRvIHNlZSB3aGF0IHRoZSBjb250ZW50cyBsb29rIGxpa2UgYW5kIGNsb3NlIGl0IGFnYWluIChkbyBub3QgY2hhbmdlIGl0KS4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDE0LAogICAiaWQiOiAiYmMyNjRhMjAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJpbXBvcnQgc2VhYm9ybiBhcyBzbnNcbiIsCiAgICAic25zLmxvYWRfZGF0YXNldCgncGVuZ3VpbnMnKS50b19jc3YoJ3Blbmd1aW5zLmNzdicsIGluZGV4PUZhbHNlKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjE5NWEyMTI5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiQXMgeW91IGNhbiBzZWUsIGBwZW5ndWlucy5jc3ZgIGlzIGEgdGFibGUgd2l0aCBhIGhlYWRlciBsaW5lIGFuZCBsb3RzIG9mIHJvd3MuIFRoZSB2YWx1ZXMgaW4gZWFjaCByb3cgYXJlIHNlcGFyYXRlZCBieSBhIGNvbW1hLCB3aGljaCBpcyB3aHkgdGhlIGZpbGUgbmFtZSBlbmRzIHdpdGggYC5jc3ZgLiBDU1YgaXMgc2hvcnQgZm9yICpjb21tYS1zZXBhcmF0ZWQgdmFsdWVzKi4gVGhpcyBraW5kIG9mIHRhYmxlIGZvcm1hdCBpcyBvbmUgb2YgdGhlIG1vc3QgY29tbW9uIHdheXMgb2Ygc3RvcmluZyBkYXRhLiBQYW5kYXMgaXMgYSByaWNoIGFuZCBwb3dlcmZ1bCBsaWJyYXJ5IHRoYXQgbGV0cyB5b3UgZG8gYWxsIGtpbmRzIG9mIG1hbmlwdWxhdGlvbiBhbmQgYWR2YW5jZWQgZGF0YSBhbmFseXNpcyBvbiBzdWNoIHRhYmxlIGRhdGEuIFRoaXMgY2hhcHRlciBzaG93cyBpbnRyb2R1Y2VzIHlvdSB0byB0aGUgYmFzaWNzLCBidXQgaWYvd2hlbiB5b3UgbmVlZCB0bywgeW91IGNhbiBmaW5kIGFsbCB0aGUgaW5mb3JtYXRpb24geW91IG5lZWQgaW4gdGhlIFtQYW5kYXMgdXNlciBndWlkZV0oaHR0cHM6Ly9wYW5kYXMucHlkYXRhLm9yZy9kb2NzL3VzZXJfZ3VpZGUvaW5kZXguaHRtbCN1c2VyLWd1aWRlKS5cbiIsCiAgICAiXG4iLAogICAgIllvdSBhbHJlYWR5IGluc3RhbGxlZCBgcGFuZGFzYCB3aGVuIHRoZSBiZWdpbm5pbmcgb2YgdGhlIGNvdXJzZSwgc28gYWxsIHlvdSBoYXZlIHRvIGRvIGlzIGltcG9ydCBpdC4gVGhlIGNlbGwgYmVsb3cgaW1wb3J0cyB0aGUgYHBhbmRhc2AgbW9kdWxlIGFuZCBiaW5kcyBpdCB0byB0aGUgbmFtZSBgcGRgLiBUaGlzIGlzIHRoZSB3YXkgZXZlcnkgb25lIGltcG9ydHMgaXQgYW5kIHNhdmVzIHlvdSBhIHZpZXcga2V5c3Ryb2tlcyBldmVyeSB0aW1lIHlvdSBuZWVkIHRvIHVzZSBpdC4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDE1LAogICAiaWQiOiAiNzIzMWM4YjIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFsKICAgICJpbXBvcnQgcGFuZGFzIGFzIHBkIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiY2I2ZmRkMzkiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJJZiB5b3UgYXJlIG5vdCBjb252aW5jZWQsIHlvdSBjYW4gdXNlIGB0eXBlYCB0byBjaGVjayB3aGljaCBraW5kIGl0IGlzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMTYsCiAgICJpZCI6ICI3ZWJiYzExOCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAibW9kdWxlIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMTYsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInR5cGUocGQpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiZmNiMjdhZDYiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBEYXRhRnJhbWVzIHsjc2VjLWRhdGFmcmFtZXN9IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMGVlMjg4MGQiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJZb3UgY2FuIHJlYWQgaW4gdGhlIHRhYmxlIGRhdGEgaW4gYHBlbmd1aW5zLmNzdmAgdXNpbmcgdGhlIGByZWFkX2NzdmAgZnVuY3Rpb24gaW4gdGhlIGBwYW5kYXNgIG1vZHVsZSAoYXZhaWxhYmxlIGFzIHRoZSBgcGRgIG5hbWUpLiBMZXRzIGRvIHRoYXQgYW5kIHN0b3JlIGl0IGluIGEgdmFyaWFibGUgY2FsbGVkIGBwZW5ndWluc2A6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAxNywKICAgImlkIjogIjhhOWFiZDc2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbCiAgICAicGVuZ3VpbnMgPSBwZC5yZWFkX2NzdigncGVuZ3VpbnMuY3N2JykiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJmMmEwY2M4MSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlBhbmRhcyBgcmVhZF9jc3ZgIGNyZWF0ZXMgYERhdGFGcmFtZWAgb2JqZWN0LiBgRGF0YUZyYW1lYCBpcyB0aGUgbWFpbiBvYmplY3Qgb2YgUGFuZGFzIGFuZCBpdHMgd2F5IG9mIHJlcHJlc2VudGluZyB0YWJsZSBkYXRhLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMTgsCiAgICJpZCI6ICI3ZmE4ZGY4OSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAicGFuZGFzLkRhdGFGcmFtZSIKICAgICAgXQogICAgIH0sCiAgICAgImV4ZWN1dGlvbl9jb3VudCI6IDE4LAogICAgICJtZXRhZGF0YSI6IHt9LAogICAgICJvdXRwdXRfdHlwZSI6ICJleGVjdXRlX3Jlc3VsdCIKICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJ0eXBlKHBlbmd1aW5zKSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjhiYzVmZjkxIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiSWYgeW91IHB1dCBhIGRhdGFmcmFtZSBvbiB0aGUgbGFzdCAob3Igb25seSkgbGluZSBpbiBhIGNlbGwsIGl0IGRpc3BsYXkgaXQgbmljZWx5LiBJZiBpdCBoYXMgbWFueSByb3dzLCBpdCB3aWxsIG9ubHkgc2hvdyB0aGUgZmlyc3QgYW5kIGxhc3QgZml2ZSByb3dzLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMTksCiAgICJpZCI6ICI4OGFjMjIxOCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvaHRtbCI6IFsKICAgICAgICI8ZGl2PlxuIiwKICAgICAgICI8c3R5bGUgc2NvcGVkPlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0Ym9keSB0ciB0aDpvbmx5LW9mLXR5cGUge1xuIiwKICAgICAgICIgICAgICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0Ym9keSB0ciB0aCB7XG4iLAogICAgICAgIiAgICAgICAgdmVydGljYWwtYWxpZ246IHRvcDtcbiIsCiAgICAgICAiICAgIH1cbiIsCiAgICAgICAiXG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRoZWFkIHRoIHtcbiIsCiAgICAgICAiICAgICAgICB0ZXh0LWFsaWduOiByaWdodDtcbiIsCiAgICAgICAiICAgIH1cbiIsCiAgICAgICAiPC9zdHlsZT5cbiIsCiAgICAgICAiPHRhYmxlIGJvcmRlcj1cIjFcIiBjbGFzcz1cImRhdGFmcmFtZVwiPlxuIiwKICAgICAgICIgIDx0aGVhZD5cbiIsCiAgICAgICAiICAgIDx0ciBzdHlsZT1cInRleHQtYWxpZ246IHJpZ2h0O1wiPlxuIiwKICAgICAgICIgICAgICA8dGg+PC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPnNwZWNpZXM8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+aXNsYW5kPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmJpbGxfbGVuZ3RoX21tPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmJpbGxfZGVwdGhfbW08L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+ZmxpcHBlcl9sZW5ndGhfbW08L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+Ym9keV9tYXNzX2c8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+c2V4PC90aD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgPC90aGVhZD5cbiIsCiAgICAgICAiICA8dGJvZHk+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4wPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkFkZWxpZTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5Ub3JnZXJzZW48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzkuMTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOC43PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4MS4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM3NTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5NYWxlPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4xPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkFkZWxpZTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5Ub3JnZXJzZW48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzkuNTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNy40PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4Ni4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM4MDAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjI8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QWRlbGllPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPlRvcmdlcnNlbjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD40MC4zPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4LjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTk1LjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzI1MC4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPkZlbWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BZGVsaWU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+VG9yZ2Vyc2VuPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjQ8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QWRlbGllPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPlRvcmdlcnNlbjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4zNi43PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE5LjM8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTkzLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzQ1MC4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPkZlbWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+Li4uPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPi4uLjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4uLi48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+Li4uPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPi4uLjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4uLi48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+Li4uPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPi4uLjwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzM5PC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkdlbnRvbzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5CaXNjb2U8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzQwPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkdlbnRvbzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5CaXNjb2U8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+NDYuODwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNC4zPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjIxNS4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjQ4NTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjM0MTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5HZW50b288L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+QmlzY29lPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjUwLjQ8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTUuNzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4yMjIuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD41NzUwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzQyPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkdlbnRvbzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5CaXNjb2U8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+NDUuMjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNC44PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjIxMi4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjUyMDAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjM0MzwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5HZW50b288L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+QmlzY29lPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjQ5Ljk8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTYuMTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4yMTMuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD41NDAwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGJvZHk+XG4iLAogICAgICAgIjwvdGFibGU+XG4iLAogICAgICAgIjxwPjM0NCByb3dzIMOXIDcgY29sdW1uczwvcD5cbiIsCiAgICAgICAiPC9kaXY+IgogICAgICBdLAogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICIgICAgc3BlY2llcyAgICAgaXNsYW5kICBiaWxsX2xlbmd0aF9tbSAgYmlsbF9kZXB0aF9tbSAgZmxpcHBlcl9sZW5ndGhfbW0gIFxcXG4iLAogICAgICAgIjAgICAgQWRlbGllICBUb3JnZXJzZW4gICAgICAgICAgICAzOS4xICAgICAgICAgICAxOC43ICAgICAgICAgICAgICAxODEuMCAgIFxuIiwKICAgICAgICIxICAgIEFkZWxpZSAgVG9yZ2Vyc2VuICAgICAgICAgICAgMzkuNSAgICAgICAgICAgMTcuNCAgICAgICAgICAgICAgMTg2LjAgICBcbiIsCiAgICAgICAiMiAgICBBZGVsaWUgIFRvcmdlcnNlbiAgICAgICAgICAgIDQwLjMgICAgICAgICAgIDE4LjAgICAgICAgICAgICAgIDE5NS4wICAgXG4iLAogICAgICAgIjMgICAgQWRlbGllICBUb3JnZXJzZW4gICAgICAgICAgICAgTmFOICAgICAgICAgICAgTmFOICAgICAgICAgICAgICAgIE5hTiAgIFxuIiwKICAgICAgICI0ICAgIEFkZWxpZSAgVG9yZ2Vyc2VuICAgICAgICAgICAgMzYuNyAgICAgICAgICAgMTkuMyAgICAgICAgICAgICAgMTkzLjAgICBcbiIsCiAgICAgICAiLi4gICAgICAuLi4gICAgICAgIC4uLiAgICAgICAgICAgICAuLi4gICAgICAgICAgICAuLi4gICAgICAgICAgICAgICAgLi4uICAgXG4iLAogICAgICAgIjMzOSAgR2VudG9vICAgICBCaXNjb2UgICAgICAgICAgICAgTmFOICAgICAgICAgICAgTmFOICAgICAgICAgICAgICAgIE5hTiAgIFxuIiwKICAgICAgICIzNDAgIEdlbnRvbyAgICAgQmlzY29lICAgICAgICAgICAgNDYuOCAgICAgICAgICAgMTQuMyAgICAgICAgICAgICAgMjE1LjAgICBcbiIsCiAgICAgICAiMzQxICBHZW50b28gICAgIEJpc2NvZSAgICAgICAgICAgIDUwLjQgICAgICAgICAgIDE1LjcgICAgICAgICAgICAgIDIyMi4wICAgXG4iLAogICAgICAgIjM0MiAgR2VudG9vICAgICBCaXNjb2UgICAgICAgICAgICA0NS4yICAgICAgICAgICAxNC44ICAgICAgICAgICAgICAyMTIuMCAgIFxuIiwKICAgICAgICIzNDMgIEdlbnRvbyAgICAgQmlzY29lICAgICAgICAgICAgNDkuOSAgICAgICAgICAgMTYuMSAgICAgICAgICAgICAgMjEzLjAgICBcbiIsCiAgICAgICAiXG4iLAogICAgICAgIiAgICAgYm9keV9tYXNzX2cgICAgIHNleCAgXG4iLAogICAgICAgIjAgICAgICAgICAzNzUwLjAgICAgTWFsZSAgXG4iLAogICAgICAgIjEgICAgICAgICAzODAwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjIgICAgICAgICAzMjUwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjMgICAgICAgICAgICBOYU4gICAgIE5hTiAgXG4iLAogICAgICAgIjQgICAgICAgICAzNDUwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIi4uICAgICAgICAgICAuLi4gICAgIC4uLiAgXG4iLAogICAgICAgIjMzOSAgICAgICAgICBOYU4gICAgIE5hTiAgXG4iLAogICAgICAgIjM0MCAgICAgICA0ODUwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjM0MSAgICAgICA1NzUwLjAgICAgTWFsZSAgXG4iLAogICAgICAgIjM0MiAgICAgICA1MjAwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjM0MyAgICAgICA1NDAwLjAgICAgTWFsZSAgXG4iLAogICAgICAgIlxuIiwKICAgICAgICJbMzQ0IHJvd3MgeCA3IGNvbHVtbnNdIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMTksCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMWZiZDA1YWUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJJIHNlZSBqdXN0IHRoZSBmaXJzdCBvciBsYXN0IHJvd3MsIHlvdSBjYW4gdXNlIHRoZSBgaGVhZGAgYW5kIGB0YWlsYCBtZXRob2RzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMjAsCiAgICJpZCI6ICI5ZjgyOTAxZiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvaHRtbCI6IFsKICAgICAgICI8ZGl2PlxuIiwKICAgICAgICI8c3R5bGUgc2NvcGVkPlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0Ym9keSB0ciB0aDpvbmx5LW9mLXR5cGUge1xuIiwKICAgICAgICIgICAgICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0Ym9keSB0ciB0aCB7XG4iLAogICAgICAgIiAgICAgICAgdmVydGljYWwtYWxpZ246IHRvcDtcbiIsCiAgICAgICAiICAgIH1cbiIsCiAgICAgICAiXG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRoZWFkIHRoIHtcbiIsCiAgICAgICAiICAgICAgICB0ZXh0LWFsaWduOiByaWdodDtcbiIsCiAgICAgICAiICAgIH1cbiIsCiAgICAgICAiPC9zdHlsZT5cbiIsCiAgICAgICAiPHRhYmxlIGJvcmRlcj1cIjFcIiBjbGFzcz1cImRhdGFmcmFtZVwiPlxuIiwKICAgICAgICIgIDx0aGVhZD5cbiIsCiAgICAgICAiICAgIDx0ciBzdHlsZT1cInRleHQtYWxpZ246IHJpZ2h0O1wiPlxuIiwKICAgICAgICIgICAgICA8dGg+PC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPnNwZWNpZXM8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+aXNsYW5kPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmJpbGxfbGVuZ3RoX21tPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmJpbGxfZGVwdGhfbW08L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+ZmxpcHBlcl9sZW5ndGhfbW08L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+Ym9keV9tYXNzX2c8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+c2V4PC90aD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgPC90aGVhZD5cbiIsCiAgICAgICAiICA8dGJvZHk+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4wPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkFkZWxpZTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5Ub3JnZXJzZW48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzkuMTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOC43PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4MS4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM3NTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5NYWxlPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4xPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkFkZWxpZTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5Ub3JnZXJzZW48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzkuNTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNy40PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4Ni4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM4MDAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjI8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QWRlbGllPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPlRvcmdlcnNlbjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD40MC4zPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4LjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTk1LjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzI1MC4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPkZlbWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BZGVsaWU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+VG9yZ2Vyc2VuPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjQ8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QWRlbGllPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPlRvcmdlcnNlbjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4zNi43PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE5LjM8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTkzLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzQ1MC4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPkZlbWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGJvZHk+XG4iLAogICAgICAgIjwvdGFibGU+XG4iLAogICAgICAgIjwvZGl2PiIKICAgICAgXSwKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAiICBzcGVjaWVzICAgICBpc2xhbmQgIGJpbGxfbGVuZ3RoX21tICBiaWxsX2RlcHRoX21tICBmbGlwcGVyX2xlbmd0aF9tbSAgXFxcbiIsCiAgICAgICAiMCAgQWRlbGllICBUb3JnZXJzZW4gICAgICAgICAgICAzOS4xICAgICAgICAgICAxOC43ICAgICAgICAgICAgICAxODEuMCAgIFxuIiwKICAgICAgICIxICBBZGVsaWUgIFRvcmdlcnNlbiAgICAgICAgICAgIDM5LjUgICAgICAgICAgIDE3LjQgICAgICAgICAgICAgIDE4Ni4wICAgXG4iLAogICAgICAgIjIgIEFkZWxpZSAgVG9yZ2Vyc2VuICAgICAgICAgICAgNDAuMyAgICAgICAgICAgMTguMCAgICAgICAgICAgICAgMTk1LjAgICBcbiIsCiAgICAgICAiMyAgQWRlbGllICBUb3JnZXJzZW4gICAgICAgICAgICAgTmFOICAgICAgICAgICAgTmFOICAgICAgICAgICAgICAgIE5hTiAgIFxuIiwKICAgICAgICI0ICBBZGVsaWUgIFRvcmdlcnNlbiAgICAgICAgICAgIDM2LjcgICAgICAgICAgIDE5LjMgICAgICAgICAgICAgIDE5My4wICAgXG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICBib2R5X21hc3NfZyAgICAgc2V4ICBcbiIsCiAgICAgICAiMCAgICAgICAzNzUwLjAgICAgTWFsZSAgXG4iLAogICAgICAgIjEgICAgICAgMzgwMC4wICBGZW1hbGUgIFxuIiwKICAgICAgICIyICAgICAgIDMyNTAuMCAgRmVtYWxlICBcbiIsCiAgICAgICAiMyAgICAgICAgICBOYU4gICAgIE5hTiAgXG4iLAogICAgICAgIjQgICAgICAgMzQ1MC4wICBGZW1hbGUgICIKICAgICAgXQogICAgIH0sCiAgICAgImV4ZWN1dGlvbl9jb3VudCI6IDIwLAogICAgICJtZXRhZGF0YSI6IHt9LAogICAgICJvdXRwdXRfdHlwZSI6ICJleGVjdXRlX3Jlc3VsdCIKICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJwZW5ndWlucy5oZWFkKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDIxLAogICAiaWQiOiAiY2E5MDcwM2QiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L2h0bWwiOiBbCiAgICAgICAiPGRpdj5cbiIsCiAgICAgICAiPHN0eWxlIHNjb3BlZD5cbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGg6b25seS1vZi10eXBlIHtcbiIsCiAgICAgICAiICAgICAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICJcbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGgge1xuIiwKICAgICAgICIgICAgICAgIHZlcnRpY2FsLWFsaWduOiB0b3A7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0aGVhZCB0aCB7XG4iLAogICAgICAgIiAgICAgICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIjwvc3R5bGU+XG4iLAogICAgICAgIjx0YWJsZSBib3JkZXI9XCIxXCIgY2xhc3M9XCJkYXRhZnJhbWVcIj5cbiIsCiAgICAgICAiICA8dGhlYWQ+XG4iLAogICAgICAgIiAgICA8dHIgc3R5bGU9XCJ0ZXh0LWFsaWduOiByaWdodDtcIj5cbiIsCiAgICAgICAiICAgICAgPHRoPjwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5zcGVjaWVzPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmlzbGFuZDwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5iaWxsX2xlbmd0aF9tbTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5iaWxsX2RlcHRoX21tPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmZsaXBwZXJfbGVuZ3RoX21tPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmJvZHlfbWFzc19nPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPnNleDwvdGg+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGhlYWQ+XG4iLAogICAgICAgIiAgPHRib2R5PlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzM5PC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkdlbnRvbzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5CaXNjb2U8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzQwPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkdlbnRvbzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5CaXNjb2U8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+NDYuODwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNC4zPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjIxNS4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjQ4NTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjM0MTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5HZW50b288L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+QmlzY29lPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjUwLjQ8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTUuNzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4yMjIuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD41NzUwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MzQyPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkdlbnRvbzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5CaXNjb2U8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+NDUuMjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNC44PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjIxMi4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjUyMDAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjM0MzwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5HZW50b288L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+QmlzY29lPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjQ5Ljk8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTYuMTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4yMTMuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD41NDAwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGJvZHk+XG4iLAogICAgICAgIjwvdGFibGU+XG4iLAogICAgICAgIjwvZGl2PiIKICAgICAgXSwKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAiICAgIHNwZWNpZXMgIGlzbGFuZCAgYmlsbF9sZW5ndGhfbW0gIGJpbGxfZGVwdGhfbW0gIGZsaXBwZXJfbGVuZ3RoX21tICBcXFxuIiwKICAgICAgICIzMzkgIEdlbnRvbyAgQmlzY29lICAgICAgICAgICAgIE5hTiAgICAgICAgICAgIE5hTiAgICAgICAgICAgICAgICBOYU4gICBcbiIsCiAgICAgICAiMzQwICBHZW50b28gIEJpc2NvZSAgICAgICAgICAgIDQ2LjggICAgICAgICAgIDE0LjMgICAgICAgICAgICAgIDIxNS4wICAgXG4iLAogICAgICAgIjM0MSAgR2VudG9vICBCaXNjb2UgICAgICAgICAgICA1MC40ICAgICAgICAgICAxNS43ICAgICAgICAgICAgICAyMjIuMCAgIFxuIiwKICAgICAgICIzNDIgIEdlbnRvbyAgQmlzY29lICAgICAgICAgICAgNDUuMiAgICAgICAgICAgMTQuOCAgICAgICAgICAgICAgMjEyLjAgICBcbiIsCiAgICAgICAiMzQzICBHZW50b28gIEJpc2NvZSAgICAgICAgICAgIDQ5LjkgICAgICAgICAgIDE2LjEgICAgICAgICAgICAgIDIxMy4wICAgXG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICAgIGJvZHlfbWFzc19nICAgICBzZXggIFxuIiwKICAgICAgICIzMzkgICAgICAgICAgTmFOICAgICBOYU4gIFxuIiwKICAgICAgICIzNDAgICAgICAgNDg1MC4wICBGZW1hbGUgIFxuIiwKICAgICAgICIzNDEgICAgICAgNTc1MC4wICAgIE1hbGUgIFxuIiwKICAgICAgICIzNDIgICAgICAgNTIwMC4wICBGZW1hbGUgIFxuIiwKICAgICAgICIzNDMgICAgICAgNTQwMC4wICAgIE1hbGUgICIKICAgICAgXQogICAgIH0sCiAgICAgImV4ZWN1dGlvbl9jb3VudCI6IDIxLAogICAgICJtZXRhZGF0YSI6IHt9LAogICAgICJvdXRwdXRfdHlwZSI6ICJleGVjdXRlX3Jlc3VsdCIKICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJwZW5ndWlucy50YWlsKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI1YzIyMzFjOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIyMgRXhlcmNpc2VcbiIsCiAgICAiXG4iLAogICAgIltTT0xPXSguLi9pbnRyby9jb3Vyc2UtaW50cm9kdWN0aW9uLnFtZCNzZWMtYmFkZ2Utc29sbyl7LnNtYWxsfVxuIiwKICAgICJcbiIsCiAgICAiTG9vayBhdCB0aGUgYERhdGFGcmFtZWAgW2RvY3VtZW50YXRpb24gcGFnZV0oaHR0cHM6Ly9wYW5kYXMucHlkYXRhLm9yZy9kb2NzL3JlZmVyZW5jZS9mcmFtZS5odG1sKSBhbmQgZmluZCB0aGUgbWV0aG9kIHlvdSBuZWVkIHRvIHNvcnQgdGhlIHJvd3Mgb2YgYSBkYXRhZnJhbWUuIFRoZW4gc29ydCB0aGUgcGVuZ3VpbnMgZGF0YSBieSBcImZsaXBwZXJfbGVuZ3RoX21tXCIuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAyMiwKICAgImlkIjogImZjOGY3MDNkIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImNiMzRlYWE2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgRXh0cmFjdGluZyBkYXRhIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMzMwMjhiOGMiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJUbyBhY2Nlc3MgYSBjb2x1bW4sIHlvdSBjYW4gdXNlIHRoZSBmYW1pbGlhciBzcXVhcmUgYnJhY2tldHMgdGhhdCB3ZSBhbHNvIHVzZSB3aXRoIHN0cmluZ3MsIGxpc3RzIGFuZCBkaWN0aW9uYXJpZXM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAyMywKICAgImlkIjogIjc5Mzg3YWYxIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICIwICAgICAgMTguN1xuIiwKICAgICAgICIxICAgICAgMTcuNFxuIiwKICAgICAgICIyICAgICAgMTguMFxuIiwKICAgICAgICIzICAgICAgIE5hTlxuIiwKICAgICAgICI0ICAgICAgMTkuM1xuIiwKICAgICAgICIgICAgICAgLi4uIFxuIiwKICAgICAgICIzMzkgICAgIE5hTlxuIiwKICAgICAgICIzNDAgICAgMTQuM1xuIiwKICAgICAgICIzNDEgICAgMTUuN1xuIiwKICAgICAgICIzNDIgICAgMTQuOFxuIiwKICAgICAgICIzNDMgICAgMTYuMVxuIiwKICAgICAgICJOYW1lOiBiaWxsX2RlcHRoX21tLCBMZW5ndGg6IDM0NCwgZHR5cGU6IGZsb2F0NjQiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAyMiwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAiYmlsbF9kZXB0aCA9IHBlbmd1aW5zWydiaWxsX2RlcHRoX21tJ11cbiIsCiAgICAiYmlsbF9kZXB0aCIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImU1NWEyZjE3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiOjo6IHsuY29udGVudC1tYXJnaW59XG4iLAogICAgIlxuIiwKICAgICJZb3UgbWF5IHNlZSBvdGhlciBwZW9wbGUgYWNjZXNzIHRoZSBjb2x1bW5zIGFzIGF0dHJpYnV0ZXMgKGxpa2UgYHBlbmd1aW5zLmJpbGxfZGVwdGhfbW1gKSwgYnV0IHdlIHdpbGwgc3RpY2sgdG8gdGhlIGJyYWNrZXQgbm90YXRpb24gdG8ga2VlcCBpdCBzaW1wbGUuXG4iLAogICAgIlxuIiwKICAgICI6OjoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI4ZmEwYmY1YSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIkNvbHVtbnMgaXMgaGFzIHRoZWlyIG93biB0eXBlLCBgU2VyaWVzYC4gIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAyNCwKICAgImlkIjogImU2MWQ5NDA2IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICJwYW5kYXMuU2VyaWVzIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMjMsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInR5cGUoYmlsbF9kZXB0aCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI4MDkwZjYzOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIkl0cyBkYXRhIGlzIGp1c3QgYSBudW1weSBhcnJheSwgYnV0IG9uIHRvcCBvZiB0aGF0IGl0IHBhY2tzIGEgbG90IG9mIHVzZWZ1bCBtZXRob2RzIGZvciBjb21wdXRpbmcgc3RhdGlzdGljcyBsaWtlIHRoZSBgbWVhbmAgb3IgZm9yIG1hbmlwdWxhdGluZyBsaWtlIGBzb3J0X3ZhbHVlc2A6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAyNSwKICAgImlkIjogIjk0MmQwZDBkIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICJucC5mbG9hdDY0KDE3LjE1MTE2OTU5MDY0MzI3OCkiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAyNCwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAiYmlsbF9kZXB0aC5tZWFuKCkiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJmODU4NzJiNiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIjo6OiB7LmNvbnRlbnQtbWFyZ2lufVxuIiwKICAgICJcbiIsCiAgICAiYG5wLmZsb2F0NjRgIGlzIE51bXB5J3Mgb3duIGZsb2F0IHR5cGUsIHdoaWNoIHdvcmtzIHRoZSBzYW1lIGFzIHRoZSByZWd1bGFyIGBmbG9hdGAuXG4iLAogICAgIlxuIiwKICAgICI6OjoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICI1OWVhYjdiZiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBjYW4gc2VlIGFsbCB0aGUgb3RoZXIgbWV0aG9kcyBvbiB0aGUgYFNlcmllc2AgW2RvY3VtZW50YXRpb24gcGFnZV0oaHR0cHM6Ly9wYW5kYXMucHlkYXRhLm9yZy9kb2NzL3JlZmVyZW5jZS9hcGkvcGFuZGFzLlNlcmllcy5odG1sKS4iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIxNmE1NDM2ZCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMjIEluZGV4aW5nIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMzM5YTkxZGIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJZb3UgbWF5IGhhdmUgbm90aWNlZCB0aGUgbnVtYmVycyBpbiB0aGUgZmFyIGxlZnQgY29sdW1uIHRoYXQgZG9lcyBub3QgaGF2ZSBhIG5hbWUuIFRoYXQgaXMgdGhlIHJvdyBpbmRleCB0aGF0IHlvdSBuZWVkIHRvIGFjY2VzcyBpbmRpdmlkdWFsIHJvd3MuIERhdGFmcmFtZXMgaGF2ZSBhIGBsb2NgIGF0dHJpYnV0ZSB0aGF0IHlvdSBjYW4gdXNlIGZvciBhY2Nlc3NpbmcgZGF0YSBpbiBhbGwga2luZHMgb2Ygd2F5cy4gVG8gZ2V0IGEgcm93LCB5b3UganVzdCBnaXZlIGl0IHRoZSByb3cgaW5kZXggaW4gc3F1YXJlIGJyYWNrZXRzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMjYsCiAgICJpZCI6ICJkZDY3Y2ZiMyIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAicGFuZGFzLlNlcmllcyIKICAgICAgXQogICAgIH0sCiAgICAgImV4ZWN1dGlvbl9jb3VudCI6IDI1LAogICAgICJtZXRhZGF0YSI6IHt9LAogICAgICJvdXRwdXRfdHlwZSI6ICJleGVjdXRlX3Jlc3VsdCIKICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJyb3cgPSBwZW5ndWlucy5sb2NbNF1cbiIsCiAgICAidHlwZShyb3cpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMjU0ZmMyZDUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJUaGUgcm93IGlzIHJldHVybmVkIGFzIGEgYFNlcmllc2AgaW5kZXhlZCBieSB0aGUgY29sdW1uIG5hbWVzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMjcsCiAgICJpZCI6ICI3OGQwMWU4ZSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAic3BlY2llcyAgICAgICAgICAgICAgICAgQWRlbGllXG4iLAogICAgICAgImlzbGFuZCAgICAgICAgICAgICAgIFRvcmdlcnNlblxuIiwKICAgICAgICJiaWxsX2xlbmd0aF9tbSAgICAgICAgICAgIDM2LjdcbiIsCiAgICAgICAiYmlsbF9kZXB0aF9tbSAgICAgICAgICAgICAxOS4zXG4iLAogICAgICAgImZsaXBwZXJfbGVuZ3RoX21tICAgICAgICAxOTMuMFxuIiwKICAgICAgICJib2R5X21hc3NfZyAgICAgICAgICAgICAzNDUwLjBcbiIsCiAgICAgICAic2V4ICAgICAgICAgICAgICAgICAgICAgRmVtYWxlXG4iLAogICAgICAgIk5hbWU6IDQsIGR0eXBlOiBvYmplY3QiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAyNiwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAicm93IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiNjI3NDNkNmMiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJTbyB5b3UgY2FuIGFjY2VzcyB0aGUgdmFsdWVzIGJ5IHBhc3NpbmcgY29sdW1uIG5hbWVzIHRvIGBsb2NgOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMjgsCiAgICJpZCI6ICJlN2FjYmQ0NSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAiJ1RvcmdlcnNlbiciCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAyNywKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAicm93LmxvY1snaXNsYW5kJ10iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJjNDMxOGYxZSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIllvdSBhbiBnZXQgdGhlIHNhbWUgc2luZ2xlIGRhdGFmcmFtZSBjZWxsIGJ5IHBhc3NpbmcgYm90aCBhIHJvdyBhbmQgYSBjb2x1bW4gaW5kZXggdmFsdWUgdG8gYGxvY2A6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAyOSwKICAgImlkIjogIjkyOWM1ZWFkIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICInVG9yZ2Vyc2VuJyIKICAgICAgXQogICAgIH0sCiAgICAgImV4ZWN1dGlvbl9jb3VudCI6IDI4LAogICAgICJtZXRhZGF0YSI6IHt9LAogICAgICJvdXRwdXRfdHlwZSI6ICJleGVjdXRlX3Jlc3VsdCIKICAgIH0KICAgXSwKICAgInNvdXJjZSI6IFsKICAgICJwZW5ndWlucy5sb2NbNCwgJ2lzbGFuZCddIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiYzMwZjEzODgiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJZb3UgY2FuIGFsc28gYWNjZXNzIGRhdGEgdXNpbmcgc2xpY2VzIG9yIGxpc3RzIG9mIHJvdyBhbmQgY29sdW1uIHZhbHVlcyBpbmRleCB2YWx1ZXM6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAzMCwKICAgImlkIjogImM4ZDEyZDliIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9odG1sIjogWwogICAgICAgIjxkaXY+XG4iLAogICAgICAgIjxzdHlsZSBzY29wZWQ+XG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRib2R5IHRyIHRoOm9ubHktb2YtdHlwZSB7XG4iLAogICAgICAgIiAgICAgICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiIsCiAgICAgICAiICAgIH1cbiIsCiAgICAgICAiXG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRib2R5IHRyIHRoIHtcbiIsCiAgICAgICAiICAgICAgICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICJcbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGhlYWQgdGgge1xuIiwKICAgICAgICIgICAgICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICI8L3N0eWxlPlxuIiwKICAgICAgICI8dGFibGUgYm9yZGVyPVwiMVwiIGNsYXNzPVwiZGF0YWZyYW1lXCI+XG4iLAogICAgICAgIiAgPHRoZWFkPlxuIiwKICAgICAgICIgICAgPHRyIHN0eWxlPVwidGV4dC1hbGlnbjogcmlnaHQ7XCI+XG4iLAogICAgICAgIiAgICAgIDx0aD48L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+aXNsYW5kPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmJvZHlfbWFzc19nPC90aD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgPC90aGVhZD5cbiIsCiAgICAgICAiICA8dGJvZHk+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD40MDwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5EcmVhbTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4zMTUwLjA8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjQxPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkRyZWFtPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM5MDAuMDwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+NDI8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+RHJlYW08L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzEwMC4wPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD40MzwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5EcmVhbTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD40NDAwLjA8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjQ0PC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkRyZWFtPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjMwMDAuMDwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+NDU8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+RHJlYW08L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+NDYwMC4wPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgPC90Ym9keT5cbiIsCiAgICAgICAiPC90YWJsZT5cbiIsCiAgICAgICAiPC9kaXY+IgogICAgICBdLAogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICIgICBpc2xhbmQgIGJvZHlfbWFzc19nXG4iLAogICAgICAgIjQwICBEcmVhbSAgICAgICAzMTUwLjBcbiIsCiAgICAgICAiNDEgIERyZWFtICAgICAgIDM5MDAuMFxuIiwKICAgICAgICI0MiAgRHJlYW0gICAgICAgMzEwMC4wXG4iLAogICAgICAgIjQzICBEcmVhbSAgICAgICA0NDAwLjBcbiIsCiAgICAgICAiNDQgIERyZWFtICAgICAgIDMwMDAuMFxuIiwKICAgICAgICI0NSAgRHJlYW0gICAgICAgNDYwMC4wIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMjksCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmxvY1s0MDo0NSwgWydpc2xhbmQnLCAnYm9keV9tYXNzX2cnXV0iCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDMxLAogICAiaWQiOiAiYzY0NDQ1YmUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L2h0bWwiOiBbCiAgICAgICAiPGRpdj5cbiIsCiAgICAgICAiPHN0eWxlIHNjb3BlZD5cbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGg6b25seS1vZi10eXBlIHtcbiIsCiAgICAgICAiICAgICAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICJcbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGgge1xuIiwKICAgICAgICIgICAgICAgIHZlcnRpY2FsLWFsaWduOiB0b3A7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0aGVhZCB0aCB7XG4iLAogICAgICAgIiAgICAgICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIjwvc3R5bGU+XG4iLAogICAgICAgIjx0YWJsZSBib3JkZXI9XCIxXCIgY2xhc3M9XCJkYXRhZnJhbWVcIj5cbiIsCiAgICAgICAiICA8dGhlYWQ+XG4iLAogICAgICAgIiAgICA8dHIgc3R5bGU9XCJ0ZXh0LWFsaWduOiByaWdodDtcIj5cbiIsCiAgICAgICAiICAgICAgPHRoPjwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5zZXg8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+c3BlY2llczwvdGg+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGhlYWQ+XG4iLAogICAgICAgIiAgPHRib2R5PlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+NzwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5NYWxlPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPkFkZWxpZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MTUzPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPk1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+Q2hpbnN0cmFwPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4yNTc8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+TWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5HZW50b288L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICA8L3Rib2R5PlxuIiwKICAgICAgICI8L3RhYmxlPlxuIiwKICAgICAgICI8L2Rpdj4iCiAgICAgIF0sCiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgIiAgICAgIHNleCAgICBzcGVjaWVzXG4iLAogICAgICAgIjcgICAgTWFsZSAgICAgQWRlbGllXG4iLAogICAgICAgIjE1MyAgTWFsZSAgQ2hpbnN0cmFwXG4iLAogICAgICAgIjI1NyAgTWFsZSAgICAgR2VudG9vIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMzAsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmxvY1tbNywxNTMsMjU3XSwgWydzZXgnLCAnc3BlY2llcyddXSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImQyMjRmMjA4IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiUmF0aGVyIHRoYW4gcHJvdmlkaW5nIHJvdyBpbmRleCB2YWx1ZXMsIHlvdSBjYW4gcHJvdmlkZSBhIHNlcmllcyB3aXRoIGEgYFRydWVgIG9yIGBGYWxzZWAgZm9yIGVhY2ggcm93LiBTaW5jZSBgU2VyaWVzYCBzdXBwb3J0ICpib2FkY2FzdGluZyogdGhlIHNhbWUgd2F5IGFycmF5cyBkbywgc3RhdGVtZW50cyBsaWtlIHRoaXMgcHJvZHVjZSBzdWNoIFRydWUvRmFsc2Ugc2VyaWVzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMzIsCiAgICJpZCI6ICI5MWIyOWVhMCIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFsKICAgIHsKICAgICAiZGF0YSI6IHsKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAiMCAgICAgICBUcnVlXG4iLAogICAgICAgIjEgICAgICAgVHJ1ZVxuIiwKICAgICAgICIyICAgICAgIFRydWVcbiIsCiAgICAgICAiMyAgICAgICBUcnVlXG4iLAogICAgICAgIjQgICAgICAgVHJ1ZVxuIiwKICAgICAgICIgICAgICAgLi4uICBcbiIsCiAgICAgICAiMzM5ICAgIEZhbHNlXG4iLAogICAgICAgIjM0MCAgICBGYWxzZVxuIiwKICAgICAgICIzNDEgICAgRmFsc2VcbiIsCiAgICAgICAiMzQyICAgIEZhbHNlXG4iLAogICAgICAgIjM0MyAgICBGYWxzZVxuIiwKICAgICAgICJOYW1lOiBzcGVjaWVzLCBMZW5ndGg6IDM0NCwgZHR5cGU6IGJvb2wiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAzMSwKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAiaXNfYWRlbGllID0gcGVuZ3VpbnNbJ3NwZWNpZXMnXSA9PSAnQWRlbGllJ1xuIiwKICAgICJpc19hZGVsaWUiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICJlMTRiMDk0NiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIlBhc3NpbmcgdGhhdCB0byBgcGVuZ3VpbnMubG9jYCBnaXZlcyB5b3UgYWxsIHRoZSByb3dzIHdoZXJlIHRoZSBcInNwZWNpZXNcIiBjb2x1bW4gYXMgdGhlIHZhbHVlIGBcIkFkZWxpZVwiYDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDMzLAogICAiaWQiOiAiYWYzMjM1MTUiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L2h0bWwiOiBbCiAgICAgICAiPGRpdj5cbiIsCiAgICAgICAiPHN0eWxlIHNjb3BlZD5cbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGg6b25seS1vZi10eXBlIHtcbiIsCiAgICAgICAiICAgICAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICJcbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGgge1xuIiwKICAgICAgICIgICAgICAgIHZlcnRpY2FsLWFsaWduOiB0b3A7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0aGVhZCB0aCB7XG4iLAogICAgICAgIiAgICAgICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIjwvc3R5bGU+XG4iLAogICAgICAgIjx0YWJsZSBib3JkZXI9XCIxXCIgY2xhc3M9XCJkYXRhZnJhbWVcIj5cbiIsCiAgICAgICAiICA8dGhlYWQ+XG4iLAogICAgICAgIiAgICA8dHIgc3R5bGU9XCJ0ZXh0LWFsaWduOiByaWdodDtcIj5cbiIsCiAgICAgICAiICAgICAgPHRoPjwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5zcGVjaWVzPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmlzbGFuZDwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5iaWxsX2xlbmd0aF9tbTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5iaWxsX2RlcHRoX21tPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmZsaXBwZXJfbGVuZ3RoX21tPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmJvZHlfbWFzc19nPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPnNleDwvdGg+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGhlYWQ+XG4iLAogICAgICAgIiAgPHRib2R5PlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MDwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BZGVsaWU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+VG9yZ2Vyc2VuPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM5LjE8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTguNzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xODEuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4zNzUwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BZGVsaWU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+VG9yZ2Vyc2VuPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM5LjU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTcuNDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xODYuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4zODAwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+RmVtYWxlPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4yPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkFkZWxpZTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5Ub3JnZXJzZW48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+NDAuMzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOC4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE5NS4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjMyNTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjM8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QWRlbGllPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPlRvcmdlcnNlbjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPk5hTjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5OYU48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TmFOPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD40PC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkFkZWxpZTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5Ub3JnZXJzZW48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzYuNzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOS4zPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE5My4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM0NTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPi4uLjwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD4uLi48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+Li4uPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPi4uLjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4uLi48L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+Li4uPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPi4uLjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4uLi48L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjE0NzwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BZGVsaWU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+RHJlYW08L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzYuNjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOC40PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4NC4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM0NzUuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjE0ODwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BZGVsaWU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+RHJlYW08L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzYuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNy44PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE5NS4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM0NTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5GZW1hbGU8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjE0OTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BZGVsaWU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+RHJlYW08L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzcuODwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOC4xPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE5My4wPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM3NTAuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD5NYWxlPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4xNTA8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QWRlbGllPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPkRyZWFtPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM2LjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTcuMTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xODcuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4zNzAwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+RmVtYWxlPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4xNTE8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QWRlbGllPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPkRyZWFtPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjQxLjU8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MTguNTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4yMDEuMDwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD40MDAwLjA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+TWFsZTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGJvZHk+XG4iLAogICAgICAgIjwvdGFibGU+XG4iLAogICAgICAgIjxwPjE1MiByb3dzIMOXIDcgY29sdW1uczwvcD5cbiIsCiAgICAgICAiPC9kaXY+IgogICAgICBdLAogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICIgICAgc3BlY2llcyAgICAgaXNsYW5kICBiaWxsX2xlbmd0aF9tbSAgYmlsbF9kZXB0aF9tbSAgZmxpcHBlcl9sZW5ndGhfbW0gIFxcXG4iLAogICAgICAgIjAgICAgQWRlbGllICBUb3JnZXJzZW4gICAgICAgICAgICAzOS4xICAgICAgICAgICAxOC43ICAgICAgICAgICAgICAxODEuMCAgIFxuIiwKICAgICAgICIxICAgIEFkZWxpZSAgVG9yZ2Vyc2VuICAgICAgICAgICAgMzkuNSAgICAgICAgICAgMTcuNCAgICAgICAgICAgICAgMTg2LjAgICBcbiIsCiAgICAgICAiMiAgICBBZGVsaWUgIFRvcmdlcnNlbiAgICAgICAgICAgIDQwLjMgICAgICAgICAgIDE4LjAgICAgICAgICAgICAgIDE5NS4wICAgXG4iLAogICAgICAgIjMgICAgQWRlbGllICBUb3JnZXJzZW4gICAgICAgICAgICAgTmFOICAgICAgICAgICAgTmFOICAgICAgICAgICAgICAgIE5hTiAgIFxuIiwKICAgICAgICI0ICAgIEFkZWxpZSAgVG9yZ2Vyc2VuICAgICAgICAgICAgMzYuNyAgICAgICAgICAgMTkuMyAgICAgICAgICAgICAgMTkzLjAgICBcbiIsCiAgICAgICAiLi4gICAgICAuLi4gICAgICAgIC4uLiAgICAgICAgICAgICAuLi4gICAgICAgICAgICAuLi4gICAgICAgICAgICAgICAgLi4uICAgXG4iLAogICAgICAgIjE0NyAgQWRlbGllICAgICAgRHJlYW0gICAgICAgICAgICAzNi42ICAgICAgICAgICAxOC40ICAgICAgICAgICAgICAxODQuMCAgIFxuIiwKICAgICAgICIxNDggIEFkZWxpZSAgICAgIERyZWFtICAgICAgICAgICAgMzYuMCAgICAgICAgICAgMTcuOCAgICAgICAgICAgICAgMTk1LjAgICBcbiIsCiAgICAgICAiMTQ5ICBBZGVsaWUgICAgICBEcmVhbSAgICAgICAgICAgIDM3LjggICAgICAgICAgIDE4LjEgICAgICAgICAgICAgIDE5My4wICAgXG4iLAogICAgICAgIjE1MCAgQWRlbGllICAgICAgRHJlYW0gICAgICAgICAgICAzNi4wICAgICAgICAgICAxNy4xICAgICAgICAgICAgICAxODcuMCAgIFxuIiwKICAgICAgICIxNTEgIEFkZWxpZSAgICAgIERyZWFtICAgICAgICAgICAgNDEuNSAgICAgICAgICAgMTguNSAgICAgICAgICAgICAgMjAxLjAgICBcbiIsCiAgICAgICAiXG4iLAogICAgICAgIiAgICAgYm9keV9tYXNzX2cgICAgIHNleCAgXG4iLAogICAgICAgIjAgICAgICAgICAzNzUwLjAgICAgTWFsZSAgXG4iLAogICAgICAgIjEgICAgICAgICAzODAwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjIgICAgICAgICAzMjUwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjMgICAgICAgICAgICBOYU4gICAgIE5hTiAgXG4iLAogICAgICAgIjQgICAgICAgICAzNDUwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIi4uICAgICAgICAgICAuLi4gICAgIC4uLiAgXG4iLAogICAgICAgIjE0NyAgICAgICAzNDc1LjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjE0OCAgICAgICAzNDUwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjE0OSAgICAgICAzNzUwLjAgICAgTWFsZSAgXG4iLAogICAgICAgIjE1MCAgICAgICAzNzAwLjAgIEZlbWFsZSAgXG4iLAogICAgICAgIjE1MSAgICAgICA0MDAwLjAgICAgTWFsZSAgXG4iLAogICAgICAgIlxuIiwKICAgICAgICJbMTUyIHJvd3MgeCA3IGNvbHVtbnNdIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMzIsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmxvY1tpc19hZGVsaWVdIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiOTIyZTIxYmIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkV4dHJhY3QgdGhlIHJvd3Mgd2hlcmUgdmFsdWVzIGluIHRoZSBcImJvZHlfbWFzc19nXCIgY29sdW1uIGlzIGxhcmdlciB0aGFuIDQ1MDAuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAzNCwKICAgImlkIjogImUzMDRmMmQyIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogW10sCiAgICJzb3VyY2UiOiBbXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjBiNjAzOTM3IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMjIyBFeGVyY2lzZVxuIiwKICAgICJcbiIsCiAgICAiW1NPTE9dKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1zb2xvKXsuc21hbGx9XG4iLAogICAgIlxuIiwKICAgICJFeHRyYWN0IHRoZSByb3dzIHdoZXJlIHZhbHVlcyBpbiB0aGUgXCJib2R5X21hc3NfZ1wiIGNvbHVtbiBpcyBsYXJnZXIgdGhhbiA0NTAwICphbmQqIHRoZSB0aGUgdmFsdWVzIGluIHRoZSBcInNwZWNpZXNcIiBjb2x1bW5zIGlzIGBcIkFkZWxpZVwiYC4gSGludDogWW91IGNhbiB1c2UgdGhlIGxvYyB0d2ljZSB0byBhY2hpZXZlIHRoaXMuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMjNmODQ3MDkiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIiBcbiIsCiAgICAiW0FJOiBFeHBsYWluZXJdKC4uL2ludHJvL2NvdXJzZS1pbnRyb2R1Y3Rpb24ucW1kI3NlYy1iYWRnZS1leHBsYWluZXIpey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIk5vdyB0aGF0IHlvdSBrbm93IHRoZSBiYXNpY3Mgb2YgZXh0cmFjdGluZyBkYXRhLCB0cnkgdG8gYXNrIHRoZSBBSSB0byBnaXZlIHlvdSBhIGJyaWVmIGFjY291bnQgb2YgaG93IHRoZSBgRGF0YUZyYW1lLmxvY2Agd29ya3MuIFRoZW4gY3Jvc3MtY2hlY2sgaXRzIGV4cGxhbmF0aW9uIHdpdGggdGhlIG9ubGluZSBkb2N1bWVudGF0aW9uLiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogImM2NjBiY2VlIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgQnVpbGQgYERhdGFGcmFtZWAgZnJvbSBkYXRhXG4iLAogICAgIlxuIiwKICAgICJTb21ldGltZXMgdGhlIHRhYmxlIGRhdGEgaXMgbm90IHNvbWV0aGluZyB5b3VyIHJlYWQgaW4gZnJvbSBhIGZpbGUsIGJ1dCBkYXRhIHlvdSBhcmUgYnVpbGRpbmcgaW5zaWRlIHlvdXIgbm90ZWJvb2suIEluIHRoYXQgY2FzZSwgeW91IGNhbiBlYXNpbHkgdHVybiB5b3VyIGRhdGEgaW50byBhIGBEYXRhRnJhbWVgLiBZb3UgY3JlYXRlIGEgYERhdGFGcmFtZWAgYnkgZWl0aGVyIHNwZWNpZnlpbmcgaXRzIGNvbHVtbnMgb3IgaXRzIHJvd3MuIFRvIGNyZWF0ZSBpdCBmcm9tIGNvbHVtbnMgeW91IGZpcnN0IG1ha2UgYSBkaWN0aW9uYXJ5IHdoZXJlIGtleXMgYXJlIGNvbHVtbiBuYW1lcyBhbmQgdGhlIHZhbHVlcyBhcmUgbGlzdHMgd2l0aCBjb2x1bW4gdmFsdWVzIGFuZCB0aGVuIHBhc3MgdGhhdCBkaWN0aW9uYXJ5IGFzIGRhdGEgdG8gYERhdGFGcmFtZSgpYDoiCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDM1LAogICAiaWQiOiAiYTQ1NWRiMTAiLAogICAibWV0YWRhdGEiOiB7fSwKICAgIm91dHB1dHMiOiBbCiAgICB7CiAgICAgImRhdGEiOiB7CiAgICAgICJ0ZXh0L2h0bWwiOiBbCiAgICAgICAiPGRpdj5cbiIsCiAgICAgICAiPHN0eWxlIHNjb3BlZD5cbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGg6b25seS1vZi10eXBlIHtcbiIsCiAgICAgICAiICAgICAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICJcbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGJvZHkgdHIgdGgge1xuIiwKICAgICAgICIgICAgICAgIHZlcnRpY2FsLWFsaWduOiB0b3A7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIlxuIiwKICAgICAgICIgICAgLmRhdGFmcmFtZSB0aGVhZCB0aCB7XG4iLAogICAgICAgIiAgICAgICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4iLAogICAgICAgIiAgICB9XG4iLAogICAgICAgIjwvc3R5bGU+XG4iLAogICAgICAgIjx0YWJsZSBib3JkZXI9XCIxXCIgY2xhc3M9XCJkYXRhZnJhbWVcIj5cbiIsCiAgICAgICAiICA8dGhlYWQ+XG4iLAogICAgICAgIiAgICA8dHIgc3R5bGU9XCJ0ZXh0LWFsaWduOiByaWdodDtcIj5cbiIsCiAgICAgICAiICAgICAgPHRoPjwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5zZXFfaWQ8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+Z2NfY29udGVudDwvdGg+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGhlYWQ+XG4iLAogICAgICAgIiAgPHRib2R5PlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MDwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5BPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjAuNDUyPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4xPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkI8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MC40MjE8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjI8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4wLjQyMTwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGJvZHk+XG4iLAogICAgICAgIjwvdGFibGU+XG4iLAogICAgICAgIjwvZGl2PiIKICAgICAgXSwKICAgICAgInRleHQvcGxhaW4iOiBbCiAgICAgICAiICBzZXFfaWQgIGdjX2NvbnRlbnRcbiIsCiAgICAgICAiMCAgICAgIEEgICAgICAgMC40NTJcbiIsCiAgICAgICAiMSAgICAgIEIgICAgICAgMC40MjFcbiIsCiAgICAgICAiMiAgICAgIEMgICAgICAgMC40MjEiCiAgICAgIF0KICAgICB9LAogICAgICJleGVjdXRpb25fY291bnQiOiAzMywKICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAib3V0cHV0X3R5cGUiOiAiZXhlY3V0ZV9yZXN1bHQiCiAgICB9CiAgIF0sCiAgICJzb3VyY2UiOiBbCiAgICAiY29sdW1uc19kaWN0ID0geydzZXFfaWQnOiBbJ0EnLCAnQicsICdDJ10sICdnY19jb250ZW50JzogWzAuNDUyLCAwLjQyMSwgMC40MjFdfVxuIiwKICAgICJnY19kYXRhID0gcGQuRGF0YUZyYW1lKGNvbHVtbnNfZGljdClcbiIsCiAgICAiZ2NfZGF0YSIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgImlkIjogIjUyYTI1YzZiIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiWW91IGNhbiBhbHNvIG1ha2UgYSBgRGF0YUZyYW1lYCBmcm9tIHJvd3MsIHlvdSBmaXJzdCBtYWtlIGEgbGlzdCBvZiBsaXN0cyBhbmQgdGhlbiBwYXNzIHRoYXQgYXMgYXJndW1lbnQgdG8gdGhlIHRoZSBgZnJvbV9yZWNvcmRzYCBtZXRob2Qgb2YgYERhdGFGcmFtZWA6IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiAzNiwKICAgImlkIjogIjFkOGU1MWQxIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9odG1sIjogWwogICAgICAgIjxkaXY+XG4iLAogICAgICAgIjxzdHlsZSBzY29wZWQ+XG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRib2R5IHRyIHRoOm9ubHktb2YtdHlwZSB7XG4iLAogICAgICAgIiAgICAgICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiIsCiAgICAgICAiICAgIH1cbiIsCiAgICAgICAiXG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRib2R5IHRyIHRoIHtcbiIsCiAgICAgICAiICAgICAgICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICJcbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGhlYWQgdGgge1xuIiwKICAgICAgICIgICAgICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICI8L3N0eWxlPlxuIiwKICAgICAgICI8dGFibGUgYm9yZGVyPVwiMVwiIGNsYXNzPVwiZGF0YWZyYW1lXCI+XG4iLAogICAgICAgIiAgPHRoZWFkPlxuIiwKICAgICAgICIgICAgPHRyIHN0eWxlPVwidGV4dC1hbGlnbjogcmlnaHQ7XCI+XG4iLAogICAgICAgIiAgICAgIDx0aD48L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+c2VxX2lkPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPmdjX2NvbnRlbnQ8L3RoPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICA8L3RoZWFkPlxuIiwKICAgICAgICIgIDx0Ym9keT5cbiIsCiAgICAgICAiICAgIDx0cj5cbiIsCiAgICAgICAiICAgICAgPHRoPjA8L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+QTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4wLjQ1MjwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+MTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0ZD5CPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjAuNDIxPC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD4yPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPkM8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MC40MjE8L3RkPlxuIiwKICAgICAgICIgICAgPC90cj5cbiIsCiAgICAgICAiICA8L3Rib2R5PlxuIiwKICAgICAgICI8L3RhYmxlPlxuIiwKICAgICAgICI8L2Rpdj4iCiAgICAgIF0sCiAgICAgICJ0ZXh0L3BsYWluIjogWwogICAgICAgIiAgc2VxX2lkICBnY19jb250ZW50XG4iLAogICAgICAgIjAgICAgICBBICAgICAgIDAuNDUyXG4iLAogICAgICAgIjEgICAgICBCICAgICAgIDAuNDIxXG4iLAogICAgICAgIjIgICAgICBDICAgICAgIDAuNDIxIgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMzQsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInJvd19yZWNvcmRzID0gWygnQScsIDAuNDUyKSwgKCdCJywgMC40MjEpLCAoJ0MnLCAwLjQyMSldXG4iLAogICAgImdjX2RhdGEgPSBwZC5EYXRhRnJhbWUoKS5mcm9tX3JlY29yZHMocm93X3JlY29yZHMsIGNvbHVtbnM9WydzZXFfaWQnLCAnZ2NfY29udGVudCddKVxuIiwKICAgICJnY19kYXRhIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiNTdhODgyYzciLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICJJZiB5b3Ugd2FudCB0byBzYXZlIHlvdXIgYGdjX2RhdGFgIGFzIGEgQ1NWIGZpbGUsIHlvdSBjYW4gc2F2ZSBpdCB0byBhIGZpbGUgbGlrZSB0aGlzOiIKICAgXQogIH0sCiAgewogICAiY2VsbF90eXBlIjogImNvZGUiLAogICAiZXhlY3V0aW9uX2NvdW50IjogMzcsCiAgICJpZCI6ICI1ZTA3MWMwOSIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAib3V0cHV0cyI6IFtdLAogICAic291cmNlIjogWwogICAgImdjX2RhdGEudG9fY3N2KCdnY19kYXRhLmNzdicpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiOTYwNDBlZTgtMGQwMy00ZjBlLWFmZGMtNjE4Yjk5NjhhMTE5IiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJzb3VyY2UiOiBbCiAgICAiIyMgR3JvdXBpbmciCiAgIF0KICB9LAogIHsKICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgImV4ZWN1dGlvbl9jb3VudCI6IDM4LAogICAiaWQiOiAiYjk4M2UxZmEtNDcyMC00YzU3LTlhNTktMGRjM2IzYTZmZWJmIiwKICAgIm1ldGFkYXRhIjoge30sCiAgICJvdXRwdXRzIjogWwogICAgewogICAgICJkYXRhIjogewogICAgICAidGV4dC9odG1sIjogWwogICAgICAgIjxkaXY+XG4iLAogICAgICAgIjxzdHlsZSBzY29wZWQ+XG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRib2R5IHRyIHRoOm9ubHktb2YtdHlwZSB7XG4iLAogICAgICAgIiAgICAgICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiIsCiAgICAgICAiICAgIH1cbiIsCiAgICAgICAiXG4iLAogICAgICAgIiAgICAuZGF0YWZyYW1lIHRib2R5IHRyIHRoIHtcbiIsCiAgICAgICAiICAgICAgICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICJcbiIsCiAgICAgICAiICAgIC5kYXRhZnJhbWUgdGhlYWQgdGgge1xuIiwKICAgICAgICIgICAgICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuIiwKICAgICAgICIgICAgfVxuIiwKICAgICAgICI8L3N0eWxlPlxuIiwKICAgICAgICI8dGFibGUgYm9yZGVyPVwiMVwiIGNsYXNzPVwiZGF0YWZyYW1lXCI+XG4iLAogICAgICAgIiAgPHRoZWFkPlxuIiwKICAgICAgICIgICAgPHRyIHN0eWxlPVwidGV4dC1hbGlnbjogcmlnaHQ7XCI+XG4iLAogICAgICAgIiAgICAgIDx0aD48L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+YmlsbF9sZW5ndGhfbW08L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+YmlsbF9kZXB0aF9tbTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5mbGlwcGVyX2xlbmd0aF9tbTwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD5ib2R5X21hc3NfZzwvdGg+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+aXNsYW5kPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPjwvdGg+XG4iLAogICAgICAgIiAgICAgIDx0aD48L3RoPlxuIiwKICAgICAgICIgICAgICA8dGg+PC90aD5cbiIsCiAgICAgICAiICAgICAgPHRoPjwvdGg+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgIDwvdGhlYWQ+XG4iLAogICAgICAgIiAgPHRib2R5PlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+QmlzY29lPC90aD5cbiIsCiAgICAgICAiICAgICAgPHRkPjQ1LjI1NzQ4NTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xNS44NzQ4NTA8L3RkPlxuIiwKICAgICAgICIgICAgICA8dGQ+MjA5LjcwNjU4NzwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD40NzE2LjAxNzk2NDwvdGQ+XG4iLAogICAgICAgIiAgICA8L3RyPlxuIiwKICAgICAgICIgICAgPHRyPlxuIiwKICAgICAgICIgICAgICA8dGg+RHJlYW08L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+NDQuMTY3NzQyPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4LjM0NDM1NTwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOTMuMDcyNTgxPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM3MTIuOTAzMjI2PC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgICA8dHI+XG4iLAogICAgICAgIiAgICAgIDx0aD5Ub3JnZXJzZW48L3RoPlxuIiwKICAgICAgICIgICAgICA8dGQ+MzguOTUwOTgwPC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjE4LjQyOTQxMjwvdGQ+XG4iLAogICAgICAgIiAgICAgIDx0ZD4xOTEuMTk2MDc4PC90ZD5cbiIsCiAgICAgICAiICAgICAgPHRkPjM3MDYuMzcyNTQ5PC90ZD5cbiIsCiAgICAgICAiICAgIDwvdHI+XG4iLAogICAgICAgIiAgPC90Ym9keT5cbiIsCiAgICAgICAiPC90YWJsZT5cbiIsCiAgICAgICAiPC9kaXY+IgogICAgICBdLAogICAgICAidGV4dC9wbGFpbiI6IFsKICAgICAgICIgICAgICAgICAgIGJpbGxfbGVuZ3RoX21tICBiaWxsX2RlcHRoX21tICBmbGlwcGVyX2xlbmd0aF9tbSAgYm9keV9tYXNzX2dcbiIsCiAgICAgICAiaXNsYW5kICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4iLAogICAgICAgIkJpc2NvZSAgICAgICAgICA0NS4yNTc0ODUgICAgICAxNS44NzQ4NTAgICAgICAgICAyMDkuNzA2NTg3ICA0NzE2LjAxNzk2NFxuIiwKICAgICAgICJEcmVhbSAgICAgICAgICAgNDQuMTY3NzQyICAgICAgMTguMzQ0MzU1ICAgICAgICAgMTkzLjA3MjU4MSAgMzcxMi45MDMyMjZcbiIsCiAgICAgICAiVG9yZ2Vyc2VuICAgICAgIDM4Ljk1MDk4MCAgICAgIDE4LjQyOTQxMiAgICAgICAgIDE5MS4xOTYwNzggIDM3MDYuMzcyNTQ5IgogICAgICBdCiAgICAgfSwKICAgICAiZXhlY3V0aW9uX2NvdW50IjogMzYsCiAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgIm91dHB1dF90eXBlIjogImV4ZWN1dGVfcmVzdWx0IgogICAgfQogICBdLAogICAic291cmNlIjogWwogICAgInBlbmd1aW5zLmdyb3VwYnkoJ2lzbGFuZCcpLm1lYW4obnVtZXJpY19vbmx5PVRydWUpIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiNTI4NWU1NGIiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyMjIEV4ZXJjaXNlXG4iLAogICAgIlxuIiwKICAgICJbU09MT10oLi4vaW50cm8vY291cnNlLWludHJvZHVjdGlvbi5xbWQjc2VjLWJhZGdlLXNvbG8pey5zbWFsbH1cbiIsCiAgICAiXG4iLAogICAgIkV4dHJhY3QgdGhlIHJvd3Mgd2hlcmUgdmFsdWVzIGluIHRoZSBcImJvZHlfbWFzc19nXCIgY29sdW1uIGlzIGxhcmdlciB0aGFuIDQ1MDAuIgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAiaWQiOiAiMzljNTMyMzkiLAogICAibWV0YWRhdGEiOiB7fSwKICAgInNvdXJjZSI6IFsKICAgICIjIyBNdWNoIG1vcmUgdG8gbGVhcm4gYXMgeW91IG5lZWQgaXRcbiIsCiAgICAiXG4iLAogICAgIlRoaXMgaXMgYSBzbWFsbCBjaGFwdGVyIGFib3V0IGEgdmVyeSBsYXJnZSBtb2R1bGUsIGFuZCBhIGxvdCBvZiBwb3dlcmZ1bCB0ZWNobmlxdWVzIGhhdmUgYmVlbiBsZWZ0IG91dC4gWW91IGNhbiBkbyBwcmV0dHkgbXVjaCBhbnl0aGluZyB5b3UgbWlnaHQgd2FudCB0byBkbyB3aXRoIHRhYmxlcy4gVG8gZ2V0IGEgdGFzdGUsIHlvdSBjYW4gYnJvd3NlIFsxMCBtaW51dGVzIHRvIHBhbmRhc10oaHR0cHM6Ly9wYW5kYXMucHlkYXRhLm9yZy9kb2NzL3VzZXJfZ3VpZGUvMTBtaW4uaHRtbCkuXG4iCiAgIF0KICB9CiBdLAogIm1ldGFkYXRhIjogewogICJrZXJuZWxzcGVjIjogewogICAiZGlzcGxheV9uYW1lIjogIkluc3RydWN0aW5nIE1hY2hpbmVzIiwKICAgImxhbmd1YWdlIjogInB5dGhvbiIsCiAgICJuYW1lIjogImluc3RydWN0aW5nLW1hY2hpbmVzIgogIH0sCiAgImxhbmd1YWdlX2luZm8iOiB7CiAgICJjb2RlbWlycm9yX21vZGUiOiB7CiAgICAibmFtZSI6ICJpcHl0aG9uIiwKICAgICJ2ZXJzaW9uIjogMwogICB9LAogICAiZmlsZV9leHRlbnNpb24iOiAiLnB5IiwKICAgIm1pbWV0eXBlIjogInRleHQveC1weXRob24iLAogICAibmFtZSI6ICJweXRob24iLAogICAibmJjb252ZXJ0X2V4cG9ydGVyIjogInB5dGhvbiIsCiAgICJweWdtZW50c19sZXhlciI6ICJpcHl0aG9uMyIsCiAgICJ2ZXJzaW9uIjogIjMuMTMuMTUiCiAgfQogfSwKICJuYmZvcm1hdCI6IDQsCiAibmJmb3JtYXRfbWlub3IiOiA1Cn0K').then(res => res.blob()).then(blob => {
     const downloadURL = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     document.body.appendChild(a);
@@ -703,7 +682,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     a.download = 'numpy-and-pandas.ipynb'; a.click();
     window.URL.revokeObjectURL(downloadURL);
     document.body.removeChild(a);
-      });"><button class="btn btn-light downloadthis  " id="dnldts8023"><i class="bi bi-download"></i> Download notebook </button></a> </p>
+      });"><button class="btn btn-light downloadthis  " id="dnldts4169"><i class="bi bi-download"></i> Download notebook </button></a> </p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
     <h2 id="toc-title">Table of contents</h2>
@@ -723,9 +702,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../neural_networks/training.html">Week 11</a></li><li class="breadcrumb-item"><a href="../python/numpy-and-pandas.html"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/numpy-and-pandas.html">Week 10</a></li><li class="breadcrumb-item"><a href="../python/numpy-and-pandas.html"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-numpy-and-pandas" class="quarto-section-identifier"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></h1>
+<h1 class="title"><span id="sec-numpy-and-pandas" class="quarto-section-identifier"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></h1>
 </div>
 
 
@@ -742,113 +721,438 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><img src="images/under-construction.png" class="img-fluid" style="width:20.0%"></p>
 <p>If you know a bit of linear algebra, you know how some computations are more easily expressed as vectors or matrices. The <a href="https://numpy.org/devdocs/user/index.html#user">NumPy library</a> provides a multidimensional array object that lets you do that. You already installed <code>numpy</code> when the beginning of the course, so all you have to do is import it. The cell below imports the <code>numpy</code> module and binds it to the name <code>np</code>. This is the way every one imports it and saves you a view keystrokes every time you need to use it.</p>
-<div id="35b3372b" class="cell">
+<div id="35b3372b" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="arrays" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="arrays">Arrays</h2>
-<div id="b49ab795" class="cell">
+<div id="b49ab795" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(numbers)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>np.array(numbers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])</code></pre>
+</div>
 </div>
 <p>All the linear algebra rules apply to arrays:</p>
 <div class="content-margin">
 <p>You may see this behavior referred to as <em>broadcasting</em>, but that is just the programming term for linear algebra way of doing computations.</p>
 </div>
-<div id="d0756e7c" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>])</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">+</span> b)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">*</span> b)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">+</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d0756e7c" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array([<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">+</span> b)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">*</span> b)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">+</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[9 9 9 9 9 9 9 9 9 9]
+[ 0  8 14 18 20 20 18 14  8  0]
+[19 18 17 16 15 14 13 12 11 10]</code></pre>
+</div>
 </div>
 <p>Arrays also come with a lot of useful methods like:</p>
-<div id="73a601c3" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="73a601c3" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>np.float64(4.5)</code></pre>
+</div>
 </div>
 <div class="content-margin">
 <p><code>np.float64</code> is Numpy’s own float type, which works the same as the regular <code>float</code>.</p>
 </div>
 <p>You can make a arrays with any number of dimensions. A two-dimensional array corresponds to a matrix. You already know how to represent a matrix as a list of lists. To make a matrix, just turn that into an array:</p>
-<div id="e73cb1b2" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>list_of_lists <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> np.array(list_of_lists)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>matrix</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e73cb1b2" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>list_of_lists <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> np.array(list_of_lists)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>matrix</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>array([[1, 2, 3],
+       [1, 2, 3],
+       [1, 2, 3]])</code></pre>
+</div>
 </div>
 <p>You can access elements with square brackets just like you do with lists:</p>
-<div id="8050b16e" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>list_of_lists[<span class="dv">1</span>][<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8050b16e" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>list_of_lists[<span class="dv">1</span>][<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>2</code></pre>
 </div>
-<div id="d0515352" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="9bd9e125" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>][<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d0515352" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array([1, 2, 3])</code></pre>
+</div>
+</div>
+<div id="9bd9e125" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>][<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>np.int64(2)</code></pre>
+</div>
 </div>
 <p>For computational efficiency, numpy arrays also lets you specify indices for each dimension in a single set of square brackets:</p>
-<div id="f93c300b" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f93c300b" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>array([1, 2, 3])</code></pre>
 </div>
-<div id="497f9298" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="497f9298" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>np.int64(2)</code></pre>
+</div>
 </div>
 <p>Many of the array methods can be used both on the entire array, but also separately for the rows or columns:</p>
-<div id="22cc6395" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>matrix.<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="22cc6395" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>matrix.<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>np.int64(18)</code></pre>
+</div>
 </div>
 <p>Pass <code>axis=0</code> to get the row sums:</p>
-<div id="7a199c58" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>matrix.mean(axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7a199c58" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>matrix.mean(axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>array([1., 2., 3.])</code></pre>
+</div>
 </div>
 <p>Pass <code>axis=1</code> to get the column sums:</p>
-<div id="1c780111" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>matrix.mean(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1c780111" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>matrix.mean(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>array([2., 2., 2.])</code></pre>
+</div>
 </div>
 </section>
 <section id="the-pandas-library" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="the-pandas-library">The Pandas library</h2>
 <p>Run this cell to download an example data set to a <code>penguins.csv</code> file next to this notebook. Then open it to see what the contents look like and close it again (do not change it).</p>
-<div id="bc264a20" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sns.load_dataset(<span class="st">'penguins'</span>).to_csv(<span class="st">'penguins.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="bc264a20" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sns.load_dataset(<span class="st">'penguins'</span>).to_csv(<span class="st">'penguins.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As you can see, <code>penguins.csv</code> is a table with a header line and lots of rows. The values in each row are separated by a comma, which is why the file name ends with <code>.csv</code>. CSV is short for <em>comma-separated values</em>. This kind of table format is one of the most common ways of storing data. Pandas is a rich and powerful library that lets you do all kinds of manipulation and advanced data analysis on such table data. This chapter shows introduces you to the basics, but if/when you need to, you can find all the information you need in the <a href="https://pandas.pydata.org/docs/user_guide/index.html#user-guide">Pandas user guide</a>.</p>
 <p>You already installed <code>pandas</code> when the beginning of the course, so all you have to do is import it. The cell below imports the <code>pandas</code> module and binds it to the name <code>pd</code>. This is the way every one imports it and saves you a view keystrokes every time you need to use it.</p>
-<div id="7231c8b2" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7231c8b2" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If you are not convinced, you can use <code>type</code> to check which kind it is:</p>
-<div id="7ebbc118" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(pd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7ebbc118" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(pd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>module</code></pre>
+</div>
 </div>
 </section>
 <section id="sec-dataframes" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-dataframes">DataFrames</h2>
 <p>You can read in the table data in <code>penguins.csv</code> using the <code>read_csv</code> function in the <code>pandas</code> module (available as the <code>pd</code> name). Lets do that and store it in a variable called <code>penguins</code>:</p>
-<div id="8a9abd76" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(<span class="st">'penguins.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8a9abd76" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(<span class="st">'penguins.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Pandas <code>read_csv</code> creates <code>DataFrame</code> object. <code>DataFrame</code> is the main object of Pandas and its way of representing table data.</p>
-<div id="7fa8df89" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7fa8df89" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>pandas.DataFrame</code></pre>
+</div>
 </div>
 <p>If you put a dataframe on the last (or only) line in a cell, it display it nicely. If it has many rows, it will only show the first and last five rows.</p>
-<div id="88ac2218" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="88ac2218" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">339</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">340</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>46.8</td>
+<td>14.3</td>
+<td>215.0</td>
+<td>4850.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">341</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>50.4</td>
+<td>15.7</td>
+<td>222.0</td>
+<td>5750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">342</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>45.2</td>
+<td>14.8</td>
+<td>212.0</td>
+<td>5200.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">343</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>49.9</td>
+<td>16.1</td>
+<td>213.0</td>
+<td>5400.0</td>
+<td>Male</td>
+</tr>
+</tbody>
+</table>
+
+<p>344 rows × 7 columns</p>
+</div>
+</div>
 </div>
 <p>I see just the first or last rows, you can use the <code>head</code> and <code>tail</code> methods:</p>
-<div id="9f82901f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="9f82901f" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<div id="ca90703d" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>penguins.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="exercise" class="level4" data-number="55.0.0.1">
-<h4 data-number="55.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 55-1</strong></h4>
+</div>
+<div id="ca90703d" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>penguins.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">339</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">340</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>46.8</td>
+<td>14.3</td>
+<td>215.0</td>
+<td>4850.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">341</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>50.4</td>
+<td>15.7</td>
+<td>222.0</td>
+<td>5750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">342</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>45.2</td>
+<td>14.8</td>
+<td>212.0</td>
+<td>5200.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">343</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>49.9</td>
+<td>16.1</td>
+<td>213.0</td>
+<td>5400.0</td>
+<td>Male</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="exercise" class="level4" data-number="47.0.0.1">
+<h4 data-number="47.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 47-1</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Look at the <code>DataFrame</code> <a href="https://pandas.pydata.org/docs/reference/frame.html">documentation page</a> and find the method you need to sort the rows of a dataframe. Then sort the penguins data by “flipper_length_mm”.</p>
 </section>
@@ -856,20 +1160,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="extracting-data" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="extracting-data">Extracting data</h2>
 <p>To access a column, you can use the familiar square brackets that we also use with strings, lists and dictionaries:</p>
-<div id="79387af1" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bill_depth <span class="op">=</span> penguins[<span class="st">'bill_depth_mm'</span>]</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>bill_depth</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="79387af1" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>bill_depth <span class="op">=</span> penguins[<span class="st">'bill_depth_mm'</span>]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>bill_depth</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>0      18.7
+1      17.4
+2      18.0
+3       NaN
+4      19.3
+       ... 
+339     NaN
+340    14.3
+341    15.7
+342    14.8
+343    16.1
+Name: bill_depth_mm, Length: 344, dtype: float64</code></pre>
+</div>
 </div>
 <div class="content-margin">
 <p>You may see other people access the columns as attributes (like <code>penguins.bill_depth_mm</code>), but we will stick to the bracket notation to keep it simple.</p>
 </div>
 <p>Columns is has their own type, <code>Series</code>.</p>
-<div id="e61d9406" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(bill_depth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e61d9406" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(bill_depth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>pandas.Series</code></pre>
+</div>
 </div>
 <p>Its data is just a numpy array, but on top of that it packs a lot of useful methods for computing statistics like the <code>mean</code> or for manipulating like <code>sort_values</code>:</p>
-<div id="942d0d0d" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>bill_depth.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="942d0d0d" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>bill_depth.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>np.float64(17.151169590643278)</code></pre>
+</div>
 </div>
 <div class="content-margin">
 <p><code>np.float64</code> is Numpy’s own float type, which works the same as the regular <code>float</code>.</p>
@@ -879,50 +1203,298 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="indexing" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="indexing">Indexing</h2>
 <p>You may have noticed the numbers in the far left column that does not have a name. That is the row index that you need to access individual rows. Dataframes have a <code>loc</code> attribute that you can use for accessing data in all kinds of ways. To get a row, you just give it the row index in square brackets:</p>
-<div id="dd67cfb3" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> penguins.loc[<span class="dv">4</span>]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dd67cfb3" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> penguins.loc[<span class="dv">4</span>]</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>pandas.Series</code></pre>
+</div>
 </div>
 <p>The row is returned as a <code>Series</code> indexed by the column names:</p>
-<div id="78d01e8e" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>row</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="78d01e8e" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>row</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>species                 Adelie
+island               Torgersen
+bill_length_mm            36.7
+bill_depth_mm             19.3
+flipper_length_mm        193.0
+body_mass_g             3450.0
+sex                     Female
+Name: 4, dtype: object</code></pre>
+</div>
 </div>
 <p>So you can access the values by passing column names to <code>loc</code>:</p>
-<div id="e7acbd45" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>row.loc[<span class="st">'island'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e7acbd45" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>row.loc[<span class="st">'island'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>'Torgersen'</code></pre>
+</div>
 </div>
 <p>You an get the same single dataframe cell by passing both a row and a column index value to <code>loc</code>:</p>
-<div id="929c5ead" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[<span class="dv">4</span>, <span class="st">'island'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="929c5ead" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[<span class="dv">4</span>, <span class="st">'island'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>'Torgersen'</code></pre>
+</div>
 </div>
 <p>You can also access data using slices or lists of row and column values index values:</p>
-<div id="c8d12d9b" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[<span class="dv">40</span>:<span class="dv">45</span>, [<span class="st">'island'</span>, <span class="st">'body_mass_g'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c8d12d9b" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[<span class="dv">40</span>:<span class="dv">45</span>, [<span class="st">'island'</span>, <span class="st">'body_mass_g'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">40</th>
+<td>Dream</td>
+<td>3150.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">41</th>
+<td>Dream</td>
+<td>3900.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">42</th>
+<td>Dream</td>
+<td>3100.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">43</th>
+<td>Dream</td>
+<td>4400.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">44</th>
+<td>Dream</td>
+<td>3000.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">45</th>
+<td>Dream</td>
+<td>4600.0</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<div id="c64445be" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[[<span class="dv">7</span>,<span class="dv">153</span>,<span class="dv">257</span>], [<span class="st">'sex'</span>, <span class="st">'species'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="c64445be" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[[<span class="dv">7</span>,<span class="dv">153</span>,<span class="dv">257</span>], [<span class="st">'sex'</span>, <span class="st">'species'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">7</th>
+<td>Male</td>
+<td>Adelie</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">153</th>
+<td>Male</td>
+<td>Chinstrap</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">257</th>
+<td>Male</td>
+<td>Gentoo</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Rather than providing row index values, you can provide a series with a <code>True</code> or <code>False</code> for each row. Since <code>Series</code> support <em>boadcasting</em> the same way arrays do, statements like this produce such True/False series:</p>
-<div id="91b29ea0" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>is_adelie <span class="op">=</span> penguins[<span class="st">'species'</span>] <span class="op">==</span> <span class="st">'Adelie'</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>is_adelie</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="91b29ea0" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>is_adelie <span class="op">=</span> penguins[<span class="st">'species'</span>] <span class="op">==</span> <span class="st">'Adelie'</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>is_adelie</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>0       True
+1       True
+2       True
+3       True
+4       True
+       ...  
+339    False
+340    False
+341    False
+342    False
+343    False
+Name: species, Length: 344, dtype: bool</code></pre>
+</div>
 </div>
 <p>Passing that to <code>penguins.loc</code> gives you all the rows where the “species” column as the value <code>"Adelie"</code>:</p>
-<div id="af323515" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[is_adelie]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="af323515" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>penguins.loc[is_adelie]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">147</th>
+<td>Adelie</td>
+<td>Dream</td>
+<td>36.6</td>
+<td>18.4</td>
+<td>184.0</td>
+<td>3475.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">148</th>
+<td>Adelie</td>
+<td>Dream</td>
+<td>36.0</td>
+<td>17.8</td>
+<td>195.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">149</th>
+<td>Adelie</td>
+<td>Dream</td>
+<td>37.8</td>
+<td>18.1</td>
+<td>193.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">150</th>
+<td>Adelie</td>
+<td>Dream</td>
+<td>36.0</td>
+<td>17.1</td>
+<td>187.0</td>
+<td>3700.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">151</th>
+<td>Adelie</td>
+<td>Dream</td>
+<td>41.5</td>
+<td>18.5</td>
+<td>201.0</td>
+<td>4000.0</td>
+<td>Male</td>
+</tr>
+</tbody>
+</table>
+
+<p>152 rows × 7 columns</p>
 </div>
-<section id="exercise-1" class="level4" data-number="55.0.0.2">
-<h4 data-number="55.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 55-2</strong></h4>
+</div>
+</div>
+<section id="exercise-1" class="level4" data-number="47.0.0.2">
+<h4 data-number="47.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 47-2</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Extract the rows where values in the “body_mass_g” column is larger than 4500.</p>
 </section>
-<section id="exercise-2" class="level4" data-number="55.0.0.3">
-<h4 data-number="55.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 55-3</strong></h4>
+<section id="exercise-2" class="level4" data-number="47.0.0.3">
+<h4 data-number="47.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 47-3</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Extract the rows where values in the “body_mass_g” column is larger than 4500 <em>and</em> the the values in the “species” columns is <code>"Adelie"</code>. Hint: You can use the loc twice to achieve this.</p>
 </section>
-<section id="exercise-3" class="level4" data-number="55.0.0.4">
-<h4 data-number="55.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 55-4</strong></h4>
+<section id="exercise-3" class="level4" data-number="47.0.0.4">
+<h4 data-number="47.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 47-4</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
 <p>Now that you know the basics of extracting data, try to ask the AI to give you a brief account of how the <code>DataFrame.loc</code> works. Then cross-check its explanation with the online documentation.</p>
 </section>
@@ -930,29 +1502,143 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="build-dataframe-from-data" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="build-dataframe-from-data">Build <code>DataFrame</code> from data</h2>
 <p>Sometimes the table data is not something your read in from a file, but data you are building inside your notebook. In that case, you can easily turn your data into a <code>DataFrame</code>. You create a <code>DataFrame</code> by either specifying its columns or its rows. To create it from columns you first make a dictionary where keys are column names and the values are lists with column values and then pass that dictionary as data to <code>DataFrame()</code>:</p>
-<div id="a455db10" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>columns_dict <span class="op">=</span> {<span class="st">'seq_id'</span>: [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>], <span class="st">'gc_content'</span>: [<span class="fl">0.452</span>, <span class="fl">0.421</span>, <span class="fl">0.421</span>]}</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>gc_data <span class="op">=</span> pd.DataFrame(columns_dict)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>gc_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a455db10" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>columns_dict <span class="op">=</span> {<span class="st">'seq_id'</span>: [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>], <span class="st">'gc_content'</span>: [<span class="fl">0.452</span>, <span class="fl">0.421</span>, <span class="fl">0.421</span>]}</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>gc_data <span class="op">=</span> pd.DataFrame(columns_dict)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>gc_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">seq_id</th>
+<th data-quarto-table-cell-role="th">gc_content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>A</td>
+<td>0.452</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>B</td>
+<td>0.421</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>C</td>
+<td>0.421</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>You can also make a <code>DataFrame</code> from rows, you first make a list of lists and then pass that as argument to the the <code>from_records</code> method of <code>DataFrame</code>:</p>
-<div id="1d8e51d1" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>row_records <span class="op">=</span> [(<span class="st">'A'</span>, <span class="fl">0.452</span>), (<span class="st">'B'</span>, <span class="fl">0.421</span>), (<span class="st">'C'</span>, <span class="fl">0.421</span>)]</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>gc_data <span class="op">=</span> pd.DataFrame().from_records(row_records, columns<span class="op">=</span>[<span class="st">'seq_id'</span>, <span class="st">'gc_content'</span>])</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>gc_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1d8e51d1" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>row_records <span class="op">=</span> [(<span class="st">'A'</span>, <span class="fl">0.452</span>), (<span class="st">'B'</span>, <span class="fl">0.421</span>), (<span class="st">'C'</span>, <span class="fl">0.421</span>)]</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>gc_data <span class="op">=</span> pd.DataFrame().from_records(row_records, columns<span class="op">=</span>[<span class="st">'seq_id'</span>, <span class="st">'gc_content'</span>])</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>gc_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">seq_id</th>
+<th data-quarto-table-cell-role="th">gc_content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>A</td>
+<td>0.452</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>B</td>
+<td>0.421</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>C</td>
+<td>0.421</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>If you want to save your <code>gc_data</code> as a CSV file, you can save it to a file like this:</p>
-<div id="5e071c09" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gc_data.to_csv(<span class="st">'gc_data.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5e071c09" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>gc_data.to_csv(<span class="st">'gc_data.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="grouping" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="grouping">Grouping</h2>
-<div id="b983e1fa-4720-4c57-9a59-0dc3b3a6febf" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>penguins.groupby(<span class="st">'island'</span>).mean(numeric_only<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b983e1fa-4720-4c57-9a59-0dc3b3a6febf" class="cell" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>penguins.groupby(<span class="st">'island'</span>).mean(numeric_only<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Biscoe</th>
+<td>45.257485</td>
+<td>15.874850</td>
+<td>209.706587</td>
+<td>4716.017964</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Dream</th>
+<td>44.167742</td>
+<td>18.344355</td>
+<td>193.072581</td>
+<td>3712.903226</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Torgersen</th>
+<td>38.950980</td>
+<td>18.429412</td>
+<td>191.196078</td>
+<td>3706.372549</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<section id="exercise-4" class="level4" data-number="55.0.0.5">
-<h4 data-number="55.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 55-5</strong></h4>
+</div>
+</div>
+<section id="exercise-4" class="level4" data-number="47.0.0.5">
+<h4 data-number="47.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 47-5</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Extract the rows where values in the “body_mass_g” column is larger than 4500.</p>
 </section>
@@ -1400,13 +2086,13 @@ document.addEventListener("DOMContentLoaded", function () {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../neural_networks/digit-recognition.html" class="pagination-link" aria-label="AI: Recognizing handwritten digits">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">AI: Recognizing handwritten digits</span></span>
+      <a href="../projects/orf-project.html" class="pagination-link" aria-label="Project: Finding genes">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../python/plotting.html" class="pagination-link" aria-label="Plotting">
-        <span class="nav-page-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Plotting</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Plotting</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
