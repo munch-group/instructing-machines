@@ -45,112 +45,132 @@ def test_empty_matrix_3_separate_rows(module):
 
 
 # --------------------------------------------------------------------------- #
-# prepare_matrix  (re-enabled -- was commented out in the original)
+# prepare_dp_matrix 
 # --------------------------------------------------------------------------- #
 
-@requires("prepare_matrix")
-def test_prepare_matrix_1(module):
-    assert module.prepare_matrix(3, 4, -2) == [[0, -2, -4, -6],
+@requires("prepare_dp_matrix")
+def test_prepare_dp_matrix_1(module):
+    assert module.prepare_dp_matrix(3, 4, -2) == [[0, -2, -4, -6],
                                             [-2, None, None, None],
                                             [-4, None, None, None]]
 
 
-@requires("prepare_matrix")
-def test_prepare_matrix_2(module):
-    assert module.prepare_matrix(3, 4, -1) == [[0, -1, -2, -3],
+@requires("prepare_dp_matrix")
+def test_prepare_dp_matrix_2(module):
+    assert module.prepare_dp_matrix(3, 4, -1) == [[0, -1, -2, -3],
                                             [-1, None, None, None],
                                             [-2, None, None, None]]
 
 
-@requires("prepare_matrix")
-def test_prepare_matrix_3(module):
-    assert module.prepare_matrix(4, 3, -2) == [[0, -2, -4],
+@requires("prepare_dp_matrix")
+def test_prepare_dp_matrix_3(module):
+    assert module.prepare_dp_matrix(4, 3, -2) == [[0, -2, -4],
                                             [-2, None, None],
                                             [-4, None, None],
                                             [-6, None, None]]
 
 
-@requires("prepare_matrix")
-def test_prepare_matrix_4(module):
-    assert module.prepare_matrix(3, 3, -2) == [[0, -2, -4],
+@requires("prepare_dp_matrix")
+def test_prepare_dp_matrix_4(module):
+    assert module.prepare_dp_matrix(3, 3, -2) == [[0, -2, -4],
                                             [-2, None, None],
                                             [-4, None, None]]
 
-
 # --------------------------------------------------------------------------- #
-# fill_matrix
-# --------------------------------------------------------------------------- #
-
-@requires("fill_matrix")
-def test_fill_matrix_1(module):
-    assert module.fill_matrix("AT", "GAT", score_matrix, -2) == [[0, -2, -4, -6],
-                                                              [-2, 0, 0, -2],
-                                                              [-4, -2, 0, 2]]
-
-
-@requires("fill_matrix")
-def test_fill_matrix_2(module):
-    assert module.fill_matrix("GTC", "GC", score_matrix, -2) == [[0, -2, -4],
-                                                              [-2, 2, 0],
-                                                              [-4, 0, 2],
-                                                              [-6, -2, 2]]
-
-
-# --------------------------------------------------------------------------- #
-# get_traceback_arrow  (provided verbatim in the write-up)
+# prepare_traceback_matrix 
 # --------------------------------------------------------------------------- #
 
-@requires("get_traceback_arrow")
-def test_get_traceback_arrow_1(module):
-    assert module.get_traceback_arrow(
-        [[0, -1, -2], [-1, 2, 1], [-2, 1, 2], [-3, 0, 3]],
-        3, 2, 2, -1) == "diagonal"
+@requires("prepare_traceback_matrix")
+def test_prepare_traceback_matrix_1(module):
+    assert module.prepare_traceback_matrix(3, 4) == [[None, 'L', 'L', 'L'],
+                                            ['U', None, None, None],
+                                            ['U', None, None, None]]
 
 
-@requires("get_traceback_arrow")
-def test_get_traceback_arrow_2(module):
-    assert module.get_traceback_arrow(
-        [[0, -1, -2], [-1, 2, 1], [-2, 1, 2], [-3, 0, 3]],
-        2, 1, 0, -1) == "up"
+@requires("prepare_traceback_matrix")
+def test_prepare_traceback_matrix_2(module):
+    assert module.prepare_traceback_matrix(3, 4) == [[None, 'L', 'L', 'L'],
+                                            ['U', None, None, None],
+                                            ['U', None, None, None]]
 
 
-@requires("get_traceback_arrow")
-def test_get_traceback_arrow_3(module):
-    assert module.get_traceback_arrow(
-        [[0, -1, -2, -3], [-1, 2, 1, 0], [-2, 1, 2, 3]],
-        1, 2, 0, -1) == "left"
+@requires("prepare_traceback_matrix")
+def test_prepare_traceback_matrix_3(module):
+    assert module.prepare_traceback_matrix(4, 3) == [[None, 'L', 'L'],
+                                            ['U', None, None],
+                                            ['U', None, None],
+                                            ['U', None, None]]
+
+
+@requires("prepare_traceback_matrix")
+def test_prepare_traceback_matrix_4(module):
+    assert module.prepare_traceback_matrix(3, 3) == [[None, 'L', 'L'],
+                                            ['U', None, None],
+                                            ['U', None, None]]
 
 
 # --------------------------------------------------------------------------- #
-# trace_back  (provided verbatim in the write-up)
+# fill_matrices
 # --------------------------------------------------------------------------- #
 
-@requires("trace_back")
-def test_trace_back_1(module):
-    assert module.trace_back(
-        'GC', 'GTC',
-        [[0, -1, -2, -3], [-1, 2, 1, 0], [-2, 1, 2, 3]],
-        score_matrix, -1) == ['G-C', 'GTC']
+@requires("fill_matrices")
+def test_fill_matrices_1(module):
+    assert module.fill_matrices("GTC", "GC", score_matrix, -2) == ([[0, -2, -4], [-2, 2, 0], [-4, 0, 2], [-6, -2, 2]],
+ [[None, 'L', 'L'], ['U', 'D', 'L'], ['U', 'U', 'D'], ['U', 'U', 'D']])
 
 
-@requires("trace_back")
-def test_trace_back_2(module):
-    assert module.trace_back(
+@requires("fill_matrices")
+def test_fill_matrices_2(module):
+    assert module.fill_matrices("ATC", "AC", score_matrix, -2) == ([[0, -2, -4], [-2, 2, 0], [-4, 0, 2], [-6, -2, 2]],
+ [[None, 'L', 'L'], ['U', 'D', 'L'], ['U', 'U', 'D'], ['U', 'U', 'D']])
+
+# # --------------------------------------------------------------------------- #
+# # get_traceback_arrow  (provided verbatim in the write-up)
+# # --------------------------------------------------------------------------- #
+
+# @requires("get_traceback_arrow")
+# def test_get_traceback_arrow_1(module):
+#     assert module.get_traceback_arrow(
+#         [[0, -1, -2], [-1, 2, 1], [-2, 1, 2], [-3, 0, 3]],
+#         3, 2, 2, -1) == "diagonal"
+
+
+# @requires("get_traceback_arrow")
+# def test_get_traceback_arrow_2(module):
+#     assert module.get_traceback_arrow(
+#         [[0, -1, -2], [-1, 2, 1], [-2, 1, 2], [-3, 0, 3]],
+#         2, 1, 0, -1) == "up"
+
+
+# @requires("get_traceback_arrow")
+# def test_get_traceback_arrow_3(module):
+#     assert module.get_traceback_arrow(
+#         [[0, -1, -2, -3], [-1, 2, 1, 0], [-2, 1, 2, 3]],
+#         1, 2, 0, -1) == "left"
+
+
+# --------------------------------------------------------------------------- #
+# traceback  (provided verbatim in the write-up)
+# --------------------------------------------------------------------------- #
+
+
+@requires("traceback")
+def test_traceback_1(module):
+    assert module.traceback(
         'AT', 'GAT',
-        [[0, -1, -2, -3], [-1, 0, 1, 0], [-2, -1, 0, 3]],
-        score_matrix, -1) == ['-AT', 'GAT']
+        [[None, 'L', 'L', 'L'], ['U', 'D', 'D', 'L'], ['U', 'D', 'D', 'D']],
+        ) == ('-AT', 'GAT')
 
 
-@requires("trace_back")
-def test_trace_back_3(module):
-    assert module.trace_back(
-        'ATAT', 'GATGAT',
-        [[0, -1, -2, -3, -4, -5, -6],
-         [-1, 0, 1, 0, -1, -2, -3],
-         [-2, -1, 0, 3, 2, 1, 0],
-         [-3, -2, 1, 2, 3, 4, 3],
-         [-4, -3, 0, 3, 2, 3, 6]],
-        score_matrix, -1) == ['-AT-AT', 'GATGAT']
+@requires("traceback")
+def test_traceback_2(module):
+    assert module.traceback(
+        'ATAT', 'GATGAT',  
+        [[None, 'L', 'L', 'L', 'L', 'L', 'L'],
+  ['U', 'D', 'D', 'L', 'L', 'D', 'L'],
+  ['U', 'D', 'D', 'D', 'L', 'L', 'D'],
+  ['U', 'D', 'D', 'D', 'D', 'D', 'L'],
+  ['U', 'D', 'U', 'D', 'D', 'D', 'D']]) == ('-AT-AT', 'GATGAT')
 
 
 # --------------------------------------------------------------------------- #
@@ -159,14 +179,37 @@ def test_trace_back_3(module):
 
 @requires("align")
 def test_align_1(module):
-    assert module.align('GC', 'GTC', score_matrix, -1) == ['G-C', 'GTC']
+    assert module.align('GC', 'GTC', score_matrix, -1) == ('G-C', 'GTC')
 
 
 @requires("align")
 def test_align_2(module):
-    assert module.align('AT', 'GAT', score_matrix, -1) == ['-AT', 'GAT']
+    assert module.align('AT', 'GAT', score_matrix, -1) == ('-AT', 'GAT')
 
 
 @requires("align")
 def test_align_3(module):
-    assert module.align('ATAT', 'GATGAT', score_matrix, -1) == ['-AT-AT', 'GATGAT']
+    assert module.align('ATAT', 'GATGAT', score_matrix, -1) == ('-AT-AT', 'GATGAT')
+
+# --------------------------------------------------------------------------- #
+# align
+# --------------------------------------------------------------------------- #
+
+@requires("identity_line")
+def identity_line_1(module):
+    assert module.identity_line('G-C', 'GTC') == '| |'
+
+
+@requires("identity_line")
+def test_identity_line_2(module):
+    assert module.identity_line('AAAA', 'AAAA') == '||||'
+
+
+@requires("identity_line")
+def test_identity_line_3(module):
+    assert module.identity_line('ATAT', 'TATA') == '    '
+
+
+@requires("identity_line")
+def test_identity_line_4(module):
+    assert module.identity_line('AATAA', '--T--') == '  |  '
