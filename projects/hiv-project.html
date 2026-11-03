@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>58&nbsp; List comprehensions – Instructing Machines</title>
+<title>60&nbsp; Project: HIV sub-groups – Instructing Machines</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,7 +68,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../ai/surviving-ai.html" rel="prev">
+<link href="../ai/surviving-ai.html" rel="next">
+<link href="../python/regular-expressions.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -44,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-94d439129a586302e9aa887c1d4c1aae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/notebook-download-1.0.0/notebook-download.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/project-download-1.0.0/project-download.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -91,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/surviving-ai.html">Week 14</a></li><li class="breadcrumb-item"><a href="../python/list-comprehensions.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">List comprehensions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/regular-expressions.html">Week 13</a></li><li class="breadcrumb-item"><a href="../projects/hiv-project.html"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -560,8 +596,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../bioinf/pairwise-alignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -577,14 +619,26 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../bioinf/blast.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
+  <a href="../bioinf/blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/molecular-evolution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
       </ul>
@@ -600,8 +654,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
   </div>
 </li>
       </ul>
@@ -618,13 +678,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/list-comprehensions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
   </div>
 </li>
       </ul>
@@ -635,24 +689,30 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><a href="#dnldts1537" onclick="fetch('data:application/x-ipynb+json;base64,ewogImNlbGxzIjogWwogIHsKICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICJpZCI6ICIyZmY3ZWFhNiIsCiAgICJtZXRhZGF0YSI6IHt9LAogICAic291cmNlIjogWwogICAgIiMgTGlzdCBjb21wcmVoZW5zaW9ucyB7I3NlYy1saXN0LWNvbXByZWhlbnNpb25zfVxuIiwKICAgICJcbiIsCiAgICAiIVtdKGltYWdlcy91bmRlci1jb25zdHJ1Y3Rpb24ucG5nKXt3aWR0aD0yMCV9IgogICBdCiAgfSwKICB7CiAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAiaWQiOiAiMTU1OTEwNTQiLAogICAibWV0YWRhdGEiOiB7CiAgICAidnNjb2RlIjogewogICAgICJsYW5ndWFnZUlkIjogInBsYWludGV4dCIKICAgIH0KICAgfSwKICAgIm91dHB1dHMiOiBbXSwKICAgInNvdXJjZSI6IFtdCiAgfQogXSwKICJtZXRhZGF0YSI6IHsKICAia2VybmVsc3BlYyI6IHsKICAgImRpc3BsYXlfbmFtZSI6ICJJbnN0cnVjdGluZyBNYWNoaW5lcyIsCiAgICJsYW5ndWFnZSI6ICJweXRob24iLAogICAibmFtZSI6ICJpbnN0cnVjdGluZy1tYWNoaW5lcyIKICB9LAogICJsYW5ndWFnZV9pbmZvIjogewogICAiY29kZW1pcnJvcl9tb2RlIjogewogICAgIm5hbWUiOiAiaXB5dGhvbiIsCiAgICAidmVyc2lvbiI6IDMKICAgfSwKICAgImZpbGVfZXh0ZW5zaW9uIjogIi5weSIsCiAgICJtaW1ldHlwZSI6ICJ0ZXh0L3gtcHl0aG9uIiwKICAgIm5hbWUiOiAicHl0aG9uIiwKICAgIm5iY29udmVydF9leHBvcnRlciI6ICJweXRob24iLAogICAicHlnbWVudHNfbGV4ZXIiOiAiaXB5dGhvbjMiCiAgfQogfSwKICJuYmZvcm1hdCI6IDQsCiAibmJmb3JtYXRfbWlub3IiOiA1Cn0K').then(res => res.blob()).then(blob => {
-    const downloadURL = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.href = downloadURL;
-    a.download = 'list-comprehensions.ipynb'; a.click();
-    window.URL.revokeObjectURL(downloadURL);
-    document.body.removeChild(a);
-      });"><button class="btn btn-light downloadthis  " id="dnldts1537"><i class="bi bi-download"></i> Download notebook </button></a> </p>
+<p> <a href="../project-files/hivproject.zip" download="hivproject.zip"><button class="btn btn-light downloadthis  "><i class="bi bi-download"></i> Download project </button></a></p>
 </div></div>
-        
-    <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#compute-the-similarity-of-two-sequences" id="toc-compute-the-similarity-of-two-sequences" class="nav-link active" data-scroll-target="#compute-the-similarity-of-two-sequences">Compute the similarity of two sequences</a>
+  <ul class="collapse">
+  <li><a href="#compare-two-sequences" id="toc-compare-two-sequences" class="nav-link" data-scroll-target="#compare-two-sequences">Compare two sequences</a></li>
+  <li><a href="#compare-aligned-sequences" id="toc-compare-aligned-sequences" class="nav-link" data-scroll-target="#compare-aligned-sequences">Compare aligned sequences</a></li>
+  </ul></li>
+  <li><a href="#read-the-hiv-sequences-into-your-program" id="toc-read-the-hiv-sequences-into-your-program" class="nav-link" data-scroll-target="#read-the-hiv-sequences-into-your-program">Read the HIV sequences into your program</a></li>
+  <li><a href="#compare-your-hiv-sequence-to-hiv-sequences-of-known-subtype" id="toc-compare-your-hiv-sequence-to-hiv-sequences-of-known-subtype" class="nav-link" data-scroll-target="#compare-your-hiv-sequence-to-hiv-sequences-of-known-subtype">Compare your HIV sequence to HIV sequences of known subtype</a></li>
+  <li><a href="#compute-maximum-similarity-to-each-subtype" id="toc-compute-maximum-similarity-to-each-subtype" class="nav-link" data-scroll-target="#compute-maximum-similarity-to-each-subtype">Compute maximum similarity to each subtype</a></li>
+  <li><a href="#identify-the-hiv-subtype" id="toc-identify-the-hiv-subtype" class="nav-link" data-scroll-target="#identify-the-hiv-subtype">Identify the HIV subtype</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/projects/hiv-project.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/surviving-ai.html">Week 14</a></li><li class="breadcrumb-item"><a href="../python/list-comprehensions.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">List comprehensions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/regular-expressions.html">Week 13</a></li><li class="breadcrumb-item"><a href="../projects/hiv-project.html"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-list-comprehensions" class="quarto-section-identifier"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></h1>
+<h1 class="title"><span id="sec-hiv-project" class="quarto-section-identifier"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></h1>
 </div>
 
 
@@ -669,9 +729,187 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="images/under-construction.png" class="img-fluid" style="width:20.0%"></p>
+<p><em>This chapter is a programming project where you will put your new programming skills to use analyzing an HIV DNA sequences.</em></p>
+<p>You have now been introduced to all the programming rules you will see in this course. You now know all the building blocks required to write <em>any</em> program – and I do mean <em>any</em>. The reason why computer geeks are good at what they do is not that they know some incomprehensible secrets. It is because they practiced, a lot. With practice, the simple rules you know now will let you write anything from first-person shooter games over jumbo jet autopilots to scripts for simple problems in bioinformatics. In the last three chapters, we will train your ability to solve bioinformatics problems by putting together all the things you have learned.</p>
+<p>The programming project in this chapter deals with DNA sequences from HIV viruses. There are two types of HIV: HIV-1, which is by far the most common, and HIV-2, which is mostly found in West Africa. HIV-1 vira are divided into groups M, N, O, and P. The most important group M (for major) is one primarily responsible for the global epidemic. Group M is further divided into subtypes A, B, C, D, F, G, J, K, and CRFs. In this project we will look at sequences from the subtypes A, B, C, and D. You have multiple database sequences for each of these four subtypes and you have one <em>unknown</em> sequence from a patient that you need to assign to either subtype A, B, C or D. To do this you will have to write a program that <em>predicts</em> the subtype of the unknown sequence. How cool is that?</p>
+<p>Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (<code>Terminal &gt; New Terminal</code> from the top menu) and run this command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pixi run get hivproject</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>That puts the <code>hivproject</code> project folder straight into the <code>projects</code> folder inside your course folder, beside your notebooks.</p>
+<p>If that fails, you can always click “Download project” in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the <code>projects</code> folder of your student folder yourself.</p>
+<p>You write your code in the file called <code>hivproject.py</code>. In the terminal, navigate to the project folder and run your code in the usual way:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python hivproject.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To test the functions as you complete each one, you use <code>pytest</code> to run the project test suite in <code>test_hivproject.py</code> using this command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pytest test_hivproject.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Either way you get a folder called <code>hivproject</code> with these files in it:</p>
+<ul>
+<li><code>hivproject.py</code> is an empty file where you must write your code.</li>
+<li><code>test_hivproject.py</code> is the test program that lets you test the code you write in <code>hivproject.py</code>.</li>
+<li><code>unknown_type.txt</code> contains an HIV sequence of unknown subtype</li>
+<li><code>subtypeA.txt</code> contains a database of HIV sequences of subtype A</li>
+<li><code>subtypeB.txt</code> contains a database of HIV sequences of subtype B</li>
+<li><code>subtypeC.txt</code> contains a database of HIV sequences of subtype C</li>
+<li><code>subtypeD.txt</code> contains a database of HIV sequences of subtype D</li>
+</ul>
+<p>Now open each file in <em>VScode</em> and have a look at what is in the data files. (Do <em>not</em> change them in any way and do not save them after viewing. If VScode asks you if you want to save it before closing, say <em>no</em>.) How many sequences are there in each file?</p>
+<p>The project is divided into the following parts:</p>
+<ul>
+<li>Compute the similarity of two sequences</li>
+<li>Read the HIV sequences into your program.</li>
+<li>Assess the similarity of your unknown HIV sequence to each of the HIV sequences with known subtype.</li>
+<li>Find the maximum similarity of your unknown sequence to sequences from each subtype.</li>
+<li>Identify the HIV subtype of your sequence as the subtype of that sequence that your sequence is most similar to.</li>
+</ul>
+<p>Make sure you read the entire exercise and understand what you are supposed to do before you begin!</p>
+<section id="compute-the-similarity-of-two-sequences" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="compute-the-similarity-of-two-sequences">Compute the similarity of two sequences</h2>
+<p>We need to compare our unknown HIV sequence to all the HIV sequences of known subtypes. That way we can identify the sequence of a known subtype that is most similar to your unknown sequence. We will then assume that our unknown sequence has the same subtype as this sequence. To accomplish this we first need to write some code that compares two sequences so we can compare our HIV sequence to each of the other HIV sequences.</p>
+<section id="compare-two-sequences" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="compare-two-sequences">Compare two sequences</h3>
+<p><em>Write a function</em> <code>sequence_similarity</code> that takes two arguments:</p>
+<ol type="1">
+<li>A string which is a DNA sequence.</li>
+<li>A string of the same length as argument one, which is also a DNA sequence.</li>
+</ol>
+<p>The function must return:</p>
+<ul>
+<li>A float, which is the proportion of bases that are the same in two DNA sequences.</li>
+</ul>
+<p>Example usage:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sequence_similarity(<span class="st">'AGTC'</span> <span class="st">'AGTT'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>should return <code>0.75</code>.</p>
+<p>Start out defining your function like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sequence_similarity(seq1, seq2):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># your code here...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Remember that <code>range(len(seq1))</code> generates the numbers you can use to index the string <code>seq1</code>. You can use those numbers as indexes to look up positions in both strings. You will need a for-loop in your function and a variable that keeps track of how many similarities you have seen as you iterate through the sequences.</p>
+</section>
+<section id="compare-aligned-sequences" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="compare-aligned-sequences">Compare aligned sequences</h3>
+<p>All sequences, including the unknown sequence, are from the same multiple alignment. This ensures that sequence positions match up across all sequences but also means that a lot of gap characters (<code>'-'</code>) are inserted. To compute similarities between such sequences you need to make function much like <code>seqeuence_similarity</code> that does not consider sequence positions where both bases are a gap (<code>'-'</code>) characters. In other words, you must not only count the number of characters that are the same, you also need to count how many alignment columns that are <code>"-"</code> for both sequences. E.g. the following mini alignment has five such columns and four columns where the bases are the same. So in the following alignment, the similarity is 0.8 (4/5):</p>
+<pre><code>A-CT-A
+A-CTTA</code></pre>
+<p><em>Write a function</em> <code>alignment_similarity</code> that takes two arguments:</p>
+<ol type="1">
+<li>A string which is a DNA sequence with gap characters.</li>
+<li>A string of the same length as argument one, which is also a DNA sequence with gap characters.</li>
+</ol>
+<p>The function must return:</p>
+<ul>
+<li>A float, which is the proportion of bases that are the same in two DNA sequences.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>alignment_similarity(<span class="st">'A-CT-A'</span>, <span class="st">'A-CTTA'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>should return <code>0.8</code>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use an if-statement to test if the two characters at some index are equal to <code>'-'</code> in both sequences. You can use an expression like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>seq1[i] <span class="op">==</span> <span class="st">'-'</span> <span class="kw">and</span> seq2[i] <span class="op">==</span> <span class="st">'-'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>Once your function has computed both the number of identical bases and the number of alignment columns that are not both <code>'-'</code>, you can have it return the similarity as the ratio of the two.</p>
+</section>
+</section>
+<section id="read-the-hiv-sequences-into-your-program" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="read-the-hiv-sequences-into-your-program">Read the HIV sequences into your program</h2>
+<p>To use your <code>alignment_similarity</code> function to assess similarity between your unknown sequence and the sequences of known subtype, you need to read the sequences into your program. Here is a function that will read the sequences from one of the files you downloaded into a list:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_data(file_name):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">open</span>(file_name)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    sequence_list <span class="op">=</span> <span class="bu">list</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        seq <span class="op">=</span> line.strip()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        sequence_list.append(seq)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    f.close()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sequence_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can use that function to read the unknown sequence into your program:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>unknown_list <span class="op">=</span> read_data(<span class="st">'unknown_type.txt'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this case, the list only contains the one unknown HIV sequence in unknown_type.txt.</p>
+<p>You also need to load the typed HIV sequences into your program. Here is a function that returns a dictionary in which the keys are subtypes (<code>'A'</code>, <code>'B'</code>, <code>'C'</code> and <code>'D'</code>) and each value is a lists of sequences with that subtype:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_typed_sequences():</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">'A'</span>: read_data(<span class="st">'subtypeA.txt'</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">'B'</span>: read_data(<span class="st">'subtypeB.txt'</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">'C'</span>: read_data(<span class="st">'subtypeC.txt'</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">'D'</span>: read_data(<span class="st">'subtypeD.txt'</span>) }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you use the function like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>typed_data <span class="op">=</span> load_typed_sequences()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>then you can access the list of sequences of subtype A like this: <code>typed_data['A']</code>.</p>
+</section>
+<section id="compare-your-hiv-sequence-to-hiv-sequences-of-known-subtype" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="compare-your-hiv-sequence-to-hiv-sequences-of-known-subtype">Compare your HIV sequence to HIV sequences of known subtype</h2>
+<p>To type you HIV sequence you must compare your sequence to all the database sequences to see which group has the best matching sequence.</p>
+<p><em>Write a function</em> <code>get_similarities</code> that takes two arguments:</p>
+<ol type="1">
+<li>A string, which is your unknown HIV sequence.</li>
+<li>A list of strings, each of which is an HIV sequence of known type.</li>
+</ol>
+<p>The function must return:</p>
+<ul>
+<li>A list of floats, which should be the similarities between the unknown sequence given as the first argument and the list of sequences given as the second argument.</li>
+</ul>
+<p>Example usage:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>get_similarities(unknown_list[<span class="dv">0</span>], typed_data[<span class="st">'A'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>should return:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>[<span class="fl">0.8553288474061211</span>, <span class="fl">0.8721742704480066</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.854924397221087</span>, <span class="fl">0.8481709291032696</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.8498330281159108</span>] </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The function should use the function <code>alignment_similarity</code> to compare your unknown sequence (<code>unknown_list[0]</code>) to each of the sequences of some subtype. Start out like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_similarities(unknown, typed_sequences):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Your code here...</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In your function you need to define a list that you can <em>append</em> the similarities you compute to:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> []</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is the list of results that your function must return. To compute the similarity between you unknown sequence and each of the sequences of known subtype, you can use your <code>alignment_similarity</code> function inside a for-loop.</p>
+</section>
+<section id="compute-maximum-similarity-to-each-subtype" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="compute-maximum-similarity-to-each-subtype">Compute maximum similarity to each subtype</h2>
+<p>To predict the subtype of the unknown HIV sequence you need to compare the unknown sequence to all the sequences of each of the different subtypes. The subtype of the sequence with the highest similarity to your unknown sequence is then our predicted subtype (or our best guess).</p>
+<p><em>Write a function</em> <code>get_max_similarities</code> that takes two arguments:</p>
+<ol type="1">
+<li>A string, which is your unknown HIV sequence.</li>
+<li>A dictionary, like the one returned by <code>load_typed_sequences</code>.</li>
+</ol>
+<p>The function must return:</p>
+<ul>
+<li>A dictionary, in which keys are strings representing each subtype (<code>'A'</code>, <code>'B'</code>, <code>'C'</code>, and <code>'D'</code>) and values are floats representing the maximum similarity between the unknown sequence and the sequences of a subtype. The dictionary <em>could</em> look like this (it does not, you need to compute the similarities yourself.):</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">'A'</span>: <span class="fl">0.89</span>, <span class="st">'B'</span>: <span class="fl">0.95</span>, <span class="st">'C'</span>: <span class="fl">0.82</span>, <span class="st">'D'</span>: <span class="fl">0.99</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To get the highest number in a list of numbers, you can use the <code>max</code> function in Python. It works like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">53</span>, <span class="dv">12</span>, <span class="dv">7</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">max</span>(numbers))  <span class="co"># prints 53</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For example, to get the highest similarity between the unknown sequence and sequences in <code>typed_data['A']</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>subtypeA_similarities <span class="op">=</span> get_similarities(unknown_list[<span class="dv">0</span>], typed_data[<span class="st">'A'</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>subtypeA_max <span class="op">=</span> <span class="bu">max</span>(subtypeA_similarities)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<!-- TODO: Have them also compute mean similarity to each group -->
+</section>
+<section id="identify-the-hiv-subtype" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="identify-the-hiv-subtype">Identify the HIV subtype</h2>
+<p>Now for the grand finale! You ultimately want to be able to write code like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>unknown_list <span class="op">=</span> read_data(<span class="st">'unknown_type.txt'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>typed_data <span class="op">=</span> load_typed_sequences()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>subtype <span class="op">=</span> predict_subtype(unknown_list[<span class="dv">0</span>], typed_data)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Patient HIV is subtype </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(subtype))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>So all you need now is the <code>predict_subtype</code> function.</p>
+<p><em>Write a function</em> <code>predict_subtype</code> that takes two arguments:</p>
+<ol type="1">
+<li>A string, which is your unknown HIV sequence.</li>
+<li>A dictionary, like the one returned by <code>load_typed_sequences</code>.</li>
+</ol>
+<p>The function must return:</p>
+<ul>
+<li>A string of length one (either <code>'A'</code>, <code>'B'</code>, <code>'C'</code>, or <code>'D'</code>) representing the predicted subtype of your unknown HIV sequence.</li>
+</ul>
+<p>The function should use <code>get_max_similarities</code> to compute the dictionary of max similarities and then extract from that dictionary the key with the highest value (similarity). So the function must return <code>'A'</code> if the unknown sequence is most similar to a sequence of subtype A, <code>'B'</code> if the unknown sequence is most similar to a sequence of subtype B and so on.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -1109,11 +1347,14 @@ document.addEventListener("DOMContentLoaded", function () {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../ai/surviving-ai.html" class="pagination-link" aria-label="AI: Surviving AI">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span>
+      <a href="../python/regular-expressions.html" class="pagination-link" aria-label="Regular expressions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Regular expressions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../ai/surviving-ai.html" class="pagination-link" aria-label="AI: Surviving AI">
+        <span class="nav-page-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -1121,4 +1362,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.dev/munch-group/instructing-machines/blob/main/python/list-comprehensions.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/projects/hiv-project.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

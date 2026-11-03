@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>57&nbsp; Molecular evolution – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../python/recursion.html" rel="next">
+<link href="../bioinf/blast.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-94d439129a586302e9aa887c1d4c1aae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/delegate-the-full-problem.html">Week 12</a></li><li class="breadcrumb-item"><a href="../bioinf/molecular-evolution.html"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes_slides_recordings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Week plan</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/course-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Course introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Terminal Howto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/getting_set_up.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Getting set up</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AI: Meet AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Notebooks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/control-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-the-object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-loops-and-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-drawing-from-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Project: Translating ORFs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Project: Primer analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-classes-debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Project: Codon usage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/modules-and-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Modules and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neurons.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neural-networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/numpy-and-pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Plotting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/biopython.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Biopython</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Project: Genome assembly</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 11</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">AI: Training</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/pairwise-alignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 12</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/molecular-evolution.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 13</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 14</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p> </p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-molevo-divergence" id="toc-sec-molevo-divergence" class="nav-link active" data-scroll-target="#sec-molevo-divergence">DNA sequence divergence across time</a>
+  <ul class="collapse">
+  <li><a href="#sec-molevo-model" id="toc-sec-molevo-model" class="nav-link" data-scroll-target="#sec-molevo-model">A model of DNA evolution</a></li>
+  <li><a href="#sec-molevo-jc" id="toc-sec-molevo-jc" class="nav-link" data-scroll-target="#sec-molevo-jc">Jukes-Cantor model</a></li>
+  <li><a href="#sec-molevo-k2p" id="toc-sec-molevo-k2p" class="nav-link" data-scroll-target="#sec-molevo-k2p">Kimura’s 2-parameter model</a></li>
+  </ul></li>
+  <li><a href="#sec-molevo-blosum" id="toc-sec-molevo-blosum" class="nav-link" data-scroll-target="#sec-molevo-blosum">Protein substitution matrices</a>
+  <ul class="collapse">
+  <li><a href="#sec-molevo-blosum-made" id="toc-sec-molevo-blosum-made" class="nav-link" data-scroll-target="#sec-molevo-blosum-made">How the matrix is made</a></li>
+  <li><a href="#sec-molevo-blosum-scores" id="toc-sec-molevo-blosum-scores" class="nav-link" data-scroll-target="#sec-molevo-blosum-scores">From counts to scores</a></li>
+  <li><a href="#sec-molevo-blosum-reading" id="toc-sec-molevo-blosum-reading" class="nav-link" data-scroll-target="#sec-molevo-blosum-reading">Reading the matrix</a></li>
+  <li><a href="#sec-molevo-blosum-using" id="toc-sec-molevo-blosum-using" class="nav-link" data-scroll-target="#sec-molevo-blosum-using">Using the matrix</a></li>
+  <li><a href="#sec-molevo-pam" id="toc-sec-molevo-pam" class="nav-link" data-scroll-target="#sec-molevo-pam">PAM, for contrast</a></li>
+  <li><a href="#sec-molevo-choosing" id="toc-sec-molevo-choosing" class="nav-link" data-scroll-target="#sec-molevo-choosing">Choosing a matrix</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/bioinf/molecular-evolution.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/delegate-the-full-problem.html">Week 12</a></li><li class="breadcrumb-item"><a href="../bioinf/molecular-evolution.html"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="images/under-construction.png" class="img-fluid" style="width:20.0%"></p>
+<section id="sec-molevo-divergence" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-molevo-divergence">DNA sequence divergence across time</h2>
+<p>Every time a cell divides, its DNA is copied, and once in a while the copy has a mistake. Most such mutations that end up being passed on through the generations are neutral: they change the DNA without changing anything the organism depends on. Because neutral mutations arise at a roughly steady rate and are neither favored nor removed by selection, they pile up in a lineage like the ticks of a clock. This is the <em>molecular clock</em>. If you know how fast the clock ticks, you can read off how long it has been running from the number of differences it has left behind.</p>
+<div id="fig-molecular-clock" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-molecular-clock-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/molecular-clock.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-molecular-clock-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.1: A molecular clock. Following one lineage from the past to the present, the sequence collects mutations (stars) at a rate of about <span class="math inline">\(5 \times 10^{-10}\)</span> per base per year in humans. Three of the 17 bases have changed, so the clock has been running for about <span class="math inline">\(\frac{3/17}{5 \times 10^{-10}} \approx 353\)</span> million years.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-molecular-clock" class="quarto-xref">Figure&nbsp;<span>57.1</span></a> shows the idea for a single lineage. In practice we never have the ancestral sequence. What we have is two sequences from two living species, as in <a href="#fig-divergence-tree" class="quarto-xref">Figure&nbsp;<span>57.2</span></a>. Since the two species split from their common ancestor <span class="math inline">\(T\)</span> years ago, each lineage has been collecting substitutions for <span class="math inline">\(T\)</span> years, so the two sequences are separated by <span class="math inline">\(2T\)</span> years of evolution. If <span class="math inline">\(K\)</span> is the number of substitutions per site that separate them and <span class="math inline">\(r\)</span> is the substitution rate per site per year, then</p>
+<p><span class="math display">\[
+r = \frac{K}{2T} \qquad \text{and so} \qquad T = \frac{K}{2r}.
+\]</span></p>
+<div id="fig-divergence-tree" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-divergence-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/seq-divergence-tree.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-divergence-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.2: Two species that split <span class="math inline">\(T\)</span> years ago. Each lineage has collected substitutions for <span class="math inline">\(T\)</span> years (red), so the sequences we compare are separated by <span class="math inline">\(2T\)</span> years of evolution.
+</figcaption>
+</figure>
+</div>
+<p>The two sequences in <a href="#fig-divergence-tree" class="quarto-xref">Figure&nbsp;<span>57.2</span></a> differ at 3 of their 12 sites, so <span class="math inline">\(K = 0.25\)</span>. With <span class="math inline">\(r = 5 \times 10^{-10}\)</span>, that gives <span class="math inline">\(T = 0.25 / (2 \times 5 \times 10^{-10}) = 250\)</span> million years. The calculation assumes that every substitution leaves a visible difference, and that is only true for closely related sequences. The rest of this section is about what happens when it is not.</p>
+<section id="sec-molevo-model" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-model">A model of DNA evolution</h3>
+<style>
+evol {font-family: "Lucida Console", "Courier New", monospace; letter-spacing: 30%; font-weight: bold; color: #555555 ;}
+rd { color: Red ; font-weight: bold; }
+or { color: Orange ; font-weight: bold;  }
+gr { color: Green ; font-weight: bold;  }
+bl { color: Blue ; font-weight: bold;  }
+</style>
+<div id="fig-multiple-hits" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multiple-hits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>Distant past<br> <evol> GCTTGCACGA<br> GCTTG<gr>A</gr>ACGA<br> GCTTG<gr>A</gr>ACGA<br> GCT<bl>C</bl>G<gr>A</gr>ACGA<br> GCT<bl>C</bl>G<gr>A</gr>ACGA<br> GC<gr>A</gr><bl>C</bl>G<gr>A</gr>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<gr>A</gr>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<gr>A</gr>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<or>G</or>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<or>G</or>ACG<rd>T</rd><br> </evol> Present</p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multiple-hits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.3: Six substitutions in a sequence of ten bases, read from the top down. Only three differences between the first and last sequence are visible. The fourth base changed from <code>T</code> to <code>C</code> and back to <code>T</code>, and the sixth changed twice, first to <code>A</code> and then to <code>G</code>.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-multiple-hits" class="quarto-xref">Figure&nbsp;<span>57.3</span></a> follows one sequence through time. Six substitutions happen, but comparing the first sequence with the last shows only three differences. One site changed and then changed back, which leaves no trace, and another changed twice, which looks like one change. The longer the sequences have been evolving apart, the more often a site is hit more than once, and the more the observed proportion of differences underestimates the number of substitutions that actually happened. To correct for this, we need a model of how bases change over time: a way to compute the probability that a site holds base <span class="math inline">\(x\)</span> now, given that it held base <span class="math inline">\(y\)</span> a time <span class="math inline">\(t\)</span> ago.</p>
+<p>Think of a single site. Let <span class="math inline">\(p_A(t)\)</span> be the probability that it holds an <code>A</code> at time <span class="math inline">\(t\)</span>, and likewise for the other three bases. Over a short time <span class="math inline">\(\Delta t\)</span>, two things can change <span class="math inline">\(p_A\)</span>. If the site is an <code>A</code>, it may mutate to another base, which happens at a rate <span class="math inline">\(\mu_A\)</span>. And if it is some other base <span class="math inline">\(x\)</span>, it may mutate to an <code>A</code>, which happens at a rate <span class="math inline">\(\mu_{xA}\)</span>. So</p>
+<p><span class="math display">\[
+p_A(t+\Delta t) = p_A(t) - p_A(t)\, \mu_A \Delta t + \sum_{x \neq A} p_x(t) \, \mu_{xA} \Delta t,
+\]</span></p>
+<p>where <span class="math inline">\(\mu_A = \sum_{x \neq A} \mu_{Ax}\)</span> is the total rate at which an <code>A</code> turns into something else. The same equation holds for each of the four bases. Collecting the four probabilities in a vector,</p>
+<p><span class="math display">\[
+\mathbf{p}(t) = (p_A(t),\ p_C(t),\ p_G(t),\ p_T(t)),
+\]</span></p>
+<p>all four equations can be written as one:</p>
+<p><span class="math display">\[
+\mathbf{p}(t + \Delta t) = \mathbf{p}(t) + \mathbf{p}(t)\,Q\,\Delta t,
+\]</span></p>
+<p>where <span class="math inline">\(Q\)</span> is the <em>rate matrix</em>. Its entry in row <span class="math inline">\(x\)</span> and column <span class="math inline">\(y\)</span> is the rate at which base <span class="math inline">\(x\)</span> mutates to base <span class="math inline">\(y\)</span>, and each diagonal entry is minus the total rate of leaving that base, so that every row sums to zero:</p>
+<p><span class="math display">\[
+Q = \begin{pmatrix}
+-\mu_A &amp; \mu_{AC} &amp; \mu_{AG} &amp; \mu_{AT} \\
+\mu_{CA} &amp; -\mu_C &amp; \mu_{CG} &amp; \mu_{CT} \\
+\mu_{GA} &amp; \mu_{GC} &amp; -\mu_G &amp; \mu_{GT} \\
+\mu_{TA} &amp; \mu_{TC} &amp; \mu_{TG} &amp; -\mu_T
+\end{pmatrix}
+\]</span></p>
+<p>Different models of DNA evolution are different choices for the twelve rates in <span class="math inline">\(Q\)</span>.</p>
+</section>
+<section id="sec-molevo-jc" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-jc">Jukes-Cantor model</h3>
+<p>The simplest model, from <a href="https://doi.org/10.1016/B978-1-4832-3211-9.50009-7">Jukes and Cantor (1969)</a>, assumes that every base mutates to each of the three others at the same rate, <span class="math inline">\(\alpha\)</span>. With <span class="math inline">\(\alpha = \mu / 4\)</span>, the rate matrix is</p>
+<p><span class="math display">\[
+Q = \begin{pmatrix}
+-3\alpha &amp; \alpha &amp; \alpha &amp; \alpha \\
+  \alpha &amp; -3\alpha &amp; \alpha &amp; \alpha \\
+  \alpha &amp; \alpha &amp; -3\alpha &amp; \alpha \\
+  \alpha &amp; \alpha &amp; \alpha &amp; -3\alpha
+\end{pmatrix}
+= \begin{pmatrix}
+-\frac{3\mu}{4} &amp; \frac{\mu}{4} &amp; \frac{\mu}{4} &amp; \frac{\mu}{4} \\
+\frac{\mu}{4} &amp; -\frac{3\mu}{4} &amp; \frac{\mu}{4} &amp; \frac{\mu}{4} \\
+\frac{\mu}{4} &amp; \frac{\mu}{4} &amp; -\frac{3\mu}{4} &amp; \frac{\mu}{4} \\
+\frac{\mu}{4} &amp; \frac{\mu}{4} &amp; \frac{\mu}{4} &amp; -\frac{3\mu}{4} \\
+\end{pmatrix}.
+\]</span></p>
+<p>Letting <span class="math inline">\(\Delta t\)</span> shrink towards zero turns the equation for <span class="math inline">\(\mathbf{p}\)</span> into a differential equation, and for this simple <span class="math inline">\(Q\)</span> it can be solved by hand. The solution gives the probability of going from one base to another in time <span class="math inline">\(t\)</span>, as a matrix <span class="math inline">\(P(t)\)</span> whose entry in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span> is the probability that a site holding base <span class="math inline">\(i\)</span> holds base <span class="math inline">\(j\)</span> a time <span class="math inline">\(t\)</span> later:</p>
+<p><span class="math display">\[
+P(t) = \left(
+\begin{array}{cccc}
+\frac{1}{4} + \frac{3}{4} e^{-t\mu}  &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} \\[1.5ex]
+\frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} + \frac{3}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} \\[1.5ex]
+\frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} + \frac{3}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} \\[1.5ex]
+\frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} - \frac{1}{4} e^{-t\mu} &amp; \frac{1}{4} + \frac{3}{4} e^{-t\mu} \\
+\end{array}
+\right)
+\]</span></p>
+<p>At <span class="math inline">\(t = 0\)</span> the diagonal entries are 1 and the others are 0: nothing has had time to change. As <span class="math inline">\(t\)</span> grows, every entry approaches <span class="math inline">\(\frac{1}{4}\)</span>: after a very long time, the site is equally likely to hold any base, whatever it started as.</p>
+<p>It is more useful to measure time by the number of substitutions that have actually happened per site, which we call <span class="math inline">\(\nu\)</span>. A site leaves its base at the rate <span class="math inline">\(\frac{\mu}{4} + \frac{\mu}{4} + \frac{\mu}{4}\)</span>, so</p>
+<p><span class="math display">\[
+\nu = \frac{3\mu}{4}\, t \quad \implies \quad t\mu = \frac{4}{3}\nu,
+\]</span></p>
+<p>and the transition probabilities become</p>
+<p><span class="math display">\[
+  P_{ij}(\nu) =
+  \begin{cases}
+    \, \frac{1}{4} + \frac{3}{4} e^{-4\nu/3} &amp; \text{if } i = j\\[0.5ex]
+    \, \frac{1}{4} - \frac{1}{4} e^{-4\nu/3} &amp; \text{if } i \neq j
+  \end{cases}
+\]</span></p>
+<p>When we compare two sequences, <span class="math inline">\(\nu\)</span> is the number of substitutions per site along the whole path from one sequence back to their common ancestor and forward to the other, which is the <span class="math inline">\(K\)</span> of the molecular clock. A site differs between the two sequences if it has ended up as any of the three other bases, so the expected proportion of sites that differ is</p>
+<p><span class="math display">\[
+p = 3\times \bigg(\frac{1}{4} - \frac{1}{4} e^{-4\nu/3} \bigg)= \frac{3}{4} - \frac{3}{4} e^{-4\nu/3}.
+\]</span></p>
+<p><a href="#fig-jc-inverse-example" class="quarto-xref">Figure&nbsp;<span>57.4</span></a> shows what this means. For a short time, <span class="math inline">\(p\)</span> grows almost in step with the number of substitutions, along the dashed line. Then it bends away, because more and more new substitutions land on sites that already differ. Eventually <span class="math inline">\(p\)</span> levels off at <span class="math inline">\(\frac{3}{4}\)</span>: two unrelated sequences still agree at a quarter of their sites, just by chance.</p>
+<div id="fig-jc-inverse-example" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-jc-inverse-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-jc-inverse-example" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-jc-inverse-example-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-jc-inverse-example-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="molecular-evolution_files/figure-html/fig-jc-inverse-example-output-1.svg" class="img-fluid figure-img" data-ref-parent="fig-jc-inverse-example">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-jc-inverse-example-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) With substitutions accumulating at <span class="math inline">\(10^{-8}\)</span> per site per year between the two sequences. The dashed line is what we would see if no site were ever hit twice. Three times as much time only a little more than doubles the proportion of differences.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-jc-inverse-example" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-jc-inverse-example-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-jc-inverse-example-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="molecular-evolution_files/figure-html/fig-jc-inverse-example-output-2.svg" class="img-fluid figure-img" data-ref-parent="fig-jc-inverse-example">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-jc-inverse-example-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Against the number of substitutions per site, <span class="math inline">\(\nu\)</span>. However many substitutions have happened, the proportion of differences never exceeds 0.75 (dashed line).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jc-inverse-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.4: The proportion of sites that differ between two sequences under the Jukes-Cantor model.
+</figcaption>
+</figure>
+</div>
+<p>What we observe is <span class="math inline">\(p\)</span>, and what we want is <span class="math inline">\(\nu\)</span>. Solving the equation for <span class="math inline">\(\nu\)</span> gives the <em>Jukes-Cantor correction</em>:</p>
+<p><span class="math display">\[
+\nu = -\frac{3}{4} \ln\Big(1-\frac{4}{3}p\Big)
+\]</span></p>
+<p>For small <span class="math inline">\(p\)</span>, the correction hardly matters: <span class="math inline">\(p = 0.05\)</span> gives <span class="math inline">\(\nu = 0.052\)</span>. For large <span class="math inline">\(p\)</span>, it matters a lot: <span class="math inline">\(p = 0.5\)</span> gives <span class="math inline">\(\nu = 0.82\)</span>, so the observed differences hide more than a third of the substitutions. The corrected <span class="math inline">\(\nu\)</span> is what goes into the molecular clock as <span class="math inline">\(K\)</span>.</p>
+<p><a href="#fig-jc" class="quarto-xref">Figure&nbsp;<span>57.5</span></a> turns the correction into time. Because the curve in <a href="#fig-jc-inverse-example" class="quarto-xref">Figure&nbsp;<span>57.4</span></a> flattens out, the estimated time shoots up as <span class="math inline">\(p\)</span> approaches 0.75, and a small error in <span class="math inline">\(p\)</span>, which you always have with sequences of limited length, becomes a huge error in the time. Sequences that differ at more than about two thirds of their sites are in the <em>twilight zone</em>, where DNA comparisons can no longer tell how long ago two sequences diverged, or even whether they are related at all. This is one reason distant relatives are compared at the protein level, where the twilight zone comes much later.</p>
+<div id="cell-fig-jc" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-jc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-jc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="molecular-evolution_files/figure-html/fig-jc-output-1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.5: Time estimated with the Jukes-Cantor correction from the observed proportion of differences, with substitutions accumulating at <span class="math inline">\(10^{-8}\)</span> per site per year between the two sequences. In the gray twilight zone, a small change in the observed proportion gives a very different time.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-molevo-k2p" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-k2p">Kimura’s 2-parameter model</h3>
+<p>The four bases come in two chemical kinds. <code>A</code> and <code>G</code> are purines, with two rings, and <code>C</code> and <code>T</code> are pyrimidines, with one. A mutation that swaps a purine for a purine or a pyrimidine for a pyrimidine is a <em>transition</em>. One that swaps a purine for a pyrimidine, or the other way around, is a <em>transversion</em>. Transitions are chemically easier, and although there are twice as many kinds of transversion, transitions are observed about twice as often as all transversions together. The Jukes-Cantor model ignores this.</p>
+<p><a href="https://doi.org/10.1007/BF01731581">Kimura (1980)</a> gave transitions their own rate, <span class="math inline">\(\alpha\)</span>, and transversions another, <span class="math inline">\(\beta\)</span>, as in <a href="#fig-k2p" class="quarto-xref">Figure&nbsp;<span>57.6</span></a>. Each base has one transition partner and two transversion partners, so with the bases in the order <code>A</code>, <code>C</code>, <code>G</code>, <code>T</code> the rate matrix is</p>
+<p><span class="math display">\[
+Q = \begin{pmatrix}
+-2\beta-\alpha &amp; \beta &amp; \alpha &amp; \beta \\
+  \beta &amp; -2\beta-\alpha &amp; \beta &amp; \alpha \\
+  \alpha &amp; \beta &amp; -2\beta-\alpha &amp; \beta \\
+  \beta &amp; \alpha &amp; \beta &amp; -2\beta-\alpha
+\end{pmatrix}.
+\]</span></p>
+<div id="cell-fig-k2p" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div id="fig-k2p" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-k2p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="molecular-evolution_files/figure-html/fig-k2p-output-1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-k2p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.6: Kimura’s 2-parameter model. Transitions (solid blue) swap a purine for a purine or a pyrimidine for a pyrimidine and happen at rate <span class="math inline">\(\alpha\)</span>. Transversions (dashed orange) swap a purine for a pyrimidine and happen at rate <span class="math inline">\(\beta\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In the same way as for the Jukes-Cantor model, solving this model gives a correction formula. If <span class="math inline">\(s\)</span> is the observed proportion of sites that differ by a transition, and <span class="math inline">\(v\)</span> the proportion that differ by a transversion, the number of substitutions per site is</p>
+<p><span class="math display">\[
+d_{K2P} = - \frac{1}{2} \ln \big( 1 - 2s - v\big) - \frac{1}{4} \ln \big( 1 - 2v\big).
+\]</span></p>
+<p>When transitions and transversions do happen at the rates the Jukes-Cantor model assumes (<span class="math inline">\(\alpha = \beta\)</span>), the two formulas give about the same answer. When transitions are more common, as they nearly always are, the Kimura correction is larger, because the frequent transitions saturate sooner and hide more of the substitutions.</p>
+</section>
+</section>
+<section id="sec-molevo-blosum" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-molevo-blosum">Protein substitution matrices</h2>
+<p>To align two proteins, you need a score for every pair of amino acids that can end up in the same column, as in <a href="../bioinf/pairwise-alignment.html#sec-pa-matrices">the pairwise alignment chapter</a>. With 20 amino acids that is a <span class="math inline">\(20 \times 20\)</span> table, and since a pair scores the same whichever sequence each amino acid is in, there are 210 different scores to decide. The scores should be positive for pairs that turn up together in related proteins more often than by chance, and negative for pairs that turn up together less often. A score of “same or different”, as we used for DNA, cannot do this. In real proteins, an isoleucine is often replaced by a valine, which is similar in size and also hydrophobic, while a tryptophan is almost never replaced by a glycine. The most widely used tables of this kind are the BLOSUM matrices (<a href="https://doi.org/10.1073/pnas.89.22.10915">Henikoff and Henikoff, 1992</a>), and BLOSUM62 is the default in BLAST (see <a href="../bioinf/blast.html#blast-protein-search">the BLAST chapter</a>).</p>
+<section id="sec-molevo-blosum-made" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-blosum-made">How the matrix is made</h3>
+<p>The BLOSUM matrices are counted from real proteins. The data are the BLOCKS database: more than 2,000 ungapped multiple alignments of the conserved regions of more than 500 protein families. Because the blocks have no gaps, each column is a set of amino acids that are taken to descend from the same ancestral amino acid. Gaps therefore play no part in the matrix, and the gap scores for protein alignment are chosen separately.</p>
+<p>The idea is to go through every column of every block, look at every pair of sequences, and count which two amino acids they have in that column. One problem is that some protein families are represented by many nearly identical sequences, which would dominate the counts and tell us mostly about pairs that have barely had time to change. So before counting, the sequences in each block are clustered: a sequence joins a cluster if it is at least <span class="math inline">\(X\)</span> percent identical to any sequence already in it. A sequence in a cluster of <span class="math inline">\(n\)</span> sequences then gets the weight <span class="math inline">\(1/n\)</span>, so each cluster counts as a single sequence, and pairs of sequences within a cluster are not counted at all. For every pair of sequences in different clusters, the product of their weights is added to the count <span class="math inline">\(f_{ij}\)</span> for the two amino acids <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> they have in that column. Summed over all columns of all blocks, these counts are turned into scores, as described below.</p>
+<p>The threshold <span class="math inline">\(X\)</span> gives the matrix its name: <span class="math inline">\(X = 62\)</span> gives BLOSUM62, <span class="math inline">\(X = 80\)</span> gives BLOSUM80, and <span class="math inline">\(X = 45\)</span> gives BLOSUM45. A high threshold merges few sequences, so the counts are dominated by close relatives, and the matrix is suited to comparing closely related proteins. A low threshold merges away the close relatives, so only distantly related pairs are counted, and the matrix is suited to distant relatives.</p>
+</section>
+<section id="sec-molevo-blosum-scores" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-blosum-scores">From counts to scores</h3>
+<p>The counts are first turned into the <em>observed frequency</em> of each pair,</p>
+<p><span class="math display">\[
+q_{ij} = \frac{f_{ij}}{\sum_{i \le j} f_{ij}},
+\]</span></p>
+<p>where the sum runs over every pair once, so that <code>A</code>–<code>S</code> and <code>S</code>–<code>A</code> are the same pair. From these, the <em>background frequency</em> of each amino acid is its share of all the members of all the pairs. An amino acid paired with itself is both members of the pair, and one paired with another is half of it:</p>
+<p><span class="math display">\[
+p_i = q_{ii} + \sum_{j \ne i} \frac{q_{ij}}{2}.
+\]</span></p>
+<p>If amino acids were paired at random, the pair <span class="math inline">\(i\)</span>–<span class="math inline">\(j\)</span> would turn up with the <em>expected frequency</em></p>
+<p><span class="math display">\[
+e_{ij} = \begin{cases} p_i^2 &amp; \text{if } i = j \\ 2 p_i p_j &amp; \text{if } i \ne j, \end{cases}
+\]</span></p>
+<p>where the 2 is there because <span class="math inline">\(i\)</span> can be in either sequence. The score compares what was observed with what chance would give, as a <em>log-odds</em> score:</p>
+<p><span class="math display">\[
+s_{ij} = \log_2 \frac{q_{ij}}{e_{ij}}.
+\]</span></p>
+<p>A pair seen twice as often as chance scores 1, one seen half as often scores −1, and one seen exactly as often as chance scores 0. Because the logarithm has base 2, the score is measured in <em>bits</em>. The published matrix scales the scores and rounds them to whole numbers. BLOSUM62 is in half-bits, <span class="math inline">\(S_{ij} = \mathrm{round}(2 \log_2 (q_{ij}/e_{ij}))\)</span>, while some other matrices, such as BLOSUM50, are in thirds of a bit.</p>
+<p>To see the steps in action, take a tiny block of five sequences and three columns, and skip the clustering:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>AAC</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ASC</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>AAC</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>SAC</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>AAW</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Five sequences make 10 pairs in each column, so 30 pairs in all. The background frequencies come out as <span class="math inline">\(p_A = 0.533\)</span>, <span class="math inline">\(p_C = 0.267\)</span>, <span class="math inline">\(p_S = 0.133\)</span> and <span class="math inline">\(p_W = 0.067\)</span>, and the four pairs that occur get these scores:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Pair</th>
+<th style="text-align: right;"><span class="math inline">\(f\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(q\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(e\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\log_2(q/e)\)</span></th>
+<th style="text-align: right;">Half-bits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A–A</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.400</td>
+<td style="text-align: right;">0.284</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">A–S</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.267</td>
+<td style="text-align: right;">0.142</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C–C</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.200</td>
+<td style="text-align: right;">0.071</td>
+<td style="text-align: right;">1.49</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">C–W</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.133</td>
+<td style="text-align: right;">0.036</td>
+<td style="text-align: right;">1.91</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+<p>Two things in the table may surprise you. <code>C</code>–<code>W</code> scores higher than <code>C</code>–<code>C</code>, and <code>A</code>–<code>S</code> scores higher than <code>A</code>–<code>A</code>, even though identical amino acids are paired more often. Scores measure how surprising a pair is compared with chance, and <code>S</code> and <code>W</code> are rare, so seeing them at all in a pair is surprising. And the pairs that never occur, like <code>A</code>–<code>C</code>, have <span class="math inline">\(q = 0\)</span>, which would give them a score of minus infinity. With so little data, the matrix is odd. The real BLOCKS data hold enough pairs that every combination is seen.</p>
+</section>
+<section id="sec-molevo-blosum-reading" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-blosum-reading">Reading the matrix</h3>
+<p><a href="#fig-blosum62" class="quarto-xref">Figure&nbsp;<span>57.7</span></a> shows the whole of BLOSUM62. The diagonal is all positive, from 4 to 11: an amino acid is most often replaced by itself, meaning not replaced at all. Rare amino acids score highest when they match, because a match between two rare amino acids is unlikely by chance: tryptophan with tryptophan scores 11 and cysteine with cysteine 9, while alanine with alanine scores 4. Off the diagonal, the scores run from −4 to 3, and the positive ones form small groups of chemically similar amino acids: isoleucine, leucine, valine and methionine; phenylalanine, tyrosine and tryptophan; lysine and arginine; aspartate and glutamate.</p>
+<div id="cell-fig-blosum62" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div id="fig-blosum62" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-blosum62-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="molecular-evolution_files/figure-html/fig-blosum62-output-1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-blosum62-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.7: The BLOSUM62 matrix, with the amino acids ordered so that chemically similar ones sit next to each other. Blue cells are pairs seen in related proteins more often than by chance, orange cells less often.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The log-odds form makes the score of an alignment meaningful. Think of two ways an aligned pair of sequences could have come about. Either they are related, so that each column is a pair drawn with the observed frequencies <span class="math inline">\(q_{ij}\)</span>, or they are unrelated, so that each amino acid is drawn on its own with the background frequencies. The score of an ungapped alignment is the sum of the scores of its columns, and a sum of logarithms is the logarithm of a product. So the total score in bits is</p>
+<p><span class="math display">\[
+S = \log_2 \frac{P(\text{alignment} \mid \text{related})}{P(\text{alignment} \mid \text{unrelated})}.
+\]</span></p>
+<p>Every extra bit doubles how much more likely the alignment is if the sequences are related, and every half-bit unit in BLOSUM62 multiplies it by <span class="math inline">\(\sqrt{2}\)</span>. Here is an ungapped alignment of two short peptides, scored with BLOSUM62:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>M K T A Y I A K</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>M K S A F V A R</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>5 5 1 4 3 3 4 2   total 27</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Every column scores positive: four identities, and four substitutions between similar amino acids. The relationship goes both ways, too. Any score matrix, even one made up by hand, implies a set of target frequencies <span class="math inline">\(q_{ij} = p_i p_j \, 2^{s_{ij}}\)</span>: the frequencies of pairs in related sequences that it is best at finding (<a href="https://doi.org/10.1016/0022-2836(91)90193-A">Altschul, 1991</a>).</p>
+<p>Two numbers summarize a matrix. The <em>relative entropy</em> <span class="math inline">\(H = \sum_{i \le j} q_{ij} \, s_{ij}\)</span> is the average score per column in true relatives: how much information each aligned pair carries about whether two sequences are related. The <em>expected score</em> <span class="math inline">\(E = \sum_{i \le j} e_{ij} \, s_{ij}\)</span> is the average score per column for unrelated sequences. As you saw for <a href="../bioinf/pairwise-alignment.html#sec-pa-local">local alignment</a>, <span class="math inline">\(E\)</span> must be negative for local alignment to work, or random sequences would build up long high-scoring alignments (<a href="https://doi.org/10.1073/pnas.87.6.2264">Karlin and Altschul, 1990</a>). For BLOSUM62, <span class="math inline">\(H = 0.6979\)</span> bits and <span class="math inline">\(E = -0.5209\)</span> bits (<a href="https://doi.org/10.1073/pnas.89.22.10915">Henikoff and Henikoff, 1992</a>). A higher BLOSUM number gives a higher <span class="math inline">\(H\)</span>: more information per column, so shorter alignments can be detected, but only between close relatives.</p>
+</section>
+<section id="sec-molevo-blosum-using" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-blosum-using">Using the matrix</h3>
+<p>You do not have to type in the matrix. Biopython has BLOSUM62 and many other matrices built in, and you look up a score with two amino acids, as in <a href="../python/biopython.html#sec-biopython-align">the Biopython chapter</a>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Align <span class="im">import</span> substitution_matrices</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>blosum62 <span class="op">=</span> substitution_matrices.load(<span class="st">"BLOSUM62"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(blosum62[<span class="st">"W"</span>][<span class="st">"W"</span>])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(substitution_matrices.load())   <span class="co"># the names of all the matrices</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Besides the 20 amino acids, the matrix has rows for <code>B</code> (aspartate or asparagine), <code>Z</code> (glutamate or glutamine), <code>X</code> (any amino acid) and <code>*</code> (a stop codon). A substitution matrix plugs straight into the Needleman-Wunsch and Smith-Waterman algorithms of <a href="pairwise-alignment.html" class="quarto-xref"><span>Chapter 53</span></a> in place of the simple match and mismatch scores. The gap scores have to be chosen separately, and are found by trial. The default in <code>blastp</code> is BLOSUM62 with an affine gap score of 11 to open a gap and 1 to extend it.</p>
+</section>
+<section id="sec-molevo-pam" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-pam">PAM, for contrast</h3>
+<p>Before BLOSUM, the standard matrices were the PAM matrices of Margaret Dayhoff and colleagues (Dayhoff et al., 1978). They were built differently. Dayhoff took closely related proteins, at least 85% identical, built evolutionary trees for them, and counted the substitutions along the branches. From those counts she made the matrix PAM1, which describes the changes expected when there has been one accepted substitution per 100 amino acids. Matrices for longer distances were made by applying PAM1 repeatedly, as a model like the ones in <a href="#sec-molevo-model">A model of DNA evolution</a> does over time: PAM250 is PAM1 applied 250 times, and then turned into log-odds scores. So the PAM matrices for distant relatives are extrapolated from close relatives, while each BLOSUM matrix is counted directly from sequences at its distance.</p>
+<p>The numbers run in opposite directions. A high PAM number means distant relatives, while a high BLOSUM number means close ones. Roughly, PAM250 corresponds to BLOSUM45, PAM160 to BLOSUM62, and PAM120 to BLOSUM80. When Henikoff and Henikoff compared them in database searches, BLOSUM62 found relatives better than the PAM matrices, and it became the default in BLAST.</p>
+</section>
+<section id="sec-molevo-choosing" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-molevo-choosing">Choosing a matrix</h3>
+<p>For most searches, BLOSUM62 is a good choice. If you are looking for close relatives, BLOSUM80 is better, and for distant relatives BLOSUM45. NCBI also bases its advice on the length of the query, because a short query gives a short alignment, and a short alignment can only stand out from chance if each column carries a lot of information: PAM30 for queries shorter than 35 amino acids, PAM70 for 35 to 50, BLOSUM80 for 50 to 85, and BLOSUM62 for anything longer.</p>
+<p><a href="#fig-blosum-compare" class="quarto-xref">Figure&nbsp;<span>57.8</span></a> shows why the three BLOSUM matrices suit different distances. The matrices are published in different units, BLOSUM62 in half-bits and the other two in thirds of a bit, so the figure converts every score to bits to make them comparable. Going from BLOSUM45 to BLOSUM80, the diagonal gets darker blue and the rest of the matrix darker orange. On average an identity is worth 2.3 bits in BLOSUM45 and 3.1 bits in BLOSUM80, while a substitution costs 0.45 bits in BLOSUM45 and 0.98 bits in BLOSUM80. BLOSUM80 was counted from close relatives, where substitutions are rare, so it treats every substitution as strong evidence against a relationship. BLOSUM45 was counted from distant relatives, where substitutions are common, so it forgives them. The relative entropy grows accordingly, from 0.3795 bits per column for BLOSUM45 to 0.6979 for BLOSUM62 and 0.9868 for BLOSUM80.</p>
+<div id="cell-fig-blosum-compare" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div id="fig-blosum-compare" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-blosum-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="molecular-evolution_files/figure-html/fig-blosum-compare-output-1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-blosum-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;57.8: BLOSUM45, BLOSUM62 and BLOSUM80 side by side, with the amino acids in the same order as in <a href="#fig-blosum62" class="quarto-xref">Figure&nbsp;<span>57.7</span></a>. Every score is converted to bits and colored on the same scale in all three panels, so the same color means the same evidence for or against a relationship.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Every substitution matrix rests on two simplifications. It assumes that each position in a protein evolves on its own, and that the same scores apply at every position. Neither is true. An amino acid buried in the core of a protein is under very different constraints from one on its surface. The matrices work well anyway, which says more about how useful a simple model can be than about how proteins evolve. Even the matrix itself is not quite what it was meant to be: the BLOSUM62 that everyone uses was computed with a mistake in the clustering code, and the corrected matrix turned out to find relatives slightly worse (<a href="https://doi.org/10.1038/nbt0308-274">Styczynski et al., 2008</a>).</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+// The margin link to the other book ("TA version of this page" in the student
+// book, "Student version of this page" in the TA one) is declared with a fixed
+// href in _quarto-default.yml and _quarto-ta.yml, because Quarto resolves
+// other-links from metadata before pandoc runs and has no way to express "this
+// page, one directory over". So point it at the current page's counterpart here.
+//
+// document.baseURI rather than location.href: pagecrypt serves the decrypted TA
+// page inside a srcdoc iframe, where location.href is "about:srcdoc" but baseURI
+// is still inherited from the real page URL.
+//
+// The root is derived from the site_libs asset every page loads, rather than
+// hard-coded, so this works in local preview, over file:// and on the published
+// site alike. On a page carrying neither link the whole thing is a no-op.
+document.addEventListener("DOMContentLoaded", function () {
+  var asset = document.querySelector('script[src*="site_libs/"], link[href*="site_libs/"]');
+  if (!asset) return;
+  var url = asset.src || asset.href;                  // absolute, resolved against baseURI
+  var root = url.slice(0, url.indexOf("site_libs/")); // absolute URL of this book's root
+  var page = document.baseURI.slice(root.length);     // this page, relative to that root
+
+  var toTa = document.querySelector('.quarto-other-links a[rel="ta-version"]');
+  if (toTa) toTa.href = root + "ta/" + page;
+
+  var toStudent = document.querySelector('.quarto-other-links a[rel="student-version"]');
+  if (toStudent) toStudent.href = root.replace(/ta\/$/, "") + page;
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../bioinf/blast.html" class="pagination-link" aria-label="BLAST">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">BLAST</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../python/recursion.html" class="pagination-link" aria-label="Recursion">
+        <span class="nav-page-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Recursion</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/bioinf/molecular-evolution.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

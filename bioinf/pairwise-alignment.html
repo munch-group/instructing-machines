@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>53&nbsp; Pairwise alignment – Instructing Machines</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../projects/alignment-project.html" rel="next">
+<link href="../neural_networks/training.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-94d439129a586302e9aa887c1d4c1aae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/plan-before-you-prompt.html">Week 11</a></li><li class="breadcrumb-item"><a href="../bioinf/pairwise-alignment.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Home</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes_slides_recordings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Week plan</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/flashcards.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Flashcards</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/course-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/course-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Course introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/insides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Insides</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Terminal Howto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/getting_set_up.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Getting set up</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hello world</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/meet-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AI: Meet AI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/instruction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instruction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Notebooks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/values-operators-logic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Values, operators, logic</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/precedence-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Precedence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/control-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Control flow</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/predict-then-prove.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">AI: The AI predicts, you prove</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/how-models-produce-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI: How AIs produce code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/dictionaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Dictionaries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/tuples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Tuples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-the-object.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Turtle: the object</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/explain-then-confirm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">AI: Let it explain, then confirm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-loops-and-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Turtle: loops and tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/practical-ai-use.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">AI: Practical use</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Data structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-drawing-from-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Turtle: drawing from data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/testing_programming_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Testing programming projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/translation-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Project: Translating ORFs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/ask-for-another-way.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">AI: Ask for another way</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/composition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Composition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Turtle: functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/folding-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Project: Primer analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Classes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/let-it-draft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">AI: Let it draft</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../turtle/turtle-classes-debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Turtle: classes and debugging</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/codonbias-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Project: Codon usage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/modules-and-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Modules and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neurons.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">AI: Neurons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/neural-networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">AI: Neural networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/orf-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Project: Finding genes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/numpy-and-pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Numpy and Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Plotting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/biopython.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Biopython</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/assembly-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Project: Genome assembly</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 11</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/plan-before-you-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">AI: Plan before you prompt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../neural_networks/training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">AI: Training</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/pairwise-alignment.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 12</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/molecular-evolution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 13</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 14</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p> </p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-pa-scoring" id="toc-sec-pa-scoring" class="nav-link active" data-scroll-target="#sec-pa-scoring">Scoring an alignment</a></li>
+  <li><a href="#sec-pa-parts" id="toc-sec-pa-parts" class="nav-link" data-scroll-target="#sec-pa-parts">The best alignment is made of best alignments</a></li>
+  <li><a href="#sec-pa-table" id="toc-sec-pa-table" class="nav-link" data-scroll-target="#sec-pa-table">A table of scores</a></li>
+  <li><a href="#sec-pa-traceback" id="toc-sec-pa-traceback" class="nav-link" data-scroll-target="#sec-pa-traceback">Traceback</a></li>
+  <li><a href="#sec-pa-matrices" id="toc-sec-pa-matrices" class="nav-link" data-scroll-target="#sec-pa-matrices">Score matrices in practice</a></li>
+  <li><a href="#sec-pa-local" id="toc-sec-pa-local" class="nav-link" data-scroll-target="#sec-pa-local">Local alignment</a></li>
+  <li><a href="#sec-pa-gaps" id="toc-sec-pa-gaps" class="nav-link" data-scroll-target="#sec-pa-gaps">Better gap scores</a>
+  <ul class="collapse">
+  <li><a href="#sec-pa-end-gaps" id="toc-sec-pa-end-gaps" class="nav-link" data-scroll-target="#sec-pa-end-gaps">Gaps at the ends</a></li>
+  <li><a href="#sec-pa-affine" id="toc-sec-pa-affine" class="nav-link" data-scroll-target="#sec-pa-affine">Long gaps</a></li>
+  </ul></li>
+  <li><a href="#sec-pa-tools" id="toc-sec-pa-tools" class="nav-link" data-scroll-target="#sec-pa-tools">Alignment tools</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/bioinf/pairwise-alignment.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://padlet.com/kaspermunch/course-comments-gsvnxmc9cckrdm0b" rel="external"><i class="bi bi-megaphone"></i>Student comments</a></li><li><a href="https://munch-group.org/instructing-machines/ta/" rel="ta-version"><i class="bi bi-mortarboard"></i>TA version of this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai/plan-before-you-prompt.html">Week 11</a></li><li class="breadcrumb-item"><a href="../bioinf/pairwise-alignment.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-pairwise-alignment" class="quarto-section-identifier"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="images/under-construction.png" class="img-fluid" style="width:20.0%"></p>
+<p>When two DNA sequences descend from the same ancestral sequence, most of their bases still sit in the same order, but some have been substituted, and some have been inserted or deleted. An alignment writes the two sequences above each other so that bases descending from the same ancestral base end up in the same column. This chapter shows how a computer finds the best such alignment among an astronomical number of candidates without trying them all. The method is called dynamic programming, and the version for whole sequences is the Needleman-Wunsch algorithm (<a href="https://doi.org/10.1016/0022-2836(70)90057-4">Needleman and Wunsch, 1970</a>), which you will implement yourself in <a href="../projects/alignment-project.html" class="quarto-xref"><span>Chapter 54</span></a>.</p>
+<section id="sec-pa-scoring" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-scoring">Scoring an alignment</h2>
+<div id="cell-fig-pa-score-matrix" class="cell page-columns page-full" data-execution_count="2">
+
+<div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
+<div id="fig-pa-score-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-score-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-score-matrix-output-1.png" width="198" height="164" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-score-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.1: Score matrix for the running example. A gap scores −1.
+</figcaption>
+</figure>
+</div>
+</div></div></div>
+<p>Here is one way to align the sequences <code>gata</code> and <code>acta</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ga-ta</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>-acta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each column pairs either two bases or a base with a gap, written as a dash. To decide how good the alignment is, we give each column a score and add them up. A score matrix, like the one in the margin, says what a pair of bases scores. In this one, two identical bases score 2 and two different bases score 0. Every column with a gap gets the gap score, which here is −1. The alignment above has the columns g/−, a/a, −/c, t/t and a/a, so its score is <span class="math inline">\(-1 + 2 - 1 + 2 + 2 = 4\)</span>. Scoring an alignment is the same kind of substitution and reduction you have done on Python expressions: replace each column by its score, then add.</p>
+<p>The best alignment is the one with the highest score, and the hard part is finding it. Even <code>gata</code> and <code>acta</code> can be aligned in 321 different ways. Two sequences of 100 bases each can be aligned in about <span class="math inline">\(2 \times 10^{75}\)</span> ways, so trying them all is out of the question, however fast the computer. The rest of this chapter is about an algorithm that finds the best alignment while looking at only a tiny fraction of them.</p>
+</section>
+<section id="sec-pa-parts" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-parts">The best alignment is made of best alignments</h2>
+<p>The algorithm rests on one observation. If you cut an optimal alignment in two, each part is an optimal alignment of the bases it contains. Take <code>ga-ta</code> over <code>-acta</code>, which is an optimal alignment of <code>gata</code> and <code>acta</code>. Cut it after the third column, or after the fourth:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ga- | ta         ga-t | a</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>-ac | ta         -act | a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The left part of the first cut, <code>ga-</code> over <code>-ac</code>, is an optimal alignment of <code>ga</code> and <code>ac</code>. The left part of the second cut is an optimal alignment of <code>gat</code> and <code>act</code>. This has to be so. If there were a better alignment of <code>gat</code> and <code>act</code>, you could put it in front of the last column <code>a</code>/<code>a</code> and get a better alignment of the whole sequences, which contradicts that the one you started with was optimal.</p>
+<p>Now look at the last column of the optimal alignment of <code>gata</code> and <code>acta</code>, whatever that alignment is. There are only three possibilities. The last column pairs the last base of each sequence (<code>a</code> with <code>a</code>). Or it pairs the last base of <code>gata</code> with a gap. Or it pairs a gap with the last base of <code>acta</code>. Whatever comes before the last column must, by the observation above, be an optimal alignment of what is left of the two sequences. Write <span class="math inline">\(S(i, j)\)</span> for the score of the best alignment of the first <span class="math inline">\(i\)</span> bases of <code>gata</code> and the first <span class="math inline">\(j\)</span> bases of <code>acta</code>. If someone told us the three scores <span class="math inline">\(S(3,3) = 2\)</span>, <span class="math inline">\(S(3,4) = 1\)</span> and <span class="math inline">\(S(4,3) = 1\)</span>, the three possibilities would score:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ga-t + a     ga-t- + a     ga-ta + -</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>-act   a     -acta   -     -act-   a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[
+S(4, 4) = \max \begin{cases}
+S(3, 3) + s(\texttt{a}, \texttt{a}) = 2 + 2 = 4 \\
+S(3, 4) + g = 1 - 1 = 0 \\
+S(4, 3) + g = 1 - 1 = 0
+\end{cases}
+\]</span></p>
+<p>Here <span class="math inline">\(s(\texttt{a}, \texttt{a})\)</span> is the score matrix entry for an <code>a</code> paired with an <code>a</code>, and <span class="math inline">\(g\)</span> is the gap score. The best of the three is 4, so the optimal alignment of <code>gata</code> and <code>acta</code> scores 4 and ends with <code>a</code> over <code>a</code>.</p>
+<p>This is cheating a little, because nobody told us <span class="math inline">\(S(3,3)\)</span>, <span class="math inline">\(S(3,4)\)</span> and <span class="math inline">\(S(4,3)\)</span>. But each of them can be found in the same way, from three smaller scores, and each of those from three even smaller ones, until we reach alignments of nothing, which score 0. Written out for any <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, with <span class="math inline">\(a_i\)</span> for base number <span class="math inline">\(i\)</span> in the first sequence and <span class="math inline">\(b_j\)</span> for base number <span class="math inline">\(j\)</span> in the second:</p>
+<p><span class="math display">\[
+S(i, j) = \max \begin{cases}
+S(i-1, j-1) + s(a_i, b_j) &amp; \text{if } i &gt; 0 \text{ and } j &gt; 0 \\
+S(i-1, j) + g &amp; \text{if } i &gt; 0 \\
+S(i, j-1) + g &amp; \text{if } j &gt; 0
+\end{cases}
+\qquad S(0, 0) = 0
+\]</span></p>
+<p>The conditions say which of the three possibilities exist. If one sequence has run out (<span class="math inline">\(j = 0\)</span>, say), the only way to end the alignment is with a base from the other sequence against a gap.</p>
+<p>A rule that defines something in terms of smaller versions of itself is called recursive, and you could write it directly as a Python function that calls itself. But that function would be hopelessly slow, because it would compute the same scores again and again. <span class="math inline">\(S(4,4)\)</span> needs <span class="math inline">\(S(3,3)\)</span>, but so do <span class="math inline">\(S(4,3)\)</span> and <span class="math inline">\(S(3,4)\)</span>, and each of those calls would compute <span class="math inline">\(S(3,3)\)</span> from scratch. The way out is to compute each score once and write it down.</p>
+</section>
+<section id="sec-pa-table" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-table">A table of scores</h2>
+<p>We write the scores in a table with one row for each number of bases from <code>gata</code>, from 0 to 4, and one column for each number of bases from <code>acta</code>. The cell in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span> holds <span class="math inline">\(S(i, j)\)</span>. In <a href="#fig-pa-table-meaning" class="quarto-xref">Figure&nbsp;<span>53.2</span></a>, the highlighted cell holds the score of the best alignment of <code>g</code> and <code>act</code>. To compute it, you need the three cells above, to the left, and diagonally up and to the left.</p>
+<div id="cell-fig-pa-table-meaning" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-table-meaning" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-table-meaning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-table-meaning-output-1.png" width="532" height="248" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-table-meaning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.2: Left: the cell in row 1 and column 3 holds <span class="math inline">\(S(1,3)\)</span>, the score of the best alignment of the first base of <code>gata</code> and the first three bases of <code>acta</code>. Right: computing it requires the three cells that are diagonally up-left, above, and to the left.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The first row and the first column are easy. Row 0 holds alignments of no bases from <code>gata</code> with some bases from <code>acta</code>. The only way to align <code>act</code> with nothing is to put a gap opposite each base, so <span class="math inline">\(S(0, 3) = 3g = -3\)</span>. In the same way, the first column holds multiples of the gap score, as in <a href="#fig-pa-init" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>.</p>
+<div id="cell-fig-pa-init" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-init" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-init-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-init-output-1.png" width="303" height="303" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-init-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.3: The first row and first column hold alignments of some bases against nothing at all, which can only be a series of gaps.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Now every other cell can be filled in, as long as we go row by row from the top, and left to right within a row. Then the three cells a new cell needs are always filled in already. <a href="#fig-pa-first-cells" class="quarto-xref">Figure&nbsp;<span>53.4</span></a> shows the first cell, row 1 and column 1, which is the best alignment of <code>g</code> and <code>a</code>. Diagonally up-left is 0, and pairing <code>g</code> with <code>a</code> scores 0, which gives 0. Above is −1, and adding a gap gives −2. To the left is also −1, which gives −2. The largest of 0, −2 and −2 is 0, so <span class="math inline">\(S(1,1) = 0\)</span>. The second panel shows the first cell of the next row, where <code>a</code> meets <code>a</code> and the diagonal wins with <span class="math inline">\(-1 + 2 = 1\)</span>.</p>
+<div id="cell-fig-pa-first-cells" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-first-cells" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-first-cells-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-first-cells-output-1.png" width="466" height="222" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-first-cells-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.4: Computing two cells. Each of the three neighbors contributes its score plus the score of the step into the new cell: a base pair for the diagonal step and a gap for the other two. The new cell gets the largest of the three.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="exercise" class="level4" data-number="53.0.0.1">
+<h4 data-number="53.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 53-1</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Draw the table on paper, fill in the first row and column as in <a href="#fig-pa-init" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>, and then fill in the remaining cells yourself, row by row. For each cell, write down the three candidate scores before you pick the largest. The cell in the bottom right corner should end up holding 4, the score we found above. If it does not, find the first cell where your table differs from the answer and redo that cell.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Show the filled table
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="35d3c09a" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pairwise-alignment_files/figure-html/cell-7-output-1.png" width="303" height="303" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-pa-traceback" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-traceback">Traceback</h2>
+<p>The bottom right cell tells us that the best alignment of <code>gata</code> and <code>acta</code> scores 4, but not what the alignment is. To find it, we walk back through the table. For each cell, we ask which of its three neighbors its score came from. The bottom right cell got its 4 from the diagonal: <span class="math inline">\(2 + 2\)</span>. A diagonal step means the last column of the alignment pairs a base from each sequence, here <code>a</code> with <code>a</code>. We move to that neighbor and ask the same question. Its 2 also came from the diagonal (<span class="math inline">\(0 + 2\)</span>, pairing <code>t</code> with <code>t</code>), so the alignment ends in <code>ta</code> over <code>ta</code>.</p>
+<p>The cell we are now in, row 2 and column 2, holds 0, and that score can be reached two ways: from the diagonal (<span class="math inline">\(0 + 0\)</span>, pairing <code>a</code> with <code>c</code>) and from the left (<span class="math inline">\(1 - 1\)</span>). Both lead to an optimal alignment. Take the step to the left. A step to the left adds a column with a gap in the sequence down the side and the base from the sequence along the top, here <code>-</code> over <code>c</code>. A step up adds the base from the sequence down the side against a gap. Continuing this way until we reach the top left corner, we collect the columns of the alignment from last to first:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a    ta    -ta    a-ta    ga-ta</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>a    ta    cta    acta    -acta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="#fig-pa-traceback" class="quarto-xref">Figure&nbsp;<span>53.5</span></a> shows the path in orange. The gray arrows show the other optimal path, which takes the diagonal step at row 2, column 2, and gives the alignment <code>gata</code> over <code>acta</code>. It also scores 4. Two sequences often have several optimal alignments, and the traceback lets you find all of them.</p>
+<div id="cell-fig-pa-traceback" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-traceback" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-traceback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-traceback-output-1.png" width="303" height="303" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-traceback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.5: Traceback. Starting from the bottom right corner, each arrow points to the neighbor that the cell’s score came from. The orange path gives <code>ga-ta</code> over <code>-acta</code>; the gray arrows branch off to the other optimal alignment, <code>gata</code> over <code>acta</code>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To walk back, you need to know which neighbor each score came from. You can work it out again by redoing the three sums, as we did above. A program does better to record it while filling in the table, in a second table of the same size, with a letter in each cell saying “diagonal”, “up” or “left”. That is how you will do it in <a href="../projects/alignment-project.html" class="quarto-xref"><span>Chapter 54</span></a>.</p>
+<section id="exercise-1" class="level4" data-number="53.0.0.2">
+<h4 data-number="53.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 53-2</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Find the optimal global alignment of <code>GGGCT</code> and <code>GAGGG</code> by hand. Use a score matrix where identical bases score 2 and different bases score −1, and a gap score of −2. Put <code>GGGCT</code> down the left side of the table and <code>GAGGG</code> along the top. Fill in the table, then trace back from the bottom right corner. When there is a tie, follow each branch: how many optimal alignments are there?</p>
+<p>When you have an answer, let the machine check it. The <code>PairwiseAligner</code> from <a href="../python/biopython.html#sec-biopython-align">the Biopython chapter</a> does global alignment by default, and you can give it the same scores:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> Align</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>aligner <span class="op">=</span> Align.PairwiseAligner(match_score<span class="op">=</span><span class="dv">2</span>, mismatch_score<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                open_gap_score<span class="op">=-</span><span class="dv">2</span>, extend_gap_score<span class="op">=-</span><span class="dv">2</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>alignments <span class="op">=</span> aligner.align(<span class="st">"GGGCT"</span>, <span class="st">"GAGGG"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alignments.score)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> alignments:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(alignment)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Before you run it, write down the score and the alignments you expect it to print.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Show the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="830d32a1" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pairwise-alignment_files/figure-html/cell-9-output-1.png" width="312" height="312" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The best score is 1, and three alignments reach it:</p>
+<div id="3ecc3f48" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-stdout">
+<pre><code>GGGCT
+GAGGG
+
+G-GGCT
+GAGG-G
+
+G-GGCT
+GAGGG-
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2" class="level4" data-number="53.0.0.3">
+<h4 data-number="53.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 53-3</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-explainer" class="small">AI: Explainer</a></p>
+<p>Fill in the table for <code>GATTC</code> (down the side) and <code>GTAC</code> (along the top) yourself, with the same scores as in the previous exercise, and find the optimal alignment. Then give the assistant the two sequences and the scores, and ask it to fill in the same table, one row at a time, and to report the optimal score and alignment. Compare its table with yours, cell by cell. Where the two disagree, redo that cell by hand from its three neighbors to decide who is right, and then run <code>PairwiseAligner</code> on the two sequences to settle the score. Did the assistant make arithmetic slips, pick the wrong maximum, or report an alignment whose score does not add up to the number in its corner cell? Write what you found in your logbook.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Show the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="8d4eb44d" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pairwise-alignment_files/figure-html/cell-11-output-1.png" width="271" height="312" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GATTC
+| | |
+G-TAC</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-pa-matrices" class="level2 unnumbered page-columns page-full">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-matrices">Score matrices in practice</h2>
+<div id="cc67c94a" class="cell page-columns page-full" data-execution_count="11">
+
+<div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pairwise-alignment_files/figure-html/cell-12-output-1.png" width="198" height="164" class="figure-img"></p>
+<figcaption>The four bases in EDNAFULL.</figcaption>
+</figure>
+</div>
+</div></div></div>
+<p>The score matrices in this chapter are toys, chosen to make the arithmetic easy. A matrix used in practice for DNA is EDNAFULL, also called NUC.4.4. For the four bases it is just as simple: 5 for identical bases and −4 for different ones. But it also has rows and columns for the ambiguity codes that sequencing data use when a base is not known for certain. <code>N</code> means any base, <code>R</code> means a purine (<code>A</code> or <code>G</code>), <code>W</code> means <code>A</code> or <code>T</code>, and so on. An <code>A</code> paired with a <code>W</code> scores 1, because the <code>W</code> may well be an <code>A</code>. An <code>A</code> paired with an <code>N</code> scores −2.</p>
+<p>For proteins, all twenty amino acids get their own row and column, and the scores are no longer just “identical” or “different”. Substituting one amino acid for a chemically similar one happens often in evolution and gets a positive score. Where those numbers come from is a later chapter.</p>
+</section>
+<section id="sec-pa-local" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-local">Local alignment</h2>
+<p>Global alignment, which is what Needleman-Wunsch does, aligns the two sequences from end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, and it fills them with mismatches and gaps that mean nothing.</p>
+<p>Here are two sequences that share a stretch of 15 bases, with one mismatch, inside unrelated flanks. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores 11, and 42 different global alignments share that score. Here is one of them:</p>
+<div id="0a63b5a1" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-stdout">
+<pre><code>TTAGTTGTATGGCGTACCTGAAG--G--CCGC--A
+   |  | ||||| |||||||||  |    ||   
+---G-CG-ATGGCTTACCTGAAGAAGTAGTGCTTG</code></pre>
+</div>
+</div>
+<p>What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores 27:</p>
+<div id="42f375ce" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-stdout">
+<pre><code>ATGGCGTACCTGAAG
+||||| |||||||||
+ATGGCTTACCTGAAG</code></pre>
+</div>
+</div>
+<p>Local alignments are found with the Smith-Waterman algorithm (<a href="https://doi.org/10.1016/0022-2836(81)90087-5">Smith and Waterman, 1981</a>), which is almost the same as Needleman-Wunsch. The only change is in how a cell is filled in: if all three candidate scores are negative, the cell gets 0 instead. A score of 0 means “start a new alignment here”. When the alignment so far has become so bad that it would drag down anything added to it, the algorithm drops it and starts over, and it never extends an alignment that scores 0 or less.</p>
+<p><span class="math display">\[
+S(i, j) = \max \begin{cases}
+S(i-1, j-1) + s(a_i, b_j) \\
+S(i-1, j) + g \\
+S(i, j-1) + g \\
+0
+\end{cases}
+\]</span></p>
+<div id="cell-fig-pa-local-step" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-local-step" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-local-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-local-step-output-1.png" width="466" height="222" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-local-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.6: Filling in a cell for local alignment. Left: when the best candidate is positive, nothing changes. Right: when all three candidates are negative, the cell gets 0, and an alignment can start afresh from here.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Two more things change. The first row and column hold zeros, because a local alignment does not have to include the start of either sequence. And the traceback no longer starts in the bottom right corner, because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. <a href="#fig-pa-local-paths" class="quarto-xref">Figure&nbsp;<span>53.7</span></a> shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.</p>
+<div id="cell-fig-pa-local-paths" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-local-paths" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-local-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-local-paths-output-1.png" width="689" height="333" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-local-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.7: Traceback paths for global (left) and local (right) alignment of the two sequences above. The global path must run from corner to corner. The local path covers only the shared stretch.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Smith-Waterman only works if the score matrix gives unrelated sequences a negative score on average. Otherwise even random bases would build up a positive score, the best local alignment would spread out over everything, and it would stop being local. If base <span class="math inline">\(a\)</span> occurs with frequency <span class="math inline">\(q_a\)</span>, two random bases are <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> with probability <span class="math inline">\(q_a q_b\)</span>, so the condition is</p>
+<p><span class="math display">\[
+\sum_{a,b} q_a \, q_b \, s(a, b) &lt; 0.
+\]</span></p>
+<section id="exercise-3" class="level4" data-number="53.0.0.4">
+<h4 data-number="53.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 53-4</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Assume the four bases are equally common, so every <span class="math inline">\(q_a = 1/4\)</span>. There are 16 pairs of bases, 4 identical and 12 different. Compute the average score of a random pair of bases, first for the score matrix from the start of this chapter (2 for identical, 0 for different), then for the one from the <code>GGGCT</code> exercise (2 for identical, −1 for different), and finally for EDNAFULL. Which of them can be used for local alignment?</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Show the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The first matrix gives <span class="math inline">\((4 \times 2 + 12 \times 0) / 16 = 0.5\)</span>. That is positive, so it cannot be used. The second gives <span class="math inline">\((4 \times 2 + 12 \times (-1)) / 16 = -0.25\)</span> and EDNAFULL gives <span class="math inline">\((4 \times 5 + 12 \times (-4)) / 16 = -1.75\)</span>. Both are negative and can be used.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4" class="level4" data-number="53.0.0.5">
+<h4 data-number="53.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 53-5</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Find the best local alignment of <code>GGGCT</code> and <code>GAGGG</code> by hand, with the same scores as in the global exercise. Fill in the table with zeros in the first row and column and the 0 floor in every cell. Then find the highest score in the table and trace back from there until you meet a 0. Compare the result with the global alignments you found before. Check your score by running the <code>PairwiseAligner</code> from the global exercise again with <code>aligner.mode = "local"</code>, after you have written down what you expect it to print.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Show the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="60c3d611" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pairwise-alignment_files/figure-html/cell-17-output-1.png" width="614" height="310" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GGG
+GGG</code></pre>
+</div>
+</div>
+<p>The best local alignment is <code>GGG</code> against <code>GGG</code>, with a score of 6. The global alignments had to include the <code>A</code> in <code>GAGGG</code> and the <code>CT</code> in <code>GGGCT</code>, which cost 5 points.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-pa-gaps" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-gaps">Better gap scores</h2>
+<p>So far every gap position has cost the same, wherever it is and however long the gap. Real alignment programs score gaps more carefully, in two ways.</p>
+<section id="sec-pa-end-gaps" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-pa-end-gaps">Gaps at the ends</h3>
+<p>Suppose you align a gene sequence you have just read from a sample with a reference sequence that starts a little earlier and ends a little later. The gaps at the ends of the alignment do not reflect any insertion or deletion. They are there only because one sequence was read over a shorter stretch. Penalizing them as if they were real mutations makes the alignment worse. Many programs therefore score gaps at the ends of a global alignment differently, often not at all.</p>
+<p>In the table, end gaps live along the edges. The first row and the first column hold alignments that begin with a series of gaps. The last row and the last column are where alignments that end with a series of gaps pass through: once the traceback is in the last column, every step up adds a base from the left sequence against a gap at the end of the alignment.</p>
+<div id="cell-fig-pa-end-gaps" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-end-gaps" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-end-gaps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-end-gaps-output-1.png" width="312" height="312" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-end-gaps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.8: Gaps at the beginning of an alignment are steps along the first row or column (blue). Gaps at the end are steps along the last row or column (orange).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="exercise-5" class="level4" data-number="53.0.0.6">
+<h4 data-number="53.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 53-6</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>You want to change Needleman-Wunsch so that gaps at the ends of the alignment score 0 instead of the usual gap score. Using <a href="#fig-pa-end-gaps" class="quarto-xref">Figure&nbsp;<span>53.8</span></a>, find the two places in the algorithm that must change. Then decide what the alignment of <code>GGGCT</code> and <code>GAGGG</code> would look like if end gaps were free. You do not need to fill in a new table for this; think about which bases would have to be left hanging at the ends.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Show the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The first place is the first row and column, which get 0 instead of multiples of the gap score. The second place is the last row and column: a step to the left within the last row, or a step up within the last column, adds a gap at the end of the alignment, so it should use the end-gap score of 0 instead of the gap score.</p>
+<p>With free end gaps, <code>GGGCT</code> and <code>GAGGG</code> can overlap like this, with three pairs of matching <code>G</code>s and only the overhanging bases against gaps:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>--GGGCT</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>GAGGG--</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>That scores <span class="math inline">\(3 \times 2 = 6\)</span>, against the best score of 1 when end gaps cost −2 each.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-pa-affine" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="sec-pa-affine">Long gaps</h3>
+<p>A single mutation can insert or delete many bases at once. A gap of 11 bases is therefore much more likely to be one event than eleven separate events next to each other, and it should not cost eleven times as much as a gap of one base. With the gap score we have used so far, a gap of length <span class="math inline">\(\ell\)</span> costs</p>
+<p><span class="math display">\[
+\gamma(\ell) = -d \, \ell,
+\]</span></p>
+<p>where <span class="math inline">\(d\)</span> is the cost per gap position. This is called a linear gap score. The alternative is an affine gap score, which charges more for opening a gap than for extending one:</p>
+<p><span class="math display">\[
+\gamma(\ell) = -d - (\ell - 1) \, e,
+\]</span></p>
+<p>where <span class="math inline">\(d\)</span> is the cost of opening the gap and <span class="math inline">\(e\)</span> the cost of each additional position, with <span class="math inline">\(e\)</span> much smaller than <span class="math inline">\(d\)</span>. An affine gap score prefers one long gap to several short ones, as mutation does.</p>
+<section id="exercise-6" class="level4" data-number="53.0.0.7">
+<h4 data-number="53.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 53-7</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>With a linear gap score and <span class="math inline">\(d = 10\)</span>, what does a gap of length 11 cost? With an affine gap score, <span class="math inline">\(d = 10\)</span> and <span class="math inline">\(e = 1\)</span>, what does the same gap cost? And what do two separate gaps of length 1 cost with the affine score?</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Show the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Linear: <span class="math inline">\(-10 \times 11 = -110\)</span>. Affine: <span class="math inline">\(-10 - 10 \times 1 = -20\)</span>. Two separate gaps of length 1 cost <span class="math inline">\(-10\)</span> each, so <span class="math inline">\(-20\)</span> in total: the same as the single gap of length 11.</p>
+</div>
+</div>
+</div>
+<p>An affine gap score seems to break the algorithm. To score a step up into a cell, we now need to know whether the best alignment ending in the cell above already ended in a gap (and we extend it) or not (and we open a new one). The fix is to keep three scores in every cell instead of one: the best score of an alignment that ends with a pair of bases, the best that ends with a base from the left sequence against a gap, and the best that ends with a gap against a base from the top sequence. Each of the three is computed from the three scores in one neighbor. A diagonal step adds the score of the base pair to the best of the three. A step down from the cell above extends the gap if that alignment already ended in the same kind of gap, and opens a new gap otherwise. The step from the left works the same way.</p>
+<p><a href="#fig-pa-three-scores" class="quarto-xref">Figure&nbsp;<span>53.9</span></a> shows this for a single cell. The upper left number in each cell is the pair score, the upper right is the gap-in-the-top-sequence score, which only a step down can extend, and the lower left is the gap-in-the-left-sequence score, which only a step to the right can extend. With a linear gap score (left), keeping three numbers changes nothing: the largest of the new cell’s three scores is the 4 we would have computed anyway. With an affine score (right), the numbers differ, and keeping all three is what lets the algorithm tell opening from extending (<a href="https://doi.org/10.1016/0022-2836(82)90398-9">Gotoh, 1982</a>).</p>
+<div id="cell-fig-pa-three-scores" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-three-scores" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-three-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-three-scores-output-1.png" width="652" height="342" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-three-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.9: Keeping three scores per cell. In each cell, upper left: best alignment ending in a pair of bases; upper right: ending in a base from the left sequence against a gap; lower left: ending in a gap against a base from the top sequence. Each new score is the largest of the three sums in one neighbor. Left: linear gap score of −1. Right: affine gap score with opening −5 and extension −1.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Three scores per cell means three times the work per cell, but the number of cells is the same. Filling in the table for two sequences of length <span class="math inline">\(n\)</span> takes about <span class="math inline">\(n^2\)</span> steps either way, which is written <span class="math inline">\(O(n^2)\)</span>. Doubling the length of both sequences makes the work four times as large. That is a lot for two whole genomes, but tiny compared with trying all <span class="math inline">\(2 \times 10^{75}\)</span> alignments of two sequences of 100 bases.</p>
+</section>
+</section>
+</section>
+<section id="sec-pa-tools" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-tools">Alignment tools</h2>
+<p>You will rarely fill in an alignment table by hand again after this chapter, and after the project you will rarely need to write the code either. The European Bioinformatics Institute offers <a href="https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle">EMBOSS Needle</a> for global alignment and <a href="https://www.ebi.ac.uk/jdispatcher/psa/emboss_water">EMBOSS Water</a> for local alignment, both on the web. For DNA, they use EDNAFULL with an affine gap score that costs 10 to open and 0.5 to extend. Needle does not penalize end gaps unless you ask it to. The <code>PairwiseAligner</code> in Biopython does the same jobs from Python: its <code>mode</code> attribute chooses global or local alignment, and <code>open_gap_score</code> and <code>extend_gap_score</code> set an affine gap score.</p>
+<section id="exercise-7" class="level4" data-number="53.0.0.8">
+<h4 data-number="53.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 53-8</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Open EMBOSS Needle and EMBOSS Water, choose the nucleotide versions, and align the two sequences from <a href="#sec-pa-local">the section on local alignment</a>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>TTAGTTGTATGGCGTACCTGAAGGCCGCA</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>GCGATGGCTTACCTGAAGAAGTAGTGCTTG</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Before you submit, predict which of the two programs will find the shared stretch <code>ATGGCGTACCTGAAG</code> and how the other will treat the flanks, given that its end gaps are free. Then compare the results with the alignments printed in <a href="#sec-pa-local">that section</a>. Open “More options” in Needle and find the setting for each of the scores discussed in this chapter: the score matrix, gap opening, gap extension and end gaps.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+// The margin link to the other book ("TA version of this page" in the student
+// book, "Student version of this page" in the TA one) is declared with a fixed
+// href in _quarto-default.yml and _quarto-ta.yml, because Quarto resolves
+// other-links from metadata before pandoc runs and has no way to express "this
+// page, one directory over". So point it at the current page's counterpart here.
+//
+// document.baseURI rather than location.href: pagecrypt serves the decrypted TA
+// page inside a srcdoc iframe, where location.href is "about:srcdoc" but baseURI
+// is still inherited from the real page URL.
+//
+// The root is derived from the site_libs asset every page loads, rather than
+// hard-coded, so this works in local preview, over file:// and on the published
+// site alike. On a page carrying neither link the whole thing is a no-op.
+document.addEventListener("DOMContentLoaded", function () {
+  var asset = document.querySelector('script[src*="site_libs/"], link[href*="site_libs/"]');
+  if (!asset) return;
+  var url = asset.src || asset.href;                  // absolute, resolved against baseURI
+  var root = url.slice(0, url.indexOf("site_libs/")); // absolute URL of this book's root
+  var page = document.baseURI.slice(root.length);     // this page, relative to that root
+
+  var toTa = document.querySelector('.quarto-other-links a[rel="ta-version"]');
+  if (toTa) toTa.href = root + "ta/" + page;
+
+  var toStudent = document.querySelector('.quarto-other-links a[rel="student-version"]');
+  if (toStudent) toStudent.href = root.replace(/ta\/$/, "") + page;
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../neural_networks/training.html" class="pagination-link" aria-label="AI: Training">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">AI: Training</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../projects/alignment-project.html" class="pagination-link" aria-label="Project: Pairwise alignment">
+        <span class="nav-page-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/instructing-machines/edit/main/bioinf/pairwise-alignment.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/instructing-machines/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../projects/alignment-project.html" rel="next">
+<link href="../bioinf/pairwise-alignment.html" rel="next">
 <link href="../ai/plan-before-you-prompt.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -624,8 +624,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../bioinf/pairwise-alignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../projects/alignment-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -641,14 +647,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../bioinf/blast.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
+  <a href="../bioinf/blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">BLAST</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/molecular-evolution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
       </ul>
@@ -664,8 +682,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
   </div>
 </li>
       </ul>
@@ -682,13 +706,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/list-comprehensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">List comprehensions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
   </div>
 </li>
       </ul>
@@ -810,7 +828,7 @@ w_{\text{new}} = w - \eta \times \text{slope}
 \]</span></p>
 <p>where <span class="math inline">\(\eta\)</span> (the Greek letter eta) is the <em>learning rate</em>, a small number that sets how big each step is. The minus sign is what makes the step go downhill: a negative slope makes <span class="math inline">\(w\)</span> bigger, a positive slope makes it smaller. And because the step is proportional to the slope, the steps automatically get shorter as the ground flattens out near the bottom.</p>
 <p>With <span class="math inline">\(\eta = 0.05\)</span> and a start at <span class="math inline">\(w = 1\)</span>, the first step gives <span class="math inline">\(w = 1 - 0.05 \times (-16) = 1.8\)</span>. At <span class="math inline">\(w = 1.8\)</span> the slope is <span class="math inline">\(8 \times 1.8 - 24 = -9.6\)</span>, and the next step gives <span class="math inline">\(w = 1.8 + 0.48 = 2.28\)</span>. You can see the steps as dots in <a href="#fig-loss-curve" class="quarto-xref">Figure&nbsp;<span>52.2</span></a>. Here is the same thing as a small Python program. Before you run it, predict roughly where <span class="math inline">\(w\)</span> ends up after ten steps.</p>
-<div id="ecee481a" class="cell" data-execution_count="2">
+<div id="6dad0db7" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2</span>               <span class="co"># the input of our single training example</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> <span class="dv">6</span>          <span class="co"># the output we want for it</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> <span class="dv">1</span>               <span class="co"># a starting guess for the weight</span></span>
@@ -954,12 +972,12 @@ Figure&nbsp;52.4: The backward pass. The blue arrows pass the slope back from th
 </figure>
 </div>
 <p>The slopes for both <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> are negative, which means gradient descent will make both weights larger. <span class="math inline">\(w_2\)</span>, has the steeper slope and will grow fastest. In a network with many layers, the slopes flow backward layer by layer, each layer doing a little local multiplication, until every weight has its slope. In mathematics this way of combining slopes along a chain is called the <em>chain rule</em>.</p>
-<p>With activation functions, the slope of the activation function enters as an additional factor at every neuron. That is why a step function discussed in <span class="quarto-unresolved-ref">?sec-nn-activation</span> does not work well in training. Its slope is 0 everywhere (except for the jump), and multiplying by 0 stops the chain propagating slope backwards. If the slope is 0, nudging the parameters in the remaining part of the network will not affect the loss. Without this connection between loss and parameter values, we cannot train the network.</p>
+<p>With activation functions (see <a href="../neural_networks/neurons.html#sec-nn-activation">Activation functions</a>), the slope of the activation function enters as an additional factor at every neuron. That is why a step function discussed in does not work well in training. Its slope is 0 everywhere (except for the jump), and multiplying by 0 stops the chain propagating slope backwards. If the slope is 0, nudging the parameters in the remaining part of the network will not affect the loss. Without this connection between loss and parameter values, we cannot train the network.</p>
 <p>The sigmoid activation function has non-zero slope, but across many multiplications across a large network, the tiny slopes far from 0 make the numbers become near-zero anyway. ReLU works best in training because its slope is 1 wherever the neuron is active, so the slope propagates undiminished. Its slope is 0 where it is silent, so even with ReLU, a node will stop learning if it is silent for every example in the training set.</p>
 </section>
 <section id="sec-train-backprop-tiny" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-train-backprop-tiny">Backpropagation in the tiny network</h2>
-<p>The two-neuron chain left out the thresholds and the activation function to keep the arithmetic simple. Now we put them back and do a forward and a backward pass through the tiny network from <span class="quarto-unresolved-ref">?sec-nn-tiny</span>, set to two hidden neurons. It has one input <span class="math inline">\(x\)</span>, two hidden neurons and one output neuron. Each hidden neuron computes its net input <span class="math inline">\(z_i = w_i x - \theta_i\)</span> and puts it through the ReLU activation function, so <span class="math inline">\(h_i = f(z_i)\)</span>, where <span class="math inline">\(f(z) = \max(0, z)\)</span>. The output neuron has no activation function, as in the widget with “Apply <span class="math inline">\(f\)</span> at output” unticked, so it computes <span class="math inline">\(y = v_1 h_1 + v_2 h_2 - \theta\)</span>. Training must find a slope for all seven parameters: the weights <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> into the hidden layer, the hidden thresholds <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span>, the weights <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> into the output, and the output threshold <span class="math inline">\(\theta\)</span>.</p>
+<p>The two-neuron chain left out the thresholds and the activation function to keep the arithmetic simple. Now we put them back and do a forward and a backward pass through the tiny network from <a href="../neural_networks/neural-networks.html#sec-nn-tiny">A tiny network</a>, set to two hidden neurons. It has one input <span class="math inline">\(x\)</span>, two hidden neurons and one output neuron. Each hidden neuron computes its net input <span class="math inline">\(z_i = w_i x - \theta_i\)</span> and puts it through the ReLU activation function, so <span class="math inline">\(h_i = f(z_i)\)</span>, where <span class="math inline">\(f(z) = \max(0, z)\)</span>. The output neuron has no activation function, as in the widget with “Apply <span class="math inline">\(f\)</span> at output” unticked, so it computes <span class="math inline">\(y = v_1 h_1 + v_2 h_2 - \theta\)</span>. Training must find a slope for all seven parameters: the weights <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> into the hidden layer, the hidden thresholds <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span>, the weights <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> into the output, and the output threshold <span class="math inline">\(\theta\)</span>.</p>
 <p>Let us start the network from the weights <span class="math inline">\(w_1 = 1\)</span> and <span class="math inline">\(w_2 = -1\)</span>, give both hidden neurons the threshold 1, and set <span class="math inline">\(v_1 = 2\)</span>, <span class="math inline">\(v_2 = 3\)</span> and <span class="math inline">\(\theta = 1\)</span>. The training example is the input <span class="math inline">\(x = 2\)</span> with the target <span class="math inline">\(t = 3\)</span>.</p>
 <p>The forward pass works through the network from left to right. The net inputs of the hidden neurons are <span class="math inline">\(z_1 = 1 \times 2 - 1 = 1\)</span> and <span class="math inline">\(z_2 = -1 \times 2 - 1 = -3\)</span>. ReLU lets the positive value through and turns the negative one into 0, so <span class="math inline">\(h_1 = 1\)</span> and <span class="math inline">\(h_2 = 0\)</span>. The second hidden neuron is silent. The output is <span class="math inline">\(y = 2 \times 1 + 3 \times 0 - 1 = 1\)</span>, and the loss is <span class="math inline">\((1 - 3)^2 = 4\)</span>. <a href="#fig-backprop-tiny" class="quarto-xref">Figure&nbsp;<span>52.5</span></a> shows these values in gray.</p>
 <div id="fig-backprop-tiny" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1030,11 +1048,10 @@ Figure&nbsp;52.5: The forward and backward pass through the tiny network. The gr
 </figcaption>
 </figure>
 </div>
-<p>Most of the backward pass works exactly as in the two-neuron chain. The slope for <span class="math inline">\(y\)</span> is <span class="math inline">\(2(y - t) = -4\)</span>, and the slope for each weight is the slope of whatever the weight leads into, times the value that travels along the weight. <a href="#fig-backprop-tiny" class="quarto-xref">Figure&nbsp;<span>52.5</span></a> shows all of these products. Four things are new, and they are what this example is for.</p>
-<p>The first is that the output neuron receives two inputs. The backward pass sends the slope for <span class="math inline">\(y\)</span> back along both incoming edges, and each branch gets the slope for <span class="math inline">\(y\)</span> times its own weight: <span class="math inline">\(-4 \times v_1 = -8\)</span> for <span class="math inline">\(h_1\)</span> and <span class="math inline">\(-4 \times v_2 = -12\)</span> for <span class="math inline">\(h_2\)</span>. The two branches do not affect each other. Each is computed as if the other were not there, and from here on the backward pass simply follows each branch on its own. An output neuron with a hundred inputs would send the same slope back along a hundred edges in the same way.</p>
-<p>The second is the thresholds. A threshold is subtracted from the net input, so nudging it up by a little moves the net input down by the same amount. That is a factor of <span class="math inline">\(-1\)</span>, and the slope for a threshold is minus the slope of the net input it belongs to. For the output threshold that gives <span class="math inline">\(-4 \times (-1) = 4\)</span>, and for <span class="math inline">\(\theta_1\)</span> it gives <span class="math inline">\(-8 \times (-1) = 8\)</span>. Both are positive, so gradient descent will make both thresholds smaller, which makes the neurons fire more easily and raises the output, as it should since the output is too low. In this way a threshold behaves just like a weight on an input that is always <span class="math inline">\(-1\)</span>, and training treats it as one.</p>
-<p>The third is the activation function. To get from <span class="math inline">\(h_i\)</span> back to the net input <span class="math inline">\(z_i\)</span>, the slope has to pass through ReLU, and nudging <span class="math inline">\(z_i\)</span> changes <span class="math inline">\(h_i\)</span> by the slope of ReLU at <span class="math inline">\(z_i\)</span>. Where <span class="math inline">\(z\)</span> is positive, ReLU passes its input straight through, so its slope is 1. Where <span class="math inline">\(z\)</span> is negative, the output stays at 0 however <span class="math inline">\(z\)</span> is nudged, so its slope is 0. The first hidden neuron is active, and its slope passes through unchanged: <span class="math inline">\(-8 \times 1 = -8\)</span>. The second is silent, and its slope is stopped: <span class="math inline">\(-12 \times 0 = 0\)</span>. Everything behind it, <span class="math inline">\(w_2\)</span> and <span class="math inline">\(\theta_2\)</span>, gets a slope of 0 too, and so does <span class="math inline">\(v_2\)</span>, because the value traveling along it is <span class="math inline">\(h_2 = 0\)</span>. This is a pity, because <span class="math inline">\(h_2\)</span> had the steepest slope of all, so if the second neuron fired it could do the most to raise <span class="math inline">\(y\)</span>. For this one example that does no harm, but a neuron that is silent for every example in the training data never gets a slope and never learns. This is the dead neuron from <span class="quarto-unresolved-ref">?sec-nn-relu</span>. With the sigmoid instead of ReLU, the factor would be the slope of the sigmoid at <span class="math inline">\(z\)</span>, which is never more than <span class="math inline">\(0.25\)</span>, so the slope would shrink a little at every neuron it passes.</p>
-<p>The fourth is that <span class="math inline">\(x\)</span> feeds both hidden neurons. Nudging <span class="math inline">\(x\)</span> would change <span class="math inline">\(z_1\)</span> and <span class="math inline">\(z_2\)</span> at the same time, so the slope for <span class="math inline">\(x\)</span> is the sum of the slopes coming back along the two edges: <span class="math inline">\(-8 \times w_1 + 0 \times w_2 = -8\)</span>. Training never needs this slope, because <span class="math inline">\(x\)</span> is the input and not a parameter. In a network with more than one hidden layer, though, every hidden neuron feeds every neuron in the next layer, just as <span class="math inline">\(x\)</span> does here, and its slope is the sum of the slopes coming back along all its outgoing edges. Multiplying along each edge and adding where edges meet is all backpropagation ever does, however large the network.</p>
+<p>The slope for <span class="math inline">\(y\)</span> is <span class="math inline">\(2(y - t) = -4\)</span>, and the slope for each weight is the slope of whatever the weight leads into, times the value that travels along the weight. <a href="#fig-backprop-tiny" class="quarto-xref">Figure&nbsp;<span>52.5</span></a> shows all of these products. Because our tiny network has two hidden neurons, the backward pass sends the slope for <span class="math inline">\(y\)</span> back along both incoming edges, and each branch gets the slope for <span class="math inline">\(y\)</span> times its own weight: <span class="math inline">\(-4 \times v_1 = -8\)</span> for <span class="math inline">\(h_1\)</span> and <span class="math inline">\(-4 \times v_2 = -12\)</span> for <span class="math inline">\(h_2\)</span>. The two branches do not affect each other. Each is computed as if the other were not there, and from here on the backward pass simply follows each branch on its own. An output neuron with a hundred inputs would send the same slope back along a hundred edges in the same way.</p>
+<p>A threshold is subtracted from the net input, so nudging it up by a little moves the net input down by the same amount. That is a factor of <span class="math inline">\(-1\)</span>, and the slope for a threshold is minus the slope of the net input it belongs to. For the output threshold that gives <span class="math inline">\(-4 \times (-1) = 4\)</span>, and for <span class="math inline">\(\theta_1\)</span> it gives <span class="math inline">\(-8 \times (-1) = 8\)</span>. Both are positive, so gradient descent will make both thresholds smaller, which makes the neurons fire more easily and raises the output, as it should since the output is too low. In this way a threshold behaves just like a weight on an input that is always <span class="math inline">\(-1\)</span>, and training treats it as one.</p>
+<p>To get from <span class="math inline">\(h_i\)</span> back to the net input <span class="math inline">\(z_i\)</span>, the slope has to pass through the ReLU activation function, and nudging <span class="math inline">\(z_i\)</span> changes <span class="math inline">\(h_i\)</span> by the slope of ReLU at <span class="math inline">\(z_i\)</span>. Where <span class="math inline">\(z\)</span> is positive, ReLU passes its input straight through, so its slope is 1. Where <span class="math inline">\(z\)</span> is negative, the output stays at 0 however <span class="math inline">\(z\)</span> is nudged, so its slope is 0. The first hidden neuron is active, and its slope passes through unchanged: <span class="math inline">\(-8 \times 1 = -8\)</span>. The second is silent, and its slope is stopped: <span class="math inline">\(-12 \times 0 = 0\)</span>. Everything behind it, <span class="math inline">\(w_2\)</span> and <span class="math inline">\(\theta_2\)</span>, gets a slope of 0 too, and so does <span class="math inline">\(v_2\)</span>, because the value traveling along it is <span class="math inline">\(h_2 = 0\)</span>. This is a pity, because <span class="math inline">\(h_2\)</span> had the steepest slope of all, so if the second neuron fired it could do the most to raise <span class="math inline">\(y\)</span>. For this one example that does no harm, but a neuron that is silent for every example in the training data never gets a slope and never learns. This is the dead neuron from <a href="../neural_networks/neurons.html#sec-nn-relu">the section on ReLU</a>. With the sigmoid instead of ReLU, the factor would be the slope of the sigmoid at <span class="math inline">\(z\)</span>, which is never more than <span class="math inline">\(0.25\)</span>, so the slope would shrink a little at every neuron it passes.</p>
+<p>In our network, <span class="math inline">\(x\)</span> feeds both hidden neurons. Nudging <span class="math inline">\(x\)</span> would change <span class="math inline">\(z_1\)</span> and <span class="math inline">\(z_2\)</span> at the same time, so the slope for <span class="math inline">\(x\)</span> is the sum of the slopes coming back along the two edges: <span class="math inline">\(-8 \times w_1 + 0 \times w_2 = -8\)</span>. Training never needs this slope, because <span class="math inline">\(x\)</span> is the input and not a parameter. In a network with more than one hidden layer, though, every hidden neuron feeds every neuron in the next layer, just as <span class="math inline">\(x\)</span> does here, and its slope is the sum of the slopes coming back along all its outgoing edges. Multiplying along each edge and adding where edges meet is all backpropagation ever does, however large the network.</p>
 <p>The slopes that are not 0 all ask for a higher output: <span class="math inline">\(w_1\)</span> and <span class="math inline">\(v_1\)</span> will get larger, and <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta\)</span> smaller. Training a real network is this, repeated. The forward pass computes every value, the backward pass computes every slope, and every parameter takes a small step downhill. The networks behind AI assistants have many more layers and billions of parameters, but every neuron in them does the same small local multiplications.</p>
 </section>
 <section id="sec-train-practice" class="level2 unnumbered">
@@ -1100,7 +1117,7 @@ Figure&nbsp;52.5: The forward and backward pass through the tiny network. The gr
 <section id="exercise-1" class="level4" data-number="52.0.0.2">
 <h4 data-number="52.0.0.2" class="anchored" data-anchor-id="exercise-1"><strong>Exercise 52-2</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Type the training program from <span class="quarto-unresolved-ref">?sec-train-descent</span> into a file or a notebook cell (do not copy and paste it) and run it to check that you get the same output. Then change the learning rate. For each change, predict what will happen to <span class="math inline">\(w\)</span> before you run the program.</p>
+<p>Type the training program from <a href="#sec-train-descent">Walking downhill: gradient descent</a> into a file or a notebook cell (do not copy and paste it) and run it to check that you get the same output. Then change the learning rate. For each change, predict what will happen to <span class="math inline">\(w\)</span> before you run the program.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1154,7 +1171,7 @@ Figure&nbsp;52.5: The forward and backward pass through the tiny network. The gr
 <section id="exercise-2" class="level4" data-number="52.0.0.3">
 <h4 data-number="52.0.0.3" class="anchored" data-anchor-id="exercise-2"><strong>Exercise 52-3</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Do the forward and backward pass for the two-neuron chain from <span class="quarto-unresolved-ref">?sec-train-backprop</span> by hand, but now with <span class="math inline">\(x = 2\)</span>, <span class="math inline">\(w_1 = 1\)</span>, <span class="math inline">\(w_2 = 3\)</span> and target <span class="math inline">\(t = 5\)</span>.</p>
+<p>Do the forward and backward pass for the two-neuron chain from <a href="#sec-train-backprop">Backpropagation</a> by hand, but now with <span class="math inline">\(x = 2\)</span>, <span class="math inline">\(w_1 = 1\)</span>, <span class="math inline">\(w_2 = 3\)</span> and target <span class="math inline">\(t = 5\)</span>.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1670,8 +1687,8 @@ document.addEventListener("DOMContentLoaded", function () {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../projects/alignment-project.html" class="pagination-link" aria-label="Project: Pairwise alignment">
-        <span class="nav-page-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Project: Pairwise alignment</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../bioinf/pairwise-alignment.html" class="pagination-link" aria-label="Pairwise alignment">
+        <span class="nav-page-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Pairwise alignment</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
