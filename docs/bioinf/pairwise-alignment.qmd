@@ -1,5 +1,758 @@
+---
+jupyter: python3
+execute:
+  enabled: true
+  echo: false
+tbl-cap-location: bottom  
+---
 
-# Pairwise-alignment {#sec-pairwise-alignment}
+# Pairwise alignment {#sec-pairwise-alignment}
+
+![](images/under-construction.png){width=20%}
+
+When two DNA sequences descend from the same ancestral sequence, most of their bases still sit in the same order, but some have been substituted, and some have been inserted or deleted. An alignment writes the two sequences above each other so that bases descending from the same ancestral base end up in the same column. This chapter shows how a computer finds the best such alignment among an astronomical number of candidates without trying them all. The method is called dynamic programming, and the version for whole sequences is the Needleman-Wunsch algorithm ([Needleman and Wunsch, 1970](https://doi.org/10.1016/0022-2836(70)90057-4)), which you will implement yourself in @sec-alignment-project.
+
+```{python}
+#| include: false
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle, FancyArrowPatch
+
+# Everything below only draws figures. The tables in them are computed, not
+# typed in, so a figure can never disagree with the algorithm it illustrates.
+
+INK = "#0b0b0b"
+MUTED = "#8a8985"
+PATH = "#eb6834"        # the traceback path
+ALT = "#8a8985"         # other optimal paths
+BLUE_TINT = "#cde2fb"   # cells and letters in focus
+YELLOW_TINT = "#fde9b3" # the three cells a new cell is computed from
+ORANGE_TINT = "#f9d2bf"
+MONO = "DejaVu Sans Mono"
 
 
+def score_dict(match, mismatch):
+    return {a: {b: (match if a == b else mismatch) for b in "ACGT"} for a in "ACGT"}
 
+
+def fill_table(seq1, seq2, s, g, local=False):
+    """Fill the table of best scores. Returns the table and, for every cell,
+    the set of moves ('D', 'U', 'L') its best score can come from."""
+    a, b = seq1.upper(), seq2.upper()
+    n, m = len(a), len(b)
+    S = [[0] * (m + 1) for _ in range(n + 1)]
+    P = [[set() for _ in range(m + 1)] for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        S[i][0] = 0 if local else S[i - 1][0] + g
+        if not local:
+            P[i][0] = {"U"}
+    for j in range(1, m + 1):
+        S[0][j] = 0 if local else S[0][j - 1] + g
+        if not local:
+            P[0][j] = {"L"}
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            c = {"D": S[i - 1][j - 1] + s[a[i - 1]][b[j - 1]],
+                 "U": S[i - 1][j] + g,
+                 "L": S[i][j - 1] + g}
+            best = max(c.values())
+            if local and best <= 0:
+                S[i][j] = 0
+            else:
+                S[i][j] = best
+                P[i][j] = {k for k, v in c.items() if v == best}
+    return S, P
+
+
+STEP = {"D": (-1, -1), "U": (-1, 0), "L": (0, -1)}
+
+
+def best_cell(S):
+    return max((v, i, j) for i, r in enumerate(S) for j, v in enumerate(r))[1:]
+
+
+def path(P, start, prefer="LDU"):
+    cells = [start]
+    i, j = start
+    while P[i][j]:
+        k = next(k for k in prefer if k in P[i][j])
+        i, j = i + STEP[k][0], j + STEP[k][1]
+        cells.append((i, j))
+    return cells
+
+
+def optimal_moves(P, start):
+    seen, todo, moves = set(), [start], set()
+    while todo:
+        c = todo.pop()
+        if c in seen:
+            continue
+        seen.add(c)
+        for k in P[c[0]][c[1]]:
+            p = (c[0] + STEP[k][0], c[1] + STEP[k][1])
+            moves.add((c, p))
+            todo.append(p)
+    return moves
+
+
+def all_alignments(seq1, seq2, P, start):
+    out = []
+
+    def walk(i, j, x, y):
+        if not P[i][j]:
+            out.append((x, y))
+            return
+        for k in "DUL":
+            if k not in P[i][j]:
+                continue
+            if k == "D":
+                walk(i - 1, j - 1, seq1[i - 1] + x, seq2[j - 1] + y)
+            elif k == "U":
+                walk(i - 1, j, seq1[i - 1] + x, "-" + y)
+            else:
+                walk(i, j - 1, "-" + x, seq2[j - 1] + y)
+
+    walk(*start, "", "")
+    return out
+
+
+def identity_line(x, y):
+    return "".join("|" if p == q else " " for p, q in zip(x, y))
+
+
+def fmt(v):
+    return str(v).replace("-", "−")
+
+
+def draw_table(ax, seq1, seq2, S=None, *, show=None, fills=None, red=(),
+               prefixes=None, arrows=(), alt_arrows=(), labels=None,
+               fontsize=13, labelsize=None):
+    n, m = len(seq1), len(seq2)
+    fills = fills or {}
+    labels = labels or {}
+    for i in range(n + 1):
+        for j in range(m + 1):
+            ax.add_patch(Rectangle((j, i), 1, 1, facecolor=fills.get((i, j), "white"),
+                                   edgecolor=INK, linewidth=1))
+            size = fontsize
+            if (i, j) in labels:
+                txt, size = labels[(i, j)], labelsize or fontsize
+            elif S is not None and (show is None or (i, j) in show):
+                txt = fmt(S[i][j])
+            else:
+                txt = ""
+            ax.text(j + 0.5, i + 0.5, txt, ha="center", va="center", fontsize=size,
+                    color=PATH if (i, j) in red else INK,
+                    fontweight="bold" if (i, j) in red else "normal")
+    k1, k2 = prefixes or (0, 0)
+    for j, c in enumerate(seq2, start=1):
+        if j <= k2:
+            ax.add_patch(Rectangle((j, -1), 1, 1, facecolor=BLUE_TINT, edgecolor="none"))
+        ax.text(j + 0.5, -0.45, c, ha="center", va="center", fontsize=fontsize + 2,
+                family=MONO, fontweight="bold")
+    for i, c in enumerate(seq1, start=1):
+        if i <= k1:
+            ax.add_patch(Rectangle((-1, i), 1, 1, facecolor=BLUE_TINT, edgecolor="none"))
+        ax.text(-0.45, i + 0.5, c, ha="center", va="center", fontsize=fontsize + 2,
+                family=MONO, fontweight="bold")
+    for arrs, color, z in ((alt_arrows, ALT, 2), (arrows, PATH, 3)):
+        for (i, j), (pi, pj) in arrs:
+            ax.add_patch(FancyArrowPatch((j + 0.5 + 0.18 * (pj - j), i + 0.5 + 0.18 * (pi - i)),
+                                         (pj + 0.5 - 0.22 * (pj - j), pi + 0.5 - 0.22 * (pi - i)),
+                                         arrowstyle="-|>", mutation_scale=14, color=color,
+                                         linewidth=2, zorder=z, shrinkA=0, shrinkB=0))
+    ax.set_xlim(-1.05, m + 1.05)
+    ax.set_ylim(n + 1.05, -1.05)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+
+def table_figure(seq1, seq2, S=None, scale=0.62, **kw):
+    n, m = len(seq1), len(seq2)
+    fig, ax = plt.subplots(figsize=(scale * (m + 2.2), scale * (n + 2.2)))
+    draw_table(ax, seq1, seq2, S, **kw)
+    return fig
+
+
+def traceback_arrows(P, start, prefer="LDU"):
+    cells = path(P, start, prefer)
+    main = set(zip(cells, cells[1:]))
+    return sorted(main), sorted(optimal_moves(P, start) - main)
+
+
+def draw_step(ax, top, left, diag, up, lft, s, g, local=False, fontsize=14):
+    cand = [diag + s, up + g, lft + g]
+    result = max(cand + [0]) if local else max(cand)
+    sign = lambda x: "+" if x >= 0 else "−"
+    cells = {(0, 0): f"{fmt(diag)} {sign(s)} {abs(s)}",
+             (0, 1): f"{fmt(up)} {sign(g)} {abs(g)}",
+             (1, 0): f"{fmt(lft)} {sign(g)} {abs(g)}"}
+    for ((r, c), txt), v in zip(cells.items(), cand):
+        ax.add_patch(Rectangle((c, r), 1, 1, facecolor=YELLOW_TINT, edgecolor=INK))
+        ax.text(c + 0.5, r + 0.36, txt, ha="center", va="center", fontsize=fontsize)
+        ax.text(c + 0.5, r + 0.68, "= " + fmt(v), ha="center", va="center",
+                fontsize=fontsize - 2, color=MUTED)
+    ax.add_patch(Rectangle((1, 1), 1, 1, facecolor="white", edgecolor=INK))
+    ax.text(1.5, 1.5, fmt(result), ha="center", va="center", fontsize=fontsize + 6,
+            color=PATH, fontweight="bold")
+    for start, end in (((0.9, 0.9), (1.14, 1.14)), ((1.5, 0.9), (1.5, 1.16)),
+                       ((0.9, 1.5), (1.16, 1.5))):
+        ax.add_patch(FancyArrowPatch(start, end, arrowstyle="-|>", mutation_scale=10,
+                                     color=MUTED, shrinkA=0, shrinkB=0, zorder=3))
+    if local:
+        ax.text(1.5, 1.85, "(floor 0)", ha="center", va="center", fontsize=fontsize - 4,
+                color=MUTED)
+    ax.text(1.5, -0.3, top, ha="center", va="center", fontsize=fontsize + 2,
+            family=MONO, fontweight="bold")
+    ax.text(-0.3, 1.5, left, ha="center", va="center", fontsize=fontsize + 2,
+            family=MONO, fontweight="bold")
+    ax.set_xlim(-0.6, 2.05)
+    ax.set_ylim(2.05, -0.6)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+
+def draw_three(ax, top, left, diag, up, lft, s, g_open, g_ext, title, fontsize=10):
+    pos = [(0.26, 0.3), (0.74, 0.3), (0.26, 0.72)]
+
+    def add(v, a):
+        return f"{fmt(v)} {'+' if a >= 0 else '−'} {abs(a)}"
+
+    adds = {(0, 0): [s, s, s],
+            (0, 1): [g_open, g_ext, g_open],
+            (1, 0): [g_open, g_open, g_ext]}
+    trip = {(0, 0): diag, (0, 1): up, (1, 0): lft}
+    for (r, c), vals in trip.items():
+        ax.add_patch(Rectangle((c, r), 1, 1, facecolor=YELLOW_TINT, edgecolor=INK))
+        for (dx, dy), v, a in zip(pos, vals, adds[(r, c)]):
+            ax.text(c + dx, r + dy, add(v, a), ha="center", va="center", fontsize=fontsize)
+    res = [max(diag) + s,
+           max(up[0] + g_open, up[1] + g_ext, up[2] + g_open),
+           max(lft[0] + g_open, lft[1] + g_open, lft[2] + g_ext)]
+    ax.add_patch(Rectangle((1, 1), 1, 1, facecolor="white", edgecolor=INK))
+    for (dx, dy), v in zip(pos, res):
+        ax.text(1 + dx, 1 + dy, fmt(v), ha="center", va="center", fontsize=fontsize + 3,
+                color=PATH, fontweight="bold")
+    ax.text(1.5, -0.25, top, ha="center", va="center", fontsize=fontsize + 3,
+            family=MONO, fontweight="bold")
+    ax.text(-0.25, 1.5, left, ha="center", va="center", fontsize=fontsize + 3,
+            family=MONO, fontweight="bold")
+    ax.set_title(title, fontsize=fontsize + 1, pad=14)
+    ax.set_xlim(-0.5, 2.05)
+    ax.set_ylim(2.05, -0.55)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+
+def draw_path_grid(ax, seq1, seq2, P, start, title):
+    n, m = len(seq1), len(seq2)
+    for i in range(n + 2):
+        ax.plot([0, m + 1], [i, i], color="#d9d8d4", linewidth=0.6)
+    for j in range(m + 2):
+        ax.plot([j, j], [0, n + 1], color="#d9d8d4", linewidth=0.6)
+    cells = path(P, start)
+    ys = [c[0] + 0.5 for c in cells]
+    xs = [c[1] + 0.5 for c in cells]
+    ax.plot(xs, ys, color=PATH, linewidth=2.5, solid_capstyle="round")
+    ax.plot(xs[0], ys[0], "o", color=PATH, markersize=6)
+    ax.plot(xs[-1], ys[-1], "o", color="white", markeredgecolor=PATH, markersize=6,
+            markeredgewidth=2)
+    for j, c in enumerate(seq2, start=1):
+        ax.text(j + 0.5, -0.5, c, ha="center", va="center", fontsize=6.5, family=MONO)
+    for i, c in enumerate(seq1, start=1):
+        ax.text(-0.5, i + 0.5, c, ha="center", va="center", fontsize=6.5, family=MONO)
+    ax.set_xlim(-1, m + 1.1)
+    ax.set_ylim(n + 1.1, -1)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    ax.set_title(title, fontsize=11)
+
+
+def draw_score_matrix(ax, letters, s, fontsize=14, dx=1.3):
+    """A score matrix drawn as a matrix: square brackets around the numbers,
+    the bases as row and column labels outside the brackets."""
+    k = len(letters)
+    for i, a in enumerate(letters):
+        ax.text(-1.15, i, a, ha="center", va="center", fontsize=fontsize,
+                family=MONO, fontweight="bold", color=MUTED)
+        ax.text(i * dx, -1.0, a, ha="center", va="center", fontsize=fontsize,
+                family=MONO, fontweight="bold", color=MUTED)
+        for j, b in enumerate(letters):
+            ax.text(j * dx, i, fmt(s[a.upper()][b.upper()]), ha="center", va="center",
+                    fontsize=fontsize, color=INK)
+    top, bottom, tick = -0.55, k - 0.45, 0.18
+    for x, d in ((-0.75, 1), ((k - 1) * dx + 0.75, -1)):
+        ax.plot([x + d * tick, x, x, x + d * tick], [top, top, bottom, bottom],
+                color=INK, linewidth=1.5, solid_joinstyle="miter")
+    ax.set_xlim(-1.5, (k - 1) * dx + 0.9)
+    ax.set_ylim(k - 0.3, -1.4)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+
+def score_matrix_figure(letters, s, g, size=2.4,fontsize=14):
+    if g is None:
+        fig, ax = plt.subplots(1, 1, figsize=(size, size))
+        draw_score_matrix(ax, letters, s, fontsize=fontsize)
+        return fig
+    else:
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(size, size), height_ratios=(5, 1))
+        draw_score_matrix(ax1, letters, s, fontsize=fontsize)
+        ax2.text(0.55, 0.5, f'g = {g}', ha="center", va="center", fontsize=fontsize,
+                    family=MONO, fontweight="bold", color='black')
+        ax2.axis("off")
+        return fig
+
+
+# The running example, the exercise sequences and the local-alignment example.
+SEQ1, SEQ2 = "gata", "acta"
+SM1 = score_dict(2, 0)
+T1, P1 = fill_table(SEQ1, SEQ2, SM1, -1)
+
+EX1, EX2 = "GGGCT", "GAGGG"
+SM2 = score_dict(2, -1)
+TG, PG = fill_table(EX1, EX2, SM2, -2)
+TL, PL = fill_table(EX1, EX2, SM2, -2, local=True)
+
+LOC1 = "TTAGTTGTATGGCGTACCTGAAGGCCGCA"
+LOC2 = "GCGATGGCTTACCTGAAGAAGTAGTGCTTG"
+LG, LGP = fill_table(LOC1, LOC2, SM2, -2)
+LL, LLP = fill_table(LOC1, LOC2, SM2, -2, local=True)
+LOC_GLOBAL = all_alignments(LOC1, LOC2, LGP, (len(LOC1), len(LOC2)))
+LOC_BEST = best_cell(LL)
+LOC_LOCAL = all_alignments(LOC1, LOC2, LLP, LOC_BEST)
+```
+
+
+## Scoring an alignment {#sec-pa-scoring}
+
+```{python}
+#| column: margin
+#| label: fig-pa-score-matrix
+#| fig-cap: "Score matrix for the running example. A gap scores −1."
+fig = score_matrix_figure("atgc", SM1, g=None)
+plt.show()
+```
+
+Here is one way to align the sequences `gata` and `acta`:
+
+```txt
+ga-ta
+-acta
+```
+
+Each column pairs either two bases or a base with a gap, written as a dash. To decide how good the alignment is, we give each column a score and add them up. A score matrix, like the one in the margin, says what a pair of bases scores. In this one, two identical bases score 2 and two different bases score 0. Every column with a gap gets the gap score, which here is −1. The alignment above has the columns g/−, a/a, −/c, t/t and a/a, so its score is $-1 + 2 - 1 + 2 + 2 = 4$. Scoring an alignment is the same kind of substitution and reduction you have done on Python expressions: replace each column by its score, then add.
+
+The best alignment is the one with the highest score, and the hard part is finding it. Even `gata` and `acta` can be aligned in 321 different ways. Two sequences of 100 bases each can be aligned in about $2 \times 10^{75}$ ways, so trying them all is out of the question, however fast the computer. The rest of this chapter is about an algorithm that finds the best alignment while looking at only a tiny fraction of them.
+
+## The best alignment is made of best alignments {#sec-pa-parts}
+
+The algorithm rests on one observation. If you cut an optimal alignment in two, each part is an optimal alignment of the bases it contains. Take `ga-ta` over `-acta`, which is an optimal alignment of `gata` and `acta`. Cut it after the third column, or after the fourth:
+
+```txt
+ga- | ta         ga-t | a
+-ac | ta         -act | a
+```
+
+The left part of the first cut, `ga-` over `-ac`, is an optimal alignment of `ga` and `ac`. The left part of the second cut is an optimal alignment of `gat` and `act`. This has to be so. If there were a better alignment of `gat` and `act`, you could put it in front of the last column `a`/`a` and get a better alignment of the whole sequences, which contradicts that the one you started with was optimal.
+
+Now look at the last column of the optimal alignment of `gata` and `acta`, whatever that alignment is. There are only three possibilities. The last column pairs the last base of each sequence (`a` with `a`). Or it pairs the last base of `gata` with a gap. Or it pairs a gap with the last base of `acta`. Whatever comes before the last column must, by the observation above, be an optimal alignment of what is left of the two sequences. Write $S(i, j)$ for the score of the best alignment of the first $i$ bases of `gata` and the first $j$ bases of `acta`. If someone told us the three scores $S(3,3) = 2$, $S(3,4) = 1$ and $S(4,3) = 1$, the three possibilities would score:
+
+```txt
+ga-t + a     ga-t- + a     ga-ta + -
+-act   a     -acta   -     -act-   a
+```
+
+$$
+S(4, 4) = \max \begin{cases}
+S(3, 3) + s(\texttt{a}, \texttt{a}) = 2 + 2 = 4 \\
+S(3, 4) + g = 1 - 1 = 0 \\
+S(4, 3) + g = 1 - 1 = 0
+\end{cases}
+$$
+
+Here $s(\texttt{a}, \texttt{a})$ is the score matrix entry for an `a` paired with an `a`, and $g$ is the gap score. The best of the three is 4, so the optimal alignment of `gata` and `acta` scores 4 and ends with `a` over `a`.
+
+This is cheating a little, because nobody told us $S(3,3)$, $S(3,4)$ and $S(4,3)$. But each of them can be found in the same way, from three smaller scores, and each of those from three even smaller ones, until we reach alignments of nothing, which score 0. Written out for any $i$ and $j$, with $a_i$ for base number $i$ in the first sequence and $b_j$ for base number $j$ in the second:
+
+$$
+S(i, j) = \max \begin{cases}
+S(i-1, j-1) + s(a_i, b_j) & \text{if } i > 0 \text{ and } j > 0 \\
+S(i-1, j) + g & \text{if } i > 0 \\
+S(i, j-1) + g & \text{if } j > 0
+\end{cases}
+\qquad S(0, 0) = 0
+$$
+
+The conditions say which of the three possibilities exist. If one sequence has run out ($j = 0$, say), the only way to end the alignment is with a base from the other sequence against a gap.
+
+A rule that defines something in terms of smaller versions of itself is called recursive, and you could write it directly as a Python function that calls itself. But that function would be hopelessly slow, because it would compute the same scores again and again. $S(4,4)$ needs $S(3,3)$, but so do $S(4,3)$ and $S(3,4)$, and each of those calls would compute $S(3,3)$ from scratch. The way out is to compute each score once and write it down.
+
+## A table of scores {#sec-pa-table}
+
+We write the scores in a table with one row for each number of bases from `gata`, from 0 to 4, and one column for each number of bases from `acta`. The cell in row $i$ and column $j$ holds $S(i, j)$. In @fig-pa-table-meaning, the highlighted cell holds the score of the best alignment of `g` and `act`. To compute it, you need the three cells above, to the left, and diagonally up and to the left.
+
+```{python}
+#| label: fig-pa-table-meaning
+#| fig-cap: "Left: the cell in row 1 and column 3 holds $S(1,3)$, the score of the best alignment of the first base of `gata` and the first three bases of `acta`. Right: computing it requires the three cells that are diagonally up-left, above, and to the left."
+fig, axs = plt.subplots(1, 2, figsize=(7, 3.1))
+draw_table(axs[0], SEQ1, SEQ2, fills={(1, 3): BLUE_TINT}, prefixes=(1, 3),
+           labels={(1, 3): "S(1,3)"}, fontsize=11, labelsize=8)
+draw_table(axs[1], SEQ1, SEQ2, fills={(1, 3): BLUE_TINT, (0, 2): YELLOW_TINT,
+                                      (0, 3): YELLOW_TINT, (1, 2): YELLOW_TINT}, fontsize=11)
+plt.show()
+```
+
+The first row and the first column are easy. Row 0 holds alignments of no bases from `gata` with some bases from `acta`. The only way to align `act` with nothing is to put a gap opposite each base, so $S(0, 3) = 3g = -3$. In the same way, the first column holds multiples of the gap score, as in @fig-pa-init.
+
+```{python}
+#| label: fig-pa-init
+#| fig-cap: "The first row and first column hold alignments of some bases against nothing at all, which can only be a series of gaps."
+show = {(i, 0) for i in range(5)} | {(0, j) for j in range(5)}
+fig = table_figure(SEQ1, SEQ2, T1, show=show)
+plt.show()
+```
+
+Now every other cell can be filled in, as long as we go row by row from the top, and left to right within a row. Then the three cells a new cell needs are always filled in already. @fig-pa-first-cells shows the first cell, row 1 and column 1, which is the best alignment of `g` and `a`. Diagonally up-left is 0, and pairing `g` with `a` scores 0, which gives 0. Above is −1, and adding a gap gives −2. To the left is also −1, which gives −2. The largest of 0, −2 and −2 is 0, so $S(1,1) = 0$. The second panel shows the first cell of the next row, where `a` meets `a` and the diagonal wins with $-1 + 2 = 1$.
+
+```{python}
+#| label: fig-pa-first-cells
+#| fig-cap: "Computing two cells. Each of the three neighbors contributes its score plus the score of the step into the new cell: a base pair for the diagonal step and a gap for the other two. The new cell gets the largest of the three."
+fig, axs = plt.subplots(1, 2, figsize=(6, 3))
+draw_step(axs[0], "a", "g", T1[0][0], T1[0][1], T1[1][0], SM1["G"]["A"], -1)
+draw_step(axs[1], "a", "a", T1[1][0], T1[1][1], T1[2][0], SM1["A"]["A"], -1)
+plt.show()
+```
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Draw the table on paper, fill in the first row and column as in @fig-pa-init, and then fill in the remaining cells yourself, row by row. For each cell, write down the three candidate scores before you pick the largest. The cell in the bottom right corner should end up holding 4, the score we found above. If it does not, find the first cell where your table differs from the answer and redo that cell.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the filled table
+
+```{python}
+fig = table_figure(SEQ1, SEQ2, T1, red={(4, 4)})
+plt.show()
+```
+
+:::
+
+## Traceback {#sec-pa-traceback}
+
+The bottom right cell tells us that the best alignment of `gata` and `acta` scores 4, but not what the alignment is. To find it, we walk back through the table. For each cell, we ask which of its three neighbors its score came from. The bottom right cell got its 4 from the diagonal: $2 + 2$. A diagonal step means the last column of the alignment pairs a base from each sequence, here `a` with `a`. We move to that neighbor and ask the same question. Its 2 also came from the diagonal ($0 + 2$, pairing `t` with `t`), so the alignment ends in `ta` over `ta`.
+
+The cell we are now in, row 2 and column 2, holds 0, and that score can be reached two ways: from the diagonal ($0 + 0$, pairing `a` with `c`) and from the left ($1 - 1$). Both lead to an optimal alignment. Take the step to the left. A step to the left adds a column with a gap in the sequence down the side and the base from the sequence along the top, here `-` over `c`. A step up adds the base from the sequence down the side against a gap. Continuing this way until we reach the top left corner, we collect the columns of the alignment from last to first:
+
+```txt
+a    ta    -ta    a-ta    ga-ta
+a    ta    cta    acta    -acta
+```
+
+@fig-pa-traceback shows the path in orange. The gray arrows show the other optimal path, which takes the diagonal step at row 2, column 2, and gives the alignment `gata` over `acta`. It also scores 4. Two sequences often have several optimal alignments, and the traceback lets you find all of them.
+
+```{python}
+#| label: fig-pa-traceback
+#| fig-cap: "Traceback. Starting from the bottom right corner, each arrow points to the neighbor that the cell's score came from. The orange path gives `ga-ta` over `-acta`; the gray arrows branch off to the other optimal alignment, `gata` over `acta`."
+main, alt = traceback_arrows(P1, (4, 4))
+fig = table_figure(SEQ1, SEQ2, T1, arrows=main, alt_arrows=alt, red={(4, 4)})
+plt.show()
+```
+
+To walk back, you need to know which neighbor each score came from. You can work it out again by redoing the three sums, as we did above. A program does better to record it while filling in the table, in a second table of the same size, with a letter in each cell saying "diagonal", "up" or "left". That is how you will do it in @sec-alignment-project.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Find the optimal global alignment of `GGGCT` and `GAGGG` by hand. Use a score matrix where identical bases score 2 and different bases score −1, and a gap score of −2. Put `GGGCT` down the left side of the table and `GAGGG` along the top. Fill in the table, then trace back from the bottom right corner. When there is a tie, follow each branch: how many optimal alignments are there?
+
+When you have an answer, let the machine check it. The `PairwiseAligner` from [the Biopython chapter](../python/biopython.ipynb#sec-biopython-align) does global alignment by default, and you can give it the same scores:
+
+```python
+from Bio import Align
+
+aligner = Align.PairwiseAligner(match_score=2, mismatch_score=-1,
+                                open_gap_score=-2, extend_gap_score=-2)
+alignments = aligner.align("GGGCT", "GAGGG")
+print(alignments.score)
+for alignment in alignments:
+    print(alignment)
+```
+
+Before you run it, write down the score and the alignments you expect it to print.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+```{python}
+main, alt = traceback_arrows(PG, (5, 5))
+fig = table_figure(EX1, EX2, TG, arrows=main, alt_arrows=alt, red={(5, 5)}, scale=0.55)
+plt.show()
+```
+
+The best score is 1, and three alignments reach it:
+
+```{python}
+for x, y in all_alignments(EX1, EX2, PG, (5, 5)):
+    print(x)
+    print(y)
+    print()
+```
+
+:::
+
+#### Exercise
+
+[AI: Explainer](../intro/course-introduction.qmd#sec-badge-explainer){.small}
+
+Fill in the table for `GATTC` (down the side) and `GTAC` (along the top) yourself, with the same scores as in the previous exercise, and find the optimal alignment. Then give the assistant the two sequences and the scores, and ask it to fill in the same table, one row at a time, and to report the optimal score and alignment. Compare its table with yours, cell by cell. Where the two disagree, redo that cell by hand from its three neighbors to decide who is right, and then run `PairwiseAligner` on the two sequences to settle the score. Did the assistant make arithmetic slips, pick the wrong maximum, or report an alignment whose score does not add up to the number in its corner cell? Write what you found in your logbook.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+```{python}
+TA, PA = fill_table("GATTC", "GTAC", SM2, -2)
+main, alt = traceback_arrows(PA, (5, 4))
+fig = table_figure("GATTC", "GTAC", TA, arrows=main, alt_arrows=alt, red={(5, 4)}, scale=0.55)
+plt.show()
+for x, y in all_alignments("GATTC", "GTAC", PA, (5, 4)):
+    print(x)
+    print(identity_line(x, y))
+    print(y)
+```
+
+:::
+
+## Score matrices in practice {#sec-pa-matrices}
+
+```{python}
+#| column: margin
+#| fig-cap: "The four bases in EDNAFULL."
+EDNAFULL_ACGT = score_dict(5, -4)
+fig = score_matrix_figure("ACGT", EDNAFULL_ACGT, g=None)
+plt.show()
+```
+
+The score matrices in this chapter are toys, chosen to make the arithmetic easy. A matrix used in practice for DNA is EDNAFULL, also called NUC.4.4. For the four bases it is just as simple: 5 for identical bases and −4 for different ones. But it also has rows and columns for the ambiguity codes that sequencing data use when a base is not known for certain. `N` means any base, `R` means a purine (`A` or `G`), `W` means `A` or `T`, and so on. An `A` paired with a `W` scores 1, because the `W` may well be an `A`. An `A` paired with an `N` scores −2.
+
+For proteins, all twenty amino acids get their own row and column, and the scores are no longer just "identical" or "different". Substituting one amino acid for a chemically similar one happens often in evolution and gets a positive score. Where those numbers come from is a later chapter.
+
+## Local alignment {#sec-pa-local}
+
+Global alignment, which is what Needleman-Wunsch does, aligns the two sequences from end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, and it fills them with mismatches and gaps that mean nothing.
+
+Here are two sequences that share a stretch of 15 bases, with one mismatch, inside unrelated flanks. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores `{python} LG[-1][-1]`, and `{python} len(LOC_GLOBAL)` different global alignments share that score. Here is one of them:
+
+```{python}
+x, y = LOC_GLOBAL[0]
+print(x)
+print(identity_line(x, y))
+print(y)
+```
+
+What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores `{python} LL[LOC_BEST[0]][LOC_BEST[1]]`:
+
+```{python}
+x, y = LOC_LOCAL[0]
+print(x)
+print(identity_line(x, y))
+print(y)
+```
+
+Local alignments are found with the Smith-Waterman algorithm ([Smith and Waterman, 1981](https://doi.org/10.1016/0022-2836(81)90087-5)), which is almost the same as Needleman-Wunsch. The only change is in how a cell is filled in: if all three candidate scores are negative, the cell gets 0 instead. A score of 0 means "start a new alignment here". When the alignment so far has become so bad that it would drag down anything added to it, the algorithm drops it and starts over, and it never extends an alignment that scores 0 or less.
+
+$$
+S(i, j) = \max \begin{cases}
+S(i-1, j-1) + s(a_i, b_j) \\
+S(i-1, j) + g \\
+S(i, j-1) + g \\
+0
+\end{cases}
+$$
+
+```{python}
+#| label: fig-pa-local-step
+#| fig-cap: "Filling in a cell for local alignment. Left: when the best candidate is positive, nothing changes. Right: when all three candidates are negative, the cell gets 0, and an alignment can start afresh from here."
+fig, axs = plt.subplots(1, 2, figsize=(6, 3))
+draw_step(axs[0], "t", "t", 9, 8, 8, SM2["T"]["T"], -2, local=True)
+draw_step(axs[1], "a", "g", 0, 0, 1, SM2["G"]["A"], -2, local=True)
+plt.show()
+```
+
+Two more things change. The first row and column hold zeros, because a local alignment does not have to include the start of either sequence. And the traceback no longer starts in the bottom right corner, because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. @fig-pa-local-paths shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.
+
+```{python}
+#| label: fig-pa-local-paths
+#| fig-cap: "Traceback paths for global (left) and local (right) alignment of the two sequences above. The global path must run from corner to corner. The local path covers only the shared stretch."
+fig, axs = plt.subplots(1, 2, figsize=(9, 4.6))
+draw_path_grid(axs[0], LOC1, LOC2, LGP, (len(LOC1), len(LOC2)), "Global alignment")
+draw_path_grid(axs[1], LOC1, LOC2, LLP, LOC_BEST, "Local alignment")
+plt.show()
+```
+
+Smith-Waterman only works if the score matrix gives unrelated sequences a negative score on average. Otherwise even random bases would build up a positive score, the best local alignment would spread out over everything, and it would stop being local. If base $a$ occurs with frequency $q_a$, two random bases are $a$ and $b$ with probability $q_a q_b$, so the condition is
+
+$$
+\sum_{a,b} q_a \, q_b \, s(a, b) < 0.
+$$
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Assume the four bases are equally common, so every $q_a = 1/4$. There are 16 pairs of bases, 4 identical and 12 different. Compute the average score of a random pair of bases, first for the score matrix from the start of this chapter (2 for identical, 0 for different), then for the one from the `GGGCT` exercise (2 for identical, −1 for different), and finally for EDNAFULL. Which of them can be used for local alignment?
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+The first matrix gives $(4 \times 2 + 12 \times 0) / 16 = 0.5$. That is positive, so it cannot be used. The second gives $(4 \times 2 + 12 \times (-1)) / 16 = -0.25$ and EDNAFULL gives $(4 \times 5 + 12 \times (-4)) / 16 = -1.75$. Both are negative and can be used.
+
+:::
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Find the best local alignment of `GGGCT` and `GAGGG` by hand, with the same scores as in the global exercise. Fill in the table with zeros in the first row and column and the 0 floor in every cell. Then find the highest score in the table and trace back from there until you meet a 0. Compare the result with the global alignments you found before. Check your score by running the `PairwiseAligner` from the global exercise again with `aligner.mode = "local"`, after you have written down what you expect it to print.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+```{python}
+r, c = best_cell(TL)
+cells = path(PL, (r, c))
+fig, axs = plt.subplots(1, 2, figsize=(8, 4.4))
+draw_table(axs[0], EX1, EX2, TL, arrows=list(zip(cells, cells[1:])), red={(r, c)}, fontsize=11)
+axs[0].set_title("Local", fontsize=12)
+main, alt = traceback_arrows(PG, (5, 5))
+draw_table(axs[1], EX1, EX2, TG, arrows=main, alt_arrows=alt, red={(5, 5)}, fontsize=11)
+axs[1].set_title("Global", fontsize=12)
+plt.show()
+for x, y in all_alignments(EX1, EX2, PL, (r, c)):
+    print(x)
+    print(y)
+```
+
+The best local alignment is `GGG` against `GGG`, with a score of 6. The global alignments had to include the `A` in `GAGGG` and the `CT` in `GGGCT`, which cost 5 points.
+
+:::
+
+## Better gap scores {#sec-pa-gaps}
+
+So far every gap position has cost the same, wherever it is and however long the gap. Real alignment programs score gaps more carefully, in two ways.
+
+### Gaps at the ends {#sec-pa-end-gaps}
+
+Suppose you align a gene sequence you have just read from a sample with a reference sequence that starts a little earlier and ends a little later. The gaps at the ends of the alignment do not reflect any insertion or deletion. They are there only because one sequence was read over a shorter stretch. Penalizing them as if they were real mutations makes the alignment worse. Many programs therefore score gaps at the ends of a global alignment differently, often not at all.
+
+In the table, end gaps live along the edges. The first row and the first column hold alignments that begin with a series of gaps. The last row and the last column are where alignments that end with a series of gaps pass through: once the traceback is in the last column, every step up adds a base from the left sequence against a gap at the end of the alignment.
+
+```{python}
+#| label: fig-pa-end-gaps
+#| fig-cap: "Gaps at the beginning of an alignment are steps along the first row or column (blue). Gaps at the end are steps along the last row or column (orange)."
+n, m = len(EX1), len(EX2)
+fills = {}
+for k in range(1, n):
+    fills[(k, m)] = ORANGE_TINT     # last column
+for k in range(1, m):
+    fills[(n, k)] = ORANGE_TINT     # last row
+for k in range(1, n + 1):
+    fills[(k, 0)] = BLUE_TINT       # first column
+for k in range(1, m + 1):
+    fills[(0, k)] = BLUE_TINT       # first row
+fig = table_figure(EX1, EX2, fills=fills, scale=0.55)
+plt.show()
+```
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+You want to change Needleman-Wunsch so that gaps at the ends of the alignment score 0 instead of the usual gap score. Using @fig-pa-end-gaps, find the two places in the algorithm that must change. Then decide what the alignment of `GGGCT` and `GAGGG` would look like if end gaps were free. You do not need to fill in a new table for this; think about which bases would have to be left hanging at the ends.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+The first place is the first row and column, which get 0 instead of multiples of the gap score. The second place is the last row and column: a step to the left within the last row, or a step up within the last column, adds a gap at the end of the alignment, so it should use the end-gap score of 0 instead of the gap score.
+
+With free end gaps, `GGGCT` and `GAGGG` can overlap like this, with three pairs of matching `G`s and only the overhanging bases against gaps:
+
+```txt
+--GGGCT
+GAGGG--
+```
+
+That scores $3 \times 2 = 6$, against the best score of 1 when end gaps cost −2 each.
+
+:::
+
+### Long gaps {#sec-pa-affine}
+
+A single mutation can insert or delete many bases at once. A gap of 11 bases is therefore much more likely to be one event than eleven separate events next to each other, and it should not cost eleven times as much as a gap of one base. With the gap score we have used so far, a gap of length $\ell$ costs
+
+$$
+\gamma(\ell) = -d \, \ell,
+$$
+
+where $d$ is the cost per gap position. This is called a linear gap score. The alternative is an affine gap score, which charges more for opening a gap than for extending one:
+
+$$
+\gamma(\ell) = -d - (\ell - 1) \, e,
+$$
+
+where $d$ is the cost of opening the gap and $e$ the cost of each additional position, with $e$ much smaller than $d$. An affine gap score prefers one long gap to several short ones, as mutation does.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+With a linear gap score and $d = 10$, what does a gap of length 11 cost? With an affine gap score, $d = 10$ and $e = 1$, what does the same gap cost? And what do two separate gaps of length 1 cost with the affine score?
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+Linear: $-10 \times 11 = -110$. Affine: $-10 - 10 \times 1 = -20$. Two separate gaps of length 1 cost $-10$ each, so $-20$ in total: the same as the single gap of length 11.
+
+:::
+
+An affine gap score seems to break the algorithm. To score a step up into a cell, we now need to know whether the best alignment ending in the cell above already ended in a gap (and we extend it) or not (and we open a new one). The fix is to keep three scores in every cell instead of one: the best score of an alignment that ends with a pair of bases, the best that ends with a base from the left sequence against a gap, and the best that ends with a gap against a base from the top sequence. Each of the three is computed from the three scores in one neighbor. A diagonal step adds the score of the base pair to the best of the three. A step down from the cell above extends the gap if that alignment already ended in the same kind of gap, and opens a new gap otherwise. The step from the left works the same way.
+
+@fig-pa-three-scores shows this for a single cell. The upper left number in each cell is the pair score, the upper right is the gap-in-the-top-sequence score, which only a step down can extend, and the lower left is the gap-in-the-left-sequence score, which only a step to the right can extend. With a linear gap score (left), keeping three numbers changes nothing: the largest of the new cell's three scores is the 4 we would have computed anyway. With an affine score (right), the numbers differ, and keeping all three is what lets the algorithm tell opening from extending ([Gotoh, 1982](https://doi.org/10.1016/0022-2836(82)90398-9)).
+
+```{python}
+#| label: fig-pa-three-scores
+#| fig-cap: "Keeping three scores per cell. In each cell, upper left: best alignment ending in a pair of bases; upper right: ending in a base from the left sequence against a gap; lower left: ending in a gap against a base from the top sequence. Each new score is the largest of the three sums in one neighbor. Left: linear gap score of −1. Right: affine gap score with opening −5 and extension −1."
+fig, axs = plt.subplots(1, 2, figsize=(8.5, 4.2))
+draw_three(axs[0], "a", "a", (2, 1, 1), (0, -1, 1), (0, -1, 3), 2, -1, -1, "Linear: gap −1")
+draw_three(axs[1], "a", "a", (2, 1, 1), (0, -1, 1), (0, -1, 3), 2, -5, -1,
+           "Affine: open −5, extend −1")
+plt.show()
+```
+
+Three scores per cell means three times the work per cell, but the number of cells is the same. Filling in the table for two sequences of length $n$ takes about $n^2$ steps either way, which is written $O(n^2)$. Doubling the length of both sequences makes the work four times as large. That is a lot for two whole genomes, but tiny compared with trying all $2 \times 10^{75}$ alignments of two sequences of 100 bases.
+
+## Alignment tools {#sec-pa-tools}
+
+You will rarely fill in an alignment table by hand again after this chapter, and after the project you will rarely need to write the code either. The European Bioinformatics Institute offers [EMBOSS Needle](https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle) for global alignment and [EMBOSS Water](https://www.ebi.ac.uk/jdispatcher/psa/emboss_water) for local alignment, both on the web. For DNA, they use EDNAFULL with an affine gap score that costs 10 to open and 0.5 to extend. Needle does not penalize end gaps unless you ask it to. The `PairwiseAligner` in Biopython does the same jobs from Python: its `mode` attribute chooses global or local alignment, and `open_gap_score` and `extend_gap_score` set an affine gap score.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Open EMBOSS Needle and EMBOSS Water, choose the nucleotide versions, and align the two sequences from [the section on local alignment](#sec-pa-local):
+
+```txt
+TTAGTTGTATGGCGTACCTGAAGGCCGCA
+GCGATGGCTTACCTGAAGAAGTAGTGCTTG
+```
+
+Before you submit, predict which of the two programs will find the shared stretch `ATGGCGTACCTGAAG` and how the other will treat the flanks, given that its end gaps are free. Then compare the results with the alignments printed in [that section](#sec-pa-local). Open "More options" in Needle and find the setting for each of the scores discussed in this chapter: the score matrix, gap opening, gap extension and end gaps.

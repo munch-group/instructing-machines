@@ -1,0 +1,750 @@
+---
+jupyter: python3
+execute:
+  enabled: true
+  echo: false
+---
+
+# BLAST {#sec-blast}
+
+If you have a sequence, BLAST finds the sequences in a large database that are similar to it, and it does so in seconds rather than days. This chapter explains how. BLAST is built from ideas you already know from @sec-pairwise-alignment, combined with a shortcut that gives up a guarantee in exchange for speed, and a piece of statistics that tells you how much to trust what it finds.
+
+```{python}
+#| include: false
+# Everything below runs a small Python version of BLAST and draws the figures.
+# The numbers quoted in the text are computed here, not typed in.
+import math
+import random
+
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyBboxPatch
+from Bio import Blast
+from Bio.Align import substitution_matrices
+
+BLUE, ORANGE, AQUA, YELLOW = "#2a78d6", "#eb6834", "#1baf7a", "#eda100"
+INK, MUTED, GRID, SURFACE = "#0b0b0b", "#52514e", "#e4e3df", "#ffffff"
+LIGHT = "#b9b8b3"
+plt.rcParams.update({
+    "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
+    "axes.edgecolor": MUTED, "axes.labelcolor": INK, "text.color": INK,
+    "xtick.color": MUTED, "ytick.color": MUTED, "font.size": 10,
+    "axes.spines.top": False, "axes.spines.right": False,
+})
+
+
+def n(x):
+    """A number for the text, with thousands separators."""
+    return f"{x:,}"
+
+
+# ---- the toy BLAST ------------------------------------------------------
+
+def words(seq, w):
+    return [seq[i:i + w] for i in range(len(seq) - w + 1)]
+
+
+dna_scores = {a: {b: (2 if a == b else -3) for b in "ACGT"} for a in "ACGT"}
+
+
+def word_score(word1, word2, scores):
+    return sum(scores[p][q] for p, q in zip(word1, word2))
+
+
+def all_words(w, alphabet):
+    result = [""]
+    for _ in range(w):
+        result = [word + letter for word in result for letter in alphabet]
+    return result
+
+
+def neighborhood(word, T, scores, alphabet):
+    return [c for c in all_words(len(word), alphabet) if word_score(word, c, scores) >= T]
+
+
+def build_lookup(query, w, T, scores, alphabet):
+    lookup = {}
+    for i in range(len(query) - w + 1):
+        for word in neighborhood(query[i:i + w], T, scores, alphabet):
+            lookup.setdefault(word, []).append(i)
+    return lookup
+
+
+def exact_lookup(query, w):
+    lookup = {}
+    for i in range(len(query) - w + 1):
+        lookup.setdefault(query[i:i + w], []).append(i)
+    return lookup
+
+
+def find_hits(lookup, subject, w):
+    hits = []
+    for j in range(len(subject) - w + 1):
+        for i in lookup.get(subject[j:j + w], []):
+            hits.append((i, j))
+    return hits
+
+
+def extend(query, subject, i, j, w, scores, X):
+    """Ungapped X-drop extension of a hit, right then left."""
+    score = word_score(query[i:i + w], subject[j:j + w], scores)
+    best = score
+    right = k = w
+    while i + k < len(query) and j + k < len(subject) and score > best - X:
+        score += scores[query[i + k]][subject[j + k]]
+        k += 1
+        if score > best:
+            best, right = score, k
+    score, left, k = best, 0, 1
+    while i - k >= 0 and j - k >= 0 and score > best - X:
+        score += scores[query[i - k]][subject[j - k]]
+        if score > best:
+            best, left = score, k
+        k += 1
+    return best, query[i - left:i + right], subject[j - left:j + right], (i - left, j - left)
+
+
+def extend_right_trace(query, subject, i, j, w, scores, X):
+    """The running score of the extension to the right, step by step."""
+    score = word_score(query[i:i + w], subject[j:j + w], scores)
+    trace = [score]
+    best, best_k, k = score, 0, w
+    while i + k < len(query) and j + k < len(subject) and score > best - X:
+        score += scores[query[i + k]][subject[j + k]]
+        k += 1
+        trace.append(score)
+        if score > best:
+            best, best_k = score, len(trace) - 1
+    return trace, best, best_k
+
+
+def random_seq(length, alphabet):
+    return "".join(random.choices(alphabet, k=length))
+
+
+def mutate(seq, fraction, alphabet):
+    return "".join(random.choice(alphabet) if random.random() < fraction else c for c in seq)
+
+
+def two_hit_seeds(hits, w, A):
+    diagonals = {}
+    for i, j in hits:
+        diagonals.setdefault(j - i, []).append(i)
+    seeds = []
+    for d, positions in diagonals.items():
+        positions = sorted(positions)
+        for k in range(1, len(positions)):
+            if w <= positions[k] - positions[k - 1] <= A:
+                seeds.append((positions[k], positions[k] + d))
+    return seeds
+
+
+def count_relatives(pairs, relatives):
+    return len({j - i for i, j in pairs if j - i in relatives})
+
+
+def evalue(S, m, n_db, lam=0.3176, K=0.134):
+    return K * m * n_db * math.exp(-lam * S)
+
+
+# ---- the examples and experiments --------------------------------------
+
+query = "TGCATGCCAGTTACGGATCAAG"
+subject = "CCGTATTGCATGCAAGTTACGCATCAAGTTCGA"
+exact = build_lookup(query, 4, 8, dna_scores, "ACGT")
+loose = build_lookup(query, 4, 3, dna_scores, "ACGT")
+hits = find_hits(exact, subject, 4)
+diagonal_counts = {}
+for i, j in hits:
+    diagonal_counts[j - i] = diagonal_counts.get(j - i, 0) + 1
+main_diagonal = max(diagonal_counts, key=diagonal_counts.get)
+toy_hsp = extend(query, subject, 0, 6, 4, dna_scores, 10)
+toy_hsps = {extend(query, subject, i, j, 4, dna_scores, 10)[1:] for i, j in hits}
+
+# speed and sensitivity for DNA
+random.seed(1)
+query_300 = random_seq(300, "ACGT")
+relative = mutate(query_300, 0.35, "ACGT")
+subject_900 = random_seq(300, "ACGT") + relative + random_seq(300, "ACGT")
+dot_sizes = [6, 11, 16]
+dotplots = [(subject_900, find_hits(exact_lookup(query_300, w), subject_900, w)) for w in dot_sizes]
+
+random.seed(3)
+query_400 = random_seq(400, "ACGT")
+divergences = [0.3, 0.45, 0.6]
+pieces, relative_starts, position = [], {}, 0
+for d in divergences:
+    for _ in range(20):
+        filler = random_seq(16_000, "ACGT")
+        pieces.append(filler)
+        position += len(filler)
+        relative_starts[position] = d
+        pieces.append(mutate(query_400, d, "ACGT"))
+        position += len(query_400)
+pieces.append(random_seq(16_000, "ACGT"))
+database = "".join(pieces)
+
+sizes = [7, 9, 11, 13, 15]
+random_hits, expected, found = [], [], {d: [] for d in divergences}
+for w in sizes:
+    hits_w = find_hits(exact_lookup(query_400, w), database, w)
+    on_relatives = {j - i for i, j in hits_w if j - i in relative_starts}
+    random_hits.append(sum(1 for i, j in hits_w if j - i not in relative_starts))
+    expected.append(len(query_400) * len(database) / 4 ** w)
+    for d in divergences:
+        found[d].append(sum(1 for s in on_relatives if relative_starts[s] == d))
+
+# proteins
+blosum62 = substitution_matrices.load("BLOSUM62")
+amino_acids = "ACDEFGHIKLMNPQRSTVWY"
+pqg13 = neighborhood("PQG", 13, blosum62, amino_acids)
+
+random.seed(1)
+protein_query = random_seq(150, amino_acids)
+pieces, protein_relatives, position = [], {}, 0
+for _ in range(10):
+    filler = random_seq(10_000, amino_acids)
+    pieces.append(filler)
+    position += len(filler)
+    protein_relatives[position] = True
+    pieces.append(mutate(protein_query, 0.5, amino_acids))
+    position += len(protein_query)
+protein_database = "".join(pieces)
+protein_hits = {T: find_hits(build_lookup(protein_query, 3, T, blosum62, amino_acids),
+                             protein_database, 3) for T in [11, 13, 15]}
+protein_random = {T: sum(1 for i, j in h if j - i not in protein_relatives)
+                  for T, h in protein_hits.items()}
+one_hit = protein_hits[13]
+two_hit = two_hit_seeds(protein_hits[11], 3, 40)
+random_seeds = sum(1 for i, j in two_hit if j - i not in protein_relatives)
+relative_seeds = len(two_hit) - random_seeds
+seed_fraction = random_seeds / protein_random[11]
+
+# an extension that runs off the end of a related stretch
+random.seed(5)
+xdrop_query = random_seq(160, "ACGT")
+xdrop_subject = random_seq(40, "ACGT") + mutate(xdrop_query[:100], 0.25, "ACGT") + random_seq(120, "ACGT")
+xdrop_hit = sorted((i, j) for i, j in find_hits(exact_lookup(xdrop_query, 11), xdrop_subject, 11)
+                   if j - i == 40)[0]
+
+# E-value of a small protein HSP
+protein = "MSHWEKLNGCAPRTYIDVQKFGEMLW"
+other = "TTGAPNSHWEKINGCAPKTFIDLRSAQPLE"
+protein_hsp = extend(protein, other, 1, 6, 3, blosum62, 10)
+protein_hsp_e = evalue(protein_hsp[0], len(protein), 200_000_000)
+
+# the saved FOXP2 search
+foxp2 = Blast.read("../python/data/foxp2_blastp.xml")
+
+
+# ---- figures ----------------------------------------------------------
+
+def _letter_row(ax, seq, y):
+    for x, letter in enumerate(seq):
+        ax.text(x + 0.5, y, letter, ha="center", va="center",
+                family="monospace", fontsize=11, color=INK, weight="bold")
+
+
+def draw_words(ax, seq, w, rows):
+    _letter_row(ax, seq, rows + 1)
+    for i in range(len(seq) - w + 1):
+        y = rows - i
+        ax.add_patch(FancyBboxPatch((i + 0.08, y - 0.35), w - 0.16, 0.7,
+                     boxstyle="round,pad=0,rounding_size=0.05",
+                     facecolor="#999999", alpha=0.18, edgecolor="#999999", lw=1))
+        _letter_row(ax, " " * i + seq[i:i + w], y)
+    ax.set_xlim(0, len(seq))
+    ax.set_ylim(0.3, rows + 1.7)
+    ax.axis("off")
+
+
+def draw_word_figure(seq, word_sizes):
+    rows = len(seq) - min(word_sizes) + 1
+    fig, axes = plt.subplots(1, len(word_sizes),
+                             figsize=(4.2 * len(word_sizes), 0.3 * (rows + 1) + 0.6))
+    for ax, w in zip(axes, word_sizes):
+        draw_words(ax, seq, w, rows)
+    plt.subplots_adjust(wspace=0.2)
+    plt.show()
+
+
+def draw_neighbor_figure(word, T, scores, alphabet, word_sizes, Ts):
+    fig, (left, right) = plt.subplots(1, 2, figsize=(7, 3.6),
+                                      gridspec_kw={"width_ratios": [1, 1.3]})
+    groups = {}
+    for candidate in neighborhood(word, T, scores, alphabet):
+        groups.setdefault(word_score(word, candidate, scores), []).append(candidate)
+    y = 0
+    for s in sorted(groups, reverse=True):
+        left.text(-2.0, y, f"score {s}", ha="right", va="center", color=MUTED, fontsize=9)
+        for k, candidate in enumerate(groups[s]):
+            x0 = (k % 4) * (len(word) + 1)
+            row = y - (k // 4) * 0.5
+            for p, letter in enumerate(candidate):
+                left.text(x0 + p, row, letter, family="monospace", fontsize=10, weight="bold",
+                          ha="center", va="center", color=INK if letter == word[p] else ORANGE)
+        y -= 0.8 * ((len(groups[s]) - 1) // 6 + 1) + 0.6
+    left.set_xlim(-6, 6 * (len(word) + 1))
+    left.set_ylim(y + 0.2, 0.6)
+    left.axis("off")
+    for w, color in zip(word_sizes, [BLUE, ORANGE, AQUA, YELLOW]):
+        example = (word * w)[:w]
+        counts = {}
+        for candidate in all_words(w, alphabet):
+            s = word_score(example, candidate, scores)
+            counts[s] = counts.get(s, 0) + 1
+        ys = [sum(c for s, c in counts.items() if s >= t) for t in Ts]
+        xs = [t for t, v in zip(Ts, ys) if v > 0]
+        ys = [v for v in ys if v > 0]
+        right.step(xs, ys, where="post", color=color, lw=2)
+        right.text(Ts[0] - 0.4, ys[0], f"w = {w}", color=INK, ha="right", va="center", fontsize=9)
+    right.set_yscale("log")
+    right.set_xlabel("threshold T")
+    right.set_ylabel("neighborhood words")
+    right.grid(axis="y", color=GRID, lw=0.8)
+    right.set_xlim(Ts[0] - 3.5, Ts[-1] + 0.5)
+    plt.tight_layout()
+    plt.show()
+
+
+def draw_dotplots(query_seq, subjects_and_hits, titles):
+    fig, axes = plt.subplots(1, len(titles), figsize=(3.6 * len(titles), 3.4), squeeze=False)
+    for ax, (subj, hs), title in zip(axes[0], subjects_and_hits, titles):
+        ax.plot([j for i, j in hs], [i for i, j in hs], "o", ms=3, color=BLUE, alpha=0.7)
+        ax.set_xlim(0, len(subj))
+        ax.set_ylim(len(query_seq), 0)
+        ax.set_xlabel("position in subject")
+        ax.set_ylabel("position in query")
+        ax.set_title(title, loc="left", fontsize=11)
+    plt.tight_layout()
+    plt.show()
+
+
+def draw_xdrop(trace, best, best_k, X, related_end):
+    fig, ax = plt.subplots(figsize=(7, 3.2))
+    steps = list(range(len(trace)))
+    ax.axvspan(0, best_k, color=BLUE, alpha=0.08, lw=0)
+    ax.axvline(related_end, color=MUTED, lw=1, ls="-.")
+    ax.plot(steps, trace, color=BLUE, lw=2)
+    ax.plot([0, len(trace) - 1], [best, best], color=MUTED, lw=1, ls="--")
+    ax.plot([0, len(trace) - 1], [best - X, best - X], color=ORANGE, lw=1.2, ls=":")
+    ax.plot([best_k], [best], "o", color=BLUE, ms=7)
+    ax.plot([steps[-1]], [trace[-1]], "o", color=ORANGE, ms=7)
+    ax.text(len(trace) + 1, best, f"best score ({best})", color=MUTED, fontsize=9, va="center")
+    ax.text(len(trace) + 1, best - X, f"best − X ({best - X})", color=INK, fontsize=9,
+            va="center")
+    ax.text(best_k / 2, best + 3, "kept in the HSP", color=INK, fontsize=9, ha="center")
+    ax.text(related_end + 1, min(trace), "related stretch ends", color=MUTED, fontsize=9,
+            va="bottom")
+    ax.set_xlabel("bases added to the right of the hit")
+    ax.set_ylabel("score of the alignment")
+    ax.set_xlim(0, len(trace) + 22)
+    ax.set_ylim(min(trace) - 3, best + 9)
+    ax.grid(axis="y", color=GRID, lw=0.8)
+    plt.tight_layout()
+    plt.show()
+
+
+def draw_tradeoff():
+    fig, (left, right) = plt.subplots(1, 2, figsize=(7, 3.6))
+    left.bar(sizes, random_hits, width=1.2, color=BLUE)
+    left.plot(sizes, expected, "--", color=MUTED, lw=1.5)
+    left.text(sizes[-2] + 0.4, expected[-2] * 3, "expected:\n$m\\,n / 4^w$", color=MUTED,
+              fontsize=9, va="bottom")
+    left.set_yscale("symlog", linthresh=1)
+    left.set_xticks(sizes)
+    left.set_xlabel("word size w")
+    left.set_ylabel("random hits to extend")
+    left.grid(axis="y", color=GRID, lw=0.8)
+    left.set_title("Speed: work wasted on random hits", loc="left", fontsize=11)
+    for d, color in zip(divergences, [BLUE, ORANGE, AQUA]):
+        identity = round(100 * (1 - 0.75 * d))
+        right.plot(sizes, found[d], "-o", color=color, lw=2, ms=6)
+        right.text(sizes[-1] + 0.3, found[d][-1], f"{identity}% identical", color=INK,
+                   va="center", fontsize=9)
+    right.set_xticks(sizes)
+    right.set_xlim(sizes[0] - 0.5, sizes[-1] + 3.5)
+    right.set_ylim(-0.8, 20.8)
+    right.set_yticks(range(0, 21, 5))
+    right.set_xlabel("word size w")
+    right.set_ylabel("relatives found (of 20)")
+    right.grid(axis="y", color=GRID, lw=0.8)
+    right.set_title("Sensitivity: relatives found", loc="left", fontsize=11)
+    plt.tight_layout()
+    plt.show()
+
+
+def draw_two_hit(lo, hi):
+    fig, ax = plt.subplots(figsize=(7, 3.6))
+    singles = [(i, j) for i, j in protein_hits[11] if lo <= j < hi]
+    seeds = [(i, j) for i, j in two_hit if lo <= j < hi]
+    d = sorted(protein_relatives)[0]
+    ax.plot([d, d + len(protein_query)], [0, len(protein_query)], color=BLUE, lw=6, alpha=0.15)
+    ax.plot([j for i, j in singles], [i for i, j in singles], "o", ms=2.5, color=LIGHT)
+    ax.plot([j for i, j in seeds], [i for i, j in seeds], "o", ms=6, color=ORANGE)
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(len(protein_query), 0)
+    ax.set_xlabel("position in database")
+    ax.set_ylabel("position in query")
+    plt.tight_layout()
+    plt.show()
+
+
+def draw_evalue():
+    fig, ax = plt.subplots(figsize=(7, 3.4))
+    scores = list(range(20, 101))
+    for size, label, color in [(10**6, "a million letters", BLUE),
+                               (10**8, "100 million letters", ORANGE),
+                               (10**10, "10 billion letters", AQUA)]:
+        es = [evalue(S, 300, size) for S in scores]
+        ax.plot(scores, es, color=color, lw=2)
+        ax.text(scores[-1] + 1, es[-1], label, color=INK, fontsize=9, va="center")
+    ax.axhline(1, color=MUTED, lw=1, ls="--")
+    ax.text(21, 1.6, "E = 1: one such alignment expected by chance", color=MUTED, fontsize=9,
+            va="bottom")
+    ax.set_yscale("log")
+    ax.set_xlim(20, 125)
+    ax.set_xlabel("score S")
+    ax.set_ylabel("E-value")
+    ax.grid(axis="y", color=GRID, lw=0.8)
+    plt.tight_layout()
+    plt.show()
+```
+
+## Why not just align against everything? {#sec-blast-why}
+
+In @sec-pairwise-alignment you met [local alignment](pairwise-alignment.qmd#sec-pa-local) and the Smith-Waterman algorithm ([Smith and Waterman, 1981](https://doi.org/10.1016/0022-2836(81)90087-5)), which is guaranteed to find the best local alignment of two sequences. So why not align your sequence to every sequence in the database and keep the best ones?
+
+The answer is arithmetic. Smith-Waterman fills in a table with one cell for every pair of positions, one from each sequence. Aligning a gene of 1,000 bases to another of 1,000 bases means filling in a million cells, which is nothing for a computer. But a database is not one sequence. The human genome alone is about 3.1 billion bases long, so aligning a single gene against it means filling in $1000 \times 3.1 \times 10^9 = 3.1 \times 10^{12}$ cells. A computer that fills in a hundred million cells per second needs 31,000 seconds, more than eight and a half hours, and NCBI's databases hold the genomes of a great many species besides. Now picture an NCBI server answering thousands of searches every hour.
+
+Something has to give, and what BLAST gives up is the guarantee. BLAST is a *heuristic*: a shortcut that usually finds the best alignments, but is not promised to. In exchange it is very fast. The shortcut rests on one observation about biology. If two sequences are related, the alignment between them almost always contains a few short stretches where the two sequences are identical or nearly so. So rather than aligning everything to everything, BLAST first looks for those short stretches, and only spends time aligning where it finds one. The earlier FASTA program ([Lipman and Pearson, 1985](https://doi.org/10.1126/science.2983426)) had already used this idea. BLAST, the *Basic Local Alignment Search Tool* ([Altschul et al., 1990](https://doi.org/10.1016/S0022-2836(05)80360-2)), made it faster and gave it a solid statistical footing. The paper describing it is one of the most cited scientific papers ever written.
+
+## The original BLAST {#sec-blast-1990}
+
+The original BLAST works in four steps:
+
+1. Chop your sequence, the *query*, into short overlapping words, and list every word that scores well against one of them.
+2. Scan the database for those words. Each occurrence is a *hit*.
+3. Extend each hit in both directions into a longer alignment, and stop when the score starts falling.
+4. Decide whether the alignments found are better than what you would expect by chance.
+
+The figures and numbers in this chapter come from a small Python version of each step, running behind the page. It is slow and simple where the real BLAST is fast and clever, but it does the same thing. We start with DNA, where everything is simplest, and turn to proteins in [the section on protein search](#blast-protein-search).
+
+### Step 1: overlapping words {#sec-blast-words}
+
+To chop a query into words of length $w$, slide a window of width $w$ along it, one base at a time. A query of length $L$ has $L - w + 1$ such words, because the last word must start $w - 1$ bases before the end, or it would be too short. Our example query, `{python} query`, has `{python} len(query)` bases and so `{python} len(words(query, 4))` words of length 4. A gene of 1,000 bases has 990 words of length 11. @fig-blast-words shows the words of the first twelve bases for two word sizes. Each base belongs to up to $w$ words, and every word overlaps the next one in all but one base.
+
+```{python}
+#| label: fig-blast-words
+#| fig-cap: "The overlapping words of the first twelve bases of the query, for word size 3 (left) and word size 6 (right). Longer words are fewer, and each one is a longer and rarer string."
+draw_word_figure(query[:12], [3, 6])
+```
+
+Looking only for exact copies of the query's words is one option. But a word in a related sequence may differ from the query's word in a base or two, and BLAST lets you decide how different it may be. To do that, it scores two words against each other, position by position, with a score matrix like the ones in [the pairwise alignment chapter](pairwise-alignment.qmd#sec-pa-matrices). The standard DNA scores in `blastn` are 2 when two bases match and −3 when they do not. A word of length $w$ with $k$ mismatches therefore scores $2(w - k) - 3k = 2w - 5k$ against the query word: `ACGT` scores 8 against itself, 3 against `AGGT`, and −12 against `TCGA`.
+
+The *neighborhood* of a word is every word that scores at least some threshold $T$ against it. At $T = 3$, the neighborhood of `ACGT` holds `ACGT` itself and the twelve words that differ from it in exactly one base: three other bases at each of four positions. The left side of @fig-blast-neighbors shows them, with the changed base in orange. The right side shows how the size of the neighborhood depends on both settings. Lowering $T$ lets in words with more mismatches, and the neighborhood grows in steps, one step for each extra mismatch allowed. For the same $T$, a longer word has a bigger neighborhood, because there are more places for a mismatch to go.
+
+```{python}
+#| label: fig-blast-neighbors
+#| fig-cap: "Left: the neighborhood of ACGT at threshold T = 3, with each changed base shown in orange. Right: the number of words in the neighborhood of a DNA word as the threshold T changes, for word sizes 3 to 6 (note the logarithmic axis)."
+draw_neighbor_figure("ACGT", 3, dna_scores, "ACGT", [3, 4, 5, 6], list(range(-12, 13)))
+```
+
+Here is the trade-off that runs through the rest of this chapter. A big neighborhood (small $w$, low $T$) means a related sequence is likely to contain at least one of the words, even if it has drifted far from the query. But it also means many more chance hits in unrelated sequences, and each of those takes time to check. A small neighborhood is fast but misses distant relatives. We measure this trade-off in [the section on word size and threshold](#sec-blast-parameters).
+
+BLAST puts all the neighborhoods into one *lookup table*: for every word, it records the query positions it is a neighbor of. In Python, that is a dictionary from words to lists of positions. With $T = 8$, the top score for a word of length 4, each neighborhood holds only the word itself, so the table just records where each of the query's own words is: `{python} len(exact)` words, each at its own position. With $T = 3$, each word brings its twelve one-mismatch neighbors along, and the table grows to `{python} len(loose)` words. The table is built once, from the query alone, before BLAST looks at the database at all.
+
+### Step 2: scanning the database {#sec-blast-scan}
+
+Now BLAST walks along each database sequence, the *subject*, one word at a time and looks each word up in the table. Looking up a key in a dictionary is very fast and takes about the same time no matter how big the dictionary is, which is why BLAST can afford to do it for every position in a database of billions of bases. Every time a word is found, BLAST notes a hit as a pair of positions $(i, j)$: where the word is in the query, and where it is in the subject.
+
+Our query, scanned against the subject `{python} subject` with exact words of length 4, gives `{python} len(hits)` hits. For `{python} diagonal_counts[main_diagonal]` of them, the difference $j - i$ is the same, `{python} main_diagonal`. That difference is called the *diagonal* of a hit. If you draw the query down one side of a grid and the subject along the other, as in the alignment tables of @sec-pairwise-alignment, all hits with the same $j - i$ lie on the same diagonal line through the grid, and they belong to the same ungapped alignment. Here, they mark where the subject contains a copy of the query starting `{python} main_diagonal` bases in. The few hits on other diagonals are chance matches of short words. Such a grid of hits is called a *dot plot*, and @fig-blast-dotplot shows it for our query and subject. The gaps in the diagonal line are where the copy differs from the query.
+
+```{python}
+#| label: fig-blast-dotplot
+#| fig-cap: "A dot plot of the hits of the query in the subject, for word size 4 and exact matches. Each dot is a hit. The hits on one diagonal line mark the copy of the query in the subject."
+draw_dotplots(query, [(subject, hits)], ["w = 4, T = 8"])
+```
+
+Keep the diagonals in mind. They are the key to [the improved BLAST of 1997](#sec-blast-1997).
+
+### Step 3: extending a hit {#sec-blast-extend}
+
+A hit is only a few bases. To see whether it is part of something bigger, BLAST extends it, one base at a time, first to the right and then to the left, adding the score of each new pair of bases. The extension has no gaps: it just walks along the diagonal.
+
+When should it stop? The score goes up when the bases agree and down when they do not, so a single mismatch should not end the extension. BLAST remembers the best score it has seen so far and stops when the score has dropped more than some amount $X$ below that best. Then it trims the alignment back to where the best score was. This is called the *X-drop* rule. @fig-blast-xdrop shows it for a hit in a stretch of DNA where a subject is related to the query for 100 bases and unrelated after that. While the extension runs through the related stretch, matches outnumber mismatches and the score climbs, with small dips at each mismatch. Once it runs past the end into unrelated sequence, mismatches dominate, the score falls, and the extension stops when it is $X$ below the best.
+
+```{python}
+#| label: fig-blast-xdrop
+#| fig-cap: "The X-drop rule, here with X = 20. The score of the extension climbs while the two sequences are related, and falls once the extension runs past the end of the related stretch. The extension stops when the score is X below the best seen so far (orange dot), and the alignment is trimmed back to where the best score was (blue dot)."
+hi, hj = xdrop_hit
+trace, best, best_k = extend_right_trace(xdrop_query, xdrop_subject, hi, hj, 11, dna_scores, 20)
+draw_xdrop(trace, best, best_k, 20, related_end=100 - hi - 11)
+```
+
+The result is a *high-scoring segment pair*, or HSP. For our small query and subject, extending the hit at the start of the diagonal gives an HSP with a score of `{python} toy_hsp[0]` that covers the whole query:
+
+```{python}
+print(toy_hsp[1])
+print("".join("|" if p == q else " " for p, q in zip(toy_hsp[1], toy_hsp[2])))
+print(toy_hsp[2])
+```
+
+Extending every one of the `{python} len(hits)` hits gives only `{python} len(toy_hsps)` different HSPs. All hits on the main diagonal grow into the same HSP, and the chance hits on other diagonals grow into short HSPs with low scores. Most of the work of extending is therefore wasted, a point [the improved BLAST of 1997](#sec-blast-1997) takes up.
+
+## Word size, threshold, speed and sensitivity {#sec-blast-parameters}
+
+A BLAST search spends most of its time extending hits, so the number of hits decides how fast it is. And it can only find a relative that contains at least one hit, so the number of hits in relatives decides how *sensitive* it is: how distant the relatives are that it can still find. Both depend on the word size and the threshold.
+
+First, how many chance hits should we expect? In random DNA, each base is one of four with equal chance, so a given word of length $w$ matches a given position with probability $1/4^w$. A query with about $m$ words, scanned against a database with about $n$ positions, gives about
+
+$$\frac{m \, n}{4^w}$$
+
+random hits. Each extra base in the word divides that number by four. A 1,000-base gene searched against the human genome with $w = 11$ gives about 740,000 random hits, each of which would be extended. With $w = 28$, the word size of `megablast`, it gives about 0.00004: none at all.
+
+For DNA, the real BLAST does not use neighborhoods. It only looks for exact words, so the threshold is always the top score, and it controls the trade-off with the word size alone. That also saves work: the neighborhood of a word at the top score is just the word itself, so BLAST never has to try all $4^w$ possible words, which is about 4 million for $w = 11$ and more than a billion for $w = 15$.
+
+To see the trade-off, take a random query of 300 bases and a relative of it, in which about a third of the bases have been replaced by random ones, hidden between two random stretches. @fig-blast-dotplots shows the dot plots for three word sizes.
+
+```{python}
+#| label: fig-blast-dotplots
+#| fig-cap: "Dot plots of a random 300-base query against a 900-base subject that holds a relative of the query in its middle third, for three word sizes. With w = 6, the relative is buried in random hits. With w = 16, only a short piece of its diagonal is left."
+draw_dotplots(query_300, dotplots, [f"w = {w}" for w in dot_sizes])
+```
+
+With $w = 6$, the diagonal of the relative is there, but it is surrounded by random hits, and every one of them would be extended. With $w = 11$, the random hits are nearly gone and the diagonal still shows. With $w = 16$, the random hits are gone, but so is most of the diagonal: only one short piece of it survives, where the relative happens to share a long identical stretch with the query.
+
+One example is not much to go on, so @fig-blast-tradeoff counts properly. The database here is a million random bases, with 60 relatives of a 400-base query hidden in it, 20 each at three levels of divergence. For each word size, the figure shows the number of random hits, and how many of the 20 relatives at each level got at least one hit on their own diagonal. One hit is all BLAST needs to find a relative, because one hit is enough to start an extension.
+
+```{python}
+#| label: fig-blast-tradeoff
+#| fig-cap: "Speed and sensitivity for exact words of different sizes, searching a 400-base query against a million random bases with 60 hidden relatives. Left: the number of random hits that must be extended, with the expected number as a dashed line. Right: how many of the 20 relatives at each level of identity got at least one hit."
+draw_tradeoff()
+```
+
+The two panels tell the whole story. Going from $w = 7$ to $w = 15$, the number of random hits drops from `{python} n(random_hits[0])` to `{python} n(random_hits[-1])`, and the time spent extending drops with it. But the relatives disappear too, and the most distant ones disappear first. Nearly all of the 78% identical relatives are found at every word size. The 55% identical ones are all found with $w = 7$, but only `{python} found[0.6][2]` with $w = 11$ and `{python} found[0.6][-1]` with $w = 15$, because a sequence that differs from the query at almost every other base rarely contains a long unbroken identical stretch.
+
+There is no setting that is best for everything. It depends on what you are looking for, and that is why NCBI offers several versions of nucleotide BLAST (see [Choosing an algorithm](#sec-blast-algorithms)). `megablast` uses $w = 28$ and is very fast, but only finds nearly identical sequences. The standard `blastn` uses $w = 11$. And you can set the word size yourself on the BLAST page, under *Algorithm parameters*.
+
+::: {.callout-note #blast-protein-search}
+
+## Protein search
+
+Proteins are different in two ways. First, there are 20 amino acids rather than four bases, so even a word of three letters is rare: a given word matches a random position only once in $20^3 = 8000$. Second, related proteins often have *similar* amino acids in the same place rather than identical ones, like a leucine (`L`) where the other has an isoleucine (`I`). Exact words would miss those, so protein BLAST uses short words of three letters and makes them sensitive with neighborhoods.
+
+To score words, BLAST uses the BLOSUM62 substitution matrix ([Henikoff and Henikoff, 1992](https://doi.org/10.1073/pnas.89.22.10915)), which you gave the protein aligner in [the Biopython chapter](../python/biopython.ipynb#sec-biopython-align). Unlike the DNA scores, BLOSUM62 gives different pairs of amino acids very different scores. A `Q` against an `E` scores `{python} int(blosum62["Q"]["E"])`, because glutamine and glutamate are similar, while a `W` against a `G` scores `{python} int(blosum62["W"]["G"])`. So the neighborhood of `PQG` at $T = 13$ includes `PQG` itself, which scores `{python} int(word_score("PQG", "PQG", blosum62))`, but also `{python} ", ".join(w for w in pqg13 if w != "PQG")`: every word where the middle amino acid is one that BLOSUM62 considers a reasonable stand-in for glutamine. A protein neighborhood is about which letters differ, as well as how many.
+
+For proteins, then, the word size stays at 3, and the threshold $T$ is the setting that trades speed against sensitivity. To measure it, take a random protein query of 150 amino acids, and a database of about 100,000 amino acids with ten relatives hidden in it, in which about half the amino acids have been replaced:
+
+| Threshold | Hits | Random hits | Relatives found |
+|:-:|--:|--:|:-:|
+| $T = 11$ | `{python} n(len(protein_hits[11]))` | `{python} n(protein_random[11])` | `{python} count_relatives(protein_hits[11], protein_relatives)` of 10 |
+| $T = 13$ | `{python} n(len(protein_hits[13]))` | `{python} n(protein_random[13])` | `{python} count_relatives(protein_hits[13], protein_relatives)` of 10 |
+| $T = 15$ | `{python} n(len(protein_hits[15]))` | `{python} n(protein_random[15])` | `{python} count_relatives(protein_hits[15], protein_relatives)` of 10 |
+
+Raising $T$ cuts the number of hits, and with it the work, several times over. The relatives hold up much better, because a relative half of whose amino acids are unchanged contains many words that score well, and it only needs one of them to be found.
+
+:::
+
+### Step 4: could it be chance? {#sec-blast-evalue}
+
+Search a big enough database with any query and you will find something that scores well, just by chance. So BLAST must tell you how surprised you should be by a score. It does so with the *E-value*: the number of alignments with at least this score you would expect to find by chance alone in a database of random sequences of this size.
+
+For ungapped alignments there is a formula for it, found by Samuel Karlin and Stephen Altschul ([Karlin and Altschul, 1990](https://doi.org/10.1073/pnas.87.6.2264)):
+
+$$E = K \, m \, n \, e^{-\lambda S}$$
+
+Here $S$ is the score, $m$ is the length of the query, $n$ is the total length of the database, and $K$ and $\lambda$ are two numbers that depend on the scoring table. For BLOSUM62 without gaps, $\lambda \approx 0.318$ and $K \approx 0.134$.
+
+Read the formula as a story. The $e^{-\lambda S}$ part makes $E$ shrink very quickly as the score goes up: a high score is unlikely to happen by chance. The $m \, n$ part makes $E$ grow with the size of the search: the more places you look, the more chance hits you will find. So the same alignment gets a different E-value depending on which database you searched, as @fig-blast-evalue shows.
+
+```{python}
+#| label: fig-blast-evalue
+#| fig-cap: "E-value against score for a 300-letter protein query, with BLOSUM62 and no gaps, in databases of three sizes. Every 10 points of score divide the E-value by about 24. Making the database 100 times larger moves the line up by a factor of 100."
+draw_evalue()
+```
+
+As an example, the two short proteins `{python} protein` and `{python} other` share a stretch that the toy BLAST finds and extends into this HSP:
+
+```{python}
+print(protein_hsp[1])
+print(protein_hsp[2])
+```
+
+It scores `{python} int(protein_hsp[0])`. Found in a database of 200 million amino acids, it would have an E-value of `{python} f"{protein_hsp_e:.1e}"`: you would expect an alignment this good by chance in about one search out of `{python} n(int(round(1 / protein_hsp_e, -2)))`.
+
+Because $K$ and $\lambda$ differ between scoring tables, raw scores cannot be compared across them. BLAST therefore also reports a *bit score*, $S' = (\lambda S - \ln K) / \ln 2$, which puts every scoring system on the same scale. With bit scores, the formula becomes simply $E = m \, n \, 2^{-S'}$. The same formula holds for DNA, with values of $K$ and $\lambda$ that belong to the DNA scores.
+
+#### Exercise
+
+[AI: Explainer](../intro/course-introduction.qmd#sec-badge-explainer){.small}
+
+Ask the assistant what the E-value of a BLAST hit means, and whether an E-value of 0.01 means there is a 1% chance that the hit is a coincidence. Then settle it yourself from the formula: what happens to the E-value of the very same alignment if the database were ten times smaller, and what does that tell you about whether the E-value can be a property of the hit alone? Decide whether the assistant's explanation holds up, and note in your logbook what it got right and what it got wrong.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+With a database ten times smaller, $n$ is ten times smaller, so $E$ is ten times smaller too: 0.001 instead of 0.01, for the same two sequences aligned in the same way. The E-value is therefore a property of the hit *and* the search. It says how many alignments at least this good you would expect from random sequences in a search of this size. For small values, that is close to the probability of getting at least one such alignment by chance anywhere in the search ($1 - e^{-E}$, which is 0.00995 for $E = 0.01$). That is not the same as the probability that this particular hit is a coincidence, which also depends on how many real relatives the database holds. An explanation that says "a 1% chance this hit is random" and stops there has skipped the part about the size of the search.
+
+:::
+
+## Gapped BLAST: two hits on one diagonal {#sec-blast-1997}
+
+Seven years after the first paper, the same group published a new BLAST for proteins ([Altschul et al., 1997](https://doi.org/10.1093/nar/25.17.3389)) that was about three times faster and at least as sensitive. It changed two things.
+
+### Asking for two clues instead of one {#sec-blast-two-hit}
+
+The authors measured where the original BLAST spent its time. Most of it went to Step 3, extending hits, and almost all of those extensions led nowhere: a random match in a random place, extended a few letters until the X-drop rule stopped it. You saw a different kind of waste in [Step 3](#sec-blast-extend): when there is a good alignment, it contains many hits on the same diagonal, and each one is extended into the same HSP.
+
+Both observations point to the same fix. An alignment worth finding is usually long enough to contain more than one hit. A random hit, on the other hand, is rarely accompanied by another one nearby on the same diagonal. So the new BLAST only extends when it finds *two* hits on the same diagonal that do not overlap and are no more than $A$ letters apart. The paper used $A = 40$. This is the *two-hit method*, and the two hits together are sometimes called a *paired seed*. To find them, BLAST sorts the hits by diagonal, $j - i$, and looks at neighboring hits along each diagonal.
+
+Requiring two hits means fewer extensions, but it also risks missing alignments that only have one hit. To win back that sensitivity, the authors lowered the threshold $T$ from 13 to 11. As the table in [the section on protein search](#blast-protein-search) shows, that means bigger neighborhoods and many more hits. But since only pairs of hits trigger an extension, the number of extensions still goes way down. On the protein database from that section, the original one-hit BLAST with $T = 13$ extends `{python} n(len(one_hit))` hits and finds `{python} count_relatives(one_hit, protein_relatives)` of the 10 relatives. The two-hit BLAST with $T = 11$ starts from `{python} n(len(protein_hits[11]))` hits, but extends only `{python} n(len(two_hit))` paired seeds, and finds `{python} count_relatives(two_hit, protein_relatives)` relatives. @fig-blast-two-hit shows why. Only about one random hit in `{python} round(1 / seed_fraction)` has a partner close by on its diagonal, so most of them are never extended. A relative, on the other hand, has hits all along its diagonal, and many of them come in pairs.
+
+```{python}
+#| label: fig-blast-two-hit
+#| fig-cap: "Hits of the protein query at T = 11 in a stretch of the database that holds one relative, whose diagonal is shaded blue. Gray dots are hits. Orange dots are paired seeds: the second of two hits on the same diagonal, no more than 40 letters apart. Only the orange dots are extended. Along the diagonal of the relative they form a line, while elsewhere only a few random hits happen to pair up."
+start = sorted(protein_relatives)[0]
+draw_two_hit(start - 600, start + len(protein_query) + 600)
+```
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+A protein search with word size 3 has produced these hits, written as (position in query, position in subject):
+
+```txt
+(5, 25)   (14, 34)   (30, 10)   (60, 80)   (61, 81)   (70, 50)   (102, 122)
+```
+
+Find the diagonal of each hit. Then, for each diagonal, sort its hits by query position and look at each pair of neighbors. Which pairs trigger an extension with $A = 40$? Remember that the two hits must not overlap. For each pair that does not trigger one, say which condition it fails.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+```{python}
+#| include: false
+exercise_hits = [(5, 25), (14, 34), (30, 10), (60, 80), (61, 81), (70, 50), (102, 122)]
+exercise_seeds = two_hit_seeds(exercise_hits, 3, 40)
+```
+
+Five hits lie on diagonal 20 (query positions 5, 14, 60, 61 and 102) and two on diagonal −20 (query positions 30 and 70). On diagonal 20, the hits at 5 and 14 are 9 apart, which is at least 3 and at most 40, so they trigger an extension. The hits at 14 and 60 are 46 apart, too far. The hits at 60 and 61 are only 1 apart, so their words overlap and they count as one clue. The hits at 61 and 102 are 41 apart, just too far. On diagonal −20, the hits at 30 and 70 are exactly 40 apart, which is allowed. So `{python} len(exercise_seeds)` extensions start, from the hits `{python} " and ".join(str(s) for s in exercise_seeds)`.
+
+:::
+
+### Gaps, but only where they matter {#sec-blast-gapped}
+
+The original BLAST found only ungapped alignments. If a related sequence had an insertion, BLAST would report two separate HSPs, one on each side of it, each with a weaker score and a worse E-value than the whole alignment deserved.
+
+The 1997 BLAST adds gaps, but without paying for a full Smith-Waterman alignment. When an ungapped extension reaches a score high enough to be interesting, BLAST picks a point in the middle of the best part of that HSP and starts a gapped alignment from there, spreading outward in both directions. It fills in the alignment table just like Smith-Waterman does, with one difference: it uses the X-drop idea again, and stops filling in cells whose score has dropped too far below the best seen so far. In practice it only fills in a narrow band around the diagonal, which is a tiny part of the full table. Only a handful of HSPs per search ever get that far, so the gapped step costs little.
+
+Gapped alignments come at a price in the statistics. The formula for the E-value was proven only for ungapped alignments, but it turns out to fit gapped ones too, with different values of $\lambda$ and $K$. Those values were found by aligning huge numbers of random sequences and measuring, and BLAST keeps a table of them for each combination of substitution matrix and gap scores. For BLOSUM62 with an affine gap score of 11 to open and 1 to extend, the default for `blastp`, $\lambda$ is `{python} foxp2.stat["lambda"]` and $K$ is `{python} foxp2.stat["kappa"]`, as the search in [the Biopython BLAST section](#sec-biopython-blast) reports. That is why you can only choose among a fixed menu of gap scores on the BLAST website. The same paper also introduced PSI-BLAST, which you will meet among the variants below.
+
+## BLAST at NCBI {#sec-blast-ncbi}
+
+Today's BLAST at NCBI, called BLAST+ ([Camacho et al., 2009](https://doi.org/10.1186/1471-2105-10-421)), is a descendant of the 1997 version. Go to [blast.ncbi.nlm.nih.gov](https://blast.ncbi.nlm.nih.gov) and look at the start page while you read this section. It offers five basic programs, and which one you need depends on two questions: is your query DNA or protein, and is the database DNA or protein?
+
+| Program | Query | Database | What is compared |
+|---|---|---|---|
+| `blastn` | DNA | DNA | DNA with DNA |
+| `blastp` | protein | protein | protein with protein |
+| `blastx` | DNA | protein | the query translated in all six reading frames, with proteins |
+| `tblastn` | protein | DNA | the protein with the database translated in all six reading frames |
+| `tblastx` | DNA | DNA | the query translated in six frames, with the database translated in six frames |
+
+Why translate at all, when you could compare DNA with DNA? Because proteins change more slowly than the DNA that codes for them. The genetic code has several codons for most amino acids, so the DNA of two related genes can drift apart while their proteins stay much the same. Comparing at the protein level finds relatives that `blastn` would miss. You saw the DNA side of this in @fig-blast-tradeoff: once a relative is only about half identical at the DNA level, exact DNA words rarely find it. The six reading frames are the three ways of splitting a DNA sequence into codons, on each of the two strands, as in the ORF project (@sec-orf-project). Since `tblastx` compares each of the six frames of the query with each of the six frames of every database sequence, it makes 36 comparisons per pair of sequences, which is why it is by far the slowest of the five.
+
+### Choosing an algorithm {#sec-blast-algorithms}
+
+Once you have picked nucleotide or protein BLAST on the website, the page lets you choose among variants of the algorithm under *Program Selection*. They differ in how they find hits, which is Step 1 and Step 2 above.
+
+For nucleotide BLAST, the choice is the speed and sensitivity trade-off from [earlier in this chapter](#sec-blast-parameters). `megablast` is for finding sequences that are nearly identical to yours, like the same gene in another person or a closely related species. It is the fastest, because it demands an exact match of 28 bases before it extends anything ([Zhang et al., 2000](https://doi.org/10.1089/10665270050081478)), and long words give very few random hits. `blastn` is the classic version and uses words of 11 bases. It is slower but finds more distant relatives. `discontiguous megablast` is meant for comparing genes across species that are further apart. Its words are *spaced seeds*: it looks at, say, 11 positions spread out over a window of 16 or more bases, and ignores the positions in between ([Ma et al., 2002](https://doi.org/10.1093/bioinformatics/18.3.440)). If the ignored positions are the third positions of codons, where mutations often do not change the amino acid, the seed still matches two genes whose DNA differs at many third positions. It gets some of the sensitivity of short words with the few random hits of long ones.
+
+For protein BLAST, the variants differ more. `blastp` is the standard protein search, essentially the 1997 algorithm. `Quick BLASTP` is an accelerated version that NCBI recommends when you expect your relatives to share at least half their amino acids with your query. `PSI-BLAST` (position-specific iterated BLAST, from the same 1997 paper) runs `blastp` and then builds a new scoring table from the significant hits it found. In that table, each position of your query gets its own scores, so a position that is always a glycine among the relatives scores very high for glycine and low for everything else, while a position where the relatives vary is more forgiving. It then searches again with that table, and repeats. Each round can find relatives too distant for the previous round to see. The danger is that a single unrelated sequence that sneaks into the table drags in its own relatives in the next round, so you must look at what is added each round. `PHI-BLAST` only reports alignments that contain a pattern you give it, such as a known active-site motif ([Zhang et al., 1998](https://doi.org/10.1093/nar/26.17.3986)). `DELTA-BLAST` builds a position-specific scoring table like PSI-BLAST does, but gets it from a database of known protein domains rather than from your own search ([Boratyn et al., 2012](https://doi.org/10.1186/1745-6150-7-12)). That often finds distant relatives in a single round.
+
+### Choosing a database {#sec-blast-databases}
+
+The database menu matters as much as the program, because the E-value depends on the size of the database, and because you can only find what is in it. For proteins, `nr` (non-redundant) holds nearly every protein sequence NCBI has, `ClusteredNR` groups very similar sequences in `nr` together so that you get one hit per group rather than a hundred near-identical ones, `refseq_protein` holds NCBI's curated reference sequences, `swissprot` holds the hand-curated UniProt/Swiss-Prot entries, and `pdb` holds proteins with a known 3D structure. For DNA, there is a large nucleotide collection along with more specialized databases, such as RefSeq transcripts and genomes. The menu changes over time as NCBI reorganizes its data, so read the description of each database on the page before you pick one.
+
+NCBI also offers specialized tools built on BLAST, which you find further down the start page. `Primer-BLAST` designs PCR primers and checks that they only match where you want them to. `IgBLAST` analyzes antibody and T-cell receptor sequences. `SmartBLAST` gives a quick overview of the best protein matches. If you tick *Align two or more sequences* on any of the search pages, you can compare your query directly with sequences you paste in, without searching a database at all.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+For each of the situations below, decide which program you would use, and for nucleotide searches which algorithm. Write down your answer and a one-sentence reason for each before you open the answer. Base the reasons on what you have seen in this chapter, in particular @fig-blast-tradeoff.
+
+- You have a gene from a mouse and want to find the same gene in other mammals, where you expect the DNA to be about 85% identical.
+- You want to find the same gene in fish, where you expect the DNA to be much less similar.
+- You have sequenced a stretch of DNA from an unknown bacterium and want to know whether it codes for a known protein.
+- You have a protein from a fruit fly and want to find the genes in a newly sequenced, not yet annotated, mosquito genome that code for something similar.
+- You have a PCR product and want to check that it matches the human gene you meant to amplify.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+Mouse to other mammals: `blastn`, or `discontiguous megablast`. At 85% identity a related gene still has plenty of unbroken stretches of 11 bases, like the 78% identical relatives in @fig-blast-tradeoff, which were found at every word size. Stretches of 28 identical bases are rarer, so `megablast` may miss parts of the gene.
+
+Mouse to fish: compare proteins instead. Translate the gene and use `blastp` against fish proteins, or `tblastn` against fish genomes. At low DNA identity, exact DNA words rarely hit (the 55% identical relatives in the figure), while the protein is far better conserved. `discontiguous megablast` is the nucleotide option if you must stay with DNA.
+
+Unknown bacterial DNA: `blastx`, which translates your DNA in all six frames and searches the protein database.
+
+Fly protein against an unannotated mosquito genome: `tblastn`, which translates the genome in all six frames. There are no annotated mosquito proteins to search with `blastp` yet.
+
+PCR product against the human gene: `blastn` with `megablast`. You expect a nearly identical match, and long words make it fast.
+
+:::
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Go to the BLAST website, choose Protein BLAST, and search with the human FOXP2 protein from [the Biopython chapter](../python/biopython.ipynb#sec-biopython-features) against the `swissprot` database. You can paste its accession, `NP_683698.2`, into the query box. Before you press the button, predict what the list of hits will look like: which proteins will be at the top, and will there be other proteins than FOXP2 further down? When the results come, look at the E-value, the percent identity and the bit score of the hits. Where in the list does the percent identity suddenly drop, and what kind of proteins come after that point? Why are most of the E-values reported as 0?
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Show the answer
+
+The top of the list is FOXP2 from other species: other primates, mouse, rat, and further down a frog. These are orthologs, the same gene in different species, and they are more than 90% identical to the human protein. Then the identity drops to around 60%, and the hits are FOXP1, FOXP4 and FOXP3. These are paralogs: other members of the same gene family in the same and other species, which arose by gene duplication long before the species split. The E-values are reported as 0 because they are too small to print: with bit scores in the hundreds, the number of alignments this good you would expect among random sequences is so tiny that BLAST rounds it to 0. The first hit, human FOXP2 itself, is not 100% identical, because our protein is isoform IV, made from transcript variant 4, and the Swiss-Prot entry is the canonical isoform. The alignment of the two has gaps where one isoform has a stretch of amino acids the other lacks. [The next section](#sec-biopython-blast) shows the same search done from Python.
+
+:::
+
+## Biopython BLAST {#sec-biopython-blast}
+
+You can run the same searches from Python. The function `Blast.qblast` in Biopython sends your sequence to NCBI's BLAST servers. You give it the BLAST program, the database, and your sequence. A search at NCBI takes at least a minute, and when many people are using the servers, it can wait in their queue for much longer. NCBI also asks that you send no more than one search every ten seconds. So you save the result to a file and work with the file from then on:
+
+```python
+from Bio import Blast
+
+Blast.email = "your.name@post.au.dk"   # use your own address
+
+stream = Blast.qblast("blastp", "swissprot", protein, hitlist_size=20)
+with open("data/foxp2_blastp.xml", "wb") as f:
+    f.write(stream.read())
+stream.close()
+```
+
+Here `protein` is the FOXP2 protein sequence as a string. The `"wb"` opens the file for writing *bytes* rather than text, because that is what the stream from NCBI delivers. The result is an XML file, which `Blast.read` turns into Python objects. The record holds one `Hit` for each database sequence that BLAST found, and you loop over it like a list. Each `Hit` holds one or more HSPs, which are the alignments between your sequence and that database sequence, and each HSP has its statistics in a dictionary called `annotations`:
+
+```python
+blast_record = Blast.read("data/foxp2_blastp.xml")
+for hit in blast_record:
+    hsp = hit[0]
+    identity = 100 * hsp.annotations["identity"] / hsp.length
+    print(hit.target.id, hsp.annotations["evalue"], round(identity, 1),
+          hit.target.description[:40])
+```
+
+For the FOXP2 search from the exercise above, saved in the course's `data/foxp2_blastp.xml`, that prints:
+
+```{python}
+for hit in foxp2:
+    hsp = hit[0]
+    identity = 100 * hsp.annotations["identity"] / hsp.length
+    description = hit.target.description.split(" >")[0]
+    name = description.split("Full=")[1].split(";")[0].split(" [")[0]
+    species = description[description.rfind("[") + 1:description.rfind("]")]
+    print(f"{hit.target.id:14} {hsp.annotations['evalue']:<10.3g} {identity:5.1f}  {name} ({species})")
+```
