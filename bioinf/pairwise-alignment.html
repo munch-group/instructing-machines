@@ -876,7 +876,7 @@ Figure&nbsp;53.4: Computing two cells. Each of the three neighbors contributes i
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="35d3c09a" class="cell" data-execution_count="6">
+<div id="bf0e2237" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -938,7 +938,7 @@ Figure&nbsp;53.5: Traceback. Starting from the bottom right corner, each arrow p
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="830d32a1" class="cell" data-execution_count="8">
+<div id="24afece7" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -948,7 +948,7 @@ Figure&nbsp;53.5: Traceback. Starting from the bottom right corner, each arrow p
 </div>
 </div>
 <p>The best score is 1, and three alignments reach it:</p>
-<div id="3ecc3f48" class="cell" data-execution_count="9">
+<div id="a63c1156" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-stdout">
 <pre><code>GGGCT
 GAGGG
@@ -981,7 +981,7 @@ GAGGG-
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="8d4eb44d" class="cell" data-execution_count="10">
+<div id="c48351f3" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1002,7 +1002,7 @@ G-TAC</code></pre>
 </section>
 <section id="sec-pa-matrices" class="level2 unnumbered page-columns page-full">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-matrices">Score matrices in practice</h2>
-<div id="cc67c94a" class="cell page-columns page-full" data-execution_count="11">
+<div id="e22a61cf" class="cell page-columns page-full" data-execution_count="11">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1019,7 +1019,7 @@ G-TAC</code></pre>
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-local">Local alignment</h2>
 <p>Global alignment, which is what Needleman-Wunsch does, aligns the two sequences from end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, and it fills them with mismatches and gaps that mean nothing.</p>
 <p>Here are two sequences that share a stretch of 15 bases, with one mismatch, inside unrelated flanks. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores 11, and 42 different global alignments share that score. Here is one of them:</p>
-<div id="0a63b5a1" class="cell" data-execution_count="12">
+<div id="e5d9e6bd" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-stdout">
 <pre><code>TTAGTTGTATGGCGTACCTGAAG--G--CCGC--A
    |  | ||||| |||||||||  |    ||   
@@ -1027,7 +1027,7 @@ G-TAC</code></pre>
 </div>
 </div>
 <p>What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores 27:</p>
-<div id="42f375ce" class="cell" data-execution_count="13">
+<div id="b4f799fc" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-stdout">
 <pre><code>ATGGCGTACCTGAAG
 ||||| |||||||||
@@ -1113,7 +1113,7 @@ Figure&nbsp;53.7: Traceback paths for global (left) and local (right) alignment 
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="60c3d611" class="cell" data-execution_count="16">
+<div id="da85b02f" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
