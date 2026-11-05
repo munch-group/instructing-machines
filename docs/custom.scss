@@ -1263,3 +1263,24 @@ main.content > h2 {
 .cell-output-display:has(table.dataframe) {
   margin-bottom: 1.5rem;
 }
+
+
+blockquote {
+  position: relative;
+  font-style: italic;
+  padding: 10px 20px 10px 50px;
+  margin: 1.5em 10px;
+  border-left: 4px solid #007bc2; /* Optional: adds a vertical accent line */
+}
+
+/* Large opening quotation mark */
+blockquote::before {
+  content: "\201C"; /* Unicode for left double quote */
+  font-family: Georgia, serif;
+  font-size: 5rem; /* Makes the quote large */
+  position: absolute;
+  left: 10px;
+  top: -10px;
+  color: #007bc2; /* Match theme or accent color */
+  line-height: 1;
+}
