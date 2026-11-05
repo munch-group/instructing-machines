@@ -1,0 +1,198 @@
+# Project: Which ORFs are genes? {#sec-plasmid-project}
+
+![](images/under-construction.png){width=20%}
+
+
+*This chapter is a programming project where you assemble a bacterial plasmid from sequencing reads, find all its open reading frames, and then work out which of them are genes.*
+
+In @sec-orf-project you searched the genome of *Escherichia coli* O157:H7 Sakai for open reading frames. The file you used held only the chromosome. The strain also carries a plasmid called pO157, a ring of DNA 92,721 bases long that is copied and passed on separately from the chromosome. Many of the genes that make this strain dangerous sit on that plasmid: the four hemolysin genes *hlyA* to *hlyD* that let the bacterium break open red blood cells, the protease EspP, and the large toxin gene *toxB*.
+
+When you ran your ORF finder on the chromosome, you got many thousands of ORFs and translated all of them into "candidate proteins". Most of them are not proteins at all. Any stretch of DNA has start codons, and an ATG followed by a hundred or so bases without a stop codon happens often enough by chance. Deciding which ORFs are genes is the problem of *gene prediction*, and every newly sequenced genome has to go through it before anyone can say what the organism can do. That is what you do in this project, for pO157.
+
+The plasmid comes to you the way it would come off a sequencing machine. It was cut open at one place where there is no gene, so the ring became a line, and that line was read as overlapping pieces. So before you can look for genes, you have to put the plasmid back together. The project has four parts:
+
+1. Assemble the plasmid from the reads, with your code from @sec-assembly-project.
+2. Find every candidate ORF on both strands, with your code from @sec-orf-project, @sec-translation-project and the reverse complement from @sec-folding-project.
+3. Measure how well a prediction does by computing its *sensitivity* and *specificity*.
+4. Collect evidence for and against each candidate, and combine it into a gene predictor of your own.
+
+Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
+
+```txt
+pixi run get plasmidproject
+```
+
+That puts the `plasmidproject` project folder straight into the `projects` folder inside your course folder, beside your notebooks.
+
+::: {.content-visible when-format="html"}
+If that fails, you can always click "Download project" in the top right corner of the page. This downloads a zip file to your Downloads folder that you need to then unpack and move into the `projects` folder of your student folder yourself.
+:::
+
+The folder holds these files:
+
+- `plasmid_reads.txt`: the sequencing reads, one per line, in the same format as in @sec-assembly-project.
+- `proteins.fasta`: 367 known proteins from four plasmids related to pO157, for the homology evidence in [Checkpoint 4](#sec-plasmid-project-evidence).
+- `genescore.py`: a module with one function, `score`, which tells you how good a set of predictions is (see [Checkpoint 3](#sec-plasmid-project-score)). Do not change it.
+- `plasmidproject.py`: where you write your code.
+- `test_plasmidproject.py`: the tests for the four checkpoints. Run them with `pytest test_plasmidproject.py`.
+
+## How this project is different {#sec-plasmid-project-rules}
+
+This is the week-twelve project, and as [the course introduction](../intro/course-introduction.qmd#sec-projects) says, at this point you get the goal and the data. Nobody tells you which functions to write. You decide how to break the problem into functions, what each one takes and returns, and how you test them. The assistant is open at [AI: Developer](../intro/course-introduction.qmd#sec-badge-developer){.small}, so you may hand it whole functions, under the rules of that badge.
+
+There are only five functions whose names and formats are fixed, because the test file and the scorer have to be able to call them:
+
+- `assemble_plasmid(file_name)`
+- `find_candidates(plasmid)`
+- `sensitivity(counts)` and `specificity(counts)`
+- `predict_genes(candidates, plasmid)`
+
+The test file checks each of them at one of four *checkpoints*, and it checks nothing else. It does not tell you which of your own functions is broken, only whether the checkpoint is reached. So write the tests for your own functions yourself, as you go.
+
+Before you send the assistant a single prompt, open a file called `criteria.md` in the project folder. For each of the parts below, write the functions you plan, with what each takes and returns and two concrete examples, and write what would count as the part having failed. The assistant is useful once that plan exists. It can tell you about a case your examples miss, or write a function you have specified. If you ask it to "do the plasmid project", you get back its plan instead of yours, and you have no criteria to judge it by. Keep notes for your logbook as you go: where the assistant was right, where it was wrong, and how you found out.
+
+## Checkpoint 1: Assemble the plasmid {#sec-plasmid-project-assembly}
+
+`plasmid_reads.txt` holds 138 reads. Like the reads in @sec-assembly-project, they have no sequencing errors, they all come from the same strand, and no read lies inside another. They are longer, though: each read is between 900 and 1,100 bases, and each read overlaps the next one along the plasmid by between 250 and 400 bases. The first read starts at the place where the plasmid was cut open.
+
+Your assembly code from week ten nearly does the job. It will not do it unchanged, and the reason is the overlap rule. That code counted any overlap of more than two bases as a sign that two reads were neighbors. Before you run anything, think about how long a chance overlap between two unrelated 1,000-base reads can be, and how often one of 138 reads will have one. Then run your old code, see what happens, and change the rule.
+
+Comparing every read to every other read is 138 × 137 = 18,906 overlap computations. With a sensible `get_overlap` that takes a few seconds. If your assembly takes minutes, look at that function first.
+
+*Write a function*, `assemble_plasmid`, that takes one argument:
+
+1. A string, which is the name of the file with the reads.
+
+The function must return:
+
+* A string, which is the assembled plasmid, 92,721 bases long.
+
+## Checkpoint 2: Find the candidate ORFs {#sec-plasmid-project-candidates}
+
+A candidate is an open reading frame: a start codon `ATG` followed, in the same reading frame, by the first stop codon (`TAA`, `TAG` or `TGA`). An `ATG` that never meets a stop codon before the sequence ends does not count. To compare your candidates with everyone else's, and with the scorer, the rules for which candidates exist have to be exact:
+
+- **Both strands.** Genes can sit on either strand. The sequence of the other strand is the reverse complement of the plasmid, and you find its ORFs by searching that sequence the same way you search the plasmid. A candidate on the plasmid's own strand has strand `'+'`, one on the reverse complement has strand `'-'`.
+- **Positions belong to the strand.** `start` is the index of the first base of the start codon, and `stop` is the index of the first base of the stop codon, both counted in the sequence the ORF was found in. For a `'-'` candidate, that is the reverse complement.
+- **One candidate per stop codon.** Several start codons in the same frame can lead to the same stop codon, and your ORF finder from week nine returned one ORF for each of them. Here you keep only the longest, the one with the leftmost start codon. A gene has one stop codon, but where it starts is often uncertain.
+- **No minimum length.** An `ATG` followed directly by a stop codon is a candidate too. Deciding which candidates are too short to be genes is part of your job in the next two parts.
+
+Each candidate is a dictionary with these four keys, and you may add more keys of your own if you find them useful:
+
+```python
+{'strand': '+', 'start': 1203, 'stop': 2064, 'protein': 'MKLV...'}
+```
+
+`protein` is the translation from the start codon up to the stop codon, without the stop codon itself.
+
+*Write a function*, `find_candidates`, that takes one argument:
+
+1. A string, which is the plasmid sequence.
+
+The function must return:
+
+* A list of candidate dictionaries, in any order.
+
+Example usage:
+
+```python
+find_candidates('ATGAAAATGCCCTAAGTCAAAACAT')
+```
+
+should return this list (in some order):
+
+```python
+[{'strand': '+', 'start': 0, 'stop': 12, 'protein': 'MKMP'},
+ {'strand': '-', 'start': 0, 'stop': 6, 'protein': 'MF'}]
+```
+
+The `ATG` at index 6 reaches the same stop codon as the one at index 0, so it gives no candidate of its own. The `'-'` candidate is found in the reverse complement, `ATGTTTTGACTTAGGGCATTTTCAT`. Check both by hand before you trust your code with them. On the assembled plasmid you should find 1,922 candidates.
+
+## Checkpoint 3: Sensitivity and specificity {#sec-plasmid-project-score}
+
+To know whether a prediction is any good, you need something to compare it with. The public record of pO157 in GenBank annotates 85 genes on it, and the module `genescore.py` knows which of your candidates they are. It keeps them as scrambled codes, so you cannot read them off, but it can count. Give it your predictions, which are some of your candidates, and all the candidates:
+
+```python
+from genescore import score
+
+counts = score(predictions, candidates)
+```
+
+and it returns a dictionary with four counts:
+
+```python
+{'TP': 61, 'FP': 21, 'TN': 1816, 'FN': 24}
+```
+
+| | annotated gene | not annotated |
+|:--|:--:|:--:|
+| **predicted gene** | TP (true positive) | FP (false positive) |
+| **not predicted** | FN (false negative) | TN (true negative) |
+
+A candidate is matched to an annotated gene by its strand and its stop codon, for the same reason as above: the stop codon is certain, the start is not.
+
+Two numbers summarize the table. The *sensitivity* is the fraction of the true genes that you found, and the *specificity* is the fraction of the non-genes that you correctly left out:
+
+$$
+\text{sensitivity} = \frac{TP}{TP + FN} \qquad\qquad \text{specificity} = \frac{TN}{TN + FP}
+$$
+
+*Write two functions*, `sensitivity` and `specificity`, that each take one argument:
+
+1. A dictionary of counts as returned by `score`.
+
+Each function must return:
+
+* A float between 0 and 1.
+
+Before you use them, decide what sensitivity and specificity you get if you predict that every candidate is a gene, and what you get if you predict that none of them are. Then check with `score`.
+
+The simplest evidence you have is length, since a long ORF is unlikely to happen by chance. Use it as your baseline: predict that every candidate whose protein is at least some minimum length is a gene, and compute sensitivity and specificity for minimum lengths 0, 25, 50, and so on up to 300. Put the results in a table and in a plot (@sec-plotting). As the minimum length goes up, one of the two numbers rises and the other falls. Every other piece of evidence in this project is judged against this curve: at the same specificity, does it find more genes than length alone?
+
+`score` writes a line to `score_log.txt` every time you call it. Keep that file. It comes up again in [Checkpoint 4](#sec-plasmid-project-evidence).
+
+## Checkpoint 4: Weigh the evidence {#sec-plasmid-project-evidence}
+
+Now comes the main part of the project. A gene leaves more traces in the DNA than its length, and your job is to find some of them, measure what each is worth, and combine them in a function `predict_genes(candidates, plasmid)` that returns the candidates you predict are genes. The checkpoint test only checks that it returns some of the candidates. How good the prediction is, you measure yourself with `score`.
+
+Write each piece of evidence as its own function that looks at one candidate (and the plasmid, if it needs it) and returns `True` or `False`, or a number. Then you can measure each piece on its own before you combine them. Here are some ideas. You are expected to try at least two of them, or ideas of your own, in addition to length.
+
+**A ribosome binding site.** In bacteria, the ribosome finds the start of a gene by pairing with a short sequence a few bases upstream of the start codon, the Shine-Dalgarno sequence, which is close to `AGGAGG`. Real genes often have part of it about 5 to 15 bases before their `ATG`, and chance ORFs rarely do. Remember that for a `'-'` candidate, "upstream" is in the reverse complement.
+
+**Similarity to known proteins.** A gene on pO157 often has a relative on another plasmid. `proteins.fasta` holds 367 proteins from four plasmids related to pO157: the F plasmid of *E. coli* K-12, the virulence plasmid of *Shigella flexneri*, a plasmid of *Salmonella* Typhimurium, and a plasmid from another disease-causing *E. coli*. Proteins nearly identical to pO157's own were removed, so a match only ever points to a relative. You can score a candidate protein against each of them with a local alignment, as in [the Biopython chapter](../python/biopython.ipynb#sec-biopython-align):
+
+```python
+from Bio import Align
+from Bio.Align import substitution_matrices
+
+aligner = Align.PairwiseAligner()
+aligner.mode = "local"
+aligner.substitution_matrix = substitution_matrices.load("BLOSUM62")
+aligner.open_gap_score = -10
+aligner.extend_gap_score = -0.5
+
+print(aligner.score("MKLVINGKTLKGEITVE", "MKLVLNGKSLRGEVTVE"))
+```
+
+`score` is much faster than `align` when you need only the number. Even so, searching all candidates of 30 amino acids or more against all 367 proteins takes about a minute, so compute the scores once and save them to a file. Then decide how high a score has to be to mean anything. You can find out without looking at the answers: shuffle the letters of some candidate proteins, search with those, and see how high a score you get from chance alone.
+
+**Codon usage.** In @sec-codonbias-project you saw that a genome does not use all codons for an amino acid equally. Real genes share that preference, and chance ORFs do not. The longest candidates, say 300 amino acids or more, are almost all genes, so you can compute a reference codon usage from them and ask how well each shorter candidate fits it.
+
+**Overlap.** Genes on a plasmid are packed tightly but rarely overlap much. A candidate lying almost entirely inside a much longer candidate, on the other strand or in another frame, is probably a shadow of the longer gene rather than a gene of its own.
+
+**A shuffled plasmid.** This one is not evidence about a candidate. It is a way to check your predictor without the scorer. Shuffle the bases of the plasmid with `random.shuffle`, find the candidates in the shuffled sequence, and run `predict_genes` on them. The shuffled sequence has no genes, so every prediction there is a false positive. If your predictor finds many genes in it, it will find just as many false ones in the real plasmid.
+
+**Your own idea.** If you know something about genes that none of these use, try it. That counts as much as any idea on the list.
+
+When you combine the pieces, keep in mind what the scorer is. Every time you call `score`, you learn a little about the answers, and if you adjust your thresholds until the score is as high as it can get, you end up with a predictor tuned to this one plasmid that does worse on the next. Set your thresholds from biology and from shuffled sequences where you can, and use `score` to measure the result. `score_log.txt` will show how many times you looked.
+
+## Are the annotations right? {#sec-plasmid-project-annotation}
+
+When your predictor is done, look at the false positives it is most confident about, for example the ones with the highest homology scores. Use the GenBank record of the plasmid (RefSeq `NC_002128.1`, read as in [the Biopython chapter](../python/biopython.ipynb#sec-biopython-genbank)) to see what is annotated near them. Before you call them mistakes, consider where the answers came from. The record says its gene annotation was made by a gene-prediction program and compared with what the original scientists submitted. Of the 85 annotated genes, 37 are called "hypothetical protein", which means nobody has shown that they make a protein. A false positive with a strong match to a known protein might be a mistake in your predictor, or it might be a mistake in the annotation. Write down which you think it is, and why.
+
+## What to hand in {#sec-plasmid-project-handin}
+
+- `plasmidproject.py`, passing all four checkpoints when you run `pytest test_plasmidproject.py`.
+- The tests you wrote for your own functions.
+- `criteria.md`, with the plan and the criteria you wrote before you started, and a note on where you changed them later and why.
+- `score_log.txt`.
+- A short report, `report.md`, with your length table and plot, the sensitivity and specificity of each piece of evidence on its own and of your final `predict_genes`, the number of `score` calls in your log, and what you concluded about your most confident false positives. End the report with the function you delegated most to the assistant, explained line by line in your own words, and one place where the assistant was wrong and how you found out.

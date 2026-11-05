@@ -774,8 +774,7 @@ mention pixi (test_doctor 71, test_cli 19, test_release 9, test_editor 2).
 
 ## Out of scope, found along the way
 
-- The pyarmor oracles target darwin.x86_64, linux.x86_64 and windows.x86_64
-  only, so they will not load on Apple Silicon (under pixi or uv). Their
-  runtime `.so` files are gitignored, and nothing imports `oracle`. Exclude
-  `oracle/` from the project zips, or drop the oracles.
+- The pyarmor oracles (darwin/linux/windows x86_64 only, so no Apple
+  Silicon) have been dropped: nothing used them. The `oracle/` folders, the
+  `build-oracles` task and the `pyarmor` dependency are gone.
 - `environment.py`'s `REQUIRED` list omits `vscodenb` and the Quarto CLI.
