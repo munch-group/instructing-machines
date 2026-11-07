@@ -7,7 +7,7 @@ execute:
 
 # BLAST {#sec-blast}
 
-If you have a sequence, BLAST finds the sequences in a large database that are similar to it, and it does so in seconds rather than days. This chapter explains how. BLAST is built from ideas you already know from @sec-pairwise-alignment, combined with a shortcut that gives up a guarantee in exchange for speed, and a piece of statistics that tells you how much to trust what it finds.
+If you have a sequence, BLAST (Basic Local Alignment and Search Tool) finds the sequences in a large database that are similar to it, and it does so in seconds rather than days. This chapter explains how. BLAST is built from ideas you already know from @sec-pairwise-alignment, combined with a shortcut that gives up a guarantee in exchange for speed, and a piece of statistics that tells you how much to trust what it finds.
 
 ```{python}
 #| include: false
@@ -165,7 +165,8 @@ random.seed(1)
 query_300 = random_seq(300, "ACGT")
 relative = mutate(query_300, 0.35, "ACGT")
 subject_900 = random_seq(300, "ACGT") + relative + random_seq(300, "ACGT")
-dot_sizes = [6, 11, 16]
+# dot_sizes = [6, 11, 16]
+dot_sizes = [6, 11]
 dotplots = [(subject_900, find_hits(exact_lookup(query_300, w), subject_900, w)) for w in dot_sizes]
 
 random.seed(3)
@@ -260,7 +261,7 @@ def draw_words(ax, seq, w, rows):
 def draw_word_figure(seq, word_sizes):
     rows = len(seq) - min(word_sizes) + 1
     fig, axes = plt.subplots(1, len(word_sizes),
-                             figsize=(4.2 * len(word_sizes), 0.3 * (rows + 1) + 0.6))
+                             figsize=(3.5 * len(word_sizes), 0.3 * (rows + 1) + 0.6))
     for ax, w in zip(axes, word_sizes):
         draw_words(ax, seq, w, rows)
     plt.subplots_adjust(wspace=0.2)
@@ -410,8 +411,6 @@ def draw_evalue():
     plt.show()
 ```
 
-## Why not just align against everything? {#sec-blast-why}
-
 In @sec-pairwise-alignment you met [local alignment](pairwise-alignment.qmd#sec-pa-local) and the Smith-Waterman algorithm ([Smith and Waterman, 1981](https://doi.org/10.1016/0022-2836(81)90087-5)), which is guaranteed to find the best local alignment of two sequences. So why not align your sequence to every sequence in the database and keep the best ones?
 
 The answer is arithmetic. Smith-Waterman fills in a table with one cell for every pair of positions, one from each sequence. Aligning a gene of 1,000 bases to another of 1,000 bases means filling in a million cells, which is nothing for a computer. But a database is not one sequence. The human genome alone is about 3.1 billion bases long, so aligning a single gene against it means filling in $1000 \times 3.1 \times 10^9 = 3.1 \times 10^{12}$ cells. A computer that fills in a hundred million cells per second needs 31,000 seconds, more than eight and a half hours, and NCBI's databases hold the genomes of a great many species besides. Now picture an NCBI server answering thousands of searches every hour.
@@ -491,7 +490,7 @@ print(toy_hsp[2])
 
 Extending every one of the `{python} len(hits)` hits gives only `{python} len(toy_hsps)` different HSPs. All hits on the main diagonal grow into the same HSP, and the chance hits on other diagonals grow into short HSPs with low scores. Most of the work of extending is therefore wasted, a point [the improved BLAST of 1997](#sec-blast-1997) takes up.
 
-## Word size, threshold, speed and sensitivity {#sec-blast-parameters}
+## Word size and threshold {#sec-blast-parameters}
 
 A BLAST search spends most of its time extending hits, so the number of hits decides how fast it is. And it can only find a relative that contains at least one hit, so the number of hits in relatives decides how *sensitive* it is: how distant the relatives are that it can still find. Both depend on the word size and the threshold.
 
@@ -588,13 +587,9 @@ With a database ten times smaller, $n$ is ten times smaller, so $E$ is ten times
 
 :::
 
-## Gapped BLAST: two hits on one diagonal {#sec-blast-1997}
+## Gapped BLAST
 
-Seven years after the first paper, the same group published a new BLAST for proteins ([Altschul et al., 1997](https://doi.org/10.1093/nar/25.17.3389)) that was about three times faster and at least as sensitive. It changed two things.
-
-### Asking for two clues instead of one {#sec-blast-two-hit}
-
-The authors measured where the original BLAST spent its time. Most of it went to Step 3, extending hits, and almost all of those extensions led nowhere: a random match in a random place, extended a few letters until the X-drop rule stopped it. You saw a different kind of waste in [Step 3](#sec-blast-extend): when there is a good alignment, it contains many hits on the same diagonal, and each one is extended into the same HSP.
+Seven years after the first paper, the same group published a new BLAST for proteins ([Altschul et al., 1997](https://doi.org/10.1093/nar/25.17.3389)) that was about three times faster and at least as sensitive. It changed two things. The authors measured where the original BLAST spent its time. Most of it went to Step 3, extending hits, and almost all of those extensions led nowhere: a random match in a random place, extended a few letters until the X-drop rule stopped it. You saw a different kind of waste in [Step 3](#sec-blast-extend): when there is a good alignment, it contains many hits on the same diagonal, and each one is extended into the same HSP.
 
 Both observations point to the same fix. An alignment worth finding is usually long enough to contain more than one hit. A random hit, on the other hand, is rarely accompanied by another one nearby on the same diagonal. So the new BLAST only extends when it finds *two* hits on the same diagonal that do not overlap and are no more than $A$ letters apart. The paper used $A = 40$. This is the *two-hit method*, and the two hits together are sometimes called a *paired seed*. To find them, BLAST sorts the hits by diagonal, $j - i$, and looks at neighboring hits along each diagonal.
 
@@ -632,8 +627,6 @@ exercise_seeds = two_hit_seeds(exercise_hits, 3, 40)
 Five hits lie on diagonal 20 (query positions 5, 14, 60, 61 and 102) and two on diagonal −20 (query positions 30 and 70). On diagonal 20, the hits at 5 and 14 are 9 apart, which is at least 3 and at most 40, so they trigger an extension. The hits at 14 and 60 are 46 apart, too far. The hits at 60 and 61 are only 1 apart, so their words overlap and they count as one clue. The hits at 61 and 102 are 41 apart, just too far. On diagonal −20, the hits at 30 and 70 are exactly 40 apart, which is allowed. So `{python} len(exercise_seeds)` extensions start, from the hits `{python} " and ".join(str(s) for s in exercise_seeds)`.
 
 :::
-
-### Gaps, but only where they matter {#sec-blast-gapped}
 
 The original BLAST found only ungapped alignments. If a related sequence had an insertion, BLAST would report two separate HSPs, one on each side of it, each with a weaker score and a worse E-value than the whole alignment deserved.
 
