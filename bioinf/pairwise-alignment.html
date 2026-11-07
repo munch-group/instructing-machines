@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-23034aa8a78ac14147cd37b276cfaaf1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2a5d79b6f76227bb91da7b13ebda1a7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -659,20 +659,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../bioinf/molecular-evolution.html" class="sidebar-item-text sidebar-link">
+  <a href="../bioinf/dna-evolution.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../bioinf/scoring-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/plasmid-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Project: Which ORFs are genes?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: Which ORFs are genes?</span></span></a>
   </div>
 </li>
       </ul>
@@ -689,13 +695,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
   </div>
 </li>
       </ul>
@@ -711,8 +717,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+  <a href="../ai/dangers-of-AI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">dangers-of-AI.html</span></span></a>
   </div>
 </li>
       </ul>
@@ -729,8 +735,8 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-pa-scoring" id="toc-sec-pa-scoring" class="nav-link active" data-scroll-target="#sec-pa-scoring">Scoring an alignment</a></li>
-  <li><a href="#sec-pa-parts" id="toc-sec-pa-parts" class="nav-link" data-scroll-target="#sec-pa-parts">The best alignment is made of best alignments</a></li>
+  <li><a href="#sec-pa-scoring" id="toc-sec-pa-scoring" class="nav-link active" data-scroll-target="#sec-pa-scoring">Scoring alignments</a></li>
+  <li><a href="#a-recursive-solution" id="toc-a-recursive-solution" class="nav-link" data-scroll-target="#a-recursive-solution">A recursive solution</a></li>
   <li><a href="#sec-pa-table" id="toc-sec-pa-table" class="nav-link" data-scroll-target="#sec-pa-table">A table of scores</a></li>
   <li><a href="#sec-pa-traceback" id="toc-sec-pa-traceback" class="nav-link" data-scroll-target="#sec-pa-traceback">Traceback</a></li>
   <li><a href="#sec-pa-matrices" id="toc-sec-pa-matrices" class="nav-link" data-scroll-target="#sec-pa-matrices">Score matrices in practice</a></li>
@@ -766,78 +772,170 @@ window.Quarto = {
 </header>
 
 
-<p><img src="images/under-construction.png" class="img-fluid" style="width:20.0%"></p>
-<p>When two DNA sequences descend from the same ancestral sequence, most of their bases still sit in the same order, but some have been substituted, and some have been inserted or deleted. An alignment writes the two sequences above each other so that bases descending from the same ancestral base end up in the same column. This chapter shows how a computer finds the best such alignment among an astronomical number of candidates without trying them all. The method is called dynamic programming, and the version for whole sequences is the Needleman-Wunsch algorithm (<a href="https://doi.org/10.1016/0022-2836(70)90057-4">Needleman and Wunsch, 1970</a>), which you will implement yourself in <a href="../projects/alignment-project.html" class="quarto-xref"><span>Chapter 54</span></a>.</p>
-<section id="sec-pa-scoring" class="level2 unnumbered page-columns page-full">
-<h2 class="unnumbered anchored" data-anchor-id="sec-pa-scoring">Scoring an alignment</h2>
-<div id="cell-fig-pa-score-matrix" class="cell page-columns page-full" data-execution_count="2">
-
-<div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
+<p>Sequence alignment is the most fundamental and most often used task in Bioinformatics. Here we focus on pairwise alignment, I.e., alignment of just of sequences to each other.</p>
+<div id="cell-fig-example-alignment" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-example-alignment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-example-alignment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-example-alignment-output-1.png" width="336" height="63" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-alignment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.1: A pairwise alignment.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>When two DNA sequences descend from a shared ancestral sequence, we say they are orthologous. As mutations, insertions, and deletions accumulate on each sequence, they diverge from this shared ancestor and thus from each other. To see the accumulated differences, we need to first align the two sequences in a way that pair positions derived from the same ancestral sequence position.</p>
+<p>The example alignment in <a href="#fig-example-alignment" class="quarto-xref">Figure&nbsp;<span>53.1</span></a> implies that a mutation occured at the fifth base, but since we do not know if the fifth base of the ancestral sequence was A or C, we cannot say which of the two sequences mutated. In the same way, we do not know if one sequence gained a base as position ten or the other one lost the base at this position. In the context of alignments, where insertions and deletions cannot be distinguished, we refer to such positions as “indel”s, short for insertion/deletion. In a sense, alignemnts use mutations and indels to explain how two sequences derive from a single ancestor. The alignment in <a href="#fig-alternative-alignment" class="quarto-xref">Figure&nbsp;<span>53.2</span></a> aligns the same two sequences as <a href="#fig-example-alignment" class="quarto-xref">Figure&nbsp;<span>53.1</span></a>. This one puts the indel at the end, and implies five extra mutations. I am sure you agree that the first alignment is a more plausible that the second one.</p>
+<div id="cell-fig-alternative-alignment" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-alternative-alignment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-alternative-alignment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-alternative-alignment-output-1.png" width="336" height="63" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-alternative-alignment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.2: A pairwise alignment.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="sec-pa-scoring" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-scoring">Scoring alignments</h2>
+<p>To find an optimal alignment, we first need to decide how we define optimal. If we give each alignment column a score, we can compute an alignment score by summing up these scores across the alignment. A score matrix (<a href="#fig-pa-score-matrix" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>) defines scores for alignment columns with two bases. We want many alignemnt columns where the bases match and few where they do not, so we give columns with matching bases higher scores. We also want few alignment columns with gaps in one sequence, so we give gap columns a negative score.</p>
+<div id="cell-fig-pa-score-matrix" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
 <div id="fig-pa-score-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pa-score-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="pairwise-alignment_files/figure-html/fig-pa-score-matrix-output-1.png" width="198" height="164" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-score-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.1: Score matrix for the running example. A gap scores −1.
+Figure&nbsp;53.3: Score matrix for the running example. A gap scores −1.
 </figcaption>
 </figure>
 </div>
-</div></div></div>
-<p>Here is one way to align the sequences <code>gata</code> and <code>acta</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ga-ta</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>-acta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Each column pairs either two bases or a base with a gap, written as a dash. To decide how good the alignment is, we give each column a score and add them up. A score matrix, like the one in the margin, says what a pair of bases scores. In this one, two identical bases score 2 and two different bases score 0. Every column with a gap gets the gap score, which here is −1. The alignment above has the columns g/−, a/a, −/c, t/t and a/a, so its score is <span class="math inline">\(-1 + 2 - 1 + 2 + 2 = 4\)</span>. Scoring an alignment is the same kind of substitution and reduction you have done on Python expressions: replace each column by its score, then add.</p>
-<p>The best alignment is the one with the highest score, and the hard part is finding it. Even <code>gata</code> and <code>acta</code> can be aligned in 321 different ways. Two sequences of 100 bases each can be aligned in about <span class="math inline">\(2 \times 10^{75}\)</span> ways, so trying them all is out of the question, however fast the computer. The rest of this chapter is about an algorithm that finds the best alignment while looking at only a tiny fraction of them.</p>
+</div>
+</div>
+<p>The running example below uses the score matrix in <a href="#fig-pa-score-matrix" class="quarto-xref">Figure&nbsp;<span>53.3</span></a> giving identical bases a score of 2 and different bases a score of 0. For gaps we use a score of -1. The alignment of <code>gata</code> and <code>acta</code> below has columns g/−, a/a, −/c, t/t and a/a, so its score is <span class="math inline">\(-1 + 2 - 1 + 2 + 2 = 4\)</span>.</p>
+<div id="cell-fig-pa-alignment" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-alignment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-alignment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-alignment-output-1.png" width="237" height="125" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-alignment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.4: An alignment of <code>gata</code> and <code>acta</code>. Each column gets a score, written under it, and the alignment scores their sum.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="sec-pa-parts" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-pa-parts">The best alignment is made of best alignments</h2>
-<p>The algorithm rests on one observation. If you cut an optimal alignment in two, each part is an optimal alignment of the bases it contains. Take <code>ga-ta</code> over <code>-acta</code>, which is an optimal alignment of <code>gata</code> and <code>acta</code>. Cut it after the third column, or after the fourth:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ga- | ta         ga-t | a</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>-ac | ta         -act | a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The left part of the first cut, <code>ga-</code> over <code>-ac</code>, is an optimal alignment of <code>ga</code> and <code>ac</code>. The left part of the second cut is an optimal alignment of <code>gat</code> and <code>act</code>. This has to be so. If there were a better alignment of <code>gat</code> and <code>act</code>, you could put it in front of the last column <code>a</code>/<code>a</code> and get a better alignment of the whole sequences, which contradicts that the one you started with was optimal.</p>
-<p>Now look at the last column of the optimal alignment of <code>gata</code> and <code>acta</code>, whatever that alignment is. There are only three possibilities. The last column pairs the last base of each sequence (<code>a</code> with <code>a</code>). Or it pairs the last base of <code>gata</code> with a gap. Or it pairs a gap with the last base of <code>acta</code>. Whatever comes before the last column must, by the observation above, be an optimal alignment of what is left of the two sequences. Write <span class="math inline">\(S(i, j)\)</span> for the score of the best alignment of the first <span class="math inline">\(i\)</span> bases of <code>gata</code> and the first <span class="math inline">\(j\)</span> bases of <code>acta</code>. If someone told us the three scores <span class="math inline">\(S(3,3) = 2\)</span>, <span class="math inline">\(S(3,4) = 1\)</span> and <span class="math inline">\(S(4,3) = 1\)</span>, the three possibilities would score:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ga-t + a     ga-t- + a     ga-ta + -</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>-act   a     -acta   -     -act-   a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="a-recursive-solution" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="a-recursive-solution">A recursive solution</h2>
+<p>Having decided how to score alignments, leaves the hard part of finding the “optimal” alignemnt with the highest score among <em>many</em> possible alignments. In <a href="#fig-nr-aln-two-bases" class="quarto-xref">Figure&nbsp;<span>53.5</span></a>, you can see the possible alignments of DNA sequences with just two bases each. The number of alignments of two sequences with <span class="math inline">\(n\)</span> bases is <span class="math inline">\(N_{aln.}(n) = (2n)!/(n!)^2\)</span> and explodes as the <span class="math inline">\(n\)</span> increases: <span class="math inline">\(N_{aln.}(2) = 6\)</span>, <span class="math inline">\(N_{aln.}(5) = 252\)</span>, <span class="math inline">\(N_{aln.}(10) = 184,756\)</span>, <span class="math inline">\(N_{aln.}(20) = 137,846,528,820\)</span>. For two sequences of 140 bases, there are as many alignments as there are atoms in the visible universe, and 140 only amounts to a tenth of the CDS of an average human gene. So an optimal alignment is less like a needle in a haystack and more like an atom in ten universes.</p>
+<div id="cell-fig-nr-aln-two-bases" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div id="fig-nr-aln-two-bases" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nr-aln-two-bases-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-nr-aln-two-bases-output-1.png" width="507" height="167" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nr-aln-two-bases-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.5: The six different alignments of two sequences each with two bases (each light gray alignment is essentially the same as the preceeding black and differ only in the order of consequtive gap columns).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Fortunately, finding the optimal alignment score (and the corresponding alignmnet) can be broken into smaller identical problems, because each part of an optimal alignment is also an optimal alignment. If you cut an optimal alignment of of <code>gata</code> and <code>acta</code> in two, each part is an optimal alignment of the bases it contains. You can see two examples of this in <a href="#fig-pa-cuts" class="quarto-xref">Figure&nbsp;<span>53.6</span></a> where the yellow part of the left example, <code>ga-/-ac</code>, is an optimal alignment of <code>ga</code> and <code>ac</code>. The yellow part of the right example is an optimal alignment of <code>gat</code> and <code>act</code>. To see why this must be so, consider the contradiction: If it there existed a better alignmnet of <code>gat</code> and <code>act</code>, you could put that in front of the last column <code>a</code>/<code>a</code> and get a better alignment of the whole sequence. Since the full alignment was alreay optimal, this cannot be possible.</p>
+<div id="cell-fig-pa-cuts" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-cuts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-cuts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-cuts-output-1.png" width="407" height="97" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-cuts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.6: The optimal alignment of <code>gata</code> and <code>acta</code>, cut in two different places. The parts on each side of the cut are themselves optimal alignments of the bases they contain.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>No matter what, we know that the last column of the alignment must be one of three possibilities: It either pairs one base from each sequence (in this case <code>a/a</code>) or it pairs the last base from either sequence with a gap (in this case <code>a/-</code> and <code>-/a</code>). Whatever comes <em>before</em> the last column must (by our observation above) be an optimal alignment of the remaining bases. If you think this smells like recursion, you are not wrong. Lets write <span class="math inline">\(S(i, j)\)</span> for the score of the best alignment of the first <span class="math inline">\(i\)</span> bases of sequence one (<code>gata</code>) and the first <span class="math inline">\(j\)</span> bases of sequence two (<code>acta</code>). For each of the three last coluimns, the optimal alignment scores for the remaining bases are <span class="math inline">\(S(3,3)\)</span>, <span class="math inline">\(S(3,4)\)</span> and <span class="math inline">\(S(4,3)\)</span>. Now, if someone told us those three scores <span class="math inline">\(S(3,3) = 2\)</span>, <span class="math inline">\(S(3,4) = 1\)</span> and <span class="math inline">\(S(4,3) = 1\)</span>, we could add each one to its last column as shown in <a href="#fig-pa-last-column" class="quarto-xref">Figure&nbsp;<span>53.7</span></a>. The one that produces the highest score for the full alignment must be the last column of the optimal alignment. In this case the largest of the three totals is 4, so the optimal alignment of <code>gata</code> and <code>acta</code> has a score of 4 and ends with an <code>a</code> aligned to an <code>a</code>.</p>
 <p><span class="math display">\[
 S(4, 4) = \max \begin{cases}
-S(3, 3) + s(\texttt{a}, \texttt{a}) = 2 + 2 = 4 \\
-S(3, 4) + g = 1 - 1 = 0 \\
-S(4, 3) + g = 1 - 1 = 0
+S(3, 3) + s(\texttt{a}, \texttt{a}) &amp;= 2 + 2 = 4 \\[1 ex]
+S(3, 4) + g &amp;= 1 - 1 = 0 \\[1 ex]
+S(4, 3) + g &amp;= 1 - 1 = 0
 \end{cases}
 \]</span></p>
 <p>Here <span class="math inline">\(s(\texttt{a}, \texttt{a})\)</span> is the score matrix entry for an <code>a</code> paired with an <code>a</code>, and <span class="math inline">\(g\)</span> is the gap score. The best of the three is 4, so the optimal alignment of <code>gata</code> and <code>acta</code> scores 4 and ends with <code>a</code> over <code>a</code>.</p>
-<p>This is cheating a little, because nobody told us <span class="math inline">\(S(3,3)\)</span>, <span class="math inline">\(S(3,4)\)</span> and <span class="math inline">\(S(4,3)\)</span>. But each of them can be found in the same way, from three smaller scores, and each of those from three even smaller ones, until we reach alignments of nothing, which score 0. Written out for any <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, with <span class="math inline">\(a_i\)</span> for base number <span class="math inline">\(i\)</span> in the first sequence and <span class="math inline">\(b_j\)</span> for base number <span class="math inline">\(j\)</span> in the second:</p>
+<div id="cell-fig-pa-last-column" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-last-column" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-last-column-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-last-column-output-1.png" width="599" height="107" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-last-column-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.7: The three ways the alignment of <code>gata</code> and <code>acta</code> can end. The last column of the optimal alignment is the one that produce the largest total score when its score is added to the optimal alignment score of the remaining bases.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This was cheating a little, because noone actually told us <span class="math inline">\(S(3,3)\)</span>, <span class="math inline">\(S(3,4)\)</span> and <span class="math inline">\(S(4,3)\)</span>. However, we can find each of these the same way we found <span class="math inline">\(S(4,4)\)</span>: We can find <span class="math inline">\(S(3,3)\)</span> if our oracle tells us <span class="math inline">\(S(2,2)\)</span>, <span class="math inline">\(S(2,3)\)</span>, <span class="math inline">\(S(3,2)\)</span>. We can keep fanning out the problem asking our oracle for more and more optimal alignment scores for fewer and fewer remaining bases. The cool thing is that in the end, the scores we need to ask for are all <span class="math inline">\(S(0,0)\)</span>, and that one we know: Aligning zero bases with zero bases has score 0. So we end up not needing the oracle after all. We can compute the whole thing recursively until we hit the base case that we know. Written out for any <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, with <span class="math inline">\(a_i\)</span> for base number <span class="math inline">\(i\)</span> in the first sequence and <span class="math inline">\(b_j\)</span> for base number <span class="math inline">\(j\)</span> in the second:</p>
 <p><span class="math display">\[
 S(i, j) = \max \begin{cases}
-S(i-1, j-1) + s(a_i, b_j) &amp; \text{if } i &gt; 0 \text{ and } j &gt; 0 \\
-S(i-1, j) + g &amp; \text{if } i &gt; 0 \\
+S(i-1, j-1) + s(a_i, b_j) &amp; \text{if } i &gt; 0 \text{ and } j &gt; 0 \\[1 ex]
+S(i-1, j) + g &amp; \text{if } i &gt; 0 \\[1 ex]
 S(i, j-1) + g &amp; \text{if } j &gt; 0
 \end{cases}
 \qquad S(0, 0) = 0
 \]</span></p>
-<p>The conditions say which of the three possibilities exist. If one sequence has run out (<span class="math inline">\(j = 0\)</span>, say), the only way to end the alignment is with a base from the other sequence against a gap.</p>
-<p>A rule that defines something in terms of smaller versions of itself is called recursive, and you could write it directly as a Python function that calls itself. But that function would be hopelessly slow, because it would compute the same scores again and again. <span class="math inline">\(S(4,4)\)</span> needs <span class="math inline">\(S(3,3)\)</span>, but so do <span class="math inline">\(S(4,3)\)</span> and <span class="math inline">\(S(3,4)\)</span>, and each of those calls would compute <span class="math inline">\(S(3,3)\)</span> from scratch. The way out is to compute each score once and write it down.</p>
-</section>
-<section id="sec-pa-table" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-pa-table">A table of scores</h2>
-<p>We write the scores in a table with one row for each number of bases from <code>gata</code>, from 0 to 4, and one column for each number of bases from <code>acta</code>. The cell in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span> holds <span class="math inline">\(S(i, j)\)</span>. In <a href="#fig-pa-table-meaning" class="quarto-xref">Figure&nbsp;<span>53.2</span></a>, the highlighted cell holds the score of the best alignment of <code>g</code> and <code>act</code>. To compute it, you need the three cells above, to the left, and diagonally up and to the left.</p>
-<div id="cell-fig-pa-table-meaning" class="cell" data-execution_count="3">
+<p>Here, the <em>if</em> conditions show when each of the three possibilities exist. If the first sequence has run out of bases (<span class="math inline">\(i = 0\)</span>), the only way to end the alignment is with a base from the other sequence against a gap: <span class="math inline">\(S(i, j) = S(i, j-1) + g\)</span>.</p>
+<p>You could write the recursion as a Python function that calls itself. However, this would be hopelessly slow. The problem is that a naive recursive approach will compute the same alignment scores again and again. <span class="math inline">\(S(4,4)\)</span> needs <span class="math inline">\(S(3,3)\)</span>, but so do <span class="math inline">\(S(4,3)\)</span> and <span class="math inline">\(S(3,4)\)</span>, and each of those calls would compute <span class="math inline">\(S(3,3)\)</span> from scratch. <a href="#fig-pa-recursion-calls" class="quarto-xref">Figure&nbsp;<span>53.8</span></a> shows how bad it gets with longer sequences. For two sequences of length 4, the recursive function makes 841 calls to compute the 25 different scores, so 97% of the calls redo work that has already been done. For two sequences of length 20, there are 441 different scores to compute. Yet, it ends up making about <span class="math inline">\(7 \times 10^{14}\)</span> function calls.</p>
+<div id="cell-fig-pa-recursion-calls" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
-<div id="fig-pa-table-meaning" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pa-recursion-calls" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-pa-table-meaning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="pairwise-alignment_files/figure-html/fig-pa-table-meaning-output-1.png" width="532" height="248" class="figure-img">
+<div aria-describedby="fig-pa-recursion-calls-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-recursion-calls-output-1.png" width="663" height="259" class="figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-table-meaning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.2: Left: the cell in row 1 and column 3 holds <span class="math inline">\(S(1,3)\)</span>, the score of the best alignment of the first base of <code>gata</code> and the first three bases of <code>acta</code>. Right: computing it requires the three cells that are diagonally up-left, above, and to the left.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-recursion-calls-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.8: Left: the proportion of the calls made by the recursive function that recompute a score already computed by another call, for two sequences of the same length. Right: the number of calls the recursive function makes, compared to the number of different scores there are to compute, which is the number of cells in the table. Note the logarithmic axis.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The first row and the first column are easy. Row 0 holds alignments of no bases from <code>gata</code> with some bases from <code>acta</code>. The only way to align <code>act</code> with nothing is to put a gap opposite each base, so <span class="math inline">\(S(0, 3) = 3g = -3\)</span>. In the same way, the first column holds multiples of the gap score, as in <a href="#fig-pa-init" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>.</p>
-<div id="cell-fig-pa-init" class="cell" data-execution_count="4">
+</section>
+<section id="sec-pa-table" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-pa-table">A table of scores</h2>
+<p>Needleman-Wunsch algorithm (<a href="https://doi.org/10.1016/0022-2836(70)90057-4">Needleman and Wunsch, 1970</a>), which you will implement yourself in <a href="../projects/alignment-project.html" class="quarto-xref"><span>Chapter 54</span></a>, solves the problem by writing the scores in a table with one row for each number of the bases <span class="math inline">\(i\)</span> in sequence one, and one column for each number of bases <span class="math inline">\(i\)</span> from seqeunce two. The cell in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span> holds <span class="math inline">\(S(i, j)\)</span>. In <a href="#fig-pa-table-meaning" class="quarto-xref">Figure&nbsp;<span>53.9</span></a>, the highlighted cell holds the score of the optimal alignment of <code>g</code> and <code>act</code>. To compute it, you need the three yellow cells, <span class="math inline">\(S(i-1, j-1)\)</span>, <span class="math inline">\(S(i, j-1)\)</span>, and <span class="math inline">\(S(i-1, j)\)</span>. These are the ones we would have asked the oracle for earlier.</p>
+<div id="cell-fig-pa-table-meaning" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-table-meaning" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-table-meaning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-table-meaning-output-1.png" width="510" height="226" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-table-meaning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.9: Left: the cell in row 1 and column 3 holds <span class="math inline">\(S(1,3)\)</span>, the score of the best alignment of the first base of <code>gata</code> and the first three bases of <code>acta</code>. Right: computing it requires the three cells that are diagonally up-left, above, and to the left.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The first row and the first column are easy. Row 0 holds alignments of no bases from <code>gata</code> with some bases from <code>acta</code>. The only way to align <code>act</code> with nothing is to put a gap opposite each base, so <span class="math inline">\(S(0, 3) = 3g = -3\)</span>. In the same way, the first column holds multiples of the gap score, as in <a href="#fig-pa-init" class="quarto-xref">Figure&nbsp;<span>53.10</span></a>.</p>
+<div id="cell-fig-pa-init" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-init" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -845,14 +943,14 @@ Figure&nbsp;53.2: Left: the cell in row 1 and column 3 holds <span class="math i
 <img src="pairwise-alignment_files/figure-html/fig-pa-init-output-1.png" width="303" height="303" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-init-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.3: The first row and first column hold alignments of some bases against nothing at all, which can only be a series of gaps.
+Figure&nbsp;53.10: The first row and first column hold alignments of some bases against nothing at all, which can only be a series of gaps.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Now every other cell can be filled in, as long as we go row by row from the top, and left to right within a row. Then the three cells a new cell needs are always filled in already. <a href="#fig-pa-first-cells" class="quarto-xref">Figure&nbsp;<span>53.4</span></a> shows the first cell, row 1 and column 1, which is the best alignment of <code>g</code> and <code>a</code>. Diagonally up-left is 0, and pairing <code>g</code> with <code>a</code> scores 0, which gives 0. Above is −1, and adding a gap gives −2. To the left is also −1, which gives −2. The largest of 0, −2 and −2 is 0, so <span class="math inline">\(S(1,1) = 0\)</span>. The second panel shows the first cell of the next row, where <code>a</code> meets <code>a</code> and the diagonal wins with <span class="math inline">\(-1 + 2 = 1\)</span>.</p>
-<div id="cell-fig-pa-first-cells" class="cell" data-execution_count="5">
+<p>Now every other cell can be filled in, as long as we go row by row from the top, and left to right within a row. Then the three cells a new cell needs are always filled in already. <a href="#fig-pa-first-cells" class="quarto-xref">Figure&nbsp;<span>53.11</span></a> shows the first cell, row 1 and column 1, which is the best alignment of <code>g</code> and <code>a</code>. Diagonally up-left is 0, and pairing <code>g</code> with <code>a</code> scores 0, which gives 0. Above is −1, and adding a gap gives −2. To the left is also −1, which gives −2. The largest of 0, −2 and −2 is 0, so <span class="math inline">\(S(1,1) = 0\)</span>. The second panel shows the first cell of the next row, where <code>a</code> meets <code>a</code> and the diagonal wins with <span class="math inline">\(-1 + 2 = 1\)</span>.</p>
+<div id="cell-fig-pa-first-cells" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-first-cells" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -860,7 +958,7 @@ Figure&nbsp;53.3: The first row and first column hold alignments of some bases a
 <img src="pairwise-alignment_files/figure-html/fig-pa-first-cells-output-1.png" width="466" height="222" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-first-cells-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.4: Computing two cells. Each of the three neighbors contributes its score plus the score of the step into the new cell: a base pair for the diagonal step and a gap for the other two. The new cell gets the largest of the three.
+Figure&nbsp;53.11: Computing two cells. Each of the three neighbors contributes its score plus the score of the step into the new cell: a base pair for the diagonal step and a gap for the other two. The new cell gets the largest of the three.
 </figcaption>
 </figure>
 </div>
@@ -869,7 +967,7 @@ Figure&nbsp;53.4: Computing two cells. Each of the three neighbors contributes i
 <section id="exercise" class="level4" data-number="53.0.0.1">
 <h4 data-number="53.0.0.1" class="anchored" data-anchor-id="exercise"><strong>Exercise 53-1</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Draw the table on paper, fill in the first row and column as in <a href="#fig-pa-init" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>, and then fill in the remaining cells yourself, row by row. For each cell, write down the three candidate scores before you pick the largest. The cell in the bottom right corner should end up holding 4, the score we found above. If it does not, find the first cell where your table differs from the answer and redo that cell.</p>
+<p>Draw the table on paper, fill in the first row and column as in <a href="#fig-pa-init" class="quarto-xref">Figure&nbsp;<span>53.10</span></a>, and then fill in the remaining cells yourself, row by row. For each cell, write down the three candidate scores before you pick the largest. The cell in the bottom right corner should end up holding 4, the score we found above. If it does not, find the first cell where your table differs from the answer and redo that cell.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -882,11 +980,11 @@ Figure&nbsp;53.4: Computing two cells. Each of the three neighbors contributes i
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="11433469" class="cell" data-execution_count="6">
+<div id="5419f783" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="pairwise-alignment_files/figure-html/cell-7-output-1.png" width="303" height="303" class="figure-img"></p>
+<p><img src="pairwise-alignment_files/figure-html/cell-14-output-1.png" width="303" height="303" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -900,10 +998,22 @@ Figure&nbsp;53.4: Computing two cells. Each of the three neighbors contributes i
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-traceback">Traceback</h2>
 <p>The bottom right cell tells us that the best alignment of <code>gata</code> and <code>acta</code> scores 4, but not what the alignment is. To find it, we walk back through the table. For each cell, we ask which of its three neighbors its score came from. The bottom right cell got its 4 from the diagonal: <span class="math inline">\(2 + 2\)</span>. A diagonal step means the last column of the alignment pairs a base from each sequence, here <code>a</code> with <code>a</code>. We move to that neighbor and ask the same question. Its 2 also came from the diagonal (<span class="math inline">\(0 + 2\)</span>, pairing <code>t</code> with <code>t</code>), so the alignment ends in <code>ta</code> over <code>ta</code>.</p>
 <p>The cell we are now in, row 2 and column 2, holds 0, and that score can be reached two ways: from the diagonal (<span class="math inline">\(0 + 0\)</span>, pairing <code>a</code> with <code>c</code>) and from the left (<span class="math inline">\(1 - 1\)</span>). Both lead to an optimal alignment. Take the step to the left. A step to the left adds a column with a gap in the sequence down the side and the base from the sequence along the top, here <code>-</code> over <code>c</code>. A step up adds the base from the sequence down the side against a gap. Continuing this way until we reach the top left corner, we collect the columns of the alignment from last to first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a    ta    -ta    a-ta    ga-ta</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>a    ta    cta    acta    -acta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><a href="#fig-pa-traceback" class="quarto-xref">Figure&nbsp;<span>53.5</span></a> shows the path in orange. The gray arrows show the other optimal path, which takes the diagonal step at row 2, column 2, and gives the alignment <code>gata</code> over <code>acta</code>. It also scores 4. Two sequences often have several optimal alignments, and the traceback lets you find all of them.</p>
-<div id="cell-fig-pa-traceback" class="cell" data-execution_count="7">
+<div id="cell-fig-pa-collect" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div id="fig-pa-collect" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pa-collect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="pairwise-alignment_files/figure-html/fig-pa-collect-output-1.png" width="671" height="125" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-collect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;53.12: The traceback collects the alignment one column at a time, from last to first. The column just added is tinted, and the arrow under it is the step that added it: ↖ for a diagonal step, ← for a step to the left and ↑ for a step up.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-pa-traceback" class="quarto-xref">Figure&nbsp;<span>53.13</span></a> shows the path in orange. The gray arrows show the other optimal path, which takes the diagonal step at row 2, column 2, and gives the alignment <code>gata</code> over <code>acta</code>. It also scores 4. Two sequences often have several optimal alignments, and the traceback lets you find all of them.</p>
+<div id="cell-fig-pa-traceback" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-traceback" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -911,7 +1021,7 @@ Figure&nbsp;53.4: Computing two cells. Each of the three neighbors contributes i
 <img src="pairwise-alignment_files/figure-html/fig-pa-traceback-output-1.png" width="303" height="303" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-traceback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.5: Traceback. Starting from the bottom right corner, each arrow points to the neighbor that the cell’s score came from. The orange path gives <code>ga-ta</code> over <code>-acta</code>; the gray arrows branch off to the other optimal alignment, <code>gata</code> over <code>acta</code>.
+Figure&nbsp;53.13: Traceback. Starting from the bottom right corner, each arrow points to the neighbor that the cell’s score came from. The orange path gives <code>ga-ta</code> over <code>-acta</code>; the gray arrows branch off to the other optimal alignment, <code>gata</code> over <code>acta</code>.
 </figcaption>
 </figure>
 </div>
@@ -923,14 +1033,14 @@ Figure&nbsp;53.5: Traceback. Starting from the bottom right corner, each arrow p
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Find the optimal global alignment of <code>GGGCT</code> and <code>GAGGG</code> by hand. Use a score matrix where identical bases score 2 and different bases score −1, and a gap score of −2. Put <code>GGGCT</code> down the left side of the table and <code>GAGGG</code> along the top. Fill in the table, then trace back from the bottom right corner. When there is a tie, follow each branch: how many optimal alignments are there?</p>
 <p>When you have an answer, let the machine check it. The <code>PairwiseAligner</code> from <a href="../python/biopython.html#sec-biopython-align">the Biopython chapter</a> does global alignment by default, and you can give it the same scores:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> Align</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>aligner <span class="op">=</span> Align.PairwiseAligner(match_score<span class="op">=</span><span class="dv">2</span>, mismatch_score<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                open_gap_score<span class="op">=-</span><span class="dv">2</span>, extend_gap_score<span class="op">=-</span><span class="dv">2</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>alignments <span class="op">=</span> aligner.align(<span class="st">"GGGCT"</span>, <span class="st">"GAGGG"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alignments.score)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> alignments:</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(alignment)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> Align</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>aligner <span class="op">=</span> Align.PairwiseAligner(match_score<span class="op">=</span><span class="dv">2</span>, mismatch_score<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                                open_gap_score<span class="op">=-</span><span class="dv">2</span>, extend_gap_score<span class="op">=-</span><span class="dv">2</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>alignments <span class="op">=</span> aligner.align(<span class="st">"GGGCT"</span>, <span class="st">"GAGGG"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alignments.score)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> alignments:</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(alignment)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Before you run it, write down the score and the alignments you expect it to print.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -944,26 +1054,26 @@ Figure&nbsp;53.5: Traceback. Starting from the bottom right corner, each arrow p
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="9533f3e2" class="cell" data-execution_count="8">
+<div id="bd3cf724" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="pairwise-alignment_files/figure-html/cell-9-output-1.png" width="312" height="312" class="figure-img"></p>
+<p><img src="pairwise-alignment_files/figure-html/cell-17-output-1.png" width="312" height="312" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The best score is 1, and three alignments reach it:</p>
-<div id="26f30988" class="cell" data-execution_count="9">
+<div id="86165fec" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
-<pre><code>GGGCT
-GAGGG
+<pre><code>gggct
+gaggg
 
-G-GGCT
-GAGG-G
+g-ggct
+gagg-g
 
-G-GGCT
-GAGGG-
+g-ggct
+gaggg-
 </code></pre>
 </div>
 </div>
@@ -987,18 +1097,18 @@ GAGGG-
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="aab843f9" class="cell" data-execution_count="10">
+<div id="0eadaeca" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="pairwise-alignment_files/figure-html/cell-11-output-1.png" width="271" height="312" class="figure-img"></p>
+<p><img src="pairwise-alignment_files/figure-html/cell-19-output-1.png" width="271" height="312" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GATTC
+<pre><code>gattc
 | | |
-G-TAC</code></pre>
+g-tac</code></pre>
 </div>
 </div>
 </div>
@@ -1008,12 +1118,12 @@ G-TAC</code></pre>
 </section>
 <section id="sec-pa-matrices" class="level2 unnumbered page-columns page-full">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-matrices">Score matrices in practice</h2>
-<div id="51a1dba3" class="cell page-columns page-full" data-execution_count="11">
+<div id="9f444139" class="cell page-columns page-full" data-execution_count="19">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pairwise-alignment_files/figure-html/cell-12-output-1.png" width="198" height="164" class="figure-img"></p>
+<p><img src="pairwise-alignment_files/figure-html/cell-20-output-1.png" width="198" height="164" class="figure-img"></p>
 <figcaption>The four bases in EDNAFULL.</figcaption>
 </figure>
 </div>
@@ -1024,22 +1134,23 @@ G-TAC</code></pre>
 <section id="sec-pa-local" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-local">Local alignment</h2>
 <p>Global alignment, which is what Needleman-Wunsch does, aligns the two sequences from end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, and it fills them with mismatches and gaps that mean nothing.</p>
-<p>Here are two sequences that share a stretch of 15 bases, with one mismatch, inside unrelated flanks. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores 11, and 42 different global alignments share that score. Here is one of them:</p>
-<div id="a2fce65a" class="cell" data-execution_count="12">
+<p>Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores 19, and 10 different global alignments share that score. Here is one of them:</p>
+<div id="b91a6a99" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-stdout">
-<pre><code>TTAGTTGTATGGCGTACCTGAAG--G--CCGC--A
-   |  | ||||| |||||||||  |    ||   
----G-CG-ATGGCTTACCTGAAGAAGTAGTGCTTG</code></pre>
+<pre><code>gtatggcgtacc-tgaagtcagcgatagttaggc-
+|  |||  |||| ||   | | | | ||| || | 
+g--tggtataccatg-gcttaccta-agtcagcct</code></pre>
 </div>
 </div>
-<p>What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores 27:</p>
-<div id="75c51175" class="cell" data-execution_count="13">
+<p>What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores 33:</p>
+<div id="a00af0b5" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-stdout">
-<pre><code>ATGGCGTACCTGAAG
-||||| |||||||||
-ATGGCTTACCTGAAG</code></pre>
+<pre><code>atggcgtacctgaagtcagc
+||||| ||||| ||||||||
+atggcttacct-aagtcagc</code></pre>
 </div>
 </div>
+<p>The local alignment is not a piece cut out of the global one. To pair up the two copies of the shared stretch, the global alignment would have to open gaps at both ends, because the stretch sits eight bases further into the second sequence than into the first. It does better by pairing the start of the stretch with a part of the second sequence’s flank that happens to look similar, <code>TGGCGTACC</code> against <code>TGGTATACC</code>, and none of the optimal global alignments pairs a single base the way the local alignment does. So you cannot find the best local alignment by computing the global one and trimming off the ends.</p>
 <p>Local alignments are found with the Smith-Waterman algorithm (<a href="https://doi.org/10.1016/0022-2836(81)90087-5">Smith and Waterman, 1981</a>), which is almost the same as Needleman-Wunsch. The only change is in how a cell is filled in: if all three candidate scores are negative, the cell gets 0 instead. A score of 0 means “start a new alignment here”. When the alignment so far has become so bad that it would drag down anything added to it, the algorithm drops it and starts over, and it never extends an alignment that scores 0 or less.</p>
 <p><span class="math display">\[
 S(i, j) = \max \begin{cases}
@@ -1049,7 +1160,7 @@ S(i, j-1) + g \\
 0
 \end{cases}
 \]</span></p>
-<div id="cell-fig-pa-local-step" class="cell" data-execution_count="14">
+<div id="cell-fig-pa-local-step" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-local-step" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1057,22 +1168,22 @@ S(i, j-1) + g \\
 <img src="pairwise-alignment_files/figure-html/fig-pa-local-step-output-1.png" width="466" height="222" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-local-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.6: Filling in a cell for local alignment. Left: when the best candidate is positive, nothing changes. Right: when all three candidates are negative, the cell gets 0, and an alignment can start afresh from here.
+Figure&nbsp;53.14: Filling in a cell for local alignment. Left: when the best candidate is positive, nothing changes. Right: when all three candidates are negative, the cell gets 0, and an alignment can start afresh from here.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Two more things change. The first row and column hold zeros, because a local alignment does not have to include the start of either sequence. And the traceback no longer starts in the bottom right corner, because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. <a href="#fig-pa-local-paths" class="quarto-xref">Figure&nbsp;<span>53.7</span></a> shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.</p>
-<div id="cell-fig-pa-local-paths" class="cell" data-execution_count="15">
+<p>Two more things change. The first row and column hold zeros, because a local alignment does not have to include the start of either sequence. And the traceback no longer starts in the bottom right corner, because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. <a href="#fig-pa-local-paths" class="quarto-xref">Figure&nbsp;<span>53.15</span></a> shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.</p>
+<div id="cell-fig-pa-local-paths" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-local-paths" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pa-local-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="pairwise-alignment_files/figure-html/fig-pa-local-paths-output-1.png" width="689" height="333" class="figure-img">
+<img src="pairwise-alignment_files/figure-html/fig-pa-local-paths-output-1.png" width="689" height="361" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-local-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.7: Traceback paths for global (left) and local (right) alignment of the two sequences above. The global path must run from corner to corner. The local path covers only the shared stretch.
+Figure&nbsp;53.15: Traceback paths for global (left) and local (right) alignment of the two sequences above. The global path must run from corner to corner. The local path covers only the shared stretch, with a single vertical step for the base missing from the second sequence. The two paths do not share a single cell: the local alignment is not part of the global one.
 </figcaption>
 </figure>
 </div>
@@ -1119,17 +1230,17 @@ Figure&nbsp;53.7: Traceback paths for global (left) and local (right) alignment 
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="bf2937e9" class="cell" data-execution_count="16">
+<div id="300235c0" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="pairwise-alignment_files/figure-html/cell-17-output-1.png" width="614" height="310" class="figure-img"></p>
+<p><img src="pairwise-alignment_files/figure-html/cell-25-output-1.png" width="614" height="310" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GGG
-GGG</code></pre>
+<pre><code>ggg
+ggg</code></pre>
 </div>
 </div>
 <p>The best local alignment is <code>GGG</code> against <code>GGG</code>, with a score of 6. The global alignments had to include the <code>A</code> in <code>GAGGG</code> and the <code>CT</code> in <code>GGGCT</code>, which cost 5 points.</p>
@@ -1145,7 +1256,7 @@ GGG</code></pre>
 <h3 class="unnumbered anchored" data-anchor-id="sec-pa-end-gaps">Gaps at the ends</h3>
 <p>Suppose you align a gene sequence you have just read from a sample with a reference sequence that starts a little earlier and ends a little later. The gaps at the ends of the alignment do not reflect any insertion or deletion. They are there only because one sequence was read over a shorter stretch. Penalizing them as if they were real mutations makes the alignment worse. Many programs therefore score gaps at the ends of a global alignment differently, often not at all.</p>
 <p>In the table, end gaps live along the edges. The first row and the first column hold alignments that begin with a series of gaps. The last row and the last column are where alignments that end with a series of gaps pass through: once the traceback is in the last column, every step up adds a base from the left sequence against a gap at the end of the alignment.</p>
-<div id="cell-fig-pa-end-gaps" class="cell" data-execution_count="17">
+<div id="cell-fig-pa-end-gaps" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-end-gaps" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1153,7 +1264,7 @@ GGG</code></pre>
 <img src="pairwise-alignment_files/figure-html/fig-pa-end-gaps-output-1.png" width="312" height="312" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-end-gaps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.8: Gaps at the beginning of an alignment are steps along the first row or column (blue). Gaps at the end are steps along the last row or column (orange).
+Figure&nbsp;53.16: Gaps at the beginning of an alignment are steps along the first row or column (blue). Gaps at the end are steps along the last row or column (orange).
 </figcaption>
 </figure>
 </div>
@@ -1162,7 +1273,7 @@ Figure&nbsp;53.8: Gaps at the beginning of an alignment are steps along the firs
 <section id="exercise-5" class="level4" data-number="53.0.0.6">
 <h4 data-number="53.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 53-6</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>You want to change Needleman-Wunsch so that gaps at the ends of the alignment score 0 instead of the usual gap score. Using <a href="#fig-pa-end-gaps" class="quarto-xref">Figure&nbsp;<span>53.8</span></a>, find the two places in the algorithm that must change. Then decide what the alignment of <code>GGGCT</code> and <code>GAGGG</code> would look like if end gaps were free. You do not need to fill in a new table for this; think about which bases would have to be left hanging at the ends.</p>
+<p>You want to change Needleman-Wunsch so that gaps at the ends of the alignment score 0 instead of the usual gap score. Using <a href="#fig-pa-end-gaps" class="quarto-xref">Figure&nbsp;<span>53.16</span></a>, find the two places in the algorithm that must change. Then decide what the alignment of <code>GGGCT</code> and <code>GAGGG</code> would look like if end gaps were free. You do not need to fill in a new table for this; think about which bases would have to be left hanging at the ends.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1177,8 +1288,15 @@ Figure&nbsp;53.8: Gaps at the beginning of an alignment are steps along the firs
 <div class="callout-body-container callout-body">
 <p>The first place is the first row and column, which get 0 instead of multiples of the gap score. The second place is the last row and column: a step to the left within the last row, or a step up within the last column, adds a gap at the end of the alignment, so it should use the end-gap score of 0 instead of the gap score.</p>
 <p>With free end gaps, <code>GGGCT</code> and <code>GAGGG</code> can overlap like this, with three pairs of matching <code>G</code>s and only the overhanging bases against gaps:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>--GGGCT</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>GAGGG--</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dd5d03e0" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pairwise-alignment_files/figure-html/cell-27-output-1.png" width="299" height="125" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>That scores <span class="math inline">\(3 \times 2 = 6\)</span>, against the best score of 1 when end gaps cost −2 each.</p>
 </div>
 </div>
@@ -1217,8 +1335,8 @@ Figure&nbsp;53.8: Gaps at the beginning of an alignment are steps along the firs
 </div>
 </div>
 <p>An affine gap score seems to break the algorithm. To score a step up into a cell, we now need to know whether the best alignment ending in the cell above already ended in a gap (and we extend it) or not (and we open a new one). The fix is to keep three scores in every cell instead of one: the best score of an alignment that ends with a pair of bases, the best that ends with a base from the left sequence against a gap, and the best that ends with a gap against a base from the top sequence. Each of the three is computed from the three scores in one neighbor. A diagonal step adds the score of the base pair to the best of the three. A step down from the cell above extends the gap if that alignment already ended in the same kind of gap, and opens a new gap otherwise. The step from the left works the same way.</p>
-<p><a href="#fig-pa-three-scores" class="quarto-xref">Figure&nbsp;<span>53.9</span></a> shows this for a single cell. The upper left number in each cell is the pair score, the upper right is the gap-in-the-top-sequence score, which only a step down can extend, and the lower left is the gap-in-the-left-sequence score, which only a step to the right can extend. With a linear gap score (left), keeping three numbers changes nothing: the largest of the new cell’s three scores is the 4 we would have computed anyway. With an affine score (right), the numbers differ, and keeping all three is what lets the algorithm tell opening from extending (<a href="https://doi.org/10.1016/0022-2836(82)90398-9">Gotoh, 1982</a>).</p>
-<div id="cell-fig-pa-three-scores" class="cell" data-execution_count="18">
+<p><a href="#fig-pa-three-scores" class="quarto-xref">Figure&nbsp;<span>53.17</span></a> shows this for a single cell. The upper left number in each cell is the pair score, the upper right is the gap-in-the-top-sequence score, which only a step down can extend, and the lower left is the gap-in-the-left-sequence score, which only a step to the right can extend. With a linear gap score (left), keeping three numbers changes nothing: the largest of the new cell’s three scores is the 4 we would have computed anyway. With an affine score (right), the numbers differ, and keeping all three is what lets the algorithm tell opening from extending (<a href="https://doi.org/10.1016/0022-2836(82)90398-9">Gotoh, 1982</a>).</p>
+<div id="cell-fig-pa-three-scores" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-three-scores" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1226,7 +1344,7 @@ Figure&nbsp;53.8: Gaps at the beginning of an alignment are steps along the firs
 <img src="pairwise-alignment_files/figure-html/fig-pa-three-scores-output-1.png" width="652" height="342" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-three-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.9: Keeping three scores per cell. In each cell, upper left: best alignment ending in a pair of bases; upper right: ending in a base from the left sequence against a gap; lower left: ending in a gap against a base from the top sequence. Each new score is the largest of the three sums in one neighbor. Left: linear gap score of −1. Right: affine gap score with opening −5 and extension −1.
+Figure&nbsp;53.17: Keeping three scores per cell. In each cell, upper left: best alignment ending in a pair of bases; upper right: ending in a base from the left sequence against a gap; lower left: ending in a gap against a base from the top sequence. Each new score is the largest of the three sums in one neighbor. Left: linear gap score of −1. Right: affine gap score with opening −5 and extension −1.
 </figcaption>
 </figure>
 </div>
@@ -1243,9 +1361,9 @@ Figure&nbsp;53.9: Keeping three scores per cell. In each cell, upper left: best 
 <h4 data-number="53.0.0.8" class="anchored" data-anchor-id="exercise-7"><strong>Exercise 53-8</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Open EMBOSS Needle and EMBOSS Water, choose the nucleotide versions, and align the two sequences from <a href="#sec-pa-local">the section on local alignment</a>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>TTAGTTGTATGGCGTACCTGAAGGCCGCA</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>GCGATGGCTTACCTGAAGAAGTAGTGCTTG</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Before you submit, predict which of the two programs will find the shared stretch <code>ATGGCGTACCTGAAG</code> and how the other will treat the flanks, given that its end gaps are free. Then compare the results with the alignments printed in <a href="#sec-pa-local">that section</a>. Open “More options” in Needle and find the setting for each of the scores discussed in this chapter: the score matrix, gap opening, gap extension and end gaps.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>GTATGGCGTACCTGAAGTCAGCGATAGTTAGGC</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>GTGGTATACCATGGCTTACCTAAGTCAGCCT</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Before you submit, predict which of the two programs will find the shared stretch <code>ATGGCGTACCTGAAGTCAGC</code> and how the other will treat the flanks, given that its end gaps are free. Then compare the results with the alignments printed in <a href="#sec-pa-local">that section</a>. Open “More options” in Needle and find the setting for each of the scores discussed in this chapter: the score matrix, gap opening, gap extension and end gaps.</p>
 
 
 </section>

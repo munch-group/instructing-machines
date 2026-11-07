@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../bioinf/molecular-evolution.html" rel="next">
+<link href="../bioinf/dna-evolution.html" rel="next">
 <link href="../ai/delegate-the-full-problem.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ae92d9efaeb2e0bcc951bdea978fb71.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-23034aa8a78ac14147cd37b276cfaaf1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2a5d79b6f76227bb91da7b13ebda1a7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -659,20 +659,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../bioinf/molecular-evolution.html" class="sidebar-item-text sidebar-link">
+  <a href="../bioinf/dna-evolution.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../bioinf/scoring-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../python/recursion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Recursion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/plasmid-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Project: Which ORFs are genes?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Project: Which ORFs are genes?</span></span></a>
   </div>
 </li>
       </ul>
@@ -689,13 +695,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
   </div>
 </li>
       </ul>
@@ -711,8 +717,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai/surviving-ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: Surviving AI</span></span></a>
+  <a href="../ai/dangers-of-AI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">dangers-of-AI.html</span></span></a>
   </div>
 </li>
       </ul>
@@ -729,22 +735,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-blast-why" id="toc-sec-blast-why" class="nav-link active" data-scroll-target="#sec-blast-why">Why not just align against everything?</a></li>
-  <li><a href="#sec-blast-1990" id="toc-sec-blast-1990" class="nav-link" data-scroll-target="#sec-blast-1990">The original BLAST</a>
+  <li><a href="#sec-blast-1990" id="toc-sec-blast-1990" class="nav-link active" data-scroll-target="#sec-blast-1990">The original BLAST</a>
   <ul class="collapse">
   <li><a href="#sec-blast-words" id="toc-sec-blast-words" class="nav-link" data-scroll-target="#sec-blast-words">Step 1: overlapping words</a></li>
   <li><a href="#sec-blast-scan" id="toc-sec-blast-scan" class="nav-link" data-scroll-target="#sec-blast-scan">Step 2: scanning the database</a></li>
   <li><a href="#sec-blast-extend" id="toc-sec-blast-extend" class="nav-link" data-scroll-target="#sec-blast-extend">Step 3: extending a hit</a></li>
   </ul></li>
-  <li><a href="#sec-blast-parameters" id="toc-sec-blast-parameters" class="nav-link" data-scroll-target="#sec-blast-parameters">Word size, threshold, speed and sensitivity</a>
+  <li><a href="#sec-blast-parameters" id="toc-sec-blast-parameters" class="nav-link" data-scroll-target="#sec-blast-parameters">Word size and threshold</a>
   <ul class="collapse">
   <li><a href="#sec-blast-evalue" id="toc-sec-blast-evalue" class="nav-link" data-scroll-target="#sec-blast-evalue">Step 4: could it be chance?</a></li>
   </ul></li>
-  <li><a href="#sec-blast-1997" id="toc-sec-blast-1997" class="nav-link" data-scroll-target="#sec-blast-1997">Gapped BLAST: two hits on one diagonal</a>
-  <ul class="collapse">
-  <li><a href="#sec-blast-two-hit" id="toc-sec-blast-two-hit" class="nav-link" data-scroll-target="#sec-blast-two-hit">Asking for two clues instead of one</a></li>
-  <li><a href="#sec-blast-gapped" id="toc-sec-blast-gapped" class="nav-link" data-scroll-target="#sec-blast-gapped">Gaps, but only where they matter</a></li>
-  </ul></li>
+  <li><a href="#gapped-blast" id="toc-gapped-blast" class="nav-link" data-scroll-target="#gapped-blast">Gapped BLAST</a></li>
   <li><a href="#sec-blast-ncbi" id="toc-sec-blast-ncbi" class="nav-link" data-scroll-target="#sec-blast-ncbi">BLAST at NCBI</a>
   <ul class="collapse">
   <li><a href="#sec-blast-algorithms" id="toc-sec-blast-algorithms" class="nav-link" data-scroll-target="#sec-blast-algorithms">Choosing an algorithm</a></li>
@@ -776,13 +777,10 @@ window.Quarto = {
 </header>
 
 
-<p>If you have a sequence, BLAST finds the sequences in a large database that are similar to it, and it does so in seconds rather than days. This chapter explains how. BLAST is built from ideas you already know from <a href="pairwise-alignment.html" class="quarto-xref"><span>Chapter 53</span></a>, combined with a shortcut that gives up a guarantee in exchange for speed, and a piece of statistics that tells you how much to trust what it finds.</p>
-<section id="sec-blast-why" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-blast-why">Why not just align against everything?</h2>
+<p>If you have a sequence, BLAST (Basic Local Alignment and Search Tool) finds the sequences in a large database that are similar to it, and it does so in seconds rather than days. This chapter explains how. BLAST is built from ideas you already know from <a href="pairwise-alignment.html" class="quarto-xref"><span>Chapter 53</span></a>, combined with a shortcut that gives up a guarantee in exchange for speed, and a piece of statistics that tells you how much to trust what it finds.</p>
 <p>In <a href="pairwise-alignment.html" class="quarto-xref"><span>Chapter 53</span></a> you met <a href="../bioinf/pairwise-alignment.html#sec-pa-local">local alignment</a> and the Smith-Waterman algorithm (<a href="https://doi.org/10.1016/0022-2836(81)90087-5">Smith and Waterman, 1981</a>), which is guaranteed to find the best local alignment of two sequences. So why not align your sequence to every sequence in the database and keep the best ones?</p>
 <p>The answer is arithmetic. Smith-Waterman fills in a table with one cell for every pair of positions, one from each sequence. Aligning a gene of 1,000 bases to another of 1,000 bases means filling in a million cells, which is nothing for a computer. But a database is not one sequence. The human genome alone is about 3.1 billion bases long, so aligning a single gene against it means filling in <span class="math inline">\(1000 \times 3.1 \times 10^9 = 3.1 \times 10^{12}\)</span> cells. A computer that fills in a hundred million cells per second needs 31,000 seconds, more than eight and a half hours, and NCBI’s databases hold the genomes of a great many species besides. Now picture an NCBI server answering thousands of searches every hour.</p>
 <p>Something has to give, and what BLAST gives up is the guarantee. BLAST is a <em>heuristic</em>: a shortcut that usually finds the best alignments, but is not promised to. In exchange it is very fast. The shortcut rests on one observation about biology. If two sequences are related, the alignment between them almost always contains a few short stretches where the two sequences are identical or nearly so. So rather than aligning everything to everything, BLAST first looks for those short stretches, and only spends time aligning where it finds one. The earlier FASTA program (<a href="https://doi.org/10.1126/science.2983426">Lipman and Pearson, 1985</a>) had already used this idea. BLAST, the <em>Basic Local Alignment Search Tool</em> (<a href="https://doi.org/10.1016/S0022-2836(05)80360-2">Altschul et al., 1990</a>), made it faster and gave it a solid statistical footing. The paper describing it is one of the most cited scientific papers ever written.</p>
-</section>
 <section id="sec-blast-1990" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-blast-1990">The original BLAST</h2>
 <p>The original BLAST works in four steps:</p>
@@ -801,7 +799,7 @@ window.Quarto = {
 <div id="fig-blast-words" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-blast-words-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="blast_files/figure-html/fig-blast-words-output-1.png" width="644" height="307" class="figure-img">
+<img src="blast_files/figure-html/fig-blast-words-output-1.png" width="540" height="307" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-blast-words-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;56.1: The overlapping words of the first twelve bases of the query, for word size 3 (left) and word size 6 (right). Longer words are fewer, and each one is a longer and rarer string.
@@ -868,7 +866,7 @@ Figure&nbsp;56.4: The X-drop rule, here with X = 20. The score of the extension 
 </div>
 </div>
 <p>The result is a <em>high-scoring segment pair</em>, or HSP. For our small query and subject, extending the hit at the start of the diagonal gives an HSP with a score of 34 that covers the whole query:</p>
-<div id="86221a52" class="cell" data-execution_count="6">
+<div id="01b7ecd8" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>TGCATGCCAGTTACGGATCAAG
 ||||||| ||||||| ||||||
@@ -879,7 +877,7 @@ TGCATGCAAGTTACGCATCAAG</code></pre>
 </section>
 </section>
 <section id="sec-blast-parameters" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-blast-parameters">Word size, threshold, speed and sensitivity</h2>
+<h2 class="unnumbered anchored" data-anchor-id="sec-blast-parameters">Word size and threshold</h2>
 <p>A BLAST search spends most of its time extending hits, so the number of hits decides how fast it is. And it can only find a relative that contains at least one hit, so the number of hits in relatives decides how <em>sensitive</em> it is: how distant the relatives are that it can still find. Both depend on the word size and the threshold.</p>
 <p>First, how many chance hits should we expect? In random DNA, each base is one of four with equal chance, so a given word of length <span class="math inline">\(w\)</span> matches a given position with probability <span class="math inline">\(1/4^w\)</span>. A query with about <span class="math inline">\(m\)</span> words, scanned against a database with about <span class="math inline">\(n\)</span> positions, gives about</p>
 <p><span class="math display">\[\frac{m \, n}{4^w}\]</span></p>
@@ -891,7 +889,7 @@ TGCATGCAAGTTACGCATCAAG</code></pre>
 <div id="fig-blast-dotplots" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-blast-dotplots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="blast_files/figure-html/fig-blast-dotplots-output-1.png" width="1029" height="316" class="figure-img">
+<img src="blast_files/figure-html/fig-blast-dotplots-output-1.png" width="683" height="316" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-blast-dotplots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;56.5: Dot plots of a random 300-base query against a 900-base subject that holds a relative of the query in its middle third, for three word sizes. With w = 6, the relative is buried in random hits. With w = 16, only a short piece of its diagonal is left.
@@ -986,7 +984,7 @@ Figure&nbsp;56.7: E-value against score for a 300-letter protein query, with BLO
 </div>
 </div>
 <p>As an example, the two short proteins MSHWEKLNGCAPRTYIDVQKFGEMLW and TTGAPNSHWEKINGCAPKTFIDLRSAQPLE share a stretch that the toy BLAST finds and extends into this HSP:</p>
-<div id="cabc0201" class="cell" data-execution_count="10">
+<div id="9b27ba0c" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>SHWEKLNGCAPRTYIDVQ
 SHWEKINGCAPKTFIDLR</code></pre>
@@ -1017,12 +1015,9 @@ SHWEKINGCAPKTFIDLR</code></pre>
 </section>
 </section>
 </section>
-<section id="sec-blast-1997" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-blast-1997">Gapped BLAST: two hits on one diagonal</h2>
-<p>Seven years after the first paper, the same group published a new BLAST for proteins (<a href="https://doi.org/10.1093/nar/25.17.3389">Altschul et al., 1997</a>) that was about three times faster and at least as sensitive. It changed two things.</p>
-<section id="sec-blast-two-hit" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="sec-blast-two-hit">Asking for two clues instead of one</h3>
-<p>The authors measured where the original BLAST spent its time. Most of it went to Step 3, extending hits, and almost all of those extensions led nowhere: a random match in a random place, extended a few letters until the X-drop rule stopped it. You saw a different kind of waste in <a href="#sec-blast-extend">Step 3</a>: when there is a good alignment, it contains many hits on the same diagonal, and each one is extended into the same HSP.</p>
+<section id="gapped-blast" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="gapped-blast">Gapped BLAST</h2>
+<p>Seven years after the first paper, the same group published a new BLAST for proteins (<a href="https://doi.org/10.1093/nar/25.17.3389">Altschul et al., 1997</a>) that was about three times faster and at least as sensitive. It changed two things. The authors measured where the original BLAST spent its time. Most of it went to Step 3, extending hits, and almost all of those extensions led nowhere: a random match in a random place, extended a few letters until the X-drop rule stopped it. You saw a different kind of waste in <a href="#sec-blast-extend">Step 3</a>: when there is a good alignment, it contains many hits on the same diagonal, and each one is extended into the same HSP.</p>
 <p>Both observations point to the same fix. An alignment worth finding is usually long enough to contain more than one hit. A random hit, on the other hand, is rarely accompanied by another one nearby on the same diagonal. So the new BLAST only extends when it finds <em>two</em> hits on the same diagonal that do not overlap and are no more than <span class="math inline">\(A\)</span> letters apart. The paper used <span class="math inline">\(A = 40\)</span>. This is the <em>two-hit method</em>, and the two hits together are sometimes called a <em>paired seed</em>. To find them, BLAST sorts the hits by diagonal, <span class="math inline">\(j - i\)</span>, and looks at neighboring hits along each diagonal.</p>
 <p>Requiring two hits means fewer extensions, but it also risks missing alignments that only have one hit. To win back that sensitivity, the authors lowered the threshold <span class="math inline">\(T\)</span> from 13 to 11. As the table in <a href="#blast-protein-search">the section on protein search</a> shows, that means bigger neighborhoods and many more hits. But since only pairs of hits trigger an extension, the number of extensions still goes way down. On the protein database from that section, the original one-hit BLAST with <span class="math inline">\(T = 13\)</span> extends 17,064 hits and finds 10 of the 10 relatives. The two-hit BLAST with <span class="math inline">\(T = 11\)</span> starts from 44,460 hits, but extends only 2,250 paired seeds, and finds 10 relatives. <a href="#fig-blast-two-hit" class="quarto-xref">Figure&nbsp;<span>56.8</span></a> shows why. Only about one random hit in 21 has a partner close by on its diagonal, so most of them are never extended. A relative, on the other hand, has hits all along its diagonal, and many of them come in pairs.</p>
 <div id="cell-fig-blast-two-hit" class="cell" data-execution_count="11">
@@ -1061,10 +1056,6 @@ Figure&nbsp;56.8: Hits of the protein query at T = 11 in a stretch of the databa
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="sec-blast-gapped" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="sec-blast-gapped">Gaps, but only where they matter</h3>
 <p>The original BLAST found only ungapped alignments. If a related sequence had an insertion, BLAST would report two separate HSPs, one on each side of it, each with a weaker score and a worse E-value than the whole alignment deserved.</p>
 <p>The 1997 BLAST adds gaps, but without paying for a full Smith-Waterman alignment. When an ungapped extension reaches a score high enough to be interesting, BLAST picks a point in the middle of the best part of that HSP and starts a gapped alignment from there, spreading outward in both directions. It fills in the alignment table just like Smith-Waterman does, with one difference: it uses the X-drop idea again, and stops filling in cells whose score has dropped too far below the best seen so far. In practice it only fills in a narrow band around the diagonal, which is a tiny part of the full table. Only a handful of HSPs per search ever get that far, so the gapped step costs little.</p>
 <p>Gapped alignments come at a price in the statistics. The formula for the E-value was proven only for ungapped alignments, but it turns out to fit gapped ones too, with different values of <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(K\)</span>. Those values were found by aligning huge numbers of random sequences and measuring, and BLAST keeps a table of them for each combination of substitution matrix and gap scores. For BLOSUM62 with an affine gap score of 11 to open and 1 to extend, the default for <code>blastp</code>, <span class="math inline">\(\lambda\)</span> is 0.267 and <span class="math inline">\(K\)</span> is 0.041, as the search in <a href="#sec-biopython-blast">the Biopython BLAST section</a> reports. That is why you can only choose among a fixed menu of gap scores on the BLAST website. The same paper also introduced PSI-BLAST, which you will meet among the variants below.</p>
@@ -1206,7 +1197,7 @@ Figure&nbsp;56.8: Hits of the protein query at T = 11 in a stretch of the databa
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hit.target.<span class="bu">id</span>, hsp.annotations[<span class="st">"evalue"</span>], <span class="bu">round</span>(identity, <span class="dv">1</span>),</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          hit.target.description[:<span class="dv">40</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For the FOXP2 search from the exercise above, saved in the course’s <code>data/foxp2_blastp.xml</code>, that prints:</p>
-<div id="bcfcfacc" class="cell" data-execution_count="13">
+<div id="1d91beed" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-stdout">
 <pre><code>sp|O15409.2|   0           97.7  Forkhead box protein P2 (Homo sapiens)
 sp|Q8HZ00.1|   0           97.3  Forkhead box protein P2 (Pan paniscus)
@@ -1675,7 +1666,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../bioinf/molecular-evolution.html" class="pagination-link" aria-label="Molecular evolution">
+      <a href="../bioinf/dna-evolution.html" class="pagination-link" aria-label="Molecular evolution">
         <span class="nav-page-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Molecular evolution</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
