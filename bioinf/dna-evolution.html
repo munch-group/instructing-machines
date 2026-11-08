@@ -737,7 +737,7 @@ window.Quarto = {
 </header>
 
 
-<p>Every time a cell divides, its DNA is copied, and once in a while the copy has a mistake. Most such mutations that end up being passed on through the generations are neutral: they change the DNA without changing anything the organism depends on. Because neutral mutations arise at a roughly steady rate and are neither favored nor removed by selection, they pile up in a lineage like the ticks of a clock. This is the <em>molecular clock</em>. If you know how fast the clock ticks, you can read off how long it has been running from the number of differences it has left behind.</p>
+<p>Every time a cell divides, it copies its DNA, and sometimes the copy has a mistake. Most mutations that get passed on through generations are neutral: they change the DNA without changing anything the organism depends on. Because neutral mutations arise at a roughly steady rate and selection neither favors nor removes them, they pile up in a lineage like the ticks of a clock. This is the <em>molecular clock</em>. If you know how fast the clock ticks, you can read off how long it has been running from the number of differences it has left behind.</p>
 <div id="fig-molecular-clock" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-molecular-clock-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -748,7 +748,7 @@ Figure&nbsp;56.1: A molecular clock. Following one lineage from the past to the 
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-molecular-clock" class="quarto-xref">Figure&nbsp;<span>56.1</span></a> shows the idea for a single lineage. In practice we never have the ancestral sequence. What we have is two sequences from two living species, as in <a href="#fig-divergence-tree" class="quarto-xref">Figure&nbsp;<span>56.2</span></a>. Since the two species split from their common ancestor <span class="math inline">\(T\)</span> years ago, each lineage has been collecting substitutions for <span class="math inline">\(T\)</span> years, so the two sequences are separated by <span class="math inline">\(2T\)</span> years of evolution. If <span class="math inline">\(K\)</span> is the number of substitutions per site that separate them and <span class="math inline">\(r\)</span> is the substitution rate per site per year, then</p>
+<p><a href="#fig-molecular-clock" class="quarto-xref">Figure&nbsp;<span>56.1</span></a> shows the idea for a single lineage. In practice, we never have the ancestral sequence. We have two sequences from two living species, as in <a href="#fig-divergence-tree" class="quarto-xref">Figure&nbsp;<span>56.2</span></a>. Since the two species split from their common ancestor <span class="math inline">\(T\)</span> years ago, each lineage has been collecting substitutions for <span class="math inline">\(T\)</span> years, so the two sequences are separated by <span class="math inline">\(2T\)</span> years of evolution. If <span class="math inline">\(K\)</span> is the number of substitutions per site that separate them and <span class="math inline">\(r\)</span> is the substitution rate per site per year, then</p>
 <p><span class="math display">\[
 r = \frac{K}{2T} \qquad \text{and so} \qquad T = \frac{K}{2r}.
 \]</span></p>
@@ -778,12 +778,12 @@ bl { color: Blue ; font-weight: bold;  }
 <p>Distant past<br> <evol> GCTTGCACGA<br> GCTTG<gr>A</gr>ACGA<br> GCTTG<gr>A</gr>ACGA<br> GCT<bl>C</bl>G<gr>A</gr>ACGA<br> GCT<bl>C</bl>G<gr>A</gr>ACGA<br> GC<gr>A</gr><bl>C</bl>G<gr>A</gr>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<gr>A</gr>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<gr>A</gr>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<or>G</or>ACG<rd>T</rd><br> GC<gr>A</gr><rd>T</rd>G<or>G</or>ACG<rd>T</rd><br> </evol> Present</p>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multiple-hits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;56.3: Six substitutions in a sequence of ten bases, read from the top down. Only three differences between the first and last sequence are visible. The fourth base changed from T to C and back to T, and the sixth changed twice, first to A and then to G.
+Figure&nbsp;56.3: Six substitutions in a ten-base sequence, read from top to bottom. Only three differences between the first and last sequence are visible. The fourth base changed from T to C and back to T, and the sixth changed twice: first to A, then to G.
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-multiple-hits" class="quarto-xref">Figure&nbsp;<span>56.3</span></a> follows one sequence through time. Six substitutions happen, but comparing the first sequence with the last shows only three differences. One site changed and then changed back, which leaves no trace, and another changed twice, which looks like one change. The longer the sequences have been evolving apart, the more often a site is hit more than once, and the more the observed proportion of differences underestimates the number of substitutions that actually happened. To correct for this, we need a model of how bases change over time: a way to compute the probability that a site holds base <span class="math inline">\(x\)</span> now, given that it held base <span class="math inline">\(y\)</span> a time <span class="math inline">\(t\)</span> ago.</p>
-<p>Think of a single site. Let <span class="math inline">\(p_A(t)\)</span> be the probability that it holds an A at time <span class="math inline">\(t\)</span>, and likewise for the other three bases. Over a short time <span class="math inline">\(\Delta t\)</span>, two things can change <span class="math inline">\(p_A\)</span>. If the site is an A, it may mutate to another base, which happens at a rate <span class="math inline">\(\mu_A\)</span>. And if it is some other base <span class="math inline">\(x\)</span>, it may mutate to an A, which happens at a rate <span class="math inline">\(\mu_{xA}\)</span>. So</p>
+<p><a href="#fig-multiple-hits" class="quarto-xref">Figure&nbsp;<span>56.3</span></a> follows one sequence through time. Six substitutions happen, but comparing the first sequence with the last shows only three differences. One site changed and then changed back, which leaves no trace, and another changed twice, which looks like one change. The longer the sequences have been evolving apart, the more often a site is hit more than once, and the more the observed proportion of differences underestimates the number of substitutions that actually happened. To correct for this, we need a model of how bases change over time: a way to compute the probability that a site holds base <span class="math inline">\(x\)</span> now, given that it held base <span class="math inline">\(y\)</span> at time <span class="math inline">\(t\)</span>.</p>
+<p>Think of a single site. Let <span class="math inline">\(p_A(t)\)</span> be the probability that it holds an A at time <span class="math inline">\(t\)</span>, and likewise for the other three bases. Over a short time <span class="math inline">\(\Delta t\)</span>, two things can change <span class="math inline">\(p_A\)</span>. If the site is an A, it may mutate to another base at rate <span class="math inline">\(\mu_A\)</span>. If it is another base <span class="math inline">\(x\)</span>, it may mutate to A at rate <span class="math inline">\(\mu_{xA}\)</span>. So</p>
 <p><span class="math display">\[
 p_A(t+\Delta t) = p_A(t) - p_A(t)\, \mu_A \Delta t + \sum_{x \neq A} p_x(t) \, \mu_{xA} \Delta t,
 \]</span></p>
@@ -823,7 +823,7 @@ Q = \begin{pmatrix}
 \frac{\mu}{4} &amp; \frac{\mu}{4} &amp; \frac{\mu}{4} &amp; -\frac{3\mu}{4} \\
 \end{pmatrix}.
 \]</span></p>
-<p>Letting <span class="math inline">\(\Delta t\)</span> shrink towards zero turns the equation for <span class="math inline">\(\mathbf{p}\)</span> into a differential equation, and for this simple <span class="math inline">\(Q\)</span> it can be solved by hand. The solution gives the probability of going from one base to another in time <span class="math inline">\(t\)</span>, as a matrix <span class="math inline">\(P(t)\)</span> whose entry in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span> is the probability that a site holding base <span class="math inline">\(i\)</span> holds base <span class="math inline">\(j\)</span> a time <span class="math inline">\(t\)</span> later:</p>
+<p>Letting <span class="math inline">\(\Delta t\)</span> shrink towards zero turns the equation for <span class="math inline">\(\mathbf{p}\)</span> into a differential equation, and for this simple <span class="math inline">\(Q\)</span> it can be solved by hand. The solution gives the probability of going from one base to another in time <span class="math inline">\(t\)</span>, as a matrix <span class="math inline">\(P(t)\)</span> whose entry in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span> is the probability that a site holding base <span class="math inline">\(i\)</span> holds base <span class="math inline">\(j\)</span> at time <span class="math inline">\(t\)</span> later:</p>
 <p><span class="math display">\[
 P(t) = \left(
 \begin{array}{cccc}
@@ -834,7 +834,7 @@ P(t) = \left(
 \end{array}
 \right)
 \]</span></p>
-<p>At <span class="math inline">\(t = 0\)</span> the diagonal entries are 1 and the others are 0: nothing has had time to change. As <span class="math inline">\(t\)</span> grows, every entry approaches <span class="math inline">\(\frac{1}{4}\)</span>: after a very long time, the site is equally likely to hold any base, whatever it started as.</p>
+<p>At <span class="math inline">\(t = 0\)</span>, the diagonal entries are 1, and the others are 0: nothing has had time to change. As <span class="math inline">\(t\)</span> grows, every entry approaches <span class="math inline">\(\frac{1}{4}\)</span>: after a very long time, the site is equally likely to hold any base, whatever it started as.</p>
 <p>It is more useful to measure time by the number of substitutions that have actually happened per site, which we call <span class="math inline">\(\nu\)</span>. A site leaves its base at the rate <span class="math inline">\(\frac{\mu}{4} + \frac{\mu}{4} + \frac{\mu}{4}\)</span>, so</p>
 <p><span class="math display">\[
 \nu = \frac{3\mu}{4}\, t \quad \implies \quad t\mu = \frac{4}{3}\nu,
@@ -887,12 +887,12 @@ Figure&nbsp;56.4: The proportion of sites that differ between two sequences unde
 </figcaption>
 </figure>
 </div>
-<p>What we observe is <span class="math inline">\(p\)</span>, and what we want is <span class="math inline">\(\nu\)</span>. Solving the equation for <span class="math inline">\(\nu\)</span> gives the <em>Jukes-Cantor correction</em>:</p>
+<p>We observe <span class="math inline">\(p\)</span>, but we want <span class="math inline">\(\nu\)</span>. Solving the equation for <span class="math inline">\(\nu\)</span> gives the <em>Jukes-Cantor correction</em>:</p>
 <p><span class="math display">\[
 \nu = -\frac{3}{4} \ln\Big(1-\frac{4}{3}p\Big)
 \]</span></p>
 <p>For small <span class="math inline">\(p\)</span>, the correction hardly matters: <span class="math inline">\(p = 0.05\)</span> gives <span class="math inline">\(\nu = 0.052\)</span>. For large <span class="math inline">\(p\)</span>, it matters a lot: <span class="math inline">\(p = 0.5\)</span> gives <span class="math inline">\(\nu = 0.82\)</span>, so the observed differences hide more than a third of the substitutions. The corrected <span class="math inline">\(\nu\)</span> is what goes into the molecular clock as <span class="math inline">\(K\)</span>.</p>
-<p><a href="#fig-jc" class="quarto-xref">Figure&nbsp;<span>56.5</span></a> turns the correction into time. Because the curve in <a href="#fig-jc-inverse-example" class="quarto-xref">Figure&nbsp;<span>56.4</span></a> flattens out, the estimated time shoots up as <span class="math inline">\(p\)</span> approaches 0.75, and a small error in <span class="math inline">\(p\)</span>, which you always have with sequences of limited length, becomes a huge error in the time. Sequences that differ at more than about two thirds of their sites are in the <em>twilight zone</em>, where DNA comparisons can no longer tell how long ago two sequences diverged, or even whether they are related at all. This is one reason distant relatives are compared at the protein level, where the twilight zone comes much later.</p>
+<p><a href="#fig-jc" class="quarto-xref">Figure&nbsp;<span>56.5</span></a> turns the correction into time. Because the curve in <a href="#fig-jc-inverse-example" class="quarto-xref">Figure&nbsp;<span>56.4</span></a> flattens out, the estimated time shoots up as <span class="math inline">\(p\)</span> approaches 0.75, and a small error in <span class="math inline">\(p\)</span>, which you always have with sequences of limited length, becomes a huge error in the time. Sequences that differ at more than about two-thirds of their sites are in the <em>twilight zone</em>, where DNA comparisons can no longer tell how long ago two sequences diverged, or even whether they are related at all. This is one reason we compare distant relatives at the protein level, where the twilight zone comes much later.</p>
 <div id="cell-fig-jc" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div id="fig-jc" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -910,8 +910,8 @@ Figure&nbsp;56.5: Time estimated with the Jukes-Cantor correction from the obser
 </section>
 <section id="sec-molevo-k2p" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="sec-molevo-k2p">Kimura’s 2-parameter model</h3>
-<p>The four bases come in two chemical kinds. A and G are purines, with two rings, and C and T are pyrimidines, with one. A mutation that swaps a purine for a purine or a pyrimidine for a pyrimidine is a <em>transition</em>. One that swaps a purine for a pyrimidine, or the other way around, is a <em>transversion</em>. Transitions are chemically easier, and although there are twice as many kinds of transversion, transitions are observed about twice as often as all transversions together. The Jukes-Cantor model ignores this.</p>
-<p><a href="https://doi.org/10.1007/BF01731581">Kimura (1980)</a> gave transitions their own rate, <span class="math inline">\(\alpha\)</span>, and transversions another, <span class="math inline">\(\beta\)</span>, as in <a href="#fig-k2p" class="quarto-xref">Figure&nbsp;<span>56.6</span></a>. Each base has one transition partner and two transversion partners, so with the bases in the order A, C, G, T the rate matrix is</p>
+<p>The four bases fall into two chemical classes. A and G are purines, with two rings, and C and T are pyrimidines, with one. A mutation that swaps a purine for a purine or a pyrimidine for a pyrimidine is a <em>transition</em>. One that swaps a purine for a pyrimidine, or vice versa, is a <em>transversion</em>. Transitions are chemically easier, and although there are twice as many kinds of transversion, transitions are observed about twice as often as all transversions together. The Jukes-Cantor model ignores this.</p>
+<p><a href="https://doi.org/10.1007/BF01731581">Kimura (1980)</a> gave transitions their own rate, <span class="math inline">\(\alpha\)</span>, and transversions another, <span class="math inline">\(\beta\)</span>, as in <a href="#fig-k2p" class="quarto-xref">Figure&nbsp;<span>56.6</span></a>. Each base has one transition partner and two transversion partners, so with the bases in the order A, C, G, T, the rate matrix is</p>
 <p><span class="math display">\[
 Q = \begin{pmatrix}
 -2\beta-\alpha &amp; \beta &amp; \alpha &amp; \beta \\
@@ -934,11 +934,11 @@ Figure&nbsp;56.6: Kimura’s 2-parameter model. Transitions (solid blue) swap a 
 </div>
 </div>
 </div>
-<p>In the same way as for the Jukes-Cantor model, solving this model gives a correction formula. If <span class="math inline">\(s\)</span> is the observed proportion of sites that differ by a transition, and <span class="math inline">\(v\)</span> the proportion that differ by a transversion, the number of substitutions per site is</p>
+<p>As with the Jukes-Cantor model, solving this model gives a correction formula. If <span class="math inline">\(s\)</span> is the observed proportion of sites that differ by a transition, and <span class="math inline">\(v\)</span> the proportion that differ by a transversion, the number of substitutions per site is</p>
 <p><span class="math display">\[
 d_{K2P} = - \frac{1}{2} \ln \big( 1 - 2s - v\big) - \frac{1}{4} \ln \big( 1 - 2v\big).
 \]</span></p>
-<p>When transitions and transversions do happen at the rates the Jukes-Cantor model assumes (<span class="math inline">\(\alpha = \beta\)</span>), the two formulas give about the same answer. When transitions are more common, as they nearly always are, the Kimura correction is larger, because the frequent transitions saturate sooner and hide more of the substitutions.</p>
+<p>When transitions and transversions do happen at the rates the Jukes-Cantor model assumes (<span class="math inline">\(\alpha = \beta\)</span>), the two formulas give about the same answer. When transitions are more common, as they nearly always are, the Kimura correction is larger because frequent transitions saturate sooner and hide more substitutions.</p>
 
 
 </section>
