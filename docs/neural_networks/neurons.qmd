@@ -9,33 +9,33 @@ execute:
   enabled: true
 ---
 
-The AI you use for this course is a neural network. So is the software that finds faces in the photos on your phone, turns speech into text, and predicts the three-dimensional structure of a protein from its amino-acid sequence. It would make sense to think that tasks so different would each require similarly different highly advanced algorithms, but they are all built from one very simple part, repeated many times. 
+The AI you use for this course is a neural network. So is the software that finds faces in the photos on your phone, turns speech into text, and predicts the three-dimensional structure of a protein from its amino-acid sequence. It makes sense that such different tasks would require very different, highly advanced algorithms, but they are all built from one very simple part, repeated many times. 
 
-The idea is borrowed from biology, where simple neurons combined in (very) large numbers are able to do complex and diverse computations. A neuron receives signals from other neurons through synapses. Some synapses are excitatory and push the membrane potential up, others are inhibitory and push it down. Some synapses are stronger than others, making larger contributions to the potential. The neuron cell body adds up what comes in, and if the membrane potential reaches a threshold, the neuron fires an action potential down its axon that connects it too another neuron. If the threshold is not reached, it sends nothing. With neurons, the response is all or nothing.
+The idea comes from biology, where simple neurons combined in (very) large numbers can do complex and diverse computations. A neuron receives signals from other neurons through synapses. Some synapses are excitatory and push the membrane potential up; others are inhibitory and push it down. Some synapses are stronger than others, contributing more to the potential. The neuron's cell body adds up what comes in, and if the membrane potential reaches threshold, the neuron fires an action potential down its axon to another neuron. If the threshold is not reached, it sends nothing. With neurons, the response is all or nothing.
 
-All the complicated chemistry aside, a neuron basically does three things: it *weights* each incoming signal by the strength of its synapse, it adds the weighted signals up, and it fires if the sum reaches a *threshold*. The idea of turning this into math dates back to [1943](https://doi.org/10.1007/BF02478259). The simplified mathematical version of a biological neuron is called a *perceptron*, coined by [Rosenblatt](https://doi.org/10.1037/h0042519) who built the first working neural network in 1958. Modern neural networks do not try to imitate the brain. They get their unimaginable power from combining simple perceptrons. This chapter introduces how the logic of a single perceptron can be made to represent complicated decisions. Combining them into neural networks and the capabilities this introduces is covered in the next chapters.
+All the complicated chemistry aside, a neuron basically does three things: it *weights* each incoming signal by the strength of its synapse, adds the weighted signals, and fires if the sum reaches a *threshold*. The idea of turning this into math dates back to [1943](https://doi.org/10.1007/BF02478259). The simplified mathematical version of a biological neuron is called a *perceptron*, coined by [Rosenblatt](https://doi.org/10.1037/h0042519), who built the first working neural network in 1958. Modern neural networks do not try to imitate the brain. They get their unimaginable power from combining simple perceptrons. This chapter introduces how a single perceptron can represent complicated decisions. The next chapters cover how to combine them into neural networks and the capabilities this introduces.
 
 ## The perceptron {#sec-nn-perceptron}
 
 ::: {.column-margin}
-A **perceptron** is more commonly called a **neuron**, so we will use that name here as well.
+A **perceptron** is more commonly called a **neuron**, so we will use that name here, too.
 :::
 
-There is a festival this weekend and you need to decide if are going or not[^Nielsen]. Three things matter to your decision: 
+There is a festival this weekend, and you need to decide whether you are going [^Nielsen]. Three things matter to your decision: 
 
 [^Nielsen]: The example is from the [great tutorial by Nielsen, 2015](http://neuralnetworksanddeeplearning.com/chap1.html)].
 
 1. Is the weather good?
 2. Do you have company?
-3. Can get there by public transport?
+3. Can you get there by public transport?
 
-You treat weather, company, and accessibility as separate input: $x_1$, $x_2$ and $x_3$. For now, 1 means yes and 0 means no. The three input do not matter equally to you. Perhaps you mind rain much more than going alone. This is why each input gets a *weight*, $w_1$, $w_2$ and $w_3$. If $w_1$ is larger than $w_2$, it means the weather is more important than company. The perceptron multiplies each input by its weight and adds the results into a weighted sum
+You treat weather, company, and accessibility as separate inputs: $x_1$, $x_2$, and $x_3$. For now, 1 means yes and 0 means no. The three inputs do not matter equally to you. Perhaps you mind rain much more than going alone. This is why each input gets a *weight*, $w_1$, $w_2$, and $w_3$. If $w_1$ is larger than $w_2$, the weather matters more than company. The perceptron multiplies each input by its weight and adds the results into a weighted sum
 
 $w_1x_1 + w_2x_2 + w_3x_3$.
 
-The sum is compared to a *threshold*, $\theta$. If the weighted sum reaches the threshold, the neuron's output is 1 (you go to the festival). Otherwise it is 0 (you stay home). 
+The sum is compared to a *threshold*, $\theta$. If the weighted sum reaches the threshold, the neuron's output is 1 (you go to the festival). Otherwise, it is 0 (you stay home). 
 
-Here is the festival neuron. The sliders on the left set the three inputs, the sliders on the connections set the weights, and the slider above the neuron sets the threshold. Turn the inputs on and off, and check each result against the resulting sums. For fine control of sliders, click them and use the arrow keys.
+Here is the festival neuron. The sliders on the left set the three inputs, the sliders on the connections set the weights, and the slider above the neuron sets the threshold. Turn the inputs on and off, and check each result against the resulting sums. For fine control, click the sliders and use the arrow keys.
 
 ```{=html}
 <div class="pcp" data-set="x1=1, x2=0, x3=0, w1=4, w2=3, w3=1, th=4.5"
@@ -45,16 +45,16 @@ Here is the festival neuron. The sliders on the left set the three inputs, the s
 
 <!-- data-formula="false"  -->
 
-Say the weights are $w_1 = 4$ for the weather, $w_2 = 3$ for company and $w_3 = 1$ for transport, and the threshold is $\theta = 4.5$. Good weather on its own gives a sum of 4, which falls short, so you stay at home. Good weather and a train gives $4 + 1 = 5$, and you go. Company and a train gives $3 + 1 = 4$, and you stay at home. The threshold sets how much evidence the neuron needs before it fires. In this case, it is how much convincing you need to go to the festival. If you lower the threshold to $\theta = 3.5$, good weather alone is enough, and so is company with a train.
+Say the weights are $w_1 = 4$ for the weather, $w_2 = 3$ for company and $w_3 = 1$ for transport, and the threshold is $\theta = 4.5$. Good weather alone gives a sum of 4, which falls short, so you stay home. Good weather and a train give $4 + 1 = 5$, and you go. Company and a train give $3 + 1 = 4$, and you stay at home. The threshold sets how much evidence the neuron needs to fire. In this case, it is how convincing you need to be to go to the festival. If you lower the threshold to $\theta = 3.5$, good weather alone is enough, and so is company on a train.
 
-If a weight is negative, the input counts *against* the decision: if $w_2 = -3$ it means you would rather go alone. In that case an input of 1 takes 3 off the sum. A very large negative weight works as a veto, because no combination of the other inputs can make up for it.
+If a weight is negative, the input counts *against* the decision: if $w_2 = -3$, it means you would rather go alone. In that case, an input of 1 takes 3 off the sum. A very large negative weight works as a veto, because no combination of the other inputs can make up for it.
 
-You will often see the threshold moved to the other side of the comparison. Asking whether $w_1x_1 + w_2x_2 + w_3x_3 \geq \theta$ is the same as asking whether $w_1x_1 + w_2x_2 + w_3x_3 - \theta \geq 0$. Most software and many textbooks express the threshold in terms of *bias*, which is just $-\theta$. If a neuron has a large bias it will with a large bias says yes easily and one with a large negative bias needs a lot of convincing. The widgets in these notes use the threshold.
+You will often see the threshold moved to the other side of the comparison. Asking whether $w_1x_1 + w_2x_2 + w_3x_3 \geq \theta$ is the same as asking whether $w_1x_1 + w_2x_2 + w_3x_3 - \theta \geq 0$. Most software and many textbooks express the threshold in terms of *bias*, which is just $-\theta$. If a neuron has a large bias, it will say yes easily, and one with a large negative bias needs a lot of convincing. The widgets in these notes use the threshold.
 
 
 ## Activation functions {#sec-nn-activation}
 
-The last step that turn the sum into an output is usually written as a function of the neuron's net input, $z = w_1x_1 + w_2x_2 + w_3x_3 - \theta$. So $f(z)$ is the output and $f$ is the neuron's activation function. So far we have used the step function, 
+The last step that turns the sum into an output is usually written as a function of the neuron's net input, $z = w_1x_1 + w_2x_2 + w_3x_3 - \theta$. So $f(z)$ is the output, and $f$ is the neuron's activation function. So far, we have used the step function, 
 
 $$
   f(z) =
@@ -89,15 +89,15 @@ plt.show()
 
 
 
-However, in a larger network simple yes/no answers will not work well. Three properties of the activation function matters:
+However, in a larger network, simple yes/no answers will not work well. Three properties of the activation function matter:
 
-First, the function must be *non-linear*. A function is linear if its graph is a straight line, like $f(z) = 2z$ or $f(z) = 3z - 1$, and non-linear if the graph bends, breaks or jumps somewhere. To see why this matters, suppose every neuron used a linear function, or no activation function at all, and simply passed on its weighted sum. Take one neuron that computes $h = 2x + 1$ and feed its output to a second neuron that computes $y = 3h - 4$. Substituting $h$ into the second gives $y = 3(2x + 1) - 4 = 6x - 1$, which is again a straight line. A single neuron could have computed that directly. The same happens however many neurons you connect: a weighted sum of weighted sums is just another weighted sum, so the whole network can compute nothing a single neuron could not. It is the bend in the activation function, the place where its graph stops being a straight line, that makes it worth connecting neurons at all. The step function jumps at $z = 0$, so it is non-linear and passes this test.
+First, the function must be *non-linear*. A function is linear if its graph is a straight line, like $f(z) = 2z$ or $f(z) = 3z - 1$, and non-linear if the graph bends, breaks, or jumps somewhere. To see why this matters, suppose every neuron used a linear function, or no activation function at all, and simply passed on its weighted sum. Take one neuron that computes $h = 2x + 1$ and feed its output to a second neuron that computes $y = 3h - 4$. Substituting $h$ into the second gives $y = 3(2x + 1) - 4 = 6x - 1$, which is again a straight line. A single neuron could have computed that directly. The same happens no matter how many neurons you connect: a weighted sum of weighted sums is just another weighted sum, so the whole network can compute nothing a single neuron could not. It is the bend in the activation function, the place where its graph stops being a straight line, that makes it worth connecting neurons at all. The step function jumps at $z = 0$, so it is non-linear and passes this test.
 
-Second, the function must let the network learn. A network learns by making many small adjustments to its weights and keeping the ones that improve its answers. With a step function, a small change to a weight usually changes nothing at all, and once in a while flips the output from 0 to 1. The network gets no hint that it is moving in the right direction. A function that changes gradually gives that hint: nudge a weight and the output moves a little, up or down, and the network can tell which way is better. Modern networks therefore use smooth activation functions, or at least functions that are smooth almost everywhere.
+Second, the function must let the network learn. A network learns by making many small adjustments to its weights and keeping the ones that improve its answers. With a step function, a small change to a weight usually changes nothing, and occasionally flips the output from 0 to 1. The network gets no hint that it is moving in the right direction. A function that changes gradually gives that hint: nudge a weight and the output moves a little, up or down, and the network can tell which way is better. Modern networks therefore use smooth activation functions, or at least functions that are smooth almost everywhere.
 
-Third, the range of the output decides what the number can mean. An output that always lies between 0 and 1 can be read as a probability, or as how sure the network is that the answer is yes. An output with no upper limit can also say how much. Which of these you want depends on where in the network the neuron sits and what question it answers.
+Third, the output range determines what the number can mean. An output that always lies between 0 and 1 can be read as a probability, or as how sure the network is that the answer is yes. An output with no upper limit can also indicate magnitude. Which you want depends on where the neuron sits in the network and what question it answers.
 
-These demands pull in different directions, so there is no single best activation function. The two that are used most are the sigmoid and ReLU. @fig-activation shows them together with the step function.
+These demands pull in different directions, so no single activation function is best. The two most commonly used are sigmoid and ReLU. @fig-activation shows them together with the step function.
 
 ### The sigmoid {#sec-nn-sigmoid}
 
@@ -107,7 +107,7 @@ $$
   f(z) = \frac{1}{1 + e^{-z}}
 $$
 
-When $z$ is large and negative, $e^{-z}$ is enormous, and the fraction is close to 0. When $z$ is large and positive, $e^{-z}$ is close to 0, and the fraction is close to 1. At $z = 0$, $e^{0} = 1$ and the output is exactly $1/2$. In between, the output rises gradually, so a small change to a weight always gives a small change to the output. The weights also control how steep the rise is: the bigger the weights, the faster the net input changes, and the closer the sigmoid comes to a step. The Tanh function is a steeper variant of of the sigmoid, mapping values to an a -1,1 interval ($tanh(z) = 2 * sigmoid(d * z) - 1$).
+When $z$ is large and negative, $e^{-z}$ is enormous, and the fraction is close to 0. When $z$ is large and positive, $e^{-z}$ is close to 0, and the fraction is close to 1. At $z = 0$, $e^{0} = 1$ and the output is exactly $1/2$. In between, the output rises gradually, so a small change to a weight always gives a small change to the output. The weights also control how steep the rise is: the bigger the weights, the faster the net input changes, and the closer the sigmoid comes to a step. The Tanh function is a steeper variant of the sigmoid, mapping values to a -1,1 interval ($tanh(z) = 2 * sigmoid(d * z) - 1$).
 
 ```{python}
 #| label: fig-sigmoid-activation
@@ -134,7 +134,7 @@ plt.show()
 
 The two functions are mainly used in smaller networks. The sigmoid is also often used for the output neuron of a network that answers a yes/no question, because its output always lies between 0 and 1 and can be read as a probability. A network that predicts whether a DNA sequence contains a splice site might answer 0.93, meaning it is fairly sure that it does.
 
-The sigmoid has a weakness that keeps it out of the hidden layers of large networks. Far from 0 the curve is almost flat. A neuron with net input 8 and one with net input 15 both output very nearly 1, and a small change to their weights makes almost no difference to what they send on. This is the problem of the step function again, only milder. In a network with many layers, the hint about which way to adjust the weights has to pass back through every layer, and each flat sigmoid it passes through weakens it. By the time it reaches the first layers there is almost nothing left, and those layers barely learn. This is known as the *vanishing gradient* problem.
+The sigmoid has a weakness that keeps it out of the hidden layers of large networks. Far from 0, the curve is almost flat. A neuron with net input 8 and one with net input 15 both output very nearly 1, and a small change to their weights makes almost no difference to what they send on. This is the problem of the step function again, only milder. In a network with many layers, the hint about how to adjust the weights has to pass back through every layer, and each flat sigmoid weakens it. By the time it reaches the first layers, almost nothing is left, and those layers barely learn. This is known as the *vanishing gradient* problem.
 
 ### ReLU {#sec-nn-relu}
 
@@ -148,7 +148,7 @@ $$
   \end{cases}
 $$
 
-As you can see in @fig-relu-activation, ReLU blocks negative values and lets positive values through unchanged. Below 0 the neuron is silent, just like the step function. Above 0 the output is the net input itself, so the neuron also tells how strongly it fires. The bend at 0, a sharp corner, is enough to make connecting neurons worthwhile. A network of ReLU neurons builds its curves from straight pieces joined at corners, and you will build some yourself in the next chapter.
+As you can see in @fig-relu-activation, ReLU blocks negative values and lets positive values through unchanged. Below 0, the neuron is silent, just like the step function. Above 0, the output is the net input itself, so the neuron also tells how strongly it fires. The bend at 0, a sharp corner, is enough to make connecting neurons worthwhile. A network of ReLU neurons builds its curves from straight pieces joined at corners, and you will build some yourself in the next chapter.
 
 ```{python}
 #| label: fig-relu-activation
@@ -172,7 +172,7 @@ plt.show()
 ```
 
 
-ReLU has been the default choice for the hidden neurons of deep networks since about 2010 ([Glorot et al., 2011](https://proceedings.mlr.press/v15/glorot11a.html)). There are two reasons. Above 0 it never flattens out: its slope is 1 however large the net input gets, so the hint about which way to adjust the weights passes back through many layers without fading. And it is very cheap to compute. Comparing a number with 0 takes a computer far less time than calculating $e^{-z}$, which matters when a network has billions of neurons.
+ReLU has been the default choice for the hidden neurons of deep networks since about 2010 ([Glorot et al., 2011](https://proceedings.mlr.press/v15/glorot11a.html)). There are two reasons. Above 0, it never flattens out: its slope is 1 no matter how large the net input gets, so the hint about how to adjust the weights passes back through many layers without fading. And it is very cheap to compute. Comparing a number with 0 takes a computer far less time than calculating $e^{-z}$, which matters when a network has billions of neurons.
 
 ReLU has weaknesses too. A neuron whose net input is negative for every example always outputs 0, and a small change to its weights does not change that, so it stops learning. Such a neuron is said to have died. And since ReLU has no upper limit, it is a poor choice for an output that should be read as a probability. Many modern networks, including the language models behind AI assistants, use close relatives of ReLU with the corner rounded off.
 
@@ -256,7 +256,7 @@ threshold, so it does not matter whether you read the rule as $\geq$ or $>$.
 
 Should you go to the festival? Three things matter: the weather is good, you have company, and
 the festival is accessible by public transport. Each counts equally ($w_1 = w_2 = w_3 = 2$) and the
-threshold is $\theta = 3$. Right now the weather is bad but you have company and it is accessible:
+threshold is $\theta = 3$. Right now the weather is bad, but you have company, and it is accessible:
 $x = (0,\, 1,\, 1)$. The output is 1. Check that you can explain why.
 
 ```{=html}
@@ -275,7 +275,7 @@ The weighted sum is $2 \times 0 + 2 \times 1 + 2 \times 1 = 4$, which is at leas
 
 ## Your company cancels: set $x_2 = 0$. Do you still go?
 
-No. The sum is $2$, below the threshold 3. One good reason is not enough.
+No. The sum is $2$, below the threshold of 3. One good reason is not enough.
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
@@ -308,7 +308,7 @@ perceptron easier to convince.
 *Not going anywhere in bad weather!*
 
 Same festival, but now the weather matters much more: $w_1 = 6$, $w_2 = w_3 = 2$, and the threshold is
-$\theta = 5$. You have company and it is accessible, but the weather is bad: $x = (0,\, 1,\, 1)$, and the
+$\theta = 5$. You have company, and it is accessible, but the weather is bad: $x = (0,\, 1,\, 1)$, and the
 output is 0.
 
 ```{=html}
@@ -341,8 +341,8 @@ Yes: the good weather alone gives $6 \geq 5$. Good weather is enough on its own.
 
 ## The weather turns bad again: set $x_1 = 0$. Do you go?
 
-No: the sum is 0. And even with company and accessibility the sum would only be $2 + 2 = 4 < 5$, so
-with these weights good weather is also necessary: you never go in bad weather.
+No: the sum is 0. And even with company and accessibility, the sum would only be $2 + 2 = 4 < 5$, so
+with these weights, good weather is also necessary: you never go in bad weather.
 :::
 
 <br>
@@ -399,7 +399,7 @@ even when some inputs are on.
 Two things make you bring an umbrella: a rain forecast ($w_1 = 4$) and dark clouds ($w_2 = 3$).
 One thing makes you leave it at home: the umbrella is heavy ($w_3 = -2$). The threshold is
 $\theta = 3.5$. Right now rain is forecast, but there are no dark clouds and the umbrella is not heavy:
-the output is 1.
+The output is 1.
 
 ```{=html}
 <div class="pcp" data-set="x1=1, x2=0, x3=0, w1=4, w2=3, w3=-2, th=3.5"
@@ -410,7 +410,7 @@ the output is 1.
 
 ## You only have your heavy umbrella: set $x_3 = 1$. Do you bring it?
 
-No: $4 − 2 = 2 < 3.5$. A negative weight is counts against the decision.
+No: $4 − 2 = 2 < 3.5$. A negative weight counts against the decision.
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
@@ -448,13 +448,13 @@ evidence this person needs.
 
 *Borrow the car? (AND, "at least two", OR)*
 
-You may borrow the car if you have a license, the car is free and your parents agree. All
-weights are 1 and the threshold is $\theta = 2.5$. Right now you have a licence and the car is free, but
+You may borrow the car if you have a license, the car is free, and your parents agree. All
+weights are 1, and the threshold is $\theta = 2.5$. Right now you have a license and the car is free, but
 your parents have not agreed yet: the output is 0.
 
 ```{=html}
 <div class="pcp" data-example="and" data-set="x1=1, x2=1, x3=0"
-     data-inputs="Have a licence, Car is free, Parents agree" data-output="Borrow the car"></div>
+     data-inputs="Have a license, Car is free, Parents agree" data-output="Borrow the car"></div>
 ```
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
@@ -468,14 +468,14 @@ Yes: $1 + 1 + 1 = 3 \geq 2.5$.
 
 ## You lose your licence: set $x_1 = 0$. Can you borrow the car?
 
-No: $2 < 2.5$. With threshold 2.5 all three conditions must hold: the perceptron computes AND.
+No: $2 < 2.5$. With threshold 2.5, all three conditions must hold: the perceptron computes AND.
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
 
 ## Change the threshold to $\theta = 1.5$. Can you borrow the car now?
 
-Yes: $2 \geq 1.5$. With threshold 1.5 any two of the three are enough (a majority vote). This is not
+Yes: $2 \geq 1.5$. With threshold 1.5, any two of the three are enough (a majority vote). This is not
 a sensible rule for borrowing a car, but the perceptron does not know that.
 :::
 
@@ -536,7 +536,7 @@ $w_1 = 2$, $w_2 = -3$, $w_3 = 5$, $\theta = 1.5$. Hungry alone gives 2 (order); 
 
 #### Exercise
 
-Find weights and a threshold yourself. A staircase light has a switch at the bottom and one at the top of the stairs. The lamp should be on when exactly one of the switches is up (ignore the third input; keep it at 0).
+Find weights and a threshold yourself. A staircase light has a switch at the bottom and one at the top of the stairs. The lamp should be on when exactly one switch is up (ignore the third input; keep it at 0).
 
 ```{=html}
 <div class="pcp" data-example="and" data-set="x3=0"
@@ -547,7 +547,7 @@ Find weights and a threshold yourself. A staircase light has a switch at the bot
 
 ## Answer
 
-It cannot be done. With both switches down the lamp must be off, so $0 < \theta$. With one switch up it
+It cannot be done. With both switches down, the lamp must be off, so $0 < \theta$. With one switch up, it
 must be on, so $w_1 \geq \theta$ and $w_2 \geq \theta$. But then both switches up give $w_1 + w_2 \geq 2\theta > \theta$, so the lamp
 would be on, not off. This rule (called XOR, "exclusive or") cannot be computed by a single
 perceptron. It needs a *hidden layer*: several neurons whose outputs are combined by another one.
