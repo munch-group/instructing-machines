@@ -804,7 +804,7 @@ window.Quarto = {
 <li>None, but it <em>prints</em> a nice representation of the matrix lined with the bases of the two sequences.</li>
 </ul>
 <p>Here it is:</p>
-<div id="bf62896d" class="cell">
+<div id="06509f6e" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_matrix(matrix, seq1, seq2):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    max_len <span class="op">=</span> <span class="bu">max</span>(<span class="bu">len</span>(<span class="bu">str</span>(cell)) <span class="cf">for</span> row <span class="kw">in</span> matrix <span class="cf">for</span> cell <span class="kw">in</span> row)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    fmt <span class="op">=</span> <span class="st">"</span><span class="sc">{{</span><span class="st">:&gt;</span><span class="sc">{}}}</span><span class="st">"</span>.<span class="bu">format</span>(max_len<span class="op">+</span><span class="dv">1</span>)</span>
@@ -943,7 +943,7 @@ T    U None None</code></pre>
 <h2 class="unnumbered anchored" data-anchor-id="fill-the-matrices">Fill the matrices</h2>
 <p>Now that we can fill the top row and left column of our matrices, we can start thinking about how to fill them in completely.</p>
 <p>For that, we need a score matrix of match scores. In Python, that is most easily represented as a dictionary of dictionaries like this:</p>
-<div id="38e24c47" class="cell">
+<div id="d660bb57" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>score_matrix <span class="op">=</span> {<span class="st">'A'</span>: {<span class="st">'A'</span>: <span class="dv">2</span>, <span class="st">'T'</span>: <span class="dv">0</span>, <span class="st">'G'</span>: <span class="dv">0</span>, <span class="st">'C'</span>: <span class="dv">0</span>},</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">'T'</span>: {<span class="st">'A'</span>: <span class="dv">0</span>, <span class="st">'T'</span>: <span class="dv">2</span>, <span class="st">'G'</span>: <span class="dv">0</span>, <span class="st">'C'</span>: <span class="dv">0</span>},</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">'G'</span>: {<span class="st">'A'</span>: <span class="dv">0</span>, <span class="st">'T'</span>: <span class="dv">0</span>, <span class="st">'G'</span>: <span class="dv">2</span>, <span class="st">'C'</span>: <span class="dv">0</span>},</span>
@@ -962,7 +962,7 @@ T    U None None</code></pre>
 <li>A tuple of two values. The first must be a list of lists of numeric values representing the filled-in dynamic programming matrix. The second must be a list of lists representing the filled-in traceback matrix.</li>
 </ul>
 <p>Example usage: If <code>score_matrix</code> is defined as above, then</p>
-<div id="47ced057" class="cell">
+<div id="83d05ccf" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fill_matrices(<span class="st">"GTC"</span>, <span class="st">"GC"</span>, score_matrix, <span class="op">-</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>must return:</p>
@@ -1069,7 +1069,7 @@ T    U    U    D</code></pre>
 <li>A tuple of two strings that together represent the alignment of the sequences given as arguments one and two as specified by the traceback matrix.</li>
 </ul>
 <p>Example usage: If <code>traceback</code> is defined as above, then</p>
-<div id="badc9fa2" class="cell">
+<div id="74a08914" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>traceback_matrix <span class="op">=</span> [</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    [<span class="va">None</span>, <span class="st">'L'</span>, <span class="st">'L'</span>, <span class="st">'L'</span>],</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'U'</span>, <span class="st">'D'</span>, <span class="st">'D'</span>, <span class="st">'L'</span>],</span>
@@ -1093,7 +1093,7 @@ T    U    U    D</code></pre>
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="b2b27920" class="cell">
+<div id="2dbb686f" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> traceback(seq1, seq2, tb_matrix):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    aln1, aln2 <span class="op">=</span> <span class="st">''</span>, <span class="st">''</span>                        <span class="co"># Strings we will extend backwards.</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    row, col <span class="op">=</span> <span class="bu">len</span>(seq1), <span class="bu">len</span>(seq2)            <span class="co"># Start with last row and col.</span></span>
@@ -1136,7 +1136,7 @@ T    U    U    D</code></pre>
 <li>A list of length two. The first element must be a string representing aligned sequence one. The second element must be a string representing the aligned sequence two.</li>
 </ul>
 <p>Example usage:</p>
-<div id="4dd5b98d" class="cell">
+<div id="68891612" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>align(<span class="st">'ATAT'</span>, <span class="st">'GATGAT'</span>, score_matrix, <span class="op">-</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>must return:</p>
@@ -1163,7 +1163,7 @@ T    U    U    D</code></pre>
 <li>A list of length two. The first element must be a string representing the first aligned sequence. The second element must be a string representing the second aligned sequence.</li>
 </ul>
 <p>Example usage:</p>
-<div id="a9aa7dec" class="cell">
+<div id="5bcca721" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>score_matrix <span class="op">=</span> {<span class="st">'A'</span>: {<span class="st">'A'</span>: <span class="dv">2</span>, <span class="st">'T'</span>: <span class="dv">0</span>, <span class="st">'G'</span>: <span class="dv">0</span>, <span class="st">'C'</span>: <span class="dv">0</span>},</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">'T'</span>: {<span class="st">'A'</span>: <span class="dv">0</span>, <span class="st">'T'</span>: <span class="dv">2</span>, <span class="st">'G'</span>: <span class="dv">0</span>, <span class="st">'C'</span>: <span class="dv">0</span>},</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">'G'</span>: {<span class="st">'A'</span>: <span class="dv">0</span>, <span class="st">'T'</span>: <span class="dv">0</span>, <span class="st">'G'</span>: <span class="dv">2</span>, <span class="st">'C'</span>: <span class="dv">0</span>},</span>
@@ -1173,7 +1173,7 @@ T    U    U    D</code></pre>
 <p>must return:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>(<span class="st">'AATAC-GTG---'</span>, <span class="st">'AAGACGGTGCAT'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now you can compute an alignment like this:</p>
-<div id="4f5becd2" class="cell">
+<div id="1f83fbb1" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>aln1, aln2 <span class="op">=</span> align(<span class="st">'AATACGTG'</span>, <span class="st">'AAGACGGTGCAT'</span>, score_matrix, <span class="op">-</span><span class="dv">1</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(aln1)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(aln2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1192,7 +1192,7 @@ T    U    U    D</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>identity_line(<span class="st">'AATAC-GTG---'</span>, <span class="st">'AAGACGGTGCAT'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>must return:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">'|| || |||   '</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="4469d846" class="cell">
+<div id="3e30c97e" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(aln1)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(identity_line(aln1, aln2))</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(aln2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
