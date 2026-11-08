@@ -792,7 +792,7 @@ window.Quarto = {
 <div id="fig-te-dense" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-dense-output-1.png" width="750" height="278" class="figure-img">
+<img src="llm_files/figure-html/fig-te-dense-output-1.png" width="640" height="240" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.1: A fully connected layer and the matrix that holds its weights. Each line in the network on the left is one weight, and each row of the matrix on the right holds the weights of one output neuron, in the same color. Multiplying the matrix by the column of inputs computes every weighted sum in the layer at once.
@@ -809,7 +809,7 @@ Figure&nbsp;63.1: A fully connected layer and the matrix that holds its weights.
 <div id="fig-te-conv" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-conv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-conv-output-1.png" width="778" height="224" class="figure-img">
+<img src="llm_files/figure-html/fig-te-conv-output-1.png" width="662" height="195" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-conv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.2: Left: a fully connected layer from six inputs to six outputs has 36 weights, all different. Right: a convolution with a window of three. Each output connects only to its neighbors, always with the same three weights a, b, and c, shown by the three colors. It has three weights in total, however long the sequence is.
@@ -866,7 +866,7 @@ Figure&nbsp;63.2: Left: a fully connected layer from six inputs to six outputs h
 <div id="fig-te-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-pipeline-output-1.png" width="816" height="144" class="figure-img">
+<img src="llm_files/figure-html/fig-te-pipeline-output-1.png" width="662" height="120" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.3: The path through GPT-2 that the Transformer Explainer draws from left to right. The sentence becomes 11 pieces, each piece becomes 768 numbers, and twelve identical blocks of attention and fully connected layers refine those numbers. The numbers of the last piece are turned into a probability for each of the 50,257 pieces in the vocabulary.
@@ -1015,7 +1015,7 @@ Figure&nbsp;63.4: How similar GPT-2’s token embeddings are for nine words (cos
 <div id="fig-te-embedding" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-embedding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-embedding-output-1.png" width="709" height="201" class="figure-img">
+<img src="llm_files/figure-html/fig-te-embedding-output-1.png" width="671" height="201" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-embedding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.5: The embedding of ” virus” at position 1, showing the first 8 of its 768 numbers. Each number of the token embedding is added to the number in the same place in the position embedding. Blue cells are negative and red cells positive.
@@ -1083,7 +1083,11 @@ Figure&nbsp;63.5: The embedding of ” virus” at position 1, showing the first
 <section id="sec-te-attention" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-te-attention">Looking back at the sentence: attention</h2>
 <p>To predict what follows “makes copies of its”, the model has to know whose copies they are. The word “its” refers to something earlier in the sentence, and the list of numbers for “its” must somehow take in information from the word it refers to. This is what the attention layer does, and it is the only layer in GPT-2 where the tokens of the sentence exchange information.</p>
-<p>Attention starts with three fully connected layers applied to each token separately, using the shared-weight approach in <a href="#fig-te-conv" class="quarto-xref">Figure&nbsp;<span>63.2</span></a>. From each token’s embedding, they compute three new lists of numbers, called the <em>query</em>, the <em>key</em>, and the <em>value</em>. You can think of the query as what the token is looking for, the key as what it offers, and the value as what it passes on to an interested token. To decide how much attention “its” should pay to “virus”, the model multiplies the query of “its” with the key of “virus” number by number and adds up the products. This is called a <em>dot product</em>, and it is large when the two lists have large numbers in the same places, that is, when what one token is looking for matches what the other offers. The model does this for every pair of tokens, which gives a square table of scores.</p>
+<p>Attention starts by computing three new lists of numbers from each token’s embedding, called the <em>query</em>, the <em>key</em> and the <em>value</em>. Each is made by its own fully connected layer, applied to every token separately with the same weights, in the shared-weight way of <a href="#fig-te-conv" class="quarto-xref">Figure&nbsp;<span>63.2</span></a>, so every token in the sentence gets a query, a key and a value of its own. The three play different parts.</p>
+<p>The query says what the token is looking for. For “its”, a useful query would be something like “a noun earlier in the sentence that could own something”. Nobody writes this down in words. The query is a list of numbers, and what the numbers stand for is whatever turned out to be useful in training, but it helps to think of it as a question the token asks about the tokens before it.</p>
+<p>The key says what a token has to offer to anyone who is looking: what kind of token it is and what part it plays in the sentence. The key of “virus” might stand for something like “a noun, a living thing, the one doing something in this sentence”. To decide how much attention “its” should pay to “virus”, the model compares the query of “its” with the key of “virus”. It multiplies the two lists number by number and adds up the products. This is called a <em>dot product</em>, and it is large when the two lists have large numbers with the same sign in the same places, that is, when what one token is looking for matches what the other has to offer. The model does this for every pair of tokens, which gives a square table of scores.</p>
+<p>The value is what a token hands over when another token pays attention to it. It is a separate list from the key because what makes a token easy to find is not the same as what is useful to receive. To be found by “its”, it helps “virus” to be a noun that can own things. What “its” needs to receive is what kind of thing a virus is, because that decides whether the next word is “DNA”, “genes” or something else entirely.</p>
+<p>If this reminds you of a Python dictionary, it should. A lookup <code>d[query]</code> compares the query with every key in the dictionary, finds the one that is equal to it, and gives you that key’s value. Attention does a soft version of the same lookup. Every key matches the query to some degree, and instead of one value you get a mixture of all the values, each weighted by how well its key matched. Because nothing has to match exactly, the lookup always returns something, and a small change to a weight in the query, key or value layers gives a small change in the result. That is what gradient descent needs to be able to train them.</p>
 <p>Three more steps turn the scores into weights. The scores are divided by 8, the square root of 64, which is how many numbers each query and key holds (more about that below). This keeps them from getting too large. Then every score for a token after it is set to minus infinity. This is the <em>mask</em>, and it means that a token can only look back at itself and the tokens before it, never ahead. That is a must for a model that is trained to predict the next token: if it could look ahead, it would just read the answer. Finally, each row of the table goes through <em>softmax</em>, which turns the scores into positive numbers that add up to 1. A score of minus infinity becomes exactly 0.</p>
 <p>The result is the attention table in <a href="#fig-te-attention" class="quarto-xref">Figure&nbsp;<span>63.6</span></a>. Each row belongs to one token and says how its attention is divided among the tokens before it. The new list of numbers for “its” is then the values of all the tokens, mixed in proportion to the weights in its row. If the weight for “virus” is large, “its” takes in a lot of what “virus” offers.</p>
 <div id="cell-fig-te-attention" class="cell" data-execution_count="8">
@@ -1091,7 +1095,7 @@ Figure&nbsp;63.5: The embedding of ” virus” at position 1, showing the first
 <div id="fig-te-attention" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-attention-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-attention-output-1.png" width="852" height="446" class="figure-img">
+<img src="llm_files/figure-html/fig-te-attention-output-1.png" width="660" height="350" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-attention-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.6: Attention weights in two of GPT-2’s 144 attention heads. Each row is a token, and the cells show how much attention it pays to each earlier token. Every row adds up to 1, and the empty upper-right triangle is the mask. The row of “its” is outlined and its weights are written in. Left: block 1, head 1, where the attention of “its” is spread out. Right: block 5, head 4, where “its” pays almost all its attention to the two candidates for owning the copies, “virus” and “cell”.
@@ -1100,13 +1104,102 @@ Figure&nbsp;63.6: Attention weights in two of GPT-2’s 144 attention heads. Eac
 </div>
 </div>
 </div>
+<p>A small example shows how the query, the key and the value work together. Suppose the lists have only two numbers each, and only three tokens come before “its”: “virus”, “cell” and “makes”. The query of “its” is <span class="math inline">\((1, 1)\)</span>, and the keys and values of the three tokens are those in <a href="#tbl-te-qkv" class="quarto-xref">Table&nbsp;<span>63.2</span></a>. To keep the arithmetic simple, we skip the division by 8 and the mask.</p>
+<div id="tbl-te-qkv" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-te-qkv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;63.2: A worked example of attention with lists of two numbers. The query of “its” is <span class="math inline">\((1, 1)\)</span>. Its dot product with each key gives a score, softmax turns the scores into weights, and the weights say how much of each value goes into the new list for “its”.
+</figcaption>
+<div aria-describedby="tbl-te-qkv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Token</th>
+<th style="text-align: center;">Key</th>
+<th style="text-align: center;">Query · key</th>
+<th style="text-align: center;">Weight after softmax</th>
+<th style="text-align: center;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">virus</td>
+<td style="text-align: center;"><span class="math inline">\((2, 1)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1 \times 2 + 1 \times 1 = 3\)</span></td>
+<td style="text-align: center;">0.72</td>
+<td style="text-align: center;"><span class="math inline">\((4, 0)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cell</td>
+<td style="text-align: center;"><span class="math inline">\((1, 1)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1 \times 1 + 1 \times 1 = 2\)</span></td>
+<td style="text-align: center;">0.27</td>
+<td style="text-align: center;"><span class="math inline">\((0, 4)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">makes</td>
+<td style="text-align: center;"><span class="math inline">\((0, -1)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1 \times 0 + 1 \times (-1) = -1\)</span></td>
+<td style="text-align: center;">0.01</td>
+<td style="text-align: center;"><span class="math inline">\((2, 2)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The key of “virus” matches the query best, so it gets the highest score and, after softmax, a weight of 0.72. The new list for “its” is the weighted mix of the values, <span class="math inline">\(0.72 \times (4, 0) + 0.27 \times (0, 4) + 0.01 \times (2, 2)\)</span>, which is about <span class="math inline">\((2.91, 1.09)\)</span>. It is made mostly of what “virus” had to offer, partly of what “cell” had, and almost nothing of “makes”. This is the same pattern you will find in block 5, head 4 of the real model.</p>
+<section id="exercise-3" class="level4" data-number="63.0.0.4">
+<h4 data-number="63.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 63-4</strong></h4>
+<p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
+<p>Use the keys and values from <a href="#tbl-te-qkv" class="quarto-xref">Table&nbsp;<span>63.2</span></a>, change the query of “its”, and work out the new weights. You will need a calculator for the softmax, or Python’s <code>math.exp</code>.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Change the query to <span class="math inline">\((0, 2)\)</span>. Which token gets most attention now, and what is the new list for “its”?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The scores are <span class="math inline">\(0 \times 2 + 2 \times 1 = 2\)</span> for “virus”, <span class="math inline">\(2\)</span> for “cell” and <span class="math inline">\(-2\)</span> for “makes”, so “virus” and “cell” tie with weights of about 0.50 each, and “makes” gets about 0.01. The new list is about <span class="math inline">\((2.00, 2.00)\)</span>, an even mix of the two values. This query only looks at the second number in each key, and there “virus” and “cell” are the same, so the head can no longer tell them apart.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Change the query to <span class="math inline">\((2, 2)\)</span>. What happens to the weights, compared with the query <span class="math inline">\((1, 1)\)</span>?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The scores double to <span class="math inline">\(6\)</span>, <span class="math inline">\(4\)</span> and <span class="math inline">\(-2\)</span>, and the weights become about 0.88, 0.12 and 0.00. The order is the same, but the winner takes more. Doubling a query has the same effect as lowering the temperature in <a href="#fig-te-temperature" class="quarto-xref">Figure&nbsp;<span>63.11</span></a>, and this is why the real model divides the scores by 8: without it, long lists with many numbers give large scores, and softmax would put almost all the weight on a single token.</p>
+</div>
+</div>
+</div>
+<p><br></p>
 <p>Now compare attention to the layers in <a href="#sec-te-matrices">Layers of neurons are matrices</a>. In <a href="#fig-te-attention-lines" class="quarto-xref">Figure&nbsp;<span>63.7</span></a>, the attention of “its” in block 5, head 4 is drawn the same way as those layers: as lines into a neuron, with each line’s thickness showing its weight. The difference is where the weights come from. In a fully connected layer, the weights are learned during training and stay the same regardless of the input text. In attention, the weights of these lines are computed afresh from the queries and keys of the text actually present. Feed the model a different sentence, and the same head draws different lines. Training sets the weights of the layers that compute the queries, keys, and values. So a head learns how to decide where to look, then applies that to whatever text it is given.</p>
 <div id="cell-fig-te-attention-lines" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div id="fig-te-attention-lines" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-attention-lines-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-attention-lines-output-1.png" width="816" height="235" class="figure-img">
+<img src="llm_files/figure-html/fig-te-attention-lines-output-1.png" width="662" height="194" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-attention-lines-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.7: The attention of “its” in block 5, head 4, drawn as connections. The thickness of each line is the attention weight, so the new list of numbers for “its” is made mostly from “virus” and partly from “cell”. Unlike the weights in a fully connected layer, these weights are computed from the sentence itself and change when the sentence changes.
@@ -1115,6 +1208,8 @@ Figure&nbsp;63.7: The attention of “its” in block 5, head 4, drawn as connec
 </div>
 </div>
 </div>
+<p>Splitting the work into query, key and value is what makes attention useful, for three reasons. The first is that looking and being found are kept apart. If each token had a single list that it used both to look for others and to be found by them, it would match best with tokens like itself, because the dot product of a list with itself is large. A pronoun does not need other pronouns, though. With separate queries and keys, “its” can look for something quite unlike itself. The second is that being found and handing something over are kept apart, too. A head can find a token by one property, such as being a noun, and pass on another, such as what the noun means. The third is that the queries and keys are computed from the text itself, so the connections follow the sentence. “virus” could be two tokens back or two thousand, and the same weights will find it.</p>
+<p>This last point is a large part of why the transformer (<a href="https://arxiv.org/abs/1706.03762">Vaswani et al., 2017</a>) replaced the language networks that came before it. Those read text one word at a time and had to carry everything they might need later in a running summary, where information from far back faded. With attention, every token can reach every earlier token directly, and the scores for all pairs can be computed at the same time, which suits the graphics chips that AI runs on and made it possible to train much larger models. It also explains something you see when you use an assistant. Everything in the conversation, such as the code you pasted or a requirement from your first message, is within reach of every new token through attention, and that is how the assistant can use it. But the weights in a row always add up to 1, so in a very long conversation they are shared among many more tokens, and a detail far back can get so little weight that it is overlooked.</p>
 <p>A single set of queries, keys, and values can only look for one thing at a time, so each attention layer has twelve of them working side by side, called <em>heads</em>, each with its own weights and each working on lists of 64 numbers. It then glues the twelve results into a list of 12 × 64 = 768 numbers and passes it through one more fully connected layer. With twelve heads in each of the twelve blocks, GPT-2 has 144 heads in all, and nobody told any of them what to look for. Some learn something we can name, such as linking a pronoun to the word it refers to. Many do not. <a href="#fig-te-heads" class="quarto-xref">Figure&nbsp;<span>63.8</span></a> shows, for every head in the model, how much attention “it” pays to “virus”. Most heads pay little, and a few pay a lot. On average, about half of the attention across all heads goes to the first token, “The”. Heads seem to use the first token as a place to park their attention when they aren’t looking for anything in particular (<a href="https://arxiv.org/abs/2309.17453">Xiao et al., 2024</a>).</p>
 <div id="cell-fig-te-heads" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
@@ -1130,12 +1225,13 @@ Figure&nbsp;63.8: How much attention “its” pays to “virus” in each of th
 </div>
 </div>
 </div>
-<section id="exercise-3" class="level4" data-number="63.0.0.4">
-<h4 data-number="63.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 63-4</strong></h4>
+</section>
+<section id="exercise-4" class="level4" data-number="63.0.0.5">
+<h4 data-number="63.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 63-5</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Zoom in on the attention part of the first transformer block. The Explainer starts in block 1, head 1, and shows the attention table as a grid of purple cells. Hovering over a cell shows its weight. Zooming in further shows the dot products, the scaling and mask, and the softmax as separate grids.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1144,41 +1240,9 @@ Figure&nbsp;63.8: How much attention “its” pays to “virus” in each of th
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>That is the mask. A cell above the diagonal would be the attention a token pays to a token that comes after it, and the mask sets those scores to minus infinity, which softmax turns into 0. A token can only look back.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>What is the weight in the top-left cell, and why must it be exactly that?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>1.00. The first token, “The”, has no earlier tokens, so all its attention goes to itself, and because a row always adds up to 1, that one weight must be 1.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>In block 1, head 1, which token does “its” pay the most attention to?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>“The”, with a weight of about 0.21, followed by “virus” with about 0.16. In this head, “its” attention is spread across the whole sentence.</p>
+<p>That is the mask. A cell above the diagonal would be the attention a token pays to a token that comes after it, and the mask sets those scores to minus infinity, which softmax turns into 0. A token can only look back.</p>
 </div>
 </div>
 </div>
@@ -1188,11 +1252,43 @@ Figure&nbsp;63.8: How much attention “its” pays to “virus” in each of th
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Move to block 5 and click through the heads to head 4. How much attention does “its” pay to “virus” now, and which token gets most of the rest?
+<span class="screen-reader-only">Tip</span>What is the weight in the top-left cell, and why must it be exactly that?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>1.00. The first token, “The”, has no earlier tokens, so all its attention goes to itself, and because a row always adds up to 1, that one weight must be 1.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>In block 1, head 1, which token does “its” pay the most attention to?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>“The”, with a weight of about 0.21, followed by “virus” with about 0.16. In this head, “its” attention is spread across the whole sentence.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Move to block 5 and click through the heads to head 4. How much attention does “its” pay to “virus” now, and which token gets most of the rest?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>About 0.63 goes to “virus”, and about 0.34 to “cell”. Together they get almost all of it. This head has learned to send a pronoun’s attention to the nouns it might refer to, and here it has two candidates. It favors the virus, which is correct.</p>
 </div>
@@ -1209,7 +1305,7 @@ Figure&nbsp;63.8: How much attention “its” pays to “virus” in each of th
 <div id="fig-te-mlp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-mlp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-mlp-output-1.png" width="816" height="255" class="figure-img">
+<img src="llm_files/figure-html/fig-te-mlp-output-1.png" width="662" height="210" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-mlp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.9: The MLP in a transformer block, applied to the last four tokens, drawn with 3 inputs, 6 hidden neurons and 3 outputs instead of 768, 3,072 and 768. The same network, with the same weights (shown by identical line patterns), is applied to every token, and no line connects one token to another.
@@ -1235,12 +1331,12 @@ Figure&nbsp;63.10: The probability of “own” and of “DNA” as the next tok
 </div>
 </div>
 </div>
-<section id="exercise-4" class="level4" data-number="63.0.0.5">
-<h4 data-number="63.0.0.5" class="anchored" data-anchor-id="exercise-4"><strong>Exercise 63-5</strong></h4>
+<section id="exercise-5" class="level4" data-number="63.0.0.6">
+<h4 data-number="63.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 63-6</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Zoom in on the MLP in the first block, and hover over its parts to see their sizes.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1249,14 +1345,14 @@ Figure&nbsp;63.10: The probability of “own” and of “DNA” as the next tok
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The middle column is a vector of 3,072 numbers, and the side columns are vectors of 768. The MLP first expands each token’s list to four times its length and then shrinks it back.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1265,7 +1361,7 @@ Figure&nbsp;63.10: The probability of “own” and of “DNA” as the next tok
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>No.&nbsp;Every token goes through the MLP on its own. The only place in the block where tokens take in information from each other is the attention layer.</p>
 </div>
@@ -1283,7 +1379,7 @@ Figure&nbsp;63.10: The probability of “own” and of “DNA” as the next tok
 <div id="fig-te-temperature" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-te-temperature-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="llm_files/figure-html/fig-te-temperature-output-1.png" width="857" height="240" class="figure-img">
+<img src="llm_files/figure-html/fig-te-temperature-output-1.png" width="665" height="220" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-te-temperature-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63.11: The five most likely next tokens at three temperatures, computed the way the Transformer Explainer computes them with its default top-k of 5, where only the five most likely tokens are kept, and their probabilities are rescaled to add up to 1. A low temperature makes “DNA” almost certain. A high one evens the five out.
@@ -1294,12 +1390,12 @@ Figure&nbsp;63.11: The five most likely next tokens at three temperatures, compu
 </div>
 <p>Last comes the choice. The model could always take the most likely token, but that produces dull, repetitive text, so assistants usually <em>sample</em>: they draw a token at random, with each token’s chance of being drawn equal to its probability. Two settings limit the draw to the likely tokens. <em>Top-k</em> keeps only the k most likely tokens and throws away the rest, and <em>top-p</em> keeps the most likely tokens until their probabilities add up to at least p.&nbsp;In both cases, the probabilities of the kept tokens are rescaled to add up to 1 before the draw. The Explainer starts with top-k and k = 5. To save time, it also looks only at the 50 highest logits before doing any of this, and treats the other 50,207 tokens as if they were impossible. At the default temperature, those tokens together have only about 2% probability, so the bars change very little, but top-p can differ slightly from GPT-2 without the shortcut. The answers below are computed the Explainer’s way.</p>
 <p>When a token is drawn, it is added to the end of the text, and the whole calculation runs again on the longer text to choose the next token. You can do this by hand in the Explainer: clicking into the text box adds the drawn token to the end of your sentence, and Generate runs the model again on the longer text. An assistant does the same thing automatically, which is how it writes its reply one token at a time.</p>
-<section id="exercise-5" class="level4" data-number="63.0.0.6">
-<h4 data-number="63.0.0.6" class="anchored" data-anchor-id="exercise-5"><strong>Exercise 63-6</strong></h4>
+<section id="exercise-6" class="level4" data-number="63.0.0.7">
+<h4 data-number="63.0.0.7" class="anchored" data-anchor-id="exercise-6"><strong>Exercise 63-7</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
 <p>Zoom in on the output on the right of the Explainer. The temperature slider and the top-k and top-p settings are above it. Before you move a slider, decide what you think will happen to the probability of “DNA”, and then move it to check.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1308,41 +1404,9 @@ Figure&nbsp;63.11: The five most likely next tokens at three temperatures, compu
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>“DNA” is about 73.3% and “genes” is about 11.1%. The other three are “own”, “genome”, and “genetic”, with about 5.6%, 5.4%, and 4.6%.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Set the temperature to 0.2. What is the probability of “DNA” now? And at 2.0?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>At 0.2, “DNA” gets about 99.9%, and the model will practically always choose it. At 2.0, it drops to about 39.8%, and even “genetic”, the least likely of the five, gets about 13.2%.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Set the temperature back to 0.8 and switch from top-k to top-p.&nbsp;The Explainer starts top-p at p = 0.5. How many tokens have a probability above zero?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Only one: “DNA”, with 100%. “DNA” alone already has more than half the probability, so top-p with p = 0.5 stops after the first token, and Generate can only choose “DNA”.</p>
+<p>“DNA” is about 73.3% and “genes” is about 11.1%. The other three are “own”, “genome”, and “genetic”, with about 5.6%, 5.4%, and 4.6%.</p>
 </div>
 </div>
 </div>
@@ -1352,13 +1416,13 @@ Figure&nbsp;63.11: The five most likely next tokens at three temperatures, compu
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Now set p to 0.9. How many tokens are left, and which one is new compared with the five that top-k kept?
+<span class="screen-reader-only">Tip</span>Set the temperature to 0.2. What is the probability of “DNA” now? And at 2.0?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Six tokens: “DNA”, “genes”, “own”, “genome”, “genetic”, and “cells”. “cells” is new, with about 4.4%. “DNA” drops to about 70.1% because its probability is now shared with one more token.</p>
+<p>At 0.2, “DNA” gets about 99.9%, and the model will practically always choose it. At 2.0, it drops to about 39.8%, and even “genetic”, the least likely of the five, gets about 13.2%.</p>
 </div>
 </div>
 </div>
@@ -1368,11 +1432,43 @@ Figure&nbsp;63.11: The five most likely next tokens at three temperatures, compu
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>With the default settings, about how often would you expect the model to choose a word other than “DNA”?
+<span class="screen-reader-only">Tip</span>Set the temperature back to 0.8 and switch from top-k to top-p.&nbsp;The Explainer starts top-p at p = 0.5. How many tokens have a probability above zero?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Only one: “DNA”, with 100%. “DNA” alone already has more than half the probability, so top-p with p = 0.5 stops after the first token, and Generate can only choose “DNA”.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Now set p to 0.9. How many tokens are left, and which one is new compared with the five that top-k kept?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Six tokens: “DNA”, “genes”, “own”, “genome”, “genetic”, and “cells”. “cells” is new, with about 4.4%. “DNA” drops to about 70.1% because its probability is now shared with one more token.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>With the default settings, about how often would you expect the model to choose a word other than “DNA”?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>About 27% of the time, a little more than one time in four, because “DNA” has a probability of about 73%. The same model with the same settings and the same sentence will therefore often write something else. That is why an assistant gives you a different answer when you ask the same question twice.</p>
 </div>
