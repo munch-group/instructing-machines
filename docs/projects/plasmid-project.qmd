@@ -53,7 +53,7 @@ Before you send the assistant a single prompt, open a file called `criteria.md` 
 
 ## Checkpoint 1: Assemble the plasmid {#sec-plasmid-project-assembly}
 
-`plasmid_reads.txt` holds 138 reads. Like the reads in @sec-assembly-project, they have no sequencing errors, they all come from the same strand, and no read lies inside another. They are longer, though: each read is between 900 and 1,100 bases, and each read overlaps the next one along the plasmid by between 250 and 400 bases. The first read starts where the plasmid was cut open.
+`plasmid_reads.txt` holds 138 reads. Like the reads in @sec-assembly-project, they have no sequencing errors, they all come from the same strand, and no read lies inside another. They are longer, though: each read is between 900 and 1,100 bases, and each read overlaps the next along the plasmid by 250 to 400 bases. The first read starts where the plasmid was cut open.
 
 Your assembly code from week ten nearly does the job. It won't work unchanged because of the overlap rule. That code counted any overlap of more than two bases as a sign that two reads were neighbors. Before you run anything, think about how long a chance overlap between two unrelated 1,000-base reads can be, and how often one of 138 reads will have one. Then run your old code, see what happens, and change the rule.
 
@@ -73,7 +73,7 @@ A candidate is an open reading frame: a start codon `ATG` followed, in the same 
 
 - **Both strands.** Genes can sit on either strand. The other strand's sequence is the reverse complement of the plasmid, and you find its ORFs by searching that sequence the same way you search the plasmid. A candidate on the plasmid's own strand has strand `'+'`, one on the reverse complement has strand `'-'`.
 - **Positions belong to the strand.** `start` is the index of the first base of the start codon, and `stop` is the index of the first base of the stop codon, both counted in the sequence where the ORF was found. For a `'-'` candidate, that is the reverse complement.
-- **One candidate per stop codon.** Several start codons in the same frame can lead to the same stop codon, and your ORF finder from week nine returned one ORF for each. Here you keep only the longest, the one with the leftmost start codon. A gene has one stop codon, but its start is often uncertain.
+- **One candidate per stop codon.** Several start codons in the same frame can lead to the same stop codon, and your ORF finder from week nine returned one ORF for each. Here, keep only the longest one, the one with the leftmost start codon. A gene has one stop codon, but its start is often uncertain.
 - **No minimum length.** An `ATG` followed directly by a stop codon is a candidate too. Deciding which candidates are too short to be genes is part of your job in the next two parts.
 
 Each candidate is a dictionary with these four keys, and you may add more keys of your own if you find them useful:
@@ -109,7 +109,7 @@ The `ATG` at index 6 reaches the same stop codon as the one at index 0, so it gi
 
 ## Checkpoint 3: Sensitivity and specificity {#sec-plasmid-project-score}
 
-To know whether a prediction is any good, you need something to compare it with. The public record of pO157 in GenBank annotates 85 genes on it, and the module `genescore.py` knows which of your candidates they are. It keeps them as scrambled codes, so you cannot read them off, but it can count. Give it your predictions, which are some of your candidates, and all the candidates:
+To know whether a prediction is any good, you need something to compare it with. The public record of pO157 in GenBank annotates 85 genes, and the module `genescore.py` knows which of your candidates they are. It keeps them as scrambled codes, so you cannot read them off, but it can count. Give it your predictions, which are some of your candidates, and all the candidates:
 
 ```python
 from genescore import score
@@ -187,7 +187,7 @@ When you combine the pieces, keep in mind what the scorer is. Every time you cal
 
 ## Are the annotations right? {#sec-plasmid-project-annotation}
 
-When your predictor is done, look at the false positives it is most confident about, for example, the ones with the highest homology scores. Use the GenBank record of the plasmid (RefSeq `NC_002128.1`, read as in [the Biopython chapter](../python/biopython.ipynb#sec-biopython-genbank)) to see what is annotated near them. Before you call them mistakes, consider where the answers came from. The record says a gene-prediction program made its annotation and compared it with what the original scientists submitted. Of the 85 annotated genes, 37 are called "hypothetical protein", which means nobody has shown that they make a protein. A false positive with a strong match to a known protein might be a mistake in your predictor, or it might be a mistake in the annotation. Write down which you think it is, and why.
+When your predictor is done, look at the false positives it is most confident about, for example, the ones with the highest homology scores. Use the GenBank record of the plasmid (RefSeq `NC_002128.1`, read as in [the Biopython chapter](../python/biopython.ipynb#sec-biopython-genbank)) to see what is annotated near them. Before you call them mistakes, consider where the answers came from. The record says a gene-prediction program made its annotation and compared it with what the original scientists submitted. Of the 85 annotated genes, 37 are called "hypothetical protein", which means nobody has shown that they make a protein. A false positive with a strong match to a known protein might be a mistake in your predictor, or a mistake in the annotation. Write down which you think it is, and why.
 
 ## What to hand in {#sec-plasmid-project-handin}
 
