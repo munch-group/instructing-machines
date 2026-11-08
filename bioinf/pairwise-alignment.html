@@ -778,7 +778,7 @@ window.Quarto = {
 </header>
 
 
-<p>Sequence alignment is the most fundamental and most often used task in Bioinformatics. Here we focus on pairwise alignment, I.e., alignment of just of sequences to each other.</p>
+<p>Sequence alignment is the most fundamental and most often used task in Bioinformatics. Here, we focus on pairwise alignment, i.e., aligning just two sequences.</p>
 <div id="cell-fig-example-alignment" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div id="fig-example-alignment" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -793,8 +793,8 @@ Figure&nbsp;53.1: A pairwise alignment.
 </div>
 </div>
 </div>
-<p>When two DNA sequences descend from a shared ancestral sequence, we say they are orthologous. As mutations, insertions, and deletions accumulate on each sequence, they diverge from this shared ancestor and thus from each other. To see the accumulated differences, we need to first align the two sequences in a way that pair positions derived from the same ancestral sequence position.</p>
-<p>The example alignment in <a href="#fig-example-alignment" class="quarto-xref">Figure&nbsp;<span>53.1</span></a> implies that a mutation occured at the fifth base, but since we do not know if the fifth base of the ancestral sequence was A or C, we cannot say which of the two sequences mutated. In the same way, we do not know if one sequence gained a base as position ten or the other one lost the base at this position. In the context of alignments, where insertions and deletions cannot be distinguished, we refer to such positions as “indel”s, short for insertion/deletion. In a sense, alignemnts use mutations and indels to explain how two sequences derive from a single ancestor. The alignment in <a href="#fig-alternative-alignment" class="quarto-xref">Figure&nbsp;<span>53.2</span></a> aligns the same two sequences as <a href="#fig-example-alignment" class="quarto-xref">Figure&nbsp;<span>53.1</span></a>. This one puts the indel at the end, and implies five extra mutations. I am sure you agree that the first alignment is a more plausible that the second one.</p>
+<p>When two DNA sequences descend from a shared ancestral sequence, we say they are orthologous. As mutations, insertions, and deletions accumulate on each sequence, they diverge from this shared ancestor and thus from each other. To see the accumulated differences, we first need to align the two sequences so that positions correspond to the same ancestral position.</p>
+<p>The example alignment in <a href="#fig-example-alignment" class="quarto-xref">Figure&nbsp;<span>53.1</span></a> implies a mutation at the fifth base, but since we do not know whether the ancestral fifth base was A or C, we cannot say which sequence mutated. Similarly, we do not know whether one sequence gained a base at position ten or the other lost it. In the context of alignments, where insertions and deletions cannot be distinguished, we refer to such positions as “indels”s, short for insertion/deletion. In a sense, alignments use mutations and indels to explain how two sequences derive from a single ancestor. The alignment in <a href="#fig-alternative-alignment" class="quarto-xref">Figure&nbsp;<span>53.2</span></a> aligns the same two sequences as <a href="#fig-example-alignment" class="quarto-xref">Figure&nbsp;<span>53.1</span></a>. This one puts the indel at the end and implies five extra mutations. I am sure you agree the first alignment is more plausible than the second.</p>
 <div id="cell-fig-alternative-alignment" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div id="fig-alternative-alignment" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -811,7 +811,7 @@ Figure&nbsp;53.2: A pairwise alignment.
 </div>
 <section id="sec-pa-scoring" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-scoring">Scoring alignments</h2>
-<p>To find an optimal alignment, we first need to decide how we define optimal. If we give each alignment column a score, we can compute an alignment score by summing up these scores across the alignment. A score matrix (<a href="#fig-pa-score-matrix" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>) defines scores for alignment columns with two bases. We want many alignemnt columns where the bases match and few where they do not, so we give columns with matching bases higher scores. We also want few alignment columns with gaps in one sequence, so we give gap columns a negative score.</p>
+<p>To find an optimal alignment, we first need to define what “optimal” means. If we give each alignment column a score, we can compute an alignment score by summing up these scores across the alignment. A score matrix (<a href="#fig-pa-score-matrix" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>) defines scores for alignment columns with two bases. We want many alignment columns where the bases match and few where they do not, so we give columns with matching bases higher scores. We also want few alignment columns with gaps in one sequence, so we give gap columns a negative score.</p>
 <div id="cell-fig-pa-score-matrix" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-score-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -826,7 +826,7 @@ Figure&nbsp;53.3: Score matrix for the running example. A gap scores −1.
 </div>
 </div>
 </div>
-<p>The running example below uses the score matrix in <a href="#fig-pa-score-matrix" class="quarto-xref">Figure&nbsp;<span>53.3</span></a> giving identical bases a score of 2 and different bases a score of 0. For gaps we use a score of -1. The alignment of <code>gata</code> and <code>acta</code> below has columns g/−, a/a, −/c, t/t and a/a, so its score is <span class="math inline">\(-1 + 2 - 1 + 2 + 2 = 4\)</span>.</p>
+<p>The running example below uses the score matrix in <a href="#fig-pa-score-matrix" class="quarto-xref">Figure&nbsp;<span>53.3</span></a>, giving identical bases a score of 2 and different bases a score of 0. For gaps, we use a score of -1. The alignment of <code>gata</code> and <code>acta</code> below has columns g/−, a/a, −/c, t/t, and a/a, so its score is <span class="math inline">\(-1 + 2 - 1 + 2 + 2 = 4\)</span>.</p>
 <div id="cell-fig-pa-alignment" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-alignment" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -986,7 +986,7 @@ Figure&nbsp;53.11: Computing two cells. Each of the three neighbors contributes 
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="98af0e26" class="cell" data-execution_count="13">
+<div id="d463878e" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1060,7 +1060,7 @@ Figure&nbsp;53.13: Traceback. Starting from the bottom right corner, each arrow 
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="f887e74e" class="cell" data-execution_count="16">
+<div id="48e84b8e" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1070,7 +1070,7 @@ Figure&nbsp;53.13: Traceback. Starting from the bottom right corner, each arrow 
 </div>
 </div>
 <p>The best score is 1, and three alignments reach it:</p>
-<div id="68aadc39" class="cell" data-execution_count="17">
+<div id="1ff160f5" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
 <pre><code>gggct
 gaggg
@@ -1103,7 +1103,7 @@ gaggg-
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="f8d6a30d" class="cell" data-execution_count="18">
+<div id="910ce872" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1124,7 +1124,7 @@ g-tac</code></pre>
 </section>
 <section id="sec-pa-matrices" class="level2 unnumbered page-columns page-full">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-matrices">Score matrices in practice</h2>
-<div id="aec10cce" class="cell page-columns page-full" data-execution_count="19">
+<div id="bcd1b748" class="cell page-columns page-full" data-execution_count="19">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1141,7 +1141,7 @@ g-tac</code></pre>
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-local">Local alignment</h2>
 <p>Global alignment, which is what Needleman-Wunsch does, aligns the two sequences from end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, and it fills them with mismatches and gaps that mean nothing.</p>
 <p>Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores 19, and 10 different global alignments share that score. Here is one of them:</p>
-<div id="029b6e83" class="cell" data-execution_count="20">
+<div id="cd305003" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-stdout">
 <pre><code>gtatggcgtacc-tgaagtcagcgatagttaggc-
 |  |||  |||| ||   | | | | ||| || | 
@@ -1149,7 +1149,7 @@ g--tggtataccatg-gcttaccta-agtcagcct</code></pre>
 </div>
 </div>
 <p>What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores 33:</p>
-<div id="8729f882" class="cell" data-execution_count="21">
+<div id="c6dc2d03" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-stdout">
 <pre><code>atggcgtacctgaagtcagc
 ||||| ||||| ||||||||
@@ -1236,7 +1236,7 @@ Figure&nbsp;53.15: Traceback paths for global (left) and local (right) alignment
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="885b745d" class="cell" data-execution_count="24">
+<div id="8557d928" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1294,7 +1294,7 @@ Figure&nbsp;53.16: Gaps at the beginning of an alignment are steps along the fir
 <div class="callout-body-container callout-body">
 <p>The first place is the first row and column, which get 0 instead of multiples of the gap score. The second place is the last row and column: a step to the left within the last row, or a step up within the last column, adds a gap at the end of the alignment, so it should use the end-gap score of 0 instead of the gap score.</p>
 <p>With free end gaps, <code>GGGCT</code> and <code>GAGGG</code> can overlap like this, with three pairs of matching <code>G</code>s and only the overhanging bases against gaps:</p>
-<div id="45b1affa" class="cell" data-execution_count="26">
+<div id="f3117741" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
