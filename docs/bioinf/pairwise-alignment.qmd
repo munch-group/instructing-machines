@@ -471,7 +471,7 @@ LOC_BEST = best_cell(LL)
 LOC_LOCAL = all_alignments(LOC1, LOC2, LLP, LOC_BEST)
 ```
 
-Sequence alignment is the most fundamental and most often used task in Bioinformatics. Here we focus on pairwise alignment, I.e., alignment of just of sequences to each other.
+Sequence alignment is the most fundamental and most often used task in Bioinformatics. Here, we focus on pairwise alignment, i.e., aligning just two sequences.
 
 ```{python}
 #| label: fig-example-alignment
@@ -480,10 +480,10 @@ fig = alignment_figure("taagaaccattggaaacaaag", "taagcaccat-ggaaacaaag", scale=0
 plt.show()
 ```
 
-When two DNA sequences descend from a shared ancestral sequence, we say they are orthologous. As mutations, insertions, and deletions accumulate on each sequence, they diverge from this shared ancestor and thus from each other. To see the accumulated differences, we need to first align the two sequences in a way that pair positions derived from the same ancestral sequence position.
+When two DNA sequences descend from a shared ancestral sequence, we say they are orthologous. As mutations, insertions, and deletions accumulate on each sequence, they diverge from this shared ancestor and thus from each other. To see the accumulated differences, we first need to align the two sequences so that positions correspond to the same ancestral position.
 
-The example alignment in @fig-example-alignment implies that a mutation occured at the fifth base, but since we do not know if the fifth base of the ancestral sequence was A or C, we cannot say which of the two sequences mutated. In the same way, we do not know if one sequence gained a base as position ten or the other one lost the base at this position. In the context of alignments, where insertions and deletions cannot be distinguished, we refer to such positions as "indel"s, short for insertion/deletion.
-In a sense, alignemnts use mutations and indels to explain how two sequences derive from a single ancestor. The alignment in @fig-alternative-alignment aligns the same two sequences as @fig-example-alignment. This one puts the indel at the end, and implies five extra mutations. I am sure you agree that the first alignment is a more plausible that the second one.
+The example alignment in @fig-example-alignment implies a mutation at the fifth base, but since we do not know whether the ancestral fifth base was A or C, we cannot say which sequence mutated. Similarly, we do not know whether one sequence gained a base at position ten or the other lost it. In the context of alignments, where insertions and deletions cannot be distinguished, we refer to such positions as "indels"s, short for insertion/deletion.
+In a sense, alignments use mutations and indels to explain how two sequences derive from a single ancestor. The alignment in @fig-alternative-alignment aligns the same two sequences as @fig-example-alignment. This one puts the indel at the end and implies five extra mutations. I am sure you agree the first alignment is more plausible than the second.
 
 ```{python}
 #| label: fig-alternative-alignment
@@ -494,7 +494,7 @@ plt.show()
 
 ## Scoring alignments {#sec-pa-scoring}
 
-To find an optimal alignment, we first need to decide how we define optimal. If we give each alignment column a score, we can compute an alignment score by summing up these scores across the alignment. A score matrix (@fig-pa-score-matrix) defines scores for alignment columns with two bases. We want many alignemnt columns where the bases match and few where they do not, so we give columns with matching bases higher scores. We also want few alignment columns with gaps in one sequence, so we give gap columns a negative score. 
+To find an optimal alignment, we first need to define what "optimal" means. If we give each alignment column a score, we can compute an alignment score by summing up these scores across the alignment. A score matrix (@fig-pa-score-matrix) defines scores for alignment columns with two bases. We want many alignment columns where the bases match and few where they do not, so we give columns with matching bases higher scores. We also want few alignment columns with gaps in one sequence, so we give gap columns a negative score. 
 
 ```{python}
 #| label: fig-pa-score-matrix
@@ -503,7 +503,7 @@ fig = score_matrix_figure("atgc", SM1, g=None)
 plt.show()
 ```
 
-The running example below uses the score matrix in @fig-pa-score-matrix giving identical bases a score of 2 and different bases a score of 0. For gaps we use a score of -1. The alignment of `gata` and `acta` below has columns g/−, a/a, −/c, t/t and a/a, so its score is $-1 + 2 - 1 + 2 + 2 = 4$. 
+The running example below uses the score matrix in @fig-pa-score-matrix, giving identical bases a score of 2 and different bases a score of 0. For gaps, we use a score of -1. The alignment of `gata` and `acta` below has columns g/−, a/a, −/c, t/t, and a/a, so its score is $-1 + 2 - 1 + 2 + 2 = 4$. 
 
 ```{python}
 #| label: fig-pa-alignment
