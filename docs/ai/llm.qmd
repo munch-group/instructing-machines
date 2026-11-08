@@ -54,7 +54,7 @@ The chapter follows the Transformer Explainer from left to right: first how text
 Open [the Transformer Explainer](https://poloclub.github.io/transformer-explainer/) on a laptop, not a phone. On a phone, it only shows a few precomputed examples. The first time you open it, it downloads the model, which takes a minute, and until the download is finished, it ignores any text you type. When it is ready, delete the example text in the box at the top and type this sentence, exactly as it is written here, with no full stop at the end:
 
 ```{.txt}
-The virus infects the cell and makes copies of its
+The virus infects the cell and makes copies of itself
 ```
 
 Then press Generate. Everyone in the course uses this same sentence, so everyone sees the same numbers, and the figures in this chapter were computed from it with the same model. Your screen may differ from the figures in the last decimal. One small trap: when you click into the text box afterward, the Explainer adds the word it predicted to the end of your sentence. If that happens, delete the added word and press Generate again before you read any numbers.
@@ -63,7 +63,7 @@ Before we open the model, we need one idea that the Explainer takes for granted,
 
 ## Layers of neurons are matrices {#sec-te-matrices}
 
-A neuron computes a weighted sum of its inputs. A layer is a row of neurons that all receive the same inputs, each with its own weights. In @fig-te-dense, a layer of two neurons receives three inputs. The first neuron computes $y_1 = w_{11}x_1 + w_{12}x_2 + w_{13}x_3$ and the second computes $y_2 = w_{21}x_1 + w_{22}x_2 + w_{23}x_3$. Each weight belongs to one line in the drawing, and a line runs from every input to every output, which is why this is called a *fully connected* layer.
+A neuron computes a weighted sum of its inputs. A layer is a row of neurons that all receive the same inputs, each with its own weights. In @fig-te-dense, a two-neuron layer receives three inputs. The first neuron computes $y_1 = w_{11}x_1 + w_{12}x_2 + w_{13}x_3$ and the second computes $y_2 = w_{21}x_1 + w_{22}x_2 + w_{23}x_3$. Each weight belongs to one line in the drawing, and a line runs from every input to every output, which is why this is called a *fully connected* layer.
 
 ```{python}
 #| label: fig-te-dense
@@ -110,12 +110,12 @@ If you write the weights in a table with one row per output neuron and one colum
 
 The second idea is about what happens when a network reads a sequence. GPT-2 reads your sentence as a row of eleven pieces, and each piece is described by a list of 768 numbers. One way to process the sentence would be a single enormous layer with a line from every number of every piece to every output. Language models do something else. They apply the same small network to each piece separately, with the same weights each time, as if the network were copied along the sentence.
 
-The same trick has a name in other parts of machine learning. A network that slides along a sequence and applies the same weights at every position is called a *convolution*, and you have already met one in biology without the name. A position weight matrix for a transcription factor binding site holds a score for each base at each of, say, six positions. Sliding it along a DNA sequence and summing the scores at each position is a convolution with a window six bases wide. The right half of @fig-te-conv shows a convolution with a window of three: each output neuron connects to three neighboring inputs, always with the same three weights.
+The same trick has a name in other parts of machine learning. A network that slides along a sequence and applies the same weights at every position is called a *convolution*, and you have already met one in biology without the name. A position weight matrix for a transcription factor binding site holds a score for each base at each of, say, six positions. Sliding it along a DNA sequence and summing the scores at each position is a convolution with a six-base window. The right half of @fig-te-conv shows a convolution with a window of three: each output neuron connects to three neighboring inputs, always with the same three weights.
 
 ```{python}
 #| label: fig-te-conv
 #| echo: false
-#| fig-cap: "Left: a fully connected layer from six inputs to six outputs has 36 weights, all different. Right: a convolution with a window of three. Each output is connected only to its neighbors, and always with the same three weights a, b, and c, shown by the three colors. It has three weights in total, however long the sequence is."
+#| fig-cap: "Left: a fully connected layer from six inputs to six outputs has 36 weights, all different. Right: a convolution with a window of three. Each output connects only to its neighbors, always with the same three weights a, b, and c, shown by the three colors. It has three weights in total, however long the sequence is."
 fig, axes = plt.subplots(1, 2, figsize=(8.2, 2.9))
 bases = list("ATGGCA")
 for k, ax in enumerate(axes):
@@ -167,7 +167,7 @@ The fully connected layer has $11 \times 768 = 8{,}448$ inputs and as many outpu
 
 ## The whole picture {#sec-te-overview}
 
-After you type the sentence and press Generate, the Explainer shows the whole model as one flow from left to right, sketched in @fig-te-pipeline. On the left, your sentence is split into pieces, and each piece becomes a list of 768 numbers. The lists then pass through a *transformer block*, which consists of an attention layer followed by a small network of fully connected layers. GPT-2 has twelve such blocks, one after the other, all built the same way but with their own weights. The Explainer draws only the first one and stacks the rest behind it. On the right, the list of numbers for the last piece of the sentence is turned into a probability distribution over the 50,257 pieces the model knows, and one is chosen as the next word.
+After you type the sentence and press Generate, the Explainer shows the whole model as one flow from left to right, sketched in @fig-te-pipeline. On the left, your sentence is split into pieces, and each piece becomes a list of 768 numbers. The lists then pass through a *transformer block*, which consists of an attention layer followed by a small network of fully connected layers. GPT-2 has twelve such blocks, one after the other, all built the same way but with their own weights. The Explainer draws only the first one and stacks the rest behind it. On the right, the list of numbers for the last piece of the sentence becomes a probability distribution over the 50,257 pieces the model knows, and one is chosen as the next word.
 
 ```{python}
 #| label: fig-te-pipeline
@@ -226,7 +226,7 @@ Twelve. The Explainer shows "Transformer Block 1" and writes that there are 11 m
 
 ## From text to numbers: the embedding {#sec-te-embedding}
 
-A neural network can only compute with numbers, so the first job is to turn the text into numbers. The text is cut into *tokens*, and each token is looked up in a fixed list called the *vocabulary*. GPT-2's vocabulary has 50,257 tokens. Common words are tokens of their own, but a word that doesn't appear in the vocabulary is split into pieces that do. The list was made once, before training, by repeatedly gluing together the pairs of characters and pieces that occurred most often in a large amount of text. That is why the pieces follow how often letters occur together, and not grammar or biology. A space belongs to the token after it, so " virus" with its leading space and "virus" without one are two different tokens with different numbers. The Explainer does not show the spaces, but they are there. @tbl-te-tokens shows how GPT-2 cuts our sentence.
+A neural network can only compute with numbers, so the first job is to turn the text into numbers. The text is cut into *tokens*, and each token is looked up in a fixed list called the *vocabulary*. GPT-2's vocabulary has 50,257 tokens. Common words are tokens of their own, but words that don't appear in the vocabulary are split into pieces that do. The list was made once, before training, by repeatedly gluing together the pairs of characters and pieces that occurred most often in a large amount of text. That is why the pieces follow how often letters occur together, and not grammar or biology. A space belongs to the token after it, so " virus" with its leading space and "virus" without one are two different tokens with different numbers. The Explainer does not show the spaces, but they are there. @tbl-te-tokens shows how GPT-2 cuts our sentence.
 
 ```{python}
 #| label: tbl-te-tokens
@@ -241,7 +241,7 @@ print("\n".join(rows))
 
 The token ID is a name and not a measurement. Token 9,471 (" virus") is no more similar to token 9,472 than to token 1. So the first layer of the network replaces each token with a list of 768 numbers, its *token embedding*. GPT-2 keeps these lists in a table with one row per token in the vocabulary, 50,257 × 768 = 38,597,376 numbers in all, almost a third of the whole model. Looking up a row in this table is like a fully connected layer with 50,257 inputs, all 0 except a single 1 at the token's ID; the weighted sum then picks out exactly the weights for that one input.
 
-Nobody chose the numbers in the table. They are weights set by training like all the others, and training places tokens used in similar ways at similar points. You can measure how similar two embeddings are by how much their lists of numbers point in the same direction. In @fig-te-similarity, "virus", "bacteria", "DNA", "RNA" and "protein" are more similar to each other than to "car", "truck" and "house", and "DNA" and "RNA" are among the most similar pairs. GPT-2 was never told any biology. Placing the words this way simply made it better at predicting text. The odd one out is "cell", which is about as close to "car" as to "DNA". In the text GPT-2 was trained on, a cell is often a phone, and a token has only one embedding, whatever it means in a particular sentence. The layers that follow are left to tell the meanings apart.
+Nobody chose the numbers in the table. They are weights set by training like all the others, and training places tokens used in similar ways at similar points. You can measure how similar two embeddings are by how much their lists of numbers point in the same direction. In @fig-te-similarity, "virus", "bacteria", "DNA", "RNA" and "protein" are more similar to each other than to "car", "truck" and "house", and "DNA" and "RNA" are among the most similar pairs. GPT-2 was never told any biology. Placing the words this way simply made it better at predicting text. The odd one out is "cell", which is about as close to "car" as to "DNA". In the text GPT-2 was trained on, a cell is often a phone, and a token has only one embedding, whatever it means in a particular sentence. The layers that follow are left to distinguish the meanings.
 
 ```{python}
 #| label: fig-te-similarity
@@ -267,7 +267,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-The token embedding says which token it is, but not where it sits in the sentence, and word order matters. So GPT-2 has a second table with one row of 768 numbers for each position, 0, 1, 2, and so on, up to 1,023, which is the longest text GPT-2 can read at once. The final embedding of a token is its token embedding plus the position embedding for its place in the sentence, added number by number, as in @fig-te-embedding. The position embeddings were also learned during training.
+The token embedding says which token it is, but not where it sits in the sentence, and word order matters. So GPT-2 has a second table with one row of 768 numbers for each position, 0, 1, 2, and so on, up to 1,023, which is the longest text GPT-2 can read at once. The final embedding of a token is its token embedding plus the position embedding for its place in the sentence, added element-wise, as in @fig-te-embedding. The model also learned the position embeddings during training.
 
 ```{python}
 #| label: fig-te-embedding
@@ -311,7 +311,7 @@ Eleven tokens. "infects" becomes "infect" and "s". The other ten words are each 
 
 ## What is the token ID of "virus", and what is the position number of "its"?
 
-"virus" has ID 9471. "its" has position 10, because positions are counted from 0, just like the indices of a Python list.
+"virus" has ID 9471. "its" has position 10 because positions are counted from 0, just like the indices of a Python list.
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
@@ -327,16 +327,16 @@ No. "The" at position 0 has ID 464, and "the" at position 4 has ID 262. Capital 
 
 To predict what follows "makes copies of its", the model has to know whose copies they are. The word "its" refers to something earlier in the sentence, and the list of numbers for "its" must somehow take in information from the word it refers to. This is what the attention layer does, and it is the only layer in GPT-2 where the tokens of the sentence exchange information.
 
-Attention starts with three fully connected layers applied to each token separately, in the shared-weight way of @fig-te-conv. From each token's embedding, they compute three new lists of numbers, called the *query*, the *key*, and the *value*. You can think of the query as what the token is looking for, the key as what it offers, and the value as what it passes on to an interested token. To decide how much attention "its" should pay to "virus", the model multiplies the query of "its" with the key of "virus" number by number and adds up the products. This is called a *dot product*, and it is large when the two lists have large numbers in the same places, that is, when what one token is looking for matches what the other offers. The model does this for every pair of tokens, which gives a square table of scores.
+Attention starts with three fully connected layers applied to each token separately, using the shared-weight approach in @fig-te-conv. From each token's embedding, they compute three new lists of numbers, called the *query*, the *key*, and the *value*. You can think of the query as what the token is looking for, the key as what it offers, and the value as what it passes on to an interested token. To decide how much attention "its" should pay to "virus", the model multiplies the query of "its" with the key of "virus" number by number and adds up the products. This is called a *dot product*, and it is large when the two lists have large numbers in the same places, that is, when what one token is looking for matches what the other offers. The model does this for every pair of tokens, which gives a square table of scores.
 
 Three more steps turn the scores into weights. The scores are divided by 8, the square root of 64, which is how many numbers each query and key holds (more about that below). This keeps them from getting too large. Then every score for a token after it is set to minus infinity. This is the *mask*, and it means that a token can only look back at itself and the tokens before it, never ahead. That is a must for a model that is trained to predict the next token: if it could look ahead, it would just read the answer. Finally, each row of the table goes through *softmax*, which turns the scores into positive numbers that add up to 1. A score of minus infinity becomes exactly 0.
 
-The result is the attention table in @fig-te-attention. Each row belongs to one token and says how its attention is divided among the tokens before it. The new list of numbers for "its" is then the values of all the tokens, mixed in proportion to the weights in its row. If the weight for "virus" is large, "its" takes in a lot of what "virus" has to offer.
+The result is the attention table in @fig-te-attention. Each row belongs to one token and says how its attention is divided among the tokens before it. The new list of numbers for "its" is then the values of all the tokens, mixed in proportion to the weights in its row. If the weight for "virus" is large, "its" takes in a lot of what "virus" offers.
 
 ```{python}
 #| label: fig-te-attention
 #| echo: false
-#| fig-cap: "Attention weights in two of GPT-2's 144 attention heads. Each row is a token, and the cells in the row show how much attention it pays to each earlier token. Every row adds up to 1, and the empty upper-right triangle is the mask. The row of \"its\" is outlined and its weights are written in. Left: block 1, head 1, where the attention of \"its\" is spread out. Right: block 5, head 4, where \"its\" pays almost all its attention to the two candidates for owning the copies, \"virus\" and \"cell\"."
+#| fig-cap: "Attention weights in two of GPT-2's 144 attention heads. Each row is a token, and the cells show how much attention it pays to each earlier token. Every row adds up to 1, and the empty upper-right triangle is the mask. The row of \"its\" is outlined and its weights are written in. Left: block 1, head 1, where the attention of \"its\" is spread out. Right: block 5, head 4, where \"its\" pays almost all its attention to the two candidates for owning the copies, \"virus\" and \"cell\"."
 fig, axes = plt.subplots(1, 2, figsize=(9, 4.6))
 cmap = plt.get_cmap("Purples").copy(); cmap.set_bad("white")
 n = len(LABELS)
@@ -359,7 +359,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-Now compare attention to the layers in [Layers of neurons are matrices](#sec-te-matrices). In @fig-te-attention-lines, the attention of "its" in block 5, head 4 is drawn the same way as those layers: as lines into a neuron, with each line's thickness showing its weight. The difference is where the weights come from. In a fully connected layer, the weights are learned during training and stay the same regardless of the input text. In attention, the weights of these lines are computed afresh from the queries and keys of the text that is actually there. Feed the model a different sentence, and the same head draws different lines. Training sets the weights of the layers that compute the queries, keys, and values. So a head learns how to decide where to look, then applies that to whatever text it is given.
+Now compare attention to the layers in [Layers of neurons are matrices](#sec-te-matrices). In @fig-te-attention-lines, the attention of "its" in block 5, head 4 is drawn the same way as those layers: as lines into a neuron, with each line's thickness showing its weight. The difference is where the weights come from. In a fully connected layer, the weights are learned during training and stay the same regardless of the input text. In attention, the weights of these lines are computed afresh from the queries and keys of the text actually present. Feed the model a different sentence, and the same head draws different lines. Training sets the weights of the layers that compute the queries, keys, and values. So a head learns how to decide where to look, then applies that to whatever text it is given.
 
 ```{python}
 #| label: fig-te-attention-lines
@@ -481,7 +481,7 @@ Nobody fully understands what the MLPs do, but they hold most of the model's wei
 
 Two details complete the block, and the Explainer draws them as small dots and lines between the bigger parts. First, neither the attention layer nor the MLP replaces a token's list of numbers. Each computes a change, which is added to the list it received. These shortcuts are called *residual connections*, and they mean that each layer only has to work out what to add, while everything earlier flows past it unchanged. The second is *layer normalization*, which, before each attention layer and each MLP, rescales every list so that its numbers have a mean of 0 and a standard deviation of 1, and then stretches and shifts them by learned amounts. This keeps the numbers from drifting to extreme values as they pass through the twelve blocks.
 
-So the list of numbers for each token runs through twelve blocks and is refined a little at each step. You can get a rough idea of how the prediction forms by taking the list for the last token after each block and sending it straight to the [output layer](#sec-te-output), as if the model ended there. @fig-te-lens shows the result. Up to block 9, the model's best guess is "own", which is a sensible continuation of "makes copies of its" when you only know the grammar. Only in blocks 10 to 12 does "DNA" take over, once the information about the virus has been worked in. The early guesses should be taken with a grain of salt, because the output layer was only trained to read the list after the last block, but the picture of a guess that is gradually reshaped from block to block is borne out by many such experiments.
+So the list of numbers for each token runs through twelve blocks and is refined a little at each step. You can get a rough idea of how the prediction forms by taking the list for the last token after each block and sending it straight to the [output layer](#sec-te-output), as if the model ended there. @fig-te-lens shows the result. Up to block 9, the model's best guess is "own", which is a sensible continuation of "makes copies of its" when you only know the grammar. Only in blocks 10 to 12 does "DNA" take over, once the information about the virus has been worked in. The early guesses should be taken with a grain of salt, because the output layer was trained only to read the list after the last block, but the picture of a guess gradually reshaped from block to block is borne out by many such experiments.
 
 ```{python}
 #| label: fig-te-lens
@@ -528,7 +528,7 @@ No. Every token goes through the MLP on its own. The only place in the block whe
 
 After the twelfth block, the list of 768 numbers for the last token, "its", is sent through one last fully connected layer with 50,257 neurons, one for each token in the vocabulary. GPT-2 reuses the [embedding table](#sec-te-embedding) for the weights of this layer, so a token gets a high score when the list of numbers for "its" points in the same direction as that token's embedding. The scores are called *logits*. Only the last token's list is used, because only the last token has seen the whole sentence.
 
-Softmax turns the logits into probabilities, the same function the attention layer uses. It raises $e$ to the power of each score, which makes every number positive and makes high scores much higher than low ones, then divides each result by the total so they add up to 1. A high score becomes a high probability. Before softmax, the scores are divided by a number called the *temperature*. A temperature below 1 increases the differences between scores, making the most likely token even more likely. A temperature above 1 reduces the differences and evens out the probabilities. @fig-te-temperature shows the effect.
+Softmax turns the logits into probabilities, the same function the attention layer uses. It raises $e$ to the power of each score, making every number positive and making high scores much higher than low ones, then divides each result by the total so they add up to 1. A high score becomes a high probability. Before softmax, the scores are divided by a number called the *temperature*. A temperature below 1 increases the differences between scores, making the most likely token even more likely. A temperature above 1 reduces the differences and evens out the probabilities. @fig-te-temperature shows the effect.
 
 ```{python}
 #| label: fig-te-temperature
@@ -600,8 +600,8 @@ About 27% of the time, a little more than one time in four, because "DNA" has a 
 
 ## What you have seen {#sec-te-explains}
 
-Everything an AI assistant does is built from the steps you have just watched, in a much larger model. Text is cut into tokens based on how often pieces of text occur, so the model sees chunks of letters, not single letters. Each token becomes a list of numbers learned during training, with related words ending up close together. Twelve blocks of attention and fully connected layers then refine those lists. In GPT-2 the fully connected layers treat each token on its own, with the same weights for all of them, and attention is the only place where tokens take in information from each other. It computes its connections afresh for each new text. At the end, the model gives a probability for every token in its vocabulary, and a token is drawn at random from the most likely ones.
+Everything an AI assistant does is built on the steps you just watched, but in a much larger model. Text is cut into tokens based on how often pieces of text occur, so the model sees chunks of letters, not single letters. Each token becomes a list of numbers learned during training, with related words ending up close together. Twelve blocks of attention and fully connected layers then refine those lists. In GPT-2, the fully connected layers treat each token independently, using the same weights for all of them, and attention is the only place where tokens take in information from each other. It computes its connections afresh for each new text. At the end, the model gives a probability for every token in its vocabulary, and a token is drawn at random from the most likely ones.
 
 Several things you will notice about assistants follow directly from this. An assistant can give a different answer to the same question because it draws the next token at random. It can state something false with complete fluency because it chooses a token that is likely given the text, and nothing in the calculation checks it against the world. In our sentence, "genes" and "cells" were never far behind "DNA", and in a different sentence the wrong word can just as easily be the likely one. It has no memory between messages, because all it ever sees is the text in front of it. When an assistant seems to remember what you said earlier in a chat, it is because the whole conversation is sent to it again as one long text. And it is hard to predict what a particular weight or head does, because nobody chose any of them. You saw one head that links a pronoun to its noun, and 143 others that do things nobody has named.
 
-GPT-2 was large for its time and is small now. Today's assistants have more blocks, wider layers, more heads, and can read far longer texts at once, and they are trained on much more data, with further training to help them answer questions. But they are built from the same parts you have seen here, and they still work one token at a time.
+GPT-2 was large for its time, but it's small now. Today's assistants have more blocks, wider layers, more heads, and can read far longer texts at once, and they are trained on much more data, with further training to help them answer questions. But they are built from the same parts you have seen here, and they still work one token at a time.
