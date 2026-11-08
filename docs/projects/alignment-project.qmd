@@ -1,12 +1,12 @@
 # Project: Pairwise alignment {#sec-alignment-project}
 
-*This chapter is about global pairwise alignment, and you will implement your own Needleman-Wunch algorithm.*
+*This chapter is about global pairwise alignment, and you will implement your own Needleman-Wunsch algorithm.*
 
-Your task is to find an optimal alignment of two sequences. If two such sequences are roughly 140 bases long, there are as many different ways to align them as there are atoms in the visible universe. Finding an optimal alignment among those $10^{80}$ possibilities is a hard problem, but implementing the Needleman-Wunch algorithm will let you do it.
+Your task is to find an optimal alignment of two sequences. If two such sequences are roughly 140 bases long, there are as many different ways to align them as there are atoms in the visible universe. Finding an optimal alignment among those $10^{80}$ possibilities is hard, but implementing the Needleman-Wunsch algorithm will let you do it.
 
-This project is meant to train your coding abilities and consolidate your understanding of the Needleman-Wunch algorithm. The better you understand the algorithm before you begin, the easier and more rewarding the project will be. So, re-read the book chapter about pairwise alignment and browse the lecture slides.
+This project is meant to build your coding skills and strengthen your understanding of the Needleman-Wunsch algorithm. The better you understand the algorithm before you begin, the easier and more rewarding the project will be. So, re-read the book chapter about pairwise alignment and browse the lecture slides.
 
-Begin by downloading the project. Open your instructing machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
+Begin by downloading the project. Open your instructing-machines folder in VS Code. Then open a terminal (`Terminal > New Terminal` from the top menu) and run this command:
 
 ```txt
 pixi run get alignmentproject
@@ -36,11 +36,11 @@ The project is split into two parts:
 1. Filling in a dynamic programming matrix.
 2. Reconstructing the optimal alignment by doing traceback through the dynamic programming matrix.
 
-To help you along, the `alignmentproject.py` file already contains a function I wrote for you, so you can print your matrices as you gradually fill them in.  
+To help you along, `alignmentproject.py` already contains a function I wrote for you, so you can print your matrices as you fill them in.  
 
 The function is named `print_matrix` and takes three arguments:
 
-1. A lists of lists of integers, representing a dynamic programming matrix.
+1. A list of lists of integers, representing a dynamic programming matrix.
 2. A string, which represents a DNA sequence of some length `m`.
 3. A string, which represents a DNA sequence of some length `n`.
 
@@ -67,7 +67,7 @@ def print_matrix(matrix, seq1, seq2):
 
 ### Make an "empty" matrix
 
-We start by making a list of lists (a matrix) with the right shape but only holds `None` values. We use the `None` values as placeholders, which you can later replace with scores. You can think of it as an empty matrix into which you can fill scores, just as we did in the lectures. If you want to align two sequences like `AT` and `GAT`, you want a matrix with three rows and four columns. Note that the matrix must have one more row than the number of bases in sequence one and one more column than the number of bases in sequence two.
+Start by making a list of lists (a matrix) with the right shape, filled with `None` values. We use the `None` values as placeholders, which you can later replace with scores. Think of it as an empty matrix you can fill with scores, just as we did in the lectures. If you want to align two sequences like `AT` and `GAT`, you want a matrix with three rows and four columns. The matrix must have one more row than the number of bases in sequence one and one more column than the number of bases in sequence two.
 
 *Write a function*, `empty_matrix`, that takes two arguments
 
@@ -109,7 +109,7 @@ Even though this is a list of lists, we can *think of it* as a three-by-four mat
      [None, None, None, None], 
      [None, None, None, None]]
 
-You can use `print_matrix` to print the matrix with the sequence bases along the left and top margins. Printing an "empty" matrix will looks like this:
+You can use `print_matrix` to print the matrix with the sequence bases along the left and top margins. Printing an "empty" matrix will look like this:
 
               G    A    T
       None None None None
@@ -118,7 +118,7 @@ You can use `print_matrix` to print the matrix with the sequence bases along the
 
 ### Prepare the dynamic programming matrix
 
-Now that you can make a matrix with the correct dimensions, you need to write a function that fills in the top row and the left column with multiples of the gap score. E.g., if the gap score is `-2`, you want the matrix to look something like this when you print it with `print_dp_matrix`:
+Now that you can create a matrix with the correct dimensions, write a function that fills the top row and left column with multiples of the gap score. E.g., if the gap score is `-2`, you want the matrix to look something like this when you print it with `print_dp_matrix`:
 
               G    A    T
          0   -2   -4   -6
@@ -133,7 +133,7 @@ Now that you can make a matrix with the correct dimensions, you need to write a 
 
 The function must return:
 
-* A list of lists. The number of sub-lists must be equal to the first integer argument. The values in the first sub-list must be multiples of the gap score given as the third argument. The first elements of the remaining sub-lists must be multiples of the gap score. All remaining elements of sub-lists must be `None`.
+* A list of lists. The number of sub-lists must be equal to the first integer argument. The values in the first sub-list must be multiples of the gap score (the third argument). The first elements of the remaining sub-lists must be multiples of the gap score. All remaining elements of sub-lists must be `None`.
 
 Example usage:
 
@@ -150,7 +150,7 @@ must return:
 ::: {.callout-note appearance="simple" collapse=true}
 ### Hint 1
 
-You can call `empty_matrix` inside `prepare_dp_matrix` to get an empty matrix to fill in. Remember that the matrix needs to have as many rows as we can align bases from sequence one. Since that includes zero aligned bases the number of rows must be equal the length of sequence one *plus* one. Same logic goes for the sequence two and the columns.
+You can call `empty_matrix` inside `prepare_dp_matrix` to get an empty matrix to fill in. Remember, the matrix needs as many rows as we can align bases from sequence one. Since that includes zero aligned bases, the number of rows must be equal to the length of sequence one *plus* one. The same logic goes for sequence two and the columns.
 
 ```python
 dp_matrix = empty_matrix(len(seq1)+1, len(seq2)+1)
@@ -161,7 +161,7 @@ dp_matrix = empty_matrix(len(seq1)+1, len(seq2)+1)
 
 ### Hint 2
 
-When you have a matrix filled with None values, all you need to do is replace the right `None` values with *multiples* of the gap score. For example, the third element in the first sub-list is `dp_matrix[2][0]`, for which you would need to assign the value `2` times the gap score. In the same way `dp_matrix[3][0]` should be `3` times the gap score. So, you need to figure out which elements you should replace and which pairs of indexes you need to access those elements. Then, use `range` to generate those indexes and for-loops to loop them over. 
+When you have a matrix filled with None values, all you need to do is replace the right `None` values with *multiples* of the gap score. For example, the third element in the first sub-list is `dp_matrix[2][0]`, which you would assign as `2` times the gap score. Similarly, `dp_matrix[3][0]` should be `3` times the gap score. So you need to figure out which elements to replace and which index pairs you need to access. Then, use `range` to generate those indices and for-loops to loop over them. 
 :::
 
 ::: {.content-hidden unless-profile="ta"}
@@ -181,7 +181,7 @@ def prepare_dp_matrix(nrows, ncols, gap_score):
 
 ### Prepare the traceback matrix
 
-When we fill in the dynamic programming matrix, each score is computed from one of the three cells surrounding it left to top. To be able to do the traceback at the end we must record which one we used. I.e. if the traceback needs to go "up", "left", or to the "diagonal" cell. The traceback matrix has the same shape as the dynamic programming matrix and should end up with each cell filled with U for "up", L for "left", or "D" for diagonal. You need to prepare this matrix by filling the same rows as you did preparing the dynamic programming matrix (except for the top left one) like this:
+When we fill in the dynamic programming matrix, each score is computed from one of the three cells surrounding it left to top. To do the traceback at the end, we must record which one we used. I.e., if the traceback needs to go "up", "left", or to the "diagonal" cell. The traceback matrix has the same shape as the dynamic programming matrix and should end up with each cell filled with U for "up", L for "left", or "D" for diagonal. You need to prepare this matrix by filling the same rows as you did when preparing the dynamic programming matrix (except for the top-left one) like this:
 
 
               A    T
@@ -198,7 +198,7 @@ When we fill in the dynamic programming matrix, each score is computed from one 
 
 The function must return:
 
-* A list of lists. The number of sub-lists must be equal to the first integer argument. In the first sub-list, all but the first value must all be `'L'`. The first values of the remaining sub-lists must all be `'U'`. All remaining elements of sub-lists must be `None`.
+* A list of lists. The number of sub-lists must be equal to the first integer argument. In the first sub-list, all but the first value must be `'L'`. The first values of the remaining sub-lists must all be `'U'`. All remaining elements of sub-lists must be `None`.
 
 Example usage:
 
@@ -215,7 +215,7 @@ must return:
 ::: {.callout-note appearance="simple" collapse=true}
 ### Hint 1
 
-You can call `empty_matrix` inside `prepare_traceback_matrix` to get an empty matrix to fill in. Remember that the matrix needs to have as many rows as we can align bases from sequence one. Since that includes zero aligned bases the number of rows must be equal the length of sequence one *plus* one. Same logic goes for the sequence two and the columns.
+You can call `empty_matrix` inside `prepare_traceback_matrix` to get an empty matrix to fill in. Remember, the matrix needs as many rows as we can align bases from sequence one. Since that includes zero aligned bases, the number of rows must be equal to the length of sequence one *plus* one. The same logic goes for sequence two and the columns.
 
 ```python
 dp_matrix = empty_matrix(len(seq1)+1, len(seq2)+1)
@@ -250,7 +250,7 @@ score_matrix = {'A': {'A': 2, 'T': 0, 'G': 0, 'C': 0},
                 'C': {'A': 0, 'T': 0, 'G': 0, 'C': 2}}
 ```
 
-That lets you get the score for matching an `A` with a `T` like this: `score_matrix['A']['T']`. Note that the match scores are only for uppercase letters (`A`, `T`, `G`, `C`).
+That lets you get the score for matching an `A` with a `T` like this: `score_matrix['A']['T']`. Note that match scores apply only to uppercase letters (`A`, `T`, `G`, `C`).
 
 *Write a function*, `fill_matrices`, which takes four arguments:
 
@@ -261,7 +261,7 @@ That lets you get the score for matching an `A` with a `T` like this: `score_mat
 
 The function must return:
 
-* A tuple of two values, The first must be a list of lists of numeric values representing the the filled in dynamic programming matrix. The second must be a list of lists representing the the filled in traceback matrix.
+* A tuple of two values. The first must be a list of lists of numeric values representing the filled-in dynamic programming matrix. The second must be a list of lists representing the filled-in traceback matrix.
 
 Example usage: If `score_matrix` is defined as above, then
 
@@ -276,7 +276,7 @@ must return:
  [[None, 'L', 'L'], ['U', 'D', 'D'], ['U', 'D', 'D'], ['U', 'U', 'D']])
 ```
 
-When printed with `print_matrix`, the first shoould look like this:
+When printed with `print_matrix`, the first should look like this:
 
 	      G  A  T
 	   0 -2 -4 -6
@@ -305,7 +305,7 @@ traceback_matrix = prepare_traceback_matrix(len(seq1)+1, len(seq2)+1)
 ::: {.callout-note appearance="simple" collapse=true}
 ### Hint 2
 
-To fill in the rest of the cells in each matrix, you need two nested for-loops to produce the indexes of the i,j elements in the cells to fill in:
+To fill in the rest of the cells in each matrix, you need two nested for-loops to produce the indices of the i,j elements in the cells to fill in:
 
 ```python
 for i in range(1, len(seq1)+1):
@@ -396,7 +396,7 @@ must return:
 ('ATA-', '-TAG')
 ```
 
-This is difficult one. Give it shot, but displair. You can see an explained solution in the reveal below:
+This is a difficult one. Give it a shot, but don't despair. You can see an explained solution in the reveal below:
 
 ::: {.callout-note appearance="simple" collapse=true}
 ### The traceback function
@@ -440,7 +440,7 @@ Now you can write a function that performs the alignment. You get to do that you
 
 The function must return:
 
-* A list of length two. The first element of that list must be a string representing the aligned sequence one. The second element must be a string, representing the aligned sequence two.
+* A list of length two. The first element must be a string representing aligned sequence one. The second element must be a string representing the aligned sequence two.
 
 Example usage:
 
@@ -489,7 +489,7 @@ Now you can write a function that performs the alignment. You get to do that you
 
 The function must return:
 
-* A list of length two. The first element of that list must be a string representing the aligned sequence one. The second element must be a string, representing the aligned sequence two.
+* A list of length two. The first element must be a string representing the first aligned sequence. The second element must be a string representing the second aligned sequence.
 
 Example usage:
 
@@ -516,16 +516,16 @@ print(aln2)
 ```
 
 
-As a final refinement, add an identity lines between the two aligned sequences:
+As a final refinement, add an identity line between the two aligned sequences:
 
 *Write a function*, `identity_line`, that takes two arguments:
 
-1. A string, which represents the aligned sequence one.
+1. A string, which represents the first aligned sequence.
 2. A string, which represents the aligned sequence two.
 
 The function must return:
 
-* A string with `'|'` characters at indices where the two string arguments are the same and `' '` (space) characers where they differ.
+* A string with `'|'` characters at indices where the two string arguments are the same and `' '` (space) characters where they differ.
 
 Example usage:
 
