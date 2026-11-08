@@ -1,0 +1,607 @@
+---
+title: "AI: Inside a language model"
+# The project sets execute.enabled: false. This chapter is not a downloadable notebook, and its
+# figures are drawn at render time from data/llm-virus.json, which scripts/make_llm_data.py
+# computes once from GPT-2. Rendering needs only numpy and matplotlib.
+execute:
+  enabled: true
+---
+
+```{python}
+#| echo: false
+import json
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle
+
+D = json.loads(Path("data/llm-virus.json").read_text())
+TOKENS = D["tokens"]
+LABELS = [t.strip() for t in TOKENS]
+
+BLUE, ORANGE, TEAL, PURPLE = "#2a78d6", "#eb6834", "#1a9c8c", "#6b4fbb"
+INK, MUTED, NODE = "#222222", "#6b6b6b", "#d1d5db"
+
+plt.rcParams.update({
+    "font.size": 10,
+    "axes.edgecolor": MUTED,
+    "axes.labelcolor": INK,
+    "xtick.color": MUTED,
+    "ytick.color": MUTED,
+})
+
+
+def node(ax, x, y, r=0.16, label=None, fs=9):
+    ax.add_patch(plt.Circle((x, y), r, facecolor=NODE, edgecolor=INK, lw=1, zorder=3))
+    if label:
+        ax.text(x, y, label, ha="center", va="center", fontsize=fs, zorder=4, color=INK)
+
+
+def bare(ax):
+    ax.set_aspect("equal")
+    ax.axis("off")
+```
+
+Every time you send a message to an AI assistant, a program takes your text, turns it into numbers, pushes the numbers through a very large neural network, and gets back a probability for every possible next word. It picks one, adds it to the text, and does the whole thing again. You have heard this described in words. In this chapter you look inside a working language model and watch it happen, number by number.
+
+The model is GPT-2 small, which OpenAI released in 2019 ([Radford et al., 2019](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)). It has 124 million parameters, which is tiny next to the assistants you use today, but it is built the same way, and it is small enough to run inside a web browser. The tool you will use to look inside it is the Transformer Explainer ([Cho et al., 2026](https://doi.org/10.1145/3772318.3791725)), a web page made by a research group at Georgia Tech that runs GPT-2 on your own computer and draws every step of the calculation.
+
+## How to work through this chapter {#sec-te-howto}
+
+The chapter follows the Transformer Explainer from left to right: first how text becomes numbers, then the attention that lets each word look at the others, then the layers that do the rest of the work, and finally how the numbers become a probability for every next word. Each section explains one part of the picture in the Explainer and ends with questions. Every question has a single answer that you can read off the screen, and the answers are hidden in folded boxes under the questions. Find your answer in the Explainer first, write it down, and only then open the box. If your answer and the box disagree, the disagreement is the interesting part. Go back and find out why.
+
+Open [the Transformer Explainer](https://poloclub.github.io/transformer-explainer/) on a laptop, not a phone. On a phone it only shows a few precomputed examples. The first time you open it, it downloads the model, which takes a minute, and until the download is finished it ignores any text you type. When it is ready, delete the example text in the box at the top and type this sentence, exactly as it is written here, with no full stop at the end:
+
+```{.txt}
+The virus infects the cell and makes copies of its
+```
+
+Then press Generate. Everyone in the course uses this same sentence, so everyone sees the same numbers, and the figures in this chapter were computed from it with the same model. Your screen may differ from the figures in the last decimal. One small trap: when you click into the text box afterwards, the Explainer adds the word it predicted to the end of your sentence. If that happens, delete the added word and press Generate again before you read any numbers.
+
+Before we open the model, we need one idea that the Explainer takes for granted, and that ties the network you are about to see to the networks of neurons you met in [From neuron to network](../neural_networks/neural-networks.qmd#sec-nn-network).
+
+## Layers of neurons are matrices {#sec-te-matrices}
+
+A neuron computes a weighted sum of its inputs. A layer is a row of neurons that all receive the same inputs, each with its own weights. In @fig-te-dense, a layer of two neurons receives three inputs. The first neuron computes $y_1 = w_{11}x_1 + w_{12}x_2 + w_{13}x_3$ and the second computes $y_2 = w_{21}x_1 + w_{22}x_2 + w_{23}x_3$. Each weight belongs to one line in the drawing, and there is a line from every input to every output, which is why this is called a *fully connected* layer.
+
+```{python}
+#| label: fig-te-dense
+#| echo: false
+#| fig-cap: "A fully connected layer and the matrix that holds its weights. Each line in the network on the left is one weight, and each row of the matrix on the right holds the weights of one output neuron, in the same color. Multiplying the matrix by the column of inputs computes every weighted sum in the layer at once."
+fig, (ax, ax2) = plt.subplots(1, 2, figsize=(8.2, 3.0), gridspec_kw=dict(width_ratios=[1, 1.25]))
+ins = [(0, 2.0), (0, 1.0), (0, 0.0)]
+outs = [(2.2, 1.5), (2.2, 0.5)]
+for i, (xo, yo) in enumerate(outs):
+    color = [BLUE, ORANGE][i]
+    for j, (xi, yi) in enumerate(ins):
+        ax.plot([xi, xo], [yi, yo], color=color, lw=1.6, zorder=1)
+        t = 0.3
+        ax.text(xi + t * (xo - xi), yi + t * (yo - yi), f"$w_{{{i+1}{j+1}}}$",
+                color=color, fontsize=9, ha="center", va="center",
+                bbox=dict(facecolor="white", edgecolor="none", pad=0.3))
+for j, (x, y) in enumerate(ins):
+    node(ax, x, y, label=f"$x_{j+1}$")
+for i, (x, y) in enumerate(outs):
+    node(ax, x, y, label=f"$y_{i+1}$")
+ax.set_xlim(-0.4, 2.6); ax.set_ylim(-0.4, 2.4); bare(ax)
+
+ax2.axis("off"); ax2.set_xlim(0, 10); ax2.set_ylim(0, 6)
+def bracket(ax, x0, x1, y0, y1):
+    for x, d in ((x0, 0.25), (x1, -0.25)):
+        ax.plot([x + d, x, x, x + d], [y0, y0, y1, y1], color=INK, lw=1.2)
+rows = [[f"$w_{{{i}{j}}}$" for j in (1, 2, 3)] for i in (1, 2)]
+for i, row in enumerate(rows):
+    for j, s in enumerate(row):
+        ax2.text(0.9 + 1.25 * j, 3.9 - 1.3 * i, s, color=[BLUE, ORANGE][i], fontsize=12, ha="center", va="center")
+bracket(ax2, 0.2, 3.7, 2.1, 4.6)
+for j in range(3):
+    ax2.text(4.6, 4.8 - 1.2 * j, f"$x_{j+1}$", fontsize=12, ha="center", va="center", color=INK)
+bracket(ax2, 4.1, 5.1, 2.0, 5.4)
+ax2.text(5.7, 3.25, "=", fontsize=14, ha="center", va="center", color=INK)
+for i in range(2):
+    ax2.text(7.0, 3.9 - 1.3 * i, f"$y_{i+1}$", fontsize=12, ha="center", va="center", color=[BLUE, ORANGE][i])
+bracket(ax2, 6.4, 7.6, 2.1, 4.6)
+plt.tight_layout()
+plt.show()
+```
+
+If you write the weights in a table with one row per output neuron and one column per input, the table is called a *matrix*, and the inputs written as a column are called a *vector*. Multiplying a matrix by a vector means exactly this: for each row, multiply the row's numbers by the inputs one by one and add up the products. So a fully connected layer and a multiplication of a matrix by a vector are the same thing, drawn in two ways. The drawing is easier to understand, and the matrix is how the computer does it, because computers, and especially the graphics chips used for AI, are built to do huge numbers of these multiplications very quickly. When the Explainer shows you a grid of colored cells and says that one matrix is multiplied by another, you can always picture layers of neurons and the lines between them. In GPT-2 the layers are wide. One of them takes 768 inputs and has 3,072 neurons, so its matrix has 768 × 3,072 = 2,359,296 weights, one for each line.
+
+The second idea is about what happens when a network reads a sequence. GPT-2 reads your sentence as a row of eleven pieces, and each piece is described by a list of 768 numbers. One way to process the sentence would be a single enormous layer with a line from every number of every piece to every output. Language models do something else. They apply one and the same small network to every piece separately, with the same weights each time, as if the network were copied along the sentence.
+
+The same trick has a name in other parts of machine learning. A network that slides along a sequence and applies the same weights at every position is called a *convolution*, and you have already met one in biology without the name. A position weight matrix for a transcription factor binding site holds a score for each base at each of, say, six positions. Sliding it along a DNA sequence and adding up the scores at every position is a convolution with a window six bases wide. The right half of @fig-te-conv shows a convolution with a window of three: every output neuron is connected to three neighboring inputs, always with the same three weights.
+
+```{python}
+#| label: fig-te-conv
+#| echo: false
+#| fig-cap: "Left: a fully connected layer from six inputs to six outputs has 36 weights, all different. Right: a convolution with a window of three. Each output is connected only to its neighbors, and always with the same three weights a, b and c, shown by the three colors. It has three weights in total, however long the sequence is."
+fig, axes = plt.subplots(1, 2, figsize=(8.2, 2.9))
+bases = list("ATGGCA")
+for k, ax in enumerate(axes):
+    for i in range(6):
+        for j in range(6):
+            if k == 0:
+                ax.plot([j, i], [0, 2], color=MUTED, lw=0.8, alpha=0.6, zorder=1)
+            elif abs(i - j) <= 1:
+                c = [BLUE, ORANGE, TEAL][j - i + 1]
+                ax.plot([j, i], [0, 2], color=c, lw=2, zorder=1)
+    for i in range(6):
+        node(ax, i, 0, r=0.24, label=bases[i])
+        node(ax, i, 2, r=0.24)
+    if k == 1:
+        for j, lab in zip((1, 2, 3), "abc"):
+            t = 0.35  # a point on the line from input j to output 2
+            ax.text(j + t * (2 - j), 2 * t, lab, color=[BLUE, ORANGE, TEAL][j - 1],
+                    ha="center", va="center", fontsize=10,
+                    bbox=dict(facecolor="white", edgecolor="none", pad=0.6))
+    ax.set_title(["Fully connected: 36 weights", "Convolution: 3 shared weights"][k], fontsize=10, color=INK)
+    ax.set_xlim(-0.5, 5.5); ax.set_ylim(-0.5, 2.5); bare(ax)
+plt.tight_layout()
+plt.show()
+```
+
+Sharing weights has two big advantages. There are far fewer weights to learn, and the network works for a sequence of any length, because it does not care how many times it is copied. GPT-2 takes the idea to its extreme. Most of its layers use a window that is only one piece wide: the same layer of neurons is applied to each piece on its own, without looking at the neighbors at all. The program code that defines GPT-2 even calls these layers `Conv1D`, one-dimensional convolutions. If almost every layer looks at one piece at a time, the pieces have to exchange information somewhere else, and they do that in the attention layers. Attention is the one place where the pieces of the sentence are connected to each other, and its connections are drawn in a new way, which you will meet in [Looking back at the sentence](#sec-te-attention).
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Work these out on paper before you open the answers.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## A layer has the weights $w_{11} = 1$, $w_{12} = 0$, $w_{13} = 2$ for the first neuron and $w_{21} = -1$, $w_{22} = 3$, $w_{23} = 1$ for the second. What are $y_1$ and $y_2$ when $x_1 = 2$, $x_2 = 1$ and $x_3 = 1$?
+
+$y_1 = 1 \times 2 + 0 \times 1 + 2 \times 1 = 4$ and $y_2 = -1 \times 2 + 3 \times 1 + 1 \times 1 = 2$. This is the matrix with rows $(1, 0, 2)$ and $(-1, 3, 1)$ multiplied by the vector $(2, 1, 1)$.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Our sentence is eleven pieces of 768 numbers each. How many weights would a fully connected layer from all of these numbers to the same number of outputs need, and how many does GPT-2 need when it applies one 768-by-768 layer to each piece separately?
+
+The fully connected layer has $11 \times 768 = 8{,}448$ inputs and as many outputs, so it needs $8{,}448^2 = 71{,}368{,}704$ weights, and it only works for sentences of exactly eleven pieces. The shared layer needs $768 \times 768 = 589{,}824$ weights, more than a hundred times fewer, and works for any length.
+:::
+
+<br>
+
+## The whole picture {#sec-te-overview}
+
+When you have typed the sentence and pressed Generate, the Explainer shows the whole model as one flow from left to right, sketched in @fig-te-pipeline. On the left, your sentence is cut into pieces, and each piece is turned into a list of 768 numbers. The lists then pass through a *transformer block*, which consists of an attention layer followed by a small network of fully connected layers. GPT-2 has twelve such blocks, one after the other, all built the same way but with their own weights. The Explainer draws only the first one and stacks the rest behind it. On the right, the list of numbers belonging to the last piece of the sentence is turned into a probability for each of the 50,257 pieces the model knows, and one of them is chosen as the next word.
+
+```{python}
+#| label: fig-te-pipeline
+#| echo: false
+#| fig-cap: "The path through GPT-2 that the Transformer Explainer draws from left to right. The sentence becomes 11 pieces, each piece becomes 768 numbers, and twelve identical blocks of attention and fully connected layers refine those numbers. The numbers of the last piece are turned into a probability for each of the 50,257 pieces in the vocabulary."
+fig, ax = plt.subplots(figsize=(8.6, 2.5))
+boxes = [
+    (0.0, "Text", "your\nsentence"),
+    (1.75, "Tokens", "11 pieces"),
+    (3.5, "Embedding", "11 × 768\nnumbers"),
+    (5.6, "12 blocks", "attention\n+ MLP"),
+    (7.7, "Output", "50,257\nprobabilities"),
+    (9.6, "Next", "“DNA”"),
+]
+w, h = 1.35, 1.25
+for i, (x, title, body) in enumerate(boxes):
+    stack = 3 if title == "12 blocks" else 1
+    for s in reversed(range(stack)):
+        ax.add_patch(FancyBboxPatch((x + 0.09 * s, 0.09 * s), w, h, boxstyle="round,pad=0.03,rounding_size=0.08",
+                                    facecolor="#f2f0fa" if title == "12 blocks" else "#f4f4f4",
+                                    edgecolor=PURPLE if title == "12 blocks" else MUTED, lw=1, zorder=2 - s * 0.1))
+    ax.text(x + w / 2, h - 0.25, title, ha="center", va="center", fontsize=10, color=INK, weight="bold", zorder=3)
+    ax.text(x + w / 2, h / 2 - 0.15, body, ha="center", va="center", fontsize=9, color=INK, zorder=3)
+    if i < len(boxes) - 1:
+        nx = boxes[i + 1][0]
+        ax.add_patch(FancyArrowPatch((x + w + (0.2 if stack > 1 else 0.03), h / 2), (nx - 0.03, h / 2),
+                                     arrowstyle="-|>", mutation_scale=12, color=MUTED, lw=1.2))
+ax.set_xlim(-0.1, 11.1); ax.set_ylim(-0.15, 1.6); bare(ax)
+plt.tight_layout()
+plt.show()
+```
+
+Each of the four sections that follow zooms in on one of these boxes. In the Explainer you zoom in by clicking a box, or the magnifying-glass icon next to it, and click again to zoom out. Hovering the mouse over almost anything shows a short explanation or the numbers behind it.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Type the sentence into the Explainer and press Generate, without zooming in on anything yet.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Which word does the model think is most likely to come next, and with what probability?
+
+"DNA", with a probability of about 73%. The bars on the right of the Explainer show the five most likely next words. "genes" comes second with about 11%.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## How many transformer blocks does GPT-2 have? The Explainer writes it under the first block.
+
+Twelve. The Explainer shows "Transformer Block 1" and writes that there are 11 more identical transformer blocks after it.
+:::
+
+<br>
+
+## From text to numbers: the embedding {#sec-te-embedding}
+
+A neural network can only compute with numbers, so the first job is to turn the text into numbers. The text is cut into *tokens*, and each token is looked up in a fixed list called the *vocabulary*. GPT-2's vocabulary has 50,257 tokens. Common words are tokens of their own, but a word that does not appear in the vocabulary is cut into pieces that do. The list was made once, before training, by repeatedly gluing together the pairs of characters and pieces that occurred most often in a large amount of text. That is why the pieces follow how often letters occur together, and not grammar or biology. A space belongs to the token after it, so " virus" with its leading space and "virus" without one are two different tokens with different numbers. The Explainer does not show the spaces, but they are there. @tbl-te-tokens shows how GPT-2 cuts our sentence.
+
+```{python}
+#| label: tbl-te-tokens
+#| echo: false
+#| output: asis
+#| tbl-cap: "The eleven tokens of the sentence, with their number in the vocabulary (the token ID) and their position in the sentence. A middle dot marks the space that belongs to a token."
+rows = ["| Position | Token | Token ID |", "|---:|:---|---:|"]
+for i, (t, n) in enumerate(zip(TOKENS, D["ids"])):
+    rows.append(f"| {i} | `{t.replace(' ', '·')}` | {n:,} |")
+print("\n".join(rows))
+```
+
+The token ID is a name and not a measurement. Token 9,471 (" virus") is no more similar to token 9,472 than to token 1. So the first layer of the network replaces each token by a list of 768 numbers, its *token embedding*. GPT-2 keeps these lists in a table with one row per token in the vocabulary, 50,257 × 768 = 38,597,376 numbers in all, almost a third of the whole model. Looking up a row in this table is the same as a fully connected layer with 50,257 inputs, all of them 0 except a single 1 at the token's ID: the weighted sum then picks out exactly the weights belonging to that one input.
+
+Nobody chose the numbers in the table. They are weights, set by training like all the others, and training places tokens that are used in similar ways at similar points. You can measure how similar two embeddings are by how much their lists of numbers point in the same direction. In @fig-te-similarity, "virus", "bacteria", "DNA", "RNA" and "protein" are more similar to each other than to "car", "truck" and "house", and "DNA" and "RNA" are among the most similar pairs. GPT-2 was never told any biology. Placing the words this way simply made it better at predicting text. The odd one out is "cell", which is about as close to "car" as to "DNA". In the text GPT-2 was trained on, a cell is often a phone, and a token has only one embedding, whatever it means in a particular sentence. Telling the meanings apart is left to the layers that follow.
+
+```{python}
+#| label: fig-te-similarity
+#| echo: false
+#| fig-cap: "How similar GPT-2's token embeddings are for nine words (cosine similarity, where 1 means the two lists of 768 numbers point in exactly the same direction and 0 means they have nothing in common). Five of the biological words are more similar to each other than to the three everyday objects. \"cell\" sits in between."
+words = D["similarity"]["words"]
+M = np.array(D["similarity"]["cosine"], dtype=float)
+np.fill_diagonal(M, np.nan)
+cmap = plt.get_cmap("Blues").copy(); cmap.set_bad("#eeeeee")
+fig, ax = plt.subplots(figsize=(5.2, 4.4))
+ax.imshow(M, cmap=cmap, vmin=0.1, vmax=0.6)
+for i in range(len(words)):
+    for j in range(len(words)):
+        if i != j:
+            ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=8,
+                    color="white" if M[i, j] > 0.45 else INK)
+ax.set_xticks(range(len(words)), words, rotation=45, ha="right")
+ax.set_yticks(range(len(words)), words)
+ax.tick_params(length=0)
+for s in ax.spines.values():
+    s.set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+The token embedding says which token it is, but not where in the sentence it sits, and the order of words matters. So GPT-2 has a second table with one row of 768 numbers for each position, 0, 1, 2 and so on, up to 1,023, which is the longest text GPT-2 can read at once. The final embedding of a token is its token embedding plus the position embedding for its place in the sentence, added number by number, as in @fig-te-embedding. The position embeddings, too, were learned in training.
+
+```{python}
+#| label: fig-te-embedding
+#| echo: false
+#| fig-cap: "The embedding of \" virus\" at position 1, showing the first 8 of its 768 numbers. Each number of the token embedding is added to the number in the same place in the position embedding. Blue cells are negative and red cells positive."
+E = D["embedding"]
+rows = np.array([E["token_vec"], E["pos_vec"], E["sum_vec"]])
+fig, ax = plt.subplots(figsize=(7.4, 2.2))
+ax.imshow(rows, cmap="RdBu_r", vmin=-0.4, vmax=0.4, aspect="auto")
+for i in range(3):
+    for j in range(rows.shape[1]):
+        ax.text(j, i, f"{rows[i, j]:.2f}", ha="center", va="center", fontsize=9,
+                color="white" if abs(rows[i, j]) > 0.25 else INK)
+ax.set_yticks(range(3), [f"token “virus” (ID {D['ids'][E['position']]:,})", f"+ position {E['position']}", "= embedding"])
+ax.set_xticks(range(rows.shape[1]), [str(i + 1) for i in range(rows.shape[1])])
+ax.set_xlabel("the first 8 of 768 numbers")
+ax.tick_params(length=0)
+for s in ax.spines.values():
+    s.set_visible(False)
+ax.hlines([0.5, 1.5], -0.5, rows.shape[1] - 0.5, color="white", lw=3)
+plt.tight_layout()
+plt.show()
+```
+
+The way tokens are cut has consequences you will meet when you use an assistant. The model never sees letters, only token numbers. A DNA sequence reaches it as a handful of chunks of a few letters each, chosen by how often they occurred in the training text, so counting the Gs in a sequence or writing its reverse complement is hard for a language model even though it takes three lines of Python.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Zoom in on the embedding, which is the leftmost part of the Explainer. Use the Explainer to answer, not @tbl-te-tokens.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The sentence has ten words. How many tokens does it become, and which word is cut into two?
+
+Eleven tokens. "infects" becomes "infect" and "s". The ten other words are tokens of their own.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## What is the token ID of "virus", and what is the position number of "its"?
+
+"virus" has ID 9471. "its" has position 10, because positions are counted from 0, just like the indexes of a Python list.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## The sentence contains both "The" and "the". Do they have the same token ID?
+
+No. "The" at position 0 has ID 464, and "the" at position 4 has ID 262. Capital and small letters give different tokens, with different token embeddings. Had the same token occurred twice, the two would share a token embedding but still get different final embeddings, because a different position embedding is added to each.
+:::
+
+<br>
+
+## Looking back at the sentence: attention {#sec-te-attention}
+
+To predict what follows "makes copies of its", the model has to know whose copies they are. The word "its" refers to something earlier in the sentence, and the list of numbers for "its" must somehow take in information from the word it refers to. This is what the attention layer does, and it is the only layer in GPT-2 where the tokens of the sentence exchange information.
+
+Attention starts with three fully connected layers that are applied to every token separately, in the shared-weight way of @fig-te-conv. From the embedding of each token they compute three new lists of numbers, called the *query*, the *key* and the *value*. You can think of the query as what the token is looking for, the key as what it has to offer, and the value as what it passes on to a token that is interested. To decide how much attention "its" should pay to "virus", the model multiplies the query of "its" with the key of "virus" number by number and adds up the products. This is called a *dot product*, and it is large when the two lists have large numbers in the same places, that is, when what one token is looking for matches what the other offers. The model does this for every pair of tokens, which gives a square table of scores.
+
+Three more steps turn the scores into weights. The scores are divided by 8, the square root of 64, which is how many numbers each query and key holds (more about that below). This keeps them from getting too large. Then every score of a token for a token after it is set to minus infinity. This is the *mask*, and it means that a token can only look back at itself and the tokens before it, never ahead. That is a must for a model that is trained to predict the next token: if it could look ahead, it would just read the answer. Finally, each row of the table goes through *softmax*, which turns the scores into positive numbers that add up to 1. A score of minus infinity becomes exactly 0.
+
+The result is the attention table in @fig-te-attention. Each row belongs to one token and says how its attention is divided among the tokens before it. The new list of numbers for "its" is then the values of all the tokens, mixed in proportion to the weights in its row. If the weight for "virus" is large, "its" takes in a lot of what "virus" has to offer.
+
+```{python}
+#| label: fig-te-attention
+#| echo: false
+#| fig-cap: "Attention weights in two of GPT-2's 144 attention heads. Each row is a token, and the cells in the row show how much attention it pays to each earlier token. Every row adds up to 1, and the empty upper-right triangle is the mask. The row of \"its\" is outlined and its weights are written in. Left: block 1, head 1, where the attention of \"its\" is spread out. Right: block 5, head 4, where \"its\" pays almost all its attention to the two candidates for owning the copies, \"virus\" and \"cell\"."
+fig, axes = plt.subplots(1, 2, figsize=(9, 4.6))
+cmap = plt.get_cmap("Purples").copy(); cmap.set_bad("white")
+n = len(LABELS)
+for ax, key, title in zip(axes, ["b1h1", "b5h4"], ["Block 1, head 1", "Block 5, head 4"]):
+    A = np.array(D["attention"][key], dtype=float)
+    A[np.triu_indices(n, 1)] = np.nan
+    ax.imshow(A, cmap=cmap, vmin=0, vmax=1)
+    for j in range(n):
+        v = A[n - 1, j]
+        ax.text(j, n - 1, f"{v:.2f}".lstrip("0") if v < 1 else "1", ha="center", va="center", fontsize=6.5,
+                color="white" if v > 0.5 else INK)
+    ax.add_patch(Rectangle((-0.5, n - 1.5), n, 1, fill=False, edgecolor=ORANGE, lw=1.8))
+    ax.set_xticks(range(n), LABELS, rotation=60, ha="right", fontsize=8)
+    ax.set_yticks(range(n), LABELS, fontsize=8)
+    ax.tick_params(length=0)
+    for s in ax.spines.values():
+        s.set_visible(False)
+    ax.set_title(title, fontsize=10, color=INK)
+plt.tight_layout()
+plt.show()
+```
+
+Now compare attention to the layers in [Layers of neurons are matrices](#sec-te-matrices). In @fig-te-attention-lines, the attention of "its" in block 5, head 4 is drawn the same way as those layers, as lines into a neuron, with the thickness of each line showing its weight. The difference is where the weights come from. In a fully connected layer, the weights are learned in training and stay the same whatever text comes in. In attention, the weights of these lines are computed afresh from the queries and keys of the text that is actually there. Feed the model a different sentence and the same head draws different lines. Training sets the weights of the layers that compute the queries, keys and values. So what a head learns is a way of deciding where to look, which it then applies to whatever text it is given.
+
+```{python}
+#| label: fig-te-attention-lines
+#| echo: false
+#| fig-cap: "The attention of \"its\" in block 5, head 4, drawn as connections. The thickness of each line is the attention weight, so the new list of numbers for \"its\" is made mostly from \"virus\" and partly from \"cell\". Unlike the weights in a fully connected layer, these weights are computed from the sentence itself and change when the sentence changes."
+w = np.array(D["attention"]["b5h4"][-1])
+fig, ax = plt.subplots(figsize=(8.6, 2.6))
+xs = np.arange(n) * 0.95
+for j in range(n - 1):
+    if w[j] < 0.01:
+        continue
+    ax.add_patch(FancyArrowPatch((xs[j], 0.25), (xs[-1] - 0.05, 0.25), connectionstyle="arc3,rad=-0.35",
+                                 arrowstyle="-", lw=0.6 + 14 * w[j], color=PURPLE, alpha=0.85, zorder=1))
+for j in range(n):
+    ax.text(xs[j], 0, LABELS[j], ha="center", va="top", fontsize=9, color=INK)
+    node(ax, xs[j], 0.25, r=0.1)
+for j in range(n - 1):
+    if w[j] >= 0.01:
+        ax.text(xs[j], -0.28, f"{w[j]:.2f}", ha="center", va="top", fontsize=9, color=PURPLE)
+ax.set_xlim(-0.5, xs[-1] + 0.5); ax.set_ylim(-0.65, 2.2); bare(ax)
+plt.tight_layout()
+plt.show()
+```
+
+A single set of queries, keys and values can only look for one thing at a time, so each attention layer has twelve of them working side by side, called *heads*, each with its own weights and each working on lists of 64 numbers. Their twelve results are glued together into a list of 12 × 64 = 768 numbers and passed through one more fully connected layer. With twelve heads in each of the twelve blocks, GPT-2 has 144 heads in all, and nobody told any of them what to look for. Some learn something we can put a name to, such as linking a pronoun to the word it refers to. Many do not. @fig-te-heads shows, for every head in the model, how much attention "its" pays to "virus". Most heads pay little, and a few pay a lot. A large share of the attention, on average about half of it across all heads, goes to the very first token, "The". Heads seem to use the first token as a place to park their attention when there is nothing in particular they are looking for ([Xiao et al., 2024](https://arxiv.org/abs/2309.17453)).
+
+```{python}
+#| label: fig-te-heads
+#| echo: false
+#| fig-cap: "How much attention \"its\" pays to \"virus\" in each of the 144 heads of GPT-2, one row per block and one column per head. Weights above 0.2 are written in. Block 5, head 4, which is outlined, pays the most."
+H = np.array(D["attention"]["last_to_virus"])
+fig, ax = plt.subplots(figsize=(5.6, 5.0))
+ax.imshow(H, cmap="Purples", vmin=0, vmax=0.7)
+for b in range(12):
+    for h in range(12):
+        if H[b, h] >= 0.2:
+            ax.text(h, b, f"{H[b, h]:.2f}", ha="center", va="center", fontsize=7.5,
+                    color="white" if H[b, h] > 0.4 else INK)
+ax.add_patch(Rectangle((3 - 0.5, 4 - 0.5), 1, 1, fill=False, edgecolor=ORANGE, lw=2))
+ax.set_xticks(range(12), range(1, 13)); ax.set_yticks(range(12), range(1, 13))
+ax.set_xlabel("head"); ax.set_ylabel("block")
+ax.tick_params(length=0)
+for s in ax.spines.values():
+    s.set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Zoom in on the attention part of the first transformer block. The Explainer starts in block 1, head 1, and shows the attention table as a grid of purple cells. Hovering over a cell shows its weight. Zooming in further shows the dot products, the scaling and mask, and the softmax as separate grids.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Why is the upper-right half of the attention table empty?
+
+That is the mask. A cell above the diagonal would be the attention a token pays to a token that comes after it, and the mask sets those scores to minus infinity, which softmax turns into 0. A token can only look back.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## What is the weight in the top-left cell, and why must it be exactly that?
+
+1.00. The first token, "The", has no earlier tokens, so all its attention goes to itself, and because a row always adds up to 1, that one weight must be 1.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## In block 1, head 1, which token does "its" pay the most attention to?
+
+"The", with a weight of about 0.21, followed by "virus" with about 0.16. In this head the attention of "its" is spread over the whole sentence.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Move to block 5 and click through the heads to head 4. How much attention does "its" pay to "virus" now, and which token gets most of the rest?
+
+About 0.63 goes to "virus", and about 0.34 to "cell". Together they get almost all of it. This head has learned to send a pronoun's attention to the nouns it might refer to, and here it has two candidates. It favors the virus, which is the right one.
+:::
+
+<br>
+
+## The rest of the block {#sec-te-mlp}
+
+After the attention layer, each token's list of 768 numbers goes through a small network of two fully connected layers, which the Explainer calls the *MLP*, short for multi-layer perceptron. The first layer has 3,072 neurons, four times as many as there are inputs, with an activation function called GELU, a smooth relative of the [ReLU](../neural_networks/neurons.qmd#sec-nn-relu) you have met before. The second layer brings the 3,072 numbers back down to 768. This network is applied to each token on its own, with the same weights for every token, as @fig-te-mlp shows. It is the one-token-wide convolution from [Layers of neurons are matrices](#sec-te-matrices).
+
+```{python}
+#| label: fig-te-mlp
+#| echo: false
+#| fig-cap: "The MLP in a transformer block, applied to the last four tokens, drawn with 3 inputs, 6 hidden neurons and 3 outputs instead of 768, 3,072 and 768. The same network, with the same weights (shown by identical line patterns), is applied to every token, and no line connects one token to another."
+rng = np.random.default_rng(2)
+w1 = rng.uniform(0.3, 2.2, size=(6, 3)); w2 = rng.uniform(0.3, 2.2, size=(3, 6))
+fig, ax = plt.subplots(figsize=(8.6, 3.4))
+show = LABELS[-4:]
+for k, lab in enumerate(show):
+    x0 = k * 2.4
+    xin = x0 + np.array([-0.5, 0, 0.5]); xh = x0 + np.linspace(-0.9, 0.9, 6); xo = xin
+    for i in range(6):
+        for j in range(3):
+            ax.plot([xin[j], xh[i]], [0, 1.1], color=BLUE, lw=w1[i, j], alpha=0.7, zorder=1)
+            ax.plot([xh[i], xo[j]], [1.1, 2.2], color=TEAL, lw=w2[j, i], alpha=0.7, zorder=1)
+    for x in xin:
+        node(ax, x, 0, r=0.12)
+        node(ax, x, 2.2, r=0.12)
+    for x in xh:
+        node(ax, x, 1.1, r=0.12)
+    ax.text(x0, -0.35, lab, ha="center", va="top", fontsize=10, color=INK)
+ax.text(-1.55, 0, "768", ha="right", va="center", fontsize=9, color=MUTED)
+ax.text(-1.55, 1.1, "3,072", ha="right", va="center", fontsize=9, color=MUTED)
+ax.text(-1.55, 2.2, "768", ha="right", va="center", fontsize=9, color=MUTED)
+ax.set_xlim(-2.4, 3 * 2.4 + 1.2); ax.set_ylim(-0.7, 2.5); bare(ax)
+plt.tight_layout()
+plt.show()
+```
+
+Nobody fully understands what the MLPs do, but they hold most of the model's weights, and studies of them suggest that much of what a model has picked up about the world, such as which words go with which facts, is stored there ([Geva et al., 2021](https://aclanthology.org/2021.emnlp-main.446/)). Each MLP has 768 × 3,072 + 3,072 × 768 = 4,718,592 weights. Over twelve blocks that comes to nearly half the parameters of GPT-2.
+
+Two details complete the block, and the Explainer draws them as small dots and lines between the bigger parts. The first is that neither the attention layer nor the MLP replaces a token's list of numbers. Each computes a change, which is added to the list it received. These shortcuts are called *residual connections*, and they mean that each layer only has to work out what to add, while everything earlier flows past it unchanged. The second is *layer normalization*, which before each attention layer and each MLP rescales every list so that its numbers have a mean of 0 and a standard deviation of 1, and then stretches and shifts them by learned amounts. This keeps the numbers from drifting to extreme values as they pass through the twelve blocks.
+
+So the list of numbers for each token runs through twelve blocks and is refined a little in each. You can get a rough idea of how the prediction forms by taking the list for the last token after each block and sending it straight to the [output layer](#sec-te-output), as if the model ended there. @fig-te-lens shows the result. Up to block 9, the model's best guess is "own", which is a sensible continuation of "makes copies of its" when you only know the grammar. Only in blocks 10 to 12 does "DNA" take over, once the information about the virus has been worked in. The early guesses should be taken with some salt, because the output layer was only trained to read the list after the last block, but the picture of a guess that is gradually reshaped from block to block is borne out by many such experiments.
+
+```{python}
+#| label: fig-te-lens
+#| echo: false
+#| fig-cap: "The probability of \"own\" and of \"DNA\" as the next token if the model stopped after each of its twelve blocks and sent the last token's numbers straight to the output layer. The model settles on \"DNA\" only in the last three blocks."
+T = D["logit_lens_track"]
+fig, ax = plt.subplots(figsize=(6.4, 3.0))
+b = np.arange(1, 13)
+for word, color in (("own", MUTED), ("DNA", BLUE)):
+    ax.plot(b, T[word], color=color, lw=2, marker="o", ms=4, label=f"“{word}”")
+    ax.text(12.25, T[word][-1], f"“{word}”", color=INK, va="center", fontsize=9)
+ax.set_xticks(b); ax.set_xlim(0.6, 13.2); ax.set_ylim(-0.03, 1.05)
+ax.set_xlabel("stopping after block"); ax.set_ylabel("probability")
+ax.legend(frameon=False, loc="center left")
+ax.spines[["top", "right"]].set_visible(False)
+ax.grid(axis="y", color="#e6e6e6", lw=0.8); ax.set_axisbelow(True)
+plt.tight_layout()
+plt.show()
+```
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Zoom in on the MLP in the first block, and hover over its parts to see their sizes.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## How many numbers does the middle column hold for each token, and how does that compare with the columns on either side?
+
+The middle column is a vector of 3,072 numbers, and the columns on either side are vectors of 768. The MLP first expands each token's list to four times its length and then shrinks it back.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Is there any line in the MLP that goes from one token to another?
+
+No. Every token goes through the MLP on its own. The only place in the block where tokens take in information from each other is the attention layer.
+:::
+
+<br>
+
+## From numbers to the next word {#sec-te-output}
+
+After the twelfth block, the list of 768 numbers for the last token, "its", is sent through one last fully connected layer with 50,257 neurons, one for each token in the vocabulary. GPT-2 reuses the [embedding table](#sec-te-embedding) for the weights of this layer, so a token gets a high score when the list of numbers for "its" points in the same direction as that token's embedding. The scores are called *logits*. Only the list for the last token is used, because only the last token has seen the whole sentence.
+
+The logits are turned into probabilities by softmax, the same function the attention layer uses. It raises $e$ to the power of each score, which makes every number positive and makes high scores much higher than low ones, and then divides each result by their total so that they add up to 1. A high score becomes a high probability. Before softmax, the scores are divided by a number called the *temperature*. A temperature below 1 makes the differences between the scores larger, so the most likely token becomes even more likely. A temperature above 1 makes the differences smaller and evens the probabilities out. @fig-te-temperature shows the effect.
+
+```{python}
+#| label: fig-te-temperature
+#| echo: false
+#| fig-cap: "The five most likely next tokens at three temperatures, computed the way the Transformer Explainer computes them with its default top-k of 5, where only the five most likely tokens are kept and their probabilities are rescaled to add up to 1. A low temperature makes \"DNA\" almost certain. A high one evens the five out."
+fig, axes = plt.subplots(1, 3, figsize=(9, 2.6), sharey=True)
+for ax, (Tk, title) in zip(axes, [("0.2", "temperature 0.2"), ("0.8", "0.8 (the default)"), ("2.0", "2.0")]):
+    rows = D["top_k5"][Tk]
+    names = [r[0].strip() for r in rows][::-1]; vals = [r[1] for r in rows][::-1]
+    bars = ax.barh(names, vals, color=BLUE, height=0.6)
+    for bar, v in zip(bars, vals):
+        ax.text(bar.get_width() + 0.02, bar.get_y() + bar.get_height() / 2,
+                f"{100 * v:.1f}%" if v >= 0.001 else "<0.1%",
+                va="center", fontsize=8, color=INK)
+    ax.set_xlim(0, 1.25); ax.set_xticks([])
+    ax.set_title(title, fontsize=10, color=INK)
+    ax.spines[["top", "right", "bottom"]].set_visible(False)
+    ax.tick_params(length=0)
+plt.tight_layout()
+plt.show()
+```
+
+Last comes the choice. The model could always take the most likely token, but that gives dull and repetitive text, so assistants usually *sample*: they draw a token at random, with each token's chance of being drawn equal to its probability. Two settings limit the draw to the likely tokens. *Top-k* keeps only the k most likely tokens and throws away the rest, and *top-p* keeps the most likely tokens until their probabilities add up to at least p. In both cases the probabilities of the kept tokens are rescaled to add up to 1 before the draw. The Explainer starts with top-k and k = 5. To save time it also only looks at the 50 highest logits before it does any of this, and treats the other 50,207 tokens as if they were impossible. At the default temperature those tokens together have only about 2% of the probability, so the bars change very little, but top-p can come out slightly differently than it would in GPT-2 without the shortcut. The answers below are computed the Explainer's way.
+
+When a token has been drawn, it is added to the end of the text, and the whole calculation runs again on the longer text to choose the token after that. You can do this by hand in the Explainer: clicking into the text box adds the drawn token to the end of your sentence, and Generate runs the model again on the longer text. An assistant does the same thing automatically, which is how it writes its reply one token at a time.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Zoom in on the output on the right of the Explainer. The temperature slider and the top-k and top-p settings are above it. Before you move a slider, decide what you think will happen to the probability of "DNA", and then move it to check.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## At the default settings, temperature 0.8 and top-k with k = 5, what are the probabilities of "DNA" and of "genes"?
+
+"DNA" about 73.3% and "genes" about 11.1%. The other three of the five are "own", "genome" and "genetic", with about 5.6%, 5.4% and 4.6%.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set the temperature to 0.2. What is the probability of "DNA" now? And at 2.0?
+
+At 0.2, "DNA" gets about 99.9%, and the model will practically always choose it. At 2.0, it drops to about 39.8%, and even "genetic", the least likely of the five, gets about 13.2%.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Set the temperature back to 0.8 and switch from top-k to top-p. The Explainer starts top-p at p = 0.5. How many tokens have a probability above zero?
+
+Only one: "DNA", with 100%. "DNA" alone already has more than half the probability, so top-p with p = 0.5 stops after the first token, and Generate can only choose "DNA".
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Now set p to 0.9. How many tokens are left, and which one is new compared with the five that top-k kept?
+
+Six tokens: "DNA", "genes", "own", "genome", "genetic" and "cells". "cells" is new, with about 4.4%. "DNA" drops to about 70.1%, because its probability is now shared with one more token.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## With the default settings, about how often would you expect the model to choose a word other than "DNA"?
+
+About 27% of the time, a little more than one time in four, because "DNA" has a probability of about 73%. The same model with the same settings and the same sentence will therefore often write something else. That is why an assistant gives you a different answer when you ask the same question twice.
+:::
+
+<br>
+
+## What you have seen {#sec-te-explains}
+
+Everything an AI assistant does is built from the steps you have just watched, in a much larger model. Text is cut into tokens chosen by how often pieces of text occur, so the model sees chunks of letters and never single letters. Each token becomes a list of numbers learned in training, in which related words end up close together. Twelve blocks of attention and fully connected layers then refine those lists. In GPT-2 the fully connected layers treat each token on its own, with the same weights for all of them, and attention is the only place where tokens take in information from each other. Its connections are computed afresh from each new text. At the end, the model gives a probability for every token in its vocabulary, and a token is drawn at random from the most likely ones.
+
+Several things you will notice about assistants follow directly from this. An assistant can give a different answer to the same question, because the next token is drawn at random. It can state something false with complete fluency, because a token is chosen for being likely given the text, and nothing in the calculation checks it against the world. In our sentence, "genes" and "cells" were never far behind "DNA", and in a different sentence the wrong word can just as easily be the likely one. It has no memory between messages, because all it ever sees is the text in front of it. When an assistant seems to remember what you said earlier in a chat, it is because the whole conversation is sent to it again as one long text. And it is hard to predict what a particular weight or head does, because nobody chose any of them. You saw one head that links a pronoun to its noun, and 143 others that do things nobody has named.
+
+GPT-2 was large for its time and is small now. Today's assistants have more blocks, wider layers, more heads and far longer texts they can read at once, and they are trained on much more data, with further training to make them answer questions helpfully. But they are built from the same parts you have seen here, and they still work one token at a time.
