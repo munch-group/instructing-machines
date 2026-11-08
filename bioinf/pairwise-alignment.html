@@ -859,7 +859,7 @@ Figure&nbsp;53.5: The six different alignments of two sequences each with two ba
 </div>
 </div>
 </div>
-<p>Fortunately, you can break finding the optimal alignment score (and the corresponding alignment) into smaller, identical problems, because each part of an optimal alignment is also an optimal alignment. If you cut an optimal alignment of <code>gata</code> and <code>acta</code> in two, each part is an optimal alignment of the bases it contains. You can see two examples of this in <a href="#fig-pa-cuts" class="quarto-xref">Figure&nbsp;<span>53.6</span></a> where the yellow part of the left example, <code>ga-/-ac</code>, is an optimal alignment of <code>ga</code> and <code>ac</code>. The yellow part of the right example is an optimal alignment of <code>gat</code> and <code>act</code>. To see why this must be true, consider the contradiction: If a better alignment of <code>gat</code> and <code>act</code> existed, you could put it in front of the last column <code>a</code>/<code>a</code> to get a better alignment of the whole sequence. Since the full alignment was already optimal, this cannot be possible.</p>
+<p>Fortunately, you can break finding the optimal alignment score (and the corresponding alignment) into smaller, identical problems, because each part of an optimal alignment is also an optimal alignment. If you cut an optimal alignment of <code>gata</code> and <code>acta</code> in two, each part is an optimal alignment of the bases it contains. You can see two examples in <a href="#fig-pa-cuts" class="quarto-xref">Figure&nbsp;<span>53.6</span></a>: the yellow part of the left example, <code>ga-/-ac</code>, is an optimal alignment of <code>ga</code> and <code>ac</code>. The yellow part of the right example is an optimal alignment of <code>gat</code> and <code>act</code>. To see why this must be true, consider the contradiction: If a better alignment of <code>gat</code> and <code>act</code> existed, you could put it in front of the last column <code>a</code>/<code>a</code> to get a better alignment of the whole sequence. Since the full alignment was already optimal, this cannot be possible.</p>
 <div id="cell-fig-pa-cuts" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-cuts" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -907,7 +907,7 @@ S(i, j-1) + g &amp; \text{if } j &gt; 0
 \qquad S(0, 0) = 0
 \]</span></p>
 <p>Here, the <em>if</em> conditions show when each of the three possibilities exist. If the first sequence has run out of bases (<span class="math inline">\(i = 0\)</span>), the only way to end the alignment is with a base from the other sequence against a gap: <span class="math inline">\(S(i, j) = S(i, j-1) + g\)</span>.</p>
-<p>You could write the recursion as a Python function that calls itself. However, this would be hopelessly slow. The problem is that a naive recursive approach recomputes the same alignment scores repeatedly. <span class="math inline">\(S(4,4)\)</span> needs <span class="math inline">\(S(3,3)\)</span>, but so do <span class="math inline">\(S(4,3)\)</span> and <span class="math inline">\(S(3,4)\)</span>, and each of those calls would compute <span class="math inline">\(S(3,3)\)</span> from scratch. <a href="#fig-pa-recursion-calls" class="quarto-xref">Figure&nbsp;<span>53.8</span></a> shows how bad it gets with longer sequences. For two sequences of length 4, the recursive function makes 841 calls to compute the 25 different scores, so 97% of the calls redo work already done. For two sequences of length 20, there are 441 different scores to compute. Yet, it ends up making about <span class="math inline">\(7 \times 10^{14}\)</span> function calls.</p>
+<p>You could write the recursion as a Python function that calls itself. However, this would be hopelessly slow. The problem is that a naive recursive approach recomputes the same alignment scores repeatedly. <span class="math inline">\(S(4,4)\)</span> needs <span class="math inline">\(S(3,3)\)</span>, but so do <span class="math inline">\(S(4,3)\)</span> and <span class="math inline">\(S(3,4)\)</span>, and each of those calls would compute <span class="math inline">\(S(3,3)\)</span> from scratch. <a href="#fig-pa-recursion-calls" class="quarto-xref">Figure&nbsp;<span>53.8</span></a> shows how bad it gets with longer sequences. For two sequences of length 4, the recursive function makes 841 calls to compute the 25 different scores, so 97% of the calls redo work already done. For two sequences of length 20, the algorithm computes 441 different scores. Yet, it ends up making about <span class="math inline">\(7 \times 10^{14}\)</span> function calls.</p>
 <div id="cell-fig-pa-recursion-calls" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-recursion-calls" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -916,7 +916,7 @@ S(i, j-1) + g &amp; \text{if } j &gt; 0
 <img src="pairwise-alignment_files/figure-html/fig-pa-recursion-calls-output-1.png" width="663" height="259" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-recursion-calls-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.8: Left: the proportion of the calls made by the recursive function that recompute a score already computed by another call, for two sequences of the same length. Right: the number of calls the recursive function makes, compared to the number of different scores there are to compute, which is the number of cells in the table. Note the logarithmic axis.
+Figure&nbsp;53.8: Left: the proportion of the calls made by the recursive function that recompute a score already computed by another call, for two sequences of the same length. Right: the number of calls the recursive function makes, compared with the number of different scores to compute, which is the number of cells in the table. Note the logarithmic axis.
 </figcaption>
 </figure>
 </div>
@@ -986,7 +986,7 @@ Figure&nbsp;53.11: Computing two cells. Each of the three neighbors contributes 
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="06429ebd" class="cell" data-execution_count="13">
+<div id="8e54f236" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1027,7 +1027,7 @@ Figure&nbsp;53.12: The traceback collects the alignment one column at a time, fr
 <img src="pairwise-alignment_files/figure-html/fig-pa-traceback-output-1.png" width="303" height="303" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pa-traceback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53.13: Traceback. Starting from the bottom right corner, each arrow points to the neighbor that the cell’s score came from. The orange path gives <code>ga-ta</code> over <code>-acta</code>; the gray arrows branch off to the other optimal alignment, <code>gata</code> over <code>acta</code>.
+Figure&nbsp;53.13: Traceback. Starting from the bottom-right corner, each arrow points to the neighbor that produced the cell’s score. The orange path gives <code>ga-ta</code> over <code>-acta</code>; the gray arrows branch off to the other optimal alignment, <code>gata</code> over <code>acta</code>.
 </figcaption>
 </figure>
 </div>
@@ -1060,7 +1060,7 @@ Figure&nbsp;53.13: Traceback. Starting from the bottom right corner, each arrow 
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="0afd8ae7" class="cell" data-execution_count="16">
+<div id="2ae56fa2" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1070,7 +1070,7 @@ Figure&nbsp;53.13: Traceback. Starting from the bottom right corner, each arrow 
 </div>
 </div>
 <p>The best score is 1, and three alignments reach it:</p>
-<div id="d4bd4880" class="cell" data-execution_count="17">
+<div id="36303616" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
 <pre><code>gggct
 gaggg
@@ -1103,7 +1103,7 @@ gaggg-
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="130253d9" class="cell" data-execution_count="18">
+<div id="9fa43093" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1124,7 +1124,7 @@ g-tac</code></pre>
 </section>
 <section id="sec-pa-matrices" class="level2 unnumbered page-columns page-full">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-matrices">Score matrices in practice</h2>
-<div id="79d6c4a7" class="cell page-columns page-full" data-execution_count="19">
+<div id="7ca5057a" class="cell page-columns page-full" data-execution_count="19">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1140,8 +1140,8 @@ g-tac</code></pre>
 <section id="sec-pa-local" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-local">Local alignment</h2>
 <p>Global alignment, which Needleman-Wunsch does, aligns the two sequences end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, filling them with mismatches and gaps that mean nothing.</p>
-<p>Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores 19, and 10 different global alignments share that score. Here is one of them:</p>
-<div id="66f08d56" class="cell" data-execution_count="20">
+<p>Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases, and −2 for a gap, the best global alignment scores 19, and 10 different global alignments share that score. Here is one of them:</p>
+<div id="1d4bfef0" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-stdout">
 <pre><code>gtatggcgtacc-tgaagtcagcgatagttaggc-
 |  |||  |||| ||   | | | | ||| || | 
@@ -1149,15 +1149,15 @@ g--tggtataccatg-gcttaccta-agtcagcct</code></pre>
 </div>
 </div>
 <p>What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores 33:</p>
-<div id="0ee0feac" class="cell" data-execution_count="21">
+<div id="696be4b3" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-stdout">
 <pre><code>atggcgtacctgaagtcagc
 ||||| ||||| ||||||||
 atggcttacct-aagtcagc</code></pre>
 </div>
 </div>
-<p>The local alignment is not a piece cut out of the global one. To pair up the two copies of the shared stretch, the global alignment would have to open gaps at both ends, because the stretch sits eight bases further into the second sequence than into the first. It does better by pairing the start of the stretch with a part of the second sequence’s flank that happens to look similar, <code>TGGCGTACC</code> against <code>TGGTATACC</code>, and none of the optimal global alignments pairs a single base the way the local alignment does. So you cannot find the best local alignment by computing the global one and trimming off the ends.</p>
-<p>Local alignments are found with the Smith-Waterman algorithm (<a href="https://doi.org/10.1016/0022-2836(81)90087-5">Smith and Waterman, 1981</a>), which is almost the same as Needleman-Wunsch. The only change is in how a cell is filled in: if all three candidate scores are negative, the cell gets 0 instead. A score of 0 means “start a new alignment here”. When the alignment so far has become so bad that it would drag down anything added to it, the algorithm drops it and starts over, and it never extends an alignment that scores 0 or less.</p>
+<p>The local alignment is not a piece cut out of the global one. To pair the two copies of the shared stretch, the global alignment would have to open gaps at both ends because the stretch sits eight bases further into the second sequence than the first. It does better by pairing the start of the stretch with a part of the second sequence’s flank that happens to look similar, <code>TGGCGTACC</code> against <code>TGGTATACC</code>, and none of the optimal global alignments pairs a single base the way the local alignment does. So you cannot find the best local alignment by computing the global one and trimming off the ends.</p>
+<p>Local alignments are found with the Smith-Waterman algorithm (<a href="https://doi.org/10.1016/0022-2836(81)90087-5">Smith and Waterman, 1981</a>), which is almost the same as Needleman-Wunsch. The only change is how a cell is filled: if all three candidate scores are negative, the cell gets 0 instead. A score of 0 means “start a new alignment here”. When the alignment so far has become so bad that it would drag down anything added to it, the algorithm drops it and starts over, and it never extends an alignment that scores 0 or less.</p>
 <p><span class="math display">\[
 S(i, j) = \max \begin{cases}
 S(i-1, j-1) + s(a_i, b_j) \\
@@ -1180,7 +1180,7 @@ Figure&nbsp;53.14: Filling in a cell for local alignment. Left: when the best ca
 </div>
 </div>
 </div>
-<p>Two more things change. The first row and column hold zeros, because a local alignment does not have to include the start of either sequence. And the traceback no longer starts in the bottom right corner, because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. <a href="#fig-pa-local-paths" class="quarto-xref">Figure&nbsp;<span>53.15</span></a> shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.</p>
+<p>Two more things change. The first row and column hold zeros because a local alignment does not have to include the start of either sequence. The traceback no longer starts in the bottom-right corner because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. <a href="#fig-pa-local-paths" class="quarto-xref">Figure&nbsp;<span>53.15</span></a> shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.</p>
 <div id="cell-fig-pa-local-paths" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div id="fig-pa-local-paths" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1195,14 +1195,14 @@ Figure&nbsp;53.15: Traceback paths for global (left) and local (right) alignment
 </div>
 </div>
 </div>
-<p>Smith-Waterman only works if the score matrix gives unrelated sequences a negative score on average. Otherwise even random bases would build up a positive score, the best local alignment would spread out over everything, and it would stop being local. If base <span class="math inline">\(a\)</span> occurs with frequency <span class="math inline">\(q_a\)</span>, two random bases are <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> with probability <span class="math inline">\(q_a q_b\)</span>, so the condition is</p>
+<p>Smith-Waterman only works if the score matrix gives unrelated sequences a negative score on average. Otherwise, even random bases would build up a positive score, the best local alignment would spread out over everything, and it would stop being local. If base <span class="math inline">\(a\)</span> occurs with frequency <span class="math inline">\(q_a\)</span>, two random bases are <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> with probability <span class="math inline">\(q_a q_b\)</span>, so the condition is</p>
 <p><span class="math display">\[
 \sum_{a,b} q_a \, q_b \, s(a, b) &lt; 0.
 \]</span></p>
 <section id="exercise-3" class="level4" data-number="53.0.0.4">
 <h4 data-number="53.0.0.4" class="anchored" data-anchor-id="exercise-3"><strong>Exercise 53-4</strong></h4>
 <p><a href="../intro/course-introduction.html#sec-badge-solo" class="small">SOLO</a></p>
-<p>Assume the four bases are equally common, so every <span class="math inline">\(q_a = 1/4\)</span>. There are 16 pairs of bases, 4 identical and 12 different. Compute the average score of a random pair of bases, first for the score matrix from the start of this chapter (2 for identical, 0 for different), then for the one from the <code>GGGCT</code> exercise (2 for identical, −1 for different), and finally for EDNAFULL. Which of them can be used for local alignment?</p>
+<p>Assume the four bases are equally common, so <span class="math inline">\(q_a = 1/4\)</span> for all <span class="math inline">\(a\)</span>. There are 16 pairs of bases, 4 identical and 12 different. Compute the average score of a random pair of bases, first for the score matrix from the start of this chapter (2 for identical, 0 for different), then for the one from the <code>GGGCT</code> exercise (2 for identical, −1 for different), and finally for EDNAFULL. Which of them can be used for local alignment?</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1215,7 +1215,7 @@ Figure&nbsp;53.15: Traceback paths for global (left) and local (right) alignment
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The first matrix gives <span class="math inline">\((4 \times 2 + 12 \times 0) / 16 = 0.5\)</span>. That is positive, so it cannot be used. The second gives <span class="math inline">\((4 \times 2 + 12 \times (-1)) / 16 = -0.25\)</span> and EDNAFULL gives <span class="math inline">\((4 \times 5 + 12 \times (-4)) / 16 = -1.75\)</span>. Both are negative and can be used.</p>
+<p>The first matrix gives <span class="math inline">\((4 \times 2 + 12 \times 0) / 16 = 0.5\)</span>. That is positive, so we cannot use it. The second gives <span class="math inline">\((4 \times 2 + 12 \times (-1)) / 16 = -0.25\)</span> and EDNAFULL gives <span class="math inline">\((4 \times 5 + 12 \times (-4)) / 16 = -1.75\)</span>. Both are negative and usable.</p>
 </div>
 </div>
 </div>
@@ -1236,7 +1236,7 @@ Figure&nbsp;53.15: Traceback paths for global (left) and local (right) alignment
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="e0555c9f" class="cell" data-execution_count="24">
+<div id="f17e593d" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1294,7 +1294,7 @@ Figure&nbsp;53.16: Gaps at the beginning of an alignment are steps along the fir
 <div class="callout-body-container callout-body">
 <p>The first place is the first row and column, which get 0 instead of multiples of the gap score. The second place is the last row and column: a step to the left within the last row, or a step up within the last column, adds a gap at the end of the alignment, so it should use the end-gap score of 0 instead of the gap score.</p>
 <p>With free end gaps, <code>GGGCT</code> and <code>GAGGG</code> can overlap like this, with three pairs of matching <code>G</code>s and only the overhanging bases against gaps:</p>
-<div id="d351de3f" class="cell" data-execution_count="26">
+<div id="4c258880" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
