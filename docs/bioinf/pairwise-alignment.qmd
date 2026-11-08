@@ -539,7 +539,7 @@ fig = alignments_figure(alignments, nrow=3,scale=0.25, fontsize=12)
 plt.show()
 ```
 
-Fortunately, you can break finding the optimal alignment score (and the corresponding alignment) into smaller, identical problems, because each part of an optimal alignment is also an optimal alignment. If you cut an optimal alignment of `gata` and `acta` in two, each part is an optimal alignment of the bases it contains. You can see two examples of this in @fig-pa-cuts where the yellow part of the left example, `ga-/-ac`, is an optimal alignment of `ga` and `ac`. The yellow part of the right example is an optimal alignment of `gat` and `act`. To see why this must be true, consider the contradiction: If a better alignment of `gat` and `act` existed, you could put it in front of the last column `a`/`a` to get a better alignment of the whole sequence. Since the full alignment was already optimal, this cannot be possible. 
+Fortunately, you can break finding the optimal alignment score (and the corresponding alignment) into smaller, identical problems, because each part of an optimal alignment is also an optimal alignment. If you cut an optimal alignment of `gata` and `acta` in two, each part is an optimal alignment of the bases it contains. You can see two examples in @fig-pa-cuts: the yellow part of the left example, `ga-/-ac`, is an optimal alignment of `ga` and `ac`. The yellow part of the right example is an optimal alignment of `gat` and `act`. To see why this must be true, consider the contradiction: If a better alignment of `gat` and `act` existed, you could put it in front of the last column `a`/`a` to get a better alignment of the whole sequence. Since the full alignment was already optimal, this cannot be possible. 
 
 ```{python}
 #| label: fig-pa-cuts
@@ -586,11 +586,11 @@ $$
 
 Here, the *if* conditions show when each of the three possibilities exist. If the first sequence has run out of bases ($i = 0$), the only way to end the alignment is with a base from the other sequence against a gap: $S(i, j) = S(i, j-1) + g$.
 
-You could write the recursion as a Python function that calls itself. However, this would be hopelessly slow. The problem is that a naive recursive approach recomputes the same alignment scores repeatedly. $S(4,4)$ needs $S(3,3)$, but so do $S(4,3)$ and $S(3,4)$, and each of those calls would compute $S(3,3)$ from scratch. @fig-pa-recursion-calls shows how bad it gets with longer sequences. For two sequences of length 4, the recursive function makes 841 calls to compute the 25 different scores, so 97% of the calls redo work already done. For two sequences of length 20, there are 441 different scores to compute. Yet, it ends up making about $7 \times 10^{14}$ function calls. 
+You could write the recursion as a Python function that calls itself. However, this would be hopelessly slow. The problem is that a naive recursive approach recomputes the same alignment scores repeatedly. $S(4,4)$ needs $S(3,3)$, but so do $S(4,3)$ and $S(3,4)$, and each of those calls would compute $S(3,3)$ from scratch. @fig-pa-recursion-calls shows how bad it gets with longer sequences. For two sequences of length 4, the recursive function makes 841 calls to compute the 25 different scores, so 97% of the calls redo work already done. For two sequences of length 20, the algorithm computes 441 different scores. Yet, it ends up making about $7 \times 10^{14}$ function calls. 
 
 ```{python}
 #| label: fig-pa-recursion-calls
-#| fig-cap: "Left: the proportion of the calls made by the recursive function that recompute a score already computed by another call, for two sequences of the same length. Right: the number of calls the recursive function makes, compared to the number of different scores there are to compute, which is the number of cells in the table. Note the logarithmic axis."
+#| fig-cap: "Left: the proportion of the calls made by the recursive function that recompute a score already computed by another call, for two sequences of the same length. Right: the number of calls the recursive function makes, compared with the number of different scores to compute, which is the number of cells in the table. Note the logarithmic axis."
 from functools import lru_cache
 
 @lru_cache(maxsize=None)
@@ -709,7 +709,7 @@ plt.show()
 
 ```{python}
 #| label: fig-pa-traceback
-#| fig-cap: "Traceback. Starting from the bottom right corner, each arrow points to the neighbor that the cell's score came from. The orange path gives `ga-ta` over `-acta`; the gray arrows branch off to the other optimal alignment, `gata` over `acta`."
+#| fig-cap: "Traceback. Starting from the bottom-right corner, each arrow points to the neighbor that produced the cell's score. The orange path gives `ga-ta` over `-acta`; the gray arrows branch off to the other optimal alignment, `gata` over `acta`."
 main, alt = traceback_arrows(P1, (4, 4))
 fig = table_figure(SEQ1, SEQ2, T1, arrows=main, alt_arrows=alt, red={(4, 4)})
 plt.show()
@@ -796,7 +796,7 @@ For proteins, each of the twenty amino acids gets its own row and column, and th
 
 Global alignment, which Needleman-Wunsch does, aligns the two sequences end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, filling them with mismatches and gaps that mean nothing.
 
-Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores `{python} LG[-1][-1]`, and `{python} len(LOC_GLOBAL)` different global alignments share that score. Here is one of them:
+Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases, and −2 for a gap, the best global alignment scores `{python} LG[-1][-1]`, and `{python} len(LOC_GLOBAL)` different global alignments share that score. Here is one of them:
 
 ```{python}
 x, y = LOC_GLOBAL[0]
@@ -814,9 +814,9 @@ print(identity_line(x, y))
 print(y)
 ```
 
-The local alignment is not a piece cut out of the global one. To pair up the two copies of the shared stretch, the global alignment would have to open gaps at both ends, because the stretch sits eight bases further into the second sequence than into the first. It does better by pairing the start of the stretch with a part of the second sequence's flank that happens to look similar, `TGGCGTACC` against `TGGTATACC`, and none of the optimal global alignments pairs a single base the way the local alignment does. So you cannot find the best local alignment by computing the global one and trimming off the ends.
+The local alignment is not a piece cut out of the global one. To pair the two copies of the shared stretch, the global alignment would have to open gaps at both ends because the stretch sits eight bases further into the second sequence than the first. It does better by pairing the start of the stretch with a part of the second sequence's flank that happens to look similar, `TGGCGTACC` against `TGGTATACC`, and none of the optimal global alignments pairs a single base the way the local alignment does. So you cannot find the best local alignment by computing the global one and trimming off the ends.
 
-Local alignments are found with the Smith-Waterman algorithm ([Smith and Waterman, 1981](https://doi.org/10.1016/0022-2836(81)90087-5)), which is almost the same as Needleman-Wunsch. The only change is in how a cell is filled in: if all three candidate scores are negative, the cell gets 0 instead. A score of 0 means "start a new alignment here". When the alignment so far has become so bad that it would drag down anything added to it, the algorithm drops it and starts over, and it never extends an alignment that scores 0 or less.
+Local alignments are found with the Smith-Waterman algorithm ([Smith and Waterman, 1981](https://doi.org/10.1016/0022-2836(81)90087-5)), which is almost the same as Needleman-Wunsch. The only change is how a cell is filled: if all three candidate scores are negative, the cell gets 0 instead. A score of 0 means "start a new alignment here". When the alignment so far has become so bad that it would drag down anything added to it, the algorithm drops it and starts over, and it never extends an alignment that scores 0 or less.
 
 $$
 S(i, j) = \max \begin{cases}
@@ -836,7 +836,7 @@ draw_step(axs[1], "a", "g", 0, 0, 1, SM2["G"]["A"], -2, local=True)
 plt.show()
 ```
 
-Two more things change. The first row and column hold zeros, because a local alignment does not have to include the start of either sequence. And the traceback no longer starts in the bottom right corner, because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. @fig-pa-local-paths shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.
+Two more things change. The first row and column hold zeros because a local alignment does not have to include the start of either sequence. The traceback no longer starts in the bottom-right corner because the local alignment does not have to include the ends either. It starts in the cell with the highest score anywhere in the table and stops at the first 0 it meets. @fig-pa-local-paths shows the two traceback paths for the sequences above, with a filled dot where each traceback starts and an open dot where it ends.
 
 ```{python}
 #| label: fig-pa-local-paths
@@ -847,7 +847,7 @@ draw_path_grid(axs[1], LOC1, LOC2, LLP, LOC_BEST, "Local alignment")
 plt.show()
 ```
 
-Smith-Waterman only works if the score matrix gives unrelated sequences a negative score on average. Otherwise even random bases would build up a positive score, the best local alignment would spread out over everything, and it would stop being local. If base $a$ occurs with frequency $q_a$, two random bases are $a$ and $b$ with probability $q_a q_b$, so the condition is
+Smith-Waterman only works if the score matrix gives unrelated sequences a negative score on average. Otherwise, even random bases would build up a positive score, the best local alignment would spread out over everything, and it would stop being local. If base $a$ occurs with frequency $q_a$, two random bases are $a$ and $b$ with probability $q_a q_b$, so the condition is
 
 $$
 \sum_{a,b} q_a \, q_b \, s(a, b) < 0.
@@ -857,12 +857,12 @@ $$
 
 [SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
-Assume the four bases are equally common, so every $q_a = 1/4$. There are 16 pairs of bases, 4 identical and 12 different. Compute the average score of a random pair of bases, first for the score matrix from the start of this chapter (2 for identical, 0 for different), then for the one from the `GGGCT` exercise (2 for identical, −1 for different), and finally for EDNAFULL. Which of them can be used for local alignment?
+Assume the four bases are equally common, so $q_a = 1/4$ for all $a$. There are 16 pairs of bases, 4 identical and 12 different. Compute the average score of a random pair of bases, first for the score matrix from the start of this chapter (2 for identical, 0 for different), then for the one from the `GGGCT` exercise (2 for identical, −1 for different), and finally for EDNAFULL. Which of them can be used for local alignment?
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
 ## Show the answer
 
-The first matrix gives $(4 \times 2 + 12 \times 0) / 16 = 0.5$. That is positive, so it cannot be used. The second gives $(4 \times 2 + 12 \times (-1)) / 16 = -0.25$ and EDNAFULL gives $(4 \times 5 + 12 \times (-4)) / 16 = -1.75$. Both are negative and can be used.
+The first matrix gives $(4 \times 2 + 12 \times 0) / 16 = 0.5$. That is positive, so we cannot use it. The second gives $(4 \times 2 + 12 \times (-1)) / 16 = -0.25$ and EDNAFULL gives $(4 \times 5 + 12 \times (-4)) / 16 = -1.75$. Both are negative and usable.
 :::
 
 #### Exercise
