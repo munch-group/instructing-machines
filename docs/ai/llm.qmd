@@ -69,7 +69,7 @@ A neuron computes a weighted sum of its inputs. A layer is a row of neurons that
 #| label: fig-te-dense
 #| echo: false
 #| fig-cap: "A fully connected layer and the matrix that holds its weights. Each line in the network on the left is one weight, and each row of the matrix on the right holds the weights of one output neuron, in the same color. Multiplying the matrix by the column of inputs computes every weighted sum in the layer at once."
-fig, (ax, ax2) = plt.subplots(1, 2, figsize=(8.2, 3.0), gridspec_kw=dict(width_ratios=[1, 1.25]))
+fig, (ax, ax2) = plt.subplots(1, 2, figsize=(7, 2.6), gridspec_kw=dict(width_ratios=[1, 1.25]))
 ins = [(0, 2.0), (0, 1.0), (0, 0.0)]
 outs = [(2.2, 1.5), (2.2, 0.5)]
 for i, (xo, yo) in enumerate(outs):
@@ -94,14 +94,14 @@ rows = [[f"$w_{{{i}{j}}}$" for j in (1, 2, 3)] for i in (1, 2)]
 for i, row in enumerate(rows):
     for j, s in enumerate(row):
         ax2.text(0.9 + 1.25 * j, 3.9 - 1.3 * i, s, color=[BLUE, ORANGE][i], fontsize=12, ha="center", va="center")
-bracket(ax2, 0.2, 3.7, 2.1, 4.6)
+bracket(ax2, 0.2, 3.95, 2.1, 4.6)
 for j in range(3):
-    ax2.text(4.6, 4.8 - 1.2 * j, f"$x_{j+1}$", fontsize=12, ha="center", va="center", color=INK)
-bracket(ax2, 4.1, 5.1, 2.0, 5.4)
-ax2.text(5.7, 3.25, "=", fontsize=14, ha="center", va="center", color=INK)
+    ax2.text(4.9, 4.8 - 1.2 * j, f"$x_{j+1}$", fontsize=12, ha="center", va="center", color=INK)
+bracket(ax2, 4.4, 5.4, 2.0, 5.4)
+ax2.text(5.95, 3.25, "=", fontsize=14, ha="center", va="center", color=INK)
 for i in range(2):
-    ax2.text(7.0, 3.9 - 1.3 * i, f"$y_{i+1}$", fontsize=12, ha="center", va="center", color=[BLUE, ORANGE][i])
-bracket(ax2, 6.4, 7.6, 2.1, 4.6)
+    ax2.text(7.25, 3.9 - 1.3 * i, f"$y_{i+1}$", fontsize=12, ha="center", va="center", color=[BLUE, ORANGE][i])
+bracket(ax2, 6.65, 7.85, 2.1, 4.6)
 plt.tight_layout()
 plt.show()
 ```
@@ -116,7 +116,7 @@ The same trick has a name in other parts of machine learning. A network that sli
 #| label: fig-te-conv
 #| echo: false
 #| fig-cap: "Left: a fully connected layer from six inputs to six outputs has 36 weights, all different. Right: a convolution with a window of three. Each output connects only to its neighbors, always with the same three weights a, b, and c, shown by the three colors. It has three weights in total, however long the sequence is."
-fig, axes = plt.subplots(1, 2, figsize=(8.2, 2.9))
+fig, axes = plt.subplots(1, 2, figsize=(7, 2.5))
 bases = list("ATGGCA")
 for k, ax in enumerate(axes):
     for i in range(6):
@@ -173,7 +173,7 @@ After you type the sentence and press Generate, the Explainer shows the whole mo
 #| label: fig-te-pipeline
 #| echo: false
 #| fig-cap: "The path through GPT-2 that the Transformer Explainer draws from left to right. The sentence becomes 11 pieces, each piece becomes 768 numbers, and twelve identical blocks of attention and fully connected layers refine those numbers. The numbers of the last piece are turned into a probability for each of the 50,257 pieces in the vocabulary."
-fig, ax = plt.subplots(figsize=(8.6, 2.5))
+fig, ax = plt.subplots(figsize=(7, 2.1))
 boxes = [
     (0.0, "Text", "your\nsentence"),
     (1.75, "Tokens", "11 pieces"),
@@ -189,8 +189,8 @@ for i, (x, title, body) in enumerate(boxes):
         ax.add_patch(FancyBboxPatch((x + 0.09 * s, 0.09 * s), w, h, boxstyle="round,pad=0.03,rounding_size=0.08",
                                     facecolor="#f2f0fa" if title == "12 blocks" else "#f4f4f4",
                                     edgecolor=PURPLE if title == "12 blocks" else MUTED, lw=1, zorder=2 - s * 0.1))
-    ax.text(x + w / 2, h - 0.25, title, ha="center", va="center", fontsize=10, color=INK, weight="bold", zorder=3)
-    ax.text(x + w / 2, h / 2 - 0.15, body, ha="center", va="center", fontsize=9, color=INK, zorder=3)
+    ax.text(x + w / 2, h - 0.25, title, ha="center", va="center", fontsize=8.5, color=INK, weight="bold", zorder=3)
+    ax.text(x + w / 2, h / 2 - 0.15, body, ha="center", va="center", fontsize=7.5, color=INK, zorder=3)
     if i < len(boxes) - 1:
         nx = boxes[i + 1][0]
         ax.add_patch(FancyArrowPatch((x + w + (0.2 if stack > 1 else 0.03), h / 2), (nx - 0.03, h / 2),
@@ -275,7 +275,7 @@ The token embedding says which token it is, but not where it sits in the sentenc
 #| fig-cap: "The embedding of \" virus\" at position 1, showing the first 8 of its 768 numbers. Each number of the token embedding is added to the number in the same place in the position embedding. Blue cells are negative and red cells positive."
 E = D["embedding"]
 rows = np.array([E["token_vec"], E["pos_vec"], E["sum_vec"]])
-fig, ax = plt.subplots(figsize=(7.4, 2.2))
+fig, ax = plt.subplots(figsize=(7, 2.2))
 ax.imshow(rows, cmap="RdBu_r", vmin=-0.4, vmax=0.4, aspect="auto")
 for i in range(3):
     for j in range(rows.shape[1]):
@@ -327,7 +327,15 @@ No. "The" at position 0 has ID 464, and "the" at position 4 has ID 262. Capital 
 
 To predict what follows "makes copies of its", the model has to know whose copies they are. The word "its" refers to something earlier in the sentence, and the list of numbers for "its" must somehow take in information from the word it refers to. This is what the attention layer does, and it is the only layer in GPT-2 where the tokens of the sentence exchange information.
 
-Attention starts with three fully connected layers applied to each token separately, using the shared-weight approach in @fig-te-conv. From each token's embedding, they compute three new lists of numbers, called the *query*, the *key*, and the *value*. You can think of the query as what the token is looking for, the key as what it offers, and the value as what it passes on to an interested token. To decide how much attention "its" should pay to "virus", the model multiplies the query of "its" with the key of "virus" number by number and adds up the products. This is called a *dot product*, and it is large when the two lists have large numbers in the same places, that is, when what one token is looking for matches what the other offers. The model does this for every pair of tokens, which gives a square table of scores.
+Attention starts by computing three new lists of numbers from each token's embedding, called the *query*, the *key* and the *value*. Each is made by its own fully connected layer, applied to every token separately with the same weights, in the shared-weight way of @fig-te-conv, so every token in the sentence gets a query, a key and a value of its own. The three play different parts.
+
+The query says what the token is looking for. For "its", a useful query would be something like "a noun earlier in the sentence that could own something". Nobody writes this down in words. The query is a list of numbers, and what the numbers stand for is whatever turned out to be useful in training, but it helps to think of it as a question the token asks about the tokens before it.
+
+The key says what a token has to offer to anyone who is looking: what kind of token it is and what part it plays in the sentence. The key of "virus" might stand for something like "a noun, a living thing, the one doing something in this sentence". To decide how much attention "its" should pay to "virus", the model compares the query of "its" with the key of "virus". It multiplies the two lists number by number and adds up the products. This is called a *dot product*, and it is large when the two lists have large numbers with the same sign in the same places, that is, when what one token is looking for matches what the other has to offer. The model does this for every pair of tokens, which gives a square table of scores.
+
+The value is what a token hands over when another token pays attention to it. It is a separate list from the key because what makes a token easy to find is not the same as what is useful to receive. To be found by "its", it helps "virus" to be a noun that can own things. What "its" needs to receive is what kind of thing a virus is, because that decides whether the next word is "DNA", "genes" or something else entirely.
+
+If this reminds you of a Python dictionary, it should. A lookup `d[query]` compares the query with every key in the dictionary, finds the one that is equal to it, and gives you that key's value. Attention does a soft version of the same lookup. Every key matches the query to some degree, and instead of one value you get a mixture of all the values, each weighted by how well its key matched. Because nothing has to match exactly, the lookup always returns something, and a small change to a weight in the query, key or value layers gives a small change in the result. That is what gradient descent needs to be able to train them.
 
 Three more steps turn the scores into weights. The scores are divided by 8, the square root of 64, which is how many numbers each query and key holds (more about that below). This keeps them from getting too large. Then every score for a token after it is set to minus infinity. This is the *mask*, and it means that a token can only look back at itself and the tokens before it, never ahead. That is a must for a model that is trained to predict the next token: if it could look ahead, it would just read the answer. Finally, each row of the table goes through *softmax*, which turns the scores into positive numbers that add up to 1. A score of minus infinity becomes exactly 0.
 
@@ -337,7 +345,7 @@ The result is the attention table in @fig-te-attention. Each row belongs to one 
 #| label: fig-te-attention
 #| echo: false
 #| fig-cap: "Attention weights in two of GPT-2's 144 attention heads. Each row is a token, and the cells show how much attention it pays to each earlier token. Every row adds up to 1, and the empty upper-right triangle is the mask. The row of \"its\" is outlined and its weights are written in. Left: block 1, head 1, where the attention of \"its\" is spread out. Right: block 5, head 4, where \"its\" pays almost all its attention to the two candidates for owning the copies, \"virus\" and \"cell\"."
-fig, axes = plt.subplots(1, 2, figsize=(9, 4.6))
+fig, axes = plt.subplots(1, 2, figsize=(7, 3.9))
 cmap = plt.get_cmap("Purples").copy(); cmap.set_bad("white")
 n = len(LABELS)
 for ax, key, title in zip(axes, ["b1h1", "b5h4"], ["Block 1, head 1", "Block 5, head 4"]):
@@ -359,6 +367,40 @@ plt.tight_layout()
 plt.show()
 ```
 
+A small example shows how the query, the key and the value work together. Suppose the lists have only two numbers each, and only three tokens come before "its": "virus", "cell" and "makes". The query of "its" is $(1, 1)$, and the keys and values of the three tokens are those in @tbl-te-qkv. To keep the arithmetic simple, we skip the division by 8 and the mask.
+
+| Token | Key | Query · key | Weight after softmax | Value |
+|:---|:---:|:---:|:---:|:---:|
+| virus | $(2, 1)$ | $1 \times 2 + 1 \times 1 = 3$ | 0.72 | $(4, 0)$ |
+| cell | $(1, 1)$ | $1 \times 1 + 1 \times 1 = 2$ | 0.27 | $(0, 4)$ |
+| makes | $(0, -1)$ | $1 \times 0 + 1 \times (-1) = -1$ | 0.01 | $(2, 2)$ |
+
+: A worked example of attention with lists of two numbers. The query of "its" is $(1, 1)$. Its dot product with each key gives a score, softmax turns the scores into weights, and the weights say how much of each value goes into the new list for "its". {#tbl-te-qkv}
+
+The key of "virus" matches the query best, so it gets the highest score and, after softmax, a weight of 0.72. The new list for "its" is the weighted mix of the values, $0.72 \times (4, 0) + 0.27 \times (0, 4) + 0.01 \times (2, 2)$, which is about $(2.91, 1.09)$. It is made mostly of what "virus" had to offer, partly of what "cell" had, and almost nothing of "makes". This is the same pattern you will find in block 5, head 4 of the real model.
+
+#### Exercise
+
+[SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
+
+Use the keys and values from @tbl-te-qkv, change the query of "its", and work out the new weights. You will need a calculator for the softmax, or Python's `math.exp`.
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Change the query to $(0, 2)$. Which token gets most attention now, and what is the new list for "its"?
+
+The scores are $0 \times 2 + 2 \times 1 = 2$ for "virus", $2$ for "cell" and $-2$ for "makes", so "virus" and "cell" tie with weights of about 0.50 each, and "makes" gets about 0.01. The new list is about $(2.00, 2.00)$, an even mix of the two values. This query only looks at the second number in each key, and there "virus" and "cell" are the same, so the head can no longer tell them apart.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon=false}
+
+## Change the query to $(2, 2)$. What happens to the weights, compared with the query $(1, 1)$?
+
+The scores double to $6$, $4$ and $-2$, and the weights become about 0.88, 0.12 and 0.00. The order is the same, but the winner takes more. Doubling a query has the same effect as lowering the temperature in @fig-te-temperature, and this is why the real model divides the scores by 8: without it, long lists with many numbers give large scores, and softmax would put almost all the weight on a single token.
+:::
+
+<br>
+
 Now compare attention to the layers in [Layers of neurons are matrices](#sec-te-matrices). In @fig-te-attention-lines, the attention of "its" in block 5, head 4 is drawn the same way as those layers: as lines into a neuron, with each line's thickness showing its weight. The difference is where the weights come from. In a fully connected layer, the weights are learned during training and stay the same regardless of the input text. In attention, the weights of these lines are computed afresh from the queries and keys of the text actually present. Feed the model a different sentence, and the same head draws different lines. Training sets the weights of the layers that compute the queries, keys, and values. So a head learns how to decide where to look, then applies that to whatever text it is given.
 
 ```{python}
@@ -366,7 +408,7 @@ Now compare attention to the layers in [Layers of neurons are matrices](#sec-te-
 #| echo: false
 #| fig-cap: "The attention of \"its\" in block 5, head 4, drawn as connections. The thickness of each line is the attention weight, so the new list of numbers for \"its\" is made mostly from \"virus\" and partly from \"cell\". Unlike the weights in a fully connected layer, these weights are computed from the sentence itself and change when the sentence changes."
 w = np.array(D["attention"]["b5h4"][-1])
-fig, ax = plt.subplots(figsize=(8.6, 2.6))
+fig, ax = plt.subplots(figsize=(7, 2.2))
 xs = np.arange(n) * 0.95
 for j in range(n - 1):
     if w[j] < 0.01:
@@ -383,6 +425,10 @@ ax.set_xlim(-0.5, xs[-1] + 0.5); ax.set_ylim(-0.65, 2.2); bare(ax)
 plt.tight_layout()
 plt.show()
 ```
+
+Splitting the work into query, key and value is what makes attention useful, for three reasons. The first is that looking and being found are kept apart. If each token had a single list that it used both to look for others and to be found by them, it would match best with tokens like itself, because the dot product of a list with itself is large. A pronoun does not need other pronouns, though. With separate queries and keys, "its" can look for something quite unlike itself. The second is that being found and handing something over are kept apart, too. A head can find a token by one property, such as being a noun, and pass on another, such as what the noun means. The third is that the queries and keys are computed from the text itself, so the connections follow the sentence. "virus" could be two tokens back or two thousand, and the same weights will find it.
+
+This last point is a large part of why the transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)) replaced the language networks that came before it. Those read text one word at a time and had to carry everything they might need later in a running summary, where information from far back faded. With attention, every token can reach every earlier token directly, and the scores for all pairs can be computed at the same time, which suits the graphics chips that AI runs on and made it possible to train much larger models. It also explains something you see when you use an assistant. Everything in the conversation, such as the code you pasted or a requirement from your first message, is within reach of every new token through attention, and that is how the assistant can use it. But the weights in a row always add up to 1, so in a very long conversation they are shared among many more tokens, and a detail far back can get so little weight that it is overlooked.
 
 A single set of queries, keys, and values can only look for one thing at a time, so each attention layer has twelve of them working side by side, called *heads*, each with its own weights and each working on lists of 64 numbers. It then glues the twelve results into a list of 12 × 64 = 768 numbers and passes it through one more fully connected layer. With twelve heads in each of the twelve blocks, GPT-2 has 144 heads in all, and nobody told any of them what to look for. Some learn something we can name, such as linking a pronoun to the word it refers to. Many do not. @fig-te-heads shows, for every head in the model, how much attention "it" pays to "virus". Most heads pay little, and a few pay a lot. On average, about half of the attention across all heads goes to the first token, "The". Heads seem to use the first token as a place to park their attention when they aren't looking for anything in particular ([Xiao et al., 2024](https://arxiv.org/abs/2309.17453)).
 
@@ -454,7 +500,7 @@ After the attention layer, each token's list of 768 numbers goes through a small
 #| fig-cap: "The MLP in a transformer block, applied to the last four tokens, drawn with 3 inputs, 6 hidden neurons and 3 outputs instead of 768, 3,072 and 768. The same network, with the same weights (shown by identical line patterns), is applied to every token, and no line connects one token to another."
 rng = np.random.default_rng(2)
 w1 = rng.uniform(0.3, 2.2, size=(6, 3)); w2 = rng.uniform(0.3, 2.2, size=(3, 6))
-fig, ax = plt.subplots(figsize=(8.6, 3.4))
+fig, ax = plt.subplots(figsize=(7, 2.9))
 show = LABELS[-4:]
 for k, lab in enumerate(show):
     x0 = k * 2.4
@@ -534,7 +580,7 @@ Softmax turns the logits into probabilities, the same function the attention lay
 #| label: fig-te-temperature
 #| echo: false
 #| fig-cap: "The five most likely next tokens at three temperatures, computed the way the Transformer Explainer computes them with its default top-k of 5, where only the five most likely tokens are kept, and their probabilities are rescaled to add up to 1. A low temperature makes \"DNA\" almost certain. A high one evens the five out."
-fig, axes = plt.subplots(1, 3, figsize=(9, 2.6), sharey=True)
+fig, axes = plt.subplots(1, 3, figsize=(7, 2.4), sharey=True)
 for ax, (Tk, title) in zip(axes, [("0.2", "temperature 0.2"), ("0.8", "0.8 (the default)"), ("2.0", "2.0")]):
     rows = D["top_k5"][Tk]
     names = [r[0].strip() for r in rows][::-1]; vals = [r[1] for r in rows][::-1]
