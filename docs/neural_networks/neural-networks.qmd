@@ -8,7 +8,7 @@ format:
 
 ## From neuron to network {#sec-nn-network}
 
-A neural network is a set of neurons in which the outputs of some are the inputs of others. The neurons are arranged in layers, as in @fig-nn-layers.
+A neural network is a set of neurons whose outputs serve as inputs to others. The neurons are arranged in layers, as in @fig-nn-layers.
 
 ::: {#fig-nn-layers}
 
@@ -62,39 +62,39 @@ The input nodes hold the numbers you give the network: the brightness of each pi
 
 The hidden nodes are neurons of the kind described above. Each has its own weight on every incoming connection and its own threshold, and each applies the activation function to its net input. They are called hidden because, seen from outside, you only set the inputs and read the outputs. What happens in between is the network's internal working. A network can have many hidden layers, each fed by the one before. A network with many of them is called *deep*, which is where the term *deep learning* comes from.
 
-The output nodes are neurons too, and their values are the network's answer. A yes-or-no question needs one output node. A network that predicts whether each residue of a protein sits in a helix, a strand or a coil might have three, one for each answer, and pick the one with the largest value.
+The output nodes are neurons too, and their values are the network's answer. A yes-or-no question needs one output node. A network that predicts whether each residue of a protein sits in a helix, a strand, or a coil might have three output nodes, one for each answer, and pick the one with the largest value.
 
 Information flows one way, from the inputs through the hidden layers to the outputs, which is why this kind of network is called *feed-forward*. Computing the output means working through the layers in order, finding each neuron's weighted sum and putting it through the activation function. It is the substitution and reduction you have practiced on Python expressions, with many more numbers.
 
-The weights and thresholds together are the network's parameters, and they are everything the network knows. The tiny network in the next chapter, with one input, three hidden nodes and one output, has ten: three weights into the hidden layer, three hidden thresholds, three weights into the output, and one output threshold. The language models behind AI assistants have billions, the largest hundreds of billions.
+The weights and thresholds together are the network's parameters, and they are everything the network knows. The tiny network in the next chapter, with one input, three hidden nodes, and one output, has ten: three weights into the hidden layer, three hidden thresholds, three weights into the output, and one output threshold. The language models behind AI assistants have billions of parameters; the largest have hundreds of billions.
 
 ## What a network can model {#sec-nn-what}
 
-Think of a neuron with two inputs. It says yes when $w_1x_1 + w_2x_2 \geq \theta$. If you draw every possible pair of inputs as a point on a sheet of paper, the points where $w_1x_1 + w_2x_2$ equals $\theta$ form a straight line. The neuron says yes on one side of that line and no on the other. With three inputs the line becomes a flat plane, but the idea is the same: a single neuron divides its inputs with a straight cut.
+Think of a neuron with two inputs. It says yes when $w_1x_1 + w_2x_2 \geq \theta$. If you plot every possible input pair as a point on a sheet of paper, the points where $w_1x_1 + w_2x_2$ equals $\theta$ form a straight line. The neuron says yes on one side of that line and no on the other. With three inputs, the line becomes a flat plane, but the idea is the same: a single neuron divides its inputs with a straight cut.
 
 Many useful rules are a straight cut. With all weights equal to 1, a neuron with three yes/no inputs computes AND ("all three") when the threshold is 2.5, "at least two" when it is 1.5, and OR ("at least one") when it is 0.5. You will try this in the exercises. Some rules cannot be drawn with a straight cut, and the simplest is "exactly one of the two". A staircase light with a switch at the top and one at the bottom should be on when exactly one switch is up. The last exercise in this chapter asks you to build that with a single neuron and explains why you cannot. This limitation was well known by the end of the 1960s, and for some years it made the perceptron look like a dead end.
 
-A hidden layer fixes it. "Exactly one" is the same as "at least one, but not both". Give the network two hidden neurons that each see both switches. The first, with weights 1 and 1 and threshold 0.5, computes "at least one". The second, with weights 1 and 1 and threshold 1.5, computes "both". The output neuron gets weight 1 from the first and −1 from the second, and threshold 0.5, so it says yes when the first hidden neuron is on and the second is off. Work through all four switch positions and you will find the lamp is on exactly when it should be. The hidden neurons re-described the input in terms that made the final decision easy. That is what hidden layers do in general. In a network trained to recognize images, early hidden neurons end up responding to edges and later ones to shapes made of edges, without anyone telling them to.
+A hidden layer fixes it. "Exactly one" is the same as "at least one, but not both". Give the network two hidden neurons, each seeing both switches. The first, with weights 1 and 1 and threshold 0.5, computes "at least one". The second, with weights 1 and 1 and threshold 1.5, computes "both". The output neuron gets weight 1 from the first and −1 from the second, and threshold 0.5, so it says yes when the first hidden neuron is on and the second is off. Work through all four switch positions, and you will find the lamp is on exactly when it should be. The hidden neurons re-described the input in terms that made the final decision easy. That is what hidden layers do in general. In a network trained to recognize images, early hidden neurons end up responding to edges and later ones to shapes made of edges, without anyone telling them to.
 
-Networks are not limited to yes or no. Give a network one input $x$ and a single hidden neuron with the step function, and plot the output against $x$. The hidden neuron switches on where $wx - \theta \geq 0$, that is where $x$ passes $\theta/w$, so the plot is a step at that point, and the output weight sets how tall the step is. Two hidden neurons give two steps, and one step up followed by one step down gives a bump. Enough bumps side by side can trace out any curve you like, as closely as you like. This result, that a single hidden layer with enough neurons can approximate any reasonable function, is called the universal approximation theorem ([Cybenko, 1989](https://doi.org/10.1007/BF02551274); [Hornik et al., 1989](https://doi.org/10.1016/0893-6080(89)90020-8)). You will build steps, bumps and staircases yourself in the next chapter. The theorem says that suitable weights exist. It says nothing about how to find them, or how many hidden neurons it will take.
+Networks are not limited to yes or no. Give a network one input $x$ and a single hidden neuron with the step function, and plot the output against $x$. The hidden neuron switches on where $wx - \theta \geq 0$, that is, where $x$ passes $\theta/w$, so the plot is a step at that point, and the output weight sets how tall the step is. Two hidden neurons give two steps, and one step up followed by one step down gives a bump. Enough bumps side by side can trace out any curve you like, as closely as you like. This result, that a single hidden layer with enough neurons can approximate any reasonable function, is called the universal approximation theorem ([Cybenko, 1989](https://doi.org/10.1007/BF02551274); [Hornik et al., 1989](https://doi.org/10.1016/0893-6080(89)90020-8)). In the next chapter, you will build steps, bumps, and staircases yourself. The theorem says that suitable weights exist. It says nothing about how to find them, or how many hidden neurons it will take.
 
 ## Why neural networks are powerful {#sec-nn-why}
 
-Finding the weights is the part that made neural networks what they are today. Throughout this course you have instructed the machine by writing out every step. A neural network is instructed in a different way. You give it examples, inputs paired with the correct outputs, and a training algorithm adjusts the weights a little at a time, each time in the direction that brings the network's outputs closer to the correct ones. The standard algorithm, backpropagation, works out how much each weight contributed to the error ([Rumelhart et al., 1986](https://doi.org/10.1038/323533a0)). It depends on small changes to a weight giving small changes to the output, which is why the step function had to give way to smooth activation functions. After many rounds of adjustment, the weights settle on values that make the network do the job. Nobody writes them down.
+Finding the weights is what made neural networks what they are today. Throughout this course, you have instructed the machine by writing out every step. A neural network learns differently. You give it examples, inputs paired with the correct outputs, and a training algorithm adjusts the weights a little at a time, each time in the direction that brings the network's outputs closer to the correct ones. The standard algorithm, backpropagation, works out how much each weight contributed to the error ([Rumelhart et al., 1986](https://doi.org/10.1038/323533a0)). It depends on small changes in a weight producing small changes in the output, which is why the step function had to give way to smooth activation functions. After many rounds of adjustment, the weights settle on values that make the network do the job. Nobody writes them down.
 
-Three things together make this powerful. The building block is flexible: the same neurons, wired the same way, can compute very different things depending only on their weights, and with enough of them almost anything. The weights are learned from examples, so a network can do jobs that nobody knows how to write instructions for, such as recognizing a cat, predicting how a protein folds, or guessing the next word in a sentence. And all the arithmetic is multiplying and adding, which modern computers do extremely fast, so networks can have billions of parameters and learn from enormous collections of examples.
+Three things together make this powerful. The building block is flexible: the same neurons, wired the same way, can compute very different things depending only on their weights, and with enough of them, almost anything. The weights are learned from examples, so a network can do jobs that nobody knows how to write instructions for, such as recognizing a cat, predicting how a protein folds, or guessing the next word in a sentence. And all the arithmetic is multiplying and adding, which modern computers do extremely fast, so networks can have billions of parameters and learn from enormous collections of examples.
 
 The same properties explain problems you have already met. A network learns whatever is in its examples, including their mistakes and biases. What it knows is spread across a vast number of weights, none of which means anything on its own, so you cannot read the weights to find out why it gave a particular answer. And it produces an answer for any input, including inputs unlike anything it was trained on, with no sign that it is out of its depth. This is why you check what the AI assistant produces, and why the same caution applies to every neural network.
 
 
 <!-- 
-Training OpenAI's GPT 6 Astra takes an octillion computations
+Training OpenAI's GPT-6 Astra takes an octillion computations
 https://www.nytimes.com/interactive/2026/10/15/upshot/ai-data-center-math.html?unlocked_article_code=1.KVE.nMBK.ATeVWV8Q2inC&smid=url-share
  -->
 
 ## A tiny network {#sec-nn-tiny}
 
-Each exercise below has its own copy of the network, already set up for that exercise. You change one slider at a time. Before every change, decide what you expect to happen to the graph. Sketch it or write it down in one sentence. Only then change the slider and compare. If the graph does something else than you
+Each exercise below has its own copy of the network, already set up for that exercise. You change one slider at a time. Before every change, decide what you expect to happen to the graph. Sketch it or write it down in one sentence. Only then change the slider and compare. If the graph does something other than you
 predicted, try to explain why before you open the answer.
 
 In each interactive network, the input $x$ goes to each hidden neuron $h_i$, and the hidden neurons feed the output $y$:
@@ -103,7 +103,7 @@ In each interactive network, the input $x$ goes to each hidden neuron $h_i$, and
 - Output with "Apply $f$ at output" disabled: $y = v_1 h_1 + v_2 h_2 + v_3 h_3 - \theta$
 - Output with "Apply $f$ at output" enabled: $y = f(v_1 h_1 + v_2 h_2 + v_3 h_3 - \theta)$
 
-With the "step" activation, $f(z) = 1$ if $z \geq 0$ and $0$ otherwise. A hidden neuron with a positive weight therefore switches on where $w_i x \geq \theta_i$, that is for $x \geq \theta_i / w_i$.
+With the "step" activation, $f(z) = 1$ if $z \geq 0$ and $0$ otherwise. A hidden neuron with a positive weight therefore switches on when $w_i x \geq \theta_i$, that is, for $x \geq \theta_i / w_i$.
 
 ::: {.callout-note icon=false}
 
@@ -159,7 +159,7 @@ At $x = 2$. The neuron now needs $x - 2 \geq 0$. Increasing the threshold moves 
 
 ## Set $\theta_1 = -3$. Where is the step now?
 
-At $x = -3$: a negative threshold moves the step to the left.
+At $x = -3$, a negative threshold moves the step to the left.
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
@@ -211,7 +211,7 @@ At $x = 4$ ($\theta_1/w_1 = 2/0.5$). A smaller weight moves the step away from $
 ## Set $w_1 = -1$. What happens?
 
 The step flips direction and moves to $x = -2$: $y = 10$ for $x \leq -2$ and $y = 0$ for $x > -2$.
-The neuron now needs $-x - 2 \geq 0$, i.e. $x \leq -2$: with a negative weight, the neuron is on to the
+The neuron now needs $-x - 2 \geq 0$, i.e., $x \leq -2$: with a negative weight, the neuron is on to the
 *left* of the switching point.
 :::
 
@@ -219,7 +219,7 @@ The neuron now needs $-x - 2 \geq 0$, i.e. $x \leq -2$: with a negative weight, 
 
 ## Set $w_1 = 0$. What happens?
 
-The graph is flat at $y = 0$. With weight 0 the neuron ignores the input: its input is always
+The graph is flat at $y = 0$. With weight 0, the neuron ignores the input: its input is always
 $0 - 2 = -2$, which is below 0, so it is never on.
 :::
 
@@ -291,8 +291,8 @@ $v_1 = 10$, $v_2 = -10$).
 
 ## Set $\theta_1 = 1$. What happens?
 
-The bump disappears and the graph is flat at 0. Both neurons now switch on at $x = 1$; the step up and
-the step down happen at the same place and cancel.
+The bump disappears, and the graph is flat at 0. Both neurons now switch on at $x = 1$; the step up and
+the step down happens at the same place and cancels it out.
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
@@ -325,7 +325,7 @@ The whole graph moves up by 10: $y = 10$ for $x < 1$, $0$ for $1 \leq x < 3$, an
 *A staircase*
 
 The "Staircase" example with three hidden neurons: steps at $x = -3$, $0$ and $3$, each of height 6.
-The output threshold $\theta = 9$ centres the levels on zero: −9, −3, 3, 9.
+The output threshold $\theta = 9$ centers the levels on zero: −9, −3, 3, 9.
 
 ```{=html}
 <div class="nnw" data-hidden="3" data-example="stairs"></div>
@@ -335,7 +335,7 @@ The output threshold $\theta = 9$ centres the levels on zero: −9, −3, 3, 9.
 
 ## Set $\theta = 0$. What are the levels now?
 
-0, 6, 12 and 18: the whole staircase moves up by 9.
+0, 6, 12, and 18: the whole staircase moves up by 9.
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon=false}
@@ -510,7 +510,7 @@ will look like.
 
 ## What does the graph look like with "Apply $f$ at output" ticked?
 
-The graph becomes flat at $y = 1$. Inside the bump the output neuron receives $10 - 0 = 10$, outside
+The graph becomes flat at $y = 1$. Inside the bump, the output neuron receives $10 - 0 = 10$; outside,
 it receives $0$. Both are $\geq 0$, so the step function gives 1 everywhere.
 :::
 
@@ -527,7 +527,7 @@ outside, so it only fires inside.
 
 ## Set $v_1 = 3$. What happens?
 
-The graph is flat at 0. Inside the bump the output neuron receives $3 - 5 = -2$; outside it receives
+The graph is flat at 0. Inside the bump, the output neuron receives $3 - 5 = -2$; outside it receives
 $-5$ (left) or $3 - 10 - 5 = -12$ (right). It never reaches its threshold.
 :::
 
