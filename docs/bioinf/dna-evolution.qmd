@@ -18,11 +18,11 @@ sns.set_style('ticks')
 
 ## DNA sequence divergence across time {#sec-molevo-divergence}
 
-Every time a cell divides, its DNA is copied, and once in a while the copy has a mistake. Most such mutations that end up being passed on through the generations are neutral: they change the DNA without changing anything the organism depends on. Because neutral mutations arise at a roughly steady rate and are neither favored nor removed by selection, they pile up in a lineage like the ticks of a clock. This is the *molecular clock*. If you know how fast the clock ticks, you can read off how long it has been running from the number of differences it has left behind.
+Every time a cell divides, it copies its DNA, and sometimes the copy has a mistake. Most mutations that get passed on through generations are neutral: they change the DNA without changing anything the organism depends on. Because neutral mutations arise at a roughly steady rate and selection neither favors nor removes them, they pile up in a lineage like the ticks of a clock. This is the *molecular clock*. If you know how fast the clock ticks, you can read off how long it has been running from the number of differences it has left behind.
 
 ![A molecular clock. Following one lineage from the past to the present, the sequence collects mutations (stars) at a rate of about $5 \times 10^{-10}$ per base per year in humans. Three of the 17 bases have changed, so the clock has been running for about $\frac{3/17}{5 \times 10^{-10}} \approx 353$ million years.](./images/molecular-clock.png){width=60% #fig-molecular-clock}
 
-@fig-molecular-clock shows the idea for a single lineage. In practice we never have the ancestral sequence. What we have is two sequences from two living species, as in @fig-divergence-tree. Since the two species split from their common ancestor $T$ years ago, each lineage has been collecting substitutions for $T$ years, so the two sequences are separated by $2T$ years of evolution. If $K$ is the number of substitutions per site that separate them and $r$ is the substitution rate per site per year, then
+@fig-molecular-clock shows the idea for a single lineage. In practice, we never have the ancestral sequence. We have two sequences from two living species, as in @fig-divergence-tree. Since the two species split from their common ancestor $T$ years ago, each lineage has been collecting substitutions for $T$ years, so the two sequences are separated by $2T$ years of evolution. If $K$ is the number of substitutions per site that separate them and $r$ is the substitution rate per site per year, then
 
 $$
 r = \frac{K}{2T} \qquad \text{and so} \qquad T = \frac{K}{2r}.
@@ -59,13 +59,13 @@ GC<gr>A</gr><rd>T</rd>G<or>G</or>ACG<rd>T</rd><br>
 </evol>
 Present
 
-Six substitutions in a sequence of ten bases, read from the top down. Only three differences between the first and last sequence are visible. The fourth base changed from T to C and back to T, and the sixth changed twice, first to A and then to G.
+Six substitutions in a ten-base sequence, read from top to bottom. Only three differences between the first and last sequence are visible. The fourth base changed from T to C and back to T, and the sixth changed twice: first to A, then to G.
 
 :::
 
-@fig-multiple-hits follows one sequence through time. Six substitutions happen, but comparing the first sequence with the last shows only three differences. One site changed and then changed back, which leaves no trace, and another changed twice, which looks like one change. The longer the sequences have been evolving apart, the more often a site is hit more than once, and the more the observed proportion of differences underestimates the number of substitutions that actually happened. To correct for this, we need a model of how bases change over time: a way to compute the probability that a site holds base $x$ now, given that it held base $y$ a time $t$ ago.
+@fig-multiple-hits follows one sequence through time. Six substitutions happen, but comparing the first sequence with the last shows only three differences. One site changed and then changed back, which leaves no trace, and another changed twice, which looks like one change. The longer the sequences have been evolving apart, the more often a site is hit more than once, and the more the observed proportion of differences underestimates the number of substitutions that actually happened. To correct for this, we need a model of how bases change over time: a way to compute the probability that a site holds base $x$ now, given that it held base $y$ at time $t$.
 
-Think of a single site. Let $p_A(t)$ be the probability that it holds an A at time $t$, and likewise for the other three bases. Over a short time $\Delta t$, two things can change $p_A$. If the site is an A, it may mutate to another base, which happens at a rate $\mu_A$. And if it is some other base $x$, it may mutate to an A, which happens at a rate $\mu_{xA}$. So
+Think of a single site. Let $p_A(t)$ be the probability that it holds an A at time $t$, and likewise for the other three bases. Over a short time $\Delta t$, two things can change $p_A$. If the site is an A, it may mutate to another base at rate $\mu_A$. If it is another base $x$, it may mutate to A at rate $\mu_{xA}$. So
 
 $$
 p_A(t+\Delta t) = p_A(t) - p_A(t)\, \mu_A \Delta t + \sum_{x \neq A} p_x(t) \, \mu_{xA} \Delta t,
@@ -115,7 +115,7 @@ Q = \begin{pmatrix}
 \end{pmatrix}.
 $$
 
-Letting $\Delta t$ shrink towards zero turns the equation for $\mathbf{p}$ into a differential equation, and for this simple $Q$ it can be solved by hand. The solution gives the probability of going from one base to another in time $t$, as a matrix $P(t)$ whose entry in row $i$ and column $j$ is the probability that a site holding base $i$ holds base $j$ a time $t$ later:
+Letting $\Delta t$ shrink towards zero turns the equation for $\mathbf{p}$ into a differential equation, and for this simple $Q$ it can be solved by hand. The solution gives the probability of going from one base to another in time $t$, as a matrix $P(t)$ whose entry in row $i$ and column $j$ is the probability that a site holding base $i$ holds base $j$ at time $t$ later:
 
 $$
 P(t) = \left(
@@ -128,7 +128,7 @@ P(t) = \left(
 \right)
 $$
 
-At $t = 0$ the diagonal entries are 1 and the others are 0: nothing has had time to change. As $t$ grows, every entry approaches $\frac{1}{4}$: after a very long time, the site is equally likely to hold any base, whatever it started as.
+At $t = 0$, the diagonal entries are 1, and the others are 0: nothing has had time to change. As $t$ grows, every entry approaches $\frac{1}{4}$: after a very long time, the site is equally likely to hold any base, whatever it started as.
 
 It is more useful to measure time by the number of substitutions that have actually happened per site, which we call $\nu$. A site leaves its base at the rate $\frac{\mu}{4} + \frac{\mu}{4} + \frac{\mu}{4}$, so
 
@@ -206,7 +206,7 @@ sns.despine()
 plt.show()
 ```
 
-What we observe is $p$, and what we want is $\nu$. Solving the equation for $\nu$ gives the *Jukes-Cantor correction*:
+We observe $p$, but we want $\nu$. Solving the equation for $\nu$ gives the *Jukes-Cantor correction*:
 
 $$
 \nu = -\frac{3}{4} \ln\Big(1-\frac{4}{3}p\Big)
@@ -214,7 +214,7 @@ $$
 
 For small $p$, the correction hardly matters: $p = 0.05$ gives $\nu = 0.052$. For large $p$, it matters a lot: $p = 0.5$ gives $\nu = 0.82$, so the observed differences hide more than a third of the substitutions. The corrected $\nu$ is what goes into the molecular clock as $K$.
 
-@fig-jc turns the correction into time. Because the curve in @fig-jc-inverse-example flattens out, the estimated time shoots up as $p$ approaches 0.75, and a small error in $p$, which you always have with sequences of limited length, becomes a huge error in the time. Sequences that differ at more than about two thirds of their sites are in the *twilight zone*, where DNA comparisons can no longer tell how long ago two sequences diverged, or even whether they are related at all. This is one reason distant relatives are compared at the protein level, where the twilight zone comes much later.
+@fig-jc turns the correction into time. Because the curve in @fig-jc-inverse-example flattens out, the estimated time shoots up as $p$ approaches 0.75, and a small error in $p$, which you always have with sequences of limited length, becomes a huge error in the time. Sequences that differ at more than about two-thirds of their sites are in the *twilight zone*, where DNA comparisons can no longer tell how long ago two sequences diverged, or even whether they are related at all. This is one reason we compare distant relatives at the protein level, where the twilight zone comes much later.
 
 ```{python}
 #| echo: false
@@ -242,9 +242,9 @@ plt.show()
 
 ### Kimura's 2-parameter model {#sec-molevo-k2p}
 
-The four bases come in two chemical kinds. A and G are purines, with two rings, and C and T are pyrimidines, with one. A mutation that swaps a purine for a purine or a pyrimidine for a pyrimidine is a *transition*. One that swaps a purine for a pyrimidine, or the other way around, is a *transversion*. Transitions are chemically easier, and although there are twice as many kinds of transversion, transitions are observed about twice as often as all transversions together. The Jukes-Cantor model ignores this.
+The four bases fall into two chemical classes. A and G are purines, with two rings, and C and T are pyrimidines, with one. A mutation that swaps a purine for a purine or a pyrimidine for a pyrimidine is a *transition*. One that swaps a purine for a pyrimidine, or vice versa, is a *transversion*. Transitions are chemically easier, and although there are twice as many kinds of transversion, transitions are observed about twice as often as all transversions together. The Jukes-Cantor model ignores this.
 
-[Kimura (1980)](https://doi.org/10.1007/BF01731581) gave transitions their own rate, $\alpha$, and transversions another, $\beta$, as in @fig-k2p. Each base has one transition partner and two transversion partners, so with the bases in the order A, C, G, T the rate matrix is
+[Kimura (1980)](https://doi.org/10.1007/BF01731581) gave transitions their own rate, $\alpha$, and transversions another, $\beta$, as in @fig-k2p. Each base has one transition partner and two transversion partners, so with the bases in the order A, C, G, T, the rate matrix is
 
 $$
 Q = \begin{pmatrix}
@@ -284,10 +284,10 @@ ax.axis('off')
 plt.show()
 ```
 
-In the same way as for the Jukes-Cantor model, solving this model gives a correction formula. If $s$ is the observed proportion of sites that differ by a transition, and $v$ the proportion that differ by a transversion, the number of substitutions per site is
+As with the Jukes-Cantor model, solving this model gives a correction formula. If $s$ is the observed proportion of sites that differ by a transition, and $v$ the proportion that differ by a transversion, the number of substitutions per site is
 
 $$
 d_{K2P} = - \frac{1}{2} \ln \big( 1 - 2s - v\big) - \frac{1}{4} \ln \big( 1 - 2v\big).
 $$
 
-When transitions and transversions do happen at the rates the Jukes-Cantor model assumes ($\alpha = \beta$), the two formulas give about the same answer. When transitions are more common, as they nearly always are, the Kimura correction is larger, because the frequent transitions saturate sooner and hide more of the substitutions.
+When transitions and transversions do happen at the rates the Jukes-Cantor model assumes ($\alpha = \beta$), the two formulas give about the same answer. When transitions are more common, as they nearly always are, the Kimura correction is larger because frequent transitions saturate sooner and hide more substitutions.
