@@ -515,11 +515,11 @@ plt.show()
 
 ## A recursive solution
 
-Having decided how to score alignments, leaves the hard part of finding the "optimal" alignemnt with the highest score among *many* possible alignments. In @fig-nr-aln-two-bases, you can see the possible alignments of DNA sequences with just two bases each. The number of alignments of two sequences with $n$ bases is $N_{aln.}(n) = (2n)!/(n!)^2$ and explodes as the $n$ increases: $N_{aln.}(2) = 6$, $N_{aln.}(5) = 252$, $N_{aln.}(10) = 184,756$, $N_{aln.}(20) = 137,846,528,820$. For two sequences of 140 bases, there are as many alignments as there are atoms in the visible universe, and 140 only amounts to a tenth of the CDS of an average human gene. So an optimal alignment is less like a needle in a haystack and more like an atom in ten universes.
+Once you decide how to score alignments, the hard part is finding the "optimal" alignment with the highest score among *many* possible alignments. In @fig-nr-aln-two-bases, you can see the possible alignments of DNA sequences with just two bases each. The number of alignments of two sequences with $n$ bases is $N_{aln.}(n) = (2n)!/(n!)^2$ and explodes as the $n$ increases: $N_{aln.}(2) = 6$, $N_{aln.}(5) = 252$, $N_{aln.}(10) = 184,756$, $N_{aln.}(20) = 137,846,528,820$. For two sequences of 140 bases, there are as many alignments as atoms in the visible universe, and 140 is only a tenth of the CDS of an average human gene. So an optimal alignment is less like a needle in a haystack and more like an atom in ten universes.
 
 ```{python}
 #| label: fig-nr-aln-two-bases
-#| fig-cap: "The six different alignments of two sequences each with two bases (each light gray alignment is essentially the same as the preceeding black and differ only in the order of consequtive gap columns)."
+#| fig-cap: "The six different alignments of two sequences each with two bases (each light gray alignment is essentially the same as the preceding black and differs only in the order of consecutive gap columns)."
 alignments = [
     {'top': 'ag',   'bottom': 'ct', 'color': INK},
     {'top': 'a-g',  'bottom': 'ct-', 'color': INK},
@@ -539,7 +539,7 @@ fig = alignments_figure(alignments, nrow=3,scale=0.25, fontsize=12)
 plt.show()
 ```
 
-Fortunately, finding the optimal alignment score (and the corresponding alignmnet) can be broken into smaller identical problems, because each part of an optimal alignment is also an optimal alignment. If you cut an optimal alignment of of `gata` and `acta` in two, each part is an optimal alignment of the bases it contains. You can see two examples of this in @fig-pa-cuts where the yellow part of the left example, `ga-/-ac`, is an optimal alignment of `ga` and `ac`. The yellow part of the right example is an optimal alignment of `gat` and `act`. To see why this must be so, consider the contradiction: If it there existed a better alignmnet of `gat` and `act`, you could put that in front of the last column `a`/`a` and get a better alignment of the whole sequence. Since the full alignment was alreay optimal, this cannot be possible. 
+Fortunately, you can break finding the optimal alignment score (and the corresponding alignment) into smaller, identical problems, because each part of an optimal alignment is also an optimal alignment. If you cut an optimal alignment of `gata` and `acta` in two, each part is an optimal alignment of the bases it contains. You can see two examples of this in @fig-pa-cuts where the yellow part of the left example, `ga-/-ac`, is an optimal alignment of `ga` and `ac`. The yellow part of the right example is an optimal alignment of `gat` and `act`. To see why this must be true, consider the contradiction: If a better alignment of `gat` and `act` existed, you could put it in front of the last column `a`/`a` to get a better alignment of the whole sequence. Since the full alignment was already optimal, this cannot be possible. 
 
 ```{python}
 #| label: fig-pa-cuts
@@ -548,8 +548,8 @@ fig = cut_figure(("ga-ta", "-acta"), (3, 4))
 plt.show()
 ```
 
-No matter what, we know that the last column of the alignment must be one of three possibilities: It either pairs one base from each sequence (in this case `a/a`) or it pairs the last base from either sequence with a gap (in this case `a/-` and `-/a`). Whatever comes *before* the last column must (by our observation above) be an optimal alignment of the remaining bases. If you think this smells like recursion, you are not wrong. Lets write $S(i, j)$ for the score of the best alignment of the first $i$ bases of sequence one (`gata`) and the first $j$ bases of sequence two (`acta`). For each of the three last coluimns, the optimal alignment scores for the remaining bases are
-$S(3,3)$, $S(3,4)$ and $S(4,3)$. Now, if someone told us those three scores $S(3,3) = 2$, $S(3,4) = 1$ and $S(4,3) = 1$, we could add each one to its last column as shown in @fig-pa-last-column. The one that produces the highest score for the full alignment must be the last column of the optimal alignment. In this case the largest of the three totals is 4, so the optimal alignment of `gata` and `acta` has a score of 4 and ends with an `a` aligned to an `a`. 
+No matter what, we know that the last column of the alignment must be one of three possibilities: It either pairs one base from each sequence (in this case `a/a`) or it pairs the last base from either sequence with a gap (in this case `a/-` and `-/a`). Whatever comes *before* the last column must (by our observation above) be an optimal alignment of the remaining bases. If you think this smells like recursion, you are not wrong. Let $S(i, j)$ be the score of the best alignment of the first $i$ bases of sequence one (`gata`) and the first $j$ bases of sequence two (`acta`). For each of the three last columns, the optimal alignment scores for the remaining bases are
+$S(3,3)$, $S(3,4)$ and $S(4,3)$. Now, if someone told us those three scores were $S(3,3) = 2$, $S(3,4) = 1$, and $S(4,3) = 1$, we could add each to its last column, as shown in @fig-pa-last-column. The one that produces the highest score for the full alignment must be the last column of the optimal alignment. In this case, the largest of the three totals is 4, so the optimal alignment of `gata` and `acta` has a score of 4 and ends with an `a` aligned to an `a`. 
 
 $$
 S(4, 4) = \max \begin{cases}
@@ -563,7 +563,7 @@ Here $s(\texttt{a}, \texttt{a})$ is the score matrix entry for an `a` paired wit
 
 ```{python}
 #| label: fig-pa-last-column
-#| fig-cap: "The three ways the alignment of `gata` and `acta` can end. The last column of the optimal alignment is the one that produce the largest total score when its score is added to the optimal alignment score of the remaining bases."
+#| fig-cap: "The three ways the alignment of `gata` and `acta` can end. The last column of the optimal alignment is the one that produces the largest total score when its score is added to the optimal alignment score of the remaining bases."
 fig = last_column_figure([
     ("ga-t", "-act", "a", "a", T1[3][3], SM1["A"]["A"]),
     ("ga-t-", "-acta", "a", "-", T1[3][4], -1),
@@ -573,7 +573,7 @@ fig = last_column_figure([
 plt.show()
 ```
 
-This was cheating a little, because noone actually told us $S(3,3)$, $S(3,4)$ and $S(4,3)$. However, we can find each of these the same way we found $S(4,4)$: We can find $S(3,3)$ if our oracle tells us $S(2,2)$, $S(2,3)$, $S(3,2)$. We can keep fanning out the problem asking our oracle for more and more optimal alignment scores for fewer and fewer remaining bases. The cool thing is that in the end, the scores we need to ask for are all $S(0,0)$, and that one we know: Aligning zero bases with zero bases has score 0. So we end up not needing the oracle after all. We can compute the whole thing recursively until we hit the base case that we know. Written out for any $i$ and $j$, with $a_i$ for base number $i$ in the first sequence and $b_j$ for base number $j$ in the second:
+This is a bit of cheating, because no one actually told us $S(3,3)$, $S(3,4)$, or $S(4,3)$. However, we can find each of these the same way we found $S(4,4)$: We can find $S(3,3)$ if our oracle tells us $S(2,2)$, $S(2,3)$, $S(3,2)$. We can keep fanning out the problem, asking our oracle for more and more optimal alignment scores for fewer and fewer remaining bases. The cool thing is that, in the end, the scores we need to ask for are all $S(0,0)$, and we know that one: Aligning zero bases with zero bases has score 0. So we don't need the oracle after all. We can compute everything recursively until we hit the base case we know. Written out for any $i$ and $j$, with $a_i$ for base number $i$ in the first sequence and $b_j$ for base number $j$ in the second:
 
 $$
 S(i, j) = \max \begin{cases}
@@ -586,7 +586,7 @@ $$
 
 Here, the *if* conditions show when each of the three possibilities exist. If the first sequence has run out of bases ($i = 0$), the only way to end the alignment is with a base from the other sequence against a gap: $S(i, j) = S(i, j-1) + g$.
 
-You could write the recursion as a Python function that calls itself. However, this would be hopelessly slow. The problem is that a naive recursive approach will compute the same alignment scores again and again. $S(4,4)$ needs $S(3,3)$, but so do $S(4,3)$ and $S(3,4)$, and each of those calls would compute $S(3,3)$ from scratch. @fig-pa-recursion-calls shows how bad it gets with longer sequences. For two sequences of length 4, the recursive function makes 841 calls to compute the 25 different scores, so 97% of the calls redo work that has already been done. For two sequences of length 20, there are 441 different scores to compute. Yet, it ends up making about $7 \times 10^{14}$ function calls. 
+You could write the recursion as a Python function that calls itself. However, this would be hopelessly slow. The problem is that a naive recursive approach recomputes the same alignment scores repeatedly. $S(4,4)$ needs $S(3,3)$, but so do $S(4,3)$ and $S(3,4)$, and each of those calls would compute $S(3,3)$ from scratch. @fig-pa-recursion-calls shows how bad it gets with longer sequences. For two sequences of length 4, the recursive function makes 841 calls to compute the 25 different scores, so 97% of the calls redo work already done. For two sequences of length 20, there are 441 different scores to compute. Yet, it ends up making about $7 \times 10^{14}$ function calls. 
 
 ```{python}
 #| label: fig-pa-recursion-calls
@@ -643,7 +643,7 @@ plt.show()
 
 ## A table of scores {#sec-pa-table}
 
-Needleman-Wunsch algorithm ([Needleman and Wunsch, 1970](https://doi.org/10.1016/0022-2836(70)90057-4)), which you will implement yourself in @sec-alignment-project, solves the problem by writing the scores in a table with one row for each number of the bases $i$ in sequence one, and one column for each number of bases $i$ from seqeunce two. The cell in row $i$ and column $j$ holds $S(i, j)$. In @fig-pa-table-meaning, the highlighted cell holds the score of the optimal alignment of `g` and `act`. To compute it, you need the three yellow cells, $S(i-1, j-1)$, $S(i, j-1)$, and $S(i-1, j)$. These are the ones we would have asked the oracle for earlier.
+Needleman-Wunsch algorithm ([Needleman and Wunsch, 1970](https://doi.org/10.1016/0022-2836(70)90057-4)), which you will implement yourself in @sec-alignment-project, solves the problem by writing the scores in a table with one row for each number of bases $i$ in sequence one, and one column for each number of bases $j$ in sequence two. The cell in row $i$ and column $j$ holds $S(i, j)$. In @fig-pa-table-meaning, the highlighted cell holds the score of the optimal alignment of `g` and `act`. To compute it, you need the three yellow cells, $S(i-1, j-1)$, $S(i, j-1)$, and $S(i-1, j)$. These are the ones we would have asked the oracle for earlier.
 
 ```{python}
 #| label: fig-pa-table-meaning
@@ -656,7 +656,7 @@ draw_table(axs[1], SEQ1, SEQ2, fills={(1, 3): BLUE_TINT, (0, 2): YELLOW_TINT,
 plt.show()
 ```
 
-The first row and the first column are easy. Row 0 holds alignments of no bases from `gata` with some bases from `acta`. The only way to align `act` with nothing is to put a gap opposite each base, so $S(0, 3) = 3g = -3$. In the same way, the first column holds multiples of the gap score, as in @fig-pa-init.
+The first row and the first column are easy. Row 0 holds alignments of no bases from `gata` with some bases from `acta`. The only way to align `act` with nothing is to put a gap opposite each base, so $S(0, 3) = 3g = -3$. Similarly, the first column holds multiples of the gap score, as in @fig-pa-init.
 
 ```{python}
 #| label: fig-pa-init
@@ -666,7 +666,7 @@ fig = table_figure(SEQ1, SEQ2, T1, show=show)
 plt.show()
 ```
 
-Now every other cell can be filled in, as long as we go row by row from the top, and left to right within a row. Then the three cells a new cell needs are always filled in already. @fig-pa-first-cells shows the first cell, row 1 and column 1, which is the best alignment of `g` and `a`. Diagonally up-left is 0, and pairing `g` with `a` scores 0, which gives 0. Above is −1, and adding a gap gives −2. To the left is also −1, which gives −2. The largest of 0, −2 and −2 is 0, so $S(1,1) = 0$. The second panel shows the first cell of the next row, where `a` meets `a` and the diagonal wins with $-1 + 2 = 1$.
+Now you can fill in every other cell, as long as you go row by row from the top and left to right within each row. Then the three cells a new cell needs are already filled in. @fig-pa-first-cells shows the first cell, row 1 and column 1, which is the best alignment of `g` and `a`. Diagonally up-left is 0, and pairing `g` with `a` scores 0, which gives 0. Above is −1, and adding a gap gives −2. To the left is also −1, which gives −2. The largest of 0, −2, and −2 is 0, so $S(1,1) = 0$. The second panel shows the first cell of the next row, where `a` meets `a` and the diagonal wins with $-1 + 2 = 1$.
 
 ```{python}
 #| label: fig-pa-first-cells
@@ -681,7 +681,7 @@ plt.show()
 
 [SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
-Draw the table on paper, fill in the first row and column as in @fig-pa-init, and then fill in the remaining cells yourself, row by row. For each cell, write down the three candidate scores before you pick the largest. The cell in the bottom right corner should end up holding 4, the score we found above. If it does not, find the first cell where your table differs from the answer and redo that cell.
+Draw the table on paper, fill in the first row and column as in @fig-pa-init, and then fill in the remaining cells yourself, row by row. For each cell, write down the three candidate scores before you pick the largest. The bottom-right cell should end up holding 4, the score we found above. If it does not, find the first cell where your table differs from the answer and redo that cell.
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
 ## Show the filled table
@@ -694,18 +694,18 @@ plt.show()
 
 ## Traceback {#sec-pa-traceback}
 
-The bottom right cell tells us that the best alignment of `gata` and `acta` scores 4, but not what the alignment is. To find it, we walk back through the table. For each cell, we ask which of its three neighbors its score came from. The bottom right cell got its 4 from the diagonal: $2 + 2$. A diagonal step means the last column of the alignment pairs a base from each sequence, here `a` with `a`. We move to that neighbor and ask the same question. Its 2 also came from the diagonal ($0 + 2$, pairing `t` with `t`), so the alignment ends in `ta` over `ta`.
+The bottom right cell tells us that the best alignment of `gata` and `acta` scores 4, but not what the alignment is. To find it, we walk back through the table. For each cell, we ask which of its three neighbors contributed its score. The bottom right cell got its 4 from the diagonal: $2 + 2$. A diagonal step means the last column of the alignment pairs a base from each sequence, here `a` with `a`. We move to that neighbor and ask the same question. Its 2 also came from the diagonal ($0 + 2$, pairing `t` with `t`), so the alignment ends in `ta` over `ta`.
 
 The cell we are now in, row 2 and column 2, holds 0, and that score can be reached two ways: from the diagonal ($0 + 0$, pairing `a` with `c`) and from the left ($1 - 1$). Both lead to an optimal alignment. Take the step to the left. A step to the left adds a column with a gap in the sequence down the side and the base from the sequence along the top, here `-` over `c`. A step up adds the base from the sequence down the side against a gap. Continuing this way until we reach the top left corner, we collect the columns of the alignment from last to first:
 
 ```{python}
 #| label: fig-pa-collect
-#| fig-cap: "The traceback collects the alignment one column at a time, from last to first. The column just added is tinted, and the arrow under it is the step that added it: ↖ for a diagonal step, ← for a step to the left and ↑ for a step up."
+#| fig-cap: "The traceback collects the alignment one column at a time, from last to first. The column just added is tinted, and the arrow under it is the step that added it: ↖ for a diagonal step, ← for a step to the left, and ↑ for a step up."
 fig = growing_alignment_figure("ga-ta", "-acta")
 plt.show()
 ```
 
-@fig-pa-traceback shows the path in orange. The gray arrows show the other optimal path, which takes the diagonal step at row 2, column 2, and gives the alignment `gata` over `acta`. It also scores 4. Two sequences often have several optimal alignments, and the traceback lets you find all of them.
+@fig-pa-traceback shows the path in orange. The gray arrows show the other optimal path, which takes the diagonal step at row 2, column 2, and gives the alignment `gata` over `acta`. It also scores 4. Two sequences often have several optimal alignments, and the traceback lets you find them all.
 
 ```{python}
 #| label: fig-pa-traceback
@@ -721,7 +721,7 @@ To walk back, you need to know which neighbor each score came from. You can work
 
 [SOLO](../intro/course-introduction.qmd#sec-badge-solo){.small}
 
-Find the optimal global alignment of `GGGCT` and `GAGGG` by hand. Use a score matrix where identical bases score 2 and different bases score −1, and a gap score of −2. Put `GGGCT` down the left side of the table and `GAGGG` along the top. Fill in the table, then trace back from the bottom right corner. When there is a tie, follow each branch: how many optimal alignments are there?
+Find the optimal global alignment of `GGGCT` and `GAGGG` by hand. Use a score matrix where identical bases score 2, different bases score −1, and gaps score −2. Put `GGGCT` down the left side of the table and `GAGGG` along the top. Fill in the table, then trace back from the bottom right corner. When there is a tie, follow each branch: how many optimal alignments are there?
 
 When you have an answer, let the machine check it. The `PairwiseAligner` from [the Biopython chapter](../python/biopython.ipynb#sec-biopython-align) does global alignment by default, and you can give it the same scores:
 
@@ -788,13 +788,13 @@ fig = score_matrix_figure("acgt", EDNAFULL_ACGT, g=None)
 plt.show()
 ```
 
-The score matrices in this chapter are toys, chosen to make the arithmetic easy. A matrix used in practice for DNA is EDNAFULL, also called NUC.4.4. For the four bases it is just as simple: 5 for identical bases and −4 for different ones. But it also has rows and columns for the ambiguity codes that sequencing data use when a base is not known for certain. `N` means any base, `R` means a purine (`A` or `G`), `W` means `A` or `T`, and so on. An `A` paired with a `W` scores 1, because the `W` may well be an `A`. An `A` paired with an `N` scores −2.
+The score matrices in this chapter are toys, chosen to make the arithmetic easy. A matrix used in practice for DNA is EDNAFULL, also called NUC.4.4. For the four bases it is just as simple: 5 for identical bases and −4 for different ones. It also includes rows and columns for the ambiguity codes sequencing data use when a base is not known for certain. `N` means any base, `R` means a purine (`A` or `G`), `W` means `A` or `T`, and so on. An `A` paired with a `W` scores 1, because the `W` may well be an `A`. An `A` paired with an `N` scores −2.
 
-For proteins, all twenty amino acids get their own row and column, and the scores are no longer just "identical" or "different". Substituting one amino acid for a chemically similar one happens often in evolution and gets a positive score. Where those numbers come from is a later chapter.
+For proteins, each of the twenty amino acids gets its own row and column, and the scores are no longer just "identical" or "different". Substitutions of one amino acid for a chemically similar one happen often in evolution and get a positive score. A later chapter covers where those numbers come from.
 
 ## Local alignment {#sec-pa-local}
 
-Global alignment, which is what Needleman-Wunsch does, aligns the two sequences from end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, and it fills them with mismatches and gaps that mean nothing.
+Global alignment, which Needleman-Wunsch does, aligns the two sequences end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, filling them with mismatches and gaps that mean nothing.
 
 Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases and −2 for a gap, the best global alignment scores `{python} LG[-1][-1]`, and `{python} len(LOC_GLOBAL)` different global alignments share that score. Here is one of them:
 
