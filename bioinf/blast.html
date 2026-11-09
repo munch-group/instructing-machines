@@ -872,7 +872,7 @@ Figure&nbsp;55.4: The X-drop rule, here with X = 20. The extension score climbs 
 </div>
 </div>
 <p>The result is a <em>high-scoring segment pair</em>, or HSP. For our small query and subject, extending the hit at the start of the diagonal gives an HSP with a score of 34 that covers the whole query:</p>
-<div id="88a6cb98" class="cell" data-execution_count="6">
+<div id="77e7c299" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>TGCATGCCAGTTACGGATCAAG
 ||||||| ||||||| ||||||
@@ -935,7 +935,7 @@ Figure&nbsp;55.6: Speed and sensitivity for exact words of different sizes, sear
 <p>Proteins are different in two ways. First, there are 20 amino acids rather than four bases, so even a three-letter word is rare: a given word matches a random position only once in <span class="math inline">\(20^3 = 8000\)</span>. Second, related proteins often have <em>similar</em> amino acids in the same place rather than identical ones, like a leucine (<code>L</code>) where the other has an isoleucine (<code>I</code>). Exact words would miss those, so protein BLAST uses short, three-letter words and makes them sensitive to local neighborhoods.</p>
 <p>To score words, BLAST uses the BLOSUM62 substitution matrix (<a href="https://doi.org/10.1073/pnas.89.22.10915">Henikoff and Henikoff, 1992</a>), which you gave the protein aligner in <a href="../python/biopython.html#sec-biopython-align">the Biopython chapter</a>. Unlike the DNA scores, BLOSUM62 gives different pairs of amino acids very different scores. A <code>Q</code> against an <code>E</code> scores 2, because glutamine and glutamate are similar, while a <code>W</code> against a <code>G</code> scores -2. So the neighborhood of <code>PQG</code> at <span class="math inline">\(T = 13\)</span> includes <code>PQG</code> itself, which scores 18, but also PDG, PEG, PHG, PKG, PMG, PNG, PRG, PSG: every word where the middle amino acid is one that BLOSUM62 considers a reasonable stand-in for glutamine. A protein neighborhood depends on which letters differ, and how many.</p>
 <p>For proteins, the word size stays at 3, and the threshold <span class="math inline">\(T\)</span> trades speed for sensitivity. To measure it, take a random protein query of 150 amino acids, and a database of about 100,000 amino acids with ten relatives hidden in it, in which about half the amino acids have been replaced:</p>
-<table class="caption-top table">
+<table class="table">
 <thead>
 <tr class="header">
 <th style="text-align: center;">Threshold</th>
@@ -990,7 +990,7 @@ Figure&nbsp;55.7: E-value against score for a 300-letter protein query, with BLO
 </div>
 </div>
 <p>As an example, the two short proteins MSHWEKLNGCAPRTYIDVQKFGEMLW and TTGAPNSHWEKINGCAPKTFIDLRSAQPLE share a stretch that the toy BLAST finds and extends into this HSP:</p>
-<div id="aa0153be" class="cell" data-execution_count="10">
+<div id="c938c2ca" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>SHWEKLNGCAPRTYIDVQ
 SHWEKINGCAPKTFIDLR</code></pre>
@@ -1070,7 +1070,7 @@ Figure&nbsp;55.8: Hits of the protein query at T = 11 in a stretch of the databa
 <section id="sec-blast-ncbi" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-blast-ncbi">BLAST at NCBI</h2>
 <p>Today’s BLAST at NCBI, called BLAST+ (<a href="https://doi.org/10.1186/1471-2105-10-421">Camacho et al., 2009</a>), is a descendant of the 1997 version. Go to <a href="https://blast.ncbi.nlm.nih.gov">blast.ncbi.nlm.nih.gov</a> and look at the start page while you read this section. It offers five basic programs, and which one you need depends on two questions: is your query DNA or protein, and is the database DNA or protein?</p>
-<table class="caption-top table">
+<table class="table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -1203,7 +1203,7 @@ Figure&nbsp;55.8: Hits of the protein query at T = 11 in a stretch of the databa
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hit.target.<span class="bu">id</span>, hsp.annotations[<span class="st">"evalue"</span>], <span class="bu">round</span>(identity, <span class="dv">1</span>),</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          hit.target.description[:<span class="dv">40</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For the FOXP2 search from the exercise above, saved in the course’s <code>data/foxp2_blastp.xml</code>, that prints:</p>
-<div id="d0d77d49" class="cell" data-execution_count="13">
+<div id="6a505e4d" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-stdout">
 <pre><code>sp|O15409.2|   0           97.7  Forkhead box protein P2 (Homo sapiens)
 sp|Q8HZ00.1|   0           97.3  Forkhead box protein P2 (Pan paniscus)
