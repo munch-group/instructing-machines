@@ -187,28 +187,79 @@ def node(ax, x, y, color=NODE, r=0.2, label=None, fs=9):
         ax.text(x, y, label, ha="center", va="center", fontsize=fs, color=INK, zorder=6)
 
 
-def finish(ax, xlim, ylim):
+def scale_artists(ax, scale):
+    """Scale everything measured in points (font sizes, line widths, marker and arrow-head
+    sizes) by `scale`, to match a figure whose size has been scaled by the same factor.
+    Positions are in data units and follow the figure size by themselves."""
+    from matplotlib.text import Annotation
+    for txt in ax.texts:
+        txt.set_fontsize(txt.get_fontsize() * scale)
+        if isinstance(txt, Annotation) and txt.arrow_patch is not None:
+            txt.arrow_patch.set_linewidth(txt.arrow_patch.get_linewidth() * scale)
+            txt.arrow_patch.set_mutation_scale(txt.arrow_patch.get_mutation_scale() * scale)
+    for line in ax.lines:
+        line.set_linewidth(line.get_linewidth() * scale)
+        line.set_markersize(line.get_markersize() * scale)
+    for patch in ax.patches:
+        patch.set_linewidth(patch.get_linewidth() * scale)
+        if isinstance(patch, FancyArrowPatch):
+            patch.set_mutation_scale(patch.get_mutation_scale() * scale)
+    for coll in ax.collections:
+        coll.set_linewidths(np.asarray(coll.get_linewidths()) * scale)
+        sizes = coll.get_sizes()
+        if len(sizes):
+            coll.set_sizes(np.asarray(sizes) * scale ** 2)   # marker sizes are areas
+
+
+def finish(ax, xlim, ylim, scale=1):
     ax.set_xlim(*xlim); ax.set_ylim(*ylim)
     ax.set_aspect("equal"); ax.axis("off")
-    plt.tight_layout()
+    if scale != 1:
+        scale_artists(ax, scale)
+    plt.tight_layout(pad=1.08 * scale)
     plt.show()
 
 
-def probability_bars(ax, x, y_top, scale, fs=6, step=0.55):
+def probability_bars(ax, x, y_top, scale, fs=6, step=0.55, bar=0.4):
     for k, (name, p) in enumerate(D["top_k5"]["0.8"]):
         y = y_top - step * k
-        ax.add_patch(Rectangle((x, y - 0.2), scale * p, 0.4, color=OUTC, lw=0, zorder=3))
+        ax.add_patch(Rectangle((x, y - bar / 2), scale * p, bar, color=OUTC, lw=0, zorder=3))
         ax.text(x - 0.12, y, name.strip(), ha="right", va="center", fontsize=fs, color=INK)
         ax.text(x + scale * p + 0.12, y, f"{100 * p:.0f}%", ha="left", va="center", fontsize=fs - 0.5, color=INK)
 
 
 # ------------------------------------------------------------------ the overview
+SPREAD = 2.0          # how much further apart the tokens are at the two ends of the overview
+
+
+def spread_y(r):
+    """Row r of a column whose tokens are SPREAD times further apart, last token kept in place."""
+    return row_y(0, N - 1) + (N - 1 - r) * PITCH * SPREAD
+
+
+def spread_tile(ax, x, w, color, labels=None, fs=7.5, hrow=None):
+    h = STRIPE * SPREAD * 0.8
+    for r in range(N):
+        a = DIM if (hrow is not None and r != hrow) else 1.0
+        ax.add_patch(Rectangle((x, spread_y(r) - h / 2), w, h, facecolor=color, alpha=a, lw=0, zorder=3))
+        if labels:
+            ax.text(x - 0.15, spread_y(r), labels[r], ha="right", va="center", fontsize=fs, color=INK)
+
+
+def fan(ax, x0, x1, y0s, y1s):
+    """Lanes that bend smoothly from heights y0s at x0 to heights y1s at x1."""
+    s = np.linspace(0, 1, 40)
+    k = s * s * (3 - 2 * s)
+    for y0, y1 in zip(y0s, y1s):
+        ax.plot(x0 + (x1 - x0) * s, y0 + (y1 - y0) * k, color=LANE, lw=1.4, solid_capstyle="butt", zorder=1)
+
+
 # The parts of the overview that the detail figures enlarge, in the order they appear in the
 # chapter. overview(detail=i) draws a frame around part i, for a small copy in the margin.
 DETAILS = ["embedding", "block", "query, key and value", "attention head", "MLP", "output"]
 
 
-def overview(head=0, block=1, detail=None):
+def overview(head=0, block=1, detail=None, scale=1):
     """The whole model. detail is an index into DETAILS (or None): the part to frame."""
     A = np.array(D["attention"]["b1h1"], dtype=float)
     H = height()
@@ -216,15 +267,18 @@ def overview(head=0, block=1, detail=None):
     YV = st + 1.9 + H / 2
     YK = YV + H + GAP_V
     YQ = YK + H + GAP_V
-    fig, ax = plt.subplots(figsize=(7, 4.9))
+    fig, ax = plt.subplots(figsize=(7*scale, 4.9*scale))
     fs = 5.5
 
-    # embedding
-    tile(ax, 1.7, 0, 1.0, EMB, labels=LABELS, fs=5)
-    ax.text(2.2, st + 0.35, "embedding", ha="center", va="bottom", fontsize=fs, color=INK)
+    # embedding, with the tokens spread out and the lanes bending into the stream
+    ox = 1.9                                     # room for the lanes to bend
+    spread_tile(ax, 1.9, 1.0, EMB, labels=LABELS)
+    ax.text(2.4, spread_y(0) + 0.6, "embedding", ha="center", va="bottom", fontsize=fs + 1, color=INK)
+    lane_y = [row_y(0, r) for r in range(N)]
+    fan(ax, 2.9, 2.9 + ox, [spread_y(r) for r in range(N)], lane_y)
 
     # attention branch
-    xb = 3.6
+    xb = 3.6 + ox
     path(ax, [(xb, st), (xb, YK), (xb + 0.25, YK)])
     pill(ax, xb + 0.25, YK, "LN", LN, fs, w=0.95)
     arrow(ax, (xb + 1.2, YK), (xb + 1.5, YK))
@@ -286,39 +340,40 @@ def overview(head=0, block=1, detail=None):
     merge(ax, xm2, st, MLPC)
 
     # the block, and the residual stream through it
-    x0, x1 = 3.1, xm2 + 0.7
+    x0, x1 = 3.1 + ox, xm2 + 0.7
     stack(ax, x0, -H / 2 - 0.9, x1 - x0, YQ + H / 2 + 1.1 + H / 2 + 0.9, FRAME, copies=3, d=0.18, r=0.45, lw=1.1, z=0.3)
     ax.text((x0 + x1) / 2, YQ + H / 2 + 0.9 + 0.75, f"transformer block {block} of 12", ha="center", va="bottom",
             fontsize=fs + 0.5, color=FRAME)
     xs_end = x1 + 1.6
-    lanes(ax, 2.7, xs_end, 0)
+    lanes(ax, 2.9 + ox, xs_end, 0)
     ax.text((x0 + x1) / 2, -H / 2 - 0.25, "residual stream", ha="center", va="top", fontsize=fs, color=MUTED)
 
     # output
     pill(ax, x1 + 0.45, 0, "LN", LN, fs, w=0.95)
-    xl = xs_end + 0.3
-    tile(ax, xl, 0, 0.9, XT, hrow=N - 1)
+    xl = xs_end + ox
+    fan(ax, xs_end, xl, lane_y, [spread_y(r) for r in range(N)])
+    spread_tile(ax, xl, 0.9, XT, hrow=N - 1)
     yl = row_y(0, N - 1)
     arrow(ax, (xl + 0.9, yl), (xl + 1.3, yl))
     weight(ax, xl + 1.3, yl, 0.8, EMB, "$E^\\top$", fs)
-    arrow(ax, (xl + 2.1, yl), (xl + 2.6, yl + 0.8))
-    probability_bars(ax, xl + 4.4, H / 2 - 0.2, 2.6, fs=fs)
-    ax.text(xl + 5.4, st + 0.35, "probabilities", ha="center", va="bottom", fontsize=fs, color=INK)
+    arrow(ax, (xl + 2.2, yl + 0.2), (xl + 2.9, yl + 1.0))
+    probability_bars(ax, xl + 6.1, spread_y(3), 2.6, fs=fs + 2, step=1.1, bar=0.6)
+    ax.text(xl + 6.9, spread_y(3) + 0.9, "probabilities", ha="center", va="bottom", fontsize=fs + 1, color=INK)
 
     if detail is not None:
         top, bottom = YQ + H / 2 + 0.6, YV - H / 2 - 0.5
         boxes = [
-            (-0.05, -H / 2 - 0.35, 3.0, st + 1.0),                             # embedding
+            (-1.6, -H / 2 - 0.35, 3.1, spread_y(0) + 1.75),                   # embedding
             (x0 - 0.25, -H / 2 - 1.1, x1 + 0.75, YQ + H / 2 + 1.75),           # block
             (xb - 0.25, bottom, xt + W + 0.3, top),                            # query, key and value
             (xt - 0.25, bottom, xz + W + 0.3, top),                            # attention head
             (xb2 + 1.35, YK - H / 2 - 0.55, x + 1.15, YK + H / 2 + 1.05),      # MLP
-            (x1 + 0.25, -H / 2 - 0.85, xl + 8.3, st + 1.0),                    # output
+            (x1 + 0.25, -H / 2 - 1.15, xl + 10.4, spread_y(0) + 0.7),          # output
         ]
         bx0, by0, bx1, by1 = boxes[detail]
         ax.add_patch(Rectangle((bx0, by0), bx1 - bx0, by1 - by0, fill=False, edgecolor=HIGHLIGHT,
                                lw=2.0, zorder=20))
-    finish(ax, (-0.1, xl + 8.4), (-H / 2 - 1.2, YQ + H / 2 + 2.6))
+    finish(ax, (-1.8, xl + 10.5), (-H / 2 - 1.2, YQ + H / 2 + 2.6), scale=scale)
 
 
 # ------------------------------------------------------------------ introductory figures
@@ -887,7 +942,7 @@ The fully connected layer has $11 \times 768 = 8{,}448$ inputs and as many outpu
 
 ## The whole picture {#sec-te-overview}
 
-This section covers steps 1, 2, 3 and 7 of the Explainer's tour.
+<!-- This section covers steps 1, 2, 3 and 7 of the Explainer's tour. -->
 
 After you type the sentence and press Generate, the Explainer shows the whole model as one flow from left to right, redrawn for our sentence in @fig-te-overview. On the left, under Embedding, the sentence is split into pieces, one per row, and each piece becomes a list of 768 numbers, drawn as a gray bar. In the middle is Transformer Block 1, which has two parts. The first is Multi-head Self Attention, where each row is split into a blue, a red and a green band, labeled Q, K and V, and where a triangular grid of purple dots shows how much each piece looks at each of the pieces before it. The second is the MLP, a small network of fully connected layers through which every row passes on its own. A line labeled Residual runs over each part. Behind the block, the Explainer writes "11 more identical Transformer Blocks": GPT-2 has twelve blocks, one after the other, all built the same way but each with its own weights. On the right, under Probabilities, only the last piece of the sentence goes on, and its numbers become a probability for each of the 50,257 pieces the model knows.
 
@@ -928,7 +983,14 @@ Twelve. The Explainer shows "Transformer Block 1" and writes that there are 11 m
 
 ## From text to numbers: the embedding {#sec-te-embedding}
 
-This section covers steps 4, 5 and 6 of the Explainer's tour.
+```{python}
+#| echo: false
+#| fig-cap: "Click to enlarge."
+#| column: margin
+overview(detail=0, scale=2)
+```
+
+<!-- This section covers steps 4, 5 and 6 of the Explainer's tour. -->
 
 A neural network can only compute with numbers, so the first job is to turn the text into numbers. The text is cut into *tokens*, and each token is looked up in a fixed list called the *vocabulary*. GPT-2's vocabulary has 50,257 tokens. Common words are tokens of their own, but words that don't appear in the vocabulary are split into pieces that do. The list was made once, before training, by repeatedly gluing together the pairs of characters and pieces that occurred most often in a large amount of text. That is why the pieces follow how often letters occur together, and not grammar or biology. A space belongs to the token after it, so " virus" with its leading space and "virus" without one are two different tokens with different numbers. The Explainer does not show the spaces, but they are there. @tbl-te-tokens shows how GPT-2 cuts our sentence.
 
@@ -948,13 +1010,6 @@ Looking up a row of $E$ is itself a fully connected layer. Write the token as a 
 #| echo: false
 #| fig-cap: "The token embedding drawn as a layer of neurons. The input is a one-hot vector with one input per token in the vocabulary, all 0 except a 1 for \" virus\" (ID 9,471). Only the lines from that input carry anything, so each output neuron receives exactly one weight: its row of the embedding matrix. Only a few of the 50,257 inputs and 768 outputs are drawn."
 onehot()
-```
-
-
-```{python}
-#| echo: false
-#| column: margin
-overview(detail=0)
 ```
 
 Nobody chose the numbers in $E$. They are weights set by training like all the others, and training places tokens used in similar ways at similar points. You can measure how similar two embeddings $e$ and $f$ are by how much their lists of numbers point in the same direction, the *cosine similarity*
@@ -1034,7 +1089,14 @@ $O$ is $11 \times 50{,}257$, $E$ is $50{,}257 \times 768$, and $OE$ is $11 \time
 
 ## The frame of a block: layer normalization and residual connections {#sec-te-block}
 
-This section covers steps 7, 18, 19 and 20 of the Explainer's tour.
+```{python}
+#| echo: false
+#| fig-cap: "Click to enlarge."
+#| column: margin
+overview(detail=1, scale=2)
+```
+
+<!-- This section covers steps 7, 18, 19 and 20 of the Explainer's tour. -->
 
 Before we look inside the attention layer and the MLP, look at how they are connected, because the Explainer draws the connections only as faint lines and dots, and they matter. Write $X$ for the $n \times 768$ matrix that enters a block. The block computes
 
@@ -1054,11 +1116,6 @@ where the arrow means that the matrix on the right replaces $X$. So each part re
 residual()
 ```
 
-```{python}
-#| echo: false
-#| column: margin
-overview(detail=1)
-```
 
 The addition is called a *residual connection*, and the Explainer marks it with the lines labeled Residual. Because of it, neither part replaces a token's list of numbers. Each only has to work out what to add, and everything that was in $X$ before flows past it unchanged. You can think of $X$ as a running record for each token that the twelve blocks write into, one addition at a time. This is also why every part must return a matrix of exactly the shape it received: otherwise the addition would not be defined. Residual connections were invented to make deep networks trainable ([He et al., 2016](https://doi.org/10.1109/CVPR.2016.90)). In [Backpropagation](../neural_networks/training.qmd#sec-train-backprop) you saw that the gradient reaches a weight by being multiplied through every layer between it and the loss. Through an addition, the gradient passes unchanged, so even the first block of a deep stack receives a usable signal.
 
@@ -1109,11 +1166,18 @@ Because their output is added to $X$, which is $11 \times 768$, and two matrices
 
 ## Looking back at the sentence: attention {#sec-te-attention}
 
-This section covers steps 8 to 12 of the Explainer's tour.
+<!-- This section covers steps 8 to 12 of the Explainer's tour. -->
 
 To predict what follows "makes copies of its", the model has to know whose copies they are. The word "its" refers to something earlier in the sentence, and the list of numbers for "its" must somehow take in information from the word it refers to. This is what the attention layer does, and it is the only layer in GPT-2 where the tokens of the sentence exchange information. In the Explainer, it is the large panel in the middle of the block. In this section, write $\tilde X = \operatorname{LN}(X)$ for the normalized $11 \times 768$ matrix that the attention layer receives.
 
 ### Queries, keys and values
+
+```{python}
+#| echo: false
+#| fig-cap: "Click to enlarge."
+#| column: margin
+overview(detail=2, scale=2)
+```
 
 Attention starts by computing three new matrices from $\tilde X$, called the *queries*, the *keys* and the *values*:
 
@@ -1128,13 +1192,6 @@ Each of $W_Q$, $W_K$ and $W_V$ is a $768 \times 768$ matrix, so each of these is
 #| echo: false
 #| fig-cap: "The query, key and value layers, the left part of the attention in @fig-te-overview. Left: the normalized matrix $\\tilde X$ goes through three fully connected layers, $W_Q$, $W_K$ and $W_V$, applied to every token with the same weights, and each result is cut into 12 blocks of 64 columns, one per head. Right: the same three layers for one token, drawn as neurons, with 4 inputs and 3 neurons per layer instead of 768."
 qkv_layers()
-```
-
-
-```{python}
-#| echo: false
-#| column: margin
-overview(detail=2)
 ```
 
 The three play different parts. The query of a token says what the token is looking for. For "its", a useful query would be something like "a noun earlier in the sentence that could own something". Nobody writes this down in words. The query is a list of numbers, and what the numbers stand for is whatever turned out to be useful in training, but it helps to think of it as a question the token asks about the tokens before it. The key of a token says what it has to offer to anyone who is looking: what kind of token it is and what part it plays in the sentence. The key of "virus" might stand for something like "a noun, a living thing, the one doing something in this sentence". The value is what a token hands over when another token pays attention to it. It is a separate list from the key because what makes a token easy to find is not the same as what is useful to receive. To be found by "its", it helps "virus" to be a noun that can own things. What "its" needs to receive is what kind of thing a virus is, because that decides whether the next word is "DNA", "genes" or something else entirely.
@@ -1182,6 +1239,13 @@ attention_tables()
 
 ### Mixing the values
 
+```{python}
+#| echo: false
+#| fig-cap: "Click to enlarge."
+#| column: margin
+overview(detail=3, scale=2)
+```
+
 The new list of numbers for token $i$ is the values of all the tokens, mixed in proportion to the weights in row $i$ of $A$:
 
 $$
@@ -1195,12 +1259,6 @@ $A$ is $11 \times 11$ and $V$ is $11 \times 64$, so $Z$ is $11 \times 64$, one n
 #| echo: false
 #| fig-cap: "One attention head, the purple card in @fig-te-overview, here head 4 of block 5. Only head 4's 64 columns of $Q$, $K$ and $V$ are used, and the rest are dimmed. $Q_4$ and $K_4$ give the scores, which scaling, the mask and softmax turn into the attention weights $A$. $A$ times $V_4$ fills the same block of columns in $Z$, where the outputs of the 12 heads sit side by side."
 one_head()
-```
-
-```{python}
-#| echo: false
-#| column: margin
-overview(detail=3)
 ```
 
 Each of the 12 heads produces such a $Z_h$. They are put side by side into one $11 \times 768$ matrix and passed through one more fully connected layer, with a $768 \times 768$ matrix $W_O$:
@@ -1323,7 +1381,14 @@ $W_Q$, $W_K$ and $W_V$ have $768 \times 768 = 589{,}824$ weights each, and each 
 
 ## The MLP {#sec-te-mlp}
 
-This section covers step 13 of the Explainer's tour.
+```{python}
+#| echo: false
+#| fig-cap: "Click to enlarge."
+#| column: margin
+overview(detail=4, scale=2)
+```
+
+<!-- This section covers step 13 of the Explainer's tour. -->
 
 After the attention layer, each token's list goes through a small network of two fully connected layers, which the Explainer calls the *MLP*, short for multi-layer perceptron. With $\tilde X = \operatorname{LN}(X)$ again the normalized $11 \times 768$ matrix, it computes
 
@@ -1338,13 +1403,6 @@ $W_1$ is $768 \times 3{,}072$, so the first layer has 3,072 neurons, four times 
 #| echo: false
 #| fig-cap: "The MLP, the teal part of @fig-te-overview. Left: $W_1$ widens each token's stripe to 3,072 numbers, GELU is applied to each number, and $W_2$ brings each stripe back to 768. Right: the same network for one token, drawn as neurons with 3 inputs, 6 hidden neurons and 3 outputs instead of 768, 3,072 and 768. The same weights are used for every token, and no line connects one token to another."
 mlp()
-```
-
-
-```{python}
-#| echo: false
-#| column: margin
-overview(detail=4)
 ```
 
 GELU is a smooth relative of the [ReLU](../neural_networks/neurons.qmd#sec-nn-relu) you have met before. It is defined as $\operatorname{GELU}(x) = x\,\Phi(x)$, where $\Phi(x)$ is the probability that a number drawn from a standard normal distribution is smaller than $x$. For large positive $x$, $\Phi(x)$ is almost 1 and GELU passes $x$ through, and for large negative $x$, $\Phi(x)$ is almost 0 and GELU gives 0, just like ReLU. In between, it bends smoothly instead of at a sharp corner, and it dips slightly below zero, as @fig-te-gelu shows. GPT-2 computes it with the approximation
@@ -1393,7 +1451,7 @@ $W_1$ and $b_1$ have $768 \times 3{,}072 + 3{,}072 = 2{,}362{,}368$ parameters, 
 
 ## Twelve blocks {#sec-te-stack}
 
-This section covers step 7 of the Explainer's tour.
+<!-- This section covers step 7 of the Explainer's tour. -->
 
 A block takes an $11 \times 768$ matrix and returns one of the same shape, so the blocks can be chained, and GPT-2 chains twelve of them. They are built the same way, but each has its own $W_Q$, $W_K$, $W_V$, $W_O$, $W_1$, $W_2$, biases and layer normalization parameters. The Explainer draws only the first and writes "11 more identical Transformer Blocks" behind it. You can move between them with the arrows next to Transformer Block 1.
 
@@ -1430,7 +1488,7 @@ Twelve blocks have $12 \times 7{,}087{,}872 = 85{,}054{,}464$. The token embeddi
 
 ## From numbers to the next word {#sec-te-output}
 
-This section covers steps 14 to 17 of the Explainer's tour.
+<!-- This section covers steps 14 to 17 of the Explainer's tour. -->
 
 After the twelfth block, only the last row of $X$ is used, the $1 \times 768$ list $x_{11}$ for "its", because only the last token has seen the whole sentence. It is normalized once more and sent through one last fully connected layer, with 50,257 neurons, one for each token in the vocabulary:
 
@@ -1449,8 +1507,9 @@ output()
 
 ```{python}
 #| echo: false
+#| fig-cap: "Click to enlarge."
 #| column: margin
-overview(detail=5)
+overview(detail=5, scale=2)
 ```
 
 Softmax turns the logits into probabilities, the same function the attention layer uses. Before softmax, the logits are divided by a number $T$ called the *temperature*:
