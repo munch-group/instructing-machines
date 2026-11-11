@@ -986,7 +986,7 @@ Figure&nbsp;53.11: Computing two cells. Each of the three neighbors contributes 
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="1f8c13f5" class="cell" data-execution_count="13">
+<div id="8cba3c4b" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1060,7 +1060,7 @@ Figure&nbsp;53.13: Traceback. Starting from the bottom-right corner, each arrow 
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="2806ad1c" class="cell" data-execution_count="16">
+<div id="815dee7b" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1070,7 +1070,7 @@ Figure&nbsp;53.13: Traceback. Starting from the bottom-right corner, each arrow 
 </div>
 </div>
 <p>The best score is 1, and three alignments reach it:</p>
-<div id="0ca344d9" class="cell" data-execution_count="17">
+<div id="24e21b53" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
 <pre><code>gggct
 gaggg
@@ -1103,7 +1103,7 @@ gaggg-
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="a647d2db" class="cell" data-execution_count="18">
+<div id="1f14be41" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1124,7 +1124,7 @@ g-tac</code></pre>
 </section>
 <section id="sec-pa-matrices" class="level2 unnumbered page-columns page-full">
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-matrices">Score matrices in practice</h2>
-<div id="1085d5d4" class="cell page-columns page-full" data-execution_count="19">
+<div id="48ce038b" class="cell page-columns page-full" data-execution_count="19">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1141,7 +1141,7 @@ g-tac</code></pre>
 <h2 class="unnumbered anchored" data-anchor-id="sec-pa-local">Local alignment</h2>
 <p>Global alignment, which Needleman-Wunsch does, aligns the two sequences end to end. That is what you want when the sequences are related along their whole length, like the same gene in two closely related species. Often they are not. Two proteins may share a single domain and be unrelated outside it, or you may want to find where a short sequence matches inside a much longer one. A global alignment then has to align the unrelated parts too, filling them with mismatches and gaps that mean nothing.</p>
 <p>Here are two sequences that share a stretch of about 20 bases inside unrelated flanks. The stretch starts two bases into the first sequence and ten bases into the second. Within the stretch, one base differs and one base is missing from the second sequence. Scored with 2 for identical bases, −1 for different bases, and −2 for a gap, the best global alignment scores 19, and 10 different global alignments share that score. Here is one of them:</p>
-<div id="30c32883" class="cell" data-execution_count="20">
+<div id="3af8d833" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-stdout">
 <pre><code>gtatggcgtacc-tgaagtcagcgatagttaggc-
 |  |||  |||| ||   | | | | ||| || | 
@@ -1149,7 +1149,7 @@ g--tggtataccatg-gcttaccta-agtcagcct</code></pre>
 </div>
 </div>
 <p>What we want is the best alignment between a part of one sequence and a part of the other. That is a local alignment, and the best one here scores 33:</p>
-<div id="8abfbfa3" class="cell" data-execution_count="21">
+<div id="5aa8a2b5" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-stdout">
 <pre><code>atggcgtacctgaagtcagc
 ||||| ||||| ||||||||
@@ -1236,7 +1236,7 @@ Figure&nbsp;53.15: Traceback paths for global (left) and local (right) alignment
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="46e4fe8b" class="cell" data-execution_count="24">
+<div id="f40215c3" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1294,7 +1294,7 @@ Figure&nbsp;53.16: Gaps at the beginning of an alignment are steps along the fir
 <div class="callout-body-container callout-body">
 <p>The first place is the first row and column, which get 0 instead of multiples of the gap score. The second place is the last row and column: a step to the left within the last row, or a step up within the last column, adds a gap at the end of the alignment, so it should use the end-gap score of 0 instead of the gap score.</p>
 <p>With free end gaps, <code>GGGCT</code> and <code>GAGGG</code> can overlap like this, with three pairs of matching <code>G</code>s and only the overhanging bases against gaps:</p>
-<div id="ecbf3732" class="cell" data-execution_count="26">
+<div id="473d154e" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
