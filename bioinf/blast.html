@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../bioinf/dna-evolution.html" rel="next">
+<link href="../bioinf/scoring-matrices.html" rel="next">
 <link href="../neural_networks/training.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -659,20 +659,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../bioinf/dna-evolution.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">DNA evolution</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../bioinf/scoring-matrices.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Scoring matrices</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Scoring matrices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/plasmid-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Project: Which ORFs are genes?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Project: Which ORFs are genes?</span></span></a>
   </div>
 </li>
       </ul>
@@ -689,25 +683,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/delegate-the-full-problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../python/regular-expressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">AI: Delegate the full problem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">AI: Inside a language model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">AI: Inside a language model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bioinf/dna-evolution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">DNA evolution</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/hiv-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Project: HIV sub-groups</span></span></a>
   </div>
 </li>
       </ul>
@@ -724,7 +718,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai/dangers-of-AI.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Dangers of AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Dangers of AI</span></span></a>
   </div>
 </li>
       </ul>
@@ -872,7 +866,7 @@ Figure&nbsp;56.4: The X-drop rule, here with X = 20. The extension score climbs 
 </div>
 </div>
 <p>The result is a <em>high-scoring segment pair</em>, or HSP. For our small query and subject, extending the hit at the start of the diagonal gives an HSP with a score of 34 that covers the whole query:</p>
-<div id="e7f4fb7d" class="cell" data-execution_count="6">
+<div id="ff95ba0d" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>TGCATGCCAGTTACGGATCAAG
 ||||||| ||||||| ||||||
@@ -990,7 +984,7 @@ Figure&nbsp;56.7: E-value against score for a 300-letter protein query, with BLO
 </div>
 </div>
 <p>As an example, the two short proteins MSHWEKLNGCAPRTYIDVQKFGEMLW and TTGAPNSHWEKINGCAPKTFIDLRSAQPLE share a stretch that the toy BLAST finds and extends into this HSP:</p>
-<div id="348671d3" class="cell" data-execution_count="10">
+<div id="1f251fc2" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>SHWEKLNGCAPRTYIDVQ
 SHWEKINGCAPKTFIDLR</code></pre>
@@ -1203,7 +1197,7 @@ Figure&nbsp;56.8: Hits of the protein query at T = 11 in a stretch of the databa
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hit.target.<span class="bu">id</span>, hsp.annotations[<span class="st">"evalue"</span>], <span class="bu">round</span>(identity, <span class="dv">1</span>),</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          hit.target.description[:<span class="dv">40</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For the FOXP2 search from the exercise above, saved in the course’s <code>data/foxp2_blastp.xml</code>, that prints:</p>
-<div id="b82e8725" class="cell" data-execution_count="13">
+<div id="8b9af16c" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-stdout">
 <pre><code>sp|O15409.2|   0           97.7  Forkhead box protein P2 (Homo sapiens)
 sp|Q8HZ00.1|   0           97.3  Forkhead box protein P2 (Pan paniscus)
@@ -1672,8 +1666,8 @@ document.addEventListener("DOMContentLoaded", function () {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../bioinf/dna-evolution.html" class="pagination-link" aria-label="DNA evolution">
-        <span class="nav-page-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">DNA evolution</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../bioinf/scoring-matrices.html" class="pagination-link" aria-label="Scoring matrices">
+        <span class="nav-page-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Scoring matrices</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
