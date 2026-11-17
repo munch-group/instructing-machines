@@ -54,7 +54,7 @@ $$
 
 A pair seen twice as often as chance scores 1, one seen half as often scores −1, and one seen exactly as often as chance scores 0. Because the logarithm has base 2, the score is measured in *bits*. The published matrix scales the scores and rounds them to whole numbers. BLOSUM62 is in half-bits, $S_{ij} = \mathrm{round}(2 \log_2 (q_{ij}/e_{ij}))$, while some other matrices, such as BLOSUM50, are in thirds of a bit.
 
-To see the steps in action, take a tiny block of five sequences and three columns, and skip the clustering:
+To see the steps in action, take a tiny block of five sequences and three columns:
 
 ```txt
 AAC
@@ -64,7 +64,7 @@ SAC
 AAW
 ```
 
-Five sequences make 10 pairs in each column, so 30 pairs in all. The background frequencies come out as $p_A = 0.533$, $p_C = 0.267$, $p_S = 0.133$ and $p_W = 0.067$, and the four pairs that occur get these scores:
+Sequences 1 and 3 are identical, and no other pair reaches 80% identity in only three columns, so at a threshold of 80 the clustering puts just those two together. Each gets weight $1/2$; the other three are singletons with weight 1. The one within-cluster pair is dropped, and each cross-cluster pair contributes the product of its two weights to $f_{ij}$. The background frequencies come out as $p_A = 0.500$, $p_C = 0.250$, $p_S = 0.167$ and $p_W = 0.083$, and the four pairs that occur get these scores:
 
 ```{python}
 #| echo: false
@@ -74,10 +74,43 @@ from collections import Counter
 from math import log2
 
 block = ["AAC", "ASC", "AAC", "SAC", "AAW"]
+ncols = len(block[0])
+
+# Single-linkage clustering at 80% identity
+threshold = 0.80
+clusters = []
+for idx, seq in enumerate(block):
+    placed = False
+    for cluster in clusters:
+        for member in cluster:
+            if sum(a == b for a, b in zip(seq, block[member])) / ncols >= threshold:
+                cluster.append(idx)
+                placed = True
+                break
+        if placed:
+            break
+    if not placed:
+        clusters.append([idx])
+
+weight = {}
+for cluster in clusters:
+    w = 1 / len(cluster)
+    for idx in cluster:
+        weight[idx] = w
+
+cluster_of = {}
+for ci, cluster in enumerate(clusters):
+    for idx in cluster:
+        cluster_of[idx] = ci
+
 f = Counter()
 for column in zip(*block):
-    for a, b in combinations(column, 2):
-        f[tuple(sorted((a, b)))] += 1
+    for i, j in combinations(range(len(block)), 2):
+        if cluster_of[i] == cluster_of[j]:
+            continue
+        pair = tuple(sorted((column[i], column[j])))
+        f[pair] += weight[i] * weight[j]
+
 total = sum(f.values())
 q = {pair: count / total for pair, count in f.items()}
 p = {}
@@ -89,10 +122,10 @@ print("|:-:|--:|--:|--:|--:|--:|")
 for (i, j), qij in sorted(q.items()):
     eij = p[i] ** 2 if i == j else 2 * p[i] * p[j]
     s = log2(qij / eij)
-    print(f"| {i}–{j} | {f[(i, j)]} | {qij:.3f} | {eij:.3f} | {s:.2f} | {round(2 * s)} |")
+    print(f"| {i}–{j} | {f[(i, j)]:g} | {qij:.3f} | {eij:.3f} | {s:.2f} | {round(2 * s)} |")
 ```
 
-Two things in the table may surprise you. C–W scores higher than C–C, and A–S scores higher than A–A, even though identical amino acids are paired more often. Scores measure how surprising a pair is compared with chance, and S and W are rare, so seeing them at all in a pair is surprising. Pairs that never occur, like A–C, have $q = 0$, which gives them a score of minus infinity. With so little data, the matrix is odd. The real BLOCKS data hold enough pairs that every combination is seen.
+Two things in the table may surprise you. A–S is counted just as often as A–A, yet it scores higher. The counts reflect what happens in this block; the score measures how surprising that is compared with chance. S is rare, so a pair containing it is unlikely at random, and finding one is stronger evidence of relatedness than finding another A–A pair. The same logic puts C–W above C–C. Without the clustering, the identical pair of sequences would inflate the identity counts, pulling the balance toward A–A and C–C. Pairs that never occur, like A–C, have $q = 0$, which gives them a score of minus infinity. With so little data, the matrix is odd. The real BLOCKS data hold enough pairs that every combination is seen.
 
 ## Reading the matrix {#sec-molevo-blosum-reading}
 
