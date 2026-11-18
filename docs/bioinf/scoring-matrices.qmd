@@ -2,6 +2,7 @@
 jupyter: python3
 execute:
   enabled: true
+lightbox: true
 ---
 
 # Scoring matrices {#sec-scoring-matrices}
@@ -22,110 +23,477 @@ To align two proteins, you need a score for every pair of amino acids that can e
 
 The BLOSUM matrices are counted from real proteins. The data are the BLOCKS database: more than 2,000 ungapped multiple alignments of the conserved regions of more than 500 protein families. Because the blocks have no gaps, each column is a set of amino acids assumed to descend from the same ancestral amino acid. Gaps therefore play no part in the matrix, and the gap scores for protein alignment are chosen separately.
 
-The idea is to go through every column of every block, look at every pair of sequences, and count which two amino acids they have in that column. One problem is that some protein families include many nearly identical sequences, which would dominate the counts and tell us mostly about pairs that have barely had time to change. So before counting, we cluster the sequences in each block: a sequence joins a cluster if it is at least $X$ percent identical to any sequence already in it. A sequence in a cluster of $n$ sequences then gets weight $1/n$, so each cluster counts as a single sequence, and pairs within a cluster are not counted at all. For every pair of sequences in different clusters, add the product of their weights to the count $f_{ij}$ for the two amino acids $i$ and $j$ they have in that column. Sum these counts over all columns of all blocks, then convert them into scores as described below.
+The idea is to go through every column of every block, look at every pair of sequences, and count which two amino acids they have in that column. One problem is that some protein families include many nearly identical sequences, which would dominate the counts and tell us mostly about pairs that have barely had time to change. So before counting, we cluster the sequences in each block: a sequence joins a cluster if it is at least $X$ percent identical to any sequence already in it. A sequence in a cluster of $n$ sequences then gets weight $1/n$, so each cluster counts as a single sequence, and pairs within a cluster are not counted at all. For every pair of sequences in different clusters, add the product of their weights to the count $f_{ij}$ for the two amino acids $i$ and $j$ they have in that column. Sum these counts over all columns of all blocks, then convert them into frequencies and scores as described in @sec-molevo-blosum-counting and @sec-molevo-blosum-scores.
 
 The threshold $X$ gives the matrix its name: $X = 62$ gives BLOSUM62, $X = 80$ gives BLOSUM80, and $X = 45$ gives BLOSUM45. A high threshold merges few sequences, so counts are dominated by close relatives, and the matrix suits comparisons of closely related proteins. A low threshold merges away close relatives, so only distantly related pairs are counted, and the matrix suits distant relatives.
 
-## From counts to scores {#sec-molevo-blosum-scores}
+## Counting pairs {#sec-molevo-blosum-counting}
 
-The counts are first turned into the *observed frequency* of each pair,
+To see the steps in action, take the small block of six sequences and ten columns in @fig-blosum-block. Each row is a sequence and each column a position, and since the block has no gaps, every column holds one amino acid from each sequence. Before anything is counted, the sequences are clustered, and for that you need the identity between every two sequences: the share of columns where they have the same amino acid. With ten columns, an identity is always a whole number of tenths. Sequences 1 and 2 differ only in the last column, so they are 90% identical, while sequences 5 and 6 do not agree in a single column and are 0% identical.
+
+```{python}
+#| echo: false
+#| output: false
+%config InlineBackend.figure_formats = ['svg']
+```
+
+```{python}
+#| echo: false
+#| output: false
+from itertools import combinations
+from collections import Counter
+from fractions import Fraction
+from math import log2
+from matplotlib.patches import FancyBboxPatch, Rectangle
+
+
+block = ["KDLIVEAGRY", "KDLIVEAGRF", "KELVVDAGRF",
+         "RDMIIDSGKY", "RDLIVDSAKY", "KNVLFETGRW"]
+ncols = len(block[0])
+thresholds = [0.80, 0.62]
+
+def identity(a, b):
+    return sum(x == y for x, y in zip(a, b)) / len(a)
+
+def cluster(block, threshold):
+    """Single linkage: two sequences at least `threshold` identical end up in
+    the same cluster, and so does everything linked to them in a chain."""
+    cluster_of = list(range(len(block)))
+    for i, j in combinations(range(len(block)), 2):
+        if identity(block[i], block[j]) >= threshold:
+            old, new = cluster_of[j], cluster_of[i]
+            cluster_of = [new if c == old else c for c in cluster_of]
+    sizes = Counter(cluster_of)
+    weight = [Fraction(1, sizes[c]) for c in cluster_of]
+    return cluster_of, weight
+
+def pair_counts(block, cluster_of, weight):
+    f = Counter()
+    for column in zip(*block):
+        for i, j in combinations(range(len(block)), 2):
+            if cluster_of[i] != cluster_of[j]:
+                f[tuple(sorted((column[i], column[j])))] += weight[i] * weight[j]
+    return f
+
+def log_odds(f):
+    total = sum(f.values())
+    q = {pair: count / total for pair, count in f.items()}
+    p = Counter()
+    for (a, b), v in q.items():
+        if a == b:
+            p[a] += v
+        else:
+            p[a] += v / 2
+            p[b] += v / 2
+    return {(a, b): float(log2(v / (p[a] ** 2 if a == b else 2 * p[a] * p[b])))
+            for (a, b), v in q.items()}
+
+clustering = {X: cluster(block, X) for X in thresholds}
+counts = {X: pair_counts(block, *clustering[X]) for X in thresholds}
+scores = {X: log_odds(counts[X]) for X in thresholds}
+
+def row_positions(cluster_of):
+    """Rows of one cluster sit together, and clusters are separated by a gap."""
+    y, ys, prev = 0.0, [], None
+    for i, c in enumerate(cluster_of):
+        if prev is not None and c != prev:
+            y -= 0.55
+        ys.append(y)
+        y -= 1.0
+        prev = c
+    return ys
+
+def bracket_levels(n):
+    """Give every pair of rows a bracket level, so that brackets on the same
+    level never overlap or touch. Short brackets go nearest the sequences."""
+    levels, taken = {}, []
+    for i, j in sorted(combinations(range(n), 2), key=lambda p: (p[1] - p[0], p[0])):
+        level = 0
+        while level < len(taken) and any(not (j < a or i > b) for a, b in taken[level]):
+            level += 1
+        if level == len(taken):
+            taken.append([])
+        taken[level].append((i, j))
+        levels[(i, j)] = level
+    return levels
+
+def draw_clusterings():
+    """The block clustered at both thresholds side by side, with the identity
+    between every two sequences as a bracket on the right."""
+    blue, gray, light, guide = "#2a78d6", "#9a9893", "#f0efec", "#e4e2dd"
+    levels = bracket_levels(len(block))
+    step = 1.25
+    x_right = ncols + 0.3 + step * max(levels.values()) + 1.2
+    all_ys = {X: row_positions(clustering[X][0]) for X in thresholds}
+    bottom_y = min(min(ys) for ys in all_ys.values()) - 0.6
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.6))
+    for ax, X in zip(axes, thresholds):
+        cluster_of, weight = clustering[X]
+        ys = all_ys[X]
+        for c in dict.fromkeys(cluster_of):
+            members = [ys[i] for i in range(len(block)) if cluster_of[i] == c]
+            top, bottom = max(members) + 0.42, min(members) - 0.42
+            ax.add_patch(FancyBboxPatch((-0.55, bottom), ncols + 0.1, top - bottom,
+                                        boxstyle="round,pad=0,rounding_size=0.25",
+                                        facecolor=light, edgecolor=gray, lw=0.8, zorder=0))
+        for i, seq in enumerate(block):
+            for c, aa in enumerate(seq):
+                ax.text(c, ys[i], aa, ha="center", va="center", family="monospace",
+                        fontsize=8, color="#0b0b0b")
+            ax.text(-1.0, ys[i], str(weight[i]), ha="right", va="center", fontsize=7)
+            ax.text(-2.6, ys[i], str(i + 1), ha="right", va="center", fontsize=6.5, color=gray)
+            # A faint guide from each sequence out to its bracket ends.
+            ax.plot([ncols - 0.4, x_right - 1.2], [ys[i], ys[i]], color=guide, lw=1.6, zorder=0)
+        for (i, j), level in levels.items():
+            x = ncols + 0.3 + step * level
+            share = identity(block[i], block[j])
+            color = blue if share >= X else gray
+            ax.plot([x - 0.2, x, x, x - 0.2], [ys[i], ys[i], ys[j], ys[j]], color=color, lw=0.8)
+            ax.text(x + 0.12, (ys[i] + ys[j]) / 2, f"{share * 100:.0f}", ha="left",
+                    va="center", fontsize=5.5, color=color)
+        ax.text(-1.0, 1.0, "weight", ha="right", va="center", fontsize=6, color=gray)
+        ax.set_title(f"$X$ = {X:.0%}", fontsize=10)
+        ax.set_xlim(-3, x_right)
+        ax.set_ylim(bottom_y, 1.4)
+        ax.set_aspect("equal")
+        ax.axis("off")
+    plt.tight_layout(w_pad=1.0)
+    plt.show()
+
+def draw_clustering(X, pair_seqs=(0, 3), pair_col=4):
+    """Draw the block clustered at threshold X, with one counted pair:
+    by default sequences 1 and 4 in column 5."""
+    blue, orange, gray, light = "#2a78d6", "#eb6834", "#9a9893", "#f0efec"
+    cluster_of, weight = clustering[X]
+    ys = row_positions(cluster_of)
+    bottom_y = min(ys) - 1.5
+    fig, ax = plt.subplots(figsize=(4.4, 0.3 * (1.4 - bottom_y) + 0.3))
+    for c in dict.fromkeys(cluster_of):
+        members = [ys[i] for i in range(len(block)) if cluster_of[i] == c]
+        top, bottom = max(members) + 0.42, min(members) - 0.42
+        ax.add_patch(FancyBboxPatch((-0.55, bottom), ncols + 0.1, top - bottom,
+                                    boxstyle="round,pad=0,rounding_size=0.25",
+                                    facecolor=light, edgecolor=gray, lw=0.8, zorder=0))
+    # The pair being counted: two highlighted residues and an arrow between them.
+    for i in pair_seqs:
+        ax.add_patch(Rectangle((pair_col - 0.42, ys[i] - 0.4), 0.84, 0.8,
+                               facecolor=blue, edgecolor="none", zorder=1))
+    a, b = pair_seqs
+    x_arrow = pair_col + 0.5      # the gap between this column and the next
+    ax.annotate("", xy=(x_arrow, ys[b] + 0.42), xytext=(x_arrow, ys[a] - 0.42),
+                arrowprops=dict(arrowstyle="-|>", color=orange, lw=1.6,
+                                shrinkA=0, shrinkB=0), zorder=3)
+    wa, wb = weight[a], weight[b]
+    res = sorted((block[a][pair_col], block[b][pair_col]))
+    ax.text(ncols / 2 - 0.5, min(ys) - 1.0,
+            f"$f_{{{res[0]}{res[1]}}}$ += {wa} × {wb} = {wa * wb}",
+            ha="center", va="center", fontsize=10, color=orange)
+    for i, seq in enumerate(block):
+        for c, aa in enumerate(seq):
+            highlighted = i in pair_seqs and c == pair_col
+            ax.text(c, ys[i], aa, ha="center", va="center", family="monospace",
+                    fontsize=11, color="white" if highlighted else "#0b0b0b",
+                    fontweight="bold" if highlighted else "normal", zorder=4)
+        ax.text(-1.0, ys[i], str(weight[i]), ha="right", va="center", fontsize=9)
+        ax.text(-2.6, ys[i], str(i + 1), ha="right", va="center", fontsize=8, color=gray)
+    # Identity brackets: (first sequence, second sequence, how far out to draw it).
+    for i, j, level in [(0, 1, 0), (1, 2, 0), (0, 2, 1), (3, 4, 0)]:
+        x = ncols - 0.2 + 0.9 * level
+        color = blue if identity(block[i], block[j]) >= X else gray
+        ax.plot([x - 0.15, x, x, x - 0.15], [ys[i], ys[i], ys[j], ys[j]], color=color, lw=1)
+        ax.text(x + 0.1, (ys[i] + ys[j]) / 2, f"{identity(block[i], block[j]):.0%}",
+                ha="left", va="center", fontsize=7, color=color)
+    ax.text(-1.0, 1.0, "weight", ha="right", va="center", fontsize=7, color=gray)
+    ax.set_title(f"$X$ = {X:.0%}", fontsize=11)
+    ax.set_xlim(-3, ncols + 1.6)
+    ax.set_ylim(bottom_y, 1.4)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    plt.tight_layout()
+    plt.show()
+
+def draw_block():
+    """Draw the block as it is, before any clustering, on the same scale
+    as draw_clustering."""
+    gray, light = "#9a9893", "#f0efec"
+    ys = [-i for i in range(len(block))]
+    bottom_y = min(ys) - 0.6
+    fig, ax = plt.subplots(figsize=(4.4, 0.3 * (0.6 - bottom_y) + 0.3))
+    ax.add_patch(FancyBboxPatch((-0.55, min(ys) - 0.42), ncols + 0.1, len(block) - 1 + 0.84,
+                                boxstyle="round,pad=0,rounding_size=0.25",
+                                facecolor=light, edgecolor=gray, lw=0.8, zorder=0))
+    for i, seq in enumerate(block):
+        for c, aa in enumerate(seq):
+            ax.text(c, ys[i], aa, ha="center", va="center", family="monospace",
+                    fontsize=11, color="#0b0b0b")
+        ax.text(-2.6, ys[i], str(i + 1), ha="right", va="center", fontsize=8, color=gray)
+    ax.set_xlim(-3, ncols + 1.6)
+    ax.set_ylim(bottom_y, 0.6)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    plt.tight_layout()
+    plt.show()
+```
+
+```{python}
+#| echo: false
+#| label: fig-blosum-block
+#| fig-cap: "A small block of six protein sequences and ten columns, before clustering."
+draw_block()
+```
+
+@fig-blosum-clusterings shows the identity between every two sequences, and the clusters it gives at $X = 80$ and at $X = 62$.
+
+```{python}
+#| echo: false
+#| label: fig-blosum-clusterings
+#| fig-cap: "The block from @fig-blosum-block clustered at $X = 80$ and at $X = 62$. Each gray box is a cluster, and the number to the left of a sequence is its weight. The brackets on the right give the percent identity between every two sequences, in blue where it reaches the threshold. Light lines lead from each sequence to the ends of its brackets."
+draw_clusterings()
+```
+
+At $X = 80$, two sequences must agree in at least eight of the ten columns to share a cluster. Only sequences 1 and 2 do, with 90% identity, so they form a cluster and each gets weight 1/2. Sequence 3 is 70% identical to sequence 2 and 60% identical to sequence 1, which is not enough for either. Sequences 4 and 5 are 70% identical, which is not enough either, and sequence 6 is no more than 40% identical to any other. These four sequences each form a cluster of their own and get weight 1.
+
+At $X = 62$, two sequences need to agree in only seven columns. Sequence 3 is 70% identical to sequence 2, so it joins the cluster of sequences 1 and 2. It is still only 60% identical to sequence 1, but that does not keep it out: a sequence joins a cluster if it is close enough to any one of its members. Sequences 4 and 5 are 70% identical and now form a cluster too. Sequence 6 stays on its own. Three clusters are left, and the weights become 1/3, 1/2 and 1.
+
+Now the pairs can be counted, starting at $X = 80$ (@fig-blosum-cluster80).
+
+```{python}
+#| echo: false
+#| label: fig-blosum-cluster80
+#| fig-cap: "The block clustered at $X = 80$, with one counted pair. Each gray box is a cluster, and the number to the left of a sequence is its weight. The brackets on the right give the identity between two sequences, in blue where it reaches the threshold. The arrow is one pair counted in column 5, and the formula below is what that pair adds to $f_{IV}$. It is one of eight I–V pairs in the block, all in columns 4 and 5. In column 4, the pairs of sequences 1 and 3 and of 2 and 3 add 1/2 each, and those of 3 and 4 and of 3 and 5 add 1 each. In column 5, the pair under the arrow and that of sequences 2 and 4 add 1/2 each, and those of 3 and 4 and of 4 and 5 add 1 each. In all, $f_{IV} = 6$."
+draw_clustering(0.80)
+```
+
+Now go through column 5, one pair of sequences at a time. The arrow shows one of them: the valine of sequence 1 and the isoleucine of sequence 4. They are in different clusters, so the pair is counted, and it adds the product of their weights, $1/2 \times 1 = 1/2$, to $f_{IV}$. Sequences 1 and 2 are in the same cluster, so their pair is skipped. Every other pair of sequences is counted: a pair involving sequence 1 or 2 adds 1/2, and a pair of two sequences on their own adds 1. Added up, column 5 contributes 10 to the counts, which is the number of pairs you can make from five clusters. That is the point of the weights: the cluster of sequences 1 and 2 counts as one sequence, split between its two members. The other nine columns are counted the same way, so the counts at $X = 80$ add up to 100.
+
+Then do the same at $X = 62$ (@fig-blosum-cluster62).
+
+```{python}
+#| echo: false
+#| label: fig-blosum-cluster62
+#| fig-cap: "The block from @fig-blosum-cluster80 clustered at $X = 62$. Sequences 3 and 5 have joined clusters, which changes the weights and what the same pair adds to $f_{IV}$. Of the eight I–V pairs, three now fall within a cluster and are not counted: those of sequences 1 and 3 and of 2 and 3 in column 4, and that of 4 and 5 in column 5. The other five each add $1/3 \times 1/2 = 1/6$: those of sequences 3 and 4 and of 3 and 5 in column 4, and in column 5 the pair under the arrow and those of 2 and 4 and of 3 and 4. In all, $f_{IV} = 5/6$."
+draw_clustering(0.62)
+```
+
+The counting works as before, but with the new weights. The pair under the arrow is still counted, because sequences 1 and 4 are still in different clusters, but it now adds only $1/3 \times 1/2 = 1/6$ to $f_{IV}$. Other pairs are no longer counted at all. Sequences 2 and 3 were in different clusters at $X = 80$, where their ten columns contributed seven identities, one I–V and two D–E. At $X = 62$ they share a cluster, and none of those pairs is counted. Each column now contributes 3, the number of pairs you can make from three clusters, so the counts add up to 30. The total itself does not matter, because the counts are turned into frequencies. What matters is that the pairs that dropped out were mostly identities between close relatives.
+
+The counts are then turned into the *observed frequency* of each pair,
 
 $$
 q_{ij} = \frac{f_{ij}}{\sum_{i \le j} f_{ij}},
 $$
 
-where the sum runs over every pair once, so that A–S and S–A are the same pair. From these, the *background frequency* of each amino acid is its share of all the members of all the pairs. An amino acid paired with itself is both members of the pair, and one paired with another is half of it:
+where the sum runs over every pair once, so that A–S and S–A are the same pair. Dividing by the total is why it did not matter that the total fell from 100 to 30. For a selection of the pairs in the block, this gives:
+
+```{python}
+#| echo: false
+#| output: asis
+selected_pairs = [("I", "I"), ("R", "R"), ("G", "G"), ("I", "V"), ("D", "E"), ("K", "R"), ("W", "Y")]
+frequencies = {X: {pair: count / sum(counts[X].values()) for pair, count in counts[X].items()}
+               for X in thresholds}
+identity_share = {X: float(sum(v for (a, b), v in frequencies[X].items() if a == b))
+                  for X in thresholds}
+
+print("| Pair | $f$ at $X = 80$ | $q$ at $X = 80$ | $f$ at $X = 62$ | $q$ at $X = 62$ |")
+print("|:-:|--:|--:|--:|--:|")
+for pair in selected_pairs:
+    cells = []
+    for X in thresholds:
+        cells += [str(counts[X][pair]), f"{float(frequencies[X][pair]):.3f}"]
+    print(f"| {pair[0]}–{pair[1]} | " + " | ".join(cells) + " |")
+```
+
+Lowering the threshold removed mostly identities, so the identities' share of all the pairs falls from `{python} f"{identity_share[0.80]:.0%}"` at $X = 80$ to `{python} f"{identity_share[0.62]:.0%}"` at $X = 62$, and the substitutions make up more of what is left. From the frequencies of the pairs, you also get the *background frequency* of each amino acid: its share of all the members of all the pairs. An amino acid paired with itself is both members of the pair, and one paired with another is half of it:
 
 $$
 p_i = q_{ii} + \sum_{j \ne i} \frac{q_{ij}}{2}.
 $$
 
-If amino acids were paired at random, the pair $i$–$j$ would turn up with the *expected frequency*
+The frequencies say how amino acids change between relatives. If one sequence has amino acid $i$ at a position, the probability that its relative has amino acid $j$ there is
+
+$$
+P(j \mid i) = \begin{cases} q_{ii} / p_i & \text{if } j = i \\ q_{ij} / (2 p_i) & \text{if } j \ne i, \end{cases}
+$$
+
+where the 2 is there because $q_{ij}$ counts the pair with $i$ in either sequence. @fig-blosum-target shows these probabilities for the real BLOSUM80, BLOSUM62 and BLOSUM45. Each row is one amino acid $i$, and the cells along the row, which add up to one, show what it is found opposite in a relative.
+
+```{python}
+#| echo: false
+#| label: fig-blosum-target
+#| fig-cap: "The probability $P(j \\mid i)$ that a position with amino acid $i$ (rows) has amino acid $j$ (columns) in a relative, for the pair frequencies behind BLOSUM80, BLOSUM62 and BLOSUM45. The amino acids are in the same order as in @fig-blosum62. The color scale is logarithmic, so the pale cells are about a hundred times less likely than the darkest. The published matrices hold only rounded scores, so the frequencies are worked back from the scores, as explained in @sec-molevo-blosum-scores, with the background frequencies of BLOSUM62 for all three."
+from matplotlib.colors import LinearSegmentedColormap, LogNorm, SymLogNorm
+from Bio.Align import substitution_matrices
+
+order = "CSTPAGNDEQHRKMILVFYW"
+# Background frequencies behind BLOSUM62 (Henikoff and Henikoff, 1992), used for all three.
+background = dict(zip("ARNDCQEGHILKMFPSTWYV",
+                      [.074, .052, .045, .054, .025, .034, .054, .074, .026, .068,
+                       .099, .058, .025, .047, .039, .057, .051, .013, .032, .073]))
+p_background = np.array([background[a] for a in order])
+p_background /= p_background.sum()
+
+def target_frequencies(name):
+    """The pair frequencies a score matrix implies, q_ij = p_i p_j exp(lambda s_ij),
+    with lambda chosen so that they add up to 1 (Altschul, 1991). The table holds
+    ordered pairs, so a pair i-j is split between q_ij and q_ji."""
+    m = substitution_matrices.load(name)
+    s = np.array([[m[a][b] for b in order] for a in order], dtype=float)
+    pp = np.outer(p_background, p_background)
+    low, high = 0.01, 2.0
+    for _ in range(100):                      # find lambda by bisection
+        lam = (low + high) / 2
+        if (pp * np.exp(lam * s)).sum() > 1:
+            high = lam
+        else:
+            low = lam
+    q = pp * np.exp(lam * s)
+    return q / q.sum()
+
+groups = ["ILVM", "FYW", "KR", "DE"]           # the similar groups named in the text
+similar = np.array([[a != b and any(a in g and b in g for g in groups) for b in order]
+                    for a in order])
+changed = ~np.eye(len(order), dtype=bool)
+target = {}
+for name in ["BLOSUM80", "BLOSUM62", "BLOSUM45"]:
+    q = target_frequencies(name)
+    conditional = q / q.sum(axis=1, keepdims=True)   # P(j | i): each row adds up to 1
+    target[name] = {"P": conditional,
+                    "same": np.trace(q),
+                    "similar": q[similar].sum() / q[changed].sum(),
+                    "V given I": conditional[order.index("I"), order.index("V")],
+                    "G given W": conditional[order.index("W"), order.index("G")]}
+
+blues = LinearSegmentedColormap.from_list("blues", ["#f7f6f3", "#2a78d6", "#0b2a55"])
+diverging = LinearSegmentedColormap.from_list("div", ["#eb6834", "#f7f6f3", "#2a78d6"])
+log_norm = LogNorm(vmin=0.002, vmax=0.6)
+# The diagonal changes by tenths and the rest by thousandths, so the difference
+# gets a scale that is linear near zero and logarithmic further out.
+difference = target["BLOSUM45"]["P"] - target["BLOSUM80"]["P"]
+diff_norm = SymLogNorm(linthresh=0.002, vmin=-0.3, vmax=0.3, base=10)
+
+def heatmap(ax, values, cmap, norm, title, label=""):
+    image = ax.imshow(values, cmap=cmap, norm=norm)
+    ax.set_xticks(range(len(order)), list(order), family="monospace", fontsize=5)
+    ax.set_yticks(range(len(order)), list(order), family="monospace", fontsize=5)
+    ax.xaxis.tick_top()
+    ax.tick_params(length=0, pad=1)
+    for side in ax.spines.values():
+        side.set_visible(False)
+    ax.set_title(title, fontsize=9, pad=12)
+    ax.set_xlabel(label, fontsize=8)
+    return image
+
+fig, axes = plt.subplots(1, 4, figsize=(7.2, 2.8),
+                         gridspec_kw={"width_ratios": [1, 1, 1, 0.06]})
+for ax, name, label in zip(axes[:3], target, ["Close relatives", "", "Distant relatives"]):
+    image = heatmap(ax, target[name]["P"], blues, log_norm, f"$P(j \\mid i)$ {name}", label)
+colorbar = fig.colorbar(image, cax=axes[3])
+colorbar.set_ticks([0.002, 0.01, 0.1, 0.5], labels=["0.002", "0.01", "0.1", "0.5"], fontsize=7)
+colorbar.set_label("$P(j \\mid i)$", fontsize=8)
+colorbar.outline.set_visible(False)
+plt.show()
+```
+
+In BLOSUM80, the diagonal is darkest and the rest of the matrix palest: the two amino acids in a column are the same with probability `{python} f"{target['BLOSUM80']['same']:.2f}"`. In BLOSUM62 that falls to `{python} f"{target['BLOSUM62']['same']:.2f}"` and in BLOSUM45 to `{python} f"{target['BLOSUM45']['same']:.2f}"`, and the probability spreads out from the diagonal. This is evolutionary distance at work. A lower threshold merges away close relatives, so the pairs of sequences that are left are further apart and have had more time to change. The BLOSUM number is thus a rough measure of how far apart the sequences behind a matrix are, and in @sec-molevo-pam you will meet matrices built from an explicit measure of distance.
+
+The substitutions also change in kind. Between close relatives, most differences are swaps between chemically similar amino acids, which barely change the protein and so are readily accepted by natural selection. The probability of finding V opposite an I is `{python} f"{target['BLOSUM80']['V given I']:.2f}"` in BLOSUM80 and about the same, `{python} f"{target['BLOSUM62']['V given I']:.2f}"`, in BLOSUM62. Swaps between dissimilar amino acids are rarely accepted, so they take longer to accumulate and become common only at larger distances. The probability of finding G opposite a W doubles, from `{python} f"{target['BLOSUM80']['G given W']:.3f}"` in BLOSUM80 to `{python} f"{target['BLOSUM62']['G given W']:.3f}"` in BLOSUM62. Overall, the share of the substitutions that stay within one of the groups of similar amino acids (ILVM, FYW, KR and DE) falls from `{python} f"{target['BLOSUM80']['similar']:.0%}"` in BLOSUM80 to `{python} f"{target['BLOSUM45']['similar']:.0%}"` in BLOSUM45.
+
+@fig-blosum-target-diff shows both changes at once, as the difference between BLOSUM45 and BLOSUM80.
+
+```{python}
+#| echo: false
+#| label: fig-blosum-target-diff
+#| fig-cap: "The probabilities $P(j \\mid i)$ for BLOSUM45 minus those for BLOSUM80, from @fig-blosum-target. Blue cells are more likely between distant relatives, orange cells less likely. The scale is linear between −0.002 and 0.002 and logarithmic beyond, because the diagonal changes by tenths and the rest by thousandths."
+fig, (ax, cax) = plt.subplots(1, 2, figsize=(3.1, 3.0),
+                              gridspec_kw={"width_ratios": [1, 0.05]})
+image = heatmap(ax, difference, diverging, diff_norm, "")
+colorbar = fig.colorbar(image, cax=cax)
+ticks = [-0.1, -0.01, 0, 0.01, 0.1]
+colorbar.set_ticks(ticks, labels=[f"{t:+g}".replace("-", "−") if t else "0" for t in ticks], fontsize=7)
+colorbar.set_label("difference in $P(j \\mid i)$", fontsize=8)
+colorbar.outline.set_visible(False)
+plt.show()
+```
+
+The diagonal is orange: every amino acid is less often left unchanged between distant relatives. Most of the rest is blue, but a few cells off the diagonal are orange too, and they are pairs of similar amino acids, such as I–V, L–M, F–Y, E–Q and A–S. These swaps make up a smaller part of what happens as the distance grows, while swaps between dissimilar amino acids fill in. That is the reason a matrix for distant relatives must forgive dissimilar substitutions that a matrix for close relatives treats as strong evidence against a relationship.
+
+## From frequencies to scores {#sec-molevo-blosum-scores}
+
+A score should say how much an aligned pair of amino acids tells you about whether two sequences are related. Think of two ways a column in an alignment could have come about. If the sequences are related, the pair in the column was drawn with the observed frequency $q_{ij}$. If they are unrelated, each of the two amino acids was drawn on its own with its background frequency, and the pair $i$–$j$ turns up with the *expected frequency*
 
 $$
 e_{ij} = \begin{cases} p_i^2 & \text{if } i = j \\ 2 p_i p_j & \text{if } i \ne j, \end{cases}
 $$
 
-where the 2 is there because $i$ can be in either sequence. The score compares what was observed with what chance would give, as a *log-odds* score:
+where the 2 is there because $i$ can be in either sequence. The ratio $q_{ij}/e_{ij}$ compares the two explanations. If it is 2, the pair is twice as likely in related sequences as in unrelated ones, and finding it is evidence that the sequences are related. If it is 1/2, the pair is evidence against, and if it is 1, the pair tells you nothing.
+
+An alignment has many columns. If each position evolves on its own, the probability of the whole alignment is the product of the probabilities of its columns, so the ratio for the whole alignment is the product of the ratios for its columns:
 
 $$
-s_{ij} = \log_2 \frac{q_{ij}}{e_{ij}}.
+\frac{P(\text{alignment} \mid \text{related})}{P(\text{alignment} \mid \text{unrelated})} = \prod_{\text{columns}} \frac{q_{ij}}{e_{ij}}.
 $$
 
-A pair seen twice as often as chance scores 1, one seen half as often scores −1, and one seen exactly as often as chance scores 0. Because the logarithm has base 2, the score is measured in *bits*. The published matrix scales the scores and rounds them to whole numbers. BLOSUM62 is in half-bits, $S_{ij} = \mathrm{round}(2 \log_2 (q_{ij}/e_{ij}))$, while some other matrices, such as BLOSUM50, are in thirds of a bit.
+A product is awkward for an alignment algorithm. Needleman-Wunsch and Smith-Waterman build up the score of an alignment by adding a number for each column, and a product of many ratios quickly becomes too large or too small for a computer to store. The logarithm solves both problems, because the logarithm of a product is the sum of the logarithms. So the score of a pair is defined as the logarithm of its ratio, the *log-odds* score,
 
-To see the steps in action, take a tiny block of five sequences and three columns:
+$$
+s_{ij} = \log_2 \frac{q_{ij}}{e_{ij}},
+$$
+
+and the score of an ungapped alignment, the sum of its column scores, is then the logarithm of the ratio for the whole alignment:
+
+$$
+S = \sum_{\text{columns}} s_{ij} = \log_2 \frac{P(\text{alignment} \mid \text{related})}{P(\text{alignment} \mid \text{unrelated})}.
+$$
+
+A pair seen twice as often as chance scores 1, one seen half as often scores −1, and one seen exactly as often as chance scores 0. Because the logarithm has base 2, the score is measured in *bits*, and every extra bit doubles how much more likely the alignment is if the sequences are related. The published matrix scales the scores and rounds them to whole numbers. BLOSUM62 is in half-bits, $S_{ij} = \mathrm{round}(2 \log_2 (q_{ij}/e_{ij}))$, so every unit multiplies the ratio by $\sqrt{2}$, while some other matrices, such as BLOSUM50, are in thirds of a bit. Here is an ungapped alignment of two short peptides, scored with BLOSUM62:
 
 ```txt
-AAC
-ASC
-AAC
-SAC
-AAW
+M K T A Y I A K
+M K S A F V A R
+5 5 1 4 3 3 4 2   total 27
 ```
 
-Sequences 1 and 3 are identical, and no other pair reaches 80% identity in only three columns, so at a threshold of 80 the clustering puts just those two together. Each gets weight $1/2$; the other three are singletons with weight 1. The one within-cluster pair is dropped, and each cross-cluster pair contributes the product of its two weights to $f_{ij}$. The background frequencies come out as $p_A = 0.500$, $p_C = 0.250$, $p_S = 0.167$ and $p_W = 0.083$, and the four pairs that occur get these scores:
+Every column scores positive: four identities, and four substitutions between similar amino acids. A total of 27 half-bits is 13.5 bits, so the alignment is $2^{13.5} \approx 11{,}600$ times more likely if the two peptides are related than if they are not. Multiplying the eight ratios, $2^{5/2} \times 2^{5/2} \times 2^{1/2} \times \cdots$, gives the same number, but the sum is easier to compute, and it is what the alignment algorithms use.
+
+Back to the small block. Turning its frequencies into scores gives the following for the same pairs as before. The scores are in bits and not rounded:
 
 ```{python}
 #| echo: false
 #| output: asis
-from itertools import combinations
-from collections import Counter
-from math import log2
+def fmt(x):
+    return f"{x:.2f}".replace("-", "−")
 
-block = ["AAC", "ASC", "AAC", "SAC", "AAW"]
-ncols = len(block[0])
-
-# Single-linkage clustering at 80% identity
-threshold = 0.80
-clusters = []
-for idx, seq in enumerate(block):
-    placed = False
-    for cluster in clusters:
-        for member in cluster:
-            if sum(a == b for a, b in zip(seq, block[member])) / ncols >= threshold:
-                cluster.append(idx)
-                placed = True
-                break
-        if placed:
-            break
-    if not placed:
-        clusters.append([idx])
-
-weight = {}
-for cluster in clusters:
-    w = 1 / len(cluster)
-    for idx in cluster:
-        weight[idx] = w
-
-cluster_of = {}
-for ci, cluster in enumerate(clusters):
-    for idx in cluster:
-        cluster_of[idx] = ci
-
-f = Counter()
-for column in zip(*block):
-    for i, j in combinations(range(len(block)), 2):
-        if cluster_of[i] == cluster_of[j]:
-            continue
-        pair = tuple(sorted((column[i], column[j])))
-        f[pair] += weight[i] * weight[j]
-
-total = sum(f.values())
-q = {pair: count / total for pair, count in f.items()}
-p = {}
-for i in sorted(set("".join(block))):
-    p[i] = q.get((i, i), 0) + sum(v / 2 for (a, b), v in q.items() if a != b and i in (a, b))
-
-print("| Pair | $f$ | $q$ | $e$ | $\\log_2(q/e)$ | Half-bits |")
-print("|:-:|--:|--:|--:|--:|--:|")
-for (i, j), qij in sorted(q.items()):
-    eij = p[i] ** 2 if i == j else 2 * p[i] * p[j]
-    s = log2(qij / eij)
-    print(f"| {i}–{j} | {f[(i, j)]:g} | {qij:.3f} | {eij:.3f} | {s:.2f} | {round(2 * s)} |")
+print("| Pair | Score at $X = 80$ | Score at $X = 62$ |")
+print("|:-:|--:|--:|")
+for pair in selected_pairs:
+    print(f"| {pair[0]}–{pair[1]} | " + " | ".join(fmt(scores[X][pair]) for X in thresholds) + " |")
 ```
 
-Two things in the table may surprise you. A–S is counted just as often as A–A, yet it scores higher. The counts reflect what happens in this block; the score measures how surprising that is compared with chance. S is rare, so a pair containing it is unlikely at random, and finding one is stronger evidence of relatedness than finding another A–A pair. The same logic puts C–W above C–C. Without the clustering, the identical pair of sequences would inflate the identity counts, pulling the balance toward A–A and C–C. Pairs that never occur, like A–C, have $q = 0$, which gives them a score of minus infinity. With so little data, the matrix is odd. The real BLOCKS data hold enough pairs that every combination is seen.
+Two things in the table may surprise you. First, W–Y scores higher than any other pair in it, even though it is counted far less often than K–R. The frequencies show what happens in this block, while the score measures how surprising that is compared with chance. W is rare, so a pair containing it is unlikely at random, and finding one is strong evidence of relatedness. Second, every score is positive, which is never true of a real matrix. Pairs that never occur, like I–W, have $q = 0$ and a score of minus infinity, so in a single block the only pairs with a finite score are the ones seen together. The real BLOCKS data hold enough pairs that every combination is seen.
+
+To see what the threshold does to the scores as a whole, average over all the pairs instead of looking at single ones:
+
+```{python}
+#| echo: false
+#| output: asis
+summary = {}
+for X in thresholds:
+    identities = [v for (a, b), v in scores[X].items() if a == b]
+    substitutions = [v for (a, b), v in scores[X].items() if a != b]
+    summary[X] = (sum(identities) / len(identities), sum(substitutions) / len(substitutions))
+
+print("| | $X = 80$ | $X = 62$ |")
+print("|:--|--:|--:|")
+print(f"| Mean score of identities | {fmt(summary[0.80][0])} | {fmt(summary[0.62][0])} |")
+print(f"| Mean score of substitutions | {fmt(summary[0.80][1])} | {fmt(summary[0.62][1])} |")
+```
+
+Identities make up a smaller share of the pairs at $X = 62$, so they are less over-represented compared with chance and on average score lower, while substitutions score higher. That is the difference between BLOSUM80 and BLOSUM62 you will see in @fig-blosum-compare. Not every pair follows the average: I–V, the pair under the arrow, scores lower at $X = 62$, because one block of six sequences is very little data. Across more than 2,000 blocks, such accidents average out.
+
+The relationship between scores and frequencies goes both ways. Any score matrix, even one made up by hand, implies a set of target frequencies $q_{ij} = e_{ij} \, 2^{s_{ij}}$: the frequencies of pairs in related sequences that it is best at finding ([Altschul, 1991](https://doi.org/10.1016/0022-2836(91)90193-A)). That is how the frequencies in @fig-blosum-target were worked back from the published matrices.
+
+Two numbers summarize a matrix. The *relative entropy* $H = \sum_{i \le j} q_{ij} \, s_{ij}$ is the average score per column in true relatives: how much information each aligned pair carries about whether two sequences are related. The *expected score* $E = \sum_{i \le j} e_{ij} \, s_{ij}$ is the average score per column for unrelated sequences. As you saw for [local alignment](pairwise-alignment.qmd#sec-pa-local), $E$ must be negative for local alignment to work, or random sequences would build up long high-scoring alignments ([Karlin and Altschul, 1990](https://doi.org/10.1073/pnas.87.6.2264)). For BLOSUM62, $H = 0.6979$ bits and $E = -0.5209$ bits ([Henikoff and Henikoff, 1992](https://doi.org/10.1073/pnas.89.22.10915)). A higher BLOSUM number gives a higher $H$: more information per column, so shorter alignments can be detected, but only between close relatives.
+
 
 ## Reading the matrix {#sec-molevo-blosum-reading}
 
@@ -170,23 +538,6 @@ for name, unit in {"BLOSUM45": 3, "BLOSUM62": 2, "BLOSUM80": 3}.items():
     blosum_stats[name] = (identity, substitution, entropy)
 ```
 
-The log-odds form makes an alignment score meaningful. Consider two ways an aligned pair of sequences could have arisen. Either they are related, so each column is a pair drawn with the observed frequencies $q_{ij}$, or they are unrelated, so each amino acid is drawn independently with the background frequencies. The score of an ungapped alignment is the sum of the scores of its columns, and a sum of logarithms is the logarithm of a product. So the total score in bits is
-
-$$
-S = \log_2 \frac{P(\text{alignment} \mid \text{related})}{P(\text{alignment} \mid \text{unrelated})}.
-$$
-
-Every extra bit doubles how much more likely the alignment is if the sequences are related, and every half-bit unit in BLOSUM62 multiplies it by $\sqrt{2}$. Here is an ungapped alignment of two short peptides, scored with BLOSUM62:
-
-```txt
-M K T A Y I A K
-M K S A F V A R
-5 5 1 4 3 3 4 2   total 27
-```
-
-Every column scores positive: four identities, and four substitutions between similar amino acids. The relationship goes both ways, too. Any score matrix, even one made up by hand, implies a set of target frequencies $q_{ij} = p_i p_j \, 2^{s_{ij}}$: the frequencies of pairs in related sequences that it is best at finding ([Altschul, 1991](https://doi.org/10.1016/0022-2836(91)90193-A)).
-
-Two numbers summarize a matrix. The *relative entropy* $H = \sum_{i \le j} q_{ij} \, s_{ij}$ is the average score per column in true relatives: how much information each aligned pair carries about whether two sequences are related. The *expected score* $E = \sum_{i \le j} e_{ij} \, s_{ij}$ is the average score per column for unrelated sequences. As you saw for [local alignment](pairwise-alignment.qmd#sec-pa-local), $E$ must be negative for local alignment to work, or random sequences would build up long high-scoring alignments ([Karlin and Altschul, 1990](https://doi.org/10.1073/pnas.87.6.2264)). For BLOSUM62, $H = 0.6979$ bits and $E = -0.5209$ bits ([Henikoff and Henikoff, 1992](https://doi.org/10.1073/pnas.89.22.10915)). A higher BLOSUM number gives a higher $H$: more information per column, so shorter alignments can be detected, but only between close relatives.
 
 ## Using the matrix {#sec-molevo-blosum-using}
 
